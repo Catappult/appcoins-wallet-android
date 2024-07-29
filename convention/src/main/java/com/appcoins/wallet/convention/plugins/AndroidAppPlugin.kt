@@ -34,6 +34,7 @@ class AndroidAppPlugin : Plugin<Project> {
         ndkVersion = Config.android.ndkVersion
         defaultConfig {
           val giftCardHost = "giftcard"
+          val promoCodeHost = "promocode"
           targetSdk = Config.android.targetSdk
           multiDexEnabled = true
           lint {
@@ -46,6 +47,9 @@ class AndroidAppPlugin : Plugin<Project> {
                 "${project.projectDir}/schemas"
             }
           }
+
+          buildConfigField("String", "PROMO_CODE_HOST", "\"$promoCodeHost\"")
+          manifestPlaceholders["promoCodeHost"] = promoCodeHost
 
           buildConfigField("String", "GIFT_CARD_HOST", "\"$giftCardHost\"")
           manifestPlaceholders["giftCardHost"] = giftCardHost

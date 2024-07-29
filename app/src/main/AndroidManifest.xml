@@ -96,10 +96,12 @@
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-        <!-- Accepts URIs that begin with "example://gizmos” -->
-        <data android:scheme="appcoins"
-            android:host="${giftCardHost}" />
+
+        <data android:scheme="appcoins" />
+        <data android:host="${giftCardHost}" />
+        <data android:host="${promoCodeHost}" />
       </intent-filter>
+
     </activity>
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TransactionDetailActivity"

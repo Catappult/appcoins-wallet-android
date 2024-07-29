@@ -10,6 +10,7 @@ import com.appcoins.wallet.feature.promocode.data.use_cases.DeletePromoCodeUseCa
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetUpdatedPromoCodeUseCase
 import com.appcoins.wallet.feature.promocode.data.use_cases.VerifyAndSavePromoCodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Single
 import javax.inject.Inject
 
 sealed class PromoCodeBottomSheetSideEffect : SideEffect {
@@ -17,6 +18,7 @@ sealed class PromoCodeBottomSheetSideEffect : SideEffect {
 }
 
 data class PromoCodeBottomSheetState(
+  val deeplinkPromoCode: Async<String> = Async.Uninitialized,
   val storedPromoCodeAsync: Async<PromoCode> = Async.Uninitialized,
   val submitPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
   var shouldShowDefault: Boolean = false
@@ -39,13 +41,12 @@ class PromoCodeBottomSheetViewModel @Inject constructor(
     }
   }
 
-  init {
-    getCurrentPromoCode()
-  }
-
-
-  private fun getCurrentPromoCode() {
-    getUpdatedPromoCodeUseCase()
+  fun initialize(deeplinkPromoCode: String?) {
+    deeplinkPromoCode?.let {
+      Single.just(it)
+        .asAsyncToState { copy(deeplinkPromoCode = it) }
+        .scopedSubscribe()
+    } ?: getUpdatedPromoCodeUseCase()
       .asAsyncToState { copy(storedPromoCodeAsync = it) }
       .repeatableScopedSubscribe(PromoCodeBottomSheetState::storedPromoCodeAsync.name) { e ->
         e.printStackTrace()

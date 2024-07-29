@@ -70,4 +70,20 @@ class MainActivityNavigator @Inject constructor() :
       navOptions = NavOptions.Builder().setPopUpTo(R.id.nav_bar_fragment, true).build()
     )
   }
+
+  fun navigateToPromoCodeFromSplashScreen(navController: NavController, promoCode: String) {
+    navigate(
+      navController,
+      SplashExtenderFragmentDirections.actionNavigateToNavBarGraph(giftCard = null, promoCode = promoCode),
+    )
+  }
+
+  fun navigateToPromoCode(navController: NavController, promoCode: String) {
+    navigate(
+      navController = navController,
+      resId = R.id.navigate_to_nav_bar_fragment,
+      args = Bundle().apply { putString(NavBarFragment.EXTRA_PROMO_CODE, promoCode) },
+      navOptions = NavOptions.Builder().setPopUpTo(R.id.nav_bar_fragment, true).build()
+    )
+  }
 }
