@@ -35,6 +35,8 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
   private val views by viewBinding(SettingsRedeemGiftBottomSheetLayoutBinding::bind)
 
   companion object {
+    private const val EXTRA_GIFT_CARD = "giftCard"
+
     @JvmStatic
     fun newInstance(): RedeemGiftBottomSheetFragment {
       return RedeemGiftBottomSheetFragment()
@@ -70,6 +72,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
 
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     views.redeemGiftBottomSheetSubmitButton.isEnabled = false
+    arguments?.getString(EXTRA_GIFT_CARD)?.let { views.redeemGiftBottomSheetString.setText(it) }
   }
 
   override fun onStart() {

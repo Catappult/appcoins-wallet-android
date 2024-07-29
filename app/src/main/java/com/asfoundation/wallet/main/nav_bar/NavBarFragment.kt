@@ -55,6 +55,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, NavBarSideEffect> {
 
+  companion object {
+    const val EXTRA_GIFT_CARD = "giftCard"
+    const val EXTRA_PROMO_CODE = "promoCode"
+  }
+
   private lateinit var navHostFragment: NavHostFragment
   private lateinit var fullHostFragment: NavHostFragment
   private lateinit var mainHostFragment: NavHostFragment
@@ -90,6 +95,22 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     adjustBottomNavigationViewOnKeyboardVisibility()
     setBottomNavListener()
     views.composeView.setContent { BottomNavigationHome() }
+    arguments?.getString(EXTRA_GIFT_CARD)?.let {
+      handleGiftCard(it)
+    }
+    arguments?.getString(EXTRA_PROMO_CODE)?.let {
+      handlePromoCode(it)
+    }
+  }
+
+  fun handleGiftCard(giftCard: String) {
+    viewModel.clickedItem.value = 1
+    navigator.navigateToRewards(navHostFragment.navController, giftCard)
+  }
+
+  fun handlePromoCode(promoCode: String) {
+    viewModel.clickedItem.value = 1
+    navigator.navigateToRewards(navHostFragment.navController, promoCode = promoCode)
   }
 
   @Composable
@@ -167,8 +188,8 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   private fun navigateToDestination(destinations: Destinations) {
     when (destinations) {
-      Destinations.HOME -> navigator.navigateToHome()
-      Destinations.REWARDS -> navigator.navigateToRewards()
+      Destinations.HOME -> navigator.navigateToHome(navHostFragment.navController)
+      Destinations.REWARDS -> navigator.navigateToRewards(navHostFragment.navController)
     }
   }
 
@@ -191,7 +212,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
       NavBarSideEffect.ShowOnboardingGPInstall -> showOnboardingIap()
       NavBarSideEffect.ShowOnboardingPendingPayment -> showOnboardingPayment()
       is NavBarSideEffect.ShowOnboardingRecoverGuestWallet ->
-        showOnboardingRecoverGuestWallet(sideEffect.backup)
+        showOnboardingRecoverGuestWallet()
 
       NavBarSideEffect.ShowAskNotificationPermission -> askNotificationsPermission()
     }
@@ -229,9 +250,9 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     navigator.showOnboardingPaymentScreen(fullHostFragment.navController)
   }
 
-  private fun showOnboardingRecoverGuestWallet(backup: String) {
+  private fun showOnboardingRecoverGuestWallet() {
     views.fullHostContainer.visibility = View.VISIBLE
-    navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController, backup)
+    navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController)
   }
 
   private fun adjustBottomNavigationViewOnKeyboardVisibility() {
