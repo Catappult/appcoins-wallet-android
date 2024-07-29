@@ -209,6 +209,10 @@ class PromoCodeBottomSheetFragment :
         )
       }
 
+      is FailedPromoCode.UserOwnPromoCode -> {
+        views.promoCodeBottomSheetString.setError(getString(R.string.vip_program_code_error_body))
+      }
+
       is FailedPromoCode.GenericError -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_invalid_user))
       }

@@ -12,6 +12,7 @@ sealed class FailedPromoCode : PromoCodeResult() {
   data class InvalidCode(val throwable: Throwable? = null) : FailedPromoCode()
   data class ExpiredCode(val throwable: Throwable? = null) : FailedPromoCode()
   data class CodeNotAdded(val throwable: Throwable? = null) : FailedPromoCode()
+  object UserOwnPromoCode : FailedPromoCode()
 }
 
 class PromoCodeMapper {
@@ -21,6 +22,7 @@ class PromoCodeMapper {
       ValidityState.EXPIRED -> FailedPromoCode.ExpiredCode()
       ValidityState.ERROR -> FailedPromoCode.InvalidCode()
       ValidityState.NOT_ADDED -> FailedPromoCode.CodeNotAdded()
+      ValidityState.USER_OWN_PROMO_CODE-> FailedPromoCode.UserOwnPromoCode
       else -> FailedPromoCode.CodeNotAdded()
     }
   }

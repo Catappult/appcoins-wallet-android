@@ -86,7 +86,8 @@
           app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_subtitle"
           app:textFieldColor="@color/styleguide_blue"
           app:textFieldHint="@string/promo_code_view_field"
-          app:textFieldType="filled"
+          app:textFieldType="all_caps"
+          app:digitsRegex="[^A-Z0-9]"
           />
 
       <ImageView
