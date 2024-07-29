@@ -44,6 +44,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.adyen.checkout.redirect.RedirectComponent
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -83,6 +84,10 @@ class VerificationPaypalFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var analytics: VerificationAnalytics
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   private val paypalActivityLauncher =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -158,7 +163,9 @@ class VerificationPaypalFragment : BasePageViewFragment() {
             onTryAgain = {
               analytics.sendErrorScreenEvent(action = TRY_AGAIN)
               viewModel.fetchVerificationStatus()
-            })
+            },
+            fragmentName = fragmentName,
+            buttonAnalytics = buttonsAnalytics)
         }
 
         is OpenWebPayPalPaymentRequest -> {
@@ -217,7 +224,9 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         onClick = onVerificationClick,
         labelColor = WalletColors.styleguide_white,
         backgroundColor = WalletColors.styleguide_pink,
-        buttonType = ButtonType.LARGE
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }
@@ -397,7 +406,9 @@ class VerificationPaypalFragment : BasePageViewFragment() {
           },
           labelColor = WalletColors.styleguide_white,
           outlineColor = WalletColors.styleguide_white,
-          buttonType = ButtonType.LARGE
+          buttonType = ButtonType.LARGE,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
         Spacer(modifier = Modifier.width(20.dp))
         ButtonWithText(
@@ -410,7 +421,9 @@ class VerificationPaypalFragment : BasePageViewFragment() {
           labelColor = WalletColors.styleguide_white,
           backgroundColor = WalletColors.styleguide_pink,
           buttonType = ButtonType.LARGE,
-          enabled = code.hasFourDigits()
+          enabled = code.hasFourDigits(),
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }
@@ -460,7 +473,9 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         },
         labelColor = WalletColors.styleguide_white,
         backgroundColor = WalletColors.styleguide_pink,
-        buttonType = ButtonType.LARGE
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }

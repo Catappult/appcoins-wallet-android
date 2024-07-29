@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -24,7 +25,7 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
-fun BackupDialogCardAlertBottomSheet(onCancelClick: () -> Unit, onConfirmClick: () -> Unit) {
+fun BackupDialogCardAlertBottomSheet(onCancelClick: () -> Unit, onConfirmClick: () -> Unit, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier
@@ -58,7 +59,9 @@ fun BackupDialogCardAlertBottomSheet(onCancelClick: () -> Unit, onConfirmClick: 
           backgroundColor = Color.Transparent,
           labelColor = WalletColors.styleguide_white,
           outlineColor = WalletColors.styleguide_white,
-          buttonType = ButtonType.LARGE
+          buttonType = ButtonType.LARGE,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
       ButtonWithText(
@@ -66,7 +69,9 @@ fun BackupDialogCardAlertBottomSheet(onCancelClick: () -> Unit, onConfirmClick: 
         onClick = { onConfirmClick() },
         backgroundColor = WalletColors.styleguide_pink,
         labelColor = WalletColors.styleguide_white,
-        buttonType = ButtonType.LARGE
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }
@@ -75,5 +80,5 @@ fun BackupDialogCardAlertBottomSheet(onCancelClick: () -> Unit, onConfirmClick: 
 @Preview
 @Composable
 fun PreviewBackupDialogCardAlertBottomSheet() {
-  BackupDialogCardAlertBottomSheet({}, {})
+  BackupDialogCardAlertBottomSheet({}, {},"HomeFragment", ButtonsAnalytics(null))
 }

@@ -45,6 +45,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
@@ -93,10 +94,14 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   lateinit var transactionsNavigator: TransactionsNavigator
 
   @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+
+  @Inject
   lateinit var formatter: CurrencyFormatUtils
   private val viewModel: HomeViewModel by viewModels()
   private val navBarViewModel: NavBarViewModel by activityViewModels()
   private val hasGetSomeValidBalanceResult = mutableStateOf(false)
+  private val fragmentName = this::class.java.simpleName
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -178,7 +183,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         onClickMenuOptions = { navigator.navigateToManageBottomSheet() },
         isLoading =
         (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
-            !viewModel.isLoadingTransactions.value
+            !viewModel.isLoadingTransactions.value,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
       UserEmailCard()
       PromotionsList()
@@ -275,7 +282,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         item { SkeletonLoadingPromotionCards(hasVerticalList = false) }
       } else {
         items(viewModel.activePromotions) { promotion ->
-          PromotionsCardComposable(cardItem = promotion)
+          PromotionsCardComposable(cardItem = promotion, fragmentName, buttonsAnalytics)
         }
       }
     }
@@ -300,7 +307,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             hideUserEmailCard.value = true
           },
           isEmailError.value,
-          if(isEmailError.value) stringResource(id = viewModel.emailErrorText.value) else ""
+          if(isEmailError.value) stringResource(id = viewModel.emailErrorText.value) else "",
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       } else {
         ConfirmEmailCard(email = email) {

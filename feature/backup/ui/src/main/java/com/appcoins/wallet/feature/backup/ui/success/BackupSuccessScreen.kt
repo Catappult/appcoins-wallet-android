@@ -27,6 +27,8 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_COMPACT
+import androidx.fragment.app.Fragment
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -38,13 +40,13 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.google.android.material.textview.MaterialTextView
 
 @Composable
-fun BackupSuccessRoute(onChatClick: () -> Unit, saveOnDevice: Boolean, onGotItClick: () -> Unit) {
+fun BackupSuccessRoute(onChatClick: () -> Unit, saveOnDevice: Boolean, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?, onGotItClick: () -> Unit) {
   Scaffold(
     topBar = { Surface { TopBar(isMainBar = false, onClickSupport = { onChatClick() }) } },
     modifier = Modifier
   ) { padding ->
     BackupSaveOptionsScreen(
-      scaffoldPadding = padding, onGotItClick = onGotItClick, saveOnDevice = saveOnDevice
+      scaffoldPadding = padding, onGotItClick = onGotItClick, saveOnDevice = saveOnDevice, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics
     )
   }
 }
@@ -53,7 +55,9 @@ fun BackupSuccessRoute(onChatClick: () -> Unit, saveOnDevice: Boolean, onGotItCl
 fun BackupSaveOptionsScreen(
   scaffoldPadding: PaddingValues,
   onGotItClick: () -> Unit,
-  saveOnDevice: Boolean
+  saveOnDevice: Boolean,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Column(
     modifier =
@@ -82,7 +86,7 @@ fun BackupSaveOptionsScreen(
     }
     BackupSuccessScreenCard(saveOnDevice = saveOnDevice)
     Spacer(modifier = Modifier.weight(10f))
-    BackupSuccessButton(onGotItClick)
+    BackupSuccessButton(onGotItClick, fragmentName,buttonsAnalytics)
   }
 }
 
@@ -163,7 +167,7 @@ fun BackupSuccessScreenCard(saveOnDevice: Boolean) {
 }
 
 @Composable
-fun BackupSuccessButton(onGotItClick: () -> Unit) {
+fun BackupSuccessButton(onGotItClick: () -> Unit, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   Column(Modifier.padding(start = 24.dp, end = 24.dp, bottom = 28.dp)) {
     ButtonWithText(
       label = stringResource(id = R.string.got_it_button),
@@ -171,6 +175,8 @@ fun BackupSuccessButton(onGotItClick: () -> Unit) {
       backgroundColor = WalletColors.styleguide_pink,
       labelColor = WalletColors.styleguide_light_grey,
       buttonType = ButtonType.LARGE,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
   }
 }

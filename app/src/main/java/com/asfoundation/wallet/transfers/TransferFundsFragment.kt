@@ -57,6 +57,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
@@ -104,6 +105,10 @@ import javax.inject.Inject
 class TransferFundsFragment : BasePageViewFragment() {
   @Inject
   lateinit var transferNavigator: TransferFragmentNavigator
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   private val viewModel: TransferFundsViewModel by viewModels()
   private var addressTextValue: MutableState<String> = mutableStateOf("")
@@ -159,7 +164,9 @@ class TransferFundsFragment : BasePageViewFragment() {
           label = stringResource(item.label),
           backgroundColor = if (selected) styleguide_pink else styleguide_blue_secondary,
           labelColor = if (selected) styleguide_white else styleguide_medium_grey,
-          onClick = { viewModel.clickedTransferItem.value = item.destination.ordinal })
+          onClick = { viewModel.clickedTransferItem.value = item.destination.ordinal },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics)
       }
     }
   }
@@ -287,7 +294,9 @@ class TransferFundsFragment : BasePageViewFragment() {
             labelColor = if (selected) styleguide_white else styleguide_medium_grey,
             onClick = { viewModel.clickedCurrencyItem.value = item.destination.ordinal },
             textStyle = MaterialTheme.typography.bodySmall,
-            buttonType = ButtonType.DEFAULT
+            buttonType = ButtonType.DEFAULT,
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
           )
         }
       }
@@ -407,7 +416,9 @@ class TransferFundsFragment : BasePageViewFragment() {
           onClick = { copyAddressToClipBoard(address) },
           labelColor = styleguide_light_grey,
           outlineColor = styleguide_light_grey,
-          buttonType = ButtonType.LARGE
+          buttonType = ButtonType.LARGE,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }
@@ -441,7 +452,9 @@ class TransferFundsFragment : BasePageViewFragment() {
         },
         backgroundColor = styleguide_pink,
         labelColor = styleguide_light_grey,
-        buttonType = ButtonType.LARGE
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }

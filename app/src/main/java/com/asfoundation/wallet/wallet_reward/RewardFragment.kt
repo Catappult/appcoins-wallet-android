@@ -34,6 +34,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
@@ -98,6 +99,10 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   @Inject
   lateinit var analytics: RewardsAnalytics
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -190,9 +195,11 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               },
               { navigator.showGiftCardFragment() },
               challengeRewardNavigation,
+              fragmentName,
+              buttonsAnalytics
             )
           }
-          viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
+          viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it, fragmentName, buttonsAnalytics) }
         }
       }
       item {
@@ -218,7 +225,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       }
       items(viewModel.promotions) { promotion ->
         Row(modifier = Modifier.padding(horizontal = 16.dp)) {
-          PromotionsCardComposable(cardItem = promotion)
+          PromotionsCardComposable(cardItem = promotion, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
         }
       }
 

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
@@ -20,6 +21,11 @@ class BackupSkipDialogFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var displayChat: DisplayChatUseCase
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
 
   companion object {
     fun newInstance() = BackupSkipDialogFragment()
@@ -34,7 +40,12 @@ class BackupSkipDialogFragment : BasePageViewFragment() {
       setContent {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
-            BackupSaveOptionsRoute(onChatClick = { displayChat() }, onSaveOnDevice = {})
+            BackupSaveOptionsRoute(
+              onChatClick = { displayChat() },
+              onSaveOnDevice = {},
+              fragmentName = fragmentName,
+              buttonsAnalytics = buttonsAnalytics
+            )
           }
         }
       }

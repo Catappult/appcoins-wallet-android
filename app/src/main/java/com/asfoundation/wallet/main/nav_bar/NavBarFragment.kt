@@ -35,6 +35,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
@@ -75,6 +76,10 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   @Inject
   lateinit var networkMonitor: NetworkMonitor
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -150,7 +155,10 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
         onClick = {
           viewModel.clickedItem.value = item.destination.ordinal
           navigateToDestination(item.destination)
-        })
+        },
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
+      )
     }
   }
 

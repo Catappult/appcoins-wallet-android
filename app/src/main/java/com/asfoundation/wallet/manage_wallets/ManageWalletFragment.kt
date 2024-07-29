@@ -58,6 +58,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
@@ -106,6 +107,11 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var analytics: ManageWalletAnalytics
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+
+  private val fragmentName = this::class.java.simpleName
 
   private val viewModel: ManageWalletViewModel by viewModels()
 
@@ -247,7 +253,9 @@ class ManageWalletFragment : BasePageViewFragment() {
           myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
         },
         hasBackup = walletInfo.hasBackup,
-        backupDate = walletInfo.backupDate
+        backupDate = walletInfo.backupDate,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
       Separator()
       if (
@@ -285,7 +293,9 @@ class ManageWalletFragment : BasePageViewFragment() {
           onCancelClickButton = {
             viewModel.cancelVerification(walletInfo.wallet)
             viewModel.updateWallets()
-          }
+          },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }
@@ -314,7 +324,9 @@ class ManageWalletFragment : BasePageViewFragment() {
           },
           hasBackup = walletInfo.hasBackup,
           backupDate = walletInfo.backupDate,
-          modifier = Modifier.weight(1f)
+          modifier = Modifier.weight(1f),
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
         Spacer(Modifier.weight(0.05f))
         if (
@@ -351,7 +363,9 @@ class ManageWalletFragment : BasePageViewFragment() {
               viewModel.cancelVerification(walletInfo.wallet)
               viewModel.updateWallets()
             },
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
           )
         }
       }

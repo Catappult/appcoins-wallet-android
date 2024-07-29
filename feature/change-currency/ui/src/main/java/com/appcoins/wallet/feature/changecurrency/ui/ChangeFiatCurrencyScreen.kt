@@ -36,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
@@ -55,6 +56,8 @@ fun ChangeFiatCurrencyRoute(
   onExitClick: () -> Unit,
   onChatClick: () -> Unit,
   viewModel: ChangeFiatCurrencyViewModel = hiltViewModel(),
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   val changeFiatCurrencyState by viewModel.stateFlow.collectAsState()
   Scaffold(
@@ -64,7 +67,9 @@ fun ChangeFiatCurrencyRoute(
     ChangeFiatCurrencyScreen(
       changeFiatCurrencyState = changeFiatCurrencyState,
       scaffoldPadding = padding,
-      onExitClick = onExitClick
+      onExitClick = onExitClick,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
   }
 }
@@ -73,7 +78,9 @@ fun ChangeFiatCurrencyRoute(
 fun ChangeFiatCurrencyScreen(
   scaffoldPadding: PaddingValues,
   changeFiatCurrencyState: ChangeFiatCurrencyState,
-  onExitClick: () -> Unit
+  onExitClick: () -> Unit,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Column(
     modifier = Modifier
@@ -88,10 +95,12 @@ fun ChangeFiatCurrencyScreen(
       is Async.Success ->
         ChangeFiatCurrencyList(
           model = changeFiatCurrencyState.changeFiatCurrencyAsync.value!!,
-          onExitClick = onExitClick
+          onExitClick = onExitClick,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
 
-      is Async.Fail -> NoNetworkScreen()
+      is Async.Fail -> NoNetworkScreen(fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
     }
   }
 }
@@ -100,7 +109,9 @@ fun ChangeFiatCurrencyScreen(
 @Composable
 private fun ChangeFiatCurrencyList(
   model: ChangeFiatCurrency,
-  onExitClick: () -> Unit
+  onExitClick: () -> Unit,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   val selectedItem =
     model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
@@ -126,6 +137,8 @@ private fun ChangeFiatCurrencyList(
           isSelected = true,
           onExitClick = onExitClick,
           bottomSheetState = bottomSheetState,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }
@@ -135,6 +148,8 @@ private fun ChangeFiatCurrencyList(
           currencyItem = currencyItem,
           onExitClick = onExitClick,
           bottomSheetState = bottomSheetState,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }
@@ -147,7 +162,9 @@ private fun CurrencyItem(
   currencyItem: FiatCurrency,
   isSelected: Boolean = false,
   onExitClick: () -> Unit,
-  bottomSheetState: SheetState
+  bottomSheetState: SheetState,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   var openBottomSheet by rememberSaveable { mutableStateOf(false) }
   val scope = rememberCoroutineScope()
@@ -209,6 +226,8 @@ private fun CurrencyItem(
                 onExitClick()
               }
           },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }
@@ -242,6 +261,8 @@ private fun ChangeFiatCurrencyListPreview() {
         )
       ),
       onExitClick = {},
+      fragmentName = "ChangeCurrencyFragment",
+      buttonsAnalytics = null
     )
   }
 }

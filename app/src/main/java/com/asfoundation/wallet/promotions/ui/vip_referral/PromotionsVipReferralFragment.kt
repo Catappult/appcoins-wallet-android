@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.viewModels
 import coil.compose.SubcomposeAsyncImage
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
@@ -65,6 +66,10 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
+  
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   private lateinit var promoReferral: String
   private lateinit var earnedValue: String
@@ -303,6 +308,8 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
           onClick = onClick,
           labelColor = WalletColors.styleguide_blue,
           backgroundColor = WalletColors.styleguide_vip_yellow,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }

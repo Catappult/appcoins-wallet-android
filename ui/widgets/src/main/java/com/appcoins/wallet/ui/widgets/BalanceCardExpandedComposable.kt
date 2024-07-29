@@ -28,6 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.fragment.app.Fragment
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.BalanceValue
 import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
@@ -42,6 +44,8 @@ fun BalanceCardExpanded(
   showBackup: Boolean = true,
   newWallet: Boolean = true,
   isLoading: Boolean = true,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
@@ -53,7 +57,7 @@ fun BalanceCardExpanded(
     if (isLoading) {
       SkeletonLoadingBalanceCardExpanded()
     } else if (newWallet) {
-      BalanceCardNewUserExpanded(onClickTopUp = onClickTopUp)
+      BalanceCardNewUserExpanded(onClickTopUp = onClickTopUp,  fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
     } else {
       Column {
         Column(
@@ -74,7 +78,9 @@ fun BalanceCardExpanded(
                 backgroundColor = WalletColors.styleguide_blue,
                 labelColor = WalletColors.styleguide_white,
                 iconColor = WalletColors.styleguide_pink,
-                iconSize = 14.dp
+                iconSize = 14.dp,
+                fragmentName = fragmentName,
+                buttonsAnalytics = buttonsAnalytics
               )
               Spacer(modifier = Modifier.padding(16.dp))
               ButtonWithIcon(
@@ -83,7 +89,9 @@ fun BalanceCardExpanded(
                 onClick = onClickTopUp,
                 backgroundColor = WalletColors.styleguide_pink,
                 labelColor = WalletColors.styleguide_white,
-                iconColor = WalletColors.styleguide_white
+                iconColor = WalletColors.styleguide_white,
+                fragmentName = fragmentName,
+                buttonsAnalytics = buttonsAnalytics
               )
               Spacer(modifier = Modifier.padding(16.dp))
               VectorIconButton(
@@ -103,7 +111,7 @@ fun BalanceCardExpanded(
               .size(1.dp),
             color = WalletColors.styleguide_blue,
             content = {})
-          Column(modifier = Modifier.padding(16.dp)) { BackupAlertCardExpanded(onClickBackup) }
+          Column(modifier = Modifier.padding(16.dp)) { BackupAlertCardExpanded(onClickBackup, fragmentName, buttonsAnalytics) }
         }
       }
     }
@@ -112,7 +120,7 @@ fun BalanceCardExpanded(
 
 
 @Composable
-private fun BalanceCardNewUserExpanded(onClickTopUp: () -> Unit) {
+private fun BalanceCardNewUserExpanded(onClickTopUp: () -> Unit, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   Row(
     modifier = Modifier
       .padding(32.dp)
@@ -144,7 +152,9 @@ private fun BalanceCardNewUserExpanded(onClickTopUp: () -> Unit) {
       onClick = onClickTopUp,
       backgroundColor = WalletColors.styleguide_pink,
       labelColor = WalletColors.styleguide_white,
-      iconColor = WalletColors.styleguide_white
+      iconColor = WalletColors.styleguide_white,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
   }
 }
@@ -206,6 +216,8 @@ fun PreviewLandscapeBalanceCard() {
     showBackup = true,
     newWallet = false,
     isLoading = false,
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }
 
@@ -220,7 +232,9 @@ fun PreviewLandscapeBalanceCardWithoutBackup() {
     onClickMenuOptions = {},
     showBackup = false,
     newWallet = false,
-    isLoading = false
+    isLoading = false,
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }
 
@@ -235,7 +249,9 @@ fun PreviewLandscapeNewWalletBalanceCard() {
     onClickMenuOptions = {},
     showBackup = true,
     newWallet = true,
-    isLoading = false
+    isLoading = false,
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }
 
@@ -251,6 +267,8 @@ fun PreviewSkeletonBalanceCardExpanded() {
     showBackup = true,
     newWallet = true,
     isLoading = true,
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }
 

@@ -42,6 +42,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -60,13 +61,15 @@ fun BackupSaveOptionsRoute(
   onChatClick: () -> Unit,
   onSaveOnDevice: () -> Unit,
   viewModel: BackupSaveOptionsViewModel = hiltViewModel(),
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Scaffold(
     topBar = { Surface { TopBar(onClickSupport = onChatClick) } },
     modifier = Modifier
   ) { padding ->
     BackupSaveOptionsScreen(
-      scaffoldPadding = padding, viewModel.showLoading.value, onSaveOnDevice = onSaveOnDevice
+      scaffoldPadding = padding, viewModel.showLoading.value, onSaveOnDevice = onSaveOnDevice, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics
     ) { isEmailCommunicationSelected ->
       viewModel.showLoading()
       viewModel.sendBackupToEmail(emailInput)
@@ -80,6 +83,8 @@ fun BackupSaveOptionsScreen(
   scaffoldPadding: PaddingValues,
   showLoading: Boolean,
   onSaveOnDevice: () -> Unit,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?,
   onSendEmailClick: (isEmailCommunicationSelected: Boolean) -> Unit,
 ) {
   Column(
@@ -111,6 +116,8 @@ fun BackupSaveOptionsScreen(
       SaveOnDeviceOptions(
         onSendEmailClick,
         onSaveOnDevice = onSaveOnDevice,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }
@@ -184,6 +191,8 @@ fun LoadingCard() {
 fun SaveOnDeviceOptions(
   onSendEmailClick: (isEmailCommunicationSelected: Boolean) -> Unit,
   onSaveOnDevice: () -> Unit,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   var defaultEmail by rememberSaveable { mutableStateOf("") }
   var validEmail by rememberSaveable { mutableStateOf(false) }
@@ -236,6 +245,8 @@ fun SaveOnDeviceOptions(
           if (validEmail) WalletColors.styleguide_pink else styleguide_dark_grey,
           labelColor = WalletColors.styleguide_light_grey,
           buttonType = ButtonType.LARGE,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
 
@@ -266,7 +277,9 @@ fun SaveOnDeviceOptions(
           onClick = { onSaveOnDevice() },
           labelColor = WalletColors.styleguide_white,
           buttonType = ButtonType.LARGE,
-          outlineColor = WalletColors.styleguide_light_grey
+          outlineColor = WalletColors.styleguide_light_grey,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }
@@ -306,5 +319,5 @@ fun CheckboxCommunicationEmail(
 @Preview
 @Composable
 fun BackupSaveOptionsScreenPreview() {
-  BackupSaveOptionsScreen(PaddingValues(0.dp), false, {}) {}
+  BackupSaveOptionsScreen(PaddingValues(0.dp), false, {}, "HomeFragment", ButtonsAnalytics(null)) {}
 }

@@ -48,6 +48,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.maskedEnd
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.simpleFormat
@@ -71,7 +72,9 @@ fun BackupEntryRoute(
   onChatClick: () -> Unit,
   onNextClick: () -> Unit,
   onChooseWallet: () -> Unit,
-  viewModel: BackupEntryViewModel = hiltViewModel()
+  viewModel: BackupEntryViewModel = hiltViewModel(),
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
   val backupEntryState by viewModel.stateFlow.collectAsState()
@@ -97,7 +100,9 @@ fun BackupEntryRoute(
       onInputPasswordIsCorrect = { viewModel.correctInputPassword.value = true },
       onInputPasswordIsIncorrect = { viewModel.correctInputPassword.value = false },
       showBottomSheet = viewModel.showBottomSheet.value,
-      dismissBottomSheet = { viewModel.showBottomSheet(false) })
+      dismissBottomSheet = { viewModel.showBottomSheet(false) },
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics)
   }
 }
 
@@ -117,7 +122,9 @@ fun BackupEntryScreen(
   isInputPasswordCorrect: Boolean,
   bottomSheetState: SheetState,
   showBottomSheet: Boolean,
-  dismissBottomSheet: () -> Unit
+  dismissBottomSheet: () -> Unit,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   val scope = rememberCoroutineScope()
 
@@ -134,7 +141,9 @@ fun BackupEntryScreen(
         onConfirmClick = {
           dismissBottomSheet()
           onExitClick()
-        })
+        },
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics)
     }
   }
   when (val balanceInfo = backupEntryState.balanceAsync) {
@@ -176,7 +185,7 @@ fun BackupEntryScreen(
           onInputPasswordIsIncorrect = onInputPasswordIsIncorrect
         )
         Spacer(modifier = Modifier.weight(10f))
-        BackupEntryButtonPasswordsCorrect(onNextClick, isInputPasswordCorrect)
+        BackupEntryButtonPasswordsCorrect(onNextClick, isInputPasswordCorrect, fragmentName, buttonsAnalytics)
       }
     }
 
@@ -270,7 +279,7 @@ fun BalanceCard(
 }
 
 @Composable
-fun BackupEntryButtonPasswordsCorrect(onNextClick: () -> Unit, isInputPasswordCorrect: Boolean) {
+fun BackupEntryButtonPasswordsCorrect(onNextClick: () -> Unit, isInputPasswordCorrect: Boolean, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   Column(Modifier.padding(start = 24.dp, end = 24.dp, bottom = 28.dp)) {
     ButtonWithText(
       label = stringResource(id = R.string.backup_wallet_button),
@@ -278,7 +287,9 @@ fun BackupEntryButtonPasswordsCorrect(onNextClick: () -> Unit, isInputPasswordCo
       backgroundColor = WalletColors.styleguide_pink,
       labelColor = WalletColors.styleguide_light_grey,
       buttonType = ButtonType.LARGE,
-      enabled = isInputPasswordCorrect
+      enabled = isInputPasswordCorrect,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
   }
 }
@@ -437,5 +448,5 @@ fun BalanceCardPreview() {
 @Preview
 @Composable
 fun BackupEntryButtonPasswordsCorrectPreview() {
-  BackupEntryButtonPasswordsCorrect({}, false)
+  BackupEntryButtonPasswordsCorrect({}, false, "BackupFragment", ButtonsAnalytics(null))
 }
