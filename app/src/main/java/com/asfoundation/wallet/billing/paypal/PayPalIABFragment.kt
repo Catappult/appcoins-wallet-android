@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
@@ -118,7 +120,8 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
         }
 
         is PayPalIABViewModel.State.WebViewAuthentication -> {
-          startWebViewAuthorization(state.url)
+//          startWebViewAuthorization(state.url)
+          startCustomTab(state.url)
         }
       }
     }
@@ -159,6 +162,13 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
   private fun startWebViewAuthorization(url: String) {
     val intent = WebViewActivity.newIntent(requireActivity(), url)
     resultAuthLauncher.launch(intent)
+  }
+
+  private fun startCustomTab(url: String) {
+    val tabs = CustomTabsIntent.Builder()
+      .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
+      .build()
+    tabs.launchUrl(requireContext(), Uri.parse(url))
   }
 
   private fun concludeWithSuccess() {
