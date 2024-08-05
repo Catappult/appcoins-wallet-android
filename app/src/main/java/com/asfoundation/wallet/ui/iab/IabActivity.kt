@@ -434,7 +434,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   ) {
     val fragmentMiPay = MiPayFragment()
     fragmentMiPay.arguments = Bundle().apply {
-      putString(MiPayFragment.ORIGIN_KEY, getOrigin(isBds))
       putParcelable(MiPayFragment.TRANSACTION_DATA_KEY, transaction!!)
       putSerializable(MiPayFragment.AMOUNT_KEY, amount)
       putString(MiPayFragment.CURRENCY_KEY, currency)
