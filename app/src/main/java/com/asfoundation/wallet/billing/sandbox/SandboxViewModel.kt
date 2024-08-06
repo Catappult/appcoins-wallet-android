@@ -68,7 +68,8 @@ class SandboxViewModel @Inject constructor(
         callbackUrl = transactionBuilder.callbackUrl,
         transactionType = transactionBuilder.type,
         developerWallet = transactionBuilder.toAddress(),
-        referrerUrl = transactionBuilder.referrerUrl
+        referrerUrl = transactionBuilder.referrerUrl,
+        guestWalletId = transactionBuilder.guestWalletId
       )
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)

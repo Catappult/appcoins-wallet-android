@@ -1232,7 +1232,7 @@
   <string name="vip_program_promo_code_tag">ပ႐ိုမိုကုဒ္</string>
   <string name="vip_program_referral_page_title">VIP ရည္ၫႊန္းအစီအစဥ္</string>
   <string name="vip_program_referral_page_body">ကစားစဥ္အတြင္း လူတိုင္းရရွိႏိုင္ရန္ ဤပ႐ိုမိုကုဒ္ကို သင့္အေပါင္းအသင္း အသိုက္အဝန္းႏွင့္ မွ်ေဝလိုက္ပါ။ ယင္းတို႔ျပဳလုပ္ေသာ အက္ပ္အတြင္း ဝယ္ယူမႈတိုင္းအတြက္ <b>သင္ေရာ သင့္သူငယ္ခ်င္းမ်ားပါ အျခားလက္ရွိ ပ႐ိုမိုးရွင္းမ်ားအျပင္ %1$s%% ေဘာနပ္စ္ကို</b> ရရွိမည္ျဖစ္ပါသည္။ <b>%2$s မတိုင္မီအထိ အက်ဳံးဝင္ပါသည္။</b></string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">ဤကုဒ္ကို သင့္သူငယ္ခ်င္းမ်ားထံ မွ်ေဝလိုက္ပါ</string>
   <string name="vip_program_referral_page_only_app_title">ေအာက္ပါတြင္ ဝယ္ယူမႈမ်ားအတြက္သာ</string>
   <string name="vip_program_referral_page_earned_body">ရည္ၫႊန္းမႈ %3$s ခုမွ %1$s%2$s ရရွိပါသည္</string>
@@ -1245,6 +1245,7 @@
   <string name="vip_program_referral_notification_title">VIP လႊဲေပးသည့္ကုဒ္ကို ရရွိႏိုင္ပါသည္။</string>
   <string name="vip_program_referral_notification_body">သင့္ကုဒ္ကို သင့္အသိုင္းအဝိုင္းတြင္ မွ်ေဝျခင္းျဖင့္ ကစားစဥ္တြင္ သင္တို႔အားလုံး ရရွိမည္ ျဖစ္ပါသည္။</string>
   <string name="vip_program_title_vip_offer">VIP ကမ္းလွမ္းခ်က္</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoins Wallet မွ ႀကိဳဆိုပါသည္</string>
   <string name="intro_welcome_body">သင့္ပိုက္ဆံအိတ္ကို ေငြျဖည့္ပါ သို႔မဟုတ္ AppCoins အသုံးျပဳႏိုင္ေသာ မည္သည့္အက္ပ္ သို႔မဟုတ္ ဂိမ္းတြင္မဆို ဝယ္ယူမႈ တစ္ခုခုကို ျပဳလုပ္ပါ။</string>

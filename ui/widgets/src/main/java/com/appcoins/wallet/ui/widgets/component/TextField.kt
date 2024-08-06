@@ -105,7 +105,7 @@ fun WalletTextField(
       unfocusedTextColor = WalletColors.styleguide_light_grey,
     ),
     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Default, keyboardType = keyboardType),
-    placeholder = { Text(text = placeHolder, color = WalletColors.styleguide_dark_grey) },
+    placeholder = { Text(text = placeHolder, color = WalletColors.styleguide_dark_grey, fontSize = 14.sp) },
     trailingIcon = trailingIcon
   )
 }

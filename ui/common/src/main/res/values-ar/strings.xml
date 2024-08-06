@@ -1283,7 +1283,7 @@
   <string name="vip_program_promo_code_tag">رمز ترويجي</string>
   <string name="vip_program_referral_page_title">برنامج الإحالة VIP</string>
   <string name="vip_program_referral_page_body">شارك هذا الرمز الترويجي مع مجتمعك وأصدقائك ومع الجميع لتكسب وأنت تلعب. في كل عملية شراء يقومون بها داخل التطبيق، كلاكما <b>أنت وصديقك ستكسبان %1$s%% مكافأة</b> إضافية مع أي رموز ترويجية أخرى. <b>صالح لغاية %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">ستحصل أنت وأصدقاؤك على %s%% مكافأة في كل عمليات الشراء عند استخدام الرمز!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">شارك هذا الرمز مع أصدقائك</string>
   <string name="vip_program_referral_page_only_app_title">فقط للمشتريات على</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s كسبتها من إحالات %3$s</string>
@@ -1296,6 +1296,7 @@
   <string name="vip_program_referral_notification_title">يتوفر رمز إحالة VIP!</string>
   <string name="vip_program_referral_notification_body">شارك رمزك مع مجتمعك لتكسبوا جميعًا بينما تلعبون!</string>
   <string name="vip_program_title_vip_offer">عرض VIP</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">أهلا بك بمحفظة AppCoins Wallet</string>
   <string name="intro_welcome_body">أضف إلى المحفظة أو أجرِ عملية شراء في أي تطبيق أو لُعبة تتوافق مع AppCoins.</string>

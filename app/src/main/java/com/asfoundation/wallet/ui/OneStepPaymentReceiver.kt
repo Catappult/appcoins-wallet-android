@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import cm.aptoide.skills.SkillsActivity
 import com.airbnb.lottie.LottieAnimationView
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.asf.wallet.R
@@ -40,6 +41,9 @@ class OneStepPaymentReceiver : BaseActivity() {
   @Inject
   lateinit var analytics: PaymentMethodsAnalytics
 
+  @Inject
+  lateinit var partnerAddressService: PartnerAddressService
+
   private var disposable: Disposable? = null
   private var walletCreationCard: View? = null
   private var walletCreationAnimation: LottieAnimationView? = null
@@ -57,6 +61,7 @@ class OneStepPaymentReceiver : BaseActivity() {
     walletCreationCard = findViewById(R.id.create_wallet_card)
     walletCreationAnimation = findViewById(R.id.create_wallet_animation)
     walletCreationText = findViewById(R.id.create_wallet_text)
+    partnerAddressService.setOemIdFromSdk("")
     if (savedInstanceState == null) {
       disposable = handleWalletCreationIfNeeded()
         .takeUntil { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }

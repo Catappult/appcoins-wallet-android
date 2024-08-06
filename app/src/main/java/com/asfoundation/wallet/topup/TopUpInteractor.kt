@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.microservices.model.FeeEntity
 import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
@@ -37,22 +37,29 @@ class TopUpInteractor @Inject constructor(
   private val filterValidGooglePayUseCase: FilterValidGooglePayUseCase,
   private val addTrueLayerPaymentMessageUseCase: AddTrueLayerPaymentMessageUseCase,
   private val partnerAddressService: PartnerAddressService,
+  private val walletService: WalletService,
 ) {
 
   private var chipValuesIndexMap: List<LinkedHashMap<FiatValue, Int>> = listOf()
   private var limitValues: List<TopUpLimitValues> = listOf()
 
   fun getPaymentMethods(
-    value: String, currency: String, packageName: String
+    value: String,
+    currency: String
   ): Single<List<PaymentMethod>> =
-    repository.getPaymentMethods(
-      value = value,
-      currency = currency,
-      currencyType = "fiat",
-      direct = true,
-      transactionType = "TOPUP",
-      entityOemId = null
-    ).map { repository.replaceAppcPricesToOriginalPrices(it, value, currency) }
+    walletService.getWalletAddress()
+      .flatMap { walletAddress ->
+        repository.getPaymentMethods(
+          value = value,
+          currency = currency,
+          currencyType = "fiat",
+          direct = true,
+          transactionType = "TOPUP",
+          entityOemId = null,
+          address = walletAddress
+        )
+      }
+      .map { repository.replaceAppcPricesToOriginalPrices(it, value, currency) }
       .map { mapPaymentMethods(it, currency) }
       .map { filterValidGooglePayUseCase(it) }
       .map { addTrueLayerPaymentMessageUseCase(it) }

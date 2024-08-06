@@ -818,7 +818,7 @@
   <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <string name="backup_confirmation_save_device">Your backup is on your device</string>
-  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
+  <string name="backup_confirmation_save_email">Your backup is on your email</string>
   <!--Wallets Management-->
   <string name="wallets_title">錢包</string>
   <string name="wallets_total_balance_title">帳戶總餘額 %s</string>
@@ -1129,12 +1129,12 @@
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
   <!-- e-Skills -->
   <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
+  <string name="e_skills_withdraw_email">PayPal email address</string>
   <string name="e_skills_withdraw_amount">Amount (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_email_hint">Your email address here</string>
   <string name="e_skills_withdraw_amount_hint">0 USD</string>
   <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Invalid email</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
@@ -1232,7 +1232,7 @@
   <string name="vip_program_promo_code_tag">Promo code</string>
   <string name="vip_program_referral_page_title">VIP Referral Program</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
   <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
@@ -1245,6 +1245,7 @@
   <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
   <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
   <string name="vip_program_title_vip_offer">VIP Offer</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
   <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>

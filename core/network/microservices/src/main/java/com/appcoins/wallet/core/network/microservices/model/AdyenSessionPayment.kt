@@ -19,5 +19,6 @@ data class SessionPaymentDetails(
   @SerializedName("entity.domain") val entityDomain: String?,
   @SerializedName("entity.promo_code") val entityPromoCode: String?,
   @SerializedName("wallets.user") val user: String?,
-  @SerializedName("referrer_url") val referrerUrl: String?
+  @SerializedName("referrer_url") val referrerUrl: String?,
+  @SerializedName("entity.guest_id") val guestWalletId: String?
 )

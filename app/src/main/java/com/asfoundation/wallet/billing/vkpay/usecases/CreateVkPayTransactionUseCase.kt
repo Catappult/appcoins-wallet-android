@@ -21,6 +21,7 @@ class CreateVkPayTransactionUseCase @Inject constructor(
     origin: String?, metadata: String?, packageName: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
     referrerUrl: String?,
+    guestWalletId: String?,
     email: String,
     phone: String
   ): Single<VkPayTransaction> {
@@ -47,6 +48,7 @@ class CreateVkPayTransactionUseCase @Inject constructor(
             entityPromoCode = promoCode.code,
             userWallet = address,
             referrerUrl = referrerUrl,
+            guestWalletId = guestWalletId,
             method = METHOD_VK_PAY,
             email = email,
             phone = phone

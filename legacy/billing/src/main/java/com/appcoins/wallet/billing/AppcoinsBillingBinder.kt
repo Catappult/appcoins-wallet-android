@@ -140,7 +140,7 @@ class AppcoinsBillingBinder(
 
   override fun getBuyIntent(
     apiVersion: Int, packageName: String, sku: String?,
-    billingType: String?, developerPayload: String?
+    billingType: String?, developerPayload: String?, oemid: String?, guestWalletId: String?
   ): Bundle {
     if (validateGetBuyIntentArgs(apiVersion, billingType, sku)) {
       return Bundle().apply {
@@ -182,7 +182,9 @@ class AppcoinsBillingBinder(
           BigDecimal(product.transactionPrice.appcoinsAmount),
           product.title,
           product.subscriptionPeriod,
-          product.trialPeriod
+          product.trialPeriod,
+          oemid,
+          guestWalletId
         )
       } catch (exception: Exception) {
         if (skuDetails.isEmpty()) {

@@ -1242,7 +1242,7 @@
   <string name="vip_program_promo_code_tag">Promóciós kód</string>
   <string name="vip_program_referral_page_title">VIP ajánlási program</string>
   <string name="vip_program_referral_page_body">Oszd meg ezt a promóciós kódot a közösségeddel és a barátaiddal, hogy mindenki kereshessen játék közben. Minden alkalmazáson belüli vásárlás után <b> te és a barátaid is %1$s%% bónuszt kaptok</b> az éppen aktív promóció mellé.<b>Érvényesség: %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Te és a barátaid %s%% bónuszt kaptok minden vásárlásnál ezzel a kóddal!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Oszd meg ezt a kódot a barátaiddal</string>
   <string name="vip_program_referral_page_only_app_title">Csak, ha itt vásárolsz:</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s összeget szereztél %3$s ajánlásból</string>
@@ -1255,6 +1255,7 @@
   <string name="vip_program_referral_notification_title">Elérhető egy VIP ajánlási kód!</string>
   <string name="vip_program_referral_notification_body">Oszd meg a kódod a közösségeddel, hogy játék közben is pénzt kereshess!</string>
   <string name="vip_program_title_vip_offer">VIP ajánlat</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Üdv az AppCoins Walletban</string>
   <string name="intro_welcome_body">Töltsd fel a tárcád vagy vásárolj bármely AppCoinsszal kompatibilis appban vagy játékban.</string>

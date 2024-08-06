@@ -93,7 +93,8 @@ class PayPalIABViewModel @Inject constructor(
         sku = transactionBuilder.skuId,
         callbackUrl = transactionBuilder.callbackUrl,
         transactionType = transactionBuilder.type,
-        referrerUrl = transactionBuilder.referrerUrl
+        referrerUrl = transactionBuilder.referrerUrl,
+        guestWalletId = transactionBuilder.guestWalletId
       )
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)

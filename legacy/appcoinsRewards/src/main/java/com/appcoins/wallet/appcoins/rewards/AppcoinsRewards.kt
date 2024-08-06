@@ -27,7 +27,7 @@ class AppcoinsRewards(
     amount: BigDecimal, origin: String?, sku: String?, type: String,
     entityOemId: String?, entityDomainId: String?, packageName: String, payload: String?,
     callbackUrl: String?, orderReference: String?, referrerUrl: String?,
-    productToken: String?
+    productToken: String?, guestWalletId: String?
   ): Completable {
     lastPayTransaction = Transaction(
       sku = sku,
@@ -45,6 +45,7 @@ class AppcoinsRewards(
       callback = callbackUrl,
       orderReference = orderReference,
       referrerUrl = referrerUrl,
+      guestWalletId = guestWalletId,
       productToken = productToken
     )
     return cache.save(getKey(amount.toString(), sku, packageName), lastPayTransaction)
@@ -67,13 +68,21 @@ class AppcoinsRewards(
                 walletService.signContent(walletAddress)
                   .flatMap { signature ->
                     repository.pay(
-                      walletAddress, signature, transaction.amount,
-                      getOrigin(transaction), transaction.sku, transaction.type,
-                      transaction.entityOemId,
-                      transaction.entityDomain, transaction.packageName,
-                      transaction.payload, transaction.callback,
-                      transaction.orderReference, transaction.referrerUrl,
-                      transaction.productToken
+                      walletAddress = walletAddress,
+                      signature = signature,
+                      amount = transaction.amount,
+                      origin = getOrigin(transaction),
+                      sku = transaction.sku,
+                      type = transaction.type,
+                      entityOemId = transaction.entityOemId,
+                      entityDomain = transaction.entityDomain,
+                      packageName = transaction.packageName,
+                      payload = transaction.payload,
+                      callback = transaction.callback,
+                      orderReference = transaction.orderReference,
+                      referrerUrl = transaction.referrerUrl,
+                      productToken = transaction.productToken,
+                      guestWalletId = transaction.guestWalletId
                     )
                   }
                   .flatMapCompletable { transaction1 ->
@@ -143,7 +152,7 @@ class AppcoinsRewards(
 
   fun sendCredits(
     toWallet: String, amount: BigDecimal,
-    packageName: String
+    packageName: String, guestWalletId: String?
   ): Single<AppcoinsRewardsRepository.Status> {
     return walletService.getWalletAddress()
       .flatMap { walletAddress ->
@@ -151,7 +160,7 @@ class AppcoinsRewards(
           .flatMap { signature ->
             repository.sendCredits(
               toWallet, walletAddress, signature, amount, "BDS",
-              "TRANSFER", packageName
+              "TRANSFER", packageName, guestWalletId
             )
           }.map { statusAndTransaction ->
             statusAndTransaction.first

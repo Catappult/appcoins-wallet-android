@@ -8,6 +8,8 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.main.use_cases.GetCachedGuestWalletUseCase
 import com.asfoundation.wallet.main.use_cases.HasAuthenticationPermissionUseCase
 import com.asfoundation.wallet.main.use_cases.IncreaseLaunchCountUseCase
+import com.asfoundation.wallet.onboarding.use_cases.GetResponseCodeWebSocketUseCase
+import com.asfoundation.wallet.onboarding.use_cases.GetWsPortUseCase
 import com.asfoundation.wallet.onboarding.use_cases.ShouldShowOnboardingUseCase
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
@@ -22,6 +24,8 @@ sealed class MainActivitySideEffect : SideEffect {
   object NavigateToAutoUpdate : MainActivitySideEffect()
   object NavigateToFingerprintAuthentication : MainActivitySideEffect()
   object NavigateToPayPalVerification : MainActivitySideEffect()
+  data class NavigateToGiftCard(val giftCard: String, val fromSplashScreen: Boolean) : MainActivitySideEffect()
+  data class NavigateToPromoCode(val promoCode: String, val fromSplashScreen: Boolean) : MainActivitySideEffect()
   data class NavigateToOnboardingRecoverGuestWallet(val backup: String, val flow: String) :
     MainActivitySideEffect()
 }
@@ -37,14 +41,18 @@ class MainActivityViewModel @Inject constructor(
   private val shouldShowOnboardingUseCase: ShouldShowOnboardingUseCase,
   private val getCachedGuestWalletUseCase: GetCachedGuestWalletUseCase,
   private val savedStateHandle: SavedStateHandle,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: RxSchedulers,
+  private val getWsPortUseCase: GetWsPortUseCase,
+  private val getResponseCodeWebSocketUseCase: GetResponseCodeWebSocketUseCase
 ) : BaseViewModel<MainActivityState, MainActivitySideEffect>(MainActivityState) {
+
+  var isOnboardingPaymentFlow = false
 
   init {
     handleSavedStateParameters()
   }
 
-  fun handleInitialNavigation(authComplete: Boolean = false) {
+  fun handleInitialNavigation(authComplete: Boolean = false, giftCard: String? = null, promoCode: String? = null, fromSplashScreen: Boolean = false) {
     getAutoUpdateModelUseCase()
       .subscribeOn(rxSchedulers.io)
       .observeOn(rxSchedulers.main)
@@ -62,12 +70,14 @@ class MainActivityViewModel @Inject constructor(
               .subscribeOn(rxSchedulers.io)
               .observeOn(rxSchedulers.main)
               .doOnSuccess { backup ->
-                if (backup != null && backup.backupPrivateKey.isNotEmpty())
+                if (backup != null && backup.backupPrivateKey.isNotEmpty()) {
                   sendSideEffect {
                     MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet(
                       backup.backupPrivateKey, backup.flow
                     )
                   }
+                  isOnboardingPaymentFlow = true
+                }
                 else
                   sendSideEffect { MainActivitySideEffect.NavigateToOnboarding }
               }
@@ -77,11 +87,25 @@ class MainActivityViewModel @Inject constructor(
               .scopedSubscribe()
           }
 
+          giftCard != null ->
+            sendSideEffect { MainActivitySideEffect.NavigateToGiftCard(giftCard, fromSplashScreen) }
+
+          promoCode != null ->
+            sendSideEffect { MainActivitySideEffect.NavigateToPromoCode(promoCode, fromSplashScreen) }
+
           else ->
             sendSideEffect { MainActivitySideEffect.NavigateToNavigationBar }
         }
       }
       .scopedSubscribe()
+  }
+
+  fun getWsPort() : String? {
+    return getWsPortUseCase()
+  }
+
+  fun getResponseCodeWebSocket() : Int {
+    return getResponseCodeWebSocketUseCase()
   }
 
   private fun handleSavedStateParameters() {

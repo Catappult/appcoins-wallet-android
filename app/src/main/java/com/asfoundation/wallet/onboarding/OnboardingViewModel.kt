@@ -18,6 +18,8 @@ import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.main.use_cases.DeleteCachedGuestWalletUseCase
 import com.asfoundation.wallet.main.use_cases.GetBonusGuestWalletUseCase
+import com.asfoundation.wallet.onboarding.CachedTransactionRepository.Companion.PAYMENT_TYPE_OSP
+import com.asfoundation.wallet.onboarding.CachedTransactionRepository.Companion.PAYMENT_TYPE_SDK
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
@@ -38,6 +40,7 @@ sealed class OnboardingSideEffect : SideEffect {
   object NavigateToRecoverWallet : OnboardingSideEffect()
   object NavigateToFinish : OnboardingSideEffect()
   object ShowLoadingRecover : OnboardingSideEffect()
+  object NavigateToOnboardingPayment : OnboardingSideEffect()
   data class UpdateGuestBonus(val bonus: FiatValue) : OnboardingSideEffect()
   data class NavigateToVerify(val flow: String) : OnboardingSideEffect()
 }
@@ -79,8 +82,14 @@ class OnboardingViewModel @Inject constructor(
   private fun handleLaunchMode(appStartUseCase: AppStartUseCase) {
     viewModelScope.launch {
       when (appStartUseCase.startModes.first()) {
-        is StartMode.PendingPurchaseFlow -> sendSideEffect {
-          OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = true)
+        is StartMode.PendingPurchaseFlow -> {
+          if ((appStartUseCase.startModes.first() as StartMode.PendingPurchaseFlow).type == PAYMENT_TYPE_OSP) {
+            sendSideEffect {
+              OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = true)
+            }
+          } else if ((appStartUseCase.startModes.first() as StartMode.PendingPurchaseFlow).type == PAYMENT_TYPE_SDK) {
+            sendSideEffect { OnboardingSideEffect.ShowLoadingRecover }
+          }
         }
 
         is StartMode.GPInstall -> sendSideEffect {
@@ -121,6 +130,7 @@ class OnboardingViewModel @Inject constructor(
       )
     ).flatMap { setDefaultWallet(it) }.doOnSuccess { handleRecoverResult(it, verificationFlow) }
       .doOnError {
+        handleRecoverResult(FailedEntryRecover.GenericError(), verificationFlow)
         walletsEventSender.sendWalletCompleteRestoreEvent(
           WalletsAnalytics.STATUS_FAIL, it.message
         )
@@ -148,10 +158,8 @@ class OnboardingViewModel @Inject constructor(
         onboardingAnalytics.sendRecoverGuestWalletEvent(
           guestBonus.amount.toString(), guestBonus.currency
         )
-        sendSideEffect {
-          if (flow.isEmpty()) OnboardingSideEffect.NavigateToFinish
-          else OnboardingSideEffect.NavigateToVerify(flow)
-        }
+        if (flow.isEmpty()) sendSideEffect { OnboardingSideEffect.NavigateToFinish }
+        else handleFlowTypes(flow)
       }
 
       is FailedEntryRecover.InvalidPassword -> {
@@ -163,6 +171,18 @@ class OnboardingViewModel @Inject constructor(
         )
       }
     }
+
+  private fun handleFlowTypes(flow: String) {
+    sendSideEffect {
+      when (flow) {
+        OnboardingFlow.ONBOARDING_PAYMENT.name -> OnboardingSideEffect.NavigateToOnboardingPayment
+        OnboardingFlow.VERIFY_PAYPAL.name, OnboardingFlow.VERIFY_CREDIT_CARD.name ->
+          OnboardingSideEffect.NavigateToVerify(flow)
+
+        else -> OnboardingSideEffect.NavigateToFinish
+      }
+    }
+  }
 
   fun getGuestWalletBonus(key: String) {
     getBonusGuestWalletUseCase(key).doOnSuccess {

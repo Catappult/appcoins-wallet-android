@@ -47,6 +47,8 @@ class PromoCodeBottomSheetFragment :
   lateinit var rewardsAnalytics: RewardsAnalytics
 
   companion object {
+    private const val EXTRA_PROMO_CODE = "promoCode"
+
     @JvmStatic
     fun newInstance(): PromoCodeBottomSheetFragment {
       return PromoCodeBottomSheetFragment()
@@ -67,6 +69,7 @@ class PromoCodeBottomSheetFragment :
 
     setListeners()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    viewModel.initialize(arguments?.getString(EXTRA_PROMO_CODE))
   }
 
   override fun onStart() {
@@ -87,7 +90,6 @@ class PromoCodeBottomSheetFragment :
     }
     views.promoCodeBottomSheetReplaceButton.setOnClickListener {
       rewardsAnalytics.replacePromoCodeImpressionEvent("")
-      viewModel.replaceClick()
     }
     views.promoCodeBottomSheetDeleteButton.setOnClickListener { viewModel.deleteClick() }
 
@@ -107,7 +109,11 @@ class PromoCodeBottomSheetFragment :
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
     when (val clickAsync = state.submitPromoCodeAsync) {
       is Async.Uninitialized ->
-        initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
+        initializePromoCode(
+          state.deeplinkPromoCode,
+          state.storedPromoCodeAsync,
+          state.shouldShowDefault
+        )
 
       is Async.Loading -> {
         if (clickAsync.value == null) {
@@ -138,10 +144,13 @@ class PromoCodeBottomSheetFragment :
   }
 
   fun initializePromoCode(
+    deeplinkPromoCode: Async<String>,
     storedPromoCodeAsync: Async<PromoCode>,
     shouldShowDefault: Boolean
   ) {
-    when (storedPromoCodeAsync) {
+    deeplinkPromoCode.value?.let {
+      views.promoCodeBottomSheetString.setText(it)
+    } ?: when (storedPromoCodeAsync) {
       is Async.Uninitialized,
       is Async.Loading -> {
         showDefaultScreen()
@@ -197,7 +206,6 @@ class PromoCodeBottomSheetFragment :
 
   private fun handleErrorState(promoCodeResult: PromoCodeResult?) {
     showDefaultScreen()
-    views.promoCodeBottomSheetSubmitButton.isEnabled = false
     when (promoCodeResult) {
       is FailedPromoCode.InvalidCode -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_view_error))
@@ -207,6 +215,10 @@ class PromoCodeBottomSheetFragment :
         views.promoCodeBottomSheetString.setError(
           getString(R.string.promo_code_error_not_available)
         )
+      }
+
+      is FailedPromoCode.UserOwnPromoCode -> {
+        views.promoCodeBottomSheetString.setError(getString(R.string.vip_program_code_error_body))
       }
 
       is FailedPromoCode.GenericError -> {
@@ -239,7 +251,8 @@ class PromoCodeBottomSheetFragment :
     views.promoCodeBottomSheetSubmitButton.visibility = View.VISIBLE
     views.promoCodeBottomSheetDeleteButton.visibility = View.GONE
     views.promoCodeBottomSheetReplaceButton.visibility = View.GONE
-    views.promoCodeBottomSheetSubmitButton.isEnabled = false
+    views.promoCodeBottomSheetSubmitButton.isEnabled =
+      views.promoCodeBottomSheetString.getText().isNotEmpty()
   }
 
   private fun showCurrentCodeScreen(promoCodeString: String) {

@@ -1243,7 +1243,7 @@ Wallets</item>
   <string name="vip_program_promo_code_tag">Κωδικός προσφοράς</string>
   <string name="vip_program_referral_page_title">VIP Πρόγραμμα Σύστασης</string>
   <string name="vip_program_referral_page_body">Μοιραστείτε αυτόν τον κωδικό προσφοράς με την κοινότητα και τους φίλους σας για να κερδίσουν όλοι ενώ παίζουν. Για κάθε αγορά εντός της εφαρμογής που θα κάνουν, τόσο <b>εσείς όσο και οι φίλοι σας θα λάβετε %1$s%% μπόνους</b> επιπρόσθετα από άλλες ενεργές προσφορές. <b>Ισχύει έως %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Εσείς και οι φίλοι σας λαμβάνετε %s%% μπόνους σε όλες τις αγορές όταν χρησιμοποιείτε αυτόν τον κωδικό!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Μοιραστείτε αυτόν τον κωδικό με τους φίλους σας</string>
   <string name="vip_program_referral_page_only_app_title">Μόνο για αγορές στο</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s αποκτήθηκαν από %3$s συστάσεις</string>
@@ -1256,6 +1256,7 @@ Wallets</item>
   <string name="vip_program_referral_notification_title">Διαθέσιμος Κωδικός Σύστασης VIP!</string>
   <string name="vip_program_referral_notification_body">Μοιραστείτε τον κωδικό σας με την κοινότητά σας, ώστε να κερδίσετε όλοι ενώ παίζετε!</string>
   <string name="vip_program_title_vip_offer">Προσφορά VIP</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Καλώς ήρθατε στο AppCoins Wallet</string>
   <string name="intro_welcome_body">Φορτίστε το wallet σας ή κάντε μία αγορά σε οποιαδήποτε συμβατή εφαρμογή ή παιχνίδι.</string>

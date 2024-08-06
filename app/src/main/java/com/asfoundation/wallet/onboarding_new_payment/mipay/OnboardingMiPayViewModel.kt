@@ -112,6 +112,9 @@ class OnboardingMiPayViewModel @Inject constructor(
   }
 
   fun getPaymentLink(returnUrl: String) {
+    if (args.transactionBuilder.type == "INAPP") {
+      args.transactionBuilder.referrerUrl = null
+    }
     getPaymentLinkUseCase(
       data = args.transactionBuilder,
       currency = args.currency,

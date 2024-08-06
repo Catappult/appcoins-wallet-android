@@ -98,6 +98,7 @@ class AdyenPaymentViewModel @Inject constructor(
   private val _singleEventState = Channel<SingleEventState>(Channel.BUFFERED)
   val singleEventState = _singleEventState.receiveAsFlow()
   lateinit var paymentStateEnum: PaymentStateEnum
+  var cancelPaypalLaunch = false
 
   sealed class SingleEventState {
     object setup3DSComponent : SingleEventState()
@@ -493,7 +494,8 @@ class AdyenPaymentViewModel @Inject constructor(
         sku = paymentData.transactionBuilder.skuId,
         callbackUrl = paymentData.transactionBuilder.callbackUrl,
         transactionType = paymentData.transactionBuilder.type,
-        referrerUrl = paymentData.transactionBuilder.referrerUrl
+        referrerUrl = paymentData.transactionBuilder.referrerUrl,
+        guestWalletId = paymentData.transactionBuilder.guestWalletId,
       )
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -581,6 +583,7 @@ class AdyenPaymentViewModel @Inject constructor(
             callbackUrl = paymentData.transactionBuilder.callbackUrl,
             transactionType = paymentData.transactionBuilder.type,
             referrerUrl = paymentData.transactionBuilder.referrerUrl,
+            guestWalletId = paymentData.transactionBuilder.guestWalletId,
           )
         }
       }
@@ -1177,7 +1180,8 @@ class AdyenPaymentViewModel @Inject constructor(
           paymentAnalytics.send3dsStart(action3ds)
           cachedPaymentData = paymentModel.paymentData
           cachedUid = paymentModel.uid
-          paymentData.navigator.navigateToUriForResult(paymentModel.redirectUrl)
+          if (!cancelPaypalLaunch)
+            paymentData.navigator.navigateToUriForResult(paymentModel.redirectUrl)
           waitingResult = true
         }
 

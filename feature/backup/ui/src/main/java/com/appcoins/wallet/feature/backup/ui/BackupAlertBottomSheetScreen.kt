@@ -49,9 +49,9 @@ fun BackupDialogCardAlertBottomSheet(onCancelClick: () -> Unit, onConfirmClick: 
         .fillMaxWidth()
         .padding(top = 40.dp),
       verticalAlignment = Alignment.CenterVertically,
-      horizontalArrangement = Arrangement.spacedBy(8.dp)
+      horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-      Row(Modifier.fillMaxWidth(0.49f)) {
+      Row(Modifier.fillMaxWidth(0.48f)) {
         ButtonWithText(
           label = stringResource(id = R.string.cancel_button),
           onClick = { onCancelClick() },

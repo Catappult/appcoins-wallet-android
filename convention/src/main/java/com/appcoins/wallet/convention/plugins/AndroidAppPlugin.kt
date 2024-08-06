@@ -33,6 +33,8 @@ class AndroidAppPlugin : Plugin<Project> {
         configureAndroidAndKotlin(this)
         ndkVersion = Config.android.ndkVersion
         defaultConfig {
+          val giftCardHost = "giftcard"
+          val promoCodeHost = "promocode"
           targetSdk = Config.android.targetSdk
           multiDexEnabled = true
           lint {
@@ -46,6 +48,11 @@ class AndroidAppPlugin : Plugin<Project> {
             }
           }
 
+          buildConfigField("String", "PROMO_CODE_HOST", "\"$promoCodeHost\"")
+          manifestPlaceholders["promoCodeHost"] = promoCodeHost
+
+          buildConfigField("String", "GIFT_CARD_HOST", "\"$giftCardHost\"")
+          manifestPlaceholders["giftCardHost"] = giftCardHost
           manifestPlaceholders["VkExternalAuthRedirectHost"] =
             project.property("VK_EXTERNAL_AUTH_REDIRECT_HOST").toString()
         }

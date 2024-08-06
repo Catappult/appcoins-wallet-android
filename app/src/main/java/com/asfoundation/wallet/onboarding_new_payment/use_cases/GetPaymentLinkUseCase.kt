@@ -42,7 +42,8 @@ class GetPaymentLinkUseCase @Inject constructor(
                 callback = data.callbackUrl,
                 orderReference = data.orderReference,
                 referrerUrl = data.referrerUrl,
-                walletAddress = address
+                walletAddress = address,
+                guestWalletId = data.guestWalletId,
               )
             }
           }

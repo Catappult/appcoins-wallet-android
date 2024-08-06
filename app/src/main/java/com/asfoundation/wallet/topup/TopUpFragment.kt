@@ -24,6 +24,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -151,13 +153,11 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   private val listener = ViewTreeObserver.OnGlobalLayoutListener {
     val fragmentView = this.view
-    val appBarHeight = getAppBarHeight()
     fragmentView?.let {
-      val heightDiff: Int = it.rootView.height - it.height - appBarHeight
+      val insets = ViewCompat.getRootWindowInsets(it)
+      val softKeyboardVisible = insets?.isVisible(WindowInsetsCompat.Type.ime()) ?: false
 
-      val threshold = 150.convertDpToPx(resources)
-
-      keyboardEvents.onNext(heightDiff > threshold)
+      keyboardEvents.onNext(softKeyboardVisible)
     }
   }
 
@@ -493,7 +493,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   }
 
   override fun hideBonus() {
-    binding.bonusLayout.root.visibility = View.INVISIBLE
+    binding.bonusLayout.root.visibility = View.GONE
+    binding.headerTopUpDivider.visibility = View.GONE
   }
 
   override fun hideBonusAndSkeletons() {
@@ -502,6 +503,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   }
 
   override fun removeBonus() {
+    binding.headerTopUpDivider.visibility = View.GONE
     binding.bonusLayout.root.visibility = View.GONE
     binding.bonusLayoutSkeleton.root.visibility = View.GONE
   }
@@ -512,6 +514,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   }
 
   override fun showBonus() {
+    binding.headerTopUpDivider.visibility = View.VISIBLE
     binding.bonusLayoutSkeleton.root.visibility = View.GONE
     binding.bonusLayout.root.visibility = View.VISIBLE
   }
@@ -586,6 +589,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   }
 
   override fun showBonusSkeletons() {
+    binding.headerTopUpDivider.visibility = View.VISIBLE
     binding.bonusLayout.root.visibility = View.INVISIBLE
     binding.bonusLayoutSkeleton.root.visibility = View.VISIBLE
   }
@@ -825,17 +829,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   private fun isLocalCurrencyValid(localCurrency: LocalCurrency): Boolean {
     return localCurrency.symbol != "" && localCurrency.code != ""
-  }
-
-  private fun getAppBarHeight(): Int {
-    if (context == null) {
-      return 0
-    }
-    return with(TypedValue().also {
-      requireContext().theme.resolveAttribute(android.R.attr.actionBarSize, it, true)
-    }) {
-      TypedValue.complexToDimensionPixelSize(this.data, resources.displayMetrics)
-    }
   }
 
   private fun getTopUpValuesSpanCount(): Int {

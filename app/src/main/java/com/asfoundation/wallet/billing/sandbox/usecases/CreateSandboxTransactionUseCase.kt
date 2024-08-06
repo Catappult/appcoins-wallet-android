@@ -19,7 +19,8 @@ class CreateSandboxTransactionUseCase @Inject constructor(
     origin: String?, packageName: String, metadata: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
     developerWallet: String?,
-    referrerUrl: String?
+    referrerUrl: String?,
+    guestWalletId: String?,
   ): Single<SandboxTransaction> {
     return Single.zip(
       walletService.getWalletAddress(),
@@ -46,7 +47,8 @@ class CreateSandboxTransactionUseCase @Inject constructor(
             entityDomain = attrEntity.domain,
             entityPromoCode = promoCode.code,
             userWallet = address,
-            referrerUrl = referrerUrl
+            referrerUrl = referrerUrl,
+            guestWalletId = guestWalletId,
           )
         }
       }

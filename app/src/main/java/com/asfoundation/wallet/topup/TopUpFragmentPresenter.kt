@@ -119,12 +119,14 @@ class TopUpFragmentPresenter(
 
   private fun retrievePaymentMethodsAndLoadBonus(
     fiatAmount: String,
-    packageName: String,
     currency: String,
     appPackage: String
   ): Completable =
     Single.zip(
-      interactor.getPaymentMethods(fiatAmount, currency, packageName),
+      interactor.getPaymentMethods(
+        value = fiatAmount,
+        currency = currency
+      ),
       getStoredCardsUseCase()
     ) { paymentMethods, storedCards -> Pair(paymentMethods, storedCards) }
       .subscribeOn(networkScheduler)
@@ -435,7 +437,11 @@ class TopUpFragmentPresenter(
       view.changeMainValueColor(true)
       if (firstPaymentMethodsFetch) view.hidePaymentMethods()
       if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
-      retrievePaymentMethodsAndLoadBonus(fiatAmount, appPackage, currency, appPackage)
+      retrievePaymentMethodsAndLoadBonus(
+        fiatAmount = fiatAmount,
+        currency = currency,
+        appPackage = appPackage
+      )
     } else {
       view.hideBonusAndSkeletons()
       view.changeMainValueColor(false)

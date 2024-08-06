@@ -93,7 +93,7 @@ interface AppcoinsBilling {
         *         "INAPP_DATA_SIGNATURE" - String containing the signature of the purchase data that
         *                                  was signed with the private key of the developer
         */
-       Bundle getBuyIntent(int apiVersion, String packageName, String sku, String type, String developerPayload);
+       Bundle getBuyIntent(int apiVersion, String packageName, String sku, String type, String developerPayload, String oemid, String guestWalletId);
 
        /**
         * Returns the current SKUs owned by the user of the type and package name specified along with

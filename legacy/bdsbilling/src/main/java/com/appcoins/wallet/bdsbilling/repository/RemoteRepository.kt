@@ -234,7 +234,8 @@ class RemoteRepository(
     callback: String?,
     orderReference: String?,
     referrerUrl: String?,
-    productToken: String?
+    productToken: String?,
+    guestWalletId: String?
   ): Single<Transaction> =
     createTransaction(
       userWallet = null,
@@ -253,7 +254,8 @@ class RemoteRepository(
       packageName = packageName,
       amount = priceValue.toPlainString(),
       currency = "APPC",
-      productName = productName
+      productName = productName,
+      guestWalletId = guestWalletId,
     )
 
   fun registerPaymentProof(
@@ -317,7 +319,8 @@ class RemoteRepository(
     walletAddress: String,
     signature: String,
     packageName: String,
-    amount: BigDecimal
+    amount: BigDecimal,
+    guestWalletId: String?
   ): Single<Transaction> =
     createTransaction(
       userWallet = toWallet,
@@ -336,7 +339,8 @@ class RemoteRepository(
       packageName = packageName,
       amount = amount.toPlainString(),
       currency = "APPC",
-      productName = null
+      productName = null,
+      guestWalletId = guestWalletId,
     )
 
   fun createLocalPaymentTransaction(
@@ -354,7 +358,8 @@ class RemoteRepository(
     callback: String?,
     orderReference: String?,
     referrerUrl: String?,
-    walletAddress: String
+    walletAddress: String,
+    guestWalletId: String?
   ): Single<Transaction> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -375,7 +380,8 @@ class RemoteRepository(
           orderReference = orderReference,
           referrerUrl = referrerUrl,
           walletAddress = walletAddress,
-          authorization = ewt
+          authorization = ewt,
+          guestWalletId = guestWalletId
         )
       }
 
@@ -392,7 +398,8 @@ class RemoteRepository(
     entityOemId: String?,
     returnUrl: String?,
     walletSignature: String?,
-    orderReference: String?
+    orderReference: String?,
+    guestWalletId: String?
   ): Single<MiPayTransaction> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -410,7 +417,8 @@ class RemoteRepository(
           authorization = ewt,
           walletSignature = walletSignature,
           checkoutUrl = returnUrl,
-          orderReference = orderReference
+          orderReference = orderReference,
+          guestWalletId = guestWalletId
         )
       }
 
@@ -457,7 +465,8 @@ class RemoteRepository(
     packageName: String,
     amount: String?,
     @Suppress("SameParameterValue") currency: String,
-    productName: String?
+    productName: String?,
+    guestWalletId: String?
   ): Single<Transaction> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -487,6 +496,7 @@ class RemoteRepository(
               callback = callback,
               orderReference = orderReference,
               referrerUrl = referrerUrl,
+              guestWalletId = guestWalletId,
               walletAddress = walletAddress,
               authorization = ewt
             )

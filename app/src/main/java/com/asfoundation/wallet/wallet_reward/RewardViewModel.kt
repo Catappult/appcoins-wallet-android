@@ -17,10 +17,10 @@ import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
+import com.asfoundation.wallet.home.PromotionsState
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
-import com.asfoundation.wallet.promotions.ui.PromotionsState
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor

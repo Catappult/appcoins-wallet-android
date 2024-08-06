@@ -68,7 +68,8 @@ class CarrierInteractor @Inject constructor(
             userWallet = details.addrs.userAddress,
             referrerUrl = details.builder.referrerUrl,
             developerPayload = details.builder.payload,
-            callbackUrl = details.builder.callbackUrl
+            callbackUrl = details.builder.callbackUrl,
+            guestWalletId = details.builder.guestWalletId
           )
         }
       }
