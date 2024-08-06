@@ -134,7 +134,7 @@ class IabPresenter(
             context = BillingAnalytics.WALLET_PRESELECTED_PAYMENT_METHOD
           )
         } else {
-          billingAnalytics.sendPurchaseStartWithoutDetailsEvent(
+          billingAnalytics.sendPurchaseStartEvent(
             packageName = transaction?.domain,
             skuDetails = transaction?.skuId,
             value = transaction?.amount().toString(),

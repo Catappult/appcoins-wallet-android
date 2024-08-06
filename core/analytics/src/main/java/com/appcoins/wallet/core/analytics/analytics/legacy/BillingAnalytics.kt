@@ -397,34 +397,9 @@ class BillingAnalytics @Inject constructor(
     packageName: String?,
     skuDetails: String?,
     value: String,
-    purchaseDetails: String,
     transactionType: String?,
     context: String,
-    isOnboardingPayment: Boolean
-  ) {
-    val eventData = mutableMapOf<String, Any?>(
-      EVENT_PACKAGE_NAME to packageName,
-      EVENT_SKU to skuDetails,
-      EVENT_VALUE to value,
-      EVENT_TRANSACTION_TYPE to transactionType,
-      EVENT_PAYMENT_METHOD to purchaseDetails,
-      EVENT_CONTEXT to context,
-    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
-
-    analytics.logEvent(
-      eventData,
-      WALLET_PAYMENT_START,
-      AnalyticsManager.Action.CLICK,
-      WALLET
-    )
-  }
-
-  override fun sendPurchaseStartWithoutDetailsEvent(
-    packageName: String?,
-    skuDetails: String?,
-    value: String,
-    transactionType: String?,
-    context: String,
+    purchaseDetails: String?,
     isOnboardingPayment: Boolean
   ) {
     val eventData = mutableMapOf<String, Any?>(
@@ -433,7 +408,10 @@ class BillingAnalytics @Inject constructor(
       EVENT_VALUE to value,
       EVENT_TRANSACTION_TYPE to transactionType,
       EVENT_CONTEXT to context,
-    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+    ).apply {
+      purchaseDetails?.let { EVENT_PAYMENT_METHOD to it }
+      if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true
+    }
 
     analytics.logEvent(
       eventData,

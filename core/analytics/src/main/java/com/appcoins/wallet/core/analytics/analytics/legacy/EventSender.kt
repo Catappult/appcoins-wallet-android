@@ -131,18 +131,9 @@ interface EventSender {
     packageName: String?,
     skuDetails: String?,
     value: String,
-    purchaseDetails: String,
     transactionType: String?,
     context: String,
-    isOnboardingPayment: Boolean = false
-  )
-
-  fun sendPurchaseStartWithoutDetailsEvent(
-    packageName: String?,
-    skuDetails: String?,
-    value: String,
-    transactionType: String?,
-    context: String,
+    purchaseDetails: String? = null,
     isOnboardingPayment: Boolean = false
   )
 

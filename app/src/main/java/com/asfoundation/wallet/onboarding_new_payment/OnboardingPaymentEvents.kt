@@ -93,7 +93,7 @@ class OnboardingPaymentEvents @Inject constructor(
   }
 
   fun sendPurchaseStartWithoutDetailsEvent(transactionBuilder: TransactionBuilder) {
-    billingAnalytics.sendPurchaseStartWithoutDetailsEvent(
+    billingAnalytics.sendPurchaseStartEvent(
       packageName = transactionBuilder.domain,
       skuDetails = transactionBuilder.skuId,
       value = transactionBuilder.amount().toString(),
