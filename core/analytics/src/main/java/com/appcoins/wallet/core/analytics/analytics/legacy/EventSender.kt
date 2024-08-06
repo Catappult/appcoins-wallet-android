@@ -37,7 +37,10 @@ interface EventSender {
     isOnboardingPayment: Boolean = false
   )
 
-  fun sendRevenueEvent(value: String, isOnboardingPayment: Boolean = false)
+  fun sendRevenueEvent(
+    value: String,
+    isOnboardingPayment: Boolean = false
+  )
 
   fun sendPreSelectedPaymentMethodEvent(
     packageName: String,

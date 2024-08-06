@@ -38,7 +38,6 @@ class IabPresenter(
 ) {
 
   private var firstImpression = true
-  var webViewResultCode: String? = null
 
   companion object {
     private val TAG = IabActivity::class.java.name
@@ -91,11 +90,6 @@ class IabPresenter(
     )
   }
 
-  private fun handleError(throwable: Throwable) {
-    logger.log(TAG, throwable)
-    view.finishWithError()
-  }
-
   fun handlePerkNotifications(bundle: Bundle) {
     disposable.add(iabInteract.getWalletAddress()
       .subscribeOn(networkScheduler)
@@ -132,17 +126,20 @@ class IabPresenter(
       if (firstImpression) {
         if (iabInteract.hasPreSelectedPaymentMethod()) {
           billingAnalytics.sendPurchaseStartEvent(
-            transaction?.domain, transaction?.skuId,
-            transaction?.amount()
-              .toString(), iabInteract.getPreSelectedPaymentMethod(),
-            transaction?.type, BillingAnalytics.WALLET_PRESELECTED_PAYMENT_METHOD
+            packageName = transaction?.domain,
+            skuDetails = transaction?.skuId,
+            value = transaction?.amount().toString(),
+            purchaseDetails = iabInteract.getPreSelectedPaymentMethod(),
+            transactionType = transaction?.type,
+            context = BillingAnalytics.WALLET_PRESELECTED_PAYMENT_METHOD
           )
         } else {
           billingAnalytics.sendPurchaseStartWithoutDetailsEvent(
-            transaction?.domain,
-            transaction?.skuId, transaction?.amount()
-              .toString(), transaction?.type,
-            BillingAnalytics.WALLET_PAYMENT_METHOD
+            packageName = transaction?.domain,
+            skuDetails = transaction?.skuId,
+            value = transaction?.amount().toString(),
+            transactionType = transaction?.type,
+            context = BillingAnalytics.WALLET_PAYMENT_METHOD
           )
         }
         firstImpression = false

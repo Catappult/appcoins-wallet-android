@@ -18,6 +18,7 @@ class BillingAnalytics @Inject constructor(
   private val appStartPreferencesDataSource: AppStartPreferencesDataSource,
   private val gamesHubContentProviderService: GamesHubContentProviderService,
 ) : EventSender {
+
   override fun sendPurchaseDetailsEvent(
     packageName: String,
     skuDetails: String?,
@@ -25,31 +26,49 @@ class BillingAnalytics @Inject constructor(
     transactionType: String?,
     isOnboardingPayment: Boolean
   ) {
-    val eventData: MutableMap<String, Any?> = HashMap()
-    val purchaseData: MutableMap<String, Any?> = HashMap()
-    purchaseData[EVENT_PACKAGE_NAME] = packageName
-    purchaseData[EVENT_SKU] = skuDetails
-    purchaseData[EVENT_VALUE] = value
-    eventData[EVENT_PURCHASE] = purchaseData
-    eventData[EVENT_TRANSACTION_TYPE] = transactionType
-    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
-    analytics.logEvent(eventData, PURCHASE_DETAILS, AnalyticsManager.Action.CLICK, WALLET)
+    val purchaseData = mutableMapOf(
+      EVENT_PACKAGE_NAME to packageName,
+      EVENT_SKU to skuDetails,
+      EVENT_VALUE to value,
+    )
+    val eventData = mutableMapOf(
+      EVENT_PURCHASE to purchaseData,
+      EVENT_TRANSACTION_TYPE to transactionType,
+    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+
+    analytics.logEvent(
+      eventData,
+      PURCHASE_DETAILS,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   override fun sendPaymentMethodDetailsEvent(
-    packageName: String, skuDetails: String?, value: String,
-    purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean
+    packageName: String,
+    skuDetails: String?,
+    value: String,
+    purchaseDetails: String,
+    transactionType: String,
+    isOnboardingPayment: Boolean
   ) {
-    val eventData: MutableMap<String, Any?> = HashMap()
-    val purchaseData: MutableMap<String, Any?> = HashMap()
-    purchaseData[EVENT_PACKAGE_NAME] = packageName
-    purchaseData[EVENT_SKU] = skuDetails
-    purchaseData[EVENT_VALUE] = value
-    eventData[EVENT_PURCHASE] = purchaseData
-    eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
-    eventData[EVENT_TRANSACTION_TYPE] = transactionType
-    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
-    analytics.logEvent(eventData, PAYMENT_METHOD_DETAILS, AnalyticsManager.Action.CLICK, WALLET)
+    val purchaseData = mutableMapOf(
+      EVENT_PACKAGE_NAME to packageName,
+      EVENT_SKU to skuDetails,
+      EVENT_VALUE to value,
+    )
+    val eventData = mutableMapOf(
+      EVENT_PURCHASE to purchaseData,
+      EVENT_PAYMENT_METHOD to purchaseDetails,
+      EVENT_TRANSACTION_TYPE to transactionType,
+    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+
+    analytics.logEvent(
+      eventData,
+      PAYMENT_METHOD_DETAILS,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   override fun sendActionPaymentMethodDetailsActionEvent(
@@ -62,78 +81,143 @@ class BillingAnalytics @Inject constructor(
     isOnboardingPayment: Boolean
   ) {
     val eventData = createBaseWalletEventMap(
-      packageName, skuDetails, value, purchaseDetails, transactionType,
-      action, isOnboardingPayment
+      packageName = packageName,
+      skuDetails = skuDetails,
+      value = value,
+      purchaseDetails = purchaseDetails,
+      transactionType = transactionType,
+      action = action,
+      isOnboardingPayment = isOnboardingPayment
     )
     analytics.logEvent(
-      eventData, WALLET_PAYMENT_METHOD_DETAILS, AnalyticsManager.Action.CLICK,
+      eventData,
+      WALLET_PAYMENT_METHOD_DETAILS,
+      AnalyticsManager.Action.CLICK,
       WALLET
     )
   }
 
   override fun sendPaymentEvent(
-    packageName: String, skuDetails: String?, value: String,
-    purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean
+    packageName: String,
+    skuDetails: String?,
+    value: String,
+    purchaseDetails: String,
+    transactionType: String,
+    isOnboardingPayment: Boolean
   ) {
-    val eventData: MutableMap<String, Any> = HashMap()
-    val purchaseData: MutableMap<String, Any> = HashMap()
-    purchaseData[EVENT_PACKAGE_NAME] = packageName
-    skuDetails?.let { purchaseData[EVENT_SKU] = skuDetails }
-    purchaseData[EVENT_VALUE] = value
-    eventData[EVENT_PURCHASE] = purchaseData
-    eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
-    eventData[EVENT_TRANSACTION_TYPE] = transactionType
-    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
-    analytics.logEvent(eventData, PAYMENT, AnalyticsManager.Action.IMPRESSION, WALLET)
+    val purchaseData = mutableMapOf(
+      EVENT_PACKAGE_NAME to packageName,
+      EVENT_VALUE to value,
+    ).apply { skuDetails?.let { EVENT_SKU to skuDetails } }
+
+    val eventData = mutableMapOf(
+      EVENT_PURCHASE to purchaseData,
+      EVENT_PAYMENT_METHOD to purchaseDetails,
+      EVENT_TRANSACTION_TYPE to transactionType,
+    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+
+    analytics.logEvent(
+      eventData,
+      PAYMENT,
+      AnalyticsManager.Action.IMPRESSION,
+      WALLET
+    )
   }
 
-  override fun sendRevenueEvent(value: String, isOnboardingPayment: Boolean) {
-    val eventData: MutableMap<String, Any> = HashMap()
-    eventData[EVENT_VALUE] = value
-    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] =
-      true
-    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
-    analytics.logEvent(eventData, REVENUE, AnalyticsManager.Action.IMPRESSION, WALLET)
+  override fun sendRevenueEvent(
+    value: String,
+    isOnboardingPayment: Boolean
+  ) {
+    val eventData = mutableMapOf<String, Any>(
+      EVENT_VALUE to value,
+      EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId(),
+    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+
+    analytics.logEvent(
+      eventData,
+      REVENUE,
+      AnalyticsManager.Action.IMPRESSION,
+      WALLET
+    )
   }
 
   override fun sendPreSelectedPaymentMethodEvent(
-    packageName: String, skuDetails: String?, value: String,
-    purchaseDetails: String, transactionType: String?, action: String, isOnboardingPayment: Boolean
+    packageName: String,
+    skuDetails: String?,
+    value: String,
+    purchaseDetails: String,
+    transactionType: String?,
+    action: String,
+    isOnboardingPayment: Boolean
   ) {
     val eventData = createBaseWalletEventMap(
-      packageName, skuDetails, value, purchaseDetails, transactionType,
-      action, isOnboardingPayment
-    )
-    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
+      packageName = packageName,
+      skuDetails = skuDetails,
+      value = value,
+      purchaseDetails = purchaseDetails,
+      transactionType = transactionType,
+      action = action,
+      isOnboardingPayment = isOnboardingPayment
+    ).apply { EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId() }
+
     analytics.logEvent(
-      eventData, WALLET_PRESELECTED_PAYMENT_METHOD, AnalyticsManager.Action.CLICK,
+      eventData,
+      WALLET_PRESELECTED_PAYMENT_METHOD,
+      AnalyticsManager.Action.CLICK,
       WALLET
     )
   }
 
   override fun sendPaymentMethodEvent(
-    packageName: String, skuDetails: String?, value: String,
-    purchaseDetails: String, transactionType: String?, action: String, isOnboardingPayment: Boolean
+    packageName: String,
+    skuDetails: String?,
+    value: String,
+    purchaseDetails: String,
+    transactionType: String?,
+    action: String,
+    isOnboardingPayment: Boolean
   ) {
     val eventData = createBaseWalletEventMap(
-      packageName, skuDetails, value, purchaseDetails, transactionType,
-      action, isOnboardingPayment
+      packageName = packageName,
+      skuDetails = skuDetails,
+      value = value,
+      purchaseDetails = purchaseDetails,
+      transactionType = transactionType,
+      action = action,
+      isOnboardingPayment = isOnboardingPayment
+    ).apply { EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId() }
+
+    analytics.logEvent(
+      eventData,
+      WALLET_PAYMENT_METHOD,
+      AnalyticsManager.Action.CLICK,
+      WALLET
     )
-    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
-    analytics.logEvent(eventData, WALLET_PAYMENT_METHOD, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPaymentConfirmationEvent(
-    packageName: String?, skuDetails: String?, value: String,
-    purchaseDetails: String, transactionType: String?, action: String, isOnboardingPayment: Boolean
+    packageName: String?,
+    skuDetails: String?,
+    value: String,
+    purchaseDetails: String,
+    transactionType: String?,
+    action: String,
+    isOnboardingPayment: Boolean
   ) {
     val eventData = createBaseWalletEventMap(
-      packageName, skuDetails, value, purchaseDetails, transactionType,
-      action, isOnboardingPayment
-    )
-    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
+      packageName = packageName,
+      skuDetails = skuDetails,
+      value = value,
+      purchaseDetails = purchaseDetails,
+      transactionType = transactionType,
+      action = action,
+      isOnboardingPayment = isOnboardingPayment
+    ).apply { EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId() }
+
     analytics.logEvent(
-      eventData, WALLET_PAYMENT_CONFIRMATION, AnalyticsManager.Action.CLICK,
+      eventData,
+      WALLET_PAYMENT_CONFIRMATION,
+      AnalyticsManager.Action.CLICK,
       WALLET
     )
   }
@@ -148,12 +232,23 @@ class BillingAnalytics @Inject constructor(
     isOnboardingPayment: Boolean
   ) {
     val eventData = createConclusionWalletEventMap(
-      packageName, skuDetails, value, purchaseDetails,
-      transactionType, EVENT_FAIL, isOnboardingPayment
+      packageName = packageName,
+      skuDetails = skuDetails,
+      value = value,
+      purchaseDetails = purchaseDetails,
+      transactionType = transactionType,
+      status = EVENT_FAIL,
+      isOnboardingPayment = isOnboardingPayment
+    ).apply {
+      EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId()
+      EVENT_ERROR_CODE to errorCode
+    }
+    analytics.logEvent(
+      eventData,
+      WALLET_PAYMENT_CONCLUSION,
+      AnalyticsManager.Action.CLICK,
+      WALLET
     )
-    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
-    eventData[EVENT_ERROR_CODE] = errorCode
-    analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPaymentErrorWithDetailsEvent(
@@ -167,35 +262,72 @@ class BillingAnalytics @Inject constructor(
     isOnboardingPayment: Boolean
   ) {
     val eventData = createConclusionWalletEventMap(
-      packageName, skuDetails, value, purchaseDetails,
-      transactionType, EVENT_FAIL, isOnboardingPayment
+      packageName = packageName,
+      skuDetails = skuDetails,
+      value = value,
+      purchaseDetails = purchaseDetails,
+      transactionType = transactionType,
+      status = EVENT_FAIL,
+      isOnboardingPayment = isOnboardingPayment
+    ).apply {
+      EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId()
+      EVENT_ERROR_CODE to errorCode
+      EVENT_ERROR_DETAILS to errorDetails
+    }
+
+    analytics.logEvent(
+      eventData,
+      WALLET_PAYMENT_CONCLUSION,
+      AnalyticsManager.Action.CLICK,
+      WALLET
     )
-    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
-    eventData[EVENT_ERROR_CODE] = errorCode
-    eventData[EVENT_ERROR_DETAILS] = errorDetails
-    analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPaymentErrorWithDetailsAndRiskEvent(
-    packageName: String, skuDetails: String,
-    value: String, purchaseDetails: String, transactionType: String, errorCode: String,
-    errorDetails: String?, riskRules: String?, isOnboardingPayment: Boolean
+    packageName: String,
+    skuDetails: String,
+    value: String,
+    purchaseDetails: String,
+    transactionType: String,
+    errorCode: String,
+    errorDetails: String?,
+    riskRules: String?,
+    isOnboardingPayment: Boolean
   ) {
     val eventData = createConclusionWalletEventMap(
-      packageName, skuDetails, value, purchaseDetails,
-      transactionType, EVENT_FAIL, isOnboardingPayment
+      packageName = packageName,
+      skuDetails = skuDetails,
+      value = value,
+      purchaseDetails = purchaseDetails,
+      transactionType = transactionType,
+      status = EVENT_FAIL,
+      isOnboardingPayment = isOnboardingPayment
+    ).apply {
+      EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId()
+      EVENT_ERROR_CODE to errorCode
+      errorDetails?.let { EVENT_ERROR_DETAILS to it }
+      riskRules?.let { EVENT_CODE_RISK_RULES to it }
+    }
+
+    analytics.logEvent(
+      eventData,
+      WALLET_PAYMENT_CONCLUSION,
+      AnalyticsManager.Action.CLICK,
+      WALLET
     )
-    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
-    eventData[EVENT_ERROR_CODE] = errorCode
-    errorDetails?.let { eventData[EVENT_ERROR_DETAILS] = errorDetails }
-    riskRules?.let { eventData[EVENT_CODE_RISK_RULES] = riskRules }
-    analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPaymentSuccessEvent(
-    packageName: String, skuDetails: String?, value: String,
-    purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean,
-    txId: String, valueUsd: String, isStoredCard: Boolean?, wasCvcRequired: Boolean?,
+    packageName: String,
+    skuDetails: String?,
+    value: String,
+    purchaseDetails: String,
+    transactionType: String,
+    isOnboardingPayment: Boolean,
+    txId: String,
+    valueUsd: String,
+    isStoredCard: Boolean?,
+    wasCvcRequired: Boolean?,
   ) {
     val eventData: MutableMap<String, Any?> = createConclusionWalletEventMap(
       packageName = packageName,
@@ -217,8 +349,8 @@ class BillingAnalytics @Inject constructor(
     // without contentProvider.
     if (!gamesHubContentProviderService.doesProviderExist()) {
       GamesHubBroadcastService.sendSuccessPaymentBroadcast(
-        context,
-        txId,
+        context = context,
+        uid = txId,
         packageName = packageName,
         usdAmount = valueUsd,
         appcAmount = value
@@ -226,49 +358,89 @@ class BillingAnalytics @Inject constructor(
     }
 
     eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
-    analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(
+      eventData,
+      WALLET_PAYMENT_CONCLUSION,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
     appStartPreferencesDataSource.saveIsFirstPayment(isFirstPayment = false)
   }
 
   override fun sendPaymentPendingEvent(
-    packageName: String, skuDetails: String?, value: String,
-    purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean
+    packageName: String,
+    skuDetails: String?,
+    value: String,
+    purchaseDetails: String,
+    transactionType: String,
+    isOnboardingPayment: Boolean
   ) {
     val eventData: MutableMap<String, Any?> = createConclusionWalletEventMap(
-      packageName, skuDetails, value, purchaseDetails,
-      transactionType, EVENT_PENDING, isOnboardingPayment
+      packageName = packageName,
+      skuDetails = skuDetails,
+      value = value,
+      purchaseDetails = purchaseDetails,
+      transactionType = transactionType,
+      status = EVENT_PENDING,
+      isOnboardingPayment = isOnboardingPayment
+    ).apply { EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId() }
+
+    analytics.logEvent(
+      eventData,
+      WALLET_PAYMENT_CONCLUSION,
+      AnalyticsManager.Action.CLICK,
+      WALLET
     )
-    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
-    analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPurchaseStartEvent(
-    packageName: String?, skuDetails: String?, value: String,
-    purchaseDetails: String, transactionType: String?, context: String, isOnboardingPayment: Boolean
+    packageName: String?,
+    skuDetails: String?,
+    value: String,
+    purchaseDetails: String,
+    transactionType: String?,
+    context: String,
+    isOnboardingPayment: Boolean
   ) {
-    val eventData: MutableMap<String, Any?> = HashMap()
-    eventData[EVENT_PACKAGE_NAME] = packageName
-    eventData[EVENT_SKU] = skuDetails
-    eventData[EVENT_VALUE] = value
-    eventData[EVENT_TRANSACTION_TYPE] = transactionType
-    eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
-    eventData[EVENT_CONTEXT] = context
-    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
-    analytics.logEvent(eventData, WALLET_PAYMENT_START, AnalyticsManager.Action.CLICK, WALLET)
+    val eventData = mutableMapOf<String, Any?>(
+      EVENT_PACKAGE_NAME to packageName,
+      EVENT_SKU to skuDetails,
+      EVENT_VALUE to value,
+      EVENT_TRANSACTION_TYPE to transactionType,
+      EVENT_PAYMENT_METHOD to purchaseDetails,
+      EVENT_CONTEXT to context,
+    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+
+    analytics.logEvent(
+      eventData,
+      WALLET_PAYMENT_START,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   override fun sendPurchaseStartWithoutDetailsEvent(
-    packageName: String?, skuDetails: String?,
-    value: String, transactionType: String?, context: String, isOnboardingPayment: Boolean
+    packageName: String?,
+    skuDetails: String?,
+    value: String,
+    transactionType: String?,
+    context: String,
+    isOnboardingPayment: Boolean
   ) {
-    val eventData: MutableMap<String, Any?> = HashMap()
-    eventData[EVENT_PACKAGE_NAME] = packageName
-    eventData[EVENT_SKU] = skuDetails
-    eventData[EVENT_VALUE] = value
-    eventData[EVENT_TRANSACTION_TYPE] = transactionType
-    eventData[EVENT_CONTEXT] = context
-    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
-    analytics.logEvent(eventData, WALLET_PAYMENT_START, AnalyticsManager.Action.CLICK, WALLET)
+    val eventData = mutableMapOf<String, Any?>(
+      EVENT_PACKAGE_NAME to packageName,
+      EVENT_SKU to skuDetails,
+      EVENT_VALUE to value,
+      EVENT_TRANSACTION_TYPE to transactionType,
+      EVENT_CONTEXT to context,
+    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+
+    analytics.logEvent(
+      eventData,
+      WALLET_PAYMENT_START,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   override fun sendPaypalUrlEvent(
@@ -281,21 +453,29 @@ class BillingAnalytics @Inject constructor(
     url: String?,
     isOnboardingPayment: Boolean
   ) {
-    val eventData: MutableMap<String, Any?> = HashMap()
-    eventData[EVENT_PACKAGE_NAME] = packageName
-    eventData[EVENT_SKU] = skuDetails
-    eventData[EVENT_VALUE] = value
-    eventData[EVENT_TRANSACTION_TYPE] = transactionType
-    eventData[EVENT_PAYPAL_TYPE] = type
-    eventData[EVENT_RESULT_CODE] = resultCode
-    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
-    if (url?.length!! > MAX_CHARACTERS) {
-      eventData[EVENT_URL] = url.substring(url.length - MAX_CHARACTERS)
-    } else {
-      eventData[EVENT_URL] = url
+    val eventData = mutableMapOf<String, Any?>(
+      EVENT_PACKAGE_NAME to packageName,
+      EVENT_SKU to skuDetails,
+      EVENT_VALUE to value,
+      EVENT_TRANSACTION_TYPE to transactionType,
+      EVENT_PAYPAL_TYPE to type,
+      EVENT_RESULT_CODE to resultCode,
+      EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId(),
+    ).apply {
+      EVENT_URL to if (url != null && url.length > MAX_CHARACTERS) {
+        url.substring(url.length - MAX_CHARACTERS)
+      } else {
+        url
+      }
+      if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true
     }
-    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
-    analytics.logEvent(eventData, WALLET_PAYPAL_URL, AnalyticsManager.Action.CLICK, WALLET)
+
+    analytics.logEvent(
+      eventData,
+      WALLET_PAYPAL_URL,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   private fun createBaseWalletEventMap(
@@ -306,17 +486,14 @@ class BillingAnalytics @Inject constructor(
     transactionType: String?,
     action: String,
     isOnboardingPayment: Boolean = false
-  ): MutableMap<String, Any?> {
-    val eventData: MutableMap<String, Any?> = HashMap()
-    eventData[EVENT_PACKAGE_NAME] = packageName
-    eventData[EVENT_SKU] = skuDetails
-    eventData[EVENT_VALUE] = value
-    eventData[EVENT_TRANSACTION_TYPE] = transactionType
-    eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
-    eventData[EVENT_ACTION] = action
-    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
-    return eventData
-  }
+  ): MutableMap<String, Any?> = mutableMapOf<String, Any?>(
+    EVENT_PACKAGE_NAME to packageName,
+    EVENT_SKU to skuDetails,
+    EVENT_VALUE to value,
+    EVENT_TRANSACTION_TYPE to transactionType,
+    EVENT_PAYMENT_METHOD to purchaseDetails,
+    EVENT_ACTION to action,
+  ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
 
   private fun createConclusionWalletEventMap(
     packageName: String,
@@ -327,18 +504,15 @@ class BillingAnalytics @Inject constructor(
     status: String,
     isOnboardingPayment: Boolean = false,
     cardPaymentType: String? = null,
-  ): MutableMap<String, Any?> {
-    val eventData: MutableMap<String, Any?> = HashMap()
-    eventData[EVENT_PACKAGE_NAME] = packageName
-    eventData[EVENT_SKU] = skuDetails
-    eventData[EVENT_VALUE] = value
-    eventData[EVENT_TRANSACTION_TYPE] = transactionType
-    eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
-    eventData[EVENT_STATUS] = status
-    eventData[EVENT_CARD_PAYMENT_TYPE] = cardPaymentType
-    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
-    return eventData
-  }
+  ): MutableMap<String, Any?> = mutableMapOf<String, Any?>(
+    EVENT_PACKAGE_NAME to packageName,
+    EVENT_SKU to skuDetails,
+    EVENT_VALUE to value,
+    EVENT_TRANSACTION_TYPE to transactionType,
+    EVENT_PAYMENT_METHOD to purchaseDetails,
+    EVENT_STATUS to status,
+    EVENT_CARD_PAYMENT_TYPE to cardPaymentType,
+  ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
 
   companion object {
     const val PURCHASE_DETAILS = "PURCHASE_DETAILS"
