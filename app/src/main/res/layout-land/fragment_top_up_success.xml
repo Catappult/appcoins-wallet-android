@@ -16,35 +16,36 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/top_up_success_animation"
+        app:layout_constraintEnd_toStartOf="@id/top_up_success_animation"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/top_up_success_animation"
-        app:layout_constraintEnd_toStartOf="@id/top_up_success_animation"/>
+        />
 
     <View
         android:id="@+id/right_animation_space"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/top_up_success_animation"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toEndOf="@id/top_up_success_animation"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/top_up_success_animation"
-        app:layout_constraintEnd_toEndOf="parent"
         />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/top_up_success_animation"
         android:layout_width="192dp"
         android:layout_height="192dp"
+        android:translationY="-56dp"
         app:layout_constraintBottom_toTopOf="@id/text_container"
         app:layout_constraintEnd_toStartOf="@id/right_animation_space"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@id/left_animation_space"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="1"
-        android:translationY="-56dp"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_rawRes="@raw/top_up_success_animation"
         />
@@ -52,7 +53,8 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/top_up_pending_success_animation"
         android:layout_width="128dp"
-        android:layout_height="256dp"
+        android:layout_height="192dp"
+        android:translationY="-32dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/text_container"
         app:layout_constraintEnd_toStartOf="@id/right_animation_space"
@@ -60,20 +62,20 @@
         app:layout_constraintStart_toEndOf="@id/left_animation_space"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="1"
-        android:translationY="-56dp"
+        app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_rawRes="@raw/success_animation"
+        app:lottie_rawRes="@raw/wait_trasaction"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/text_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:translationY="-80dp"
         app:layout_constraintBottom_toTopOf="@id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_up_success_animation"
-        android:translationY="-80dp"
         >
 
       <TextView
@@ -156,13 +158,13 @@
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginEnd="@dimen/big_margin"
         android:layout_marginBottom="36dp"
+        android:translationY="-40dp"
         app:buttonText="@string/button_ok"
         app:buttonType="filled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_container"
-        android:translationY="-40dp"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,7 +36,6 @@ class TopUpInteractor @Inject constructor(
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
   private val filterValidGooglePayUseCase: FilterValidGooglePayUseCase,
   private val addTrueLayerPaymentMessageUseCase: AddTrueLayerPaymentMessageUseCase,
-  private val partnerAddressService: PartnerAddressService,
   private val walletService: WalletService,
 ) {
 
