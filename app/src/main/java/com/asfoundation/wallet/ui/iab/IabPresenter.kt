@@ -9,6 +9,8 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetShowRefundDisclaimerCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetCachedShowRefundDisclaimerUseCase
+import com.asfoundation.wallet.di.NetworkDispatcher
+import com.asfoundation.wallet.di.ViewDispatcher
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
@@ -19,11 +21,11 @@ import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class IabPresenter(
-  private val view: IabView,
-  private val networkScheduler: Scheduler,
-  private val viewScheduler: Scheduler,
+class IabPresenter @Inject constructor(
+  @NetworkDispatcher private val networkScheduler: Scheduler,
+  @ViewDispatcher private val viewScheduler: Scheduler,
   private val disposable: CompositeDisposable,
   private val billingAnalytics: BillingAnalytics,
   private val iabInteract: IabInteract,
@@ -33,15 +35,23 @@ class IabPresenter(
   private val getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase,
   private val setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase,
   private val logger: Logger,
-  private val transaction: TransactionBuilder?,
-  private val errorFromReceiver: String? = null
 ) {
+
+  private lateinit var view: IabView
+  private var transaction: TransactionBuilder? = null
+  private var errorFromReceiver: String? = null
 
   private var firstImpression = true
 
   companion object {
     private val TAG = IabActivity::class.java.name
     private const val FIRST_IMPRESSION = "first_impression"
+  }
+
+  fun init(view: IabView, transaction: TransactionBuilder?, errorFromReceiver: String?) {
+    this.view = view
+    this.transaction = transaction
+    this.errorFromReceiver = errorFromReceiver
   }
 
   fun present(savedInstanceState: Bundle?) {
