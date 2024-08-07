@@ -1306,7 +1306,7 @@
   <string name="manage_wallet_my_wallet_address_title">Dirección de la wallet</string>
   <string name="manage_wallet_verify_title">Verificación de método de pago</string>
   <string name="manage_wallet_verify_body">Evita bloqueos verificando un método de pago.</string>
-  <string name="manage_wallet_currency_disclaimer">Su saldo se muestra en la moneda local por simplicidad, pero está vinculado a USD, por lo que los cambios en el valor de USD pueden tener un impacto en tu saldo.</string>
+  <string name="manage_wallet_currency_disclaimer">Tu saldo se muestra en la moneda local por simplicidad, pero está vinculado a USD, por lo que los cambios en el valor de USD pueden tener un impacto en tu saldo.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verificación de método de pago</string>
   <string name="verify_card_body">Evita bloqueos verificando un método de pago.</string>
