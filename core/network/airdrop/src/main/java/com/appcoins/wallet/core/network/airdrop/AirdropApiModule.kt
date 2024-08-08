@@ -33,7 +33,7 @@ class AirdropApiModule {
   }
 
   @Provides
-  fun provideAirdropApi(@Named("airdrop-blockchain") retrofit: Retrofit) =
+  fun provideAirdropApi(@Named("airdrop-blockchain") retrofit: Retrofit): AirdropService.Api =
     retrofit.create(AirdropService.Api::class.java)
 
   @Provides

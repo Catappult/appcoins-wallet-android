@@ -257,7 +257,7 @@ class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
 
   companion object {
 
-    val TAG = CarrierVerifyFragment::class.java.simpleName
+    val TAG: String? = CarrierVerifyFragment::class.java.simpleName
     const val BACKSTACK_NAME = "carrier_entry_point"
 
     private const val IS_PHONE_ERROR_VISIBLE_KEY = "IS_PHONE_ERROR_VISIBLE"

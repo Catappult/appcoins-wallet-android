@@ -757,7 +757,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     fragmentAdyenErrorPreSelected?.visibility = GONE
   }
 
-  fun getMorePaymentMethodsClicks() =
+  fun getMorePaymentMethodsClicks(): Observable<Any> =
     RxView.clicks(morePaymentMethods!!).mergeWith(RxView.clicks(morePaymentStoredMethods!!))
 
   fun showMoreMethods() {
@@ -806,7 +806,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice?.visibility = VISIBLE
   }
 
-  fun buyButtonClicked() = RxView.clicks(buyButton).map {
+  fun buyButtonClicked(): Observable<AdyenPaymentViewModel.BuyClickData> = RxView.clicks(buyButton).map {
     AdyenPaymentViewModel.BuyClickData(
       shouldStoreCard = shouldStoreCard(),
     )

@@ -77,7 +77,7 @@ class PaymentMethodsPresenter(
   var showPayPalLogout: Subject<Boolean> = BehaviorSubject.create()
 
   companion object {
-    val TAG = PaymentMethodsPresenter::class.java.name
+    val TAG: String? = PaymentMethodsPresenter::class.java.name
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val HAS_STARTED_AUTH = "has_started_auth"
     private const val FIAT_VALUE = "fiat_value"
