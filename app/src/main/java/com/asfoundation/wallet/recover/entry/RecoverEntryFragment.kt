@@ -117,9 +117,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
   private fun handleRecoverEntryState(asyncRecoverResult: Async<RecoverEntryResult>) {
     when (asyncRecoverResult) {
       is Async.Uninitialized,
-      is Async.Loading -> {
-        showLoading()
-      }
+      is Async.Loading -> {}
 
       is Async.Fail -> {
         handleErrorState(FailedEntryRecover.GenericError(asyncRecoverResult.error.throwable))
@@ -129,9 +127,6 @@ class RecoverEntryFragment : BasePageViewFragment(),
         handleSuccessState(asyncRecoverResult())
       }
     }
-  }
-
-  fun showLoading() {
   }
 
   private fun handleSuccessState(recoverResult: RecoverEntryResult) {
