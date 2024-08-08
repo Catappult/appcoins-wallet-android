@@ -119,10 +119,6 @@ public class AutoFitEditText extends AppCompatEditText {
     reAdjust();
   }
 
-  public Float get_minTextSize() {
-    return _minTextSize;
-  }
-
   private void reAdjust() {
     adjustTextSize();
   }
@@ -138,20 +134,6 @@ public class AutoFitEditText extends AppCompatEditText {
     _availableSpaceRect.bottom = heightLimit;
     super.setTextSize(TypedValue.COMPLEX_UNIT_PX,
         efficientTextSizeSearch(startSize, (int) _maxTextSize, _sizeTester, _availableSpaceRect));
-  }
-
-  /**
-   * Enables or disables size caching, enabling it will improve performance
-   * where you are animating a value inside TextView. This stores the font
-   * size against getText().length() Be careful though while enabling it as 0
-   * takes more space than 1 on some fonts and so on.
-   *
-   * @param enable enable font size caching
-   */
-  public void setEnableSizeCache(final boolean enable) {
-    _enableSizeCache = enable;
-    _textCachedSizes.clear();
-    adjustTextSize();
   }
 
   private int efficientTextSizeSearch(final int start, final int end, final SizeTester sizeTester,

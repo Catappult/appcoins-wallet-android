@@ -11,16 +11,6 @@ public final class AtomicBigInteger {
     valueHolder.set(bigInteger);
   }
 
-  public BigInteger getAndIncrement() {
-    for (; ; ) {
-      BigInteger current = valueHolder.get();
-      BigInteger next = current.add(BigInteger.ONE);
-      if (valueHolder.compareAndSet(current, next)) {
-        return current;
-      }
-    }
-  }
-
   public BigInteger get() {
     return valueHolder.get();
   }

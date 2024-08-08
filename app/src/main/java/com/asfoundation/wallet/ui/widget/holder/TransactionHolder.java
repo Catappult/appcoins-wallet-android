@@ -33,7 +33,6 @@ import java.util.Locale;
 public class TransactionHolder extends BinderViewHolder<Transaction>
     implements View.OnClickListener {
 
-  public static final int VIEW_TYPE = 1003;
   public static final String DEFAULT_ADDRESS_ADDITIONAL = "default_address";
   public static final String DEFAULT_SYMBOL_ADDITIONAL = "network_symbol";
   private final ImageView srcImage;
@@ -301,11 +300,5 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
   @Override public void onClick(View view) {
     onTransactionClickListener.onTransactionClick(view, transaction);
-  }
-
-  private boolean isRevertedType(TransactionType type) {
-    return type == TransactionType.BONUS_REVERT
-        || type == TransactionType.IAP_REVERT
-        || type == TransactionType.TOP_UP_REVERT;
   }
 }

@@ -121,7 +121,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
       is Async.Loading -> {}
 
       is Async.Fail -> {
-        handleErrorState(FailedEntryRecover.GenericError(asyncRecoverResult.error.throwable))
+        handleErrorState(FailedEntryRecover.GenericError)
       }
 
       is Async.Success -> {

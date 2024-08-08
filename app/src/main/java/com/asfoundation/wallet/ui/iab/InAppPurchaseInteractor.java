@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -47,13 +46,11 @@ public class InAppPurchaseInteractor {
   private static final String LAST_USED_PAYMENT_METHOD_KEY = "LAST_USED_PAYMENT_METHOD_KEY";
   private static final String APPC_ID = "appcoins";
   private static final String CREDITS_ID = "appcoins_credits";
-  private static final long EARN_APPCOINS_APTOIDE_VERCODE = 9961;
   private final AsfInAppPurchaseInteractor asfInAppPurchaseInteractor;
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
   private final GetWalletInfoUseCase getWalletInfoUseCase;
   private final Billing billing;
   private final SharedPreferences sharedPreferences;
-  private final PackageManager packageManager;
   private final ShouldShowSystemNotificationUseCase shouldShowSystemNotificationUseCase;
   private final UpdateWalletPurchasesCountUseCase updateWalletPurchasesCountUseCase;
   private final BillingMessagesMapper billingMessagesMapper;
@@ -61,8 +58,9 @@ public class InAppPurchaseInteractor {
   public @Inject InAppPurchaseInteractor(
       @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      GetWalletInfoUseCase getWalletInfoUseCase, Billing billing,
-      SharedPreferences sharedPreferences, PackageManager packageManager,
+      GetWalletInfoUseCase getWalletInfoUseCase,
+      Billing billing,
+      SharedPreferences sharedPreferences,
       ShouldShowSystemNotificationUseCase shouldShowSystemNotificationUseCase,
       UpdateWalletPurchasesCountUseCase updateWalletPurchasesCountUseCase,
       BillingMessagesMapper billingMessagesMapper) {
@@ -71,7 +69,6 @@ public class InAppPurchaseInteractor {
     this.getWalletInfoUseCase = getWalletInfoUseCase;
     this.billing = billing;
     this.sharedPreferences = sharedPreferences;
-    this.packageManager = packageManager;
     this.shouldShowSystemNotificationUseCase = shouldShowSystemNotificationUseCase;
     this.updateWalletPurchasesCountUseCase = updateWalletPurchasesCountUseCase;
     this.billingMessagesMapper = billingMessagesMapper;
@@ -199,33 +196,17 @@ public class InAppPurchaseInteractor {
         transaction.getErrorMessage());
   }
 
-  public Single<Boolean> isWalletFromBds(String packageName, String wallet) {
+  public Single<Boolean> isWalletFromBds(String packageName) {
     if (packageName == null) {
       return Single.just(false);
     }
     return Single.just(true);
-    //old logic to determine bds origin:
-    //    return bdsInAppPurchaseInteractor.getWallet(packageName)
-    //        .map(wallet::equalsIgnoreCase)
-    //        .onErrorReturn(throwable -> false);
   }
-
-  // uncomment to reactivate gas_price on payment flow:
-  //private Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
-  //  return Single.zip(getRewardsBalance(), hasAppcoinsFunds(transactionBuilder),
-  //      (creditsBalance, hasAppcoinsFunds) -> getNewPaymentGateways(creditsBalance,
-  //          hasAppcoinsFunds, transactionBuilder.amount()));
-  //}
 
   private Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
     return getRewardsBalance().map(creditsBalance -> getNewPaymentGateways(creditsBalance, false,
         transactionBuilder.amount()));
   }
-
-  //public Single<Boolean> hasAppcoinsFunds(TransactionBuilder transaction) {
-  //  return asfInAppPurchaseInteractor.isAppcoinsPaymentReady(transaction);
-  //}
-  //
 
   public Single<InAppPurchaseService.BalanceState> getBalanceState(TransactionBuilder transaction) {
     return asfInAppPurchaseInteractor.getAppcoinsBalanceState(transaction);
@@ -305,8 +286,8 @@ public class InAppPurchaseInteractor {
         new PaymentMethod(appcPaymentMethod.getId(), appcPaymentMethod.getLabel(),
             appcPaymentMethod.getIconUrl(), appcPaymentMethod.getAsync(),
             appcPaymentMethod.getFee(), appcPaymentMethod.isEnabled(),
-            appcPaymentMethod.getDisabledReason(), true, false, false,
-            appcPaymentMethod.getPrice(), appcPaymentMethod.getMessage()));
+            appcPaymentMethod.getDisabledReason(), true, false, false, appcPaymentMethod.getPrice(),
+            appcPaymentMethod.getMessage()));
     return paymentMethods;
   }
 
@@ -376,11 +357,19 @@ public class InAppPurchaseInteractor {
         String mergedId = "merged_appcoins";
         String mergedLabel = creditsMethod.getLabel() + " / " + appcMethod.getLabel();
         boolean isMergedEnabled = appcMethod.isEnabled() || creditsMethod.isEnabled();
-        Integer disableReason = mergeDisableReason(appcMethod, creditsMethod);
-        mergedList.add(new AppCoinsPaymentMethod(mergedId, mergedLabel, appcMethod.getIconUrl(),
-            isMergedEnabled, appcMethod.isEnabled(), creditsMethod.isEnabled(),
-            appcMethod.getLabel(), creditsMethod.getLabel(), creditsMethod.getIconUrl(),
-            disableReason, appcMethod.getDisabledReason(), creditsMethod.getDisabledReason()));
+        mergedList.add(
+            new AppCoinsPaymentMethod(
+                mergedId,
+                mergedLabel,
+                appcMethod.getIconUrl(),
+                isMergedEnabled,
+                appcMethod.isEnabled(),
+                creditsMethod.isEnabled(),
+                appcMethod.getLabel(),
+                creditsMethod.getLabel(),
+                creditsMethod.getIconUrl()
+            )
+        );
         addedMergedAppc = true;
       } else if (!paymentMethod.getId()
           .equals(CREDITS_ID) && !paymentMethod.getId()
@@ -489,47 +478,24 @@ public class InAppPurchaseInteractor {
   private PaymentMethod mapPaymentMethods(PaymentMethodEntity paymentMethod,
       List<PaymentMethodEntity> availablePaymentMethods, String currency) {
     for (PaymentMethodEntity availablePaymentMethod : availablePaymentMethods) {
-      if (paymentMethod.getId().equals(availablePaymentMethod.getId())) {
+      if (paymentMethod.getId()
+          .equals(availablePaymentMethod.getId())) {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
-        return new PaymentMethod(
-            paymentMethod.getId(),
-            paymentMethod.getLabel(),
-            paymentMethod.getIconUrl(),
-            paymentMethod.getAsync(),
-            paymentMethodFee,
-            true,
-            null,
-            false,
-            isToShowPaypalLogout(paymentMethod),
-            hasExtraFees(paymentMethod, currency),
-            new FiatValue(
-                paymentMethod.getPrice().getValue(),
-                paymentMethod.getPrice()
-                .getCurrency(),
-                ""
-            ),
-            paymentMethod.getMessage());
+        return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
+            paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null,
+            false, isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency),
+            new FiatValue(paymentMethod.getPrice()
+                .getValue(), paymentMethod.getPrice()
+                .getCurrency(), ""), paymentMethod.getMessage());
       }
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
-    return new PaymentMethod(
-        paymentMethod.getId(),
-        paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(),
-        paymentMethod.getAsync(),
-        paymentMethodFee,
-        false,
-        null,
-        false,
-        isToShowPaypalLogout(paymentMethod),
-        hasExtraFees(paymentMethod, currency),
-        new FiatValue(
-            paymentMethod.getPrice().getValue(),
-            paymentMethod.getPrice()
-            .getCurrency(),
-            ""
-        ),
-        paymentMethod.getMessage());
+    return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
+        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false,
+        isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency), new FiatValue(
+        paymentMethod.getPrice()
+            .getValue(), paymentMethod.getPrice()
+        .getCurrency(), ""), paymentMethod.getMessage());
   }
 
   private Boolean isToShowPaypalLogout(PaymentMethodEntity paymentMethod) {

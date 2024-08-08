@@ -568,13 +568,11 @@ class PaymentMethodsPresenter(
         view.setPurchaseBonus(
           forecastBonus.amount,
           forecastBonus.currency,
-          R.string.subscriptions_bonus_body
         )
       } else {
         view.setPurchaseBonus(
           forecastBonus.amount,
           forecastBonus.currency,
-          R.string.gamification_purchase_body
         )
       }
     } else {
@@ -620,7 +618,6 @@ class PaymentMethodsPresenter(
           paymentMethods,
           PaymentMethodId.CREDIT_CARD.id,
           fiatAmount,
-          appcAmount,
           paymentMethodsData.frequency
         )
       } else {
@@ -668,7 +665,6 @@ class PaymentMethodsPresenter(
         paymentMethods,
         paymentMethods[0].id,
         fiatAmount,
-        appcAmount,
         paymentMethodsData.frequency
       )
     } else {
@@ -678,7 +674,6 @@ class PaymentMethodsPresenter(
         paymentMethods,
         paymentMethodId,
         fiatAmount,
-        appcAmount,
         paymentMethodsData.frequency
       )
     }
@@ -719,7 +714,6 @@ class PaymentMethodsPresenter(
     paymentMethods: List<PaymentMethod>,
     paymentMethodId: String,
     fiatAmount: String,
-    appcAmount: String,
     frequency: String?
   ) {
     var appcEnabled = false
@@ -748,8 +742,6 @@ class PaymentMethodsPresenter(
         symbol,
         paymentMethodId,
         fiatAmount,
-        appcEnabled,
-        creditsEnabled,
         frequency,
         paymentMethodsData.subscription
       )
@@ -842,7 +834,6 @@ class PaymentMethodsPresenter(
                     paymentMethods,
                     paymentMethodId,
                     fiatAmount,
-                    appcAmount,
                     paymentMethodsData.frequency
                   )
                 }
@@ -986,9 +977,9 @@ class PaymentMethodsPresenter(
       paymentMethodsMapper.map(CHALLENGE_REWARD) -> view.hideBonus()
       paymentMethodsMapper.map(SANDBOX) -> view.hideBonus()
       else -> if (paymentMethodsData.subscription) {
-        view.showBonus(R.string.subscriptions_bonus_body)
+        view.showBonus()
       } else {
-        view.showBonus(R.string.gamification_purchase_body)
+        view.showBonus()
       }
     }
   }

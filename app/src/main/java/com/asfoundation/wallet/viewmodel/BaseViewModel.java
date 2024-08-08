@@ -36,9 +36,9 @@ public class BaseViewModel extends ViewModel {
   protected void onError(Throwable throwable) {
     Log.e("TAG", "Err", throwable);
     if (TextUtils.isEmpty(throwable.getMessage())) {
-      error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null, throwable));
+      error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));
     } else {
-      error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, throwable.getMessage(), throwable));
+      error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, throwable.getMessage()));
     }
   }
 }

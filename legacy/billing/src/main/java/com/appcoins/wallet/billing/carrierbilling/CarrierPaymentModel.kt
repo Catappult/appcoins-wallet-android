@@ -27,7 +27,7 @@ sealed class CarrierError(val errorCode: Int?, val errorMessage: String?)
 object NoError : CarrierError(null, null)
 
 data class GenericError(
-  private val isNetworkError: Boolean = false, private val httpCode: Int?,
+  private val httpCode: Int?,
   private val message: String?
 ) : CarrierError(httpCode, message)
 

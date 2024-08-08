@@ -16,7 +16,7 @@ public class CreditsRemoteRepository
   }
 
   @NotNull @Override
-  public Single<Transaction> pay(@NotNull String walletAddress, @NotNull String signature,
+  public Single<Transaction> pay(@NotNull String walletAddress,
       @NotNull BigDecimal amount, @Nullable String origin, @Nullable String sku,
       @NotNull String type, @Nullable String entityOemId, @Nullable String entityDomain,
       @NotNull String packageName, @Nullable String payload, @Nullable String callback,
@@ -32,6 +32,6 @@ public class CreditsRemoteRepository
       @NotNull String signature, @NotNull BigDecimal amount, @NotNull String origin,
       @NotNull String type, @NotNull String packageName, String guestWalletId) {
     return remoteRepository.transferCredits(toWallet, origin, type, "appcoins_credits",
-        walletAddress, signature, packageName, amount, guestWalletId);
+        walletAddress, packageName, amount, guestWalletId);
   }
 }

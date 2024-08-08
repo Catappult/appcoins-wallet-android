@@ -6,16 +6,30 @@ import java.math.BigDecimal
 
 interface RemoteRepository {
   fun pay(
-    walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
-    sku: String?, type: String, entityOemId: String?,
-    entityDomain: String?, packageName: String, payload: String?, callback: String?,
-    orderReference: String?, referrerUrl: String?, productToken: String?, guestWalletId: String?
+    walletAddress: String,
+    amount: BigDecimal,
+    origin: String?,
+    sku: String?,
+    type: String,
+    entityOemId: String?,
+    entityDomain: String?,
+    packageName: String,
+    payload: String?,
+    callback: String?,
+    orderReference: String?,
+    referrerUrl: String?,
+    productToken: String?,
+    guestWalletId: String?
   ): Single<Transaction>
 
   fun sendCredits(
-    toWallet: String, walletAddress: String, signature: String, amount: BigDecimal,
+    toWallet: String,
+    walletAddress: String,
+    signature: String,
+    amount: BigDecimal,
     origin: String,
-    type: String, packageName: String,
+    type: String,
+    packageName: String,
     guestWalletId: String?
   ): Single<Transaction>
 }

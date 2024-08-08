@@ -270,7 +270,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     paymentType: PaymentType,
     bonus: String?,
     isPreselected: Boolean,
-    iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
     frequency: String?
@@ -304,7 +303,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     paymentType: PaymentType,
     bonus: String?,
     isPreselected: Boolean,
-    iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
     frequency: String?
@@ -337,7 +335,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     paymentType: PaymentType,
     bonus: String?,
     isPreselected: Boolean,
-    iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
     frequency: String?
@@ -369,9 +366,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isBds: Boolean,
     paymentType: PaymentType,
     bonus: String?,
-    iconUrl: String?,
-    gamificationLevel: Int,
-    isSubscription: Boolean,
     frequency: String?
   ) {
     val fragmentVk = VkPaymentIABFragment()
@@ -400,7 +394,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     paymentType: PaymentType,
     bonus: String?,
     isPreselected: Boolean,
-    iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
     frequency: String?
@@ -507,7 +500,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     callbackUrl: String?,
     orderReference: String?,
     payload: String?,
-    origin: String?,
     paymentMethodIconUrl: String,
     paymentMethodLabel: String,
     async: Boolean,

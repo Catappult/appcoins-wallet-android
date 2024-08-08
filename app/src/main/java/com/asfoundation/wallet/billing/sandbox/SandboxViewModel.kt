@@ -28,7 +28,6 @@ class SandboxViewModel @Inject constructor(
   private val createSandboxTransactionUseCase: CreateSandboxTransactionUseCase,
   private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
   private val waitForSuccessSandboxUseCase: WaitForSuccessSandboxUseCase,
-  private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val supportInteractor: SupportInteractor,
   rxSchedulers: RxSchedulers,
   private val analytics: BillingAnalytics,
@@ -81,7 +80,7 @@ class SandboxViewModel @Inject constructor(
             }
 
             SandboxTransaction.SandboxValidityState.PENDING -> {
-              waitForSuccess(it.hash, it.uid, transactionBuilder)
+              waitForSuccess(it.uid, transactionBuilder)
             }
 
             SandboxTransaction.SandboxValidityState.ERROR -> {
@@ -114,7 +113,7 @@ class SandboxViewModel @Inject constructor(
     )
   }
 
-  private fun waitForSuccess(hash: String?, uid: String?, transactionBuilder: TransactionBuilder) {
+  private fun waitForSuccess(uid: String?, transactionBuilder: TransactionBuilder) {
     compositeDisposable.add(
       waitForSuccessSandboxUseCase(uid ?: "")
         .subscribeOn(networkScheduler)

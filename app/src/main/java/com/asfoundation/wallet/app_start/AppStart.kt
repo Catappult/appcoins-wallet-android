@@ -25,15 +25,7 @@ sealed class StartMode {
     val integrationFlow: String,
     val sku: String?,
     val packageName: String,
-    val callbackUrl: String?,
-    val currency: String?,
-    val orderReference: String?,
-    val value: Double?,
-    val signature: String?,
-    val origin: String?,
     val type: String?,
-    val oemId: String?,
-    val wsPort: String?,
     val backup: String?
   ) : StartMode()
 

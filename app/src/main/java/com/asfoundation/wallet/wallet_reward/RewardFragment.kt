@@ -148,7 +148,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         Surface {
           TopBar(
             isMainBar = true,
-            onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen() },
             hasNotificationBadge = viewModel.hasNotificationBadge.value
@@ -194,13 +193,12 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             SkeletonLoadingRewardsActionsCard()
           } else {
             RewardsActions(
-              { navigator.navigateToWithdrawScreen() },
-              {
+              onClickPromoCode = {
                 analytics.promoCodeClickEvent()
                 navigator.showPromoCodeFragment()
               },
-              { navigator.showGiftCardFragment() },
-              challengeRewardNavigation,
+              onClickGiftCard = { navigator.showGiftCardFragment() },
+              onClickChallengeReward = challengeRewardNavigation,
             )
           }
           viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }

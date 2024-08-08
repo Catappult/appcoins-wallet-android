@@ -8,9 +8,9 @@ import javax.inject.Inject
 class RedeemGiftMapper @Inject constructor(private val jsonMapper: Gson) {
   fun map(error: Throwable): RedeemCode {
     return when {
-      error.isNoNetworkException() -> FailedRedeem.GenericError("")
+      error.isNoNetworkException() -> FailedRedeem.GenericError
       error is HttpException -> mapHttpException(error)
-      else -> FailedRedeem.GenericError(error.toString())
+      else -> FailedRedeem.GenericError
     }
   }
 
@@ -18,7 +18,7 @@ class RedeemGiftMapper @Inject constructor(private val jsonMapper: Gson) {
     return when (error.code()) {
       450 -> FailedRedeem.AlreadyRedeemedError
       451 -> FailedRedeem.OnlyNewUsersError
-      else -> FailedRedeem.GenericError(error.message())
+      else -> FailedRedeem.GenericError
     }
   }
 

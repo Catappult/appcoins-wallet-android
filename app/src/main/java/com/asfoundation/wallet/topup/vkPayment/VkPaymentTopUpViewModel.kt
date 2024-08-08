@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 sealed class VkPaymentTopUpSideEffect : SideEffect {
   object ShowLoading : VkPaymentTopUpSideEffect()
-  data class ShowError(val message: Int?) : VkPaymentTopUpSideEffect()
+  object ShowError : VkPaymentTopUpSideEffect()
   object ShowSuccess : VkPaymentTopUpSideEffect()
   object PaymentLinkSuccess : VkPaymentTopUpSideEffect()
 }
@@ -95,7 +95,7 @@ class VkPaymentTopUpViewModel @Inject constructor(
       // Set up a CoroutineJob that will automatically cancel after 180 seconds
       jobTransactionStatus = scope.launch {
         delay(JOB_TIMEOUT_MS)
-        sendSideEffect { VkPaymentTopUpSideEffect.ShowError(R.string.unknown_error) }
+        sendSideEffect { VkPaymentTopUpSideEffect.ShowError }
         timerTransactionStatus.cancel()
       }
     }
@@ -129,11 +129,7 @@ class VkPaymentTopUpViewModel @Inject constructor(
             analytics.sendErrorEvent(
               paymentData.appcValue.toDouble(), "top_up", PaymentType.VKPAY.name, "", ""
             )
-            sendSideEffect {
-              VkPaymentTopUpSideEffect.ShowError(
-                R.string.purchase_error_wallet_block_code_403
-              )
-            }
+            sendSideEffect { VkPaymentTopUpSideEffect.ShowError }
           }
 
           Transaction.Status.PENDING,

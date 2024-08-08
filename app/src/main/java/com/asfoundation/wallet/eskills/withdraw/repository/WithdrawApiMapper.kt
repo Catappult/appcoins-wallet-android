@@ -15,17 +15,16 @@ class WithdrawApiMapper @Inject constructor(private val jsonMapper: Gson) {
     return when {
       error.isNoNetworkException() -> FailedWithdraw.NoNetworkError
       error is HttpException -> mapHttpException(error)
-      else -> FailedWithdraw.GenericError(error.toString())
+      else -> FailedWithdraw.GenericError
     }
   }
 
   private fun mapHttpException(error: HttpException): WithdrawResult {
     val response = jsonMapper.fromJson(error.getMessage(), Response::class.java)
     return when (response.message.code) {
-      Status.AMOUNT_NOT_WON -> FailedWithdraw.NotEnoughEarningError(response.message.detail)
-      Status.NOT_ENOUGH_BALANCE -> FailedWithdraw.NotEnoughBalanceError(response.message.detail)
+      Status.AMOUNT_NOT_WON -> FailedWithdraw.NotEnoughEarningError
+      Status.NOT_ENOUGH_BALANCE -> FailedWithdraw.NotEnoughBalanceError
       Status.MIN_AMOUNT_REQUIRED -> FailedWithdraw.MinAmountRequiredError(
-        response.message.detail,
         response.message.minimumAmount!!
       )
     }

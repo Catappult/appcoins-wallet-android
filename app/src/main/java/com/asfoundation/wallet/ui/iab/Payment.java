@@ -60,10 +60,6 @@ public class Payment {
     return orderReference;
   }
 
-  @Nullable public String getFromAddress() {
-    return fromAddress;
-  }
-
   public Status getStatus() {
     return status;
   }
