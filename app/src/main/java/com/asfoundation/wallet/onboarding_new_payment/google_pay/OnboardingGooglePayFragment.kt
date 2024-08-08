@@ -37,8 +37,9 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
   lateinit var navigator: OnboardingGooglePayNavigator
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     binding = OnboardingGooglePayLayoutBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
@@ -56,7 +57,7 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
     viewModel.processGooglePayResult(transactionBuilder = args.transactionBuilder)
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingGooglePayFragmentArgs.fromBundle(requireArguments())
     setListeners()

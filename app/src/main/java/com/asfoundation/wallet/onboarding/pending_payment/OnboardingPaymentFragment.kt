@@ -53,13 +53,14 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
 
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     return FragmentOnboardingPaymentBinding.inflate(inflater).root
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     editToolbar()
     initInnerNavController()

@@ -46,7 +46,6 @@ class TransactionDetailViewModelFactory(
   private val localCurrencyConversionService: LocalCurrencyConversionService
 ) : ViewModelProvider.Factory {
 
-  @NonNull
   override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return TransactionDetailViewModel(
       findDefaultWalletUseCase, findNetworkInfoUseCase,
