@@ -52,7 +52,7 @@ public class AutoFitEditText extends AppCompatEditText {
     _sizeTester = new SizeTester() {
       final RectF textRect = new RectF();
 
-      @TargetApi(Build.VERSION_CODES.JELLY_BEAN) @Override
+      @Override
       public int onTestSize(final int suggestedSize, final RectF availableSPace) {
         paint.setTextSize(suggestedSize);
         final String text = getText().toString();
