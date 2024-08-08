@@ -12,29 +12,51 @@
     <action
         android:id="@+id/action_navigate_to_nav_bar_graph"
         app:destination="@id/nav_bar_fragment"
-        app:popUpTo="@+id/splash_extender_fragment"
-        app:popUpToInclusive="true" />
+        app:popUpTo="@id/splash_extender_fragment"
+        app:popUpToInclusive="true">
+      <argument
+          android:name="giftCard"
+          android:defaultValue="@null"
+          app:argType="string"
+          app:nullable="true" />
+      <argument
+          android:name="promoCode"
+          android:defaultValue="@null"
+          app:argType="string"
+          app:nullable="true" />
+    </action>
     <action
         android:id="@+id/action_navigate_to_onboarding_graph"
         app:destination="@id/onboarding_graph"
-        app:popUpTo="@+id/splash_extender_fragment"
+        app:popUpTo="@id/splash_extender_fragment"
         app:popUpToInclusive="true" />
     <action
         android:id="@+id/action_navigate_to_update_required_graph"
         app:destination="@id/update_required_graph"
-        app:popUpTo="@+id/splash_extender_fragment"
+        app:popUpTo="@id/splash_extender_fragment"
         app:popUpToInclusive="true" />
     <action
         android:id="@+id/navigate_to_authentication_prompt_activity"
         app:destination="@id/authentication_prompt_activity"
-        app:popUpTo="@+id/splash_extender_fragment"
+        app:popUpTo="@id/splash_extender_fragment"
         app:popUpToInclusive="true" />
     <action
         android:id="@+id/navigate_to_paypal_verification_fragment"
         app:destination="@id/paypal_verification_fragment"
-        app:popUpTo="@+id/splash_extender_fragment"
+        app:popUpTo="@id/splash_extender_fragment"
         app:popUpToInclusive="true" />
   </fragment>
+
+  <action
+      android:id="@+id/navigate_to_nav_bar_fragment"
+      app:destination="@id/nav_bar_fragment">
+
+    <argument
+        android:name="giftCard"
+        android:defaultValue="@null"
+        app:argType="string"
+        app:nullable="true" />
+  </action>
 
   <fragment
       android:id="@+id/nav_bar_fragment"
@@ -293,6 +315,6 @@
   <fragment
       android:id="@+id/manage_adyen_payment_fragment"
       android:name="com.asfoundation.wallet.manage_cards.ManageAdyenPaymentFragment"
-      tools:layout="@layout/manage_adyen_payment_fragment"></fragment>
+      tools:layout="@layout/manage_adyen_payment_fragment" />
 
 </navigation>

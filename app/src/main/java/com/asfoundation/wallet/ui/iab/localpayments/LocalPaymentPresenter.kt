@@ -104,7 +104,8 @@ class LocalPaymentPresenter(
         developerPayload = data.payload,
         callbackUrl = data.callbackUrl,
         orderReference = data.orderReference,
-        referrerUrl = data.referrerUrl
+        referrerUrl = data.referrerUrl,
+        guestWalletId = data.guestWalletId
       )
         .filter { !waitingResult }
         .observeOn(viewScheduler)

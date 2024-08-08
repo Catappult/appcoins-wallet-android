@@ -29,12 +29,14 @@ class BillingIntentBuilder(val context: Context) {
     appcAmount: BigDecimal,
     skuTitle: String,
     subscriptionPeriod: String?,
-    trialPeriod: String?
+    trialPeriod: String?,
+    oemid: String?,
+    guestWalletId: String?,
   ): Bundle {
     val intent = buildPaymentIntent(
       type, appcAmount, tokenContractAddress, iabContractAddress,
       skuId, packageName, payload, skuTitle, bdsIap, subscriptionPeriod,
-      trialPeriod
+      trialPeriod, oemid, guestWalletId
     )
     return Bundle().apply {
       val pendingIntent = buildPaymentPendingIntent(intent)
@@ -65,7 +67,9 @@ class BillingIntentBuilder(val context: Context) {
     payload: String?, skuTitle: String,
     bdsIap: Boolean,
     subscriptionPeriod: String?,
-    trialPeriod: String?
+    trialPeriod: String?,
+    oemid: String?,
+    guestWalletId: String?,
   ): Intent {
     val value = amount.multiply(BigDecimal.TEN.pow(18))
     val uri = Uri.parse(
@@ -73,7 +77,7 @@ class BillingIntentBuilder(val context: Context) {
         type, tokenContractAddress, iabContractAddress, value,
         skuId, MiscProperties.NETWORK_ID, packageName,
         PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload),
-        PayloadHelper.getOrigin(payload), subscriptionPeriod, trialPeriod
+        PayloadHelper.getOrigin(payload), subscriptionPeriod, trialPeriod, oemid, guestWalletId
       )
     )
 
@@ -95,7 +99,9 @@ class BillingIntentBuilder(val context: Context) {
     networkId: Int, packageName: String,
     developerPayload: String?,
     orderReference: String?, origin: String?,
-    subscriptionPeriod: String?, trialPeriod: String?
+    subscriptionPeriod: String?, trialPeriod: String?,
+    oemid: String?,
+    guestWalletId: String?,
   ): String {
     val stringBuilder = StringBuilder(4)
     try {
@@ -105,7 +111,7 @@ class BillingIntentBuilder(val context: Context) {
           tokenContractAddress, networkId, amount.toString(), "",
           buildUriData(
             type, skuId, packageName, developerPayload, orderReference, origin,
-            subscriptionPeriod, trialPeriod
+            subscriptionPeriod, trialPeriod, oemid, guestWalletId
           ),
           iabContractAddress
         )
@@ -121,13 +127,15 @@ class BillingIntentBuilder(val context: Context) {
     developerPayload: String?, orderReference: String?,
     origin: String?,
     subscriptionPeriod: String?,
-    trialPeriod: String?
+    trialPeriod: String?,
+    oemid: String?,
+    guestWalletId: String?,
   ): String {
     return "0x" + Hex.toHexString(
       Gson().toJson(
         TransactionData(
           type.toUpperCase(Locale.ROOT), packageName, skuId, developerPayload,
-          orderReference, origin, subscriptionPeriod, trialPeriod
+          orderReference, origin, subscriptionPeriod, trialPeriod, oemid, guestWalletId
         )
       )
         .toByteArray(charset("UTF-8"))

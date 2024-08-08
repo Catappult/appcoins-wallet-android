@@ -67,7 +67,8 @@ class AppcoinsRewardsBuyPresenter(
         transactionBuilder.callbackUrl,
         transactionBuilder.orderReference,
         transactionBuilder.referrerUrl,
-        transactionBuilder.productToken
+        transactionBuilder.productToken,
+        transactionBuilder.guestWalletId
       )
       .andThen(
         rewardsManager.getPaymentStatus(

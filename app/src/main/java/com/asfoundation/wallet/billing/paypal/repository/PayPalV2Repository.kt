@@ -39,7 +39,8 @@ class PayPalV2Repository @Inject constructor(
     callbackUrl: String?, transactionType: String,
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
     userWallet: String?,
-    referrerUrl: String?
+    referrerUrl: String?,
+    guestWalletId: String?
   ): Single<PaypalTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -62,7 +63,8 @@ class PayPalV2Repository @Inject constructor(
             entityDomain = entityDomain,
             entityPromoCode = entityPromoCode,
             user = userWallet,
-            referrerUrl = referrerUrl
+            referrerUrl = referrerUrl,
+            guestWalletId = guestWalletId
           )
         )
           .map { response: PaypalV2StartResponse ->

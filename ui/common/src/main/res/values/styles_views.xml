@@ -35,9 +35,11 @@
       <enum name="password" value="2" />
       <enum name="read_only" value="3" />
       <enum name="number" value="4" />
+      <enum name="all_caps" value="5" />
     </attr>
     <attr name="textFieldHint" format="string" />
     <attr name="textFieldColor" format="color" />
+    <attr name="digitsRegex" format="string" />
   </declare-styleable>
 
   <declare-styleable name="AnimatedTextSwitcher">

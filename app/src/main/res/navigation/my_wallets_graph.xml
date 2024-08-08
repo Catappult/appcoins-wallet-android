@@ -8,7 +8,7 @@
   <fragment
       android:id="@+id/my_wallets_fragment"
       android:name="com.asfoundation.wallet.manage_wallets.ManageWalletFragment"
-      tools:layout="@layout/fragment_my_wallets">
+      >
     <action
         android:id="@+id/action_navigate_to_verify_credit_card"
         app:destination="@id/verify_credit_card_wallet_activity" />

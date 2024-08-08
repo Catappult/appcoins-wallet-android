@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet.home
+package com.asfoundation.wallet.home
 
 import android.content.Intent
 import android.net.Uri
@@ -29,6 +29,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.appcoins.wallet.gamification.repository.Levels
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
@@ -53,7 +54,6 @@ import com.asfoundation.wallet.home.usecases.RegisterSupportUserUseCase
 import com.asfoundation.wallet.home.usecases.ShouldOpenRatingDialogUseCase
 import com.asfoundation.wallet.home.usecases.UpdateLastShownUserLevelUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsModel
-import com.asfoundation.wallet.promotions.ui.PromotionsState
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.referrals.CardNotification
@@ -61,7 +61,7 @@ import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.toModel
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
-import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
+import com.asfoundation.wallet.home.HomeViewModel.UiState.Success
 import com.github.michaelbull.result.unwrap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
@@ -107,6 +107,13 @@ data class HomeState(
   val unreadMessages: Boolean = false,
   val hasBackup: Async<Boolean> = Async.Uninitialized
 ) : ViewState
+
+data class PromotionsState(
+  val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
+  val promotionsGamificationStatsAsync: Async<PromotionsGamificationStats> = Async.Uninitialized
+) :
+  ViewState
+
 
 @HiltViewModel
 class HomeViewModel
