@@ -23,7 +23,6 @@ class ReferralResponse(
   val amount: BigDecimal
 ) : PromotionsResponse(id, priority, gamificationStatus) {
 
-  @Suppress("unused")
   enum class UserStatus {
     RESERVED, VERIFIED, REDEEMED
   }

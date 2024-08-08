@@ -46,7 +46,6 @@ data class ApiAssignment(
   val status: Status,
 )
 
-@Suppress("unused")
 enum class Status {
   EXPERIMENT_NOT_FOUND,
   EXPERIMENT_NOT_STARTED,

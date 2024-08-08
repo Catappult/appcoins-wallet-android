@@ -10,7 +10,6 @@ data class LevelsResponse(
   @SerializedName("update_date") val updateDate: Date?
 ) {
 
-  @Suppress("unused")
   enum class Status {
     ACTIVE, INACTIVE
   }
