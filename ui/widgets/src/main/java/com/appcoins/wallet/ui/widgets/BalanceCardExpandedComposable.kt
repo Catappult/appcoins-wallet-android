@@ -97,7 +97,9 @@ fun BalanceCardExpanded(
               VectorIconButton(
                 imageVector = Icons.Default.MoreVert,
                 contentDescription = R.string.action_more_details,
-                onClick = onClickMenuOptions
+                onClick = onClickMenuOptions,
+                fragmentName = fragmentName,
+                buttonsAnalytics = buttonsAnalytics
               )
             }
           }

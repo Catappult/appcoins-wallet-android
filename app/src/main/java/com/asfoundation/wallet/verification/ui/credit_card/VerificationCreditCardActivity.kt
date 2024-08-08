@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityWalletVerificationBinding
@@ -42,6 +43,10 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
 
   private val views by viewBinding(ActivityWalletVerificationBinding::bind)
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_wallet_verification)
@@ -63,7 +68,9 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
         TopBar(
           isMainBar = false,
           onClickSupport = { displayChat() },
-          onClickBack = { onBackPressed() })
+          onClickBack = { onBackPressed() },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics)
       }
     }
   }

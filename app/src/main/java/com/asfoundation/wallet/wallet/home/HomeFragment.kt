@@ -155,7 +155,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen() },
-            hasNotificationBadge = viewModel.hasNotificationBadge.value
+            hasNotificationBadge = viewModel.hasNotificationBadge.value,
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
           )
         }
       },

@@ -37,7 +37,7 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 @Composable
 fun BackupErrorRoute(onClickBack: () -> Unit, onChatClick: () -> Unit, onCancelBackup: () -> Unit, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   Scaffold(
-    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = onChatClick) } },
+    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = onChatClick, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) } },
     modifier = Modifier
   ) { padding ->
     BackupErrorScreen(scaffoldPadding = padding, onCancelBackup = onCancelBackup, onClickBack, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)

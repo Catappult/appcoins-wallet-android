@@ -92,7 +92,9 @@ fun BalanceCard(
                   imageVector = Icons.Default.MoreVert,
                   contentDescription = R.string.action_more_details,
                   onClick = onClickMenuOptions,
-                  paddingIcon = 4.dp
+                  paddingIcon = 4.dp,
+                  fragmentName = fragmentName,
+                  buttonsAnalytics = buttonsAnalytics
                 )
               }
               Spacer(modifier = Modifier.height(12.dp))

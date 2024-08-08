@@ -33,6 +33,7 @@ import androidx.paging.LoadState.Loading
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDay
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.TopBar
@@ -54,6 +55,10 @@ class TransactionsListFragment : BasePageViewFragment() {
 
   private val viewModel: TransactionsListViewModel by viewModels()
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -72,7 +77,7 @@ class TransactionsListFragment : BasePageViewFragment() {
     Scaffold(
       topBar = {
         Surface {
-          TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() })
+          TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
         }
       },
       containerColor = WalletColors.styleguide_blue

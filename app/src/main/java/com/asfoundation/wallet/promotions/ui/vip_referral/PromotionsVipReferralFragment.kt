@@ -96,7 +96,7 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
   @Composable
   fun VipReferralProgramScreen() {
     Scaffold(
-      topBar = { Surface { TopBar(onClickSupport = { viewModel.displayChat() }) } },
+      topBar = { Surface { TopBar(onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) } },
       containerColor = WalletColors.styleguide_blue,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {

@@ -81,7 +81,7 @@ fun BackupEntryRoute(
   Scaffold(
     topBar = {
       Surface {
-        TopBar(onClickSupport = { onChatClick() }, onClickBack = { viewModel.showBottomSheet() })
+        TopBar(onClickSupport = { onChatClick() }, onClickBack = { viewModel.showBottomSheet() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
       }
     },
     modifier = Modifier

@@ -65,7 +65,7 @@ fun BackupSaveOptionsRoute(
   buttonsAnalytics: ButtonsAnalytics?
 ) {
   Scaffold(
-    topBar = { Surface { TopBar(onClickSupport = onChatClick) } },
+    topBar = { Surface { TopBar(onClickSupport = onChatClick, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) } },
     modifier = Modifier
   ) { padding ->
     BackupSaveOptionsScreen(

@@ -42,7 +42,7 @@ import com.google.android.material.textview.MaterialTextView
 @Composable
 fun BackupSuccessRoute(onChatClick: () -> Unit, saveOnDevice: Boolean, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?, onGotItClick: () -> Unit) {
   Scaffold(
-    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = { onChatClick() }) } },
+    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = { onChatClick() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) } },
     modifier = Modifier
   ) { padding ->
     BackupSaveOptionsScreen(

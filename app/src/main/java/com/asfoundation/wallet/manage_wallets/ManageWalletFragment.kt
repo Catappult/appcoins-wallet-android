@@ -141,7 +141,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     LaunchedEffect(key1 = dialogDismissed) { viewModel.getWallets() }
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)}
       },
       containerColor = styleguide_blue,
     ) { padding ->
@@ -439,7 +439,9 @@ class ManageWalletFragment : BasePageViewFragment() {
           contentDescription = R.string.action_edit,
           onClick = {
             myWalletsNavigator.navigateToManageWalletNameBottomSheet(wallet, walletName)
-          })
+          },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics)
         VectorIconButton(
           painter = painterResource(R.drawable.ic_qrcode),
           contentDescription = R.string.scan_qr,
@@ -447,15 +449,21 @@ class ManageWalletFragment : BasePageViewFragment() {
             myWalletsNavigator.navigateToReceive(
               navController(), TransferDestinations.RECEIVE
             )
-          })
+          },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics)
         VectorIconButton(
           imageVector = Icons.Default.Share,
           contentDescription = R.string.wallet_view_share_button,
-          onClick = { shareAddress(wallet) })
+          onClick = { shareAddress(wallet) },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics)
         VectorIconButton(
           painter = painterResource(R.drawable.ic_copy_to_clip),
           contentDescription = R.string.wallet_view_copy_button,
-          onClick = { copyAddressToClipBoard(wallet) })
+          onClick = { copyAddressToClipBoard(wallet) },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics)
       }
     }
   }
@@ -487,7 +495,9 @@ class ManageWalletFragment : BasePageViewFragment() {
           myWalletsNavigator.navigateToManageWalletBottomSheet(inactiveWalletsQuantity == 0)
         },
         paddingIcon = 4.dp,
-        background = styleguide_blue_secondary
+        background = styleguide_blue_secondary,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }

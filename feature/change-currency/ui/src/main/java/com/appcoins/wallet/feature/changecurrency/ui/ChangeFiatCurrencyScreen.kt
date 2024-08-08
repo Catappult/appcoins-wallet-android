@@ -61,7 +61,7 @@ fun ChangeFiatCurrencyRoute(
 ) {
   val changeFiatCurrencyState by viewModel.stateFlow.collectAsState()
   Scaffold(
-    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = { onChatClick() }) } },
+    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = { onChatClick() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) } },
     modifier = Modifier
   ) { padding ->
     ChangeFiatCurrencyScreen(

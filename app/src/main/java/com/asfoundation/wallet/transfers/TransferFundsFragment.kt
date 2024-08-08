@@ -130,7 +130,7 @@ class TransferFundsFragment : BasePageViewFragment() {
   @Composable
   fun TransferFundsView() {
     Scaffold(
-      topBar = { Surface { TopBar(onClickSupport = { viewModel.displayChat() }) } },
+      topBar = { Surface { TopBar(onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) } },
       containerColor = styleguide_blue,
     ) { padding ->
       Column(
@@ -352,7 +352,9 @@ class TransferFundsFragment : BasePageViewFragment() {
             contentDescription = R.string.scan_qr,
             onClick = { transferNavigator.showQrCodeScreen() },
             paddingIcon = 4.dp,
-            background = styleguide_blue_secondary
+            background = styleguide_blue_secondary,
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
           )
         }) { newAddress ->
         address = newAddress

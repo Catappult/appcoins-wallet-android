@@ -94,7 +94,7 @@ class ManageCardsFragment : BasePageViewFragment() {
     }
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) }
       },
       containerColor = WalletColors.styleguide_blue,
     ) { padding ->

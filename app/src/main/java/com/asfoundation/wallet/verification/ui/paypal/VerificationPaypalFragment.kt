@@ -121,7 +121,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   @Composable
   private fun PayPalVerificationScreen() {
     Scaffold(
-      topBar = { TopBar(onClickSupport = { viewModel.launchChat() }) },
+      topBar = { TopBar(onClickSupport = { viewModel.launchChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) },
       containerColor = WalletColors.styleguide_blue
     ) { padding ->
       Column(modifier = Modifier.padding(padding)) {

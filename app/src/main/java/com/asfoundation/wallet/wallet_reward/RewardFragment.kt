@@ -145,7 +145,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen() },
-            hasNotificationBadge = viewModel.hasNotificationBadge.value
+            hasNotificationBadge = viewModel.hasNotificationBadge.value,
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
           )
         }
       },
@@ -271,7 +273,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         bonusValue = df.format(bonusPercentage),
         planetDrawable = planetImage,
         isVip = isVip,
-        isMaxVip = isMaxVip
+        isMaxVip = isMaxVip,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }
@@ -280,7 +284,10 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   fun VipReferralCard(vipReferralInfo: VipReferralInfo?) {
     if (vipReferralInfo != null)
       VipReferralCard(
-        { navigator.navigateToVipReferral(vipReferralInfo, navController()) },
+        {
+          buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, "VipReferral")
+          navigator.navigateToVipReferral(vipReferralInfo, navController())
+        },
         vipReferralInfo.vipBonus,
         vipReferralInfo.endDate,
         vipReferralInfo.startDate,
