@@ -188,10 +188,6 @@ public class BuyService {
       return key;
     }
 
-    public TransactionBuilder getTransactionBuilder() {
-      return transactionBuilder;
-    }
-
     public Status getStatus() {
       return status;
     }

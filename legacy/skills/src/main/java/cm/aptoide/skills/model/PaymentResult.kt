@@ -5,7 +5,7 @@ sealed class PaymentResult
 object SuccessfulPayment : PaymentResult()
 
 sealed class FailedPayment : PaymentResult() {
-  data class GenericError(val errorMessage: String?) : FailedPayment()
-  data class FraudError(val errorMessage: String?) : FailedPayment()
+  object GenericError : FailedPayment()
+  object FraudError : FailedPayment()
   object NoNetworkError : FailedPayment()
 }

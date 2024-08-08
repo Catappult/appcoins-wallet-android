@@ -117,7 +117,7 @@ class PayPalIABViewModel @Inject constructor(
             }
 
             PaypalTransaction.PaypalValidityState.PENDING -> {
-              waitForSuccess(it.hash, it.uid, transactionBuilder)
+              waitForSuccess(it.uid, transactionBuilder)
             }
 
             PaypalTransaction.PaypalValidityState.ERROR -> {
@@ -212,7 +212,7 @@ class PayPalIABViewModel @Inject constructor(
     }
   }
 
-  private fun waitForSuccess(hash: String?, uid: String?, transactionBuilder: TransactionBuilder) {
+  private fun waitForSuccess(uid: String?, transactionBuilder: TransactionBuilder) {
     compositeDisposable.add(
       waitForSuccessPaypalUseCase(uid ?: "")
         .subscribeOn(networkScheduler)

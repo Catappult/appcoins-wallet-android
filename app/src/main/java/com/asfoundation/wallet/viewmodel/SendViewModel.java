@@ -33,18 +33,16 @@ public class SendViewModel extends BaseViewModel {
   private final TransferConfirmationRouter transferConfirmationRouter;
   private final TransferParser transferParser;
   private final CompositeDisposable disposables;
-  private final TransactionsRouter transactionsRouter;
   private TransactionBuilder transactionBuilder;
 
   SendViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
       FetchGasSettingsInteract fetchGasSettingsInteract,
-      TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser,
-      TransactionsRouter transactionsRouter) {
+      TransferConfirmationRouter transferConfirmationRouter,
+      TransferParser transferParser) {
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchGasSettingsInteract = fetchGasSettingsInteract;
     this.transferConfirmationRouter = transferConfirmationRouter;
     this.transferParser = transferParser;
-    this.transactionsRouter = transactionsRouter;
     disposables = new CompositeDisposable();
   }
 

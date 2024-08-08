@@ -353,7 +353,6 @@ class BillingAnalytics @Inject constructor(
         uid = txId,
         packageName = packageName,
         usdAmount = valueUsd,
-        appcAmount = value
       )
     }
 

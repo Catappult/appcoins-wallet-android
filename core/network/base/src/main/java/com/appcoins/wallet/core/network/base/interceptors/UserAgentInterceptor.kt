@@ -86,6 +86,3 @@ class UserAgentInterceptor(
     return walletId
   }
 }
-
-class NoContentException(override val message: String) : Throwable()
-class ResetContentException(override val message: String) : Throwable()

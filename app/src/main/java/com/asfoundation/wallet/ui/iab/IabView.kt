@@ -42,7 +42,6 @@ interface IabView {
     paymentType: PaymentType,
     bonus: String?,
     isPreselected: Boolean,
-    iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
     frequency: String?
@@ -55,7 +54,6 @@ interface IabView {
     paymentType: PaymentType,
     bonus: String?,
     isPreselected: Boolean,
-    iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
     frequency: String?
@@ -68,7 +66,6 @@ interface IabView {
     paymentType: PaymentType,
     bonus: String?,
     isPreselected: Boolean,
-    iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
     frequency: String?
@@ -80,9 +77,6 @@ interface IabView {
     isBds: Boolean,
     paymentType: PaymentType,
     bonus: String?,
-    iconUrl: String?,
-    gamificationLevel: Int,
-    isSubscription: Boolean,
     frequency: String?
   )
 
@@ -93,7 +87,6 @@ interface IabView {
     paymentType: PaymentType,
     bonus: String?,
     isPreselected: Boolean,
-    iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
     frequency: String?
@@ -133,7 +126,6 @@ interface IabView {
     callbackUrl: String?,
     orderReference: String?,
     payload: String?,
-    origin: String?,
     paymentMethodIconUrl: String,
     paymentMethodLabel: String,
     async: Boolean,

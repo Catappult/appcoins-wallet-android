@@ -26,10 +26,6 @@ public class AirdropData {
     networkId = UNDEFINED;
   }
 
-  public int getNetworkId() {
-    return networkId;
-  }
-
   @Override public int hashCode() {
     int result = status.hashCode();
     result = 31 * result + (message != null ? message.hashCode() : 0);

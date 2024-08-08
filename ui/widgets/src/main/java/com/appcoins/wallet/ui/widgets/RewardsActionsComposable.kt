@@ -37,7 +37,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
 fun RewardsActions(
-  onClickEskills: () -> Unit,
   onClickPromoCode: () -> Unit,
   onClickGiftCard: () -> Unit,
   onClickChallengeReward: (() -> Unit)?,
@@ -207,12 +206,11 @@ private fun SkeletonLoadingRewardActionCard() {
 @Composable
 private fun PreviewRewardsActions() {
   RewardsActions(
-    { },
-    { },
-    { },
-    { },
-    "RewardFragment",
-    null
+    onClickPromoCode = { },
+    onClickGiftCard = { },
+    onClickChallengeReward = { },
+    fragmentName = "RewardFragment",
+    buttonsAnalytics = null
   )
 }
 

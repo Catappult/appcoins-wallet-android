@@ -85,7 +85,7 @@ class CarrierInteractor @Inject constructor(
       .map { paymentModel ->
         if (paymentModel.error == NoError && isErrorStatus(paymentModel.status)) {
           return@map paymentModel.copy(
-            error = GenericError(false, -1, getErrorReasonFromUri(uri))
+            error = GenericError(-1, getErrorReasonFromUri(uri))
           )
         }
         return@map paymentModel

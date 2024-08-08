@@ -81,11 +81,20 @@ class AppcoinsRewardsTest {
 
     `when`(
       remoteApi.pay(
-        USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, BDS_ORIGIN, SKU, TYPE,
-        STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
-        null,
-        null,
-        null
+        walletAddress = USER_ADDRESS,
+        amount = PRICE,
+        origin = BDS_ORIGIN,
+        sku = SKU,
+        type = TYPE,
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        productToken = null,
+        guestWalletId = null
       )
     ).thenReturn(
       Single.just(
@@ -99,11 +108,20 @@ class AppcoinsRewardsTest {
 
     `when`(
       remoteApi.pay(
-        USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, UNITY_ORIGIN, SKU, TYPE,
-        STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
-        null,
-        null,
-        null
+        walletAddress = USER_ADDRESS,
+        amount = PRICE,
+        origin = UNITY_ORIGIN,
+        sku = SKU,
+        type = TYPE,
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        productToken = null,
+        guestWalletId = null
       )
     ).thenReturn(
       Single.just(
@@ -117,11 +135,20 @@ class AppcoinsRewardsTest {
 
     `when`(
       remoteApi.pay(
-        USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, null, SKU, TYPE,
-        STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
-        null,
-        null,
-        null
+        walletAddress = USER_ADDRESS,
+        amount = PRICE,
+        origin = null,
+        sku = SKU,
+        type = TYPE,
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        productToken = null,
+        guestWalletId = null
       )
     ).thenReturn(
       Single.just(

@@ -38,8 +38,14 @@ class VerificationCodePresenter(
   private fun initializeView(savedInstanceState: Bundle?) {
     if (data.loaded) {
       view.setupUi(
-        data.currency!!, data.symbol!!, data.amount!!, data.digits!!, data.format!!,
-        data.period!!, data.date!!, activityData.isWalletVerified, savedInstanceState
+        symbol = data.symbol!!,
+        amount = data.amount!!,
+        digits = data.digits!!,
+        format = data.format!!,
+        period = data.period!!,
+        date = data.date!!,
+        isWalletVerified = activityData.isWalletVerified,
+        savedInstance = savedInstanceState
       )
       hideLoading()
     } else {
@@ -68,9 +74,14 @@ class VerificationCodePresenter(
             navigator.navigateToError(VerificationCodeResult.ErrorType.OTHER, null, null)
           } else {
             view.setupUi(
-              model.currency!!, model.symbol!!, model.amount!!, model.digits!!,
-              model.format!!, model.period!!, model.date!!, activityData.isWalletVerified,
-              savedInstance
+              symbol = model.symbol!!,
+              amount = model.amount!!,
+              digits = model.digits!!,
+              format = model.format!!,
+              period = model.period!!,
+              date = model.date!!,
+              isWalletVerified = activityData.isWalletVerified,
+              savedInstance = savedInstance
             )
             data = VerificationCodeData(
               true, model.date, model.format, model.amount,

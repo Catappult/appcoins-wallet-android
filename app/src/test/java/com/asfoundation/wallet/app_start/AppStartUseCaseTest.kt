@@ -125,25 +125,12 @@ internal class AppStartUseCaseTest {
       integrationFlow: String = "osp",
       sku: String = "13204",
       packageName: String = "com.igg.android.lordsmobile",
-      callbackUrl: String = "",
-      currency: String = "USD",
-      orderReference: String = "",
-      value: Double = 1.5,
-      signature: String = ""
     ) = StartMode.PendingPurchaseFlow(
-      integrationFlow,
-      sku,
-      packageName,
-      callbackUrl,
-      currency,
-      orderReference,
-      value,
-      signature,
-      "ds",
-      "21",
-      "8362",
-      "",
-       ""
+      integrationFlow = integrationFlow,
+      sku = sku,
+      packageName = packageName,
+      type = "21",
+      backup = ""
     )
 
     @JvmStatic

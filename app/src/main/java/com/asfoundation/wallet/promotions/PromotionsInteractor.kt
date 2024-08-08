@@ -92,11 +92,6 @@ constructor(
       if (!isFuturePromotion(res)) {
         PromotionNotification(
           CardNotificationAction.NONE,
-          res.notificationTitle,
-          res.notificationDescription,
-          res.icon,
-          getPromotionIdKey(res.id, res.startDate, res.endDate),
-          res.detailsLink,
           res.gamificationStatus.toString()
         )
       } else {

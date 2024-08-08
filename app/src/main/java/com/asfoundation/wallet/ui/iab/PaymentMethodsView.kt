@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
-import androidx.annotation.StringRes
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -11,9 +10,11 @@ import java.math.BigDecimal
 interface PaymentMethodsView {
   fun showPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>,
-    currency: String, paymentMethodId: String, fiatAmount: String,
-    appcEnabled: Boolean, creditsEnabled: Boolean,
-    frequency: String?, isSubscription: Boolean
+    currency: String,
+    paymentMethodId: String,
+    fiatAmount: String,
+    frequency: String?,
+    isSubscription: Boolean
   )
 
   fun showPreSelectedPaymentMethod(
@@ -110,7 +111,7 @@ interface PaymentMethodsView {
 
   fun showMiPayWeb(fiatValue: FiatValue)
 
-  fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
+  fun setPurchaseBonus(bonus: BigDecimal, currency: String)
 
   fun onBackPressed(): Observable<Any>
 
@@ -130,7 +131,7 @@ interface PaymentMethodsView {
 
   fun showEarnAppcoins()
 
-  fun showBonus(@StringRes bonusText: Int)
+  fun showBonus()
 
   fun hideBonus()
 

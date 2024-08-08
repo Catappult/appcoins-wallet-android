@@ -97,32 +97,16 @@ public class AirdropService {
       return description;
     }
 
-    public void setDescription(String description) {
-      this.description = description;
-    }
-
     public int getChainId() {
       return chainId;
-    }
-
-    public void setChainId(int chainId) {
-      this.chainId = chainId;
     }
 
     public String getEthTransaction() {
       return ethTransaction;
     }
 
-    public void setEthTransaction(String ethTransaction) {
-      this.ethTransaction = ethTransaction;
-    }
-
     public String getAppcoinsTransaction() {
       return appcoinsTransaction;
-    }
-
-    public void setAppcoinsTransaction(String appcoinsTransaction) {
-      this.appcoinsTransaction = appcoinsTransaction;
     }
   }
 

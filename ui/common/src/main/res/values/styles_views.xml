@@ -42,10 +42,6 @@
     <attr name="digitsRegex" format="string" />
   </declare-styleable>
 
-  <declare-styleable name="AnimatedTextSwitcher">
-    <attr name="toolbarText" format="string" />
-  </declare-styleable>
-
   <style name="ToolbarTextSwitcher" />
 
   <style name="ToolbarTextSwitcher.Title">

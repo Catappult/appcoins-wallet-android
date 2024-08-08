@@ -37,8 +37,7 @@ sealed class OnboardingPaymentResultSideEffect : SideEffect {
     val paymentType: PaymentType
   ) : OnboardingPaymentResultSideEffect()
 
-  data class ShowPaymentSuccess(val purchaseBundleModel: PurchaseBundleModel) :
-    OnboardingPaymentResultSideEffect()
+  object ShowPaymentSuccess : OnboardingPaymentResultSideEffect()
 
   data class NavigateBackToGame(val appPackageName: String) : OnboardingPaymentResultSideEffect()
   object NavigateToExploreWallet : OnboardingPaymentResultSideEffect()
@@ -126,9 +125,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
               events.sendPaymentSuccessFinishEvents(args.transactionBuilder, args.paymentType)
               sendSideEffect {
                 setOnboardingCompletedUseCase()
-                OnboardingPaymentResultSideEffect.ShowPaymentSuccess(
-                  purchaseBundleModel
-                )
+                OnboardingPaymentResultSideEffect.ShowPaymentSuccess
               }
             }.subscribe()
           }

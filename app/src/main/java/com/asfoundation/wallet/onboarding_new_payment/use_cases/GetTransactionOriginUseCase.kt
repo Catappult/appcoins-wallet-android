@@ -10,16 +10,14 @@ class GetTransactionOriginUseCase @Inject constructor(
 ) {
 
   operator fun invoke(transactionBuilder: TransactionBuilder): Single<String?> {
-    return inAppPurchaseInteractor.isWalletFromBds(
-      transactionBuilder.domain,
-      transactionBuilder.toAddress()
-    ).map { isBds ->
-      return@map if (transactionBuilder.origin == null) {
-        if (isBds) "BDS" else null
-      } else {
-        transactionBuilder.origin
+    return inAppPurchaseInteractor.isWalletFromBds(transactionBuilder.domain)
+      .map { isBds ->
+        return@map if (transactionBuilder.origin == null) {
+          if (isBds) "BDS" else null
+        } else {
+          transactionBuilder.origin
+        }
       }
-    }
   }
 }
 

@@ -257,29 +257,4 @@ import javax.crypto.spec.IvParameterSpec;
   public static byte[] get(Context context, String address) throws ServiceErrorException {
     return getData(context, address, address, address + "iv");
   }
-
-  public static void showAuthenticationScreen(Context context, int requestCode) {
-    // Create the Confirm Credentials screen. You can customize the title and description. Or
-    // we will provide a generic one for you if you leave it null
-    Log.e(TAG, "showAuthenticationScreen: ");
-    if (context instanceof Activity) {
-      Activity app = (Activity) context;
-      KeyguardManager mKeyguardManager =
-          (KeyguardManager) app.getSystemService(Context.KEYGUARD_SERVICE);
-      if (mKeyguardManager == null) {
-        return;
-      }
-      Intent intent = mKeyguardManager.createConfirmDeviceCredentialIntent(
-          context.getString(R.string.unlock_screen_title_android),
-          context.getString(R.string.unlock_screen_prompt_android));
-      if (intent != null) {
-        app.startActivityForResult(intent, requestCode);
-      } else {
-        Log.e(TAG, "showAuthenticationScreen: failed to create intent for auth");
-        app.finish();
-      }
-    } else {
-      Log.e(TAG, "showAuthenticationScreen: context is not activity!");
-    }
-  }
 }

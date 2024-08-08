@@ -1,12 +1,9 @@
 package com.asf.util;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,34 +12,6 @@ public final class ReflectionUtils {
       new ConcurrentHashMap<Class, Collection<Field>>();
 
   private ReflectionUtils() {
-  }
-
-  public static Annotation getMethodAnnotation(Method method, Class annoClass) {
-    Annotation a = method.getAnnotation(annoClass);
-    if (a != null) {
-      return a;
-    }
-
-    Class[] interfaces = method.getDeclaringClass()
-        .getInterfaces();
-    if (interfaces != null) {
-      for (Class interFace : interfaces) {
-        Method m = getMethod(interFace, method.getName(), method.getParameterTypes());
-        a = m.getAnnotation(annoClass);
-        if (a != null) {
-          return a;
-        }
-      }
-    }
-    return null;
-  }
-
-  public static Method getMethod(Class c, String method, Class... types) {
-    try {
-      return c.getMethod(method, types);
-    } catch (Exception nse) {
-      return null;
-    }
   }
 
   public static Collection<Field> getDeepDeclaredFields(Class c) {
@@ -79,21 +48,5 @@ public final class ReflectionUtils {
     }
     _reflectedFields.put(c, fields);
     return fields;
-  }
-
-  public static Map<String, Field> getDeepDeclaredFieldMap(Class c) {
-    Map<String, Field> fieldMap = new HashMap<String, Field>();
-    Collection<Field> fields = getDeepDeclaredFields(c);
-    for (Field field : fields) {
-      String fieldName = field.getName();
-      if (fieldMap.containsKey(fieldName)) {
-        fieldMap.put(field.getDeclaringClass()
-            .getName() + '.' + fieldName, field);
-      } else {
-        fieldMap.put(fieldName, field);
-      }
-    }
-
-    return fieldMap;
   }
 }

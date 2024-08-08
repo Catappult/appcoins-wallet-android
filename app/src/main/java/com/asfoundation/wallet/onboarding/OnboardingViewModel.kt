@@ -130,7 +130,7 @@ class OnboardingViewModel @Inject constructor(
       )
     ).flatMap { setDefaultWallet(it) }.doOnSuccess { handleRecoverResult(it, verificationFlow) }
       .doOnError {
-        handleRecoverResult(FailedEntryRecover.GenericError(), verificationFlow)
+        handleRecoverResult(FailedEntryRecover.GenericError, verificationFlow)
         walletsEventSender.sendWalletCompleteRestoreEvent(
           WalletsAnalytics.STATUS_FAIL, it.message
         )

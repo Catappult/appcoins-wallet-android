@@ -20,7 +20,7 @@ sealed class Async<out T>(val value: T? = null) {
    * Previous value should not be here, however due to the way our architecture is setup, this is
    * currently needed for certain cases (e.g. offline first flows).
    */
-  data class Success<out T>(private val currentValue: T, val previousValue: T? = null) :
+  data class Success<out T>(private val currentValue: T) :
     Async<T>(currentValue) {
     override operator fun invoke(): T = currentValue
   }

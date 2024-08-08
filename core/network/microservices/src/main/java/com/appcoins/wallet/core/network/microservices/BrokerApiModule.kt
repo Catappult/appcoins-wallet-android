@@ -120,7 +120,6 @@ class BrokerApiModule {
   @Provides
   fun providesCarrierBillingApi1(
     @DefaultHttpClient client: OkHttpClient,
-    @BrokerDefaultRetrofit retrofit: Retrofit,
     rxSchedulers: RxSchedulers
   ): CarrierBillingApi {
     val gson = GsonBuilder().registerTypeAdapter(

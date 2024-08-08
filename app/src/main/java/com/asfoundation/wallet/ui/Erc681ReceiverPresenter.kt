@@ -37,10 +37,7 @@ internal class Erc681ReceiverPresenter(
               }
               .flatMap { transactionBuilder ->
                 partnerAddressService.setOemIdFromSdk(transactionBuilder.oemIdSdk)
-                inAppPurchaseInteractor.isWalletFromBds(
-                  transactionBuilder.domain,
-                  transactionBuilder.toAddress()
-                )
+                inAppPurchaseInteractor.isWalletFromBds(transactionBuilder.domain)
                   .doOnSuccess { isBds -> view.startEipTransfer(transactionBuilder, isBds) }
               }
               .toObservable()

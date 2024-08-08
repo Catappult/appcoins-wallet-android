@@ -64,7 +64,7 @@ fun GamesBundle(
       }
     } else {
       items(items) { item ->
-        CardItem(gameCardData = item, sendPromotionClickEvent) {
+        CardItem(gameCardData = item) {
           openGame(item.gamePackage, item.actionUrl, context, sendPromotionClickEvent)
         }
       }
@@ -76,7 +76,6 @@ fun GamesBundle(
 @Composable
 private fun CardItem(
   gameCardData: GameData,
-  sendPromotionClickEvent: (String?, String) -> Unit,
   onClick: () -> Unit,
 ) {
   Card(

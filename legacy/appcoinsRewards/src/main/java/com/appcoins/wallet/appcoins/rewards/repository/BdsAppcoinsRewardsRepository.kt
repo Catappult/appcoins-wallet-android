@@ -31,9 +31,20 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
   )
       : Single<Transaction> {
     return remoteRepository.pay(
-      walletAddress, signature, amount, origin, sku,
-      type, entityOemId, entityDomain, packageName, payload, callback,
-      orderReference, referrerUrl, productToken, guestWalletId
+      walletAddress = walletAddress,
+      amount = amount,
+      origin = origin,
+      sku = sku,
+      type = type,
+      entityOemId = entityOemId,
+      entityDomain = entityDomain,
+      packageName = packageName,
+      payload = payload,
+      callback = callback,
+      orderReference = orderReference,
+      referrerUrl = referrerUrl,
+      productToken = productToken,
+      guestWalletId = guestWalletId
     )
   }
 

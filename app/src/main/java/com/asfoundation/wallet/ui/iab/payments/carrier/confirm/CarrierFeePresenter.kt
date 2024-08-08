@@ -23,8 +23,13 @@ class CarrierFeePresenter(
 
   private fun initializeView() {
     view.initializeView(
-      data.currency, data.fiatAmount, data.appcAmount, data.skuDescription,
-      data.bonusAmount, data.carrierName, data.carrierImage, data.feeFiatAmount
+      currency = data.currency,
+      fiatAmount = data.fiatAmount,
+      appcAmount = data.appcAmount,
+      skuDescription = data.skuDescription,
+      bonusAmount = data.bonusAmount,
+      carrierImage = data.carrierImage,
+      carrierFeeFiat = data.feeFiatAmount
     )
     disposables.add(
       appInfoProvider.getApplicationInfo(data.domain)

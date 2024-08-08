@@ -7,9 +7,13 @@ import java.math.BigDecimal
 interface CarrierFeeView {
 
   fun initializeView(
-    currency: String, fiatAmount: BigDecimal, appcAmount: BigDecimal,
-    skuDescription: String, bonusAmount: BigDecimal?, carrierName: String,
-    carrierImage: String, carrierFeeFiat: BigDecimal
+    currency: String,
+    fiatAmount: BigDecimal,
+    appcAmount: BigDecimal,
+    skuDescription: String,
+    bonusAmount: BigDecimal?,
+    carrierImage: String,
+    carrierFeeFiat: BigDecimal
   )
 
   fun setAppDetails(appName: String, icon: Drawable)

@@ -72,7 +72,7 @@ class RecoverEntryViewModel @Inject constructor(
     when {
       isKeystoreUseCase(key = keyStore.contents) -> recoverEntryKeystoreUseCase(keyStore = keyStore)
       keyStore.contents.length == 64 -> recoverEntryPrivateKeyUseCase(keyStore = keyStore)
-      else -> Single.just(FailedEntryRecover.InvalidPrivateKey())
+      else -> Single.just(FailedEntryRecover.InvalidPrivateKey)
     }
 
   private fun setDefaultWallet(recoverResult: RecoverEntryResult): Single<RecoverEntryResult> =

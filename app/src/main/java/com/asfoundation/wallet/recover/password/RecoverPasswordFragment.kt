@@ -73,7 +73,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
       }
 
       is Async.Fail -> {
-        handleErrorState(FailedPasswordRecover.GenericError(asyncRecoverResult.error.throwable))
+        handleErrorState(FailedPasswordRecover.GenericError)
       }
 
       is Async.Success -> {

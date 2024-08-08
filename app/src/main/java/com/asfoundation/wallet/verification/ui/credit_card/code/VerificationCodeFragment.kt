@@ -108,8 +108,13 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
 
 
   override fun setupUi(
-    currency: String, symbol: String, amount: String, digits: Int,
-    format: String, period: String, date: Long, isWalletVerified: Boolean,
+    symbol: String,
+    amount: String,
+    digits: Int,
+    format: String,
+    period: String,
+    date: Long,
+    isWalletVerified: Boolean,
     savedInstance: Bundle?
   ) {
     val amountFormat = formatter.formatCurrency(amount, WalletCurrency.FIAT)

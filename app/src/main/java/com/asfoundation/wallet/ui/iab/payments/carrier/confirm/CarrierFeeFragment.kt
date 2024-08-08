@@ -81,10 +81,13 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   }
 
   override fun initializeView(
-    currency: String, fiatAmount: BigDecimal,
-    appcAmount: BigDecimal, skuDescription: String,
-    bonusAmount: BigDecimal?, carrierName: String,
-    carrierImage: String, carrierFeeFiat: BigDecimal
+    currency: String,
+    fiatAmount: BigDecimal,
+    appcAmount: BigDecimal,
+    skuDescription: String,
+    bonusAmount: BigDecimal?,
+    carrierImage: String,
+    carrierFeeFiat: BigDecimal
   ) {
     (views.dialogBuyButtonsPaymentMethods?.buyButton
       ?: views.dialogBuyButtons?.buyButton!!).isEnabled = true

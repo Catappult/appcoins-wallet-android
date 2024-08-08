@@ -52,8 +52,8 @@ class AppCoinsCreditsPayment @Inject constructor(
           .flatMap { Single.just(SuccessfulPayment) }
       }
 
-      Status.ERROR -> Single.just(FailedPayment.GenericError(transaction.errorMessage))
-      Status.FORBIDDEN -> Single.just(FailedPayment.FraudError(transaction.errorMessage))
+      Status.ERROR -> Single.just(FailedPayment.GenericError)
+      Status.FORBIDDEN -> Single.just(FailedPayment.FraudError)
       Status.NO_NETWORK -> Single.just(FailedPayment.NoNetworkError)
       else -> Single.just(SuccessfulPayment)
     }

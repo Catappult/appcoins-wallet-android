@@ -8,10 +8,10 @@ sealed class PromoCodeResult
 data class SuccessfulPromoCode(val promoCode: PromoCode) : PromoCodeResult()
 
 sealed class FailedPromoCode : PromoCodeResult() {
-  data class GenericError(val throwable: Throwable? = null) : FailedPromoCode()
-  data class InvalidCode(val throwable: Throwable? = null) : FailedPromoCode()
-  data class ExpiredCode(val throwable: Throwable? = null) : FailedPromoCode()
-  data class CodeNotAdded(val throwable: Throwable? = null) : FailedPromoCode()
+  object GenericError : FailedPromoCode()
+  object InvalidCode : FailedPromoCode()
+  object ExpiredCode : FailedPromoCode()
+  object CodeNotAdded : FailedPromoCode()
   object UserOwnPromoCode : FailedPromoCode()
 }
 
@@ -19,11 +19,11 @@ class PromoCodeMapper {
   fun map(promoCode: PromoCode): PromoCodeResult {
     return when (promoCode.validity) {
       ValidityState.ACTIVE -> SuccessfulPromoCode(promoCode)
-      ValidityState.EXPIRED -> FailedPromoCode.ExpiredCode()
-      ValidityState.ERROR -> FailedPromoCode.InvalidCode()
-      ValidityState.NOT_ADDED -> FailedPromoCode.CodeNotAdded()
+      ValidityState.EXPIRED -> FailedPromoCode.ExpiredCode
+      ValidityState.ERROR -> FailedPromoCode.InvalidCode
+      ValidityState.NOT_ADDED -> FailedPromoCode.CodeNotAdded
       ValidityState.USER_OWN_PROMO_CODE-> FailedPromoCode.UserOwnPromoCode
-      else -> FailedPromoCode.CodeNotAdded()
+      else -> FailedPromoCode.CodeNotAdded
     }
   }
 }

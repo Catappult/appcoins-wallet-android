@@ -101,15 +101,6 @@ public class Transaction {
     this(nonce, gasPrice, gasLimit, receiveAddress, value, data, r, s, v, null);
   }
 
-  public static Transaction createDefault(String to, BigInteger amount, BigInteger nonce) {
-    return create(to, amount, nonce, DEFAULT_GAS_PRICE, DEFAULT_BALANCE_GAS);
-  }
-
-  public static Transaction createDefault(String to, BigInteger amount, BigInteger nonce,
-      Integer chainId) {
-    return create(to, amount, nonce, DEFAULT_GAS_PRICE, DEFAULT_BALANCE_GAS, chainId);
-  }
-
   public static Transaction create(String to, BigInteger amount, BigInteger nonce,
       BigInteger gasPrice, BigInteger gasLimit) {
     return new Transaction(BigIntegers.asUnsignedByteArray(nonce),

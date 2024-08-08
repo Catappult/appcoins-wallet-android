@@ -34,7 +34,7 @@ import javax.inject.Inject
 
 sealed class VkPaymentIABSideEffect : SideEffect {
   object ShowLoading : VkPaymentIABSideEffect()
-  data class ShowError(val message: Int? = R.string.unknown_error) : VkPaymentIABSideEffect()
+  object ShowError : VkPaymentIABSideEffect()
   object ShowSuccess : VkPaymentIABSideEffect()
   data class SendSuccessBundle(val bundle: Bundle) : VkPaymentIABSideEffect()
   object PaymentLinkSuccess : VkPaymentIABSideEffect()
@@ -116,7 +116,7 @@ class VkPaymentIABViewModel @Inject constructor(
     }.doOnSubscribe {
       sendSideEffect { VkPaymentIABSideEffect.ShowLoading }
     }.doOnError {
-      sendSideEffect { VkPaymentIABSideEffect.ShowError() }
+      sendSideEffect { VkPaymentIABSideEffect.ShowError }
     }
       .scopedSubscribe()
   }
@@ -135,7 +135,7 @@ class VkPaymentIABViewModel @Inject constructor(
       // Set up a CoroutineJob that will automatically cancel after 600 seconds
       jobTransactionStatus = viewModelScope.launch {
         delay(JOB_TIMEOUT_MS)
-        sendSideEffect { VkPaymentIABSideEffect.ShowError() }
+        sendSideEffect { VkPaymentIABSideEffect.ShowError }
         timerTransactionStatus.cancel()
       }
     }
@@ -222,11 +222,7 @@ class VkPaymentIABViewModel @Inject constructor(
           Transaction.Status.CANCELED,
           Transaction.Status.FRAUD -> {
             stopTransactionStatusTimer()
-            sendSideEffect {
-              VkPaymentIABSideEffect.ShowError(
-                R.string.purchase_error_wallet_block_code_403
-              )
-            }
+            sendSideEffect { VkPaymentIABSideEffect.ShowError }
           }
 
           Transaction.Status.PENDING,
@@ -247,7 +243,7 @@ class VkPaymentIABViewModel @Inject constructor(
     transactionBuilder: TransactionBuilder?
   ) {
     if (transactionBuilder == null) {
-      sendSideEffect { VkPaymentIABSideEffect.ShowError() }
+      sendSideEffect { VkPaymentIABSideEffect.ShowError }
       return
     }
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(
@@ -264,7 +260,7 @@ class VkPaymentIABViewModel @Inject constructor(
     ).doOnSuccess {
       sendSideEffect { VkPaymentIABSideEffect.SendSuccessBundle(it.bundle) }
     }.subscribeOn(viewScheduler).observeOn(viewScheduler).doOnError {
-      sendSideEffect { VkPaymentIABSideEffect.ShowError() }
+      sendSideEffect { VkPaymentIABSideEffect.ShowError }
     }.subscribe()
   }
 

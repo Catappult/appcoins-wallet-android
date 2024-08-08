@@ -13,9 +13,8 @@ sealed class RecoverEntryResult
 data class SuccessfulEntryRecover(val address: String, val name: String?) : RecoverEntryResult()
 
 sealed class FailedEntryRecover : RecoverEntryResult() {
-  data class GenericError(val throwable: Throwable? = null) : FailedEntryRecover()
+  object GenericError : FailedEntryRecover()
   data class InvalidPassword(
-    val throwable: Throwable? = null,
     val keyStore: WalletKeyStore,
     val address: String,
     val amount: String,
@@ -23,9 +22,9 @@ sealed class FailedEntryRecover : RecoverEntryResult() {
     val symbol: String
   ) : FailedEntryRecover()
 
-  data class AlreadyAdded(val throwable: Throwable? = null) : FailedEntryRecover()
-  data class InvalidKeystore(val throwable: Throwable? = null) : FailedEntryRecover()
-  data class InvalidPrivateKey(val throwable: Throwable? = null) : FailedEntryRecover()
+  object AlreadyAdded : FailedEntryRecover()
+  object InvalidKeystore : FailedEntryRecover()
+  object InvalidPrivateKey : FailedEntryRecover()
 }
 
 class RecoverEntryResultMapper(
@@ -38,13 +37,13 @@ class RecoverEntryResultMapper(
       Single.just(SuccessfulEntryRecover(restoreResult.address, walletKeyStore.name))
 
     is FailedRestore.AlreadyAdded ->
-      Single.just(FailedEntryRecover.AlreadyAdded(restoreResult.throwable))
+      Single.just(FailedEntryRecover.AlreadyAdded)
 
     is FailedRestore.GenericError ->
-      Single.just(FailedEntryRecover.GenericError(restoreResult.throwable))
+      Single.just(FailedEntryRecover.GenericError)
 
     is FailedRestore.InvalidKeystore ->
-      Single.just(FailedEntryRecover.InvalidKeystore(restoreResult.throwable))
+      Single.just(FailedEntryRecover.InvalidKeystore)
 
     is FailedRestore.InvalidPassword -> getWalletInfoUseCase(
       address = restoreResult.address,
@@ -52,7 +51,6 @@ class RecoverEntryResultMapper(
     )
       .map {
         FailedEntryRecover.InvalidPassword(
-          throwable = restoreResult.throwable,
           keyStore = walletKeyStore,
           address = it.wallet,
           amount = currencyFormatUtils.formatCurrency(it.walletBalance.overallFiat.amount),
@@ -62,6 +60,6 @@ class RecoverEntryResultMapper(
       }
 
     is FailedRestore.InvalidPrivateKey ->
-      Single.just(FailedEntryRecover.InvalidPrivateKey(restoreResult.throwable))
+      Single.just(FailedEntryRecover.InvalidPrivateKey)
   }
 }

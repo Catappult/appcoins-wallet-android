@@ -117,7 +117,7 @@ class OnChainBuyPresenter(
 
   private fun close() = view.close(billingMessagesMapper.mapCancellation())
 
-  private fun showError(throwable: Throwable?, message: String? = null, userMessage: Int? = null) {
+  private fun showError(throwable: Throwable?, message: String? = null) {
     logger.log(TAG, message, throwable)
     if (throwable is UnknownTokenException) view.showWrongNetworkError()
     else view.showError()
@@ -185,7 +185,7 @@ class OnChainBuyPresenter(
         .andThen(onChainBuyInteract.remove(transaction.uri))
 
       Payment.Status.SUB_ALREADY_OWNED -> Completable.fromAction {
-        showError(null, "Sub Already Owned", R.string.subscriptions_error_already_subscribed)
+        showError(null, "Sub Already Owned")
       }
 
       Payment.Status.ERROR -> Completable.fromAction {

@@ -77,10 +77,6 @@ public class ECKey implements Serializable {
   private transient byte[] pubKeyHash;
   private transient byte[] nodeId;
 
-  public ECKey() {
-    this(secureRandom);
-  }
-
   public ECKey(Provider provider, SecureRandom secureRandom) {
     this.provider = provider;
 
@@ -100,10 +96,6 @@ public class ECKey implements Serializable {
           + " to produce a subtype of ECPublicKey, found "
           + pubKey.getClass());
     }
-  }
-
-  public ECKey(SecureRandom secureRandom) {
-    this(SpongyCastleProvider.getInstance(), secureRandom);
   }
 
   public ECKey(Provider provider, @Nullable PrivateKey privKey, ECPoint pub) {
@@ -166,30 +158,9 @@ public class ECKey implements Serializable {
     return fromPrivate(new BigInteger(1, privKeyBytes));
   }
 
-  public static ECKey fromPrivateAndPrecalculatedPublic(BigInteger priv, ECPoint pub) {
-    return new ECKey(priv, pub);
-  }
-
-  public static ECKey fromPrivateAndPrecalculatedPublic(byte[] priv, byte[] pub) {
-    check(priv != null, "Private key must not be null");
-    check(pub != null, "Public key must not be null");
-    return new ECKey(new BigInteger(1, priv), CURVE.getCurve()
-        .decodePoint(pub));
-  }
-
-  public static ECKey fromPublicOnly(ECPoint pub) {
-    return new ECKey(null, pub);
-  }
-
   public static ECKey fromPublicOnly(byte[] pub) {
     return new ECKey(null, CURVE.getCurve()
         .decodePoint(pub));
-  }
-
-  public static byte[] publicKeyFromPrivate(BigInteger privKey, boolean compressed) {
-    ECPoint point = CURVE.getG()
-        .multiply(privKey);
-    return point.getEncoded(compressed);
   }
 
   public static byte[] computeAddress(byte[] pubBytes) {
@@ -203,14 +174,6 @@ public class ECKey implements Serializable {
   public static byte[] pubBytesWithoutFormat(ECPoint pubPoint) {
     byte[] pubBytes = pubPoint.getEncoded(/* uncompressed */ false);
     return Arrays.copyOfRange(pubBytes, 1, pubBytes.length);
-  }
-
-  public static ECKey fromNodeId(byte[] nodeId) {
-    check(nodeId.length == 64, "Expected a 64 byte node id");
-    byte[] pubBytes = new byte[65];
-    System.arraycopy(nodeId, 0, pubBytes, 1, nodeId.length);
-    pubBytes[0] = 0x04;
-    return fromPublicOnly(pubBytes);
   }
 
   public static byte[] signatureToKeyBytes(byte[] messageHash, String signatureBase64)
@@ -247,26 +210,9 @@ public class ECKey implements Serializable {
     return key;
   }
 
-  public static byte[] signatureToAddress(byte[] messageHash, String signatureBase64)
-      throws SignatureException {
-    return computeAddress(signatureToKeyBytes(messageHash, signatureBase64));
-  }
-
   public static byte[] signatureToAddress(byte[] messageHash, ECDSASignature sig)
       throws SignatureException {
     return computeAddress(signatureToKeyBytes(messageHash, sig));
-  }
-
-  public static ECKey signatureToKey(byte[] messageHash, String signatureBase64)
-      throws SignatureException {
-    byte[] keyBytes = signatureToKeyBytes(messageHash, signatureBase64);
-    return fromPublicOnly(keyBytes);
-  }
-
-  public static ECKey signatureToKey(byte[] messageHash, ECDSASignature sig)
-      throws SignatureException {
-    byte[] keyBytes = signatureToKeyBytes(messageHash, sig);
-    return fromPublicOnly(keyBytes);
   }
 
   public static boolean verify(byte[] data, ECDSASignature signature, byte[] pub) {
@@ -326,16 +272,6 @@ public class ECKey implements Serializable {
     return q.getEncoded(/* compressed */ false);
   }
 
-  @Nullable public static byte[] recoverAddressFromSignature(int recId, ECDSASignature sig,
-      byte[] messageHash) {
-    byte[] pubBytes = recoverPubBytesFromSignature(recId, sig, messageHash);
-    if (pubBytes == null) {
-      return null;
-    } else {
-      return computeAddress(pubBytes);
-    }
-  }
-
   @Nullable
   public static ECKey recoverFromSignature(int recId, ECDSASignature sig, byte[] messageHash) {
     byte[] pubBytes = recoverPubBytesFromSignature(recId, sig, messageHash);
@@ -358,14 +294,6 @@ public class ECKey implements Serializable {
     if (!test) throw new IllegalArgumentException(message);
   }
 
-  public boolean isPubKeyOnly() {
-    return privKey == null;
-  }
-
-  public boolean hasPrivKey() {
-    return privKey != null;
-  }
-
   public byte[] getAddress() {
     if (pubKeyHash == null) {
       pubKeyHash = computeAddress(this.pub);
@@ -373,40 +301,8 @@ public class ECKey implements Serializable {
     return pubKeyHash;
   }
 
-  public byte[] getNodeId() {
-    if (nodeId == null) {
-      nodeId = pubBytesWithoutFormat(this.pub);
-    }
-    return nodeId;
-  }
-
   public byte[] getPubKey() {
     return pub.getEncoded(/* compressed */ false);
-  }
-
-  public ECPoint getPubKeyPoint() {
-    return pub;
-  }
-
-  public BigInteger getPrivKey() {
-    if (privKey == null) {
-      throw new MissingPrivateKeyException();
-    } else if (privKey instanceof BCECPrivateKey) {
-      return ((BCECPrivateKey) privKey).getD();
-    } else {
-      throw new MissingPrivateKeyException();
-    }
-  }
-
-  public String toStringWithPrivate() {
-    StringBuilder b = new StringBuilder();
-    b.append(this);
-    if (privKey != null && privKey instanceof BCECPrivateKey) {
-      b.append(" priv:")
-          .append(Hex.toHexString(((BCECPrivateKey) privKey).getD()
-              .toByteArray()));
-    }
-    return b.toString();
   }
 
   public ECDSASignature doSign(byte[] input) {
@@ -461,20 +357,6 @@ public class ECKey implements Serializable {
 
   public boolean verify(byte[] sigHash, ECDSASignature signature) {
     return verify(sigHash, signature, getPubKey());
-  }
-
-  public boolean isPubKeyCanonical() {
-    return isPubKeyCanonical(pub.getEncoded(/* uncompressed */ false));
-  }
-
-  @Nullable public byte[] getPrivKeyBytes() {
-    if (privKey == null) {
-      return null;
-    } else if (privKey instanceof BCECPrivateKey) {
-      return bigIntegerToBytes(((BCECPrivateKey) privKey).getD(), 32);
-    } else {
-      return null;
-    }
   }
 
   @Override public int hashCode() {

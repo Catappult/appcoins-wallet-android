@@ -7,5 +7,5 @@ object SuccessfulRedeem : RedeemCode()
 sealed class FailedRedeem : RedeemCode() {
   object AlreadyRedeemedError : FailedRedeem()  // 450
   object OnlyNewUsersError : FailedRedeem()     // 451
-  data class GenericError(val detail: String) : FailedRedeem()  // all others
+  object GenericError : FailedRedeem()  // all others
 }

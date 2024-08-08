@@ -107,10 +107,6 @@ public abstract class DigestEngine implements Digest {
     return inputBuf;
   }
 
-  protected long getBlockCount() {
-    return blockCount;
-  }
-
   protected Digest copyState(DigestEngine dest) {
     dest.inputLen = inputLen;
     dest.blockCount = blockCount;

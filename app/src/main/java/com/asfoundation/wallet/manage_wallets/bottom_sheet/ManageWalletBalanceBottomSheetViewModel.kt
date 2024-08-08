@@ -39,10 +39,7 @@ class ManageWalletBalanceBottomSheetViewModel @Inject constructor(
 
   sealed class UiState {
     object Loading : UiState()
-    data class Success(
-      val activeWalletInfo: WalletInfo,
-      val inactiveWallets: List<WalletInfoSimple>
-    ) : UiState()
+    object Success : UiState()
   }
 
 }

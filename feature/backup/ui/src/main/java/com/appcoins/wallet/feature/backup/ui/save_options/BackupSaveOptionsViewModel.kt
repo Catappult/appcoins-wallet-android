@@ -16,7 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 sealed class BackupSaveOptionsSideEffect : SideEffect {
-  data class NavigateToSuccess(val walletAddress: String) : BackupSaveOptionsSideEffect()
+  object NavigateToSuccess : BackupSaveOptionsSideEffect()
   object ShowError : BackupSaveOptionsSideEffect()
 }
 
@@ -30,7 +30,6 @@ constructor(
   private val sendBackupToEmailUseCase: SendBackupToEmailUseCase,
   private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
   private val postUserEmailUseCase: PostUserEmailUseCase,
-  private val emailPreferencesDataSource: EmailPreferencesDataSource,
   private val logger: Logger,
 ) : BaseViewModel<BackupSaveOptionsState, BackupSaveOptionsSideEffect>(initialState()) {
 
@@ -50,7 +49,7 @@ constructor(
     sendBackupToEmailUseCase(walletAddress, password, email)
       .andThen(backupSuccessLogUseCase(walletAddress))
       .doOnComplete {
-        sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(walletAddress) }
+        sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess }
       }
       .doOnError { showError(it) }
       .subscribe()
