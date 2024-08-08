@@ -133,6 +133,7 @@ interface EventSender {
     value: String,
     transactionType: String?,
     context: String,
+    oemId: String?,
     purchaseDetails: String? = null,
     isOnboardingPayment: Boolean = false
   )

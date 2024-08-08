@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.backend.model.enums.RefundDisclaimerEnum
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
@@ -29,6 +30,7 @@ class IabPresenter @Inject constructor(
   private val disposable: CompositeDisposable,
   private val billingAnalytics: BillingAnalytics,
   private val iabInteract: IabInteract,
+  private val addressService: AddressService,
   private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
   private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
   private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
@@ -132,28 +134,34 @@ class IabPresenter @Inject constructor(
   }
 
   private fun handlePurchaseStartAnalytics(transaction: TransactionBuilder?) {
-    disposable.add(Completable.fromAction {
-      if (firstImpression) {
-        if (iabInteract.hasPreSelectedPaymentMethod()) {
-          billingAnalytics.sendPurchaseStartEvent(
-            packageName = transaction?.domain,
-            skuDetails = transaction?.skuId,
-            value = transaction?.amount().toString(),
-            purchaseDetails = iabInteract.getPreSelectedPaymentMethod(),
-            transactionType = transaction?.type,
-            context = BillingAnalytics.WALLET_PRESELECTED_PAYMENT_METHOD
-          )
-        } else {
-          billingAnalytics.sendPurchaseStartEvent(
-            packageName = transaction?.domain,
-            skuDetails = transaction?.skuId,
-            value = transaction?.amount().toString(),
-            transactionType = transaction?.type,
-            context = BillingAnalytics.WALLET_PAYMENT_METHOD
-          )
+    disposable.add(
+      addressService.getAttribution(transaction?.domain ?: "")
+        .flatMapCompletable { attribution ->
+          Completable.fromAction {
+            if (firstImpression) {
+              if (iabInteract.hasPreSelectedPaymentMethod()) {
+                billingAnalytics.sendPurchaseStartEvent(
+                  packageName = transaction?.domain,
+                  skuDetails = transaction?.skuId,
+                  value = transaction?.amount().toString(),
+                  purchaseDetails = iabInteract.getPreSelectedPaymentMethod(),
+                  transactionType = transaction?.type,
+                  context = BillingAnalytics.WALLET_PRESELECTED_PAYMENT_METHOD,
+                  oemId = attribution.oemId,
+                )
+              } else {
+                billingAnalytics.sendPurchaseStartEvent(
+                  packageName = transaction?.domain,
+                  skuDetails = transaction?.skuId,
+                  value = transaction?.amount().toString(),
+                  transactionType = transaction?.type,
+                  context = BillingAnalytics.WALLET_PAYMENT_METHOD,
+                  oemId = attribution.oemId,
+                )
+              }
+              firstImpression = false
+            }
         }
-        firstImpression = false
-      }
     }
       .subscribeOn(networkScheduler)
       .subscribe({}, { it.printStackTrace() }))
