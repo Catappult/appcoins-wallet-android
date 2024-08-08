@@ -82,8 +82,6 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     }
   }
 
-  override fun getCallingPackage(): String? = super.getCallingPackage()
-
   override fun startEipTransfer(transactionBuilder: TransactionBuilder, isBds: Boolean) {
     val intent: Intent = if (intent.data != null && intent.data.toString()
         .contains("/buy?")

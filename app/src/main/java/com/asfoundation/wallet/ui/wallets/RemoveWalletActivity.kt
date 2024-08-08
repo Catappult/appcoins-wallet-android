@@ -94,10 +94,6 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
       .commit()
   }
 
-  override fun finish() {
-    super.finish()
-  }
-
   override fun navigateToBackUp(walletAddress: String) =
     startActivity(
       com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(this, walletAddress, false)

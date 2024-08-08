@@ -64,10 +64,6 @@ class WatchedTransactionServiceTest {
   }
 
   @Test
-  fun start() {
-  }
-
-  @Test
   fun sendTransaction() {
     watchedTransactionService.start()
     scheduler.triggerActions()
