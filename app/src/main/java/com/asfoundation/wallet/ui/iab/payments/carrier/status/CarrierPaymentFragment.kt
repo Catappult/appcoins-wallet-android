@@ -117,7 +117,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
     views.completePaymentView.lottieTransactionSuccess.duration
 
   companion object {
-    val TAG = CarrierPaymentFragment::class.java.simpleName
+    val TAG: String? = CarrierPaymentFragment::class.java.simpleName
 
     internal const val DOMAIN_KEY = "domain"
     internal const val TRANSACTION_DATA_KEY = "transaction_data"

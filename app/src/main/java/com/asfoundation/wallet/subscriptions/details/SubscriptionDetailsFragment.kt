@@ -64,7 +64,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
 
   override fun getRenewSubscriptionClicks() = RxView.clicks(binding.renewSubscription)
 
-  override fun getRetryClicks() =
+  override fun getRetryClicks(): Observable<Any> =
     Observable.merge(
       RxView.clicks(binding.genericErrorRetryOnlyLayout.genericRetryButton),
       RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)

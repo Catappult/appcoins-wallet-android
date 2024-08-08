@@ -42,6 +42,6 @@ class GooglePayReturnActivity : BaseActivity() {
   }
 
   companion object {
-    val TAG = GooglePayReturnActivity::class.java.name
+    val TAG: String? = GooglePayReturnActivity::class.java.name
   }
 }
