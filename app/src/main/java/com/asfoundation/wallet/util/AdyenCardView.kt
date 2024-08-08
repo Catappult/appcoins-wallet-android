@@ -24,7 +24,7 @@ class AdyenCardView(view: View?) {
   val adyenCardImageLayout: RoundCornerImageView? =
     cardView?.findViewById(R.id.cardBrandLogo_imageView_primary)
   val adyenSaveDetailsSwitch: SwitchCompat? =
-    (cardView?.findViewById(R.id.switch_storePaymentMethod) as SwitchCompat?)?.apply {
+    cardView?.findViewById<SwitchCompat>(R.id.switch_storePaymentMethod)?.apply {
       handleSwitchTint()
       isChecked = true
     }
