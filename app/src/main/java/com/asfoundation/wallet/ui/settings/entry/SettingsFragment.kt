@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -20,6 +21,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.PageViewAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics
@@ -60,6 +62,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private var switchSubject: PublishSubject<Unit>? = null
   private lateinit var authenticationResultLauncher: ActivityResultLauncher<Intent>
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
   private val manageCardSharedViewModel: ManageCardSharedViewModel by activityViewModels()
 
   companion object {
@@ -89,7 +95,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     presenter.present(savedInstanceState)
     view.findViewById<ComposeView>(R.id.app_bar).apply {
       setContent {
-        TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() })
+        TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
       }
     }
     if (manageCardSharedViewModel.isCardSaved.value) {

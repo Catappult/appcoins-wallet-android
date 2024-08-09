@@ -27,6 +27,7 @@ import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
@@ -69,6 +70,10 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
   @Inject
   lateinit var adyenEnvironment: Environment
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
   private val manageCardSharedViewModel: ManageCardSharedViewModel by activityViewModels()
 
   override fun onCreateView(
@@ -86,7 +91,7 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     view.findViewById<ComposeView>(R.id.app_bar).apply {
       setContent {
-        TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() })
+        TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
       }
     }
   }

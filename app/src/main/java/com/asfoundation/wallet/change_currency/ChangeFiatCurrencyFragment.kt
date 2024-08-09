@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.feature.changecurrency.ui.ChangeFiatCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asf.wallet.R
@@ -25,6 +26,10 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var displayChat: DisplayChatUseCase
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   companion object {
     fun newInstance() = ChangeFiatCurrencyFragment()
@@ -45,7 +50,9 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment() {
               onChatClick = {
                 unlockRotation()
                 displayChat()
-              }
+              },
+              fragmentName = fragmentName,
+              buttonsAnalytics = buttonsAnalytics
             )
           }
         }

@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
@@ -29,6 +30,10 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
 
   private val viewModel: HomeManageWalletBottomSheetViewModel by viewModels()
   private val views by viewBinding(HomeManageWalletBottomSheetLayoutBinding::bind)
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   companion object {
     @JvmStatic
@@ -61,13 +66,17 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
 
   private fun setListeners() {
     views.backupWalletView.setOnClickListener {
+      buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.my_wallets_action_backup_wallet))
       viewModel.onBackupClick()
     }
     views.manageWalletView.setOnClickListener {
+
+      buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.manage_wallet_button))
       this.dismiss()
       navigator.navigateToManageWallet(navController())
     }
     views.recoverWalletView.setOnClickListener {
+      buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.my_wallets_action_recover_wallet))
       this.dismiss()
       navigator.navigateToRecoverWallet()
     }

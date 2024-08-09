@@ -34,6 +34,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
@@ -104,6 +105,10 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   @Inject
   lateinit var analytics: RewardsAnalytics
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -151,7 +156,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen() },
-            hasNotificationBadge = viewModel.hasNotificationBadge.value
+            hasNotificationBadge = viewModel.hasNotificationBadge.value,
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
           )
         }
       },
@@ -201,9 +208,11 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               },
               { navigator.showGiftCardFragment() },
               challengeRewardNavigation,
+              fragmentName,
+              buttonsAnalytics
             )
           }
-          viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
+          viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it, fragmentName, buttonsAnalytics) }
         }
       }
       item {
@@ -229,7 +238,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       }
       items(viewModel.promotions) { promotion ->
         Row(modifier = Modifier.padding(horizontal = 16.dp)) {
-          PromotionsCardComposable(cardItem = promotion)
+          PromotionsCardComposable(cardItem = promotion, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
         }
       }
 
@@ -275,7 +284,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         bonusValue = df.format(bonusPercentage),
         planetDrawable = planetImage,
         isVip = isVip,
-        isMaxVip = isMaxVip
+        isMaxVip = isMaxVip,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }
@@ -284,7 +295,10 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   fun VipReferralCard(vipReferralInfo: VipReferralInfo?) {
     if (vipReferralInfo != null)
       VipReferralCard(
-        { navigator.navigateToVipReferral(vipReferralInfo, navController()) },
+        {
+          buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, "VipReferral")
+          navigator.navigateToVipReferral(vipReferralInfo, navController())
+        },
         vipReferralInfo.vipBonus,
         vipReferralInfo.endDate,
         vipReferralInfo.startDate,

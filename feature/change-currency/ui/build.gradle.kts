@@ -11,6 +11,7 @@ dependencies {
   implementation(project(":core:utils:jvm-common"))
   implementation(project(":ui:common"))
   implementation(project(":ui:widgets"))
+  implementation(project(":core:analytics"))
   implementation(libs.kotlin.coroutines)
   implementation(libs.kotlin.coroutines.rx2)
   implementation(libs.bundles.androidx.room)

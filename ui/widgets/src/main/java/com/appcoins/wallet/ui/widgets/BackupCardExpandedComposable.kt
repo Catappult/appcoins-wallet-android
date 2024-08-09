@@ -7,12 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.AlertMessageWithIcon
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
-fun BackupAlertCardExpanded(onClickButton: () -> Unit) {
+fun BackupAlertCardExpanded(onClickButton: () -> Unit, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
     AlertMessageWithIcon(
       icon = R.drawable.ic_alert_circle,
@@ -23,7 +24,9 @@ fun BackupAlertCardExpanded(onClickButton: () -> Unit) {
       label = stringResource(R.string.action_backup_wallet),
       outlineColor = WalletColors.styleguide_white,
       labelColor = WalletColors.styleguide_white,
-      onClick = onClickButton
+      onClick = onClickButton,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
   }
 }
@@ -31,5 +34,5 @@ fun BackupAlertCardExpanded(onClickButton: () -> Unit) {
 @Preview(device = "spec:parent=pixel_5,orientation=landscape")
 @Composable
 fun PreviewBackupAlertCardExpanded() {
-  BackupAlertCardExpanded(onClickButton = {})
+  BackupAlertCardExpanded(onClickButton = {}, "BackupFragment", null)
 }

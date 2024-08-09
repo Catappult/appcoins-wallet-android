@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.common.R
@@ -30,10 +31,14 @@ internal fun ChooseCurrencyRoute(
   chosenCurrency: FiatCurrency?,
   viewModel: ChooseCurrencyBottomSheetViewModel = hiltViewModel(),
   bottomSheetStateHandle: () -> Unit,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   ChooseCurrencyScreen(
     chosenCurrency = chosenCurrency,
     currencyConfirmationClick = viewModel::currencyConfirmationClick,
+    fragmentName = fragmentName,
+    buttonsAnalytics = buttonsAnalytics
   )
   val state by viewModel.stateFlow.collectAsState()
   when (state.selectedConfirmationAsync) {
@@ -53,6 +58,8 @@ internal fun ChooseCurrencyRoute(
 fun ChooseCurrencyScreen(
   chosenCurrency: FiatCurrency?,
   currencyConfirmationClick: (String) -> Unit,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Column(
     modifier = Modifier
@@ -83,7 +90,9 @@ fun ChooseCurrencyScreen(
         currencyConfirmationClick(chosenCurrency.currency)
       },
       backgroundColor = WalletColors.styleguide_pink,
-      labelColor = MaterialTheme.colorScheme.primaryContainer
+      labelColor = MaterialTheme.colorScheme.primaryContainer,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
   }
 }
@@ -98,6 +107,8 @@ private fun ChooseCurrencyPreview() {
       flag = "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
       sign = "€"
     ),
-    currencyConfirmationClick = {}
+    currencyConfirmationClick = {},
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }

@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.BalanceValue
 import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
@@ -49,6 +50,8 @@ fun BalanceCard(
   showBackup: Boolean = true,
   newWallet: Boolean = true,
   isLoading: Boolean = true,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   BoxWithConstraints {
     if (expanded()) {
@@ -60,7 +63,9 @@ fun BalanceCard(
         onClickMenuOptions = onClickMenuOptions,
         showBackup = showBackup,
         newWallet = newWallet,
-        isLoading = isLoading
+        isLoading = isLoading,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     } else if (isLoading) {
       SkeletonLoadingBalanceCard()
@@ -74,7 +79,7 @@ fun BalanceCard(
           .clip(shape = RoundedCornerShape(8.dp))
       ) {
         if (newWallet) {
-          BalanceCardNewUser(onClickTopUp = onClickTopUp)
+          BalanceCardNewUser(onClickTopUp = onClickTopUp, fragmentName, buttonsAnalytics)
         } else {
           Column {
             Column(modifier = Modifier.padding(16.dp)) {
@@ -87,7 +92,9 @@ fun BalanceCard(
                   imageVector = Icons.Default.MoreVert,
                   contentDescription = R.string.action_more_details,
                   onClick = onClickMenuOptions,
-                  paddingIcon = 4.dp
+                  paddingIcon = 4.dp,
+                  fragmentName = fragmentName,
+                  buttonsAnalytics = buttonsAnalytics
                 )
               }
               Spacer(modifier = Modifier.height(12.dp))
@@ -102,7 +109,9 @@ fun BalanceCard(
                   backgroundColor = WalletColors.styleguide_blue,
                   labelColor = WalletColors.styleguide_white,
                   iconColor = WalletColors.styleguide_pink,
-                  iconSize = 14.dp
+                  iconSize = 14.dp,
+                  fragmentName = fragmentName,
+                  buttonsAnalytics = buttonsAnalytics
                 )
                 ButtonWithIcon(
                   icon = R.drawable.ic_plus_v3,
@@ -110,7 +119,9 @@ fun BalanceCard(
                   onClick = onClickTopUp,
                   backgroundColor = WalletColors.styleguide_pink,
                   labelColor = WalletColors.styleguide_white,
-                  iconColor = WalletColors.styleguide_white
+                  iconColor = WalletColors.styleguide_white,
+                  fragmentName = fragmentName,
+                  buttonsAnalytics = buttonsAnalytics
                 )
               }
             }
@@ -126,7 +137,9 @@ fun BalanceCard(
               Column(modifier = Modifier.padding(16.dp)) {
                 BackupAlertCard(
                   onClickButton = onClickBackup,
-                  hasBackup = false
+                  hasBackup = false,
+                  fragmentName = fragmentName,
+                  buttonsAnalytics = buttonsAnalytics
                 )
               }
             }
@@ -260,7 +273,7 @@ fun BalanceItem(icon: Int, currencyName: Int, balance: String) {
 }
 
 @Composable
-fun BalanceCardNewUser(onClickTopUp: () -> Unit) {
+fun BalanceCardNewUser(onClickTopUp: () -> Unit, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   Column(modifier = Modifier.padding(32.dp), horizontalAlignment = Alignment.CenterHorizontally) {
     Text(
       text = stringResource(id = R.string.intro_welcome_header),
@@ -288,7 +301,9 @@ fun BalanceCardNewUser(onClickTopUp: () -> Unit) {
       onClick = onClickTopUp,
       backgroundColor = WalletColors.styleguide_pink,
       labelColor = WalletColors.styleguide_white,
-      iconColor = WalletColors.styleguide_white
+      iconColor = WalletColors.styleguide_white,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
   }
 }
@@ -304,7 +319,9 @@ fun PreviewBalanceCard() {
     onClickMenuOptions = {},
     showBackup = true,
     newWallet = false,
-    isLoading = false
+    isLoading = false,
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }
 
@@ -319,7 +336,9 @@ fun PreviewBalanceCardWithoutBackup() {
     onClickMenuOptions = {},
     showBackup = false,
     newWallet = false,
-    isLoading = false
+    isLoading = false,
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }
 
@@ -334,7 +353,9 @@ fun PreviewNewWalletBalanceCard() {
     onClickMenuOptions = {},
     showBackup = true,
     newWallet = true,
-    isLoading = false
+    isLoading = false,
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }
 
