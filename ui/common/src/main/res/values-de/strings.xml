@@ -693,6 +693,7 @@
   </plurals>
   <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
