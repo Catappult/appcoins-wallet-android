@@ -135,10 +135,26 @@
       android:textColor="@color/styleguide_dark_grey"
       android:textSize="11sp"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/payment_method_message"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="@id/payment_method_description"
       app:layout_constraintTop_toBottomOf="@id/payment_method_reason"
+      tools:visibility="visible"
+      />
+
+  <TextView
+      android:id="@+id/payment_method_message"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="start"
+      tools:text="@plurals/purchase_bank_transfer_time_disclaimer"
+      android:textColor="@color/styleguide_dark_grey"
+      android:textSize="11sp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toStartOf="@id/payment_method_description"
+      app:layout_constraintTop_toBottomOf="@id/payment_method_fee"
       tools:visibility="visible"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

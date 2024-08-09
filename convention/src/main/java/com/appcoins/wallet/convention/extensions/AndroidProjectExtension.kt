@@ -32,6 +32,7 @@ internal fun Project.configureAndroidAndKotlin(extension: CommonExtension<*, *, 
       // Pick the first version of certain resources
       resources.pickFirsts += "org/bouncycastle/x509/CertPathReviewerMessages_de.properties"
       resources.pickFirsts += "org/bouncycastle/x509/CertPathReviewerMessages.properties"
+      resources.pickFirsts += "META-INF/LICENSE-MIT"
     }
   }
 

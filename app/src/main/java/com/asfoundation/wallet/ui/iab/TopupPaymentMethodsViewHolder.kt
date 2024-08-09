@@ -52,6 +52,7 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
 
     handleDescription(data, selected, data.isEnabled, cardData, onChangeCardCallback)
     handleFee(data.fee, data.price)
+    handleMessage(data.message)
 
     binding.selectedBackground.visibility = View.VISIBLE
 
@@ -149,6 +150,16 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
           fee.currency
         )
     } else {
+      binding.paymentMethodFee.visibility = View.GONE
+    }
+  }
+
+  private fun handleMessage(message: String?) {
+    if (message.isNullOrEmpty()) {
+      binding.paymentMethodMessage.visibility = View.GONE
+    } else {
+      binding.paymentMethodMessage.visibility = View.VISIBLE
+      binding.paymentMethodMessage.text = message
       binding.paymentMethodFee.visibility = View.GONE
     }
   }

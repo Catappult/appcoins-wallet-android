@@ -23,7 +23,9 @@ public enum PaymentType {
 
   GOOGLEPAY_WEB(Collections.singletonList("googlepay")),
 
-  MI_PAY(Collections.singletonList("mipay"));
+  MI_PAY(Collections.singletonList("mipay")),
+
+  TRUE_LAYER(Collections.singletonList("truelayer"));
 
   private final List<String> subTypes;
 

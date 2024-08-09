@@ -58,6 +58,6 @@ interface AdyenApi {
   @POST("8.20200815/gateways/adyen_v2/disable-recurring")
   fun disablePayments(@Body wallet: DisableWallet): Completable
 
-  @GET("8.20240304/methods/credit_card/properties")
+  @GET("8.20240627/methods/credit_card/properties")
   fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse>
 }

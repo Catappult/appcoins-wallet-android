@@ -37,6 +37,7 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val PAYMENT_METHOD_ASK_FRIEND = "ask_friend"
     const val PAYMENT_METHOD_CHALLENGE_REWARD = "challenge_reward"
     const val PAYMENT_METHOD_MI_PAY = "mipay"
+    const val PAYMENT_METHOD_TRUE_LAYER = "truelayer"
 
     const val LOADING_STEP_WALLET_INFO = "get_wallet_info"
     const val LOADING_STEP_CONVERT_TO_FIAT = "convert_to_local_fiat"

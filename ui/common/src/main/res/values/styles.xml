@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
@@ -1396,6 +1396,30 @@
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textColor">@color/styleguide_payments_blue</item>
     <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="TrueLayerPaymentsTheme" parent="TrueLayerPaymentsParentTheme">
+    <!-- Primary brand color. -->
+    <item name="colorPrimary">@color/styleguide_pink</item>
+    <item name="colorPrimaryDark">@color/styleguide_pink</item>
+    <item name="colorOnPrimary">@color/white</item>
+    <item name="colorPrimaryVariant">@color/styleguide_pink</item>
+
+    <!-- Secondary brand color. -->
+    <item name="colorSecondary">@color/styleguide_light_grey</item>
+    <item name="colorSecondaryVariant">@color/styleguide_light_grey</item>
+
+    <!-- Text colors -->
+    <item name="android:textColorPrimary">@color/styleguide_pink</item>
+    <item name="android:textColorSecondary">@color/styleguide_pink</item>
+
+    <!-- Background colors -->
+    <item name="android:colorBackground">@color/styleguide_blue</item>
+
+    <!-- Status bar -->
+    <item name="android:statusBarColor">@color/styleguide_blue</item>
+    <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+
   </style>
 
 </resources>

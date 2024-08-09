@@ -35,7 +35,7 @@ interface BrokerBdsApi {
    * if null no filter is applied by transactionType
    *
    */
-  @GET("8.20240524/methods")
+  @GET("8.20240627/methods")
   fun getPaymentMethods(
     @Query("price.value") value: String? = null,
     @Query("price.currency") currency: String? = null,
@@ -50,7 +50,7 @@ interface BrokerBdsApi {
     @Header("Accept-Language") language: String,
   ): Single<GetMethodsResponse>
 
-  @GET("8.20231001/methods/googlepay/properties")
+  @GET("8.20240627/methods/googlepay/properties")
   fun getGooglePayUrls(): Single<GetGooglePayUrlResponse>
 
   @FormUrlEncoded

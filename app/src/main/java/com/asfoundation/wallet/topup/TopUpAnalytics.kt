@@ -175,6 +175,17 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     )
   }
 
+  fun sendTrueLayerErrorEvent(errorCode: String? = null, errorDetails: String) {
+    val map = HashMap<String, Any>()
+    map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_TRUE_LAYER
+    errorCode?.let { map[ERROR_CODE] = errorCode }
+    map[ERROR_DETAILS] = errorDetails
+    analyticsManager.logEvent(
+      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
   companion object {
     const val WALLET_TOP_UP_START = "wallet_top_up_start"
     const val WALLET_TOP_UP_SELECTION = "wallet_top_up_selection"

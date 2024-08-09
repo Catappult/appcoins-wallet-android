@@ -7,7 +7,6 @@ class TopUpSuccessPresenter(private val view: TopUpSuccessFragmentView) {
 
   fun present() {
     view.show()
-
     handleOKClick()
   }
 
