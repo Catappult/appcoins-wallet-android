@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -29,15 +28,12 @@ import com.truelayer.payments.ui.screens.processor.Processor
 import com.truelayer.payments.ui.screens.processor.ProcessorContext
 import com.truelayer.payments.ui.screens.processor.ProcessorResult
 import com.truelayer.payments.ui.theme.DarkColorDefaults
-import com.truelayer.payments.ui.theme.LightColorDefaults
 import com.truelayer.payments.ui.theme.Theme
 import com.truelayer.payments.ui.theme.TrueLayerTheme
 import com.truelayer.payments.ui.theme.TypographyDefaults
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
@@ -137,15 +133,12 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
   private fun handleSuccess(pendingFinalConfirmation: Boolean = true) {
     val bundle =
       viewModel.createBundle(amount, currency, currencySymbol, bonus, pendingFinalConfirmation)
-    lifecycleScope.launch {
-      delay(1000)
-      navigator.popView(bundle)
-    }
+    navigator.popView(bundle)
   }
 
   private fun close() {
     navigator.navigateBack()
-    topUpActivityView?.getFullscreenComposeView()?.setContent {  }  // resets true layer view
+    topUpActivityView?.getFullscreenComposeView()?.setContent { }  // resets true layer view
   }
 
   override fun onDetach() {
@@ -206,7 +199,7 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
       )
     }
 
-    val uniqueColorPalette = DarkColorDefaults.copy(
+    val universalColorPalette = DarkColorDefaults.copy(
       primary = WalletColors.styleguide_pink,
       onPrimary = WalletColors.styleguide_white,
       secondary = WalletColors.styleguide_light_grey,
@@ -218,8 +211,8 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     )
 
     val theme = TrueLayerTheme(
-      lightPalette = uniqueColorPalette,
-      darkPalette = uniqueColorPalette,
+      lightPalette = universalColorPalette,
+      darkPalette = universalColorPalette,
       typography = TypographyDefaults
     )
 
