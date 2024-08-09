@@ -63,9 +63,9 @@ class LiveEvent<T> : MediatorLiveData<T>() {
 
     private val pending = AtomicBoolean(false)
 
-    override fun onChanged(t: T?) {
+    override fun onChanged(value: T) {
       if (pending.compareAndSet(true, false)) {
-        observer.onChanged(t)
+        observer.onChanged(value)
       }
     }
 
