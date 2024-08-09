@@ -27,15 +27,7 @@ class PendingPurchaseFlowUseCaseImpl @Inject constructor(
           integrationFlow = "sdk",
           sku = cachedTransaction.sku,
           packageName = cachedTransaction.packageName ?: "",
-          callbackUrl = null,
-          currency = cachedTransaction.currency,
-          orderReference = cachedTransaction.orderReference,
-          value = cachedTransaction.value,
-          signature = null,
-          origin = cachedTransaction.origin,
           type = cachedTransaction.type,
-          oemId = cachedTransaction.oemId,
-          wsPort = cachedTransaction.wsPort,
           backup = cachedBackupKey
         )
       }
@@ -44,15 +36,7 @@ class PendingPurchaseFlowUseCaseImpl @Inject constructor(
         integrationFlow = "osp",
         sku = cachedTransaction.sku,
         packageName = cachedTransaction.packageName ?: "",
-        callbackUrl = cachedTransaction.callbackUrl,
-        currency = cachedTransaction.currency,
-        orderReference = cachedTransaction.orderReference,
-        value = cachedTransaction.value,
-        signature = cachedTransaction.signature,
-        origin = cachedTransaction.origin,
         type = cachedTransaction.type,
-        oemId = null,
-        wsPort = null,
         backup = null
       )
     }

@@ -18,16 +18,7 @@ public final class ECKeyPairGenerator {
 
   private static final String keySpecAssertionMsg = "Assumed correct key spec statically";
 
-  private static final String providerAssertionMsg = "Assumed provider was available";
-
   private static final ECGenParameterSpec SECP256K1_CURVE = new ECGenParameterSpec(CURVE_NAME);
-
-  private ECKeyPairGenerator() {
-  }
-
-  public static KeyPair generateKeyPair() {
-    return Holder.INSTANCE.generateKeyPair();
-  }
 
   public static KeyPairGenerator getInstance(String provider, SecureRandom random)
       throws NoSuchProviderException {
@@ -51,23 +42,6 @@ public final class ECKeyPairGenerator {
       throw new AssertionError(algorithmAssertionMsg, ex);
     } catch (InvalidAlgorithmParameterException ex) {
       throw new AssertionError(keySpecAssertionMsg, ex);
-    }
-  }
-
-  private static class Holder {
-    private static final KeyPairGenerator INSTANCE;
-
-    static {
-      try {
-        INSTANCE = KeyPairGenerator.getInstance(ALGORITHM, "AndroidKeyStore");
-        INSTANCE.initialize(SECP256K1_CURVE);
-      } catch (NoSuchProviderException ex) {
-        throw new AssertionError(providerAssertionMsg, ex);
-      } catch (NoSuchAlgorithmException ex) {
-        throw new AssertionError(algorithmAssertionMsg, ex);
-      } catch (InvalidAlgorithmParameterException ex) {
-        throw new AssertionError(keySpecAssertionMsg, ex);
-      }
     }
   }
 }

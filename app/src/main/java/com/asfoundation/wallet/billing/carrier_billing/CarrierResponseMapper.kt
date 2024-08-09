@@ -46,7 +46,7 @@ class CarrierResponseMapper @Inject constructor(
 
     val code = if (throwable is HttpException) throwable.code() else null
     val isNoNetworkException = throwable.isNoNetworkException()
-    var carrierError: CarrierError = GenericError(isNoNetworkException, code, throwable.message)
+    var carrierError: CarrierError = GenericError(code, throwable.message)
 
     // If we retrieve a specific error from response body, specify the error
     if (throwable is HttpException) {

@@ -21,33 +21,6 @@ public class PayloadHelper {
   private static final String ORIGIN_PARAMETER = "origin";
 
   /**
-   * Method to build the payload required on the {@link AppcoinsBilling#getBuyIntent} method.
-   *
-   * @param developerPayload The additional payload to be sent
-   * @param origin payment origin (BDS, UNITY,EXTERNAL)
-   * @param orderReference a reference that allows the developers to identify this order in
-   * server-to-server communication
-   *
-   * @return The final developers payload to be sent
-   */
-  public static String buildIntentPayload(@Nullable String orderReference,
-      @Nullable String developerPayload, String origin) {
-    Uri.Builder builder = new Uri.Builder();
-    builder.scheme(SCHEME)
-        .authority("appcoins.io");
-    if (developerPayload != null) {
-      builder.appendQueryParameter(PAYLOAD_PARAMETER, developerPayload);
-    }
-    if (orderReference != null) {
-      builder.appendQueryParameter(ORDER_PARAMETER, orderReference);
-    }
-    if (origin != null) {
-      builder.appendQueryParameter(ORIGIN_PARAMETER, origin);
-    }
-    return builder.toString();
-  }
-
-  /**
    * Given a uri string validate if it is part of the expected scheme and if so return the
    * addition payload content.
    *

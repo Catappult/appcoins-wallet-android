@@ -15,21 +15,18 @@ public class SendViewModelFactory implements ViewModelProvider.Factory {
   private final FetchGasSettingsInteract fetchGasSettingsInteract;
   private final TransferConfirmationRouter transferConfirmationRouter;
   private final TransferParser transferParser;
-  private final TransactionsRouter transactionsRouter;
 
   public SendViewModelFactory(FindDefaultWalletInteract findDefaultWalletInteract,
       FetchGasSettingsInteract fetchGasSettingsInteract,
-      TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser,
-      TransactionsRouter transactionsRouter) {
+      TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser) {
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchGasSettingsInteract = fetchGasSettingsInteract;
     this.transferConfirmationRouter = transferConfirmationRouter;
     this.transferParser = transferParser;
-    this.transactionsRouter = transactionsRouter;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
     return (T) new SendViewModel(findDefaultWalletInteract, fetchGasSettingsInteract,
-        transferConfirmationRouter, transferParser, transactionsRouter);
+        transferConfirmationRouter, transferParser);
   }
 }

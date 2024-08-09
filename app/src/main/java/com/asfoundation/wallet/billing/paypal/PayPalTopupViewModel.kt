@@ -39,7 +39,7 @@ class PayPalTopupViewModel @Inject constructor(
     object Start : State()
     data class Error(val stringRes: Int) : State()
     data class WebViewAuthentication(val url: String) : State()
-    data class SuccessPurchase(val hash: String?, val uid: String?) : State()
+    data class SuccessPurchase(val uid: String?) : State()
     object TokenCanceled : State()
   }
 
@@ -84,7 +84,7 @@ class PayPalTopupViewModel @Inject constructor(
           when (it?.validity) {
             PaypalTransaction.PaypalValidityState.COMPLETED -> {
               topUpAnalytics.sendPaypalSuccessEvent(amount)
-              _state.postValue(State.SuccessPurchase(it.hash, it.uid))
+              _state.postValue(State.SuccessPurchase(it.uid))
             }
 
             PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT -> {
@@ -102,7 +102,7 @@ class PayPalTopupViewModel @Inject constructor(
             }
 
             PaypalTransaction.PaypalValidityState.PENDING -> {
-              waitForSuccess(it.hash, it.uid, amount)
+              waitForSuccess(it.uid, amount)
             }
 
             PaypalTransaction.PaypalValidityState.ERROR -> {
@@ -179,7 +179,7 @@ class PayPalTopupViewModel @Inject constructor(
     }
   }
 
-  private fun waitForSuccess(hash: String?, uid: String?, amount: String) {
+  private fun waitForSuccess(uid: String?, amount: String) {
     compositeDisposable.add(
       waitForSuccessPaypalUseCase(uid ?: "")
         .subscribeOn(networkScheduler)
@@ -189,7 +189,7 @@ class PayPalTopupViewModel @Inject constructor(
             when (it.status) {
               PaymentModel.Status.COMPLETED -> {
                 topUpAnalytics.sendPaypalSuccessEvent(amount)
-                _state.postValue(State.SuccessPurchase(it.hash, it.uid))
+                _state.postValue(State.SuccessPurchase(it.uid))
               }
 
               PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,

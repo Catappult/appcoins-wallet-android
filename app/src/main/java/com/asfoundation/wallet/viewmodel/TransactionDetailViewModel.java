@@ -110,8 +110,6 @@ public class TransactionDetailViewModel extends BaseViewModel {
   }
 
   private Uri buildBdsUri(Transaction transaction) {
-    NetworkInfo networkInfo = transactionsDetailsModel.getValue()
-        .getNetworkInfo();
     String url = HostProperties.INSTANCE.getTRANSACTION_DETAILS_HOST();
     return Uri.parse(url)
         .buildUpon()

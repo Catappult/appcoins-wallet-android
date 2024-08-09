@@ -221,7 +221,6 @@ class BillingAnalytics @Inject constructor(
         txId,
         packageName = packageName,
         usdAmount = valueUsd,
-        appcAmount = value
       )
     }
 

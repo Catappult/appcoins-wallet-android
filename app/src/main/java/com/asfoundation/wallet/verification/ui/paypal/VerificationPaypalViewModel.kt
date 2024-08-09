@@ -140,7 +140,7 @@ constructor(
               else -> showError()
             }
         },
-        { _uiState.value = VerificationPaypalState.Error(it) })
+        { _uiState.value = VerificationPaypalState.Error })
 
   private fun showError() {
     analytics.sendErrorScreenEvent()
@@ -176,7 +176,7 @@ constructor(
       val loading: Boolean = false,
     ) : VerificationPaypalState()
 
-    data class Error(val error: Throwable) : VerificationPaypalState()
+    object Error : VerificationPaypalState()
 
     data class OpenWebPayPalPaymentRequest(val url: String) : VerificationPaypalState()
 

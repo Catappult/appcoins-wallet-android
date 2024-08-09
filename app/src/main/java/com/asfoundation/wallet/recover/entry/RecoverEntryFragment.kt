@@ -46,8 +46,9 @@ class RecoverEntryFragment : BasePageViewFragment(),
   private var isFromOnboarding = false
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View = RecoverEntryFragmentBinding.inflate(inflater).root
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +56,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
     createLaunchers()
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     isFromOnboarding = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
     views.recoverWalletOptions.recoverFromFileButton.setOnClickListener {
@@ -117,21 +118,16 @@ class RecoverEntryFragment : BasePageViewFragment(),
   private fun handleRecoverEntryState(asyncRecoverResult: Async<RecoverEntryResult>) {
     when (asyncRecoverResult) {
       is Async.Uninitialized,
-      is Async.Loading -> {
-        showLoading()
-      }
+      is Async.Loading -> {}
 
       is Async.Fail -> {
-        handleErrorState(FailedEntryRecover.GenericError(asyncRecoverResult.error.throwable))
+        handleErrorState(FailedEntryRecover.GenericError)
       }
 
       is Async.Success -> {
         handleSuccessState(asyncRecoverResult())
       }
     }
-  }
-
-  fun showLoading() {
   }
 
   private fun handleSuccessState(recoverResult: RecoverEntryResult) {

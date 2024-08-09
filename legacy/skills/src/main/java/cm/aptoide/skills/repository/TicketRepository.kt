@@ -70,9 +70,7 @@ class TicketRepository @Inject constructor(
   ): Single<ReferralResult> {
     return ticketApi.postReferralTransaction(ewt, referralCode)
       .subscribeOn(Schedulers.io())
-      .map {
-        SuccessfulReferral(it) as ReferralResult
-      }
+      .map<ReferralResult> { SuccessfulReferral }
       .onErrorReturn {
         referralMapper.mapHttpException(it as HttpException)
       }

@@ -73,8 +73,9 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
 
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     //Build Vk Pay SuperApp Kit
     vkPayManager.initSuperAppKit(
@@ -90,7 +91,7 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
 
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     if (arguments?.getSerializable(PAYMENT_DATA) != null) {

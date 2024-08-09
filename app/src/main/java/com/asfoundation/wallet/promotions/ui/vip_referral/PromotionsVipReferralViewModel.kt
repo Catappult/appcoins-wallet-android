@@ -21,7 +21,7 @@ class PromotionsVipReferralViewModel @Inject constructor(
   fun getCurrency(earnedValue: String) {
     convertToLocalFiatUseCase(earnedValue, "USD")
       .doOnSuccess { _uiState.value = UiState.Success(it) }
-      .doOnError { _uiState.value = UiState.Fail(it) }
+      .doOnError { _uiState.value = UiState.Fail }
       .doOnSubscribe { _uiState.value = UiState.Loading }
       .subscribe()
   }
@@ -31,7 +31,7 @@ class PromotionsVipReferralViewModel @Inject constructor(
   sealed class UiState {
     object Idle : UiState()
     object Loading : UiState()
-    data class Fail(val error: Throwable) : UiState()
+    object Fail : UiState()
     data class Success(val fiatValue: FiatValue?) : UiState()
   }
 }

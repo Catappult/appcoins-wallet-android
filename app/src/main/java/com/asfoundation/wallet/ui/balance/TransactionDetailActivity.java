@@ -369,7 +369,7 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
         transaction.getPaidCurrency(), transactionsDetailsModel.getFiatValue()
             .getAmount()
             .toString(), localFiatCurrency, icon, id, description, typeStr, typeIcon, statusStr,
-        statusColor, transaction.getOrderReference(), to, from, isSent, isRevertTransaction,
+        statusColor, transaction.getOrderReference(), to, from, isRevertTransaction,
         isRevertedTransaction, revertedDescription, statusColor,
         transactionsDetailsModel.getWallet()
             .getAddress());
@@ -410,7 +410,7 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
   private void setUiContent(long timeStamp, String value, String symbol, String paidAmount,
       String paidCurrency, String localFiatAmount, String localFiatCurrency, String icon, String id,
       String description, int typeStr, int typeIcon, int statusStr, int statusColor,
-      String orderReference, String to, String from, boolean isSent, boolean isRevertTransaction,
+      String orderReference, String to, String from, boolean isRevertTransaction,
       boolean isRevertedTransaction, int revertedDescription, int descriptionColor,
       String walletAddress) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDateAndTime(timeStamp));

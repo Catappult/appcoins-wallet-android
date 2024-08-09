@@ -16,10 +16,6 @@ import static ethereumj.util.ByteUtil.EMPTY_BYTE_ARRAY;
 import static java.util.Arrays.copyOfRange;
 
 public class HashUtil {
-
-  public static final byte[] EMPTY_DATA_HASH = sha3(EMPTY_BYTE_ARRAY);
-  public static final byte[] EMPTY_LIST_HASH = sha3(RLP.encodeList());
-  public static final byte[] EMPTY_TRIE_HASH = sha3(RLP.encodeElement(EMPTY_BYTE_ARRAY));
   private static final MessageDigest sha256digest;
 
   static {
@@ -32,10 +28,6 @@ public class HashUtil {
 
   public static void main(String[] args) {
     System.out.println();
-  }
-
-  public static byte[] sha256(byte[] input) {
-    return sha256digest.digest(input);
   }
 
   public static byte[] sha3(byte[] input) {
@@ -57,23 +49,6 @@ public class HashUtil {
     return digest.digest();
   }
 
-  public static byte[] sha512(byte[] input) {
-    Keccak512 digest = new Keccak512();
-    digest.update(input);
-    return digest.digest();
-  }
-
-  public static byte[] ripemd160(byte[] data) {
-    Digest digest = new RIPEMD160Digest();
-    if (data != null) {
-      byte[] resBuf = new byte[digest.getDigestSize()];
-      digest.update(data, 0, data.length);
-      digest.doFinal(resBuf, 0);
-      return resBuf;
-    }
-    throw new NullPointerException("Can't hash a NULL value");
-  }
-
   public static byte[] sha3omit12(byte[] input) {
     byte[] hash = sha3(input);
     return copyOfRange(hash, 12, hash.length);
@@ -85,45 +60,5 @@ public class HashUtil {
     byte[] encNonce = RLP.encodeBigInteger(new BigInteger(1, nonce));
 
     return sha3omit12(RLP.encodeList(encSender, encNonce));
-  }
-
-  public static byte[] doubleDigest(byte[] input) {
-    return doubleDigest(input, 0, input.length);
-  }
-
-  public static byte[] doubleDigest(byte[] input, int offset, int length) {
-    synchronized (sha256digest) {
-      sha256digest.reset();
-      sha256digest.update(input, offset, length);
-      byte[] first = sha256digest.digest();
-      return sha256digest.digest(first);
-    }
-  }
-
-  public static byte[] randomPeerId() {
-
-    byte[] peerIdBytes = new BigInteger(512, Utils.getRandom()).toByteArray();
-
-    String peerId;
-    if (peerIdBytes.length > 64) {
-      peerId = Hex.toHexString(peerIdBytes, 1, 64);
-    } else {
-      peerId = Hex.toHexString(peerIdBytes);
-    }
-
-    return Hex.decode(peerId);
-  }
-
-  public static byte[] randomHash() {
-
-    byte[] randomHash = new byte[32];
-    Random random = new Random();
-    random.nextBytes(randomHash);
-    return randomHash;
-  }
-
-  public static String shortHash(byte[] hash) {
-    return Hex.toHexString(hash)
-        .substring(0, 6);
   }
 }

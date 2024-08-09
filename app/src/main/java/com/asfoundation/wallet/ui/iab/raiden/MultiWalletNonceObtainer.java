@@ -6,7 +6,6 @@ import java.util.Map;
 import org.web3j.abi.datatypes.Address;
 
 public class MultiWalletNonceObtainer {
-  private static final String TAG = MultiWalletNonceObtainer.class.getSimpleName();
   private final Map<Key, NonceObtainer> nonceObtainers;
   private final NonceObtainerFactory nonceObtainerFactory;
 

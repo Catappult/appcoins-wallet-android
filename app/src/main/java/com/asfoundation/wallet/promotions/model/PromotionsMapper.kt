@@ -139,12 +139,10 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     val gamificationItem = promotions[1] as GamificationItem
     gamificationItem.links.add(
       GamificationLinkItem(
-        genericResponse.id,
-        genericResponse.gamificationStatus,
-        genericResponse.perkDescription,
-        genericResponse.icon,
-        genericResponse.startDate,
-        genericResponse.endDate
+        id = genericResponse.id,
+        gamificationStatus = genericResponse.gamificationStatus,
+        startDate = genericResponse.startDate,
+        endDate = genericResponse.endDate
       )
     )
   }
@@ -153,14 +151,8 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     return ProgressItem(
       genericResponse.id,
       genericResponse.gamificationStatus,
-      genericResponse.perkDescription,
-      genericResponse.icon,
-      genericResponse.appName,
       genericResponse.startDate,
       genericResponse.endDate,
-      genericResponse.currentProgress!!,
-      genericResponse.objectiveProgress,
-      genericResponse.detailsLink
     )
   }
 
@@ -173,7 +165,6 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       genericResponse.appName,
       genericResponse.startDate,
       genericResponse.endDate,
-      genericResponse.detailsLink,
       genericResponse.actionUrl,
       genericResponse.packageName
     )
@@ -185,24 +176,19 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       gamificationResponse.nextLevelAmount?.minus(gamificationResponse.totalSpend)
 
     return GamificationItem(
-      gamificationResponse.id,
-      currentLevelInfo.planet,
-      gamificationResponse.level,
-      gamificationResponse.gamificationStatus,
-      currentLevelInfo.levelColor,
-      currentLevelInfo.title,
-      toNextLevelAmount,
-      gamificationResponse.bonus,
-      mutableListOf()
+      id = gamificationResponse.id,
+      planet = currentLevelInfo.planet,
+      level = gamificationResponse.level,
+      levelColor = currentLevelInfo.levelColor,
+      toNextLevelAmount = toNextLevelAmount,
+      bonus = gamificationResponse.bonus,
+      links = mutableListOf()
     )
   }
 
   private fun mapToReferralItem(referralResponse: ReferralResponse): ReferralItem {
     return ReferralItem(
       referralResponse.id,
-      referralResponse.amount,
-      referralResponse.currency,
-      referralResponse.link.orEmpty()
     )
   }
 
@@ -215,7 +201,6 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       genericResponse.appName,
       genericResponse.startDate,
       genericResponse.endDate,
-      genericResponse.detailsLink,
       genericResponse.actionUrl,
       genericResponse.packageName
     )
@@ -259,12 +244,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     vouchersListModel.vouchers.forEach {
       list.add(
         VoucherItem(
-          PromotionsInteractor.VOUCHER_ID,
-          it.packageName,
-          it.title,
-          it.icon,
-          it.hasAppcoins,
-          maxBonus
+          id = PromotionsInteractor.VOUCHER_ID,
         )
       )
     }

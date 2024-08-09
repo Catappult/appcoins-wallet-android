@@ -672,7 +672,7 @@ class AdyenPaymentViewModel @Inject constructor(
         when (code) {
           AdyenErrorCodeMapper.CVC_DECLINED -> sendSingleEvent(SingleEventState.showCvvError)
           AdyenErrorCodeMapper.FRAUD -> {
-            handleFraudFlow(adyenErrorCodeMapper.map(code), paymentModel.fraudResultIds)
+            handleFraudFlow(adyenErrorCodeMapper.map(code))
             riskRules = paymentModel.fraudResultIds.sorted()
               .joinToString(separator = "-")
           }
@@ -748,8 +748,7 @@ class AdyenPaymentViewModel @Inject constructor(
         }
       }
 
-  @Suppress("UNUSED_PARAMETER")
-  private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
+  private fun handleFraudFlow(@StringRes error: Int) {
     val verificationType = if (paymentData.paymentType == PaymentType.CARD.name) {
       VerificationType.CREDIT_CARD
     } else {
@@ -1261,7 +1260,7 @@ class AdyenPaymentViewModel @Inject constructor(
 
       error.errorInfo?.httpCode != null -> {
         val resId = servicesErrorCodeMapper.mapError(error.errorInfo?.errorType)
-        if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
+        if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE) handleFraudFlow(resId)
         else sendSingleEvent(SingleEventState.showSpecificError(resId))
       }
 
