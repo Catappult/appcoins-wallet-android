@@ -8,9 +8,9 @@ import com.airbnb.lottie.LottieAnimationView
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -64,8 +64,8 @@ class OneStepPaymentReceiver : BaseActivity() {
     partnerAddressService.setOemIdFromSdk("")
     if (savedInstanceState == null) {
       disposable = handleWalletCreationIfNeeded()
-        .takeUntil { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }
-        .filter { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }
+        .takeUntil { it != WalletGetterStatus.CREATING.toString() }
+        .filter { it != WalletGetterStatus.CREATING.toString() }
         .flatMap {
           if (isEskillsUri(intent.dataString!!)) {
             val skillsActivityIntent = Intent(this, SkillsActivity::class.java)
@@ -103,12 +103,6 @@ class OneStepPaymentReceiver : BaseActivity() {
     .lowercase(Locale.ROOT)
     .contains("/transaction/eskills")
 
-  private fun startApp(throwable: Throwable) {
-    throwable.printStackTrace()
-    startActivity(MainActivity.newIntent(this, supportNotificationClicked = false))
-    finish()
-  }
-
   private fun startOneStepTransfer(
     transaction: TransactionBuilder,
     isBds: Boolean
@@ -145,11 +139,11 @@ class OneStepPaymentReceiver : BaseActivity() {
     walletService.findWalletOrCreate()
       .observeOn(AndroidSchedulers.mainThread())
       .doOnNext {
-        if (it == com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString()) {
+        if (it == WalletGetterStatus.CREATING.toString()) {
           showLoadingAnimation()
         }
       }
-      .filter { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }
+      .filter { it != WalletGetterStatus.CREATING.toString() }
       .map {
         endAnimation()
         it

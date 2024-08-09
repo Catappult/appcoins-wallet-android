@@ -969,7 +969,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   private fun handlePreSelectedView() {
     if (!isPreSelected) {
       cancelButton.setText(getString(R.string.back_button))
-      iabView.disableBack()
+      iabView.setBackEnable(false)
     }
   }
 
@@ -1031,7 +1031,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   }
 
   override fun onDestroyView() {
-    iabView.enableBack()
+    iabView.setBackEnable(true)
     viewModel.cancelPaypalLaunch = true
 //    presenter.stop()
     super.onDestroyView()

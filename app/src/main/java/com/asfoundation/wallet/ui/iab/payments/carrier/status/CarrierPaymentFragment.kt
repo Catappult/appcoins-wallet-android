@@ -43,7 +43,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   }
 
   private fun setupUi() {
-    iabView.disableBack()
+    iabView.setBackEnable(false)
     lockRotation()
 
   }
@@ -83,7 +83,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   }
 
   override fun onDestroyView() {
-    iabView.enableBack()
+    iabView.setBackEnable(true)
     unlockRotation()
     presenter.stop()
     super.onDestroyView()

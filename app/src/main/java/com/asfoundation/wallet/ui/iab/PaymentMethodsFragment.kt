@@ -444,7 +444,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showItemAlreadyOwnedError() {
     binding.paymentMethodMainView.visibility = View.GONE
-    iabView.disableBack()
+    iabView.setBackEnable(false)
     binding.errorMessage.errorDismiss.setText(getString(R.string.ok))
     binding.errorMessage.root.visibility = View.VISIBLE
     binding.errorMessage.genericErrorLayout.errorMessage.setText(

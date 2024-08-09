@@ -52,7 +52,7 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   }
 
   override fun onDestroyView() {
-    iabView.enableBack()
+    iabView.setBackEnable(true)
     presenter.stop()
     super.onDestroyView()
   }
@@ -64,7 +64,7 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   }
 
   private fun setupUi() {
-    iabView.disableBack()
+    iabView.setBackEnable(false)
 
     (views.dialogBuyButtonsPaymentMethods?.cancelButton
       ?: views.dialogBuyButtons?.cancelButton)?.run {
