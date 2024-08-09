@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -216,6 +217,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   override fun onBackPressed() {
     when {
       isFinishingPurchase -> close()
+      views.fullscreenComposeView.visibility == View.VISIBLE -> {
+//        views.fullscreenComposeView.visibility = View.GONE
+        super.onBackPressed()
+      }
       supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
       else -> super.onBackPressed()
     }
@@ -327,6 +332,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
       super.onBackPressed()
     }
   }
+
+  override fun getFullscreenComposeView(): ComposeView = views.fullscreenComposeView
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)

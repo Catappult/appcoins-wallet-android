@@ -9,10 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.StringRes
-import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
+import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentTrueLayerTopupBinding
@@ -24,15 +25,19 @@ import com.truelayer.payments.core.domain.configuration.Environment
 import com.truelayer.payments.core.domain.configuration.HttpConnectionConfiguration
 import com.truelayer.payments.core.domain.configuration.HttpLoggingLevel
 import com.truelayer.payments.ui.TrueLayerUI
-import com.truelayer.payments.ui.screens.processor.ProcessorActivityContract
+import com.truelayer.payments.ui.screens.processor.Processor
 import com.truelayer.payments.ui.screens.processor.ProcessorContext
 import com.truelayer.payments.ui.screens.processor.ProcessorResult
 import com.truelayer.payments.ui.theme.DarkColorDefaults
 import com.truelayer.payments.ui.theme.LightColorDefaults
+import com.truelayer.payments.ui.theme.Theme
 import com.truelayer.payments.ui.theme.TrueLayerTheme
+import com.truelayer.payments.ui.theme.TypographyDefaults
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
@@ -60,7 +65,7 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     binding = FragmentTrueLayerTopupBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
 //    iabView.disableBack()
-    registerSdkResult()
+//    registerSdkResult()
     return views.root
   }
 
@@ -130,12 +135,17 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
   }
 
   private fun handleSuccess(pendingFinalConfirmation: Boolean = true) {
-    val bundle = viewModel.createBundle(amount, currency, currencySymbol, bonus, pendingFinalConfirmation)
-    navigator.popView(bundle)
+    val bundle =
+      viewModel.createBundle(amount, currency, currencySymbol, bonus, pendingFinalConfirmation)
+    lifecycleScope.launch {
+      delay(1000)
+      navigator.popView(bundle)
+    }
   }
 
   private fun close() {
     navigator.navigateBack()
+    topUpActivityView?.getFullscreenComposeView()?.setContent {  }  // resets true layer view
   }
 
   override fun onDetach() {
@@ -189,72 +199,81 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
 
   private fun launchTrueLayerSDK(paymentId: String, resourceToken: String) {
     TrueLayerUI.init(context = views.root.context) {
-      // optionally choose which environment you want to use: PRODUCTION or SANDBOX
       environment = if (BuildConfig.DEBUG) Environment.SANDBOX else Environment.PRODUCTION
-      // Make your own custom http configuration, stating custom timeout and http request logging level
       httpConnection = HttpConnectionConfiguration(
         timeoutMs = 15000,
-        httpDebugLoggingLevel = HttpLoggingLevel.None
+        httpDebugLoggingLevel = if (BuildConfig.DEBUG) HttpLoggingLevel.Body else HttpLoggingLevel.None
       )
     }
+
+    val uniqueColorPalette = DarkColorDefaults.copy(
+      primary = WalletColors.styleguide_pink,
+      onPrimary = WalletColors.styleguide_white,
+      secondary = WalletColors.styleguide_light_grey,
+      background = WalletColors.styleguide_blue,
+      surface = WalletColors.styleguide_blue,
+      onSurface = WalletColors.styleguide_white,
+      surfaceVariant = WalletColors.styleguide_blue,
+      onSurfaceVariant = WalletColors.styleguide_white,
+    )
+
+    val theme = TrueLayerTheme(
+      lightPalette = uniqueColorPalette,
+      darkPalette = uniqueColorPalette,
+      typography = TypographyDefaults
+    )
 
     val paymentContext = ProcessorContext.PaymentContext(
       id = paymentId,
       resourceToken = resourceToken,
-      redirectUri = "appcoins://truelayer",
+      redirectUri = "appcoins://truelayer"
     )
 
-    processorResult.launch(paymentContext)
+    topUpActivityView?.getFullscreenComposeView()?.visibility = View.VISIBLE
+    topUpActivityView?.getFullscreenComposeView()?.setContent {
+      Theme(
+        theme = theme
+      ) {
+        Processor(
+          context = paymentContext,
+          onSuccess = { successStep ->
+            // it.step: Redirect, Wait, Authorized, Successful, Settled
+            Log.d(TAG, "TrueLayer Success: ${successStep.step.name}")
+            when (successStep.step) {
+              ProcessorResult.PaymentStep.Successful,
+              ProcessorResult.PaymentStep.Authorized,
+              ProcessorResult.PaymentStep.Settled,
+              -> {
+                handleSuccess()
+              }
 
-  }
+              ProcessorResult.PaymentStep.Redirect -> {
+                handleSuccess()
+              }
 
-  private fun registerSdkResult() {
-    val contract = ProcessorActivityContract()
-    processorResult = registerForActivityResult(contract) {
-      when (it) {
-        is ProcessorResult.Failure -> {
-          when (it.reason) {
-            ProcessorResult.FailureReason.UserAborted,
-            ProcessorResult.FailureReason.UserAbortedFailedToNotifyBackend,
-            ProcessorResult.FailureReason.UserAbortedProviderTemporarilyUnavailable,
-            ProcessorResult.FailureReason.UserAbortedProviderTemporarilyUnavailableFailedToNotifyBackend,
-            -> {
-              Log.d(TAG, "TrueLayer Back: ${it.reason.name}")
-              navigator.navigateBack()
+              ProcessorResult.PaymentStep.Wait -> {}
+
             }
+          },
+          onFailure = { failureReason ->
+            when (failureReason.reason) {
+              ProcessorResult.FailureReason.UserAborted,
+              ProcessorResult.FailureReason.UserAbortedFailedToNotifyBackend,
+              ProcessorResult.FailureReason.UserAbortedProviderTemporarilyUnavailable,
+              ProcessorResult.FailureReason.UserAbortedProviderTemporarilyUnavailableFailedToNotifyBackend,
+              -> {
+                Log.d(TAG, "TrueLayer Back: ${failureReason.reason.name}")
+                close()
+              }
 
-            else -> {
-              Log.d(TAG, "TrueLayer Fail: ${it.reason.name}")
-              viewModel.sendErrorEvent(it.reason.name)
-              showSpecificError(R.string.purchase_error_open_banking_wallet_generic)
+              else -> {
+                Log.d(TAG, "TrueLayer Fail: ${failureReason.reason.name}")
+                viewModel.sendErrorEvent(failureReason.reason.name)
+                showSpecificError(R.string.purchase_error_open_banking_wallet_generic)
+              }
             }
-          }
-
-
-          Log.d(TAG, "TrueLayer Fail: ${it.reason.name}")
-          viewModel.sendErrorEvent(it.reason.name)
-          showSpecificError(R.string.purchase_error_open_banking_wallet_generic)
-        }
-
-        is ProcessorResult.Successful -> {
-          // it.step: Redirect, Wait, Authorized, Successful, Settled
-          Log.d(TAG, "TrueLayer Success: ${it.step.name}")
-          when (it.step) {
-            ProcessorResult.PaymentStep.Successful,
-            ProcessorResult.PaymentStep.Authorized,
-            ProcessorResult.PaymentStep.Settled,
-            -> {
-              handleSuccess()
-            }
-
-            ProcessorResult.PaymentStep.Redirect -> {
-              handleSuccess()  // TODO check if needs a new screen
-            }
-
-            ProcessorResult.PaymentStep.Wait -> {}
-
-          }
-        }
+          },
+        )
       }
     }
   }

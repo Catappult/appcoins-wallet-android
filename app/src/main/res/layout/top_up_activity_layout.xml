@@ -37,4 +37,11 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/fullscreen_compose_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="gone"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
