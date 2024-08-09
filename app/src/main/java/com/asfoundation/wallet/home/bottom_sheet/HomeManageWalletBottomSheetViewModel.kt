@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet.home.bottom_sheet
+package com.asfoundation.wallet.home.bottom_sheet
 
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics

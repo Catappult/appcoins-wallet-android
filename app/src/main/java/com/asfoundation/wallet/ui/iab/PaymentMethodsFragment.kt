@@ -774,7 +774,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       label,
       async,
       transactionBuilder!!.referrerUrl,
-      gamificationLevel
+      gamificationLevel,
+      transactionBuilder!!.guestWalletId
     )
 
   override fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int) {

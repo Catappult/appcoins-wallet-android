@@ -49,7 +49,7 @@ class LocalPaymentInteractor @Inject constructor(
     paymentMethod: String, packageName: String, fiatAmount: String?, fiatCurrency: String?,
     productName: String?, type: String, origin: String?, developerPayload: String?,
     callbackUrl: String?, orderReference: String?,
-    referrerUrl: String?
+    referrerUrl: String?, guestWalletId: String?
   ): Single<String> {
     return walletService.getWalletAddress()
       .flatMap { address ->
@@ -71,7 +71,8 @@ class LocalPaymentInteractor @Inject constructor(
                 callback = callbackUrl,
                 orderReference = orderReference,
                 referrerUrl = referrerUrl,
-                walletAddress = address
+                walletAddress = address,
+                guestWalletId = guestWalletId,
               )
             }
           }
@@ -101,7 +102,8 @@ class LocalPaymentInteractor @Inject constructor(
           callback = null,
           orderReference = null,
           referrerUrl = null,
-          walletAddress = address
+          walletAddress = address,
+          guestWalletId = null,
         )
       }
       .map { it.url }

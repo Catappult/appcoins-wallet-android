@@ -23,7 +23,7 @@ class AppCoinsCreditsPayment @Inject constructor(
     return rewardsManager.pay(
       eskillsPaymentData.product, ticket.ticketPrice,
       eskillsPaymentData.packageName, "BDS", "ESKILLS", null, ticket.callbackUrl,
-      ticket.ticketId, null, ticket.productToken
+      ticket.ticketId, null, ticket.productToken, null
     )
       .andThen(
         rewardsManager.getPaymentStatus(

@@ -70,12 +70,12 @@ fun RewardsActions(
       description = R.string.gift_card_title,
       onClick = onClickGiftCard,
     )
-    ActionCard(
-      image = R.drawable.ic_eskills,
-      title = R.string.rewards_eskills_card_title,
-      description = R.string.rewards_eskills_card_body,
-      onClick = onClickEskills,
-    )
+//    ActionCard(  // TODO remove after moving eSkills
+//      image = R.drawable.ic_eskills,
+//      title = R.string.rewards_eskills_card_title,
+//      description = R.string.rewards_eskills_card_body,
+//      onClick = onClickEskills,
+//    )
   }
 }
 

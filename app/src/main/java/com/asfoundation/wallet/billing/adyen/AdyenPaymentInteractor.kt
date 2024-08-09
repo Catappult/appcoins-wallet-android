@@ -91,7 +91,7 @@ class AdyenPaymentInteractor @Inject constructor(
     returnUrl: String, value: String, currency: String, reference: String?,
     paymentType: String, origin: String?, packageName: String, metadata: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
-    referrerUrl: String?
+    referrerUrl: String?, guestWalletId: String?,
   ): Single<PaymentModel> {
     return Single.zip(walletService.getAndSignCurrentWalletAddress(),
       partnerAddressService.getAttribution(packageName),
@@ -122,7 +122,8 @@ class AdyenPaymentInteractor @Inject constructor(
             entityPromoCode = promoCode.code,
             userWallet = addressModel.address,
             walletSignature = addressModel.signedAddress,
-            referrerUrl = referrerUrl
+            referrerUrl = referrerUrl,
+            guestWalletId = guestWalletId,
           )
         }
       }
@@ -157,7 +158,8 @@ class AdyenPaymentInteractor @Inject constructor(
         entityPromoCode = null,
         userWallet = null,
         walletSignature = addressModel.signedAddress,
-        referrerUrl = null
+        referrerUrl = null,
+        guestWalletId = null
       )
     }
   }
@@ -192,7 +194,8 @@ class AdyenPaymentInteractor @Inject constructor(
           entityPromoCode = null,
           userWallet = null,
           walletSignature = it.signedAddress,
-          referrerUrl = null
+          referrerUrl = null,
+          guestWalletId = null
         )
       }
   }

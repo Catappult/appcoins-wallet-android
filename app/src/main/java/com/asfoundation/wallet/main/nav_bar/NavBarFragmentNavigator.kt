@@ -1,30 +1,43 @@
 package com.asfoundation.wallet.main.nav_bar
 
-import android.view.View
-import androidx.fragment.app.Fragment
+import android.os.Bundle
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.NavBarGraphDirections
 import com.asf.wallet.R
 import com.asfoundation.wallet.main.splash.SplashExtenderFragmentDirections
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.asfoundation.wallet.wallet_reward.RewardFragment
 import javax.inject.Inject
 
-class NavBarFragmentNavigator @Inject constructor(private val fragment: Fragment) : Navigator {
+class NavBarFragmentNavigator @Inject constructor() : Navigator {
 
-  fun navigateToHome() {
-    val bottomNavView: BottomNavigationView =
-      fragment.requireActivity().findViewById(R.id.bottom_nav)
-    val view: View = bottomNavView.findViewById(R.id.home_graph)
-    view.performClick()
+  fun navigateToHome(navController: NavController) {
+    navController.navigate(
+      resId = R.id.home_graph,
+      args = null,
+      navOptions = NavOptions.Builder().apply { setPopUpTo(R.id.home_graph, false) }.build()
+    )
   }
 
-  fun navigateToRewards() {
-    val bottomNavView: BottomNavigationView =
-      fragment.requireActivity().findViewById(R.id.bottom_nav)
-    val view: View = bottomNavView.findViewById(R.id.reward_graph)
-    view.performClick()
+  fun navigateToRewards(navController: NavController, giftCard: String? = null, promoCode: String? = null) {
+    navController.navigate(
+      resId = R.id.reward_graph,
+      args = getBundle(giftCard, promoCode),
+      navOptions = NavOptions.Builder().apply { setPopUpTo(R.id.reward_fragment, true) }.build()
+    )
+  }
+
+  private fun getBundle(giftCard: String?, promoCode: String?): Bundle? {
+    if (giftCard == null && promoCode == null) return null
+
+    return Bundle().apply {
+      when {
+        giftCard != null -> putString(RewardFragment.EXTRA_GIFT_CARD, giftCard)
+        else -> putString(RewardFragment.EXTRA_PROMO_CODE, promoCode)
+      }
+    }
   }
 
   fun showOnboardingGPInstallScreen(navController: NavController) {
@@ -35,7 +48,7 @@ class NavBarFragmentNavigator @Inject constructor(private val fragment: Fragment
     navigate(navController, NavBarGraphDirections.actionNavigateToFirstPaymentFragment())
   }
 
-  fun showOnboardingRecoverGuestWallet(navController: NavController, backup: String) {
+  fun showOnboardingRecoverGuestWallet(navController: NavController) {
     navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph())
   }
 }

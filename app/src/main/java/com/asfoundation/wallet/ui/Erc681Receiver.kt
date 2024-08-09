@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.asf.wallet.R
@@ -40,6 +41,10 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
+  @Inject
+  lateinit var partnerAddressService: PartnerAddressService
+
   private lateinit var presenter: Erc681ReceiverPresenter
 
   private val binding by viewBinding(ActivityIabWalletCreationBinding::bind)
@@ -62,7 +67,8 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         intent.dataString!!,
         AndroidSchedulers.mainThread(),
         CompositeDisposable(),
-        productName
+        productName,
+        partnerAddressService
       )
     presenter.present(savedInstanceState)
   }

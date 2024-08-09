@@ -21,7 +21,7 @@ class TransferInteractor @Inject constructor(
 
   fun transferCredits(
     toWallet: String, amount: BigDecimal,
-    packageName: String
+    packageName: String, guestWalletId: String?
   ): Single<AppcoinsRewardsRepository.Status> {
     return getWalletInfoUseCase(null, cached = false)
       .map { walletInfo ->
@@ -31,7 +31,7 @@ class TransferInteractor @Inject constructor(
       .flatMap {
         val validateStatus = validateData(it)
         if (validateStatus == AppcoinsRewardsRepository.Status.SUCCESS) {
-          return@flatMap rewardsManager.sendCredits(toWallet, amount, packageName)
+          return@flatMap rewardsManager.sendCredits(toWallet, amount, packageName, guestWalletId)
         }
         return@flatMap Single.just(validateStatus)
       }

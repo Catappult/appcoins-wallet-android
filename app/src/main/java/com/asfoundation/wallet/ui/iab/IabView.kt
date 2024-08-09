@@ -140,7 +140,8 @@ interface IabView {
     paymentMethodLabel: String,
     async: Boolean,
     referralUrl: String?,
-    gamificationLevel: Int
+    gamificationLevel: Int,
+    guestWalletId: String?,
   )
 
   fun createChallengeReward(walletAddress: String)
