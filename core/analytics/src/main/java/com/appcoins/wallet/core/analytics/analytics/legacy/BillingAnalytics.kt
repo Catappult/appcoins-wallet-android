@@ -409,7 +409,7 @@ class BillingAnalytics @Inject constructor(
       EVENT_VALUE to value,
       EVENT_TRANSACTION_TYPE to transactionType,
       EVENT_CONTEXT to context,
-      OEM_ID to oemId,
+      EVENT_OEMID to (oemId ?: ""),
     ).apply {
       purchaseDetails?.let { EVENT_PAYMENT_METHOD to it }
       if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true
@@ -527,7 +527,6 @@ class BillingAnalytics @Inject constructor(
     private const val EVENT_TRANSACTION_TYPE = "transaction_type"
     private const val EVENT_PAYMENT_METHOD = "payment_method"
     private const val EVENT_CONTEXT = "context"
-    private const val OEM_ID = "oem_id"
     private const val EVENT_STATUS = "status"
     private const val EVENT_ERROR_CODE = "error_code"
     private const val EVENT_ERROR_DETAILS = "error_details"
