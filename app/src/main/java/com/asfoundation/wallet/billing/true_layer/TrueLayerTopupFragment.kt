@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.billing.true_layer
 
 import android.content.Context
+import android.content.Intent
+import android.content.Intent.getIntent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +12,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -17,6 +20,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentTrueLayerTopupBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
@@ -34,8 +38,11 @@ import com.truelayer.payments.ui.theme.TypographyDefaults
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class TrueLayerTopupFragment() : BasePageViewFragment() {
@@ -139,6 +146,12 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
   private fun close() {
     navigator.navigateBack()
     topUpActivityView?.getFullscreenComposeView()?.setContent { }  // resets true layer view
+//    requireActivity().finish()
+//    val intentTopup =
+//      TopUpActivity.newIntent(requireContext()).apply {
+//        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+//      }
+//    requireContext().startActivity(intentTopup)
   }
 
   override fun onDetach() {
