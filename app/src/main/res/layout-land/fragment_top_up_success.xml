@@ -40,7 +40,7 @@
         android:layout_width="192dp"
         android:layout_height="192dp"
         android:translationY="-56dp"
-        app:layout_constraintBottom_toTopOf="@id/text_container"
+        app:layout_constraintBottom_toTopOf="@id/top_up_pending_success_animation"
         app:layout_constraintEnd_toStartOf="@id/right_animation_space"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@id/left_animation_space"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toStartOf="@id/right_animation_space"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@id/left_animation_space"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_up_success_animation"
         app:layout_constraintVertical_weight="1"
         app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
@@ -75,7 +75,7 @@
         app:layout_constraintBottom_toTopOf="@id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_up_success_animation"
+        app:layout_constraintTop_toBottomOf="@id/top_up_pending_success_animation"
         >
 
       <TextView
