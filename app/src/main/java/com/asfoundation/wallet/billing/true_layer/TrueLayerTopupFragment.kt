@@ -146,12 +146,12 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
   private fun close() {
     navigator.navigateBack()
     topUpActivityView?.getFullscreenComposeView()?.setContent { }  // resets true layer view
-//    requireActivity().finish()
-//    val intentTopup =
-//      TopUpActivity.newIntent(requireContext()).apply {
-//        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-//      }
-//    requireContext().startActivity(intentTopup)
+    requireActivity().finish()
+    val intentTopup =
+      TopUpActivity.newIntent(requireContext()).apply {
+        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+      }
+    requireContext().startActivity(intentTopup)
   }
 
   override fun onDetach() {
