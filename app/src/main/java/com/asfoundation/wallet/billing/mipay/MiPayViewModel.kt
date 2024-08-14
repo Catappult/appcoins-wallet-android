@@ -1,9 +1,11 @@
 package com.asfoundation.wallet.billing.mipay
 
+import android.app.Application
 import android.os.Bundle
 import android.text.format.DateUtils
 import androidx.activity.result.ActivityResult
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
@@ -11,9 +13,13 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.microservices.model.MiPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.utils.android_common.RedirectUtils
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.mipay.MiPayFragment.Companion.AMOUNT_KEY
+import com.asfoundation.wallet.billing.mipay.MiPayFragment.Companion.CURRENCY_KEY
+import com.asfoundation.wallet.billing.mipay.MiPayFragment.Companion.TRANSACTION_DATA_KEY
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetMiPayLinkUseCase
@@ -29,6 +35,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
 import java.util.Timer
 import java.util.TimerTask
 import javax.inject.Inject
@@ -54,12 +61,15 @@ class MiPayViewModel @Inject constructor(
   private val analytics: BillingAnalytics,
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
-  private val getMiPayLinkUseCase: GetMiPayLinkUseCase
+  private val getMiPayLinkUseCase: GetMiPayLinkUseCase,
+  application: Application,
+  savedState: SavedStateHandle,
 ) :
   BaseViewModel<MiPayIABState, MiPayIABSideEffect>(
     MiPayIABState()
   ) {
 
+  var navigatedToWebView: Boolean = false
   var transactionUid: String? = null
   var walletAddress: String = ""
   private val JOB_UPDATE_INTERVAL_MS = 5 * DateUtils.SECOND_IN_MILLIS
@@ -81,7 +91,30 @@ class MiPayViewModel @Inject constructor(
     val purchaseUid: String?,
   )
 
-  var successInfo: SuccessInfo? = null
+  private var successInfo: SuccessInfo? = null
+
+  init {
+    val transactionBuilder = savedState.get<TransactionBuilder>(TRANSACTION_DATA_KEY)
+    val amount = savedState.get<BigDecimal>(AMOUNT_KEY)
+    val fiatCurrency = savedState.get<String>(CURRENCY_KEY)
+    val returnUrl = RedirectUtils.getReturnUrl(application)
+
+    if (isFirstGetPaymentLink &&
+      transactionBuilder != null &&
+      amount != null &&
+      fiatCurrency != null
+    ) {
+      getPaymentLink(
+        transactionBuilder = transactionBuilder,
+        amount = amount.toString(),
+        fiatCurrency = fiatCurrency,
+        returnUrl = returnUrl
+      )
+      sendPaymentStartEvent(savedState.get<TransactionBuilder>(TRANSACTION_DATA_KEY))
+    } else {
+      sendSideEffect { MiPayIABSideEffect.ShowError(null) }
+    }
+  }
 
   fun getPaymentLink(
     transactionBuilder: TransactionBuilder,
