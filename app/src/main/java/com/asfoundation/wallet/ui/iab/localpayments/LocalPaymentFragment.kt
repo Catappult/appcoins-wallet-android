@@ -76,7 +76,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
       binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setAnimation(R.raw.top_up_success_animation)
     }
 
-    iabView.disableBack()
+    iabView.setBackEnable(false)
   }
 
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -292,7 +292,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
         .alpha(1f)
         .withEndAction {
           this.isClickable = true
-          iabView.enableBack()
+          iabView.setBackEnable(true)
         }
         .setDuration(TimeUnit.SECONDS.toMillis(1))
         .setListener(null)

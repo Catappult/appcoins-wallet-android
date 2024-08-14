@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -9,17 +10,14 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
-import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
-import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetShowRefundDisclaimerCodeUseCase
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.ui.widgets.NoNetworkCard
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
@@ -35,7 +33,6 @@ import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
@@ -43,18 +40,13 @@ import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
-import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
-import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUseCase
+import com.asfoundation.wallet.util.getParcelable
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
-import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.lang.Thread.sleep
 import java.math.BigDecimal
@@ -66,80 +58,39 @@ import javax.inject.Inject
 class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
-  lateinit var billingAnalytics: BillingAnalytics
-
-  @Inject
-  lateinit var iabInteract: IabInteract
-
-  @Inject
-  lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
-
-  @Inject
-  lateinit var walletBlockedInteract: WalletBlockedInteract
-
-  @Inject
-  lateinit var autoUpdateModelUseCase: GetAutoUpdateModelUseCase
-
-  @Inject
-  lateinit var getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase
-
-  @Inject
-  lateinit var setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase
-
-  @Inject
-  lateinit var hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase
-
-  @Inject
-  lateinit var logger: Logger
-
-  @Inject
   lateinit var networkMonitor: NetworkMonitor
 
-  private lateinit var presenter: IabPresenter
-  private var isBackEnable: Boolean = false
-  private var transaction: TransactionBuilder? = null
-  private var isBds: Boolean = false
-  private var backButtonPress: PublishRelay<Any>? = null
-  private var results: PublishRelay<Uri>? = null
-  private var developerPayload: String? = null
-  private var uri: String? = null
-  private var authenticationResultSubject: PublishSubject<Boolean>? = null
-  private var errorFromReceiver: String? = null
+  @Inject
+  lateinit var presenter: IabPresenter
+
+  private var isBackEnable: Boolean = true
+
+  private val backButtonPress by lazy { PublishRelay.create<Any>() }
+  private val results by lazy { PublishRelay.create<Uri>() }
+  private val authenticationResultSubject by lazy { PublishSubject.create<Boolean>() }
+
+  private val transaction by lazy { intent.getParcelable<TransactionBuilder>(TRANSACTION_EXTRA) }
+  private val isBds by lazy { intent.getBooleanExtra(IS_BDS_EXTRA, false) }
+  private val developerPayload by lazy { intent.getStringExtra(DEVELOPER_PAYLOAD) }
+  private val uri by lazy { intent.getStringExtra(URI) }
+  private val errorFromReceiver by lazy { intent.getStringExtra(ERROR_RECEIVER) }
+
   override var webViewResultCode: String? = null
 
   private val binding by viewBinding(ActivityIabBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    backButtonPress = PublishRelay.create()
-    results = PublishRelay.create()
-    authenticationResultSubject = PublishSubject.create()
     setContentView(R.layout.activity_iab)
-    isBds = intent.getBooleanExtra(IS_BDS_EXTRA, false)
-    developerPayload = intent.getStringExtra(DEVELOPER_PAYLOAD)
-    uri = intent.getStringExtra(URI)
-    transaction = intent.getParcelableExtra(TRANSACTION_EXTRA)
-    errorFromReceiver = intent.getStringExtra(ERROR_RECEIVER)
-    isBackEnable = true
-    presenter = IabPresenter(
-      this,
-      Schedulers.io(),
-      AndroidSchedulers.mainThread(),
-      CompositeDisposable(),
-      billingAnalytics,
-      iabInteract,
-      autoUpdateModelUseCase,
-      hasRequiredHardUpdateUseCase,
-      startVipReferralPollingUseCase,
-      getShowRefundDisclaimerCodeUseCase,
-      setCachedShowRefundDisclaimerUseCase,
-      logger,
-      transaction,
-      errorFromReceiver
+    presenter.init(
+      view = this,
+      transaction = transaction,
+      errorFromReceiver = errorFromReceiver
     )
     presenter.present(savedInstanceState)
   }
 
+  @Deprecated("Deprecated in Java")
   @Suppress("DEPRECATION")
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
@@ -153,16 +104,15 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     presenter.onResume()
   }
 
+  @Suppress("DEPRECATION")
+  @Deprecated("Deprecated in Java")
   override fun onBackPressed() {
     if (isBackEnable) {
       val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
       if (fragment is OnBackPressedListener) {
         (fragment as OnBackPressedListener).onBackPressed()
       } else {
-        Bundle().apply {
-          putInt(RESPONSE_CODE, RESULT_USER_CANCELED)
-          close(this)
-        }
+        bundleOf(RESPONSE_CODE to RESULT_USER_CANCELED).apply { close(this) }
         super.onBackPressed()
       }
     } else {
@@ -170,12 +120,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     }
   }
 
-  override fun disableBack() {
-    isBackEnable = false
-  }
-
-  override fun enableBack() {
-    isBackEnable = true
+  override fun setBackEnable(enable: Boolean) {
+    isBackEnable = enable
   }
 
   override fun navigateBack() {
@@ -235,8 +181,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       context = this,
       supportNotificationClicked = false,
       isPayPalVerificationRequired = true
-    )
-      .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    ).apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
+
     startActivity(intent)
     finishWithError()
   }
@@ -248,19 +194,16 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     gamificationLevel: Int,
     transactionBuilder: TransactionBuilder
   ) {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        OnChainBuyFragment.newInstance(
-          createBundle(amount),
-          intent.data!!.toString(),
-          isBds,
-          transactionBuilder,
-          bonus,
-          gamificationLevel
-        )
+    replaceFragment(
+      OnChainBuyFragment.newInstance(
+        createBundle(amount),
+        intent.data!!.toString(),
+        isBds,
+        transactionBuilder,
+        bonus,
+        gamificationLevel
       )
-      .commit()
+    )
   }
 
   override fun showAdyenPayment(
@@ -275,26 +218,23 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isSubscription: Boolean,
     frequency: String?
   ) {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        AdyenPaymentFragment.newInstance(
-          paymentType = paymentType,
-          origin = getOrigin(isBds),
-          transactionBuilder = transaction!!,
-          amount = amount,
-          currency = currency,
-          bonus = bonus,
-          isPreSelected = isPreselected,
-          gamificationLevel = gamificationLevel,
-          skuDescription = getSkuDescription(),
-          isSubscription = isSubscription,
-          isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
-          frequency = frequency,
-          paymentStateEnum = null
-        )
+    replaceFragment(
+      AdyenPaymentFragment.newInstance(
+        paymentType = paymentType,
+        origin = getOrigin(isBds),
+        transactionBuilder = transaction!!,
+        amount = amount,
+        currency = currency,
+        bonus = bonus,
+        isPreSelected = isPreselected,
+        gamificationLevel = gamificationLevel,
+        skuDescription = getSkuDescription(),
+        isSubscription = isSubscription,
+        isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
+        frequency = frequency,
+        paymentStateEnum = null
       )
-      .commit()
+    )
   }
 
   override fun showPayPalV2(
@@ -309,25 +249,22 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isSubscription: Boolean,
     frequency: String?
   ) {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        PayPalIABFragment.newInstance(
-          paymentType = paymentType,
-          origin = getOrigin(isBds),
-          transactionBuilder = transaction!!,
-          amount = amount,
-          currency = currency,
-          bonus = bonus,
-          isPreSelected = isPreselected,
-          gamificationLevel = gamificationLevel,
-          skuDescription = getSkuDescription(),
-          isSubscription = isSubscription,
-          isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
-          frequency = frequency,
-        )
+    replaceFragment(
+      PayPalIABFragment.newInstance(
+        paymentType = paymentType,
+        origin = getOrigin(isBds),
+        transactionBuilder = transaction!!,
+        amount = amount,
+        currency = currency,
+        bonus = bonus,
+        isPreSelected = isPreselected,
+        gamificationLevel = gamificationLevel,
+        skuDescription = getSkuDescription(),
+        isSubscription = isSubscription,
+        isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
+        frequency = frequency,
       )
-      .commit()
+    )
   }
 
   override fun showSandbox(
@@ -342,25 +279,22 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isSubscription: Boolean,
     frequency: String?
   ) {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        SandboxFragment.newInstance(
-          paymentType = paymentType,
-          origin = getOrigin(isBds),
-          transactionBuilder = transaction!!,
-          amount = amount,
-          currency = currency,
-          bonus = bonus,
-          isPreSelected = isPreselected,
-          gamificationLevel = gamificationLevel,
-          skuDescription = getSkuDescription(),
-          isSubscription = isSubscription,
-          isSkills = intent.dataString?.contains("&skills") ?: false,
-          frequency = frequency,
-        )
+    replaceFragment(
+      SandboxFragment.newInstance(
+        paymentType = paymentType,
+        origin = getOrigin(isBds),
+        transactionBuilder = transaction!!,
+        amount = amount,
+        currency = currency,
+        bonus = bonus,
+        isPreSelected = isPreselected,
+        gamificationLevel = gamificationLevel,
+        skuDescription = getSkuDescription(),
+        isSubscription = isSubscription,
+        isSkills = intent.dataString?.contains("&skills") ?: false,
+        frequency = frequency,
       )
-      .commit()
+    )
   }
 
   override fun showVkPay(
@@ -374,23 +308,22 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isSubscription: Boolean,
     frequency: String?
   ) {
-    val fragmentVk = VkPaymentIABFragment()
-    fragmentVk.arguments = Bundle().apply {
-      putString(VkPaymentIABFragment.PAYMENT_TYPE_KEY, paymentType.name)
-      putString(VkPaymentIABFragment.ORIGIN_KEY, getOrigin(isBds))
-      putParcelable(VkPaymentIABFragment.TRANSACTION_DATA_KEY, transaction!!)
-      putSerializable(VkPaymentIABFragment.AMOUNT_KEY, amount)
-      putString(VkPaymentIABFragment.CURRENCY_KEY, currency)
-      putString(VkPaymentIABFragment.BONUS_KEY, bonus)
-      putString(VkPaymentIABFragment.SKU_DESCRIPTION, getSkuDescription())
-      putBoolean(VkPaymentIABFragment.IS_SKILLS, intent.dataString?.contains(SKILLS_TAG) ?: false)
-      putString(VkPaymentIABFragment.FREQUENCY, frequency)
-    }
-    supportFragmentManager.beginTransaction()
-      .add(R.id.fragment_container, fragmentVk)
-      .addToBackStack(VkPaymentIABFragment::class.java.simpleName)
-      .commit()
-
+    addFragment(
+      fragment = VkPaymentIABFragment().apply {
+        arguments = bundleOf(
+          VkPaymentIABFragment.PAYMENT_TYPE_KEY to paymentType.name,
+          VkPaymentIABFragment.ORIGIN_KEY to getOrigin(isBds),
+          VkPaymentIABFragment.TRANSACTION_DATA_KEY to transaction!!,
+          VkPaymentIABFragment.AMOUNT_KEY to amount,
+          VkPaymentIABFragment.CURRENCY_KEY to currency,
+          VkPaymentIABFragment.BONUS_KEY to bonus,
+          VkPaymentIABFragment.SKU_DESCRIPTION to getSkuDescription(),
+          VkPaymentIABFragment.IS_SKILLS to intent.dataString?.contains(SKILLS_TAG),
+          VkPaymentIABFragment.FREQUENCY to frequency
+        )
+      },
+      addToBackStackName = VkPaymentIABFragment::class.java.simpleName
+    )
   }
 
   override fun showGooglePayWeb(
@@ -405,25 +338,22 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isSubscription: Boolean,
     frequency: String?
   ) {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        GooglePayWebFragment.newInstance(
-          paymentType = paymentType,
-          origin = getOrigin(isBds),
-          transactionBuilder = transaction!!,
-          amount = amount,
-          currency = currency,
-          bonus = bonus,
-          isPreSelected = isPreselected,
-          gamificationLevel = gamificationLevel,
-          skuDescription = getSkuDescription(),
-          isSubscription = isSubscription,
-          isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
-          frequency = frequency,
-        )
+    replaceFragment(
+      GooglePayWebFragment.newInstance(
+        paymentType = paymentType,
+        origin = getOrigin(isBds),
+        transactionBuilder = transaction!!,
+        amount = amount,
+        currency = currency,
+        bonus = bonus,
+        isPreSelected = isPreselected,
+        gamificationLevel = gamificationLevel,
+        skuDescription = getSkuDescription(),
+        isSubscription = isSubscription,
+        isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
+        frequency = frequency,
       )
-      .commit()
+    )
   }
 
   override fun showMiPayWeb(
@@ -432,18 +362,17 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isBds: Boolean,
     bonus: String?
   ) {
-    val fragmentMiPay = MiPayFragment()
-    fragmentMiPay.arguments = Bundle().apply {
-      putParcelable(MiPayFragment.TRANSACTION_DATA_KEY, transaction!!)
-      putSerializable(MiPayFragment.AMOUNT_KEY, amount)
-      putString(MiPayFragment.CURRENCY_KEY, currency)
-      putString(MiPayFragment.BONUS_KEY, bonus)
-    }
-    supportFragmentManager.beginTransaction()
-      .add(R.id.fragment_container, fragmentMiPay)
-      .addToBackStack(MiPayFragment::class.java.simpleName)
-      .commit()
-
+    addFragment(
+      fragment = MiPayFragment().apply {
+        arguments = bundleOf(
+          MiPayFragment.TRANSACTION_DATA_KEY to transaction!!,
+          MiPayFragment.AMOUNT_KEY to amount,
+          MiPayFragment.CURRENCY_KEY to currency,
+          MiPayFragment.BONUS_KEY to bonus,
+        )
+      },
+      addToBackStackName = MiPayFragment::class.java.simpleName
+    )
   }
 
   override fun showCarrierBilling(
@@ -452,25 +381,22 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     bonus: BigDecimal?,
     isPreselected: Boolean
   ) {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        CarrierVerifyFragment.newInstance(
-          isPreselected,
-          transaction!!.domain,
-          getOrigin(isBds),
-          transaction!!.type,
-          intent.dataString,
-          currency,
-          amount,
-          transaction!!.amount(),
-          bonus,
-          getSkuDescription(),
-          transaction!!.skuId
-        )
-      )
-      .addToBackStack(CarrierVerifyFragment.BACKSTACK_NAME)
-      .commit()
+    replaceFragment(
+      fragment = CarrierVerifyFragment.newInstance(
+        preSelected = isPreselected,
+        domain = transaction!!.domain,
+        origin = getOrigin(isBds),
+        transactionType = transaction!!.type,
+        transactionData = intent.dataString,
+        currency = currency,
+        amount = amount,
+        appcAmount = transaction!!.amount(),
+        bonus = bonus,
+        skuDescription = getSkuDescription(),
+        skuId = transaction!!.skuId
+      ),
+      addToBackStackName = CarrierVerifyFragment.BACKSTACK_NAME
+    )
   }
 
   override fun showAppcoinsCreditsPayment(
@@ -479,18 +405,16 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     gamificationLevel: Int,
     transactionBuilder: TransactionBuilder
   ) {
-    supportFragmentManager.beginTransaction().replace(
-      R.id.fragment_container,
+    replaceFragment(
       AppcoinsRewardsBuyFragment.newInstance(
-        appcAmount,
-        transactionBuilder,
-        intent.data!!.toString(),
-        isBds,
-        isPreselected,
-        gamificationLevel
+        amount = appcAmount,
+        transactionBuilder = transactionBuilder,
+        uri = intent.data!!.toString(),
+        isBds = isBds,
+        isPreSelected = isPreselected,
+        gamificationLevel = gamificationLevel
       )
     )
-      .commit()
   }
 
   override fun showLocalPayment(
@@ -514,32 +438,29 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     gamificationLevel: Int,
     guestWalletId: String?
   ) {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        LocalPaymentFragment.newInstance(
-          domain,
-          skuId,
-          originalAmount,
-          currency,
-          bonus,
-          selectedPaymentMethod,
-          developerAddress,
-          type,
-          amount,
-          callbackUrl,
-          orderReference,
-          payload,
-          getOrigin(isBds),
-          paymentMethodIconUrl,
-          paymentMethodLabel,
-          async,
-          referralUrl,
-          gamificationLevel,
-          guestWalletId
-        )
+    replaceFragment(
+      LocalPaymentFragment.newInstance(
+        domain = domain,
+        skudId = skuId,
+        originalAmount = originalAmount,
+        currency = currency,
+        bonus = bonus,
+        selectedPaymentMethod = selectedPaymentMethod,
+        developerAddress = developerAddress,
+        type = type,
+        amount = amount,
+        callbackUrl = callbackUrl,
+        orderReference = orderReference,
+        payload = payload,
+        origin = getOrigin(isBds),
+        paymentMethodIconUrl = paymentMethodIconUrl,
+        paymentMethodLabel = paymentMethodLabel,
+        async = async,
+        referralUrl = referralUrl,
+        gamificationLevel = gamificationLevel,
+        guestWalletId = guestWalletId
       )
-      .commit()
+    )
   }
 
   override fun createChallengeReward(walletAddress: String) =
@@ -562,22 +483,19 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     binding.layoutError.visibility = View.GONE
     binding.fragmentContainer.visibility = View.VISIBLE
 
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        PaymentMethodsFragment.newInstance(
-          transaction,
-          getSkuDescription(),
-          isBds,
-          isDonation,
-          developerPayload,
-          uri,
-          intent.dataString,
-          isSubscription,
-          transaction?.subscriptionPeriod
-        )
+    replaceFragment(
+      PaymentMethodsFragment.newInstance(
+        transaction = transaction,
+        productName = getSkuDescription(),
+        isBds = isBds,
+        isDonation = isDonation,
+        developerPayload = developerPayload,
+        uri = uri,
+        transactionData = intent.dataString,
+        isSubscription = isSubscription,
+        frequency = transaction?.subscriptionPeriod
       )
-      .commit()
+    )
   }
 
   override fun showShareLinkPayment(
@@ -589,20 +507,17 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     type: String,
     selectedPaymentMethod: String
   ) {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        SharePaymentLinkFragment.newInstance(
-          domain,
-          skuId,
-          originalAmount,
-          originalCurrency,
-          amount,
-          type,
-          selectedPaymentMethod
-        )
+    replaceFragment(
+      SharePaymentLinkFragment.newInstance(
+        domain = domain,
+        skuId = skuId,
+        originalAmount = originalAmount,
+        originalCurrency = originalCurrency,
+        amount = amount,
+        type = type,
+        paymentMethod = selectedPaymentMethod
       )
-      .commit()
+    )
   }
 
   override fun showMergedAppcoins(
@@ -616,41 +531,54 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isSubscription: Boolean,
     frequency: String?
   ) {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        MergedAppcoinsFragment.newInstance(
-          fiatAmount,
-          currency,
-          bonus,
-          transaction.domain,
-          getSkuDescription(),
-          transaction.amount(),
-          isBds,
-          isDonation,
-          transaction.skuId,
-          transaction.type,
-          gamificationLevel,
-          transaction,
-          isSubscription,
-          frequency
-        )
+    replaceFragment(
+      MergedAppcoinsFragment.newInstance(
+        fiatAmount = fiatAmount,
+        currency = currency,
+        bonus = bonus,
+        appName = transaction.domain,
+        productName = getSkuDescription(),
+        appcAmount = transaction.amount(),
+        isBds = isBds,
+        isDonation = isDonation,
+        skuId = transaction.skuId,
+        transactionType = transaction.type,
+        gamificationLevel = gamificationLevel,
+        transactionBuilder = transaction,
+        isSubscription = isSubscription,
+        frequency = frequency
       )
-      .commit()
+    )
   }
 
   override fun showEarnAppcoins(domain: String, skuId: String?, amount: BigDecimal, type: String) {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        EarnAppcoinsFragment.newInstance(domain, skuId, amount, type)
+    replaceFragment(
+      EarnAppcoinsFragment.newInstance(
+        domain = domain,
+        skuId = skuId,
+        amount = amount,
+        type = type
       )
-      .commit()
+    )
   }
 
   override fun showUpdateRequiredView() {
+    replaceFragment(IabUpdateRequiredFragment())
+  }
+
+  @SuppressLint("CommitTransaction")
+  private fun addFragment(fragment: Fragment, addToBackStackName: String? = null) {
     supportFragmentManager.beginTransaction()
-      .replace(R.id.fragment_container, IabUpdateRequiredFragment())
+      .add(R.id.fragment_container, fragment)
+      .apply { addToBackStackName?.let { addToBackStack(it) } }
+      .commit()
+  }
+
+  @SuppressLint("CommitTransaction")
+  private fun replaceFragment(fragment: Fragment, addToBackStackName: String? = null) {
+    supportFragmentManager.beginTransaction()
+      .replace(R.id.fragment_container, fragment)
+      .apply { addToBackStackName?.let { addToBackStack(it) } }
       .commit()
   }
 
@@ -700,19 +628,17 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     transaction!!.origin
   }
 
-  private fun createBundle(amount: BigDecimal): Bundle = Bundle().apply {
-    putSerializable(TRANSACTION_AMOUNT, amount)
-    putString(APP_PACKAGE, transaction!!.domain)
-    putString(PRODUCT_NAME, intent.extras!!.getString(PRODUCT_NAME))
-    putString(TRANSACTION_DATA, intent.dataString)
-    putString(DEVELOPER_PAYLOAD, transaction!!.payload)
-  }
-
-  fun isBds() = intent.getBooleanExtra(EXTRA_BDS_IAP, false)
+  private fun createBundle(amount: BigDecimal) = bundleOf(
+    TRANSACTION_AMOUNT to amount,
+    APP_PACKAGE to transaction!!.domain,
+    PRODUCT_NAME to intent.extras!!.getString(PRODUCT_NAME),
+    TRANSACTION_DATA to intent.dataString,
+    DEVELOPER_PAYLOAD to transaction!!.payload,
+  )
 
   override fun navigateToUri(url: String) = navigateToWebViewAuthorization(url)
 
-  override fun uriResults() = results
+  override fun uriResults(): PublishRelay<Uri> = results
 
   override fun launchIntent(intent: Intent) = startActivity(intent)
 
@@ -724,13 +650,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 
-  override fun backButtonPress() = backButtonPress!!
+  override fun backButtonPress(): PublishRelay<Any> = backButtonPress
 
   override fun successWebViewResult(data: Uri?) =
-    results!!.accept(Objects.requireNonNull(data, "Intent data cannot be null!"))
+    results.accept(Objects.requireNonNull(data, "Intent data cannot be null!"))
 
   override fun authenticationResult(success: Boolean) {
-    authenticationResultSubject?.onNext(success)
+    authenticationResultSubject.onNext(success)
   }
 
   override fun showTopupFlow() = startActivity(TopUpActivity.newIntent(this))
@@ -740,26 +666,20 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     super.onPause()
   }
 
-  override fun onDestroy() {
-    backButtonPress = null
-    super.onDestroy()
-  }
-
   private fun getSkuDescription(): String = when {
     transaction?.productName.isNullOrEmpty().not() -> transaction?.productName!!
     transaction != null && transaction!!.skuId.isNullOrEmpty().not() -> transaction!!.skuId
     else -> ""
   }
 
+  @Suppress("DEPRECATION")
   override fun showAuthenticationActivity() {
-    val intent = AuthenticationPromptActivity
-      .newIntent(this)
+    val intent = AuthenticationPromptActivity.newIntent(this)
       .apply { intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP }
-    @Suppress("DEPRECATION")
     startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
   }
 
-  override fun onAuthenticationResult(): Observable<Boolean> = authenticationResultSubject!!
+  override fun onAuthenticationResult(): Observable<Boolean> = authenticationResultSubject
 
   @Composable
   fun ConnectionAlert(isConnected: Boolean) {
@@ -767,31 +687,27 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   companion object {
-
+    private const val RESULT_USER_CANCELED = 1
+    private const val BDS = "BDS"
+    private const val IS_BDS_EXTRA = "is_bds_extra"
+    private const val ERROR_RECEIVER = "error_receiver"
+    private const val ERROR_RECEIVER_GENERIC = "error_receiver_generic"
+    private const val SKILLS_TAG = "&skills"
     const val BILLING_ADDRESS_REQUEST_CODE = 1236
     const val BILLING_ADDRESS_SUCCESS_CODE = 1000
-    const val BILLING_ADDRESS_CANCEL_CODE = 1001
     const val URI = "uri"
     const val RESPONSE_CODE = "RESPONSE_CODE"
-    const val RESULT_USER_CANCELED = 1
     const val APP_PACKAGE = "app_package"
     const val TRANSACTION_EXTRA = "transaction_extra"
     const val PRODUCT_NAME = "product_name"
-    const val OEMID = "OEMID"
-    const val GUEST_WALLET_ID = "GUEST_WALLET_ID"
     const val TRANSACTION_DATA = "transaction_data"
     const val TRANSACTION_HASH = "transaction_hash"
     const val TRANSACTION_AMOUNT = "transaction_amount"
     const val DEVELOPER_PAYLOAD = "developer_payload"
-    const val BDS = "BDS"
     const val WEB_VIEW_REQUEST_CODE = 1234
     const val BLOCKED_WARNING_REQUEST_CODE = 12345
     const val AUTHENTICATION_REQUEST_CODE = 33
-    const val IS_BDS_EXTRA = "is_bds_extra"
-    const val ERROR_RECEIVER = "error_receiver"
     const val ERROR_RECEIVER_NETWORK = "error_receiver_network"
-    const val ERROR_RECEIVER_GENERIC = "error_receiver_generic"
-    const val SKILLS_TAG = "&skills"
 
     @JvmStatic
     fun newIntent(

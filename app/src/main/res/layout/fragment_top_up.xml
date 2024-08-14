@@ -27,9 +27,9 @@
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="16dp"
           android:layout_marginTop="16dp"
+          android:animateLayoutChanges="true"
           android:background="@drawable/rectangle_blue_secondary_radius_16dp"
           android:visibility="visible"
-          android:animateLayoutChanges="true"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="1.0"
           app:layout_constraintStart_toStartOf="parent"
@@ -141,6 +141,7 @@
             android:layout_marginTop="8dp"
             android:alpha="0.3"
             android:background="@color/styleguide_dark_grey"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/info_fees"
             />
 
@@ -182,7 +183,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/big_margin"
             android:layout_marginBottom="8dp"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
