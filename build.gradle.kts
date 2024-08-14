@@ -12,7 +12,6 @@ buildscript {
     classpath(libs.gradlePlugin.junit5)
     classpath(libs.google.services)
     classpath(libs.androidx.navigation.safeargs)
-//    classpath(libs.gradlePlugin.bintray)
   }
 }
 
