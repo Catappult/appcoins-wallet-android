@@ -45,6 +45,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_blue_background
@@ -62,7 +63,9 @@ fun GamificationHeader(
   bonusValue: String,
   planetDrawable: Drawable?,
   isVip: Boolean,
-  isMaxVip: Boolean
+  isMaxVip: Boolean,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Card(
     modifier =
@@ -70,6 +73,7 @@ fun GamificationHeader(
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
       .fillMaxSize()
       .clickable {
+        buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, "Gamification")
         onClick()
       },
     shape = RoundedCornerShape(8.dp),
@@ -524,7 +528,9 @@ fun PreviewRewardsGamification() {
     bonusValue = "16",
     planetDrawable = null,
     isVip = true,
-    isMaxVip = false
+    isMaxVip = false,
+    fragmentName = "RewardsFragment",
+    buttonsAnalytics = null
   )
 }
 
@@ -541,7 +547,9 @@ fun PreviewRewardsGamificationMaxVip() {
     bonusValue = "16",
     planetDrawable = null,
     isVip = true,
-    isMaxVip = true
+    isMaxVip = true,
+    fragmentName = "RewardsFragment",
+    buttonsAnalytics = null
   )
 }
 

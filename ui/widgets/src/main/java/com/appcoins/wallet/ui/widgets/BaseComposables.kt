@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,11 +33,15 @@ fun ActionButton(
   imagePainter: Painter,
   description: String,
   onClick: () -> Unit,
-  hasRedBadge: Boolean
+  hasRedBadge: Boolean,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   if (hasRedBadge) {
     Box {
-      IconButton(onClick = { onClick() }) {
+      IconButton(onClick = {
+        buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, description)
+        onClick() }) {
         Icon(
           painter = imagePainter,
           contentDescription = description,
@@ -53,7 +58,9 @@ fun ActionButton(
       )
     }
   } else {
-    IconButton(onClick = { onClick() }) {
+    IconButton(onClick = {
+      buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, description)
+      onClick() }) {
       Icon(
         painter = imagePainter,
         contentDescription = description,
@@ -70,12 +77,18 @@ fun VectorIconButton(
   contentDescription: Int,
   onClick: () -> Unit,
   paddingIcon: Dp = 8.dp,
-  background: Color = WalletColors.styleguide_blue
+  background: Color = WalletColors.styleguide_blue,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
-  IconButton(onClick = onClick) {
+  val description = stringResource(id = contentDescription)
+  IconButton(onClick = {
+    buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, description)
+    onClick()
+  }) {
     Icon(
       imageVector = imageVector,
-      contentDescription = stringResource(id = contentDescription),
+      contentDescription = description,
       tint = WalletColors.styleguide_white,
       modifier =
       Modifier
@@ -92,12 +105,18 @@ fun VectorIconButton(
   contentDescription: Int,
   onClick: () -> Unit,
   paddingIcon: Dp = 8.dp,
-  background: Color = WalletColors.styleguide_blue
+  background: Color = WalletColors.styleguide_blue,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
-  IconButton(onClick = onClick) {
+  val description = stringResource(id = contentDescription)
+  IconButton(onClick = {
+    buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, description)
+    onClick()
+  }) {
     Icon(
       painter = painter,
-      contentDescription = stringResource(id = contentDescription),
+      contentDescription = description,
       tint = Color.White,
       modifier =
       Modifier
@@ -115,7 +134,9 @@ fun PreviewVectorIconButton() {
   VectorIconButton(
     imageVector = Icons.Default.MoreVert,
     contentDescription = R.string.action_more_details,
-    onClick = { })
+    onClick = { },
+    fragmentName = "",
+    buttonsAnalytics = null)
 }
 
 @Preview
@@ -124,7 +145,9 @@ fun PreviewIconButton() {
   VectorIconButton(
     painter = painterResource(R.drawable.ic_copy_to_clip),
     contentDescription = R.string.action_more_details,
-    onClick = { })
+    onClick = { },
+    fragmentName = "",
+    buttonsAnalytics = null)
 }
 
 @Preview
@@ -134,6 +157,8 @@ fun PreviewActionButton() {
     imagePainter = painterResource(R.drawable.ic_notifications),
     description = "Back",
     onClick = { },
-    hasRedBadge = true
+    hasRedBadge = true,
+    fragmentName = "",
+    buttonsAnalytics = null
   )
 }

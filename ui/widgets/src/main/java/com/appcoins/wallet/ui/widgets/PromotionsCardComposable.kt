@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import coil.compose.SubcomposeAsyncImage
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import kotlinx.coroutines.delay
 import java.time.Duration
@@ -50,25 +51,25 @@ import java.time.Duration
 @Preview
 @Composable
 private fun CardItemExample() {
-  PromotionsCardComposable(cardItem = cardItem)
+  PromotionsCardComposable(cardItem = cardItem, fragmentName = "RewardFragment", buttonsAnalytics = null)
 }
 
 @Preview
 @Composable
 private fun CardVipItemExample() {
-  PromotionsCardComposable(cardItem = vipCardItem)
+  PromotionsCardComposable(cardItem = vipCardItem, fragmentName = "RewardFragment", buttonsAnalytics = null)
 }
 
 @Preview
 @Composable
 private fun CardFutureItemExample() {
-  PromotionsCardComposable(cardItem = futureCardItem)
+  PromotionsCardComposable(cardItem = futureCardItem, fragmentName = "RewardFragment", buttonsAnalytics = null)
 }
 
 @Preview
 @Composable
 private fun CardVerticalItemExample() {
-  PromotionsCardComposable(cardItem = verticalCardItem)
+  PromotionsCardComposable(cardItem = verticalCardItem, fragmentName = "RewardFragment", buttonsAnalytics = null)
 }
 
 @Preview
@@ -78,7 +79,7 @@ private fun LoadingPromotionCard() {
 }
 
 @Composable
-fun PromotionsCardComposable(cardItem: CardPromotionItem) {
+fun PromotionsCardComposable(cardItem: CardPromotionItem, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   var borderColor = Color.Transparent
   var topEndRoundedCornerCard = 16.dp
   val spacerSize = if (cardItem.hasVerticalList) 8.dp else 16.dp
@@ -158,7 +159,9 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                 GetText(
                   cardItem.action,
                   cardItem.packageName,
-                  cardItem.hasVipPromotion
+                  cardItem.hasVipPromotion,
+                  fragmentName,
+                  buttonsAnalytics
                 )
               }
             }
@@ -172,7 +175,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
               verticalAlignment = Alignment.CenterVertically
             ) {
               IconWithText(stringResource(id = R.string.perks_available_soon_short))
-              GetText(cardItem.action, cardItem.packageName, cardItem.hasVipPromotion)
+              GetText(cardItem.action, cardItem.packageName, cardItem.hasVipPromotion, fragmentName, buttonsAnalytics)
             }
           }
         }
@@ -287,14 +290,17 @@ fun IconWithText(text: String) {
 }
 
 @Composable
-fun GetText(action: () -> Unit, packageName: String?, isVip: Boolean = false) {
+fun GetText(action: () -> Unit, packageName: String?, isVip: Boolean = false, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   val hasGameInstall =
     isPackageInstalled(packageName, packageManager = LocalContext.current.packageManager)
   val text =
     if (hasGameInstall) stringResource(id = R.string.play_button)
     else if (BuildConfig.FLAVOR != "gp") stringResource(R.string.get_button) else ""
 
-  TextButton(onClick = action) {
+  TextButton(onClick =  {
+    buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, text)
+    action.invoke()
+  }) {
     Text(
       text = text,
       fontWeight = FontWeight.Bold,

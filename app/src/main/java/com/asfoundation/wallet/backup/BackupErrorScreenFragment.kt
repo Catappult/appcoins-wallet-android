@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -22,6 +23,10 @@ class BackupErrorScreenFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var navigator: BackupEntryNavigator
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   companion object {
     fun newInstance() = BackupErrorScreenFragment()
@@ -39,7 +44,9 @@ class BackupErrorScreenFragment : BasePageViewFragment() {
             BackupErrorRoute(
               onClickBack = { navigator.navigateBack() },
               onChatClick = { displayChat() },
-              onCancelBackup = { navigator.navigateToManageWallet() })
+              onCancelBackup = { navigator.navigateToManageWallet() },
+              fragmentName = fragmentName,
+              buttonsAnalytics = buttonsAnalytics)
           }
         }
       }

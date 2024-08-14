@@ -32,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
@@ -40,6 +41,8 @@ fun RewardsActions(
   onClickPromoCode: () -> Unit,
   onClickGiftCard: () -> Unit,
   onClickChallengeReward: (() -> Unit)?,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   val scrollState = rememberScrollState()
   Row(
@@ -56,6 +59,8 @@ fun RewardsActions(
         title = R.string.challenge_reward_card_title,
         description = R.string.challenge_reward_card_body,
         onClick = onClickChallengeReward,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
     ActionCard(
@@ -63,12 +68,16 @@ fun RewardsActions(
       title = R.string.rewards_promo_code_card_title,
       description = R.string.rewards_promo_code_card_body,
       onClick = onClickPromoCode,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
     ActionCard(
       image = R.drawable.ic_giftcard,
       title = R.string.transaction_type_gift_card,
       description = R.string.gift_card_title,
       onClick = onClickGiftCard,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
 //    ActionCard(  // TODO remove after moving eSkills
 //      image = R.drawable.ic_eskills,
@@ -85,12 +94,17 @@ fun ActionCard(
   @StringRes title: Int,
   @StringRes description: Int,
   onClick: () -> Unit,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
+  val actionCardString = stringResource(id = title)
   Card(
     modifier = Modifier
       .width(width = 160.dp)
       .fillMaxHeight()
-      .clickable { onClick() },
+      .clickable {
+        buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, actionCardString )
+        onClick() },
     shape = RoundedCornerShape(8.dp),
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
   ) {
@@ -107,7 +121,7 @@ fun ActionCard(
           .width(54.dp),
       )
       Text(
-        text = stringResource(id = title),
+        text = actionCardString,
         style = MaterialTheme.typography.titleSmall,
         color = WalletColors.styleguide_white,
         fontWeight = FontWeight.Bold,
@@ -197,6 +211,8 @@ private fun PreviewRewardsActions() {
     { },
     { },
     { },
+    "RewardFragment",
+    null
   )
 }
 

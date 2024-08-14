@@ -58,6 +58,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
@@ -107,6 +108,11 @@ class ManageWalletFragment : BasePageViewFragment() {
   @Inject
   lateinit var analytics: ManageWalletAnalytics
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+
+  private val fragmentName = this::class.java.simpleName
+
   private val viewModel: ManageWalletViewModel by viewModels()
 
   private val manageWalletSharedViewModel: ManageWalletSharedViewModel by activityViewModels()
@@ -135,7 +141,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     LaunchedEffect(key1 = dialogDismissed) { viewModel.getWallets() }
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)}
       },
       containerColor = styleguide_blue,
     ) { padding ->
@@ -247,7 +253,9 @@ class ManageWalletFragment : BasePageViewFragment() {
           myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
         },
         hasBackup = walletInfo.hasBackup,
-        backupDate = walletInfo.backupDate
+        backupDate = walletInfo.backupDate,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
       Separator()
       if (
@@ -285,7 +293,9 @@ class ManageWalletFragment : BasePageViewFragment() {
           onCancelClickButton = {
             viewModel.cancelVerification(walletInfo.wallet)
             viewModel.updateWallets()
-          }
+          },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }
@@ -314,7 +324,9 @@ class ManageWalletFragment : BasePageViewFragment() {
           },
           hasBackup = walletInfo.hasBackup,
           backupDate = walletInfo.backupDate,
-          modifier = Modifier.weight(1f)
+          modifier = Modifier.weight(1f),
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
         Spacer(Modifier.weight(0.05f))
         if (
@@ -351,7 +363,9 @@ class ManageWalletFragment : BasePageViewFragment() {
               viewModel.cancelVerification(walletInfo.wallet)
               viewModel.updateWallets()
             },
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
           )
         }
       }
@@ -425,7 +439,9 @@ class ManageWalletFragment : BasePageViewFragment() {
           contentDescription = R.string.action_edit,
           onClick = {
             myWalletsNavigator.navigateToManageWalletNameBottomSheet(wallet, walletName)
-          })
+          },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics)
         VectorIconButton(
           painter = painterResource(R.drawable.ic_qrcode),
           contentDescription = R.string.scan_qr,
@@ -433,15 +449,21 @@ class ManageWalletFragment : BasePageViewFragment() {
             myWalletsNavigator.navigateToReceive(
               navController(), TransferDestinations.RECEIVE
             )
-          })
+          },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics)
         VectorIconButton(
           imageVector = Icons.Default.Share,
           contentDescription = R.string.wallet_view_share_button,
-          onClick = { shareAddress(wallet) })
+          onClick = { shareAddress(wallet) },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics)
         VectorIconButton(
           painter = painterResource(R.drawable.ic_copy_to_clip),
           contentDescription = R.string.wallet_view_copy_button,
-          onClick = { copyAddressToClipBoard(wallet) })
+          onClick = { copyAddressToClipBoard(wallet) },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics)
       }
     }
   }
@@ -473,7 +495,9 @@ class ManageWalletFragment : BasePageViewFragment() {
           myWalletsNavigator.navigateToManageWalletBottomSheet(inactiveWalletsQuantity == 0)
         },
         paddingIcon = 4.dp,
-        background = styleguide_blue_secondary
+        background = styleguide_blue_secondary,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }

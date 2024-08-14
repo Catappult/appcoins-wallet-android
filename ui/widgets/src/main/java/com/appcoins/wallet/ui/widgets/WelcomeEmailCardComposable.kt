@@ -31,6 +31,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.Animation
 import com.appcoins.wallet.ui.widgets.component.ButtonType
@@ -44,6 +45,8 @@ fun WelcomeEmailCard(
   onCloseClick: () -> Unit,
   isError: Boolean = false,
   errorText: String,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Column(
     modifier = Modifier
@@ -127,7 +130,9 @@ fun WelcomeEmailCard(
             buttonType = ButtonType.DEFAULT,
             enabled = true,
             modifier = Modifier
-              .padding(end = 6.dp)
+              .padding(end = 6.dp),
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
           )
         }
       }
@@ -145,12 +150,12 @@ fun WelcomeEmailCard(
 @Composable
 fun PreviewHomeEmailComposable() {
   val email = remember { mutableStateOf("") }
-  WelcomeEmailCard(email, {}, {}, false, stringResource(R.string.error_general))
+  WelcomeEmailCard(email, {}, {}, false, stringResource(R.string.error_general), "HomeFragment", null)
 }
 
 @Preview
 @Composable
 fun PreviewHomeEmailErrorComposable() {
   val email = remember { mutableStateOf("") }
-  WelcomeEmailCard(email, {}, {}, true, stringResource(R.string.error_general))
+  WelcomeEmailCard(email, {}, {}, true, stringResource(R.string.error_general), "HomeFragment", null)
 }

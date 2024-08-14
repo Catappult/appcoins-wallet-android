@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.AlertMessageWithIcon
 import com.appcoins.wallet.ui.widgets.component.ButtonType
@@ -23,6 +24,8 @@ fun BackupAlertCard(
   onClickButton: () -> Unit,
   hasBackup: Boolean,
   backupDate: Long = 0L,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   AlertCard(
     modifier = modifier,
@@ -35,7 +38,9 @@ fun BackupAlertCard(
       )
     else stringResource(R.string.backup_wallet_tooltip),
     positiveButtonLabel = stringResource(id = if (hasBackup) R.string.mywallet_backup_again_button else R.string.backup_button),
-    icon = if (hasBackup) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
+    icon = if (hasBackup) R.drawable.ic_check_circle else R.drawable.ic_alert_circle,
+    fragmentName = fragmentName,
+    buttonsAnalytics = buttonsAnalytics
   )
 }
 
@@ -48,7 +53,9 @@ fun VerifyWalletAlertCard(
   waitingCodeCC: Boolean,
   waitingCodePP: Boolean,
   onCancelClickButton: () -> Unit,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   AlertCard(
     onClickPositiveButton = onClickButton,
@@ -66,7 +73,9 @@ fun VerifyWalletAlertCard(
     icon = verifyCardIcon(verifiedWeb, waitingCodeCC || waitingCodePP),
     onClickNegativeButton = onCancelClickButton,
     negativeButtonLabel = verifyCardNegativeButtonLabel(waitingCodeCC || waitingCodePP),
-    modifier = modifier
+    modifier = modifier,
+    fragmentName = fragmentName,
+    buttonsAnalytics = buttonsAnalytics
   )
 }
 
@@ -80,6 +89,8 @@ fun AlertCard(
   icon: Int,
   onClickNegativeButton: () -> Unit = {},
   negativeButtonLabel: String = "",
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Column(modifier = modifier) {
     AlertMessageWithIcon(
@@ -93,6 +104,8 @@ fun AlertCard(
       positiveButtonLabel = positiveButtonLabel,
       onClickNegativeButton = onClickNegativeButton,
       negativeButtonLabel = negativeButtonLabel,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
   }
 }
@@ -103,6 +116,8 @@ fun CardButtons(
   positiveButtonLabel: String,
   onClickNegativeButton: () -> Unit = {},
   negativeButtonLabel: String = "",
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
     if (negativeButtonLabel.isNotEmpty())
@@ -111,7 +126,9 @@ fun CardButtons(
         label = negativeButtonLabel,
         labelColor = WalletColors.styleguide_white,
         onClick = onClickNegativeButton,
-        buttonType = ButtonType.LARGE
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     ButtonWithText(
       modifier = Modifier.weight(1f),
@@ -119,7 +136,9 @@ fun CardButtons(
       outlineColor = WalletColors.styleguide_white,
       labelColor = WalletColors.styleguide_white,
       onClick = onClickPositiveButton,
-      buttonType = ButtonType.LARGE
+      buttonType = ButtonType.LARGE,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
   }
 }
@@ -131,13 +150,15 @@ fun PreviewCardButtons() {
     onClickPositiveButton = {},
     positiveButtonLabel = stringResource(R.string.card_verification_wallets_insert_bode_button),
     onClickNegativeButton = {},
+    fragmentName = "BackupFragment",
+    buttonsAnalytics = null
   )
 }
 
 @Preview
 @Composable
 fun PreviewBackupAlertCard() {
-  BackupAlertCard(onClickButton = {}, hasBackup = true)
+  BackupAlertCard(onClickButton = {}, hasBackup = true, fragmentName = "BackupFragment", buttonsAnalytics = null)
 }
 
 @Preview
@@ -151,6 +172,8 @@ fun PreviewVerifyAlertCard() {
     waitingCodeCC = false,
     waitingCodePP = false,
     onCancelClickButton = {},
+    fragmentName = "BackupFragment",
+    buttonsAnalytics = null
   )
 }
 

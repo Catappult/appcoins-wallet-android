@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.data.Navigator
@@ -36,6 +37,10 @@ class BackupSaveOptionsComposeFragment :
 
   @Inject
   lateinit var navigator: BackupSaveOptionsNavigator
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   companion object {
     fun newInstance() = BackupSaveOptionsComposeFragment()
@@ -96,7 +101,10 @@ class BackupSaveOptionsComposeFragment :
               onChatClick = { displayChat() },
               onSaveOnDevice = {
                 navigator.showSaveOnDeviceFragment(viewModel.walletAddress, viewModel.password)
-              })
+              },
+              fragmentName = fragmentName,
+              buttonsAnalytics = buttonsAnalytics
+            )
           }
         }
       }

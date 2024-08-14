@@ -16,8 +16,8 @@ import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.RedirectUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.MiPayIabLayoutBinding
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -28,7 +28,6 @@ import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
 import javax.inject.Inject
 
 
@@ -54,9 +53,7 @@ class MiPayFragment : BasePageViewFragment(),
     super.onAttach(context)
     check(context is IabView) { "MiPay payment fragment must be attached to IAB activity" }
     iabView = context
-    iabView.lockRotation()
   }
-
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -71,28 +68,6 @@ class MiPayFragment : BasePageViewFragment(),
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     setupTransactionCompleteAnimation()
     createResultLauncher()
-    lifecycleScope.launch {
-      startTransaction()
-    }
-  }
-
-  private fun startTransaction() {
-    if (viewModel.isFirstGetPaymentLink &&
-      requireArguments().containsKey(CURRENCY_KEY) &&
-      requireArguments().containsKey(TRANSACTION_DATA_KEY) &&
-      requireArguments().containsKey(AMOUNT_KEY) &&
-      requireArguments().containsKey(ORIGIN_KEY)
-    ) {
-      viewModel.getPaymentLink(
-        requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
-        (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
-        requireArguments().getString(CURRENCY_KEY)!!,
-        RedirectUtils.getReturnUrl(requireContext())
-      )
-      viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
-    } else {
-      showError()
-    }
   }
 
   private fun setupTransactionCompleteAnimation() {
@@ -126,6 +101,24 @@ class MiPayFragment : BasePageViewFragment(),
         showError()
       }
 
+      is Async.Loading -> {
+        showLoading()
+      }
+
+      is Async.Success -> {
+        val loadingStatus = listOf(
+          Transaction.Status.PENDING,
+          Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
+          Transaction.Status.PROCESSING,
+          Transaction.Status.PENDING_USER_PAYMENT,
+          Transaction.Status.SETTLED
+        )
+        val status = state.transaction.value?.status?.let { Transaction.Status.valueOf(it) }
+        if (loadingStatus.contains(status)) {
+          showLoading()
+        }
+      }
+
       else -> {}
     }
   }
@@ -152,6 +145,10 @@ class MiPayFragment : BasePageViewFragment(),
     }
   }
 
+  private fun showLoading() {
+    binding.loading.visibility = View.VISIBLE
+  }
+
   override fun onSideEffect(sideEffect: MiPayIABSideEffect) {
     when (sideEffect) {
       is MiPayIABSideEffect.ShowError -> {
@@ -159,7 +156,7 @@ class MiPayFragment : BasePageViewFragment(),
       }
 
       MiPayIABSideEffect.ShowLoading -> {
-        binding.loading.visibility = View.VISIBLE
+        showLoading()
       }
 
       MiPayIABSideEffect.ShowSuccess -> {
@@ -167,7 +164,10 @@ class MiPayFragment : BasePageViewFragment(),
       }
 
       MiPayIABSideEffect.PaymentLinkSuccess -> {
-        showWebView()
+        if (!viewModel.navigatedToWebView) {
+          viewModel.navigatedToWebView = true
+          showWebView()
+        }
       }
 
       MiPayIABSideEffect.BackToPayments -> {
@@ -224,7 +224,6 @@ class MiPayFragment : BasePageViewFragment(),
   }
 
   companion object {
-    const val ORIGIN_KEY = "origin"
     const val TRANSACTION_DATA_KEY = "transaction_data"
     const val AMOUNT_KEY = "amount"
     const val CURRENCY_KEY = "currency"

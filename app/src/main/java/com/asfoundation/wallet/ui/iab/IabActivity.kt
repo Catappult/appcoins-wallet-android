@@ -365,7 +365,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     addFragment(
       fragment = MiPayFragment().apply {
         arguments = bundleOf(
-          MiPayFragment.ORIGIN_KEY to getOrigin(isBds),
           MiPayFragment.TRANSACTION_DATA_KEY to transaction!!,
           MiPayFragment.AMOUNT_KEY to amount,
           MiPayFragment.CURRENCY_KEY to currency,
