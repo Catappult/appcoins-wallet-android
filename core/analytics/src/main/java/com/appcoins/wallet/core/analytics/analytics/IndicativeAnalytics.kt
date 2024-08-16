@@ -68,7 +68,7 @@ class IndicativeAnalytics @Inject constructor(
       AnalyticsLabels.ENTRY_POINT,
       if (installerPackage.isEmpty()) "other" else installerPackage
     )
-    superProperties.put(AnalyticsLabels.USER_LEVEL, userLevel) // should not be a user property
+    superProperties.put(AnalyticsLabels.USER_LEVEL, userLevel)
     superProperties.put(AnalyticsLabels.HAS_GMS, hasGms)
     superProperties.put(AnalyticsLabels.WALLET_ORIGIN, walletOrigin)
 
@@ -79,9 +79,9 @@ class IndicativeAnalytics @Inject constructor(
     superProperties.put(AnalyticsLabels.LANGUAGE, language)
     superProperties.put(AnalyticsLabels.IS_EMULATOR, isEmulator)
     superProperties.put(AnalyticsLabels.GAMES_HUB_OEMID, ghOemId)
-    superProperties.put(AnalyticsLabels.PROMO_CODE, promoCode)  // should not be a user property
+    superProperties.put(AnalyticsLabels.PROMO_CODE, promoCode)  // should this be a user property?
     superProperties.put(AnalyticsLabels.FLAVOR, flavor)
-    superProperties.put(AnalyticsLabels.THEME, theme)  // should not be a user property
+    superProperties.put(AnalyticsLabels.THEME, theme)
 
     if (userId.isNotEmpty()) this.usrId = userId
 
