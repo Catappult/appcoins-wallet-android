@@ -90,6 +90,8 @@ class PromoCodeBottomSheetFragment :
     }
     views.promoCodeBottomSheetReplaceButton.setOnClickListener {
       rewardsAnalytics.replacePromoCodeImpressionEvent("")
+      viewModel.replaceClick()
+      views.promoCodeBottomSheetString.setText("")
     }
     views.promoCodeBottomSheetDeleteButton.setOnClickListener { viewModel.deleteClick() }
 
