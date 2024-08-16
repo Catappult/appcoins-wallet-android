@@ -35,10 +35,8 @@ class IndicativeEventLogger @Inject constructor(
           IndicativeAnalytics.REGULAR_PAYMENT
       )
     )
-    // Concats the data and superProperties. This way we can mimic Rakam's superProperties.
-    val superPropertiesAndData: Map<String, Any>?
-    superPropertiesAndData = indicativeAnalytics.superProperties + (completedData ?: HashMap())
-    Indicative.recordEvent(eventName, indicativeAnalytics.usrId, superPropertiesAndData)
+    Indicative.addProperties(indicativeAnalytics.superProperties)
+    Indicative.recordEvent(eventName, indicativeAnalytics.usrId, (completedData ?: HashMap()))
     Log.d(
       TAG,
       "log() called with: eventName = [$eventName], superProperties = [${indicativeAnalytics.superProperties}] data = [$completedData], action = [$action], context = [$context], userId = [${indicativeAnalytics.usrId}]"
