@@ -49,9 +49,7 @@ public class MultiWalletNonceObtainer {
 
     @Override public boolean equals(Object o) {
       if (this == o) return true;
-      if (!(o instanceof Key)) return false;
-
-      Key key = (Key) o;
+      if (!(o instanceof Key key)) return false;
 
       if (chainId != key.chainId) return false;
       return address.equals(key.address);

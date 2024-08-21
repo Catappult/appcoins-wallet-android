@@ -528,10 +528,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   fun retrievePaymentData() = paymentDataSubject!!
 
-  override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-  }
-
   override fun onAttach(context: Context) {
     super.onAttach(context)
     check(context is IabView) { "adyen payment fragment must be attached to IAB activity" }

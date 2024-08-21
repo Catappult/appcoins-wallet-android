@@ -48,8 +48,7 @@ public class ImageSaver {
   public Bitmap drawableToBitmap(Drawable drawable) {
     Bitmap bitmap = null;
 
-    if (drawable instanceof BitmapDrawable) {
-      BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+    if (drawable instanceof BitmapDrawable bitmapDrawable) {
       if (bitmapDrawable.getBitmap() != null) {
         return bitmapDrawable.getBitmap();
       }

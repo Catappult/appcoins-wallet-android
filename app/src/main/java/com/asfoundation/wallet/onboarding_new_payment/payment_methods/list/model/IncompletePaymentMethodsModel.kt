@@ -36,7 +36,7 @@ abstract class IncompletePaymentMethodsModel :
     for (paymentMethod in otherPaymentMethods) {
       methodsString.append(paymentMethod.label).append(", ")
     }
-    methodsString.setLength((methodsString.length - 2).coerceAtLeast(0));
+    methodsString.setLength((methodsString.length - 2).coerceAtLeast(0))
     holder.methodsTextList.text = methodsString
   }
 
