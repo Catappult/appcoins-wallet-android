@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.onboarding.pending_payment
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
@@ -19,6 +20,7 @@ import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetEarningBonusU
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetOnboardingTransactionBuilderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
+import java.io.Serializable
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -44,6 +46,7 @@ class OnboardingPaymentViewModel @Inject constructor(
   private val events: OnboardingPaymentEvents,
   private val getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase,
   private var setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase,
+  private var addressService: AddressService,
   val rxSchedulers: RxSchedulers
 ) :
   BaseViewModel<OnboardingPaymentState, OnboardingPaymentSideEffect>(OnboardingPaymentState()) {
@@ -62,20 +65,21 @@ class OnboardingPaymentViewModel @Inject constructor(
             cachedTransaction.packageName!!,
             mutableListOf(cachedTransaction.sku!!),
             BillingSupportedType.INAPP
-          )
-        ) { transactionBuilder, products ->
-          Triple(cachedTransaction, transactionBuilder, products)
+          ),
+          addressService.getAttribution(cachedTransaction.packageName)
+        ) { transactionBuilder, products, attribution ->
+          Quadruple(cachedTransaction, transactionBuilder, products, attribution)
         }
       }
       .retryWhen { it.take(10).delay(200, TimeUnit.MILLISECONDS) }
-      .flatMap { (cachedTransaction, transactionBuilder, products) ->
+      .flatMap { (cachedTransaction, transactionBuilder, products, attribution) ->
         val modifiedCachedTransaction = cachedTransaction.copy(
           value = products.first().transactionPrice.amount,
           currency = products.first().transactionPrice.currency
         )
         val modifiedTransactionBuilder =
           transactionBuilder.amount(BigDecimal(products.first().transactionPrice.appcoinsAmount))
-        events.sendPurchaseStartWithoutDetailsEvent(modifiedTransactionBuilder)
+        events.sendPurchaseStartEvent(modifiedTransactionBuilder, attribution.oemId)
         getEarningBonusUseCase(
           modifiedTransactionBuilder.domain,
           products.first().transactionPrice.amount.toBigDecimal(),
@@ -119,6 +123,10 @@ class OnboardingPaymentViewModel @Inject constructor(
   fun setOnboardingCompleted() {
     setOnboardingCompletedUseCase()
   }
+}
+
+data class Quadruple<A,B,C,D>(var first: A, var second: B, var third: C, var fourth: D): Serializable {
+  override fun toString(): String = "($first, $second, $third, $fourth)"
 }
 
 data class TransactionContent(

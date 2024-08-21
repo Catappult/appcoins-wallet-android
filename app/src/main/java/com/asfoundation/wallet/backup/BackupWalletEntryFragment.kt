@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryRoute
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryViewModel
@@ -38,6 +39,10 @@ class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
 
   @Inject
   lateinit var settingsInteractor: SettingsInteractor
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   val networkScheduler = Schedulers.io()
   val viewScheduler: Scheduler = AndroidSchedulers.mainThread()
@@ -77,7 +82,10 @@ class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
                 navigateToBackupWalletEntry(
                   viewModel.walletAddress, navController(), viewModel.password
                 )
-              })
+              },
+              fragmentName = fragmentName,
+              buttonsAnalytics = buttonsAnalytics
+            )
           }
         }
       }

@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.RxBus
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.ButtonType
@@ -41,12 +42,18 @@ import com.asf.wallet.databinding.SplashExtenderFragmentBinding
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashExtenderFragment : BasePageViewFragment() {
 
   private val viewModel: SplashExtenderViewModel by viewModels()
   private val views by viewBinding(SplashExtenderFragmentBinding::bind)
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -172,7 +179,9 @@ class SplashExtenderFragment : BasePageViewFragment() {
           onClick = onClick,
           labelColor = WalletColors.styleguide_blue,
           backgroundColor = WalletColors.styleguide_vip_yellow,
-          buttonType = ButtonType.LARGE
+          buttonType = ButtonType.LARGE,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }

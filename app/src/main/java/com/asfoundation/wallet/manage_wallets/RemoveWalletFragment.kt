@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -65,6 +66,10 @@ class RemoveWalletFragment : BasePageViewFragment() {
   @Inject
   lateinit var myWalletsNavigator: MyWalletsNavigator
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -78,7 +83,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
     viewModel.getWallets(false)
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) }
       },
       containerColor = WalletColors.styleguide_blue,
     ) { padding ->
@@ -257,7 +262,9 @@ class RemoveWalletFragment : BasePageViewFragment() {
         onClick = { myWalletsNavigator.navigateToBackup(address, name) },
         labelColor = styleguide_light_grey,
         backgroundColor = styleguide_pink,
-        buttonType = ButtonType.LARGE
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
 
       ButtonWithText(
@@ -265,7 +272,9 @@ class RemoveWalletFragment : BasePageViewFragment() {
         onClick = { viewModel.deleteWallet(address) },
         labelColor = styleguide_light_grey,
         outlineColor = styleguide_light_grey,
-        buttonType = ButtonType.LARGE
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }

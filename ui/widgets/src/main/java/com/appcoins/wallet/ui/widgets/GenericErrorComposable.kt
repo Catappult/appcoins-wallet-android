@@ -24,12 +24,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
-fun GenericError(message: String, onSupportClick: () -> Unit, onTryAgain: () -> Unit) {
+fun GenericError(
+  message: String,
+  onSupportClick: () -> Unit,
+  onTryAgain: () -> Unit,
+  fragmentName: String,
+  buttonAnalytics: ButtonsAnalytics?
+) {
   Column(
     modifier = Modifier
       .fillMaxSize()
@@ -80,7 +87,9 @@ fun GenericError(message: String, onSupportClick: () -> Unit, onTryAgain: () -> 
       onClick = onTryAgain,
       labelColor = WalletColors.styleguide_white,
       backgroundColor = WalletColors.styleguide_pink,
-      buttonType = ButtonType.LARGE
+      buttonType = ButtonType.LARGE,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonAnalytics
     )
   }
 }
@@ -103,5 +112,11 @@ fun SupportButton(onSupportClick: () -> Unit) {
 @Preview
 @Composable
 fun PreviewGenericError() {
-  GenericError(stringResource(id = R.string.manage_cards_error_details), {}, {})
+  GenericError(
+    stringResource(id = R.string.manage_cards_error_details),
+    {},
+    {},
+    "HomeFragment",
+    null
+  )
 }

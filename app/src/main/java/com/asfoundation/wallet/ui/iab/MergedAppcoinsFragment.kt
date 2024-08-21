@@ -275,7 +275,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     setHeaderInformation()
     setButtonsText()
     setBonus()
-    iabView.disableBack()
+    iabView.setBackEnable(false)
     mergedAppcoinsPresenter.present(savedInstanceState)
   }
 
@@ -617,7 +617,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   override fun onDestroyView() {
     mergedAppcoinsPresenter.handleStop()
-    iabView.enableBack()
+    iabView.setBackEnable(true)
     binding.appcoinsRadio.appcoinsRadioButton.setOnCheckedChangeListener(null)
     binding.appcoinsRadio.root.setOnClickListener(null)
     binding.creditsRadio.creditsRadioButton.setOnCheckedChangeListener(null)
