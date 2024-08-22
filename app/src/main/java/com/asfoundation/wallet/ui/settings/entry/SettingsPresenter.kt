@@ -12,6 +12,7 @@ import com.github.michaelbull.result.get
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.rx2.rxSingle
 
 class SettingsPresenter(
@@ -174,24 +175,25 @@ class SettingsPresenter(
   fun changeAuthorizationPermission() =
     settingsInteractor.changeAuthorizationPermission(!hasAuthenticationPermission())
 
+
+  var currencyDisposable: Disposable? = null
   private fun setCurrencyPreference() {
-    disposables.add(
-      rxSingle { getChangeFiatCurrencyModelUseCase() }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .subscribe(
-          { result ->
-            val selectedFiatCurrency = result.get()?.let { model ->
-              model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
-            }
-            view.setCurrencyPreference(selectedFiatCurrency)
-          },
-          { throwable ->
-            view.setCurrencyPreference(null)
-            handleError(throwable)
+    currencyDisposable?.dispose()
+    currencyDisposable = rxSingle { getChangeFiatCurrencyModelUseCase() }
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .subscribe(
+        { result ->
+          val selectedFiatCurrency = result.get()?.let { model ->
+            model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
           }
-        )
-    )
+          view.setCurrencyPreference(selectedFiatCurrency)
+        },
+        { throwable ->
+          view.setCurrencyPreference(null)
+          handleError(throwable)
+        }
+      )
   }
 
   fun displayChat() = displayChatUseCase()
