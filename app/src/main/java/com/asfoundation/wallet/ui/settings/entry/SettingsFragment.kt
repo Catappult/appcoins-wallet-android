@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.settings.entry
 
-import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,7 +12,6 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -95,7 +93,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     presenter.present(savedInstanceState)
     view.findViewById<ComposeView>(R.id.app_bar).apply {
       setContent {
-        TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
+        TopBar(
+          isMainBar = false,
+          onClickSupport = { presenter.displayChat() },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
+        )
       }
     }
     if (manageCardSharedViewModel.isCardSaved.value) {
@@ -420,13 +423,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setCreditsPreference() {
     val creditsPreference = findPreference<Preference>("pref_credits")
     creditsPreference?.setOnPreferenceClickListener {
-      AlertDialog.Builder(activity)
-        .setPositiveButton(
-          R.string.close
-        ) { dialog, _ -> dialog.dismiss() }
-        .setMessage(R.string.settings_fragment_credits)
-        .create()
-        .show()
+      val bottomSheet = SettingsCreditsBottomSheetFragment.newInstance()
+      bottomSheet.show(parentFragmentManager, "ManageWalletName")
       true
     }
   }
