@@ -26,6 +26,7 @@ import com.appcoins.wallet.core.utils.android_common.AppUtils
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
+import com.appcoins.wallet.core.utils.properties.UrlPropertiesFormatter
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
@@ -185,9 +186,12 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
         privacyPolicy
       )
 
+    val termsConditionsUrl = UrlPropertiesFormatter.addLanguageElementToUrl(TERMS_CONDITIONS_URL)
+    val privacyPolicyUrl = UrlPropertiesFormatter.addLanguageElementToUrl(PRIVACY_POLICY_URL)
+
     val spannableString = SpannableString(termsPolicyTickBox)
-    setLinkToString(spannableString, termsConditions, Uri.parse(TERMS_CONDITIONS_URL))
-    setLinkToString(spannableString, privacyPolicy, Uri.parse(PRIVACY_POLICY_URL))
+    setLinkToString(spannableString, termsConditions, termsConditionsUrl)
+    setLinkToString(spannableString, privacyPolicy, privacyPolicyUrl)
 
     views.onboardingPaymentTermsConditions?.termsConditionsBody?.text = spannableString
     views.onboardingPaymentTermsConditions?.termsConditionsBody?.isClickable = true
