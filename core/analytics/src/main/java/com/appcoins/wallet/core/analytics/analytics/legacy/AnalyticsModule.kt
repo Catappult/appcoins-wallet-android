@@ -98,6 +98,7 @@ class AnalyticsModule {
       WALLET_APP_TOP_UP_CLICK,
       WALLET_APP_EMAIL_SUBMITTED,
       WALLET_APP_HOME_SCREEN_CLICK,
+      WALLET_APP_CLICK,
     )
 
   @Singleton
@@ -159,7 +160,8 @@ class AnalyticsModule {
       WALLET_APP_SETTINGS_CLICK,
       WALLET_APP_TOP_UP_CLICK,
       WALLET_APP_EMAIL_SUBMITTED,
-      WALLET_APP_HOME_SCREEN_CLICK
+      WALLET_APP_HOME_SCREEN_CLICK,
+      WALLET_APP_CLICK
     )
 
   @Singleton
@@ -242,6 +244,7 @@ class AnalyticsModule {
     const val WALLET_ONBOARDING_RECOVER_WEB = "wallet_onboarding_recover_web"
     const val VERSION_CODE = 259 //com.asf.wallet.BuildConfig
     const val APPLICATION_ID = "com.appcoins.wallet.dev"
+    const val WALLET_APP_CLICK = "wallet_app_click"
   }
 
 }

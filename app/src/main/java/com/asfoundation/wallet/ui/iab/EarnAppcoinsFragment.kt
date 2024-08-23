@@ -49,7 +49,7 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.dialogBuyButtonsPaymentMethods.buyButton.setText(getString(R.string.discover_button))
     binding.dialogBuyButtonsPaymentMethods.cancelButton.setText(getString(R.string.back_button))
-    iabView.disableBack()
+    iabView.setBackEnable(false)
     presenter.present()
     super.onViewCreated(view, savedInstanceState)
   }
@@ -74,7 +74,7 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   override fun backPressed() = iabView.backButtonPress()
 
   override fun onDestroyView() {
-    iabView.enableBack()
+    iabView.setBackEnable(true)
     presenter.destroy()
     super.onDestroyView()
   }

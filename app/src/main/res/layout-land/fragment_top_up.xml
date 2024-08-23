@@ -37,9 +37,9 @@
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="16dp"
           android:layout_marginTop="16dp"
+          android:animateLayoutChanges="true"
           android:background="@drawable/rectangle_blue_secondary_radius_16dp"
           android:visibility="visible"
-          android:animateLayoutChanges="true"
           app:layout_constraintEnd_toStartOf="@id/mid_guideline"
           app:layout_constraintHorizontal_bias="1.0"
           app:layout_constraintStart_toStartOf="parent"
@@ -151,6 +151,7 @@
             android:layout_marginTop="8dp"
             android:alpha="0.3"
             android:background="@color/styleguide_dark_grey"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/info_fees"
             />
 
@@ -173,6 +174,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="16dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_topup_error"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/main_value"
@@ -180,7 +182,6 @@
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/main_value"
-            android:importantForAccessibility="no"
             />
 
         <include
@@ -192,7 +193,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/big_margin"
             android:layout_marginBottom="8dp"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -292,8 +293,8 @@
           android:id="@+id/tv_refund_disclaimer"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
           android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="8dp"
           android:layout_marginEnd="@dimen/big_margin"
           android:text="@string/purchase_legal_disclaimer"
           android:textColor="@color/styleguide_dark_grey"

@@ -27,6 +27,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -38,7 +39,9 @@ import com.asfoundation.wallet.manage_cards.models.StoredCard
 fun ManageDeleteCardBottomSheet(
   onCancelClick: () -> Unit,
   onConfirmClick: () -> Unit,
-  storedCard: StoredCard
+  storedCard: StoredCard,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   var isShowLoading by rememberSaveable { mutableStateOf(false) }
   Column(
@@ -107,7 +110,9 @@ fun ManageDeleteCardBottomSheet(
             backgroundColor = Color.Transparent,
             labelColor = WalletColors.styleguide_white,
             outlineColor = WalletColors.styleguide_white,
-            buttonType = ButtonType.LARGE
+            buttonType = ButtonType.LARGE,
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
           )
         }
         ButtonWithText(
@@ -118,7 +123,9 @@ fun ManageDeleteCardBottomSheet(
           },
           backgroundColor = WalletColors.styleguide_pink,
           labelColor = WalletColors.styleguide_white,
-          buttonType = ButtonType.LARGE
+          buttonType = ButtonType.LARGE,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }
@@ -131,6 +138,8 @@ fun PreviewBackupDialogCardAlertBottomSheet() {
   ManageDeleteCardBottomSheet(
     {},
     {},
-    StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_visa, null, false)
+    StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_visa, null, false),
+    "HomeFragment",
+    ButtonsAnalytics(null)
   )
 }

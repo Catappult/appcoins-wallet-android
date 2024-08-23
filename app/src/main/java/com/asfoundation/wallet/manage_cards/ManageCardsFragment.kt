@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -68,6 +69,10 @@ class ManageCardsFragment : BasePageViewFragment() {
   @Inject
   lateinit var manageCardsAnalytics: ManageCardsAnalytics
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
   private val manageCardSharedViewModel: ManageCardSharedViewModel by activityViewModels()
 
   override fun onCreateView(
@@ -89,7 +94,7 @@ class ManageCardsFragment : BasePageViewFragment() {
     }
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) }
       },
       containerColor = WalletColors.styleguide_blue,
     ) { padding ->
@@ -264,7 +269,9 @@ class ManageCardsFragment : BasePageViewFragment() {
             viewModel.storedCardClicked.value?.recurringReference?.let { viewModel.deleteCard(it) }
             manageCardsAnalytics.removeCardClickEvent()
           },
-          storedCard = viewModel.storedCardClicked.value!!
+          storedCard = viewModel.storedCardClicked.value!!,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics,
         )
       }
     }

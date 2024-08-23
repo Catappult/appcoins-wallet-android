@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
@@ -33,6 +34,8 @@ fun TopBar(
   onClickSupport: () -> Unit = {},
   onClickBack: (() -> Unit)? = null,
   hasNotificationBadge: Boolean = false,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   TopAppBar(
     modifier = Modifier.fillMaxWidth(),
@@ -45,7 +48,7 @@ fun TopBar(
           .height(64.dp),
         verticalAlignment = Alignment.CenterVertically,
       ) {
-        if (isMainBar) WalletLogo() else BackButton(onClickBack)
+        if (isMainBar) WalletLogo() else BackButton(onClickBack, fragmentName, buttonsAnalytics)
       }
     },
     actions = {
@@ -55,8 +58,8 @@ fun TopBar(
           .height(64.dp),
         verticalAlignment = Alignment.CenterVertically,
       ) {
-        if (isMainBar) SettingsButton(onClickSettings)
-        SupportButton(onClickSupport, hasNotificationBadge)
+        if (isMainBar) SettingsButton(onClickSettings, fragmentName, buttonsAnalytics)
+        SupportButton(onClickSupport, hasNotificationBadge, fragmentName, buttonsAnalytics)
       }
     })
 }
@@ -67,7 +70,9 @@ fun TopBar(
 fun TopBar(
   onClickSupport: () -> Unit = {},
   onClickBack: (() -> Unit)? = null,
-  hasNotificationBadge: Boolean = false
+  hasNotificationBadge: Boolean = false,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Row(
     modifier =
@@ -79,8 +84,8 @@ fun TopBar(
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
-    BackButton(onClickBack)
-    SupportButton(onClickSupport, hasNotificationBadge)
+    BackButton(onClickBack, fragmentName, buttonsAnalytics)
+    SupportButton(onClickSupport, hasNotificationBadge, fragmentName, buttonsAnalytics)
   }
 }
 
@@ -94,43 +99,51 @@ fun WalletLogo() {
 }
 
 @Composable
-fun NotificationsButton(onClickNotifications: () -> Unit = {}) {
+fun NotificationsButton(onClickNotifications: () -> Unit = {}, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   ActionButton(
     imagePainter = painterResource(R.drawable.ic_notifications),
     description = "Notifications",
     onClick = onClickNotifications,
-    hasRedBadge = false
+    hasRedBadge = false,
+    fragmentName = fragmentName,
+    buttonsAnalytics = buttonsAnalytics
   )
 }
 
 @Composable
-fun SettingsButton(onClickSettings: () -> Unit = {}) {
+fun SettingsButton(onClickSettings: () -> Unit = {}, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   ActionButton(
     imagePainter = painterResource(R.drawable.ic_settings_white_24dp),
     description = "Settings",
     onClick = onClickSettings,
-    hasRedBadge = false
+    hasRedBadge = false,
+    fragmentName = fragmentName,
+    buttonsAnalytics = buttonsAnalytics
   )
 }
 
 @Composable
-fun SupportButton(onClickSupport: () -> Unit = {}, hasNotificationBadge: Boolean) {
+fun SupportButton(onClickSupport: () -> Unit = {}, hasNotificationBadge: Boolean, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   ActionButton(
     imagePainter = painterResource(R.drawable.ic_settings_support),
     description = "Support",
     onClick = onClickSupport,
-    hasRedBadge = hasNotificationBadge
+    hasRedBadge = hasNotificationBadge,
+    fragmentName = fragmentName,
+    buttonsAnalytics = buttonsAnalytics
   )
 }
 
 @Composable
-fun BackButton(onClickBack: (() -> Unit)? = null) {
+fun BackButton(onClickBack: (() -> Unit)? = null, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   if (onClickBack != null)
     ActionButton(
       imagePainter = painterResource(R.drawable.ic_arrow_back),
       description = "Back",
       onClick = onClickBack,
-      hasRedBadge = false
+      hasRedBadge = false,
+      fragmentName = fragmentName,
+      buttonsAnalytics = buttonsAnalytics
     )
   else {
     val activity = LocalContext.current.getActivity()
@@ -139,7 +152,9 @@ fun BackButton(onClickBack: (() -> Unit)? = null) {
         imagePainter = painterResource(R.drawable.ic_arrow_back),
         description = "Back",
         onClick = { activity.onBackPressed() },
-        hasRedBadge = false
+        hasRedBadge = false,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
   }
 }
@@ -161,5 +176,7 @@ fun TopBarPreview() {
   TopBar(
     isMainBar = true,
     hasNotificationBadge = true,
+    fragmentName = "TestFragment",
+    buttonsAnalytics = null
   )
 }

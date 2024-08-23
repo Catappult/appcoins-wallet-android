@@ -12,6 +12,7 @@ import androidx.annotation.StringRes
 import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.ui.widgets.TopBar
@@ -67,6 +68,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   @Inject
   lateinit var displayChatUseCase: DisplayChatUseCase
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
   private var isFinishingPurchase = false
@@ -107,7 +112,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     }
     views.topBar.composeView.apply {
       setContent {
-        TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() })
+        TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
       }
     }
   }

@@ -691,8 +691,9 @@
     <item quantity="one">It may take up to %s day.</item>
     <item quantity="other">It may take up to %s days.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
-  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Dirección</string>
   <string name="purchase_address_address_field">Dirección</string>
@@ -1306,7 +1307,7 @@
   <string name="manage_wallet_my_wallet_address_title">Dirección de la wallet</string>
   <string name="manage_wallet_verify_title">Verificación de método de pago</string>
   <string name="manage_wallet_verify_body">Evita bloqueos verificando un método de pago.</string>
-  <string name="manage_wallet_currency_disclaimer">Su saldo se muestra en la moneda local por simplicidad, pero está vinculado a USD, por lo que los cambios en el valor de USD pueden tener un impacto en tu saldo.</string>
+  <string name="manage_wallet_currency_disclaimer">Tu saldo se muestra en la moneda local por simplicidad, pero está vinculado a USD, por lo que los cambios en el valor de USD pueden tener un impacto en tu saldo.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verificación de método de pago</string>
   <string name="verify_card_body">Evita bloqueos verificando un método de pago.</string>

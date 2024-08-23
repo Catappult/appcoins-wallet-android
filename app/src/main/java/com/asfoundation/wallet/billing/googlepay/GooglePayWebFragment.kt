@@ -49,7 +49,7 @@ class GooglePayWebFragment : BasePageViewFragment() {
     binding = FragmentGooglePayWebBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
     navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
-    iabView.disableBack()
+    iabView.setBackEnable(false)
     return views.root
   }
 

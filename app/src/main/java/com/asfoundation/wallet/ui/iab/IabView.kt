@@ -15,9 +15,7 @@ import java.math.BigDecimal
 
 interface IabView {
 
-  fun disableBack()
-
-  fun enableBack()
+  fun setBackEnable(enable: Boolean)
 
   fun finish(bundle: Bundle)
 

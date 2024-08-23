@@ -13,6 +13,6 @@ class MiPayNavigator @Inject constructor(
   Navigator {
 
   fun navigateToWebView(url: String, webViewLauncher: ActivityResultLauncher<Intent>) {
-    webViewLauncher.launch(WebViewActivity.newIntent(fragment.requireActivity(), url))
+    webViewLauncher.launch(WebViewActivity.newIntent(fragment.requireActivity(), url, true))
   }
 }
