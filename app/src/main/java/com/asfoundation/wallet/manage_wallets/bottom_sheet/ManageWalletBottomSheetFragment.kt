@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
+class ManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
   SingleStateFragment<ManageWalletBottomSheetState, ManageWalletBottomSheetSideEffect> {
 
 
