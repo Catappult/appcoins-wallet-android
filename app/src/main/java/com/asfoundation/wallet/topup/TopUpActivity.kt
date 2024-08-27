@@ -7,7 +7,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
@@ -21,6 +23,7 @@ import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.GooglePayTopupFragment
 import com.asfoundation.wallet.billing.paypal.PayPalTopupFragment
+import com.asfoundation.wallet.billing.true_layer.TrueLayerTopupFragment
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -86,6 +89,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     private const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
     private const val BONUS = "bonus"
     private const val FIRST_IMPRESSION = "first_impression"
+    private const val PENDING_FINAL_CONFIRMATION = "pending_final_confirmation"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -172,14 +176,27 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   override fun navigateToGooglePay(paymentType: PaymentType, data: TopUpPaymentData) {
     supportFragmentManager.beginTransaction().add(
       R.id.fragment_container, GooglePayTopupFragment.newInstance(
-          paymentType = paymentType,
-          data = data,
-          amount = data.fiatValue,
-          currency = data.fiatCurrencyCode,
-          bonus = data.bonusValue.toString(),
-          gamificationLevel = data.gamificationLevel,
-        )
+        paymentType = paymentType,
+        data = data,
+        amount = data.fiatValue,
+        currency = data.fiatCurrencyCode,
+        bonus = data.bonusValue.toString(),
+        gamificationLevel = data.gamificationLevel,
+      )
     ).addToBackStack(AdyenTopUpFragment::class.java.simpleName).commit()
+  }
+
+  override fun navigateToTrueLayer(paymentType: PaymentType, data: TopUpPaymentData) {
+    supportFragmentManager.beginTransaction().add(
+      R.id.fragment_container, TrueLayerTopupFragment.newInstance(
+        paymentType = paymentType,
+        data = data,
+        amount = data.fiatValue,
+        currency = data.fiatCurrencyCode,
+        bonus = data.bonusValue.toString(),
+        gamificationLevel = data.gamificationLevel,
+      )
+    ).addToBackStack(TrueLayerTopupFragment::class.java.simpleName).commit()
   }
 
   override fun navigateToLocalPayment(
@@ -205,6 +222,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   override fun onBackPressed() {
     when {
       isFinishingPurchase -> close()
+      views.fullscreenComposeView.visibility == View.VISIBLE -> {
+//        views.fullscreenComposeView.visibility = View.GONE
+        super.onBackPressed()
+      }
       supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
       else -> super.onBackPressed()
     }
@@ -253,9 +274,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     supportFragmentManager.beginTransaction().replace(
       R.id.fragment_container, TopUpSuccessFragment.newInstance(
           data.getString(TOP_UP_AMOUNT, ""),
-        data.getString(TOP_UP_CURRENCY, ""),
-        data.getString(BONUS, ""),
-          data.getString(TOP_UP_CURRENCY_SYMBOL, "")
+          data.getString(TOP_UP_CURRENCY, ""),
+          data.getString(BONUS, ""),
+          data.getString(TOP_UP_CURRENCY_SYMBOL, ""),
+          data.getBoolean(PENDING_FINAL_CONFIRMATION, false),
       ), TopUpSuccessFragment::class.java.simpleName
     ).commit()
     unlockRotation()
@@ -315,6 +337,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
       super.onBackPressed()
     }
   }
+
+  override fun getFullscreenComposeView(): ComposeView = views.fullscreenComposeView
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)

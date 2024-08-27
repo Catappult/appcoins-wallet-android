@@ -666,6 +666,13 @@ class TopUpFragmentPresenter(
         )
       }
 
+      PaymentType.TRUE_LAYER -> {
+        activity?.navigateToTrueLayer(
+          paymentType = paymentMethod.paymentType,
+          data = mapTopUpPaymentData(topUpData, gamificationLevel)
+        )
+      }
+
       PaymentType.CHALLENGE_REWARD -> {
         activity?.navigateToChallengeReward()
       }

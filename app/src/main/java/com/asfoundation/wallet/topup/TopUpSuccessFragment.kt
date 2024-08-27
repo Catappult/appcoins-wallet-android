@@ -23,7 +23,7 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     @JvmStatic
     fun newInstance(
       amount: String, currency: String, bonus: String,
-      currencySymbol: String
+      currencySymbol: String, pendingFinalConfirmation: Boolean,
     ): TopUpSuccessFragment {
       return TopUpSuccessFragment().apply {
         arguments = Bundle().apply {
@@ -31,6 +31,7 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
           putString(CURRENCY, currency)
           putString(CURRENCY_SYMBOL, currencySymbol)
           putString(BONUS, bonus)
+          putBoolean(PENDING_FINAL_CONFIRMATION, pendingFinalConfirmation)
         }
       }
     }
@@ -39,6 +40,7 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     private const val CURRENCY = "currency"
     private const val CURRENCY_SYMBOL = "currency_symbol"
     private const val BONUS = "bonus"
+    private const val PENDING_FINAL_CONFIRMATION = "pending_final_confirmation"
   }
 
   @Inject
@@ -78,6 +80,14 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     }
   }
 
+  private val pendingFinalConfirmation: Boolean by lazy {
+    if (requireArguments().containsKey(PENDING_FINAL_CONFIRMATION)) {
+      requireArguments().getBoolean(PENDING_FINAL_CONFIRMATION)
+    } else {
+      false
+    }
+  }
+
   private val binding by viewBinding(FragmentTopUpSuccessBinding::bind)
 
   override fun onAttach(context: Context) {
@@ -112,10 +122,26 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
 
   override fun show() {
     val bonusAvailable = bonus.takeIf { it.isNotEmpty() && it != "0" }
-    bonusAvailable?.let { setBonusText() } ?: run { binding.bonusViews.visibility = View.GONE }
-    formatSuccessMessage()
-    binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_success_animation)
-    binding.topUpSuccessAnimation.playAnimation()
+    when {
+      pendingFinalConfirmation -> {
+        binding.topUpSuccessAnimation.visibility = View.GONE
+        binding.topUpPendingSuccessAnimation.visibility = View.VISIBLE
+        formatPendingSuccessMessage()
+        bonusAvailable?.let {
+          setBonusText(isPendingSuccess = true)
+        } ?: run { binding.bonusViews.visibility = View.GONE }
+      }
+
+      else -> {
+        bonusAvailable?.let {
+          setBonusText(isPendingSuccess = false)
+        } ?: run { binding.bonusViews.visibility = View.GONE }
+        formatSuccessMessage()
+        binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_success_animation)
+        binding.topUpSuccessAnimation.playAnimation()
+      }
+    }
+
   }
 
   override fun clean() {
@@ -132,9 +158,12 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     return RxView.clicks(binding.button)
   }
 
-  private fun setBonusText() {
+  private fun setBonusText(isPendingSuccess: Boolean) {
     val formattedBonus = "$currencySymbol${formatter.formatCurrency(bonus, WalletCurrency.FIAT)}"
-    val bonusText = getString(R.string.purchase_success_bonus_received_title, formattedBonus)
+    val bonusText = if (isPendingSuccess)
+      getString(R.string.purchase_bank_transfer_success_bonus, formattedBonus)
+    else
+      getString(R.string.purchase_success_bonus_received_title, formattedBonus)
     binding.bonusReceived.text = bonusText
     binding.bonusViews.visibility = View.VISIBLE
   }
@@ -143,6 +172,15 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     val initialString = getFormattedTopUpValue()
     val secondString = String.format(resources.getString(R.string.topup_completed_2_without_bonus))
     binding.value.text = "$initialString\n$secondString"
+  }
+
+  private fun formatPendingSuccessMessage() {
+    val initialString = formatter.formatCurrency(amount!!, WalletCurrency.FIAT) + " " + currency
+    val completedString = String.format(
+      resources.getString(R.string.purchase_bank_transfer_success_disclaimer),
+      initialString
+    )
+    binding.value.text = completedString
   }
 
   private fun getFormattedTopUpValue(): String {
