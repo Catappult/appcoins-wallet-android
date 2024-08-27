@@ -2,6 +2,7 @@ package com.appcoins.wallet.core.analytics.analytics
 
 import android.content.Context
 import android.content.res.Configuration
+import com.indicative.client.android.Indicative
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
@@ -78,7 +79,7 @@ class IndicativeAnalytics @Inject constructor(
     superProperties.put(AnalyticsLabels.LANGUAGE, language)
     superProperties.put(AnalyticsLabels.IS_EMULATOR, isEmulator)
     superProperties.put(AnalyticsLabels.GAMES_HUB_OEMID, ghOemId)
-    superProperties.put(AnalyticsLabels.PROMO_CODE, promoCode)
+    superProperties.put(AnalyticsLabels.PROMO_CODE, promoCode)  // should this be a user property?
     superProperties.put(AnalyticsLabels.FLAVOR, flavor)
     superProperties.put(AnalyticsLabels.THEME, theme)
 
