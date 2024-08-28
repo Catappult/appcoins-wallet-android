@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -52,41 +51,25 @@ import java.time.Duration
 @Preview
 @Composable
 private fun CardItemExample() {
-  PromotionsCardComposable(
-    cardItem = cardItem,
-    fragmentName = "RewardFragment",
-    buttonsAnalytics = null
-  )
+  PromotionsCardComposable(cardItem = cardItem, fragmentName = "RewardFragment", buttonsAnalytics = null)
 }
 
 @Preview
 @Composable
 private fun CardVipItemExample() {
-  PromotionsCardComposable(
-    cardItem = vipCardItem,
-    fragmentName = "RewardFragment",
-    buttonsAnalytics = null
-  )
+  PromotionsCardComposable(cardItem = vipCardItem, fragmentName = "RewardFragment", buttonsAnalytics = null)
 }
 
 @Preview
 @Composable
 private fun CardFutureItemExample() {
-  PromotionsCardComposable(
-    cardItem = futureCardItem,
-    fragmentName = "RewardFragment",
-    buttonsAnalytics = null
-  )
+  PromotionsCardComposable(cardItem = futureCardItem, fragmentName = "RewardFragment", buttonsAnalytics = null)
 }
 
 @Preview
 @Composable
 private fun CardVerticalItemExample() {
-  PromotionsCardComposable(
-    cardItem = verticalCardItem,
-    fragmentName = "RewardFragment",
-    buttonsAnalytics = null
-  )
+  PromotionsCardComposable(cardItem = verticalCardItem, fragmentName = "RewardFragment", buttonsAnalytics = null)
 }
 
 @Preview
@@ -96,11 +79,7 @@ private fun LoadingPromotionCard() {
 }
 
 @Composable
-fun PromotionsCardComposable(
-  cardItem: CardPromotionItem,
-  fragmentName: String,
-  buttonsAnalytics: ButtonsAnalytics?
-) {
+fun PromotionsCardComposable(cardItem: CardPromotionItem, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   var borderColor = Color.Transparent
   var topEndRoundedCornerCard = 16.dp
   val spacerSize = if (cardItem.hasVerticalList) 8.dp else 16.dp
@@ -167,18 +146,24 @@ fun PromotionsCardComposable(
           Column(modifier = Modifier.height(49.dp)) {
             Row(
               modifier = Modifier.fillMaxWidth(),
+              horizontalArrangement = Arrangement.SpaceBetween,
               verticalAlignment = Alignment.CenterVertically
             ) {
               CountDownTimer(endDateTime = cardItem.promotionEndTime)
-              Spacer(modifier = Modifier.weight(1f, fill = true))
-              GetText(
-                modifier = Modifier.wrapContentWidth(),
-                cardItem.action,
-                cardItem.packageName,
-                cardItem.hasVipPromotion,
-                fragmentName,
-                buttonsAnalytics
-              )
+              Row(
+                modifier = Modifier
+                  .fillMaxWidth(0.8f)
+                  .padding(start = 48.dp),
+                horizontalArrangement = Arrangement.End
+              ) {
+                GetText(
+                  cardItem.action,
+                  cardItem.packageName,
+                  cardItem.hasVipPromotion,
+                  fragmentName,
+                  buttonsAnalytics
+                )
+              }
             }
           }
         } else {
@@ -190,14 +175,7 @@ fun PromotionsCardComposable(
               verticalAlignment = Alignment.CenterVertically
             ) {
               IconWithText(stringResource(id = R.string.perks_available_soon_short))
-              GetText(
-                Modifier,
-                cardItem.action,
-                cardItem.packageName,
-                cardItem.hasVipPromotion,
-                fragmentName,
-                buttonsAnalytics
-              )
+              GetText(cardItem.action, cardItem.packageName, cardItem.hasVipPromotion, fragmentName, buttonsAnalytics)
             }
           }
         }
@@ -312,26 +290,17 @@ fun IconWithText(text: String) {
 }
 
 @Composable
-fun GetText(
-  modifier: Modifier = Modifier,
-  action: () -> Unit,
-  packageName: String?,
-  isVip: Boolean = false,
-  fragmentName: String,
-  buttonsAnalytics: ButtonsAnalytics?
-) {
+fun GetText(action: () -> Unit, packageName: String?, isVip: Boolean = false, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   val hasGameInstall =
     isPackageInstalled(packageName, packageManager = LocalContext.current.packageManager)
   val text =
     if (hasGameInstall) stringResource(id = R.string.play_button)
     else if (BuildConfig.FLAVOR != "gp") stringResource(R.string.get_button) else ""
 
-  TextButton(
-    modifier = modifier,
-    onClick = {
-      buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, text)
-      action.invoke()
-    }) {
+  TextButton(onClick =  {
+    buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, text)
+    action.invoke()
+  }) {
     Text(
       text = text,
       fontWeight = FontWeight.Bold,
