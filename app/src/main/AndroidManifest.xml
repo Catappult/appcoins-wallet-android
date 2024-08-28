@@ -85,15 +85,16 @@
     <activity
         android:name="com.asfoundation.wallet.main.MainActivity"
         android:exported="true"
+        android:launchMode="singleTask"
         android:theme="@style/SplashTheme"
-        android:windowSoftInputMode="adjustResize"
-        android:launchMode="singleTask">
+        android:windowSoftInputMode="adjustResize">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
 
@@ -126,6 +127,34 @@
         android:name="com.asfoundation.wallet.ui.SendActivity"
         android:label="@string/title_activity_send" />
     <activity
+        android:name="com.asfoundation.wallet.iab.PaymentActivity"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <data android:scheme="ethereum" />
+      </intent-filter>
+      <intent-filter
+          android:autoVerify="true"
+          android:priority="10"
+          tools:ignore="UnusedAttribute">
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="https" />
+        <data android:host="${legacyPaymentHost}" />
+        <data android:host="${paymentHost}" />
+        <data android:pathPrefix="/transaction" />
+      </intent-filter>
+    </activity>
+    <!--
+    <activity
         android:name="com.asfoundation.wallet.ui.Erc681Receiver"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
@@ -137,6 +166,7 @@
         <data android:scheme="ethereum" />
       </intent-filter>
     </activity>
+
     <activity
         android:name="com.asfoundation.wallet.ui.OneStepPaymentReceiver"
         android:exported="true"
@@ -156,6 +186,7 @@
         <data android:pathPrefix="/transaction" />
       </intent-filter>
     </activity>
+    -->
     <activity
         android:name="com.asfoundation.wallet.ui.iab.WebViewActivity"
         android:theme="@style/Theme.AppCompat.Transparent.WebActivity" />
@@ -219,11 +250,13 @@
       </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data
-            android:scheme="appcoins"
-            android:host="truelayer" />
+            android:host="truelayer"
+            android:scheme="appcoins" />
       </intent-filter>
     </activity>
 

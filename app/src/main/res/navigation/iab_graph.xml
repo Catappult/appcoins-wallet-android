@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/iab_graph"
+    app:startDestination="@id/main_fragment">
+
+  <fragment
+      android:id="@+id/main_fragment"
+      android:name="com.asfoundation.wallet.iab.presentation.main.MainFragment" >
+
+    <argument
+        android:name="purchaseDataExtra"
+        app:argType="com.asfoundation.wallet.iab.domain.model.PurchaseData" />
+  </fragment>
+
+</navigation>
