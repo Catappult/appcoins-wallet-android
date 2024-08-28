@@ -31,11 +31,19 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 @Preview
 @Composable
 private fun CardActivePromoCodeExample() {
-  ActivePromoCodeComposable(cardItem = promoCodeItem, fragmentName = "RewardFragment", buttonsAnalytics = null)
+  ActivePromoCodeComposable(
+    cardItem = promoCodeItem,
+    fragmentName = "RewardFragment",
+    buttonsAnalytics = null
+  )
 }
 
 @Composable
-fun ActivePromoCodeComposable(cardItem: ActiveCardPromoCodeItem, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
+fun ActivePromoCodeComposable(
+  cardItem: ActiveCardPromoCodeItem,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
+) {
   Column(
     modifier = Modifier
       .padding(
@@ -119,7 +127,13 @@ fun ActivePromoCodeComposable(cardItem: ActiveCardPromoCodeItem, fragmentName: S
                 fontSize = 14.sp
               )
             }
-            GetText(cardItem.action, cardItem.packageName, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
+            GetText(
+              Modifier,
+              cardItem.action,
+              cardItem.packageName,
+              fragmentName = fragmentName,
+              buttonsAnalytics = buttonsAnalytics
+            )
           }
         }
       }
