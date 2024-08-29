@@ -20,7 +20,7 @@ class MainFragment : IabBaseFragment() {
 }
 
 @Composable
-private fun MainScreen(purchaseData: PurchaseData) {
+private fun MainScreen(purchaseData: PurchaseData?) {
   Text(
     modifier = Modifier.background(Color.White),
     text = "Hello"
