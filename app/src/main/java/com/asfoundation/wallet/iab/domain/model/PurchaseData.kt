@@ -3,7 +3,6 @@ package com.asfoundation.wallet.iab.domain.model
 import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.math.BigDecimal
 import kotlin.random.Random
 
 @Parcelize
@@ -17,6 +16,7 @@ data class PurchaseData(
   val payload: String?,
   val callbackUrl: String?,
   val orderReference: String?,
+  val signature: String?,
   val value: String?, // originalOneStepValue in previous implementation
   val currency: String?, // originalOneStepCurrency in previous implementation
   val oemId: String?,
@@ -37,4 +37,5 @@ val emptyPurchaseData = PurchaseData(
   referrerUrl = Uri.EMPTY.toString(),
   payload = "metadata",
   productToken = "Product Token",
+  signature = "",
 )
