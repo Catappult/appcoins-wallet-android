@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -28,9 +29,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -80,6 +83,8 @@ import com.asfoundation.wallet.home.HomeViewModel.UiState.Success
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
 import javax.inject.Inject
 
 // Before moving this screen into the :home module, all home dependencies need to be independent
@@ -192,7 +197,16 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       UserEmailCard()
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
+      val listState = rememberLazyListState()
+      LaunchedEffect(listState) {
+        snapshotFlow { listState.isScrollInProgress }
+          .filter { it }
+          .collectLatest {
+            viewModel.getImpression()
+          }
+      }
       GamesBundle(
+        listState,
         viewModel.gamesList.value,
         viewModel.referenceSendPromotionClickEvent()
       ) { viewModel.fetchGamesListing() }

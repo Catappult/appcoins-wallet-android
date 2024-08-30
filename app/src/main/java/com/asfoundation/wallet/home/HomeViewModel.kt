@@ -62,6 +62,7 @@ import com.asfoundation.wallet.transactions.toModel
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.home.HomeViewModel.UiState.Success
+import com.asfoundation.wallet.home.usecases.GetImpressionUseCase
 import com.github.michaelbull.result.unwrap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
@@ -147,7 +148,8 @@ constructor(
   private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
   private val postUserEmailUseCase: PostUserEmailUseCase,
   private val emailPreferencesDataSource: EmailPreferencesDataSource,
-  private val emailAnalytics: EmailAnalytics
+  private val emailAnalytics: EmailAnalytics,
+  private val getImpressionUseCase: GetImpressionUseCase
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private lateinit var defaultCurrency: String
@@ -163,6 +165,7 @@ constructor(
   val hasSavedEmail = mutableStateOf(hasWalletEmailPreferencesData())
   val isEmailError = mutableStateOf(false)
   val emailErrorText = mutableStateOf(0)
+  private val alreadyGetImpression = mutableStateOf(false)
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
@@ -251,15 +254,15 @@ constructor(
       emailAnalytics.walletAppEmailSubmitted(SUCCESS_EMAIL_ANALYTICS)
       hasSavedEmail.value = true
     }.scopedSubscribe { e ->
-        e.printStackTrace()
-        emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
-        isEmailError.value = true
-        emailErrorText.value = if (e.message.equals("HTTP 422 ")) {
-          R.string.e_skills_withdraw_invalid_email_error_message
-        } else {
-          R.string.error_general
-        }
+      e.printStackTrace()
+      emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
+      isEmailError.value = true
+      emailErrorText.value = if (e.message.equals("HTTP 422 ")) {
+        R.string.e_skills_withdraw_invalid_email_error_message
+      } else {
+        R.string.error_general
       }
+    }
   }
 
   private fun hasWalletEmailPreferencesData(): Boolean {
@@ -276,6 +279,16 @@ constructor(
 
   fun isHideWalletEmailCardPreferencesData(): Boolean {
     return emailPreferencesDataSource.isHideWalletEmailCard()
+  }
+
+  fun getImpression() {
+    if (!alreadyGetImpression.value) {
+      getImpressionUseCase().doOnComplete {
+        alreadyGetImpression.value = true
+      }.scopedSubscribe { e ->
+        e.printStackTrace()
+      }
+    }
   }
 
   private fun updateRegisterUser(wallet: Wallet): Completable {
