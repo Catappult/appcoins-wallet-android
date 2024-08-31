@@ -5,12 +5,10 @@ import com.asfoundation.wallet.iab.parser.osp.exception.MissingDataParseExceptio
 import com.appcoins.wallet.core.analytics.analytics.partners.InstallerService
 import com.appcoins.wallet.core.analytics.analytics.partners.OemIdExtractorService
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
-import com.asfoundation.wallet.iab.parser.APPC
 import com.asfoundation.wallet.iab.parser.BDS_ORIGIN
 import com.asfoundation.wallet.iab.parser.PAYMENT_TYPE_INAPP_UNMANAGED
 import com.asfoundation.wallet.iab.parser.PurchaseUriParameters
 import com.asfoundation.wallet.iab.parser.UriParser
-import java.math.BigDecimal
 import javax.inject.Inject
 
 class OSPUriParserImpl @Inject constructor(
@@ -51,7 +49,7 @@ class OSPUriParserImpl @Inject constructor(
       domain = domain,
       callbackUrl = callbackUrl,
       orderReference = orderReference,
-      value = value,
+      purchaseValue = value,
       signature = signature,
       currency = currency,
       oemId = oemId,

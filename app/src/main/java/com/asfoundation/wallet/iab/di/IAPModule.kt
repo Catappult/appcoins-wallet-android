@@ -3,6 +3,7 @@ package com.asfoundation.wallet.iab.di
 import com.asfoundation.wallet.iab.parser.UriParser
 import com.asfoundation.wallet.iab.parser.UriParserImpl
 import com.asfoundation.wallet.iab.parser.osp.OSPUriParserImpl
+import com.asfoundation.wallet.iab.parser.sdk.SDKUriParserImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,6 +21,10 @@ interface IAPModule {
   @Binds
   @OSPUriParser
   fun bindOSPUriParser(ospParserImpl: OSPUriParserImpl): UriParser
+
+  @Binds
+  @SDKUriParser
+  fun bindSDKUriParser(sdkParserImpl: SDKUriParserImpl): UriParser
 }
 
 @Qualifier
@@ -29,3 +34,7 @@ annotation class GenericUriParser
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class OSPUriParser
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class SDKUriParser
