@@ -1,8 +1,14 @@
 package com.asfoundation.wallet.iab.parser
 
+import com.asf.wallet.BuildConfig
+import com.appcoins.wallet.billing.BuildConfig as SDKBuildConfig
+
+const val PURCHASE_URI_SDK_SCHEME = SDKBuildConfig.SDK_SCHEME
+const val PURCHASE_URI_OSP_SCHEME = BuildConfig.OSP_SCHEME
 const val PAYMENT_TYPE_INAPP_UNMANAGED = "INAPP_UNMANAGED"
+const val PAYMENT_TYPE_INAPP = "INAPP"
 const val BDS_ORIGIN = "BDS"
-const val APPC = "APPC"
+const val ETH = "ETH"
 
 object PurchaseUriParameters {
   const val PRODUCT = "product"
