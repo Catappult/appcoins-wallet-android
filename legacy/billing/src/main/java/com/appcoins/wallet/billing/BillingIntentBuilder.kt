@@ -107,7 +107,7 @@ class BillingIntentBuilder(val context: Context) {
     try {
       Formatter(stringBuilder).use { formatter ->
         formatter.format(
-          "ethereum:%s@%d/buy?uint256=%s&address=%s&data=%s&iabContractAddress=%s",
+          "${BuildConfig.SDK_SCHEME}:%s@%d/buy?uint256=%s&address=%s&data=%s&iabContractAddress=%s",
           tokenContractAddress, networkId, amount.toString(), "",
           buildUriData(
             type, skuId, packageName, developerPayload, orderReference, origin,
