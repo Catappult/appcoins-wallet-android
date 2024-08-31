@@ -136,7 +136,7 @@
 
         <category android:name="android.intent.category.DEFAULT" />
 
-        <data android:scheme="ethereum" />
+        <data android:scheme="${sdkScheme}" />
       </intent-filter>
       <intent-filter
           android:autoVerify="true"
@@ -147,7 +147,7 @@
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
 
-        <data android:scheme="https" />
+        <data android:scheme="${ospScheme}" />
         <data android:host="${legacyPaymentHost}" />
         <data android:host="${paymentHost}" />
         <data android:pathPrefix="/transaction" />

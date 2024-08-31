@@ -8,6 +8,13 @@ android {
   buildFeatures {
     aidl = true
   }
+
+  defaultConfig {
+    val sdkScheme = "appcoins-sdk"
+
+    buildConfigField("String", "SDK_SCHEME", "\"$sdkScheme\"")
+    manifestPlaceholders["sdkScheme"] = sdkScheme
+  }
 }
 
 dependencies {
