@@ -14,6 +14,12 @@ android {
     applicationId = "com.appcoins.wallet"
     versionCode = 338
     versionName = "3.33.0"
+
+    val ospScheme = "https"
+
+    buildConfigField("String", "OSP_SCHEME", "\"$ospScheme\"")
+    manifestPlaceholders["ospScheme"] = ospScheme
+    manifestPlaceholders["sdkScheme"] = "appcoins-sdk"
   }
 }
 
