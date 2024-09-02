@@ -1,7 +1,18 @@
 package com.asfoundation.wallet.iab.presentation
 
 import android.content.res.Configuration
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+
+inline fun Modifier.conditional(
+  condition: Boolean,
+  ifTrue: Modifier.() -> Modifier,
+  ifFalse: Modifier.() -> Modifier = { this },
+): Modifier = if (condition) {
+  then(ifTrue(Modifier))
+} else {
+  then(ifFalse(Modifier))
+}
 
 @Preview(
   name = "Min scale all",
