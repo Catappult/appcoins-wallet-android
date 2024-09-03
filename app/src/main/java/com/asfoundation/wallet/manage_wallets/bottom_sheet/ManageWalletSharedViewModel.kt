@@ -11,6 +11,6 @@ class ManageWalletSharedViewModel @Inject constructor() : ViewModel() {
 
   fun onBottomSheetDismissed() {
     // increments a value for the fragment to be notified
-    dialogDismissed.value = dialogDismissed.value + 1
+    dialogDismissed.value += 1
   }
 }

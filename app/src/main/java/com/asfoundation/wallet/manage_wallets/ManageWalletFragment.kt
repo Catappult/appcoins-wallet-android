@@ -173,7 +173,6 @@ class ManageWalletFragment : BasePageViewFragment() {
             Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
           }
 
-        WalletDeleted -> viewModel.updateWallets()
         else -> {}
       }
     }
