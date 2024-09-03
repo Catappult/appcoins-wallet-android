@@ -12,6 +12,6 @@ constructor(
   private val schedulers: RxSchedulers
 ) {
   operator fun invoke(): Completable {
-    return impressionRepository.getImpression().observeOn(schedulers.io)
+    return impressionRepository.getImpression().subscribeOn(schedulers.io)
   }
 }
