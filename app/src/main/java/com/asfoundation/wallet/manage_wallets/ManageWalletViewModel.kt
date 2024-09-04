@@ -16,12 +16,10 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWallet
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.interact.DeleteWalletInteract
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -104,7 +102,8 @@ constructor(
       .doOnSubscribe { _uiState.value = UiState.Loading }
       .doOnComplete {
         _uiState.value = UiState.WalletDeleted
-      }.doOnError { error ->
+      }
+      .doOnError { error ->
         error.printStackTrace()
       }
       .subscribe()
