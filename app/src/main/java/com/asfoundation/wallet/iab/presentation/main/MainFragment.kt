@@ -18,6 +18,7 @@ import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
 import com.asfoundation.wallet.iab.presentation.PreviewAll
+import com.asfoundation.wallet.iab.theme.IAPTheme
 
 class MainFragment : IabBaseFragment() {
 
@@ -34,21 +35,23 @@ private fun MainScreen(purchaseData: PurchaseData) {
   var showWalletIcon by remember { mutableStateOf(false) }
   showWalletIcon = LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT
 
-  IAPBottomSheet(
-    showWalletIcon = showWalletIcon,
-    fullscreen = false,
-  ) {
-    Text(
-      modifier = Modifier.background(Color.White),
-      text = "Hello"
-    )
+  IAPTheme {
+    IAPBottomSheet(
+      showWalletIcon = showWalletIcon,
+      fullscreen = false,
+    ) {
+      Text(
+        modifier = Modifier.background(Color.White),
+        text = "Hello"
+      )
+    }
   }
 }
 
 @PreviewAll
 @Composable
 fun PreviewMainScreen() {
-  WalletTheme {
+  IAPTheme {
     MainScreen(purchaseData = emptyPurchaseData)
   }
 }
