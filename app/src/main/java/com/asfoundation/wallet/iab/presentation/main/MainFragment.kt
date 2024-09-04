@@ -1,23 +1,18 @@
 package com.asfoundation.wallet.iab.presentation.main
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.navigation.fragment.navArgs
-import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
-import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
 import com.asfoundation.wallet.iab.presentation.PreviewAll
+import com.asfoundation.wallet.iab.presentation.SuccessScreen
 import com.asfoundation.wallet.iab.theme.IAPTheme
 
 class MainFragment : IabBaseFragment() {
@@ -37,13 +32,10 @@ private fun MainScreen(purchaseData: PurchaseData?) {
 
   IAPTheme {
     IAPBottomSheet(
-      showWalletIcon = showWalletIcon,
+      showWalletIcon = false,
       fullscreen = false,
     ) {
-      Text(
-        modifier = Modifier.background(Color.White),
-        text = "Hello"
-      )
+      SuccessScreen(bonus = "€0.05")
     }
   }
 }
@@ -52,6 +44,6 @@ private fun MainScreen(purchaseData: PurchaseData?) {
 @Composable
 fun PreviewMainScreen() {
   IAPTheme {
-    MainScreen(purchaseData = emptyPurchaseData)
+    SuccessScreen(bonus = "€0.05")
   }
 }
