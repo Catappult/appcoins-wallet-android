@@ -31,10 +31,8 @@ import androidx.compose.ui.unit.sp
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asf.wallet.R
 import com.asfoundation.wallet.iab.presentation.icon.getIcBack
+import com.asfoundation.wallet.iab.theme.IAPTheme
 import kotlin.random.Random
-
-val backgroundColor = Color(0xFFF5F5FA)
-val icBackTint = Color(0xFF242333)
 
 @Composable
 fun IAPBottomSheet(
@@ -84,13 +82,13 @@ private fun IAPBottomSheetPortrait(
     Column(
       modifier = modifier
         .fillMaxSize()
-        .background(color = backgroundColor)
+        .background(color = IAPTheme.colors.primary)
     ) {
       Image(
         modifier = Modifier
           .padding(16.dp)
           .size(24.dp),
-        imageVector = getIcBack(icBackTint),
+        imageVector = getIcBack(IAPTheme.colors.backArrow),
         contentDescription = null,
       )
       content()
@@ -106,7 +104,7 @@ private fun IAPBottomSheetPortrait(
           .clip(RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
       ) {
         Column(
-          modifier = Modifier.background(color = backgroundColor)
+          modifier = Modifier.background(color = IAPTheme.colors.primary)
         ) {
           if (showWalletIcon) {
             WalletLogo(modifier = Modifier.padding(top = 16.dp))
@@ -153,7 +151,7 @@ private fun IAPBottomSheetLandscape(
         modifier = Modifier
           .conditional(fullscreen, { fillMaxHeight() })
           .width(456.dp)
-          .background(color = backgroundColor)
+          .background(color = IAPTheme.colors.primary)
       ) {
         if (showWalletIcon) {
           WalletLogo(modifier = Modifier.padding(top = 16.dp))
@@ -168,7 +166,7 @@ private fun IAPBottomSheetLandscape(
 @Composable
 private fun PreviewIAPBottomSheet() {
   val showingFullScreen = Random.nextBoolean()
-  WalletTheme {
+  IAPTheme {
     IAPBottomSheet(
       showWalletIcon = LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT,
       fullscreen = showingFullScreen,
