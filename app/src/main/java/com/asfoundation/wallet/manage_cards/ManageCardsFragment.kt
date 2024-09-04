@@ -213,7 +213,7 @@ class ManageCardsFragment : BasePageViewFragment() {
   @Composable
   fun PaymentCardItem(storedCard: StoredCard) {
     Card(
-      colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary),
+      colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary),
       modifier = Modifier
         .padding(top = 8.dp)
         .fillMaxWidth()

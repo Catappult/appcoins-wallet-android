@@ -99,9 +99,7 @@ public class BdsTransactionService {
 
     @Override public boolean equals(Object o) {
       if (this == o) return true;
-      if (!(o instanceof BdsTransaction)) return false;
-
-      BdsTransaction that = (BdsTransaction) o;
+      if (!(o instanceof BdsTransaction that)) return false;
 
       if (!key.equals(that.key)) return false;
       if (!skuId.equals(that.skuId)) return false;

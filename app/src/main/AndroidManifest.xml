@@ -205,6 +205,7 @@
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
         android:exported="true"
         android:label="@string/topup_title"
+        android:launchMode="singleTask"
         android:theme="@style/TopupTheme">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
@@ -215,6 +216,14 @@
         <data
             android:host="${applicationId}"
             android:scheme="adyencheckout" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data
+            android:scheme="appcoins"
+            android:host="truelayer" />
       </intent-filter>
     </activity>
 

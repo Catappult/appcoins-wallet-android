@@ -49,9 +49,7 @@ public class AppCoinsOperation {
 
   @Override public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof AppCoinsOperation)) return false;
-
-    AppCoinsOperation that = (AppCoinsOperation) o;
+    if (!(o instanceof AppCoinsOperation that)) return false;
 
     if (!transactionId.equals(that.transactionId)) return false;
     if (!packageName.equals(that.packageName)) return false;

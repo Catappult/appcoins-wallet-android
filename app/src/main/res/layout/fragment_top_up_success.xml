@@ -22,6 +22,23 @@
       app:lottie_rawRes="@raw/top_up_success_animation"
       />
 
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/top_up_pending_success_animation"
+      android:layout_width="256dp"
+      android:layout_height="256dp"
+      android:layout_margin="@dimen/big_margin"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@+id/success"
+      app:layout_constraintDimensionRatio="H, 6:5"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/wait_trasaction"
+      />
+
   <TextView
       android:id="@+id/success"
       style="@style/TopUpTextStyle.SuccessTitle"
@@ -43,16 +60,16 @@
       style="@style/TopUpTextStyle.SuccessTitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginTop="18dp"
+      android:fontFamily="@font/roboto_medium"
       android:paddingHorizontal="@dimen/big_margin"
       android:text="@string/topup_completed_2_with_bonus"
       android:textColor="@color/styleguide_light_grey"
-      android:fontFamily="@font/roboto_medium"
-      android:layout_marginTop="18dp"
       app:layout_constraintBottom_toTopOf="@id/bonus_received"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/success"
-      tools:text="1,23 EUR in AppCoins Credits were deposited in your account."
+      tools:text="1,23 EUR in AppCoins Credits were deposited in your account... Along with a bonus!"
       />
 
   <androidx.constraintlayout.widget.Group
@@ -60,6 +77,22 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       app:constraint_referenced_ids="ic_guest_wallet_bonus, bonus_received"
+      />
+
+  <TextView
+      android:id="@+id/bonus_received"
+      style="@style/TopUpTextStyle.SuccessTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="18dp"
+      android:fontFamily="@font/roboto_regular"
+      android:paddingHorizontal="@dimen/small_margin"
+      android:text="@string/topup_completed_2_with_bonus"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/ic_guest_wallet_bonus"
+      app:layout_constraintTop_toBottomOf="@id/value"
+      tools:text="Bonus received 2.20€"
       />
 
   <ImageView
@@ -72,22 +105,6 @@
       app:layout_constraintHorizontal_chainStyle="packed"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@id/bonus_received"
-      />
-
-  <TextView
-      android:id="@+id/bonus_received"
-      style="@style/TopUpTextStyle.SuccessTitle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:paddingHorizontal="@dimen/small_margin"
-      android:layout_marginTop="20dp"
-      android:text="@string/topup_completed_2_with_bonus"
-      android:textColor="@color/styleguide_light_grey"
-      android:fontFamily="@font/roboto_regular"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/ic_guest_wallet_bonus"
-      app:layout_constraintTop_toBottomOf="@id/value"
-      tools:text="Bonus received 2.20€"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView

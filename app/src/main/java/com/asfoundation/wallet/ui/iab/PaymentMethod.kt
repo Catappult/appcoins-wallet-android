@@ -24,6 +24,27 @@ open class PaymentMethod(
         null,
       )
   }
+
+  fun copy(
+    id: String = this.id,
+    label: String = this.label,
+    iconUrl: String = this.iconUrl,
+    async: Boolean = this.async,
+    fee: PaymentMethodFee? = this.fee,
+    isEnabled: Boolean = this.isEnabled,
+    disabledReason: Int? = this.disabledReason,
+    showTopup: Boolean = this.showTopup,
+    showLogout: Boolean = this.showLogout,
+    showExtraFeesMessage: Boolean = this.showExtraFeesMessage,
+    price: FiatValue = this.price,
+    message: String? = this.message
+  ): PaymentMethod {
+    return PaymentMethod(
+      id, label, iconUrl, async, fee, isEnabled, disabledReason,
+      showTopup, showLogout, showExtraFeesMessage, price, message
+    )
+  }
+
 }
 
 data class PaymentMethodFee(

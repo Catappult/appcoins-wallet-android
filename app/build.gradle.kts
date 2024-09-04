@@ -12,8 +12,8 @@ android {
   namespace = "com.asf.wallet"
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 322
-    versionName = "3.26.1"
+    versionCode = 323
+    versionName = "3.27.0"
   }
 }
 
@@ -129,6 +129,8 @@ dependencies {
   implementation(libs.commons.lang3)
   implementation(libs.android.support.annotations)
   implementation(libs.android.installreferrer)
+
+  implementation(libs.truelayer.payments)
 
   implementation(libs.bundles.paging)
 

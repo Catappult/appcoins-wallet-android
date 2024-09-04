@@ -3,6 +3,7 @@ package com.asfoundation.wallet.topup
 import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
+import androidx.compose.ui.platform.ComposeView
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Observable
 
@@ -62,5 +63,9 @@ interface TopUpActivityView {
 
   fun navigateToGooglePay(paymentType: PaymentType, data: TopUpPaymentData)
 
+  fun navigateToTrueLayer(paymentType: PaymentType, data: TopUpPaymentData)
+
   fun isActivityActive(): Boolean
+
+  fun getFullscreenComposeView(): ComposeView
 }
