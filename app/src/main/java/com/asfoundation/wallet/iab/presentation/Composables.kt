@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.iab.presentation
 
 import android.content.res.Configuration
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 
 inline fun Modifier.conditional(
@@ -13,6 +15,9 @@ inline fun Modifier.conditional(
 } else {
   then(ifFalse(Modifier))
 }
+
+@Composable
+fun isInLandscape() = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
 
 @Preview(
   name = "Min scale all",
