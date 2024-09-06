@@ -5,10 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.asf.wallet.R
 import com.asfoundation.wallet.iab.IabBaseFragment
@@ -25,14 +26,15 @@ class MainFragment : IabBaseFragment() {
   private val purchaseData by lazy { args.purchaseDataExtra }
 
   @Composable
-  override fun FragmentContent() = MainScreen(purchaseData)
+  override fun FragmentContent() = MainScreen(findNavController(), purchaseData)
 }
 
 @Composable
-private fun MainScreen(purchaseData: PurchaseData?) {
+private fun MainScreen(navController: NavController, purchaseData: PurchaseData?) {
   var showWalletIcon by remember { mutableStateOf(false) }
   showWalletIcon = LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT
-  var state by rememberSaveable { mutableStateOf(1) }
+
+  val viewModel = rememberMainViewModel(navController)
 
   IAPTheme {
     IAPBottomSheet(
@@ -40,12 +42,9 @@ private fun MainScreen(purchaseData: PurchaseData?) {
       fullscreen = false,
     ) {
       GenericError(
-        titleText = "Showing state $state of 4",
-        messageText = stringResource(id = R.string.unknown_error).takeIf { state < 2 || state == 3 },
-        primaryButtonText = "Verify Payment Method".takeIf { state < 3 },
-        onPrimaryButtonClick = {},
-        secondaryButtonText = "Change to next state",
-        onSecondaryButtonClick = { if (state == 4) state = 1 else state++ },
+        titleText = "Screen to navigate to Verify",
+        secondaryButtonText = "Navigate to verify",
+        onSecondaryButtonClick = { viewModel.navigateTo(MainFragmentDirections.actionNavigateToVerifyFragment()) },
         onSupportClick = {},
       )
     }

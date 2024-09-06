@@ -6,7 +6,11 @@
 
   <fragment
       android:id="@+id/main_fragment"
-      android:name="com.asfoundation.wallet.iab.presentation.main.MainFragment" >
+      android:name="com.asfoundation.wallet.iab.presentation.main.MainFragment">
+
+    <action
+      android:id="@+id/action_navigate_to_verify_fragment"
+      app:destination="@id/verify_fragment"/>
 
     <argument
         android:name="purchaseDataExtra"
@@ -18,5 +22,9 @@
         app:nullable="true"
         app:argType="com.asfoundation.wallet.iab.error.IABError" />
   </fragment>
+
+  <fragment
+      android:id="@+id/verify_fragment"
+      android:name="com.asfoundation.wallet.iab.presentation.verify.VerifyFragment" />
 
 </navigation>
