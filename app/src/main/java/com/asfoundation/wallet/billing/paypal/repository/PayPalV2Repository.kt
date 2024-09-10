@@ -15,6 +15,7 @@ import com.appcoins.wallet.core.network.microservices.model.PaypalV2StartRespons
 import com.appcoins.wallet.core.network.microservices.model.Urls
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.sharedpreferences.PayPalDataSource
 import com.asfoundation.wallet.billing.paypal.models.PaypalCreateAgreement
 import com.asfoundation.wallet.billing.paypal.models.PaypalCreateToken
 import io.reactivex.Completable
@@ -29,7 +30,7 @@ class PayPalV2Repository @Inject constructor(
   private val logger: Logger,
   private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
-
+  private val payPalDataSource: PayPalDataSource
   ) {
 
   fun createTransaction(
@@ -203,6 +204,15 @@ class PayPalV2Repository @Inject constructor(
       errorCode.toString(),
       errorContent ?: ""
     )
+  }
+
+  fun saveChromeResult(result: String) {
+    payPalDataSource.saveResult(result)
+  }
+
+  fun consumeChromeResult(): String {
+    return payPalDataSource
+      .consumeResult()
   }
 
 }

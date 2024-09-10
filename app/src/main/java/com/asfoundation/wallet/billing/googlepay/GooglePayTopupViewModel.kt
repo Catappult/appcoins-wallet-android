@@ -20,7 +20,7 @@ import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.models.GooglePayConst
-import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
+import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
 import com.asfoundation.wallet.billing.googlepay.usecases.BuildGooglePayUrlUseCase
 import com.asfoundation.wallet.billing.googlepay.usecases.CreateGooglePayTransactionTopupUseCase
 import com.asfoundation.wallet.billing.googlepay.usecases.GetGooglePayResultUseCase
@@ -203,16 +203,16 @@ class GooglePayTopupViewModel @Inject constructor(
         runningCustomTab = false
         val result = getGooglePayResultUseCase()
         when (result) {
-          GooglePayResult.SUCCESS.key -> {
+          CustomTabsPayResult.SUCCESS.key -> {
             waitForSuccess(uid, amount)
           }
 
-          GooglePayResult.ERROR.key -> {
+          CustomTabsPayResult.ERROR.key -> {
             topUpAnalytics.sendGooglePayErrorEvent("", "Error received from Web.")
             _state.postValue(State.Error(R.string.purchase_error_google_pay))
           }
 
-          GooglePayResult.CANCEL.key -> {
+          CustomTabsPayResult.CANCEL.key -> {
             waitForSuccess(uid, amount, true)
           }
 

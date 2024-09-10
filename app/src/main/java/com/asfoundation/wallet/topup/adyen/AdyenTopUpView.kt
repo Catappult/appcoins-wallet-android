@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.topup.adyen
 
+import android.content.Context
 import android.net.Uri
 import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
@@ -87,5 +88,7 @@ interface AdyenTopUpView {
   fun restartFragment()
 
   fun hasStoredCardBuy(): Boolean
+
+  fun getRequiredContext(): Context
 
 }

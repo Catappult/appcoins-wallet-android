@@ -474,6 +474,10 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     return hasStoredCardForAutomaticBuy
   }
 
+  override fun getRequiredContext(): Context {
+    return requireContext()
+  }
+
   override fun handleCreditCardNeedCVC(needCVC: Boolean) {
     askCVC = needCVC
   }

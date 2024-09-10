@@ -1,7 +1,10 @@
 package com.asfoundation.wallet.topup.adyen
 
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
+import androidx.browser.customtabs.CustomTabsIntent
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
@@ -30,6 +33,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.HIGH_AMOUNT_CHECK_ID
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.PAYMENT_METHOD_CHECK_ID
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpAnalytics
@@ -84,6 +88,7 @@ class AdyenTopUpPresenter(
   private var action3ds: String? = null
   private var storedCardID: String? = null
   private var initialLoading: Boolean = false
+  var runningCustomTab = false
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
@@ -669,25 +674,37 @@ class AdyenTopUpPresenter(
 
   private fun handleAdyenAction(paymentModel: PaymentModel) {
     if (paymentModel.action != null) {
-      val type = paymentModel.action?.type
-      if (type == REDIRECT) {
-        action3ds = type
-        topUpAnalytics.send3dsStart(action3ds)
-        cachedPaymentData = paymentModel.paymentData
-        cachedUid = paymentModel.uid
-        navigator.navigateToUriForResult(paymentModel.redirectUrl)
-        waitingResult = true
-      } else if (type == THREEDS2 || type == THREEDS2FINGERPRINT || type == THREEDS2CHALLENGE) {
-        action3ds = type
-        topUpAnalytics.send3dsStart(action3ds)
-        cachedUid = paymentModel.uid
-        view.handle3DSAction(paymentModel.action!!)
-        waitingResult = true
-      } else {
-        handleSpecificError(R.string.unknown_error, logMessage = "Unknown adyen action: $type")
+      when (val type = paymentModel.action?.type) {
+        REDIRECT -> {
+          action3ds = type
+          topUpAnalytics.send3dsStart(action3ds)
+          cachedPaymentData = paymentModel.paymentData
+          cachedUid = paymentModel.uid
+          openUrlCustomTab(view.getRequiredContext(), paymentModel.redirectUrl)
+          waitingResult = true
+        }
+        THREEDS2, THREEDS2FINGERPRINT, THREEDS2CHALLENGE -> {
+          action3ds = type
+          topUpAnalytics.send3dsStart(action3ds)
+          cachedUid = paymentModel.uid
+          view.handle3DSAction(paymentModel.action!!)
+          waitingResult = true
+        }
+        else -> {
+          handleSpecificError(R.string.unknown_error, logMessage = "Unknown adyen action: $type")
+        }
       }
     }
   }
+
+  fun openUrlCustomTab(context: Context, url: String?) {
+    if (runningCustomTab) return
+    runningCustomTab = true
+    val customTabsBuilder = CustomTabsIntent.Builder().build()
+    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
+    customTabsBuilder.launchUrl(context, Uri.parse(url))
+  }
+
 
   private fun handleErrors(paymentModel: PaymentModel, value: Double) {
     when {

@@ -21,7 +21,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.models.GooglePayConst
-import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
+import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
 import com.asfoundation.wallet.billing.googlepay.usecases.BuildGooglePayUrlUseCase
 import com.asfoundation.wallet.billing.googlepay.usecases.CreateGooglePayWebTransactionUseCase
 import com.asfoundation.wallet.billing.googlepay.usecases.GetGooglePayResultUseCase
@@ -220,16 +220,16 @@ class GooglePayWebViewModel @Inject constructor(
         runningCustomTab = false
         val result = getGooglePayResultUseCase()
         when (result) {
-          GooglePayResult.SUCCESS.key -> {
+          CustomTabsPayResult.SUCCESS.key -> {
             waitForSuccess(uid, transactionBuilder)
           }
 
-          GooglePayResult.ERROR.key -> {
+          CustomTabsPayResult.ERROR.key -> {
             sendPaymentErrorEvent("", "Error received from Web.", transactionBuilder)
             _state.postValue(State.Error(R.string.purchase_error_google_pay))
           }
 
-          GooglePayResult.CANCEL.key -> {
+          CustomTabsPayResult.CANCEL.key -> {
             waitForSuccess(uid, transactionBuilder, true)
           }
 

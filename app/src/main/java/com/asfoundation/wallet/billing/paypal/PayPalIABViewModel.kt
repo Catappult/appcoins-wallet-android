@@ -1,7 +1,10 @@
 package com.asfoundation.wallet.billing.paypal
 
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
@@ -11,11 +14,14 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
+import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
 import com.asfoundation.wallet.billing.paypal.usecases.CancelPaypalTokenUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalAgreementUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalTokenUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalTransactionUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.GetPayPalResultUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.WaitForSuccessPaypalUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -41,7 +47,8 @@ class PayPalIABViewModel @Inject constructor(
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   rxSchedulers: RxSchedulers,
   private val analytics: BillingAnalytics,
-  private val paymentAnalytics: PaymentMethodsAnalytics
+  private val paymentAnalytics: PaymentMethodsAnalytics,
+  private val getPayPalResultUseCase: GetPayPalResultUseCase
 ) : ViewModel() {
 
   sealed class State {
@@ -63,6 +70,8 @@ class PayPalIABViewModel @Inject constructor(
 
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
+  private var runningCustomTab = false
+  private var isFirstResultRun: Boolean = true
 
   fun startPayment(
     createTokenIfNeeded: Boolean = true, amount: BigDecimal, currency: String,
@@ -168,6 +177,43 @@ class PayPalIABViewModel @Inject constructor(
           _state.postValue(State.Error(R.string.unknown_error))
         })
     )
+  }
+
+  fun openUrlCustomTab(context: Context, url: String) {
+    if (runningCustomTab) return
+    runningCustomTab = true
+    val customTabsBuilder = CustomTabsIntent.Builder().build()
+    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
+    customTabsBuilder.launchUrl(context, Uri.parse(url))
+  }
+
+  fun processPayPalResult(amount: BigDecimal, currency: String, transactionBuilder: TransactionBuilder, origin: String?) {
+    if (isFirstResultRun) {
+      isFirstResultRun = false
+    } else {
+      if (runningCustomTab) {
+        runningCustomTab = false
+        val result = getPayPalResultUseCase()
+        when (result) {
+          CustomTabsPayResult.SUCCESS.key -> {
+            startBillingAgreement(
+              amount = amount,
+              currency = currency,
+              transactionBuilder = transactionBuilder,
+              origin = origin
+            )
+          }
+
+          CustomTabsPayResult.ERROR.key -> {
+            cancelToken()
+          }
+
+          CustomTabsPayResult.CANCEL.key -> {
+            cancelToken()
+          }
+        }
+      }
+    }
   }
 
   fun startBillingAgreement(

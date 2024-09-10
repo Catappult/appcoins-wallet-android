@@ -1,16 +1,13 @@
 package com.asfoundation.wallet.billing.paypal
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.FontAssetDelegate
@@ -21,7 +18,6 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
-import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
@@ -51,7 +47,6 @@ class PayPalTopupFragment : BasePageViewFragment() {
   ): View {
     binding = FragmentPaypalTopupBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
-    registerWebViewResult()
     return views.root
   }
 
@@ -60,25 +55,6 @@ class PayPalTopupFragment : BasePageViewFragment() {
     check(context is TopUpActivityView) { "Paypal topup fragment must be attached to Topup activity" }
     topUpActivityView = context
     topUpActivityView?.lockOrientation()
-  }
-
-  private fun registerWebViewResult() {
-    resultAuthLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.data?.dataString?.contains(PaypalReturnSchemas.RETURN.schema) == true) {
-          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          viewModel.startBillingAgreement(
-            amount = amount,
-            currency = currency
-          )
-        } else if (
-          result.resultCode == Activity.RESULT_CANCELED ||
-          (result.data?.dataString?.contains(PaypalReturnSchemas.CANCEL.schema) == true)
-        ) {
-          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-          viewModel.cancelToken()
-        }
-      }
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -110,7 +86,7 @@ class PayPalTopupFragment : BasePageViewFragment() {
         }
 
         is PayPalTopupViewModel.State.WebViewAuthentication -> {
-          startWebViewAuthorization(state.url)
+          startCustomTabs(state.url)
         }
       }
     }
@@ -139,9 +115,14 @@ class PayPalTopupFragment : BasePageViewFragment() {
     }
   }
 
-  private fun startWebViewAuthorization(url: String) {
-    val intent = WebViewActivity.newIntent(requireActivity(), url)
-    resultAuthLauncher.launch(intent)
+  override fun onResume() {
+    super.onResume()
+    // checks success/error/cancel
+    viewModel.processPayPalResult(amount, currency)
+  }
+
+  private fun startCustomTabs(url: String) {
+    viewModel.openUrlCustomTab(requireContext(), url)
   }
 
   private fun handleSuccess() {

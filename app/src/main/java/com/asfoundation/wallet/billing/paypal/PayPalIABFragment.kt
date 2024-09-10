@@ -57,7 +57,6 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
   ): View {
     binding = FragmentPaypalBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
-    registerWebViewResult()
     navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
     return views.root
   }
@@ -68,26 +67,13 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
     iabView = context
   }
 
-  private fun registerWebViewResult() {
-    resultAuthLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.data?.dataString?.contains(PaypalReturnSchemas.RETURN.schema) == true) {
-          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          viewModel.startBillingAgreement(
-            amount = amount,
-            currency = currency,
-            transactionBuilder = transactionBuilder,
-            origin = origin
-          )
-        } else if (
-          result.resultCode == Activity.RESULT_CANCELED ||
-          (result.data?.dataString?.contains(PaypalReturnSchemas.CANCEL.schema) == true)
-        ) {
-          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-          viewModel.cancelToken()
-        }
-      }
+  override fun onResume() {
+    super.onResume()
+    // checks success/error/cancel
+    viewModel.processPayPalResult(amount, currency, transactionBuilder, origin)
   }
+
+
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -118,7 +104,7 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
         }
 
         is PayPalIABViewModel.State.WebViewAuthentication -> {
-          startWebViewAuthorization(state.url)
+          startCustomTabs(state.url)
         }
       }
     }
@@ -156,9 +142,8 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
     }
   }
 
-  private fun startWebViewAuthorization(url: String) {
-    val intent = WebViewActivity.newIntent(requireActivity(), url)
-    resultAuthLauncher.launch(intent)
+  private fun startCustomTabs(url: String) {
+    viewModel.openUrlCustomTab(requireContext(), url)
   }
 
   private fun concludeWithSuccess() {

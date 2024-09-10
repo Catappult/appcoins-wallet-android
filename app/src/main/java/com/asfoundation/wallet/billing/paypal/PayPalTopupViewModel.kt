@@ -1,7 +1,10 @@
 package com.asfoundation.wallet.billing.paypal
 
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -10,10 +13,13 @@ import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
+import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
 import com.asfoundation.wallet.billing.paypal.usecases.CancelPaypalTokenUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalAgreementUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalTokenUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalTransactionTopupUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.GetPayPalResultUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.WaitForSuccessPaypalUseCase
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -32,6 +38,7 @@ class PayPalTopupViewModel @Inject constructor(
   private val billingMessagesMapper: BillingMessagesMapper,
   private val supportInteractor: SupportInteractor,
   private val topUpAnalytics: TopUpAnalytics,
+  private val getPayPalResultUseCase: GetPayPalResultUseCase,
   rxSchedulers: RxSchedulers
 ) : ViewModel() {
 
@@ -52,6 +59,9 @@ class PayPalTopupViewModel @Inject constructor(
 
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
+  private var runningCustomTab = false
+  private var isFirstResultRun: Boolean = true
+
 
   fun startPayment(
     createTokenIfNeeded: Boolean = true,
@@ -68,6 +78,33 @@ class PayPalTopupViewModel @Inject constructor(
       amount = amount,
       currency = currency,
     )
+  }
+
+  fun processPayPalResult(amount: String, currency: String) {
+    if (isFirstResultRun) {
+      isFirstResultRun = false
+    } else {
+      if (runningCustomTab) {
+        runningCustomTab = false
+        val result = getPayPalResultUseCase()
+        when (result) {
+          CustomTabsPayResult.SUCCESS.key -> {
+            startBillingAgreement(
+              amount = amount,
+              currency = currency
+            )
+          }
+
+          CustomTabsPayResult.ERROR.key -> {
+            cancelToken()
+          }
+
+          CustomTabsPayResult.CANCEL.key -> {
+            cancelToken()
+          }
+        }
+      }
+    }
   }
 
   fun attemptTransaction(
@@ -177,6 +214,14 @@ class PayPalTopupViewModel @Inject constructor(
           _state.postValue(State.TokenCanceled)
         }
     }
+  }
+
+  fun openUrlCustomTab(context: Context, url: String) {
+    if (runningCustomTab) return
+    runningCustomTab = true
+    val customTabsBuilder = CustomTabsIntent.Builder().build()
+    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
+    customTabsBuilder.launchUrl(context, Uri.parse(url))
   }
 
   private fun waitForSuccess(hash: String?, uid: String?, amount: String) {

@@ -1,18 +1,18 @@
-package com.asfoundation.wallet.billing.googlepay
+package com.asfoundation.wallet.billing.paypal
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
-import com.asfoundation.wallet.billing.googlepay.repository.GooglePayWebRepository
+import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class GooglePayReturnActivity : BaseActivity() {
+class PaypalReturnActivity : BaseActivity() {
   @Inject
-  lateinit var googlePayWebRepository: GooglePayWebRepository
+  lateinit var payPalV2Repository: PayPalV2Repository
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -22,19 +22,19 @@ class GooglePayReturnActivity : BaseActivity() {
       when (redirectResult) {
         CustomTabsPayResult.SUCCESS.key -> {
           Log.d(TAG, "success")
-          googlePayWebRepository.saveChromeResult(CustomTabsPayResult.SUCCESS.key)
+          payPalV2Repository.saveChromeResult(CustomTabsPayResult.SUCCESS.key)
         }
 
         CustomTabsPayResult.CANCEL.key -> {
-          googlePayWebRepository.saveChromeResult(CustomTabsPayResult.CANCEL.key)
+          payPalV2Repository.saveChromeResult(CustomTabsPayResult.CANCEL.key)
         }
 
         CustomTabsPayResult.ERROR.key -> {
-          googlePayWebRepository.saveChromeResult(CustomTabsPayResult.ERROR.key)
+          payPalV2Repository.saveChromeResult(CustomTabsPayResult.ERROR.key)
         }
 
         else -> {
-          googlePayWebRepository.saveChromeResult(CustomTabsPayResult.ERROR.key)
+          payPalV2Repository.saveChromeResult(CustomTabsPayResult.ERROR.key)
         }
       }
     }
@@ -42,6 +42,6 @@ class GooglePayReturnActivity : BaseActivity() {
   }
 
   companion object {
-    val TAG = GooglePayReturnActivity::class.java.name
+    val TAG = PaypalReturnActivity::class.java.name
   }
 }
