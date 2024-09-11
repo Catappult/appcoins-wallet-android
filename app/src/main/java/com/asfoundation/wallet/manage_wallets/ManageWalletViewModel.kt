@@ -16,12 +16,10 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWallet
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.interact.DeleteWalletInteract
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -59,46 +57,42 @@ constructor(
   }
 
   private fun getActiveWallet(wallets: WalletsModel) =
-    Observable.interval(0, 20, TimeUnit.SECONDS)
-      .take(2)
-      .subscribeOn(Schedulers.io())
-      .flatMapCompletable {
-        observeWalletInfoUseCase(wallets.activeWalletAddress(), update = true)
-          .firstOrError()
-          .flatMapCompletable { walletInfo ->
-            walletService.getAndSignCurrentWalletAddress()
-              .flatMap { wallet ->
-                Single.zip(
-                  walletVerificationInteractor.getVerificationStatus(
-                    wallet.address,
-                    wallet.signedAddress,
-                    VerificationType.PAYPAL
-                  ),
-                  walletVerificationInteractor.getVerificationStatus(
-                    wallet.address,
-                    wallet.signedAddress,
-                    VerificationType.CREDIT_CARD
-                  )
-                ) { paypalStatus, creditCardStatus ->
-                  VerificationStatusCompound(
-                    creditCardStatus = creditCardStatus,
-                    payPalStatus = paypalStatus,
-                    currentVerificationType = walletVerificationInteractor
-                      .getCurrentVerificationType(wallet.address)
-                  )
-                }
-              }
-              .doOnSuccess { verificationStatus ->
-                analytics.sendManageWalletScreenEvent()
-                _uiState.value =
-                  UiState.Success(walletInfo, wallets.inactiveWallets(), verificationStatus)
-              }
-              .doOnError { error ->
-                error.printStackTrace()
-              }
-              .ignoreElement()
+    observeWalletInfoUseCase(wallets.activeWalletAddress(), update = true)
+      .firstOrError()
+      .flatMapCompletable {walletInfo ->
+        walletService.getAndSignCurrentWalletAddress()
+          .flatMap { wallet ->
+            Single.zip(
+              walletVerificationInteractor.getVerificationStatus(
+                wallet.address,
+                wallet.signedAddress,
+                VerificationType.PAYPAL
+              ),
+              walletVerificationInteractor.getVerificationStatus(
+                wallet.address,
+                wallet.signedAddress,
+                VerificationType.CREDIT_CARD
+              )
+            ) { paypalStatus, creditCardStatus ->
+              VerificationStatusCompound(
+                creditCardStatus = creditCardStatus,
+                payPalStatus =paypalStatus,
+                currentVerificationType = walletVerificationInteractor
+                  .getCurrentVerificationType(wallet.address)
+              )
+            }
           }
+          .doOnSuccess { verificationStatus ->
+            analytics.sendManageWalletScreenEvent()
+            _uiState.value =
+              UiState.Success(walletInfo, wallets.inactiveWallets(), verificationStatus)
+          }
+          .doOnError { error ->
+            error.printStackTrace()
+          }
+          .ignoreElement()
       }
+      .subscribeOn(Schedulers.io())
       .subscribe({}, { error ->
         error.printStackTrace()
       })
@@ -108,6 +102,9 @@ constructor(
       .doOnSubscribe { _uiState.value = UiState.Loading }
       .doOnComplete {
         _uiState.value = UiState.WalletDeleted
+      }
+      .doOnError { error ->
+        error.printStackTrace()
       }
       .subscribe()
   }
