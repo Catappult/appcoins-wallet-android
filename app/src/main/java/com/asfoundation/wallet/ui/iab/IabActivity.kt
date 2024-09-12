@@ -48,7 +48,6 @@ import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import java.lang.Thread.sleep
 import java.math.BigDecimal
 import java.util.Objects
 import javax.inject.Inject
@@ -145,7 +144,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       presenter.handleBackupNotifications(bundle)
       // Sleep added as a temporary fix to launch the notifications separately.
       // When both notifications are launched together then only one shows up
-      sleep(200)
       presenter.handlePerkNotifications(bundle)
     } else {
       finishActivity(bundle)
