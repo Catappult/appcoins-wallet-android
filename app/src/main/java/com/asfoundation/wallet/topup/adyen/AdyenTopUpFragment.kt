@@ -12,6 +12,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.browser.customtabs.CustomTabsIntent
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
@@ -32,6 +33,8 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentAdyenTopUpBinding
 import com.asfoundation.wallet.billing.adyen.*
+import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
+import com.asfoundation.wallet.billing.paypal.usecases.GetPayPalResultUseCase
 import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpActivityView
@@ -96,6 +99,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   @Inject
   lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
 
+  @Inject
+  lateinit var getPayPalResultUseCase: GetPayPalResultUseCase
+
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectConfiguration: RedirectConfiguration
@@ -146,7 +152,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
         getPaymentInfoNewCardModelUseCase,
         getPaymentInfoFilterByCardModelUseCase,
         cardPaymentDataSource,
-        getCurrentWalletUseCase
+        getCurrentWalletUseCase,
+        getPayPalResultUseCase
       )
   }
 
@@ -177,6 +184,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun onResume() {
     super.onResume()
     hideKeyboard()
+    // checks success/error/cancel
+    presenter.processPayPalResult()
   }
 
   override fun setup3DSComponent() {
@@ -409,11 +418,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun retrievePaymentData() = paymentDataSubject!!
 
   override fun getPaymentDetails() = paymentDetailsSubject!!
-
-
-  // TODO: Refactor this to pass the whole Intent.
-  // TODO: Currently this relies on the fact that Adyen 4.4.0 internally uses only Intent.getData().
-  override fun submitUriResult(uri: Uri) = redirectComponent.handleIntent(Intent("", uri))
 
   override fun updateTopUpButton(valid: Boolean) {
     binding.button.isEnabled = valid

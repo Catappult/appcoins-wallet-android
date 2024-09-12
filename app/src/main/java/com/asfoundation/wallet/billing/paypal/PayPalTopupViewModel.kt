@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
@@ -15,6 +16,7 @@ import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
+import com.asfoundation.wallet.billing.googlepay.models.GooglePayConst
 import com.asfoundation.wallet.billing.paypal.usecases.CancelPaypalTokenUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalAgreementUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalTokenUseCase
@@ -26,6 +28,8 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -61,6 +65,8 @@ class PayPalTopupViewModel @Inject constructor(
   val viewScheduler = rxSchedulers.main
   private var runningCustomTab = false
   private var isFirstResultRun: Boolean = true
+  private var hash: String? = null
+  private var uid: String? = null
 
 
   fun startPayment(
@@ -96,11 +102,15 @@ class PayPalTopupViewModel @Inject constructor(
           }
 
           CustomTabsPayResult.ERROR.key -> {
-            cancelToken()
+            waitForSuccess(hash, uid, amount)
           }
 
           CustomTabsPayResult.CANCEL.key -> {
-            cancelToken()
+            waitForSuccess(hash, uid, amount)
+          }
+
+          else -> {
+            waitForSuccess(hash, uid, amount)
           }
         }
       }
@@ -120,6 +130,8 @@ class PayPalTopupViewModel @Inject constructor(
         .doOnSuccess {
           when (it?.validity) {
             PaypalTransaction.PaypalValidityState.COMPLETED -> {
+              uid = it.uid
+              hash = it.hash
               topUpAnalytics.sendPaypalSuccessEvent(amount)
               _state.postValue(State.SuccessPurchase(it.hash, it.uid))
             }
@@ -139,6 +151,8 @@ class PayPalTopupViewModel @Inject constructor(
             }
 
             PaypalTransaction.PaypalValidityState.PENDING -> {
+              hash = it.hash
+              uid = it.uid
               waitForSuccess(it.hash, it.uid, amount)
             }
 
@@ -225,7 +239,7 @@ class PayPalTopupViewModel @Inject constructor(
   }
 
   private fun waitForSuccess(hash: String?, uid: String?, amount: String) {
-    compositeDisposable.add(
+    val disposableSuccessCheck =
       waitForSuccessPaypalUseCase(uid ?: "")
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -254,7 +268,21 @@ class PayPalTopupViewModel @Inject constructor(
             Log.d(TAG, "Error on Settled transaction polling")
             topUpAnalytics.sendPaypalErrorEvent(errorDetails = "Error on Settled transaction polling")
           })
-    )
+    // disposes the check after x seconds
+    viewModelScope.launch {
+      delay(GooglePayConst.GOOGLE_PAY_TIMEOUT)
+      try {
+        if (state.value !is State.SuccessPurchase) {
+          Log.d(TAG, "Error on transaction on Settled transaction polling")
+        topUpAnalytics.sendPaypalErrorEvent(
+          errorDetails = "Error on transaction on Settled transaction polling ${state.value}"
+        )
+        _state.postValue(State.Error(R.string.unknown_error))
+        disposableSuccessCheck.dispose()
+        }
+      } catch (_: Exception) {
+      }
+    }
   }
 
   fun createBundle(

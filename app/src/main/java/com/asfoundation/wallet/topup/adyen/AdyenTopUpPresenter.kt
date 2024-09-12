@@ -34,6 +34,9 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.HI
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.PAYMENT_METHOD_CHECK_ID
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
+import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
+import com.asfoundation.wallet.billing.paypal.usecases.GetPayPalResultUseCase
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpAnalytics
@@ -76,7 +79,8 @@ class AdyenTopUpPresenter(
   private val getPaymentInfoNewCardModelUseCase: GetPaymentInfoNewCardModelUseCase,
   private val getPaymentInfoFilterByCardModelUseCase: GetPaymentInfoFilterByCardModelUseCase,
   private val cardPaymentDataSource: CardPaymentDataSource,
-  private val getCurrentWalletUseCase: GetCurrentWalletUseCase
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
+  private val getPayPalResultUseCase: GetPayPalResultUseCase
 ) {
 
   private var waitingResult = false
@@ -88,7 +92,8 @@ class AdyenTopUpPresenter(
   private var action3ds: String? = null
   private var storedCardID: String? = null
   private var initialLoading: Boolean = false
-  var runningCustomTab = false
+  private var runningCustomTab = false
+  private var isFirstResultRun: Boolean = true
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
@@ -308,6 +313,33 @@ class AdyenTopUpPresenter(
     )
   }
 
+  fun processPayPalResult() {
+    if (isFirstResultRun) {
+      isFirstResultRun = false
+    } else {
+      if (runningCustomTab) {
+        runningCustomTab = false
+        val result = getPayPalResultUseCase()
+        when (result) {
+          CustomTabsPayResult.SUCCESS.key -> {
+            handleSuccessTransaction()
+          }
+
+          CustomTabsPayResult.ERROR.key -> {
+            handlePaymentDetails()
+          }
+
+          CustomTabsPayResult.CANCEL.key -> {
+            handlePaymentDetails()
+          }
+          else -> {
+            handlePaymentDetails()
+          }
+        }
+      }
+    }
+  }
+
   fun makePayment() {
     disposables.add(view.retrievePaymentData()
       .firstOrError()
@@ -356,9 +388,17 @@ class AdyenTopUpPresenter(
           )
         }
         .observeOn(viewScheduler)
-        .doOnNext { view.submitUriResult(it) }
+        .doOnNext { openUrlCustomTab( view.getRequiredContext(), it) }
         .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
+  }
+
+  fun openUrlCustomTab(context: Context, url: Uri) {
+    if (runningCustomTab) return
+    runningCustomTab = true
+    val customTabsBuilder = CustomTabsIntent.Builder().build()
+    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
+    customTabsBuilder.launchUrl(context, url)
   }
 
   //Called if is paypal or 3DS

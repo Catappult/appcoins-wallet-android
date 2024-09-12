@@ -36,6 +36,8 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWal
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.enums.PaymentStateEnum
+import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
+import com.asfoundation.wallet.billing.paypal.usecases.GetPayPalResultUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
@@ -79,6 +81,7 @@ class AdyenPaymentViewModel @Inject constructor(
   private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
   private val getPaymentInfoNewCardModelUseCase: GetPaymentInfoNewCardModelUseCase,
   private val getPaymentInfoFilterByCardModelUseCase: GetPaymentInfoFilterByCardModelUseCase,
+  private val getPayPalResultUseCase: GetPayPalResultUseCase,
   rxSchedulers: RxSchedulers,
 ) : ViewModel() {
 
@@ -99,6 +102,8 @@ class AdyenPaymentViewModel @Inject constructor(
   val singleEventState = _singleEventState.receiveAsFlow()
   lateinit var paymentStateEnum: PaymentStateEnum
   var cancelPaypalLaunch = false
+  var runningCustomTab = false
+  private var isFirstResultRun: Boolean = true
 
   sealed class SingleEventState {
     object setup3DSComponent : SingleEventState()
@@ -952,6 +957,27 @@ class AdyenPaymentViewModel @Inject constructor(
         sendSingleEvent(SingleEventState.showGenericError)
       })
     )
+  }
+
+  fun processPayPalResult(paymentData: Observable<AdyenComponentResponseModel>) {
+    if (isFirstResultRun) {
+      isFirstResultRun = false
+    } else {
+      if (runningCustomTab) {
+        runningCustomTab = false
+        val result = getPayPalResultUseCase()
+        when (result) {
+          CustomTabsPayResult.ERROR.key,
+          CustomTabsPayResult.CANCEL.key,
+          CustomTabsPayResult.SUCCESS.key -> {
+            handlePaymentDetails(paymentData)
+          }
+          else -> {
+            handlePaymentDetails(paymentData)
+          }
+        }
+      }
+    }
   }
 
   private fun showMoreMethods() {

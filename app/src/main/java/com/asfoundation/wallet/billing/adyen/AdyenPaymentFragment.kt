@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.StringRes
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -59,6 +60,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.AdyenCreditCardLayoutBinding
 import com.asfoundation.wallet.billing.adyen.enums.PaymentStateEnum
+import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -308,7 +310,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
             )
 
             is AdyenPaymentViewModel.SingleEventState.close -> close(event.bundle ?: Bundle())
-            is AdyenPaymentViewModel.SingleEventState.submitUriResult -> submitUriResult(event.uri)
+            is AdyenPaymentViewModel.SingleEventState.submitUriResult -> openUrlCustomTab(event.uri)
             AdyenPaymentViewModel.SingleEventState.showBackToCard -> showBackToCard()
             is AdyenPaymentViewModel.SingleEventState.handle3DSAction -> handle3DSAction(
               action = event.action
@@ -366,6 +368,14 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       adyenErrorCancelClicks = RxView.clicks(errorCancel),
       paymentStateEnumArgs = paymentStateEnum
     )
+  }
+
+  fun openUrlCustomTab( url: Uri) {
+    if (viewModel.runningCustomTab) return
+    viewModel.runningCustomTab = true
+    val customTabsBuilder = CustomTabsIntent.Builder().build()
+    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
+    customTabsBuilder.launchUrl(requireContext(), url)
   }
 
   fun setup3DSComponent() {
@@ -814,9 +824,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   fun close(bundle: Bundle) = iabView.close(bundle)
 
-  // TODO: Refactor this to pass the whole Intent.
-// TODO: Currently this relies on the fact that Adyen 4.4.0 internally uses only Intent.getData().
-  fun submitUriResult(uri: Uri) = redirectComponent.handleIntent(Intent("", uri))
 
   fun getPaymentDetails(): Observable<AdyenComponentResponseModel> = paymentDetailsSubject!!
 
@@ -1038,6 +1045,12 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     paymentDetailsSubject = null
     adyen3DSErrorSubject = null
     super.onDestroy()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    // checks success/error/cancel
+    viewModel.processPayPalResult(getPaymentDetails())
   }
 
   fun restartFragment(paymentType: PaymentType = PaymentType.CARD) {

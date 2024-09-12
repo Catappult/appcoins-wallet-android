@@ -39,8 +39,6 @@ interface AdyenTopUpView {
 
   fun setupRedirectComponent()
 
-  fun submitUriResult(uri: Uri)
-
   fun getPaymentDetails(): Observable<AdyenComponentResponseModel>
 
   fun showSpecificError(stringRes: Int)

@@ -67,6 +67,7 @@ class PayPalIABViewModel @Inject constructor(
   private var authenticatedToken: String? = null
 
   private var uid: String? = null
+  private var hash: String? = null
 
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
@@ -111,6 +112,7 @@ class PayPalIABViewModel @Inject constructor(
           when (it?.validity) {
             PaypalTransaction.PaypalValidityState.COMPLETED -> {
               uid = it.uid
+              hash = it.hash
               getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
             }
 
@@ -205,11 +207,14 @@ class PayPalIABViewModel @Inject constructor(
           }
 
           CustomTabsPayResult.ERROR.key -> {
-            cancelToken()
+            waitForSuccess(hash, uid, transactionBuilder)
           }
 
           CustomTabsPayResult.CANCEL.key -> {
-            cancelToken()
+            waitForSuccess(hash, uid, transactionBuilder)
+          }
+          else -> {
+            waitForSuccess(hash, uid, transactionBuilder)
           }
         }
       }
