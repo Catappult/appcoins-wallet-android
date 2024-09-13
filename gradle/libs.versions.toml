@@ -85,6 +85,7 @@ fyber_sdk_version = "3.42.0"
 vk_pay_version = "0.112-beta24429"
 vk_pay_checkout_version = "0.112-beta24429"
 truelayer_payments_version = "2.6.0"
+accompanist_drawablepainter = "0.36.0"
 
 [libraries]
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation_version" }
@@ -94,6 +95,7 @@ androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "andr
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx_ktx_version" }
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx_ktx_version" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "corektx_version" }
+accompanist-drawablepainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist_drawablepainter" }
 
 androidx-appcompact = { module = "androidx.appcompat:appcompat", version.ref = "androidx_appcompat_version" }
 androidx-vectordrawable = { module = "androidx.vectordrawable:vectordrawable", version.ref = "androidx_vector_drawable_version" }
