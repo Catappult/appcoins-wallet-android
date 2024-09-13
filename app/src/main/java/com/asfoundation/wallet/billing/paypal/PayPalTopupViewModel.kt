@@ -64,7 +64,6 @@ class PayPalTopupViewModel @Inject constructor(
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
   private var runningCustomTab = false
-  private var isFirstResultRun: Boolean = true
   private var hash: String? = null
   private var uid: String? = null
 
@@ -87,31 +86,27 @@ class PayPalTopupViewModel @Inject constructor(
   }
 
   fun processPayPalResult(amount: String, currency: String) {
-    if (isFirstResultRun) {
-      isFirstResultRun = false
-    } else {
-      if (runningCustomTab) {
-        runningCustomTab = false
-        val result = getPayPalResultUseCase()
-        when (result) {
-          CustomTabsPayResult.SUCCESS.key -> {
-            startBillingAgreement(
-              amount = amount,
-              currency = currency
-            )
-          }
+    if (runningCustomTab) {
+      runningCustomTab = false
+      val result = getPayPalResultUseCase()
+      when (result) {
+        CustomTabsPayResult.SUCCESS.key -> {
+          startBillingAgreement(
+            amount = amount,
+            currency = currency
+          )
+        }
 
-          CustomTabsPayResult.ERROR.key -> {
-            waitForSuccess(hash, uid, amount)
-          }
+        CustomTabsPayResult.ERROR.key -> {
+          waitForSuccess(hash, uid, amount)
+        }
 
-          CustomTabsPayResult.CANCEL.key -> {
-            waitForSuccess(hash, uid, amount)
-          }
+        CustomTabsPayResult.CANCEL.key -> {
+          waitForSuccess(hash, uid, amount)
+        }
 
-          else -> {
-            waitForSuccess(hash, uid, amount)
-          }
+        else -> {
+          waitForSuccess(hash, uid, amount)
         }
       }
     }
@@ -274,11 +269,11 @@ class PayPalTopupViewModel @Inject constructor(
       try {
         if (state.value !is State.SuccessPurchase) {
           Log.d(TAG, "Error on transaction on Settled transaction polling")
-        topUpAnalytics.sendPaypalErrorEvent(
-          errorDetails = "Error on transaction on Settled transaction polling ${state.value}"
-        )
-        _state.postValue(State.Error(R.string.unknown_error))
-        disposableSuccessCheck.dispose()
+          topUpAnalytics.sendPaypalErrorEvent(
+            errorDetails = "Error on transaction on Settled transaction polling ${state.value}"
+          )
+          _state.postValue(State.Error(R.string.unknown_error))
+          disposableSuccessCheck.dispose()
         }
       } catch (_: Exception) {
       }

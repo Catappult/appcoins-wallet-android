@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
@@ -16,6 +17,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
+import com.asfoundation.wallet.billing.googlepay.models.GooglePayConst
 import com.asfoundation.wallet.billing.paypal.usecases.CancelPaypalTokenUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalAgreementUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalTokenUseCase
@@ -31,6 +33,8 @@ import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -72,7 +76,6 @@ class PayPalIABViewModel @Inject constructor(
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
   private var runningCustomTab = false
-  private var isFirstResultRun: Boolean = true
 
   fun startPayment(
     createTokenIfNeeded: Boolean = true, amount: BigDecimal, currency: String,
@@ -189,33 +192,35 @@ class PayPalIABViewModel @Inject constructor(
     customTabsBuilder.launchUrl(context, Uri.parse(url))
   }
 
-  fun processPayPalResult(amount: BigDecimal, currency: String, transactionBuilder: TransactionBuilder, origin: String?) {
-    if (isFirstResultRun) {
-      isFirstResultRun = false
-    } else {
-      if (runningCustomTab) {
-        runningCustomTab = false
-        val result = getPayPalResultUseCase()
-        when (result) {
-          CustomTabsPayResult.SUCCESS.key -> {
-            startBillingAgreement(
-              amount = amount,
-              currency = currency,
-              transactionBuilder = transactionBuilder,
-              origin = origin
-            )
-          }
+  fun processPayPalResult(
+    amount: BigDecimal,
+    currency: String,
+    transactionBuilder: TransactionBuilder,
+    origin: String?
+  ) {
+    if (runningCustomTab) {
+      runningCustomTab = false
+      val result = getPayPalResultUseCase()
+      when (result) {
+        CustomTabsPayResult.SUCCESS.key -> {
+          startBillingAgreement(
+            amount = amount,
+            currency = currency,
+            transactionBuilder = transactionBuilder,
+            origin = origin
+          )
+        }
 
-          CustomTabsPayResult.ERROR.key -> {
-            waitForSuccess(hash, uid, transactionBuilder)
-          }
+        CustomTabsPayResult.ERROR.key -> {
+          waitForSuccess(hash, uid, transactionBuilder)
+        }
 
-          CustomTabsPayResult.CANCEL.key -> {
-            waitForSuccess(hash, uid, transactionBuilder)
-          }
-          else -> {
-            waitForSuccess(hash, uid, transactionBuilder)
-          }
+        CustomTabsPayResult.CANCEL.key -> {
+          waitForSuccess(hash, uid, transactionBuilder)
+        }
+
+        else -> {
+          waitForSuccess(hash, uid, transactionBuilder)
         }
       }
     }
@@ -264,39 +269,53 @@ class PayPalIABViewModel @Inject constructor(
   }
 
   private fun waitForSuccess(hash: String?, uid: String?, transactionBuilder: TransactionBuilder) {
-    compositeDisposable.add(
-      waitForSuccessPaypalUseCase(uid ?: "")
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .subscribe(
-          {
-            when (it.status) {
-              PaymentModel.Status.COMPLETED -> {
-                getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
-              }
-
-              PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
-              PaymentModel.Status.INVALID_TRANSACTION -> {
-                Log.d(TAG, "Error on transaction on Settled transaction polling")
-                sendPaymentErrorEvent(
-                  errorMessage = "Error on transaction on Settled transaction polling ${it.status.name}",
-                  transactionBuilder = transactionBuilder
-                )
-                _state.postValue(State.Error(R.string.unknown_error))
-              }
-
-              else -> { /* pending */
-              }
+    val disposableSuccessCheck = waitForSuccessPaypalUseCase(uid ?: "")
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .subscribe(
+        {
+          when (it.status) {
+            PaymentModel.Status.COMPLETED -> {
+              getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
             }
-          },
-          {
-            Log.d(TAG, "Error on Settled transaction polling")
-            sendPaymentErrorEvent(
-              errorMessage = "Error on Settled transaction polling",
-              transactionBuilder = transactionBuilder
-            )
-          })
-    )
+
+            PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
+            PaymentModel.Status.INVALID_TRANSACTION -> {
+              Log.d(TAG, "Error on transaction on Settled transaction polling")
+              sendPaymentErrorEvent(
+                errorMessage = "Error on transaction on Settled transaction polling ${it.status.name}",
+                transactionBuilder = transactionBuilder
+              )
+              _state.postValue(State.Error(R.string.unknown_error))
+            }
+
+            else -> { /* pending */
+            }
+          }
+        },
+        {
+          Log.d(TAG, "Error on Settled transaction polling")
+          sendPaymentErrorEvent(
+            errorMessage = "Error on Settled transaction polling",
+            transactionBuilder = transactionBuilder
+          )
+        })
+    // disposes the check after x seconds
+    viewModelScope.launch {
+      delay(GooglePayConst.GOOGLE_PAY_TIMEOUT)
+      try {
+        if (state.value !is State.SuccessPurchase) {
+          Log.d(TAG, "Error on transaction on Settled transaction polling")
+          sendPaymentErrorEvent(
+            errorMessage = "Error on transaction on Settled transaction polling ${state.value}",
+            transactionBuilder = transactionBuilder
+          )
+          _state.postValue(State.Error(R.string.unknown_error))
+          disposableSuccessCheck.dispose()
+        }
+      } catch (_: Exception) {
+      }
+    }
   }
 
   fun getSuccessBundle(

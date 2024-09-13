@@ -310,7 +310,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
             )
 
             is AdyenPaymentViewModel.SingleEventState.close -> close(event.bundle ?: Bundle())
-            is AdyenPaymentViewModel.SingleEventState.submitUriResult -> openUrlCustomTab(event.uri)
+            is AdyenPaymentViewModel.SingleEventState.submitUriResult -> viewModel.openUrlCustomTab(requireContext(), event.uri)
             AdyenPaymentViewModel.SingleEventState.showBackToCard -> showBackToCard()
             is AdyenPaymentViewModel.SingleEventState.handle3DSAction -> handle3DSAction(
               action = event.action
@@ -370,13 +370,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     )
   }
 
-  fun openUrlCustomTab( url: Uri) {
-    if (viewModel.runningCustomTab) return
-    viewModel.runningCustomTab = true
-    val customTabsBuilder = CustomTabsIntent.Builder().build()
-    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
-    customTabsBuilder.launchUrl(requireContext(), url)
-  }
 
   fun setup3DSComponent() {
     activity?.application?.let { application ->

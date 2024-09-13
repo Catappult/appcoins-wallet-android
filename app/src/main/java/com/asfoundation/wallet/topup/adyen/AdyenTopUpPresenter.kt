@@ -93,7 +93,6 @@ class AdyenTopUpPresenter(
   private var storedCardID: String? = null
   private var initialLoading: Boolean = false
   private var runningCustomTab = false
-  private var isFirstResultRun: Boolean = true
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
@@ -165,7 +164,7 @@ class AdyenTopUpPresenter(
           if (paymentType == PaymentType.CARD.name && storedCardID == "" && initialLoading)
             hideSpecificError()
           else*/
-            navigator.navigateBack()
+          navigator.navigateBack()
         },
         { it.printStackTrace() }
       )
@@ -314,27 +313,24 @@ class AdyenTopUpPresenter(
   }
 
   fun processPayPalResult() {
-    if (isFirstResultRun) {
-      isFirstResultRun = false
-    } else {
-      if (runningCustomTab) {
-        runningCustomTab = false
-        val result = getPayPalResultUseCase()
-        when (result) {
-          CustomTabsPayResult.SUCCESS.key -> {
-            handleSuccessTransaction()
-          }
+    if (runningCustomTab) {
+      runningCustomTab = false
+      val result = getPayPalResultUseCase()
+      when (result) {
+        CustomTabsPayResult.SUCCESS.key -> {
+          handleSuccessTransaction()
+        }
 
-          CustomTabsPayResult.ERROR.key -> {
-            handlePaymentDetails()
-          }
+        CustomTabsPayResult.ERROR.key -> {
+          handlePaymentDetails()
+        }
 
-          CustomTabsPayResult.CANCEL.key -> {
-            handlePaymentDetails()
-          }
-          else -> {
-            handlePaymentDetails()
-          }
+        CustomTabsPayResult.CANCEL.key -> {
+          handlePaymentDetails()
+        }
+
+        else -> {
+          handlePaymentDetails()
         }
       }
     }
@@ -388,7 +384,7 @@ class AdyenTopUpPresenter(
           )
         }
         .observeOn(viewScheduler)
-        .doOnNext { openUrlCustomTab( view.getRequiredContext(), it) }
+        .doOnNext { openUrlCustomTab(view.getRequiredContext(), it) }
         .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
   }
@@ -723,6 +719,7 @@ class AdyenTopUpPresenter(
           openUrlCustomTab(view.getRequiredContext(), paymentModel.redirectUrl)
           waitingResult = true
         }
+
         THREEDS2, THREEDS2FINGERPRINT, THREEDS2CHALLENGE -> {
           action3ds = type
           topUpAnalytics.send3dsStart(action3ds)
@@ -730,6 +727,7 @@ class AdyenTopUpPresenter(
           view.handle3DSAction(paymentModel.action!!)
           waitingResult = true
         }
+
         else -> {
           handleSpecificError(R.string.unknown_error, logMessage = "Unknown adyen action: $type")
         }

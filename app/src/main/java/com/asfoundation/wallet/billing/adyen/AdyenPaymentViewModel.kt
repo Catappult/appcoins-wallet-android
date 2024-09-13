@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.billing.adyen
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adyen.checkout.components.model.payments.response.Action
@@ -36,6 +38,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWal
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.enums.PaymentStateEnum
+import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
 import com.asfoundation.wallet.billing.paypal.usecases.GetPayPalResultUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -103,7 +106,6 @@ class AdyenPaymentViewModel @Inject constructor(
   lateinit var paymentStateEnum: PaymentStateEnum
   var cancelPaypalLaunch = false
   var runningCustomTab = false
-  private var isFirstResultRun: Boolean = true
 
   sealed class SingleEventState {
     object setup3DSComponent : SingleEventState()
@@ -137,6 +139,7 @@ class AdyenPaymentViewModel @Inject constructor(
       val isWalletVerified: Boolean,
       val paymentType: String
     ) : SingleEventState()
+
     data class handleCreditCardNeedCVC(val needCVC: Boolean) : SingleEventState()
     data class close(val bundle: Bundle?) : SingleEventState()
     data class submitUriResult(val uri: Uri) : SingleEventState()
@@ -774,10 +777,12 @@ class AdyenPaymentViewModel @Inject constructor(
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
       .doOnNext { isWalletVerified ->
-        sendSingleEvent(SingleEventState.showVerification(
-          isWalletVerified,
-          paymentData.paymentType
-        ))
+        sendSingleEvent(
+          SingleEventState.showVerification(
+            isWalletVerified,
+            paymentData.paymentType
+          )
+        )
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -959,22 +964,27 @@ class AdyenPaymentViewModel @Inject constructor(
     )
   }
 
+  fun openUrlCustomTab(context: Context, url: Uri) {
+    if (runningCustomTab) return
+    runningCustomTab = true
+    val customTabsBuilder = CustomTabsIntent.Builder().build()
+    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
+    customTabsBuilder.launchUrl(context, url)
+  }
+
   fun processPayPalResult(paymentData: Observable<AdyenComponentResponseModel>) {
-    if (isFirstResultRun) {
-      isFirstResultRun = false
-    } else {
-      if (runningCustomTab) {
-        runningCustomTab = false
-        val result = getPayPalResultUseCase()
-        when (result) {
-          CustomTabsPayResult.ERROR.key,
-          CustomTabsPayResult.CANCEL.key,
-          CustomTabsPayResult.SUCCESS.key -> {
-            handlePaymentDetails(paymentData)
-          }
-          else -> {
-            handlePaymentDetails(paymentData)
-          }
+    if (runningCustomTab) {
+      runningCustomTab = false
+      val result = getPayPalResultUseCase()
+      when (result) {
+        CustomTabsPayResult.ERROR.key,
+        CustomTabsPayResult.CANCEL.key,
+        CustomTabsPayResult.SUCCESS.key -> {
+          handlePaymentDetails(paymentData)
+        }
+
+        else -> {
+          handlePaymentDetails(paymentData)
         }
       }
     }
