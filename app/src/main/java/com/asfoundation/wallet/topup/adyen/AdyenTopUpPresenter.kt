@@ -1,10 +1,14 @@
 package com.asfoundation.wallet.topup.adyen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.annotation.StringRes
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.lifecycle.viewModelScope
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
@@ -32,9 +36,13 @@ import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAU
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.HIGH_AMOUNT_CHECK_ID
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.PAYMENT_METHOD_CHECK_ID
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentViewModel
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentViewModel.Companion
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentViewModel.SingleEventState
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
+import com.asfoundation.wallet.billing.paypal.PaypalReturnActivity.Companion.PAYPAL_TIMEOUT
 import com.asfoundation.wallet.billing.paypal.usecases.GetPayPalResultUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
@@ -48,6 +56,9 @@ import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -93,6 +104,8 @@ class AdyenTopUpPresenter(
   private var storedCardID: String? = null
   private var initialLoading: Boolean = false
   private var runningCustomTab = false
+  private val handler = Handler(Looper.getMainLooper())
+  private lateinit var runnable: Runnable
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
@@ -334,6 +347,39 @@ class AdyenTopUpPresenter(
         }
       }
     }
+  }
+
+  @SuppressLint("CheckResult")
+  private fun handlePayPalResult() {
+    var tempTransaction = PaymentModel()
+    adyenPaymentInteractor.getAuthorisedTransaction(cachedUid)
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .subscribe { transaction ->
+        tempTransaction = transaction
+        if (transaction.status == PaymentModel.Status.COMPLETED) {
+          handleSuccessTransaction()
+          handler.removeCallbacks(runnable)
+        }
+      }
+    // disposes the check after x seconds
+    runnable = Runnable {
+      try {
+        if (tempTransaction.status == FAILED && paymentType == PaymentType.PAYPAL.name) {
+        retrieveFailedReason(cachedUid)
+      } else if (tempTransaction.status == PaymentModel.Status.PENDING || tempTransaction.status == PaymentModel.Status.PENDING_USER_PAYMENT) {
+          topUpAnalytics.sendErrorEvent(
+            value = appcValue.toDouble(),
+            paymentMethod = paymentType,
+            status = "error",
+            errorCode = "",
+            errorDetails = "canceled"
+          )
+          view.cancelPayment()
+      }
+      } catch (_: Exception) { }
+    }
+    handler.postDelayed(runnable, PAYPAL_TIMEOUT)
   }
 
   fun makePayment() {

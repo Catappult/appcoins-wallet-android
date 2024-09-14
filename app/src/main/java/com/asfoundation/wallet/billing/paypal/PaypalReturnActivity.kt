@@ -43,5 +43,6 @@ class PaypalReturnActivity : BaseActivity() {
 
   companion object {
     val TAG = PaypalReturnActivity::class.java.name
+    const val PAYPAL_TIMEOUT = 16000L
   }
 }

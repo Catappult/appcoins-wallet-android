@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.billing.adyen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -40,6 +41,8 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.enums.PaymentStateEnum
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
+import com.asfoundation.wallet.billing.paypal.PayPalTopupViewModel.State
+import com.asfoundation.wallet.billing.paypal.PaypalReturnActivity.Companion.PAYPAL_TIMEOUT
 import com.asfoundation.wallet.billing.paypal.usecases.GetPayPalResultUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.manage_cards.models.StoredCard
@@ -58,8 +61,10 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.ReplaySubject
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -980,12 +985,53 @@ class AdyenPaymentViewModel @Inject constructor(
         CustomTabsPayResult.ERROR.key,
         CustomTabsPayResult.CANCEL.key,
         CustomTabsPayResult.SUCCESS.key -> {
-          handlePaymentDetails(paymentData)
+          handlePayPalResult()
         }
 
         else -> {
-          handlePaymentDetails(paymentData)
+          handlePayPalResult()
         }
+      }
+    }
+  }
+
+  @SuppressLint("CheckResult")
+  private fun handlePayPalResult() {
+    var tempTransaction = PaymentModel()
+    val disposableSuccessCheck: Disposable = adyenPaymentInteractor.getAuthorisedTransaction(cachedUid)
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .subscribe { transaction ->
+        tempTransaction = transaction
+        if (transaction.status == PaymentModel.Status.COMPLETED) {
+          sendPaymentSuccessEvent(transaction.uid)
+          createBundle(transaction.hash, transaction.orderReference, transaction.purchaseUid)
+            .doOnSuccess {
+              sendPaymentEvent()
+              sendRevenueEvent()
+            }
+            .subscribeOn(networkScheduler)
+            .doOnSuccess { bundle ->
+              handleSuccessTransaction(
+                bundle
+              )
+            }.subscribe({}, {
+              logger.log(TAG, it)
+              sendSingleEvent(SingleEventState.showGenericError)
+            })
+        }
+      }
+    // disposes the check after x seconds
+    viewModelScope.launch {
+      delay(PAYPAL_TIMEOUT)
+      try {
+        if (isPaymentFailed(tempTransaction.status)) {
+          retrieveFailedReason(cachedUid)
+          disposableSuccessCheck.dispose()
+        } else if (tempTransaction.status == PaymentModel.Status.PENDING || tempTransaction.status == PaymentModel.Status.PENDING_USER_PAYMENT) {
+          sendSingleEvent(SingleEventState.showGenericError)
+        }
+      } catch (_: Exception) {
       }
     }
   }

@@ -17,7 +17,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.googlepay.models.CustomTabsPayResult
-import com.asfoundation.wallet.billing.googlepay.models.GooglePayConst
+import com.asfoundation.wallet.billing.paypal.PaypalReturnActivity.Companion.PAYPAL_TIMEOUT
 import com.asfoundation.wallet.billing.paypal.usecases.CancelPaypalTokenUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalAgreementUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalTokenUseCase
@@ -302,7 +302,7 @@ class PayPalIABViewModel @Inject constructor(
         })
     // disposes the check after x seconds
     viewModelScope.launch {
-      delay(GooglePayConst.GOOGLE_PAY_TIMEOUT)
+      delay(PAYPAL_TIMEOUT)
       try {
         if (state.value !is State.SuccessPurchase) {
           Log.d(TAG, "Error on transaction on Settled transaction polling")
