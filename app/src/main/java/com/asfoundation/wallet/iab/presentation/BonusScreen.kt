@@ -4,16 +4,21 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -111,6 +116,16 @@ fun BonusInfo(
 }
 
 @Composable
+fun BonusInfoSkeleton(modifier: Modifier = Modifier) {
+  PurchaseSkeleton(
+    modifier = modifier
+      .height(16.dp)
+      .fillMaxWidth(0.7f)
+      .clip(RoundedCornerShape(20.dp))
+  )
+}
+
+@Composable
 private fun BonusDetails(
   modifier: Modifier = Modifier,
   name: String,
@@ -133,6 +148,13 @@ private fun BonusDetails(
   }
 }
 
+@Composable
+private fun PurchaseSkeleton(modifier: Modifier = Modifier) {
+  Box(
+    modifier = modifier.background(IAPTheme.colors.placeholderColor)
+  )
+}
+
 @PreviewAll
 @Composable
 private fun PurchaseInfoPreview(
@@ -145,6 +167,14 @@ private fun PurchaseInfoPreview(
       bonusAvailable = Random.nextBoolean(),
       onPromoCodeAvailableClick = {},
     )
+  }
+}
+
+@PreviewAll
+@Composable
+private fun PurchaseInfoSkeletonPreview() {
+  IAPTheme {
+    BonusInfoSkeleton()
   }
 }
 
