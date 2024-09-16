@@ -3,8 +3,10 @@ package com.asfoundation.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics
@@ -62,6 +64,7 @@ import com.asfoundation.wallet.transactions.toModel
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.home.HomeViewModel.UiState.Success
+import com.asfoundation.wallet.home.usecases.GetImpressionUseCase
 import com.github.michaelbull.result.unwrap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
@@ -147,22 +150,24 @@ constructor(
   private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
   private val postUserEmailUseCase: PostUserEmailUseCase,
   private val emailPreferencesDataSource: EmailPreferencesDataSource,
-  private val emailAnalytics: EmailAnalytics
+  private val emailAnalytics: EmailAnalytics,
+  private val getImpressionUseCase: GetImpressionUseCase
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private lateinit var defaultCurrency: String
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
-  val showBackup = mutableStateOf(false)
-  val newWallet = mutableStateOf(false)
-  val isLoadingTransactions = mutableStateOf(false)
-  val hasNotificationBadge = mutableStateOf(false)
-  val gamesList = mutableStateOf(listOf<GameData>())
+  var showBackup by mutableStateOf(false)
+  var newWallet by mutableStateOf(false)
+  var isLoadingTransactions by mutableStateOf(false)
+  var hasNotificationBadge by mutableStateOf(false)
+  var gamesList by mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
-  val hasSavedEmail = mutableStateOf(hasWalletEmailPreferencesData())
-  val isEmailError = mutableStateOf(false)
-  val emailErrorText = mutableStateOf(0)
+  var hasSavedEmail by mutableStateOf(hasWalletEmailPreferencesData())
+  var isEmailError by mutableStateOf(false)
+  var emailErrorText by mutableStateOf(0)
+  private var alreadyGetImpression by mutableStateOf(false)
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
@@ -185,7 +190,7 @@ constructor(
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
     fetchPromotions()
-    hasNotificationBadge.value = commonsPreferencesDataSource.getUpdateNotificationBadge()
+    hasNotificationBadge = commonsPreferencesDataSource.getUpdateNotificationBadge()
   }
 
   private fun handleWalletData() {
@@ -249,17 +254,17 @@ constructor(
     emailAnalytics.walletAppEmailSubmitClick()
     postUserEmailUseCase(email).doOnComplete {
       emailAnalytics.walletAppEmailSubmitted(SUCCESS_EMAIL_ANALYTICS)
-      hasSavedEmail.value = true
+      hasSavedEmail = true
     }.scopedSubscribe { e ->
-        e.printStackTrace()
-        emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
-        isEmailError.value = true
-        emailErrorText.value = if (e.message.equals("HTTP 422 ")) {
-          R.string.e_skills_withdraw_invalid_email_error_message
-        } else {
-          R.string.error_general
-        }
+      e.printStackTrace()
+      emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
+      isEmailError = true
+      emailErrorText = if (e.message.equals("HTTP 422 ")) {
+        R.string.e_skills_withdraw_invalid_email_error_message
+      } else {
+        R.string.error_general
       }
+    }
   }
 
   private fun hasWalletEmailPreferencesData(): Boolean {
@@ -276,6 +281,16 @@ constructor(
 
   fun isHideWalletEmailCardPreferencesData(): Boolean {
     return emailPreferencesDataSource.isHideWalletEmailCard()
+  }
+
+  fun getImpression() {
+    if (!alreadyGetImpression) {
+      getImpressionUseCase().doOnComplete {
+        alreadyGetImpression = true
+      }.scopedSubscribe { e ->
+        e.printStackTrace()
+      }
+    }
   }
 
   private fun updateRegisterUser(wallet: Wallet): Completable {
@@ -374,8 +389,8 @@ constructor(
         .collect { result ->
           when (result) {
             is ApiSuccess -> {
-              newWallet.value = result.data.isEmpty()
-              isLoadingTransactions.value = true
+              newWallet = result.data.isEmpty()
+              isLoadingTransactions = true
               _uiState.value =
                 Success(
                   result.data
@@ -389,11 +404,11 @@ constructor(
             }
 
             is ApiFailure -> {
-              isLoadingTransactions.value = true
+              isLoadingTransactions = true
             }
 
             is ApiException -> {
-              isLoadingTransactions.value = true
+              isLoadingTransactions = true
             }
 
             else -> {}
@@ -424,7 +439,7 @@ constructor(
   fun fetchGamesListing() {
     getGamesListingUseCase()
       .subscribeOn(rxSchedulers.io)
-      .scopedSubscribe({ gamesList.value = it }, { e -> e.printStackTrace() })
+      .scopedSubscribe({ gamesList = it }, { e -> e.printStackTrace() })
   }
 
   private fun verifyUserLevel() {

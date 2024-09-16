@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -38,9 +39,10 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
 fun GamesBundle(
+  listState: LazyListState,
   items: List<GameData>,
   sendPromotionClickEvent: (String?, String) -> Unit,
-  fetchFromApiCallback: () -> Unit,
+  fetchFromApiCallback: () -> Unit
 ) {
   val context = LocalContext.current
   fetchFromApiCallback()
@@ -52,6 +54,7 @@ fun GamesBundle(
     modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
   )
   LazyRow(
+    state = listState,
     modifier = Modifier.padding(
       top = 16.dp
     ),
@@ -250,6 +253,7 @@ fun SkeletonLoadingGamesBundleCard() {
 @Composable
 fun PreviewGamesBundle() {
   GamesBundle(
+    listState = LazyListState(),
     items = listOf(
       GameData(
         title = "Mobile Legends",
