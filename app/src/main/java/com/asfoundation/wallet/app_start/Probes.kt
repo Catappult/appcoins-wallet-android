@@ -27,7 +27,11 @@ class AppStartProbe @Inject constructor(
       )
 
       is StartMode.RestoreGuestWalletFlow -> mapOf(
-        BACKUP to startMode.backup
+        BACKUP to startMode.backup,
+        PACKAGE_NAME to startMode.packageName,
+        INTEGRATION_FLOW to startMode.integrationFlow,
+        SOURCE to "",
+        SKU to startMode.sku,
       )
 
       else -> mapOf(PACKAGE_NAME to "", INTEGRATION_FLOW to "other", SOURCE to "", SKU to "")
