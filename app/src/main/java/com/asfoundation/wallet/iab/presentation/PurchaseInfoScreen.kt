@@ -5,9 +5,13 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -51,6 +55,49 @@ fun PurchaseInfo(
 }
 
 @Composable
+fun PurchaseInfoSkeleton(modifier: Modifier = Modifier) {
+  Row(
+    modifier = modifier,
+    verticalAlignment = Alignment.CenterVertically
+  ) {
+    PurchaseSkeleton(
+      modifier = Modifier
+        .size(40.dp)
+        .clip(RoundedCornerShape(12.dp))
+    )
+    Column(
+      modifier = Modifier
+        .padding(start = 12.dp)
+        .fillMaxWidth()
+        .weight(1f)
+    ) {
+      Row(verticalAlignment = Alignment.CenterVertically) {
+        PurchaseSkeleton(
+          modifier = Modifier
+            .padding(bottom = 4.dp)
+            .height(16.dp)
+            .fillMaxWidth(0.54f)
+            .clip(RoundedCornerShape(20.dp))
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        PurchaseSkeleton(
+          modifier = Modifier
+            .height(height = 16.dp)
+            .fillMaxWidth(0.30f)
+            .clip(RoundedCornerShape(20.dp))
+        )
+      }
+      PurchaseSkeleton(
+        modifier = Modifier
+          .height(height = 16.dp)
+          .fillMaxWidth(0.4f)
+          .clip(RoundedCornerShape(20.dp))
+      )
+    }
+  }
+}
+
+@Composable
 private fun RealPurchaseInfo(
   modifier: Modifier = Modifier,
   appIcon: Drawable?,
@@ -87,14 +134,12 @@ private fun RealPurchaseInfo(
       ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
           Text(
-            modifier = Modifier
-              .padding(bottom = 4.dp)
-              .fillMaxWidth()
-              .weight(1f),
+            modifier = Modifier.padding(bottom = 4.dp),
             text = appName,
             style = IAPTheme.typography.bodyLarge,
             color = IAPTheme.colors.onPrimary,
           )
+          Spacer(modifier = Modifier.weight(1f))
           AnimatedVisibility(!isExpanded || !purchaseInfo.hasFees) {
             Text(
               modifier = Modifier.padding(bottom = 4.dp),
@@ -177,6 +222,13 @@ private fun PurchaseDetails(
   }
 }
 
+@Composable
+private fun PurchaseSkeleton(modifier: Modifier = Modifier) {
+  Box(
+    modifier = modifier.background(IAPTheme.colors.placeholderColor)
+  )
+}
+
 @PreviewAll
 @Composable
 private fun PurchaseInfoPreview(
@@ -189,6 +241,14 @@ private fun PurchaseInfoPreview(
       purchaseInfo = emptyPurchaseInfo.copy(hasFees = Random.nextBoolean()),
       isExpanded = isExpanded,
     )
+  }
+}
+
+@PreviewAll
+@Composable
+private fun PurchaseInfoSkeletonsPreview() {
+  IAPTheme {
+    PurchaseInfoSkeleton()
   }
 }
 
