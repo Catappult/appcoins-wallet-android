@@ -38,6 +38,7 @@ val lightColorPalette = IAPColors(
   transparentButtonText = LightPalette.MidnightEclipse,
   arrowColor = LightPalette.StormyLaggon,
   lineColor = LightPalette.StormyLaggon,
+  placeholderColor = LightPalette.WinterWhisper,
   materialColors = lightColorScheme(
     primary = LightPalette.WinterWhisper,
     onPrimary = LightPalette.MidnightEclipse,
@@ -55,6 +56,7 @@ val darkColorPalette = IAPColors(
   transparentButtonText = LightPalette.MidnightEclipse,
   arrowColor = LightPalette.StormyLaggon,
   lineColor = LightPalette.StormyLaggon,
+  placeholderColor = LightPalette.WinterWhisper,
   materialColors = darkColorScheme(
     primary = DarkPalette.WinterWhisper,
     onPrimary = DarkPalette.MidnightEclipse,
@@ -72,6 +74,7 @@ data class IAPColors(
   val transparentButtonText: Color,
   val arrowColor: Color,
   val lineColor: Color,
+  val placeholderColor: Color,
   val materialColors: ColorScheme
 ) {
   val primary: Color
