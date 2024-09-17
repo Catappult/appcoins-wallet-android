@@ -76,7 +76,7 @@ class OneStepPaymentReceiver : BaseActivity() {
           } else {
             transferParser.parse(intent.dataString!!)
               .flatMap { transaction: TransactionBuilder ->
-                inAppPurchaseInteractor.isWalletFromBds(transaction.domain, transaction.toAddress())
+                inAppPurchaseInteractor.isWalletFromBds(transaction.domain)
                   .doOnSuccess { isBds: Boolean ->
                     startOneStepTransfer(transaction, isBds)
                   }

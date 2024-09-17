@@ -29,7 +29,7 @@
   <dialog
       android:id="@+id/manage_wallet_name_bottom_sheet"
       android:name="com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment"
-      tools:layout="@layout/manage_wallet_name_bottom_sheet_layout"></dialog>
+      tools:layout="@layout/manage_wallet_name_bottom_sheet_layout" />
 
   <dialog
       android:id="@+id/create_wallet_dialog_fragment"

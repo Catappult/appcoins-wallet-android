@@ -21,15 +21,22 @@ class SandboxRepository @Inject constructor(
   private val logger: Logger,
   private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
-
-  ) {
+) {
 
   fun createTransaction(
     value: String,
-    currency: String, reference: String?, walletAddress: String,
-    origin: String?, packageName: String?, metadata: String?, sku: String?,
-    callbackUrl: String?, transactionType: String, developerWallet: String?,
-    entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
+    currency: String,
+    reference: String?,
+    walletAddress: String,
+    origin: String?,
+    packageName: String?,
+    metadata: String?,
+    sku: String?,
+    callbackUrl: String?,
+    transactionType: String,
+    entityOemId: String?,
+    entityDomain: String?,
+    entityPromoCode: String?,
     userWallet: String?,
     referrerUrl: String?,
     guestWalletId: String?

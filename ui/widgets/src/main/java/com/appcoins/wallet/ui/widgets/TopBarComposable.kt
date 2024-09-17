@@ -29,7 +29,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 @Composable
 fun TopBar(
   isMainBar: Boolean,
-  onClickNotifications: () -> Unit = {},
   onClickSettings: () -> Unit = {},
   onClickSupport: () -> Unit = {},
   onClickBack: (() -> Unit)? = null,

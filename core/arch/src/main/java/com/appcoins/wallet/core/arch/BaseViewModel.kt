@@ -65,7 +65,7 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
     setState { reducer(Async.Loading(retainValue?.get(this)?.value)) }
     return doOnNext { value ->
       setState {
-        reducer(Async.Success(value, retainValue?.get(this)?.value))
+        reducer(Async.Success(value))
       }
     }.doOnError { e ->
       setState {
@@ -97,7 +97,7 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
     setState { reducer(Async.Loading(retainValue?.get(this)?.value)) }
     return doOnSuccess { value ->
       setState {
-        reducer(Async.Success(value, retainValue?.get(this)?.value))
+        reducer(Async.Success(value))
       }
     }.doOnError { e ->
       setState {
@@ -129,7 +129,7 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
     setState { reducer(Async.Loading(retainValue?.get(this)?.value)) }
     return doOnComplete {
       setState {
-        reducer(Async.Success(Unit, retainValue?.get(this)?.value))
+        reducer(Async.Success(Unit))
       }
     }.doOnError { e ->
       setState {

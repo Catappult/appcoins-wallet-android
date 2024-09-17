@@ -74,13 +74,6 @@ public class CameraSourcePreview extends ViewGroup {
     }
   }
 
-  public void release() {
-    if (mCameraSource != null) {
-      mCameraSource.release();
-      mCameraSource = null;
-    }
-  }
-
   @RequiresPermission(Manifest.permission.CAMERA) private void startIfReady()
       throws IOException, SecurityException {
     if (mStartRequested && mSurfaceAvailable) {

@@ -12,7 +12,7 @@ data class SuccessfulPasswordRecover(val address: String, val name: String?) :
   RecoverPasswordResult()
 
 sealed class FailedPasswordRecover : RecoverPasswordResult() {
-  data class GenericError(val throwable: Throwable? = null) : FailedPasswordRecover()
+  object GenericError : FailedPasswordRecover()
   data class InvalidPassword(val throwable: Throwable? = null) : FailedPasswordRecover()
 }
 
@@ -22,7 +22,7 @@ class RecoverPasswordResultMapper(
   fun map(restoreResult: RestoreResult): Single<RecoverPasswordResult> {
     return when (restoreResult) {
       is FailedRestore.GenericError ->
-        Single.just(FailedPasswordRecover.GenericError(restoreResult.throwable))
+        Single.just(FailedPasswordRecover.GenericError)
 
       is FailedRestore.InvalidPassword ->
         Single.just(FailedPasswordRecover.InvalidPassword(restoreResult.throwable))

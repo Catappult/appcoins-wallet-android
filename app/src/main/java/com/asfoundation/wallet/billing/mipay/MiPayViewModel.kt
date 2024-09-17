@@ -43,7 +43,7 @@ import javax.inject.Inject
 
 sealed class MiPayIABSideEffect : SideEffect {
   object ShowLoading : MiPayIABSideEffect()
-  data class ShowError(val message: Int?) : MiPayIABSideEffect()
+  object ShowError : MiPayIABSideEffect()
   object ShowSuccess : MiPayIABSideEffect()
   data class SendSuccessBundle(val bundle: Bundle) : MiPayIABSideEffect()
   object PaymentLinkSuccess : MiPayIABSideEffect()
@@ -112,7 +112,7 @@ class MiPayViewModel @Inject constructor(
       )
       sendPaymentStartEvent(savedState.get<TransactionBuilder>(TRANSACTION_DATA_KEY))
     } else {
-      sendSideEffect { MiPayIABSideEffect.ShowError(null) }
+      sendSideEffect { MiPayIABSideEffect.ShowError }
     }
   }
 
@@ -162,7 +162,7 @@ class MiPayViewModel @Inject constructor(
           value = "",
           errorCode = WebViewActivity.FAIL.toString(),
         )
-        sendSideEffect { MiPayIABSideEffect.ShowError(R.string.unknown_error) }
+        sendSideEffect { MiPayIABSideEffect.ShowError }
         timerTransactionStatus.cancel()
       }
     }
@@ -249,11 +249,7 @@ class MiPayViewModel @Inject constructor(
           Transaction.Status.CANCELED,
           Transaction.Status.FRAUD -> {
             stopTransactionStatusTimer()
-            sendSideEffect {
-              MiPayIABSideEffect.ShowError(
-                R.string.purchase_error_wallet_block_code_403
-              )
-            }
+            sendSideEffect { MiPayIABSideEffect.ShowError }
           }
 
           Transaction.Status.PENDING,
@@ -272,7 +268,7 @@ class MiPayViewModel @Inject constructor(
     transactionBuilder: TransactionBuilder?
   ) {
     if (transactionBuilder == null) {
-      sendSideEffect { MiPayIABSideEffect.ShowError(R.string.unknown_error) }
+      sendSideEffect { MiPayIABSideEffect.ShowError }
       return
     }
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(
@@ -289,7 +285,7 @@ class MiPayViewModel @Inject constructor(
     ).doOnSuccess {
       sendSideEffect { MiPayIABSideEffect.SendSuccessBundle(it.bundle) }
     }.subscribeOn(viewScheduler).observeOn(viewScheduler).doOnError {
-      sendSideEffect { MiPayIABSideEffect.ShowError(R.string.unknown_error) }
+      sendSideEffect { MiPayIABSideEffect.ShowError }
     }.subscribe()
   }
 

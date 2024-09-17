@@ -66,22 +66,10 @@ public class AppcoinsOperationsDataSaver {
     });
   }
 
-  public Observable<AppCoinsOperation> get(String id) {
-    return cache.get(id);
-  }
-
-  public AppCoinsOperation getSync(String id) {
-    return cache.getSync(id);
-  }
-
   public void stop() {
     if (!disposables.isDisposed()) {
       disposables.dispose();
     }
-  }
-
-  public Observable<List<AppCoinsOperation>> getAll() {
-    return cache.getAll();
   }
 
   public interface OperationDataSource {

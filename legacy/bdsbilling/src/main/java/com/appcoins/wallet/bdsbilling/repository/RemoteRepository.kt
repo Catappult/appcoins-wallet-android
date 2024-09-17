@@ -317,7 +317,6 @@ class RemoteRepository(
     type: String,
     gateway: String,
     walletAddress: String,
-    signature: String,
     packageName: String,
     amount: BigDecimal,
     guestWalletId: String?

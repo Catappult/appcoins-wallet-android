@@ -71,10 +71,6 @@ public class BdsInAppPurchaseInteractor {
     return inAppPurchaseInteractor.getTopUpChannelSuggestionValues(price);
   }
 
-  public Single<String> getWalletAddress() {
-    return inAppPurchaseInteractor.getWalletAddress();
-  }
-
   public BillingMessagesMapper getBillingMessagesMapper() {
     return inAppPurchaseInteractor.getBillingMessagesMapper();
   }

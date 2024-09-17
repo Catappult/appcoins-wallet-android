@@ -6,16 +6,11 @@ import org.spongycastle.util.encoders.Hex;
 
 public class Bloom {
 
-  public static final long MEM_SIZE = 256 + 16;
-
   final static int _8STEPS = 8;
   final static int _3LOW_BITS = 7;
   final static int ENSURE_BYTE = 255;
 
-  byte[] data = new byte[256];
-
-  public Bloom() {
-  }
+  byte[] data;
 
   public Bloom(byte[] data) {
     this.data = data;
@@ -44,12 +39,6 @@ public class Bloom {
     for (int i = 0; i < data.length; ++i) {
       data[i] |= bloom.data[i];
     }
-  }
-
-  public boolean matches(Bloom topicBloom) {
-    Bloom copy = copy();
-    copy.or(topicBloom);
-    return this.equals(copy);
   }
 
   public byte[] getData() {

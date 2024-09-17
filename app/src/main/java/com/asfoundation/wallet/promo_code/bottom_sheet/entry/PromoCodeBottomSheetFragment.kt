@@ -127,7 +127,7 @@ class PromoCodeBottomSheetFragment :
         rewardsAnalytics.promoCodeErrorImpressionEvent(
           views.promoCodeBottomSheetString.getText().trim()
         )
-        handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
+        handleErrorState(FailedPromoCode.InvalidCode)
       }
 
       is Async.Success -> {
@@ -163,7 +163,7 @@ class PromoCodeBottomSheetFragment :
           rewardsAnalytics.promoCodeErrorImpressionEvent(
             views.promoCodeBottomSheetString.getText().trim()
           )
-          handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
+          handleErrorState(FailedPromoCode.GenericError)
         }
       }
 

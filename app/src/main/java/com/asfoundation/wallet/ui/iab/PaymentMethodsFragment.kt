@@ -221,8 +221,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     currency: String,
     paymentMethodId: String,
     fiatAmount: String,
-    appcEnabled: Boolean,
-    creditsEnabled: Boolean,
     frequency: String?,
     isSubscription: Boolean
   ) {
@@ -390,8 +388,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         binding.layoutPreSelected.paymentMethodSecondary.visibility = View.GONE
         binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
         if (isBonusActive) {
-          if (isSubscription) showBonus(R.string.subscriptions_bonus_body)
-          else showBonus(R.string.gamification_purchase_body)
+          if (isSubscription) showBonus()
+          else showBonus()
         }
       }
     }
@@ -566,7 +564,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       PaymentType.PAYPAL,
       bonusMessageValue,
       false,
-      null,
       gamificationLevel,
       isSubscription,
       frequency
@@ -586,7 +583,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       PaymentType.PAYPAL,
       bonusMessageValue,
       false,
-      null,
       gamificationLevel,
       isSubscription,
       frequency
@@ -606,7 +602,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       PaymentType.SANDBOX,
       bonusMessageValue,
       false,
-      null,
       gamificationLevel,
       isSubscription,
       frequency
@@ -630,7 +625,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         paymentType,
         bonusMessageValue,
         true,
-        iconUrl,
         gamificationLevel,
         isSubscription,
         frequency
@@ -650,9 +644,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       isBds,
       PaymentType.PAYPAL,
       bonusMessageValue,
-      null,
-      gamificationLevel,
-      isSubscription,
       frequency
     )
   }
@@ -670,7 +661,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       PaymentType.PAYPAL,
       bonusMessageValue,
       false,
-      null,
       gamificationLevel,
       isSubscription,
       frequency
@@ -701,7 +691,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       PaymentType.CARD,
       bonusMessageValue,
       false,
-      null,
       gamificationLevel,
       isSubscription,
       frequency
@@ -769,7 +758,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       transactionBuilder!!.callbackUrl,
       transactionBuilder!!.orderReference,
       transactionBuilder!!.payload,
-      transactionBuilder!!.origin,
       iconUrl,
       label,
       async,
@@ -778,7 +766,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       transactionBuilder!!.guestWalletId
     )
 
-  override fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int) {
+  override fun setPurchaseBonus(bonus: BigDecimal, currency: String) {
     var scaledBonus =
       bonus.stripTrailingZeros().setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
     var newCurrencyString = currency
@@ -848,7 +836,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.bonusLayout.root.visibility = visibility
   }
 
-  override fun showBonus(@StringRes bonusText: Int) {
+  override fun showBonus() {
     if (binding.bonusLayout.root.visibility != View.VISIBLE && isPortraitMode(requireContext())) {
       expandViewWithAnimation(0, dpToPx(50), binding.bonusLayout.root)
     } else {

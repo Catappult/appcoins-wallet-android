@@ -97,7 +97,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
       }
 
       is Async.Fail -> {
-        showErrorMessage(FailedRedeem.GenericError(""))
+        showErrorMessage(FailedRedeem.GenericError)
       }
 
       is Async.Success -> {
@@ -105,7 +105,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
           if (redeemState is SuccessfulRedeem)
             showSuccess()
           else
-            showErrorMessage(redeemState as? FailedRedeem ?: FailedRedeem.GenericError(""))
+            showErrorMessage(redeemState as? FailedRedeem ?: FailedRedeem.GenericError)
         }
       }
     }

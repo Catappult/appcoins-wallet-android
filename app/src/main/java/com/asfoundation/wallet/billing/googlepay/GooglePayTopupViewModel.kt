@@ -53,7 +53,7 @@ class GooglePayTopupViewModel @Inject constructor(
     object Start : State()
     data class Error(val stringRes: Int) : State()
     data class WebAuthentication(val url: String) : State()
-    data class SuccessPurchase(val hash: String?, val uid: String?) : State()
+    object SuccessPurchase : State()
     object GooglePayBack : State()
   }
 
@@ -130,7 +130,7 @@ class GooglePayTopupViewModel @Inject constructor(
         when (it?.validity) {
           GooglePayWebTransaction.GooglePayWebValidityState.COMPLETED -> {
             topUpAnalytics.sendGooglePaySuccessEvent(amount)
-            _state.postValue(State.SuccessPurchase(it.hash, it.uid))
+            _state.postValue(State.SuccessPurchase)
           }
 
           GooglePayWebTransaction.GooglePayWebValidityState.PENDING -> {
@@ -164,7 +164,7 @@ class GooglePayTopupViewModel @Inject constructor(
           when (it.status) {
             COMPLETED -> {
               topUpAnalytics.sendGooglePaySuccessEvent(amount)
-              _state.postValue(State.SuccessPurchase(it.hash, it.uid))
+              _state.postValue(State.SuccessPurchase)
             }
 
             FAILED, FRAUD, CANCELED, INVALID_TRANSACTION -> {

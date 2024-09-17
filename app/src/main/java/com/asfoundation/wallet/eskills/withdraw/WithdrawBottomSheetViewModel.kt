@@ -6,7 +6,6 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import com.asfoundation.wallet.eskills.withdraw.usecases.GetAvailableAmountToWithdrawUseCase
-import com.asfoundation.wallet.eskills.withdraw.usecases.GetStoredUserEmailUseCase
 import com.asfoundation.wallet.eskills.withdraw.usecases.WithdrawToFiatUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.math.BigDecimal
@@ -18,13 +17,12 @@ sealed class WithdrawBottomSheetSideEffect : SideEffect {
 
 data class WithdrawBottomSheetState(
   val withdrawAmountAsync: Async<BigDecimal> = Async.Uninitialized,
-  val submitWithdrawAsync: Async<WithdrawResult> = Async.Uninitialized, // TODO
+  val submitWithdrawAsync: Async<WithdrawResult> = Async.Uninitialized,
 ) : ViewState
 
 @HiltViewModel
 class WithdrawBottomSheetViewModel @Inject constructor(
   private val getAvailableAmountToWithdrawUseCase: GetAvailableAmountToWithdrawUseCase,
-  private val getStoredUserEmailUseCase: GetStoredUserEmailUseCase,
   private val withdrawToFiatUseCase: WithdrawToFiatUseCase
 ) :
   BaseViewModel<WithdrawBottomSheetState, WithdrawBottomSheetSideEffect>(initialState()) {

@@ -157,7 +157,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         Surface {
           TopBar(
             isMainBar = true,
-            onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen() },
             hasNotificationBadge = viewModel.hasNotificationBadge,

@@ -20,11 +20,10 @@ class SendModule {
     transferConfirmationRouter: TransferConfirmationRouter,
     fetchGasSettingsInteract: FetchGasSettingsInteract,
     transferParser: TransferParser,
-    transactionsRouter: TransactionsRouter
   ): SendViewModelFactory {
     return SendViewModelFactory(
       findDefaultWalletInteract, fetchGasSettingsInteract,
-      transferConfirmationRouter, transferParser, transactionsRouter
+      transferConfirmationRouter, transferParser
     )
   }
 }

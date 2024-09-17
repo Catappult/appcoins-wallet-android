@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class PromoCodeEntity(
-  @PrimaryKey @NonNull val code: String,
+  @PrimaryKey val code: String,
   val bonus: Double?,
   val validityState: Int?,
   val appName: String?,

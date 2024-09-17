@@ -64,7 +64,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
 
   override fun getRenewSubscriptionClicks() = RxView.clicks(binding.renewSubscription)
 
-  override fun getRetryClicks() =
+  override fun getRetryClicks(): Observable<Any> =
     Observable.merge(
       RxView.clicks(binding.genericErrorRetryOnlyLayout.genericRetryButton),
       RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
@@ -132,7 +132,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     binding.status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_green, null))
 
     binding.skuName.text = subscriptionItem.itemName
-    context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
+    context?.let { loadImages(it, subscriptionItem.appIcon) }
     setBillingInfo(subscriptionItem)
 
     if (subscriptionItem.status == Status.CANCELED) {
@@ -179,7 +179,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
       )
     )
     binding.status.text = getString(R.string.subscriptions_inactive_title)
-    context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
+    context?.let { loadImages(it, subscriptionItem.appIcon) }
 
     subscriptionItem.ended?.let {
       binding.layoutExpiredSubscriptionContent.lastBillValue.text = formatDate(it)
@@ -224,7 +224,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
       .toString()
   }
 
-  private fun loadImages(context: Context, appIcon: String, paymentIcon: String) {
+  private fun loadImages(context: Context, appIcon: String) {
     GlideApp.with(context)
       .asBitmap()
       .load(appIcon)

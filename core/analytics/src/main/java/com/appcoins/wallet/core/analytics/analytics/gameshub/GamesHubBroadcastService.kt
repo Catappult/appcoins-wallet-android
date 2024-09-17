@@ -12,7 +12,6 @@ class GamesHubBroadcastService {
     const val KEY_UID = "uid"
     const val KEY_PACKAGE_NAME = "package_name"
     const val KEY_USD_AMOUNT = "usd_amount"
-    const val KEY_APPC_AMOUNT = "appc_amount"
 
     const val GAMES_HUB_BROADCAST = "GamesHubBroadcast"
 
@@ -21,7 +20,6 @@ class GamesHubBroadcastService {
       uid: String,
       packageName: String,
       usdAmount: String,
-      appcAmount: String
     ) {
       Log.d(
         GAMES_HUB_BROADCAST,
@@ -34,7 +32,6 @@ class GamesHubBroadcastService {
       intent.putExtra(KEY_UID, uid)
       intent.putExtra(KEY_PACKAGE_NAME, packageName)
       intent.putExtra(KEY_USD_AMOUNT, usdAmount)
-//      intent.putExtra(KEY_APPC_AMOUNT, appcAmount)
       context.sendBroadcast(intent)
     }
   }
