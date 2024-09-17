@@ -22,4 +22,5 @@ dependencies {
     exclude(group = "org.bouncycastle", module = "bcprov-jdk15to18")
   }
   implementation(libs.bundles.androidx.compose)
+  implementation(libs.bundles.rx)
 }
