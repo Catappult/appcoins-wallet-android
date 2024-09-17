@@ -298,7 +298,12 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         item { SkeletonLoadingPromotionCards(hasVerticalList = false) }
       } else {
         items(viewModel.activePromotions) { promotion ->
-          PromotionsCardComposable(cardItem = promotion, fragmentName, buttonsAnalytics)
+          PromotionsCardComposable(
+            cardItem = promotion,
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics,
+            modifier = Modifier.fillParentMaxWidth(0.9f)
+          )
         }
       }
     }

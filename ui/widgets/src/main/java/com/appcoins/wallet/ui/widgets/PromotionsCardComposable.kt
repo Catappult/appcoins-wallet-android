@@ -97,6 +97,7 @@ private fun LoadingPromotionCard() {
 
 @Composable
 fun PromotionsCardComposable(
+  modifier: Modifier = Modifier,
   cardItem: CardPromotionItem,
   fragmentName: String,
   buttonsAnalytics: ButtonsAnalytics?
@@ -104,7 +105,7 @@ fun PromotionsCardComposable(
   var borderColor = Color.Transparent
   var topEndRoundedCornerCard = 16.dp
   val spacerSize = if (cardItem.hasVerticalList) 8.dp else 16.dp
-  Column {
+  Column(modifier = modifier) {
     if (cardItem.hasVipPromotion) {
       // Set Changes in VIP Cards
       borderColor = WalletColors.styleguide_vip_yellow
