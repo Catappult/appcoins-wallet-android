@@ -542,7 +542,7 @@ public class InAppPurchaseInteractor {
     }
   }
 
-  boolean hasPreSelectedPaymentMethod() {
+  public boolean hasPreSelectedPaymentMethod() {
     return sharedPreferences.contains(PRE_SELECTED_PAYMENT_METHOD_KEY);
   }
 
