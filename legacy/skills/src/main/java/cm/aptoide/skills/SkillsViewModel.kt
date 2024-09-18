@@ -44,6 +44,7 @@ import cm.aptoide.skills.usecase.UseReferralUseCase
 import cm.aptoide.skills.usecase.UserFirstTimeCheckUseCase
 import cm.aptoide.skills.usecase.ValidateUrlUseCase
 import cm.aptoide.skills.usecase.VerifyUserTopUpUseCase
+import cm.aptoide.skills.util.RootUtil
 import cm.aptoide.skills.util.UriValidationResult
 import com.appcoins.wallet.core.network.eskills.model.AppData
 import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
@@ -55,6 +56,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -282,20 +284,20 @@ class SkillsViewModel @Inject constructor(
     return getAuthenticationIntentUseCase(context)
   }
 
-  fun getTopUpListStatus(): Status {
-    return verifyUserTopUpUseCase().blockingGet()
+  fun getTopUpListStatus(): Single<Status> {
+    return verifyUserTopUpUseCase()
   }
 
-  fun getVerification(): EskillsVerification {
-    return getVerificationUseCase().blockingGet()
+  fun getVerification(): Single<EskillsVerification> {
+    return getVerificationUseCase()
   }
 
-  fun useReferralCode(referralCode: String): ReferralResult {
-    return useReferralUseCase(referralCode).blockingGet()
+  fun useReferralCode(referralCode: String): Single<ReferralResult> {
+    return useReferralUseCase(referralCode)
   }
 
-  fun userFirstTimeCheck(): Boolean {
-    return userFirstTimeCheckUseCase().blockingGet()
+  fun userFirstTimeCheck(): Single<Boolean> {
+    return userFirstTimeCheckUseCase()
   }
 
   fun buildUpdateIntent(): Intent {
@@ -327,4 +329,12 @@ class SkillsViewModel @Inject constructor(
   fun getReferral(): Single<ReferralResponse> {
     return getReferralUseCase()
   }
+
+    fun isDeviceRooted(): Single<Boolean> {
+      return Single.fromCallable {
+        RootUtil.isDeviceRooted()
+      }
+        .onErrorReturn { false }
+        .subscribeOn(Schedulers.io())
+    }
 }
