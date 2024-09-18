@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,10 +24,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
-import com.asfoundation.wallet.iab.presentation.BonusInfoSkeleton
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
+import com.asfoundation.wallet.iab.presentation.PaymentMethod
+import com.asfoundation.wallet.iab.presentation.PaymentMethodSkeleton
 import com.asfoundation.wallet.iab.presentation.PreviewAll
-import com.asfoundation.wallet.iab.presentation.PurchaseInfoSkeleton
+import com.asfoundation.wallet.iab.presentation.emptyPaymentMethodData
 import com.asfoundation.wallet.iab.theme.IAPTheme
 
 class MainFragment : IabBaseFragment() {
@@ -55,7 +58,7 @@ private fun MainScreen(navController: NavController, purchaseData: PurchaseData?
 @Composable
 private fun RealMainScreen(
   modifier: Modifier = Modifier,
-  showWalletIcon: Boolean,
+  showWalletIcon: Boolean
 ) {
   IAPBottomSheet(
     modifier = modifier,
@@ -65,15 +68,45 @@ private fun RealMainScreen(
     Column(
       modifier = Modifier
         .padding(16.dp)
+        .verticalScroll(rememberScrollState())
         .clip(RoundedCornerShape(12.dp))
         .background(IAPTheme.colors.primaryContainer)
     ) {
-      PurchaseInfoSkeleton(
+      PaymentMethodSkeleton(modifier = Modifier.padding(16.dp))
+      SeparatorLine()
+      PaymentMethod(
         modifier = Modifier.padding(16.dp),
+        paymentMethodData = emptyPaymentMethodData,
+        paymentMethodEnabled = true,
+        showArrow = true
       )
       SeparatorLine()
-      BonusInfoSkeleton(
+      PaymentMethod(
         modifier = Modifier.padding(16.dp),
+        paymentMethodData = emptyPaymentMethodData,
+        paymentMethodEnabled = true,
+        showArrow = false
+      )
+      SeparatorLine()
+      PaymentMethod(
+        modifier = Modifier.padding(16.dp),
+        paymentMethodData = emptyPaymentMethodData.copy(paymentMethodDescription = null),
+        paymentMethodEnabled = false,
+        showArrow = true
+      )
+      SeparatorLine()
+      PaymentMethod(
+        modifier = Modifier.padding(16.dp),
+        paymentMethodData = emptyPaymentMethodData,
+        paymentMethodEnabled = false,
+        showArrow = false
+      )
+      SeparatorLine()
+      PaymentMethod(
+        modifier = Modifier.padding(16.dp),
+        paymentMethodData = emptyPaymentMethodData,
+        paymentMethodEnabled = false,
+        showArrow = true
       )
     }
   }

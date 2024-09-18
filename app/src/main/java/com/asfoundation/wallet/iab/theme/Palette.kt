@@ -39,6 +39,7 @@ val lightColorPalette = IAPColors(
   arrowColor = LightPalette.StormyLaggon,
   lineColor = LightPalette.StormyLaggon,
   placeholderColor = LightPalette.WinterWhisper,
+  paymentMethodTextColor = LightPalette.MidnightVelvet,
   materialColors = lightColorScheme(
     primary = LightPalette.WinterWhisper,
     onPrimary = LightPalette.MidnightEclipse,
@@ -57,6 +58,7 @@ val darkColorPalette = IAPColors(
   arrowColor = LightPalette.StormyLaggon,
   lineColor = LightPalette.StormyLaggon,
   placeholderColor = LightPalette.WinterWhisper,
+  paymentMethodTextColor = LightPalette.MidnightVelvet,
   materialColors = darkColorScheme(
     primary = DarkPalette.WinterWhisper,
     onPrimary = DarkPalette.MidnightEclipse,
@@ -75,6 +77,7 @@ data class IAPColors(
   val arrowColor: Color,
   val lineColor: Color,
   val placeholderColor: Color,
+  val paymentMethodTextColor: Color,
   val materialColors: ColorScheme
 ) {
   val primary: Color
