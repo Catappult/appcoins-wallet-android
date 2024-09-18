@@ -3,44 +3,35 @@ package com.asfoundation.wallet.iab.presentation.verify
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
+import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.presentation.GenericError
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
 import com.asfoundation.wallet.iab.presentation.PreviewAll
 import com.asfoundation.wallet.iab.theme.IAPTheme
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class VerifyFragment : IabBaseFragment() {
 
   @Composable
-  override fun FragmentContent() = RealVerifyScreen(findNavController())
+  override fun FragmentContent() = RealVerifyScreen(navigator)
 }
 
 @Composable
-fun RealVerifyScreen(navController: NavController) {
+fun RealVerifyScreen(navigator: FragmentNavigator) {
   val context = LocalContext.current
-  val viewModel = rememberVerifyViewModel(navController = navController)
 
   val onPrimaryButtonClick = {
-    viewModel.navigateToVerify(context)
-  }
-
-  val onSecondaryButtonClick = {
-    viewModel.popBackStack()
-  }
-
-  val onSupportClick = {
-    viewModel.launchChat()
+    navigator.startActivity(VerificationCreditCardActivity.newIntent(context))
   }
 
   VerifyScreen(
     onPrimaryButtonClick = onPrimaryButtonClick,
-    onSecondaryButtonClick = onSecondaryButtonClick,
-    onSupportClick = onSupportClick,
+    onSecondaryButtonClick = { navigator.popBackStack() },
+    onSupportClick = { navigator.onSupportClick() },
   )
 }
 
