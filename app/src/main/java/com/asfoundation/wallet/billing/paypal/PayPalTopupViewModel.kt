@@ -106,7 +106,10 @@ class PayPalTopupViewModel @Inject constructor(
         }
 
         else -> {
-          waitForSuccess(hash, uid, amount)
+          startBillingAgreement(
+            amount = amount,
+            currency = currency
+          )
         }
       }
     }

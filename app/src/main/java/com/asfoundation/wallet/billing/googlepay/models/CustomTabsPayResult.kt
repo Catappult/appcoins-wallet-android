@@ -4,4 +4,6 @@ enum class CustomTabsPayResult(val key: String) {
   SUCCESS("SUCCESS"),
   CANCEL("CANCEL"),
   ERROR("ERROR"),
+  AUTHORIZED("authorised"),
+  CANCELLED("cancelled"),
 }

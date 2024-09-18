@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -143,7 +144,7 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
   }
 
   private fun startCustomTabs(url: String) {
-    viewModel.openUrlCustomTab(requireContext(), url)
+    iabView.openUrlCustomTab(Uri.parse(url))
   }
 
   private fun concludeWithSuccess() {

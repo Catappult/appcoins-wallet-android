@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
@@ -22,6 +23,7 @@ import com.asf.wallet.databinding.TopUpActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.GooglePayTopupFragment
+import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.paypal.PayPalTopupFragment
 import com.asfoundation.wallet.billing.true_layer.TrueLayerTopupFragment
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
@@ -76,6 +78,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   private lateinit var presenter: TopUpActivityPresenter
   private var isFinishingPurchase = false
   private var firstImpression = true
+  private var runningCustomTab = false
 
   private val views by viewBinding(TopUpActivityLayoutBinding::bind)
 
@@ -247,6 +250,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     if (supportFragmentManager.backStackEntryCount != 0) {
       supportFragmentManager.popBackStack()
     }
+  }
+
+  override fun openUrlCustomTab(url: Uri) {
+    if (runningCustomTab) return
+    runningCustomTab = true
+    val customTabsBuilder = CustomTabsIntent.Builder().build()
+    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
+    customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    customTabsBuilder.launchUrl(baseContext, url)
   }
 
   override fun launchPerkBonusAndGamificationService(address: String) {

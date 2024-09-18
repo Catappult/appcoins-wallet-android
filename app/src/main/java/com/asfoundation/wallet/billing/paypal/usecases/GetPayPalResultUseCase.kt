@@ -8,7 +8,9 @@ class GetPayPalResultUseCase @Inject constructor(
 ) {
 
   operator fun invoke(): String {
-    return payPalV2Repository.consumeChromeResult()
+    val result = payPalV2Repository.consumeChromeResult()
+    payPalV2Repository.saveChromeResult("")
+    return result
   }
 
 }

@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.paypal
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -184,14 +185,6 @@ class PayPalIABViewModel @Inject constructor(
     )
   }
 
-  fun openUrlCustomTab(context: Context, url: String) {
-    if (runningCustomTab) return
-    runningCustomTab = true
-    val customTabsBuilder = CustomTabsIntent.Builder().build()
-    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
-    customTabsBuilder.launchUrl(context, Uri.parse(url))
-  }
-
   fun processPayPalResult(
     amount: BigDecimal,
     currency: String,
@@ -220,7 +213,12 @@ class PayPalIABViewModel @Inject constructor(
         }
 
         else -> {
-          waitForSuccess(hash, uid, transactionBuilder)
+          startBillingAgreement(
+            amount = amount,
+            currency = currency,
+            transactionBuilder = transactionBuilder,
+            origin = origin
+          )
         }
       }
     }

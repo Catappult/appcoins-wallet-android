@@ -30,7 +30,7 @@ data class PaymentModel(
 
   constructor() : this(
     "", null, null, null, "", "", "", null, "", "", emptyList(),
-    Status.COMPLETED, null, null
+    Status.PENDING, null, null
   )
 
   constructor(response: TransactionResponse, status: Status) : this(

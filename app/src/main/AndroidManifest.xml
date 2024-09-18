@@ -176,7 +176,7 @@
     </activity>
     <activity android:name="com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity" />
     <activity
-        android:name="com.asfoundation.wallet.ui.iab.IabActivity"
+        android:name="com.asfoundation.wallet.billing.paypal.PaypalReturnActivity"
         android:exported="true"
         android:launchMode="singleTask"
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
@@ -190,6 +190,12 @@
             android:host="${applicationId}"
             android:scheme="adyencheckout" />
       </intent-filter>
+    </activity>
+    <activity
+        android:name="com.asfoundation.wallet.ui.iab.IabActivity"
+        android:exported="true"
+        android:launchMode="singleTask"
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
     </activity>
     <activity
         android:name="com.asfoundation.wallet.rating.RatingActivity"
@@ -207,16 +213,6 @@
         android:label="@string/topup_title"
         android:launchMode="singleTask"
         android:theme="@style/TopupTheme">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-
-        <data
-            android:host="${applicationId}"
-            android:scheme="adyencheckout" />
-      </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -248,31 +244,6 @@
         <data
             android:host="wallet.dev.appcoins.io"
             android:pathPrefix="/app/googlepay/result"
-            android:scheme="https" />
-      </intent-filter>
-    </activity>
-
-    <activity
-        android:name="com.asfoundation.wallet.billing.paypal.PaypalReturnActivity"
-        android:exported="true"
-        android:launchMode="singleTask"
-        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-
-        <data
-            android:host="${applicationId}"
-            android:scheme="paypalresult" />
-        <data
-            android:host="wallet.dev.appcoins.io"
-            android:pathPrefix="/app/paypal/result"
-            android:scheme="http" />
-        <data
-            android:host="wallet.dev.appcoins.io"
-            android:pathPrefix="/app/paypal/result"
             android:scheme="https" />
       </intent-filter>
     </activity>

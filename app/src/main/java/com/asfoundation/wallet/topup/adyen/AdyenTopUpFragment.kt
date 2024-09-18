@@ -12,7 +12,6 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.browser.customtabs.CustomTabsIntent
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
@@ -27,6 +26,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asf.wallet.BuildConfig
@@ -102,6 +102,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   @Inject
   lateinit var getPayPalResultUseCase: GetPayPalResultUseCase
 
+  @Inject
+  lateinit var walletService: WalletService
+
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectConfiguration: RedirectConfiguration
@@ -153,7 +156,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
         getPaymentInfoFilterByCardModelUseCase,
         cardPaymentDataSource,
         getCurrentWalletUseCase,
-        getPayPalResultUseCase
+        getPayPalResultUseCase,
+        walletService
       )
   }
 
@@ -199,6 +203,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       }
     }
   }
+
+  override fun openUrlCustomTab(uri: Uri) = topUpView.openUrlCustomTab(uri)
 
   @SuppressLint("SetTextI18n")
   override fun showValues(value: String, currency: String) {

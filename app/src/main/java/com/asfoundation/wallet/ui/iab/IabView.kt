@@ -214,5 +214,7 @@ interface IabView {
 
   fun handleConnectionObserver()
 
+  fun openUrlCustomTab(uri: Uri)
+
   var webViewResultCode: String?
 }

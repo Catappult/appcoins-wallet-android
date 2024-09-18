@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.core.os.bundleOf
@@ -78,6 +79,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override var webViewResultCode: String? = null
 
   private val binding by viewBinding(ActivityIabBinding::bind)
+
+  private var runningCustomTab = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -602,6 +605,15 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     binding.walletLogoLayout.iapComposeView.setContent {
       ConnectionAlert(networkMonitor.isConnected.collectAsState(true).value)
     }
+  }
+
+  override fun openUrlCustomTab(uri: Uri) {
+    if (runningCustomTab) return
+    runningCustomTab = true
+    val customTabsBuilder = CustomTabsIntent.Builder().build()
+    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
+    customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    customTabsBuilder.launchUrl(baseContext, uri)
   }
 
   override fun getSupportClicks(): Observable<Any> =

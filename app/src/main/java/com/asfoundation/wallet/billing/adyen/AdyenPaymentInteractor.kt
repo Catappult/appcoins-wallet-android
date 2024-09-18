@@ -12,6 +12,7 @@ import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.model.CreditCardCVCResponse
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
@@ -263,6 +264,14 @@ class AdyenPaymentInteractor @Inject constructor(
       }
   }
 
+  fun getTransaction(uid: String, walletAddressModel: WalletAddressModel): Single<PaymentModel> {
+    return adyenPaymentRepository.getTransaction(
+      uid,
+      walletAddressModel.address,
+      walletAddressModel.signedAddress
+    )
+  }
+
   fun getFailedTransactionReason(uid: String, timesCalled: Int = 0): Single<PaymentModel> {
     return if (timesCalled < MAX_NUMBER_OF_TRIES) {
       walletService.getAndSignCurrentWalletAddress()
@@ -285,7 +294,7 @@ class AdyenPaymentInteractor @Inject constructor(
 
   fun getWalletAddress() = walletService.getWalletAddress()
 
-  private fun isEndingState(status: PaymentModel.Status): Boolean {
+  fun isEndingState(status: PaymentModel.Status): Boolean {
     return (status == PaymentModel.Status.COMPLETED
         || status == PaymentModel.Status.FAILED
         || status == PaymentModel.Status.CANCELED

@@ -1,14 +1,11 @@
 package com.asfoundation.wallet.topup.adyen
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.StringRes
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.lifecycle.viewModelScope
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
@@ -25,6 +22,7 @@ import com.appcoins.wallet.billing.adyen.PaymentModel.Status.PENDING_USER_PAYMEN
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
@@ -53,15 +51,14 @@ import com.asfoundation.wallet.topup.usecases.GetPaymentInfoFilterByCardModelUse
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.google.gson.JsonObject
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
 
 class AdyenTopUpPresenter(
   private val view: AdyenTopUpView,
@@ -91,7 +88,8 @@ class AdyenTopUpPresenter(
   private val getPaymentInfoFilterByCardModelUseCase: GetPaymentInfoFilterByCardModelUseCase,
   private val cardPaymentDataSource: CardPaymentDataSource,
   private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
-  private val getPayPalResultUseCase: GetPayPalResultUseCase
+  private val getPayPalResultUseCase: GetPayPalResultUseCase,
+  private val walletService: WalletService
 ) {
 
   private var waitingResult = false
@@ -104,8 +102,6 @@ class AdyenTopUpPresenter(
   private var storedCardID: String? = null
   private var initialLoading: Boolean = false
   private var runningCustomTab = false
-  private val handler = Handler(Looper.getMainLooper())
-  private lateinit var runnable: Runnable
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
@@ -331,19 +327,27 @@ class AdyenTopUpPresenter(
       val result = getPayPalResultUseCase()
       when (result) {
         CustomTabsPayResult.SUCCESS.key -> {
-          handleSuccessTransaction()
+          handleSuccessTransaction().subscribe()
         }
-
         CustomTabsPayResult.ERROR.key -> {
-          handlePaymentDetails()
+          retrieveFailedReason(cachedUid)
         }
 
         CustomTabsPayResult.CANCEL.key -> {
-          handlePaymentDetails()
+          topUpAnalytics.sendErrorEvent(
+            value = appcValue.toDouble(),
+            paymentMethod = paymentType,
+            status = "error",
+            errorCode = "",
+            errorDetails = "canceled"
+          )
+          Handler(Looper.getMainLooper()).postDelayed({
+            view.cancelPayment()
+          }, 2000)
         }
 
         else -> {
-          handlePaymentDetails()
+          handlePayPalResult()
         }
       }
     }
@@ -352,22 +356,51 @@ class AdyenTopUpPresenter(
   @SuppressLint("CheckResult")
   private fun handlePayPalResult() {
     var tempTransaction = PaymentModel()
-    adyenPaymentInteractor.getAuthorisedTransaction(cachedUid)
+    val timeoutObservable =
+      Observable.timer(PAYPAL_TIMEOUT, TimeUnit.MILLISECONDS, networkScheduler)
+    val observableInterval = Observable.interval(0, 10, TimeUnit.SECONDS, networkScheduler)
+    walletService.getAndSignCurrentWalletAddress()
       .subscribeOn(networkScheduler)
+      .flatMapObservable { walletAddressModel ->
+        observableInterval
+          .flatMapSingle {
+            adyenPaymentInteractor.getTransaction(cachedUid, walletAddressModel)
+          }
+          .takeUntil { transaction: PaymentModel ->
+            adyenPaymentInteractor.isEndingState(transaction.status)
+          }
+          .observeOn(viewScheduler)
+          .mergeWith(timeoutObservable.flatMap {
+            Observable.error(TimeoutException("Timeout reached"))
+          })
+      }
       .observeOn(viewScheduler)
-      .subscribe { transaction ->
+      .subscribe({ transaction: PaymentModel ->
         tempTransaction = transaction
         if (transaction.status == PaymentModel.Status.COMPLETED) {
-          handleSuccessTransaction()
-          handler.removeCallbacks(runnable)
+          handleSuccessTransaction().subscribe()
         }
-      }
-    // disposes the check after x seconds
-    runnable = Runnable {
-      try {
-        if (tempTransaction.status == FAILED && paymentType == PaymentType.PAYPAL.name) {
-        retrieveFailedReason(cachedUid)
-      } else if (tempTransaction.status == PaymentModel.Status.PENDING || tempTransaction.status == PaymentModel.Status.PENDING_USER_PAYMENT) {
+      }, { error ->
+        if (error is TimeoutException) {
+          when (tempTransaction.status) {
+            PaymentModel.Status.FAILED,
+            PaymentModel.Status.CANCELED,
+            PaymentModel.Status.FRAUD -> if (paymentType == PaymentType.PAYPAL.name) {
+              retrieveFailedReason(cachedUid)
+            }
+
+            else -> {
+              topUpAnalytics.sendErrorEvent(
+                value = appcValue.toDouble(),
+                paymentMethod = paymentType,
+                status = "error",
+                errorCode = "",
+                errorDetails = "canceled"
+              )
+              view.cancelPayment()
+            }
+          }
+        } else {
           topUpAnalytics.sendErrorEvent(
             value = appcValue.toDouble(),
             paymentMethod = paymentType,
@@ -376,10 +409,8 @@ class AdyenTopUpPresenter(
             errorDetails = "canceled"
           )
           view.cancelPayment()
-      }
-      } catch (_: Exception) { }
-    }
-    handler.postDelayed(runnable, PAYPAL_TIMEOUT)
+        }
+      })
   }
 
   fun makePayment() {
@@ -430,17 +461,12 @@ class AdyenTopUpPresenter(
           )
         }
         .observeOn(viewScheduler)
-        .doOnNext { openUrlCustomTab(view.getRequiredContext(), it) }
+        .doOnNext {
+          view.openUrlCustomTab(it)
+          runningCustomTab = true
+        }
         .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
-  }
-
-  fun openUrlCustomTab(context: Context, url: Uri) {
-    if (runningCustomTab) return
-    runningCustomTab = true
-    val customTabsBuilder = CustomTabsIntent.Builder().build()
-    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
-    customTabsBuilder.launchUrl(context, url)
   }
 
   //Called if is paypal or 3DS
@@ -762,7 +788,8 @@ class AdyenTopUpPresenter(
           topUpAnalytics.send3dsStart(action3ds)
           cachedPaymentData = paymentModel.paymentData
           cachedUid = paymentModel.uid
-          openUrlCustomTab(view.getRequiredContext(), paymentModel.redirectUrl)
+          view.openUrlCustomTab(Uri.parse(paymentModel.redirectUrl))
+          runningCustomTab = true
           waitingResult = true
         }
 
@@ -779,14 +806,6 @@ class AdyenTopUpPresenter(
         }
       }
     }
-  }
-
-  fun openUrlCustomTab(context: Context, url: String?) {
-    if (runningCustomTab) return
-    runningCustomTab = true
-    val customTabsBuilder = CustomTabsIntent.Builder().build()
-    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
-    customTabsBuilder.launchUrl(context, Uri.parse(url))
   }
 
 

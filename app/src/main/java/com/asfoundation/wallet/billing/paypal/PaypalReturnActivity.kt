@@ -18,14 +18,15 @@ class PaypalReturnActivity : BaseActivity() {
     super.onCreate(savedInstanceState)
     val data = intent.data
     if (Intent.ACTION_VIEW == intent.action && data != null) {
-      val redirectResult = data.getQueryParameter("redirectResult")
-      when (redirectResult) {
-        CustomTabsPayResult.SUCCESS.key -> {
-          Log.d(TAG, "success")
+      val resultCode = data.getQueryParameter("resultCode")
+      when (resultCode) {
+        CustomTabsPayResult.SUCCESS.key,
+        CustomTabsPayResult.AUTHORIZED.key-> {
           payPalV2Repository.saveChromeResult(CustomTabsPayResult.SUCCESS.key)
         }
 
-        CustomTabsPayResult.CANCEL.key -> {
+        CustomTabsPayResult.CANCELLED.key,
+        CustomTabsPayResult.CANCEL.key-> {
           payPalV2Repository.saveChromeResult(CustomTabsPayResult.CANCEL.key)
         }
 

@@ -68,4 +68,6 @@ interface TopUpActivityView {
   fun isActivityActive(): Boolean
 
   fun getFullscreenComposeView(): ComposeView
+
+  fun openUrlCustomTab(uri: Uri)
 }

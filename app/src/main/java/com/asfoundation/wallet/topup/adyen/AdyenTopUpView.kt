@@ -89,4 +89,6 @@ interface AdyenTopUpView {
 
   fun getRequiredContext(): Context
 
+  fun openUrlCustomTab(uri: Uri)
+
 }

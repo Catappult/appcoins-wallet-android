@@ -2,6 +2,7 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
@@ -34,6 +35,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
@@ -71,6 +73,7 @@ import org.json.JSONObject
 import java.math.BigDecimal
 import java.util.Date
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -90,6 +93,7 @@ class AdyenPaymentViewModel @Inject constructor(
   private val getPaymentInfoNewCardModelUseCase: GetPaymentInfoNewCardModelUseCase,
   private val getPaymentInfoFilterByCardModelUseCase: GetPaymentInfoFilterByCardModelUseCase,
   private val getPayPalResultUseCase: GetPayPalResultUseCase,
+  private val walletService: WalletService,
   rxSchedulers: RxSchedulers,
 ) : ViewModel() {
 
@@ -969,14 +973,6 @@ class AdyenPaymentViewModel @Inject constructor(
     )
   }
 
-  fun openUrlCustomTab(context: Context, url: Uri) {
-    if (runningCustomTab) return
-    runningCustomTab = true
-    val customTabsBuilder = CustomTabsIntent.Builder().build()
-    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
-    customTabsBuilder.launchUrl(context, url)
-  }
-
   fun processPayPalResult(paymentData: Observable<AdyenComponentResponseModel>) {
     if (runningCustomTab) {
       runningCustomTab = false
@@ -998,10 +994,31 @@ class AdyenPaymentViewModel @Inject constructor(
   @SuppressLint("CheckResult")
   private fun handlePayPalResult() {
     var tempTransaction = PaymentModel()
-    val disposableSuccessCheck: Disposable = adyenPaymentInteractor.getAuthorisedTransaction(cachedUid)
+    val timeoutObservable = Observable.timer(PAYPAL_TIMEOUT, TimeUnit.MILLISECONDS, networkScheduler)
+    val observableInterval = Observable.interval(0, 10, TimeUnit.SECONDS, networkScheduler)
+    walletService.getAndSignCurrentWalletAddress()
       .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .subscribe { transaction ->
+      .flatMapObservable { walletAddressModel ->
+        observableInterval
+          .flatMapSingle {
+            adyenPaymentInteractor.getTransaction(cachedUid, walletAddressModel)
+          }
+          .takeUntil { transaction: PaymentModel ->
+            adyenPaymentInteractor.isEndingState(transaction.status)
+          }
+          .observeOn(viewScheduler)
+          .onErrorResumeNext { error: Throwable ->
+            if (error is TimeoutException) {
+              Observable.error(error)
+            } else {
+              Observable.error(error)
+            }
+          }
+          .mergeWith(timeoutObservable.map {
+            throw TimeoutException("Timeout reached")
+          })
+      }
+      .subscribe({ transaction: PaymentModel ->
         tempTransaction = transaction
         if (transaction.status == PaymentModel.Status.COMPLETED) {
           sendPaymentSuccessEvent(transaction.uid)
@@ -1020,20 +1037,15 @@ class AdyenPaymentViewModel @Inject constructor(
               sendSingleEvent(SingleEventState.showGenericError)
             })
         }
-      }
-    // disposes the check after x seconds
-    viewModelScope.launch {
-      delay(PAYPAL_TIMEOUT)
-      try {
-        if (isPaymentFailed(tempTransaction.status)) {
-          retrieveFailedReason(cachedUid)
-          disposableSuccessCheck.dispose()
-        } else if (tempTransaction.status == PaymentModel.Status.PENDING || tempTransaction.status == PaymentModel.Status.PENDING_USER_PAYMENT) {
-          sendSingleEvent(SingleEventState.showGenericError)
+      }, { error: Throwable ->
+        if (error is TimeoutException) {
+          if (isPaymentFailed(tempTransaction.status)) {
+            retrieveFailedReason(cachedUid)
+          } else if (tempTransaction.status == PaymentModel.Status.PENDING || tempTransaction.status == PaymentModel.Status.PENDING_USER_PAYMENT) {
+            sendSingleEvent(SingleEventState.showGenericError)
+          }
         }
-      } catch (_: Exception) {
-      }
-    }
+      })
   }
 
   private fun showMoreMethods() {
@@ -1263,7 +1275,7 @@ class AdyenPaymentViewModel @Inject constructor(
           cachedPaymentData = paymentModel.paymentData
           cachedUid = paymentModel.uid
           if (!cancelPaypalLaunch)
-            paymentData.navigator.navigateToUriForResult(paymentModel.redirectUrl)
+            sendSingleEvent(SingleEventState.submitUriResult(Uri.parse(paymentModel.redirectUrl)))
           waitingResult = true
         }
 

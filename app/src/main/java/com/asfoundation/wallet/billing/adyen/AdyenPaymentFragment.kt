@@ -60,7 +60,6 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.AdyenCreditCardLayoutBinding
 import com.asfoundation.wallet.billing.adyen.enums.PaymentStateEnum
-import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -256,7 +255,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     paymentDataSubject = ReplaySubject.createWithSize(1)
     paymentDetailsSubject = PublishSubject.create()
     adyen3DSErrorSubject = PublishSubject.create()
-    val navigator = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
   }
 
@@ -310,7 +308,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
             )
 
             is AdyenPaymentViewModel.SingleEventState.close -> close(event.bundle ?: Bundle())
-            is AdyenPaymentViewModel.SingleEventState.submitUriResult -> viewModel.openUrlCustomTab(requireContext(), event.uri)
+            is AdyenPaymentViewModel.SingleEventState.submitUriResult -> iabView.openUrlCustomTab(event.uri)
             AdyenPaymentViewModel.SingleEventState.showBackToCard -> showBackToCard()
             is AdyenPaymentViewModel.SingleEventState.handle3DSAction -> handle3DSAction(
               action = event.action
