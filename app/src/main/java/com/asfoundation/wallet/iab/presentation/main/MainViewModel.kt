@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavDirections
 import com.appcoins.wallet.feature.walletInfo.data.country_code.CountryCodeRepository
 import com.appcoins.wallet.ui.common.callAsync
 import com.asfoundation.wallet.di.IoDispatcher
@@ -16,7 +14,6 @@ import com.asfoundation.wallet.iab.presentation.emptyBonusInfoData
 import com.asfoundation.wallet.iab.presentation.emptyPaymentMethodData
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.iab.FragmentNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
@@ -29,7 +26,6 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MainViewModel(
-  private val fragmentNavigator: FragmentNavigator,
   private val countryCodeProvider: CountryCodeRepository,
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   private val networkDispatcher: CoroutineDispatcher,
@@ -86,25 +82,18 @@ class MainViewModel(
       }
     }
   }
-
-  fun navigateTo(directions: NavDirections) {
-    fragmentNavigator.navigateTo(directions)
-  }
 }
 
 @Composable
 fun rememberMainViewModel(
-  navController: NavController,
   purchaseData: PurchaseData
 ): MainViewModel {
   val injectionsProvider = hiltViewModel<MainViewModelInjectionsProvider>()
   return viewModel<MainViewModel>(
-    key = navController.hashCode().toString(),
     factory = object : Factory {
       override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
         return MainViewModel(
-          fragmentNavigator = FragmentNavigator(navController),
           countryCodeProvider = injectionsProvider.countryCodeProvider,
           networkDispatcher = injectionsProvider.networkDispatcher,
           inAppPurchaseInteractor = injectionsProvider.inAppPurchaseInteractor,

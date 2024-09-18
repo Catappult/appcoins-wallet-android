@@ -21,12 +21,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
+import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
@@ -50,8 +51,10 @@ import com.asfoundation.wallet.iab.presentation.emptyBonusInfoData
 import com.asfoundation.wallet.iab.presentation.emptyPaymentMethodData
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
 import com.asfoundation.wallet.iab.theme.IAPTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
+@AndroidEntryPoint
 class MainFragment : IabBaseFragment() {
 
   private val args by navArgs<MainFragmentArgs>()
@@ -59,16 +62,20 @@ class MainFragment : IabBaseFragment() {
   private val purchaseData by lazy { args.purchaseDataExtra }
 
   @Composable
-  override fun FragmentContent() = MainScreen(findNavController(), purchaseData)
+  override fun FragmentContent() = MainScreen(navigator, purchaseData)
 }
 
 @Composable
-private fun MainScreen(navController: NavController, purchaseData: PurchaseData?) {
+private fun MainScreen(navigator: FragmentNavigator, purchaseData: PurchaseData?) {
+  val context = LocalContext.current
+
+  val closeIAP: () -> Unit = { context.getActivity()?.finish() }
+  val onSupportClick = { navigator.onSupportClick() }
+
   purchaseData?.let {
-    val viewModel = rememberMainViewModel(navController, purchaseData)
+    val viewModel = rememberMainViewModel(it)
     val state by viewModel.uiState.collectAsState()
 
-    val onSupportClick = {}
     val loadData = { viewModel.reload() }
 
     RealMainScreen(
@@ -78,8 +85,8 @@ private fun MainScreen(navController: NavController, purchaseData: PurchaseData?
     )
 
   } ?: PurchaseDataError(
-    onSecondaryButtonClick = { navController.popBackStack() },
-    onSupportClick = {}
+    onSecondaryButtonClick = closeIAP,
+    onSupportClick = onSupportClick
   )
 }
 
