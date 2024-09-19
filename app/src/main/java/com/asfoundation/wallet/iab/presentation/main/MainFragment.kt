@@ -2,7 +2,6 @@ package com.asfoundation.wallet.iab.presentation.main
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,6 +26,7 @@ import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
 import com.asfoundation.wallet.iab.presentation.PreviewAll
 import com.asfoundation.wallet.iab.presentation.PurchaseInfo
+import com.asfoundation.wallet.iab.presentation.addClick
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
 import com.asfoundation.wallet.iab.theme.IAPTheme
 
@@ -82,7 +82,7 @@ private fun RealMainScreen(
       SeparatorLine()
       PurchaseInfo(
         modifier = Modifier
-          .clickable(onClick = onPurchaseInfoClick)
+          .addClick(onClick = onPurchaseInfoClick, "onPurchaseInfoClick")
           .padding(16.dp),
         purchaseInfo = emptyPurchaseInfo,
         isExpanded = isExpanded,

@@ -123,7 +123,6 @@ private fun WalletLogo(
   Image(
     modifier = modifier
       .padding(horizontal = 24.dp)
-      .padding(bottom = 16.dp)
       .width(70.dp)
       .height(20.dp),
     painter = painterResource(R.drawable.ic_app_logo_black),
