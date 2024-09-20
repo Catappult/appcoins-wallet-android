@@ -78,8 +78,7 @@ class BdsPromotionsRepository @Inject constructor(
       .flatMapObservable {
         local.deleteAndInsertPromotions(it.promotions)
           .andThen(local.insertWalletOrigin(wallet, it.walletOrigin))
-          .toSingle { UserStats(it.promotions, it.walletOrigin) }
-          .toObservable()
+          .andThen(Observable.just(UserStats(it.promotions, it.walletOrigin)))
       }
       .onErrorResumeNext { throwable: Throwable ->
         if (useDbOnError) {

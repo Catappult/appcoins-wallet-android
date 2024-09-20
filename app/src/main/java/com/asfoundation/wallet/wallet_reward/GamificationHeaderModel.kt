@@ -19,16 +19,17 @@ data class GamificationHeaderModel(
   companion object {
     fun emptySkeletonLoadingState(): GamificationHeaderModel {
       return GamificationHeaderModel(
-        123,
-        null,
-        "",
-        1234,
-        null,
-        1.0,
-        false,
-        false,
-        WalletOrigin.UNKNOWN,
-        true
+        color = 123,
+        planetImage = null,
+        spendMoreAmount = "",
+        currentSpent = 1234,
+        nextLevelSpent = null,
+        bonusPercentage = 1.0,
+        bonusPerkDescription = null,
+        isVip = false,
+        isMaxVip = false,
+        walletOrigin = WalletOrigin.UNKNOWN,
+        uninitialized = true
       )
     }
   }
