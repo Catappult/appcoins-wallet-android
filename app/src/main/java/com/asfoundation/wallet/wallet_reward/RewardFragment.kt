@@ -132,9 +132,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   override fun onResume() {
     super.onResume()
-    viewModel.fetchPromotions()
-    viewModel.fetchGamificationStats()
-    viewModel.fetchWalletInfo()
     navBarViewModel.clickedItem.value = Destinations.REWARDS.ordinal
   }
 
