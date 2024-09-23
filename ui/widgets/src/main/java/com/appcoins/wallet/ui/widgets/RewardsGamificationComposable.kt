@@ -289,7 +289,7 @@ fun GamificationHeaderNoPurchases() {
 }
 
 @Composable
-fun GamificationHeaderPartner(bonusPercentage: String) {
+fun GamificationHeaderPartner(bonusPerkDescription: String) {
   Card(
     modifier = Modifier
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
@@ -324,7 +324,7 @@ fun GamificationHeaderPartner(bonusPercentage: String) {
           progress = { progress })
 
         Text(
-          text = stringResource(id = R.string.vip_program_max_bonus_short, bonusPercentage),
+          text = bonusPerkDescription,
           fontSize = 16.sp,
           fontWeight = FontWeight.Bold,
           color = WalletColors.styleguide_light_grey,
@@ -539,7 +539,7 @@ fun PreviewRewardsGamificationNoPurchases() {
 @Preview
 @Composable
 fun PreviewRewardsGamificationPartner() {
-  GamificationHeaderPartner("5")
+  GamificationHeaderPartner(stringResource(id = R.string.vip_program_max_bonus_short, "5"))
 }
 
 @Preview

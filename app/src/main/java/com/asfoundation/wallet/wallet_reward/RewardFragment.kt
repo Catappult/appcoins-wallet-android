@@ -185,7 +185,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             }
 
             this != null && walletOrigin == PARTNER -> {
-              GamificationHeaderPartner(df.format(this.bonusPercentage))
+              GamificationHeaderPartner(this.bonusPerkDescription ?: "")
             }
 
             this != null && this.uninitialized -> {
@@ -344,26 +344,28 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       is Async.Success -> {
         viewModel.promotions.clear()
         viewModel.activePromoCode.value = null
-        promotionsModel.value!!.perks.forEach { promotion ->
-          when (promotion) {
-            is DefaultItem -> viewModel.promotions.add(
-              promotion.toCardPromotionItem(requireContext()) { _, _ ->
-                viewModel.referenceSendPromotionClickEvent()
-              }
-            )
+        if (promotionsModel.value?.walletOrigin != PARTNER) {
+          promotionsModel.value!!.perks.forEach { promotion ->
+            when (promotion) {
+              is DefaultItem -> viewModel.promotions.add(
+                promotion.toCardPromotionItem(requireContext()) { _, _ ->
+                  viewModel.referenceSendPromotionClickEvent()
+                }
+              )
 
-            is FutureItem -> viewModel.promotions.add(
-              promotion.toCardPromotionItem(requireContext()) { _, _ ->
-                viewModel.referenceSendPromotionClickEvent()
-              }
-            )
+              is FutureItem -> viewModel.promotions.add(
+                promotion.toCardPromotionItem(requireContext()) { _, _ ->
+                  viewModel.referenceSendPromotionClickEvent()
+                }
+              )
 
-            is PromoCodeItem -> viewModel.activePromoCode.value =
-              promotion.toCardPromotionItem(requireContext()) { _, _ ->
-                viewModel.referenceSendPromotionClickEvent()
-              }
+              is PromoCodeItem -> viewModel.activePromoCode.value =
+                promotion.toCardPromotionItem(requireContext()) { _, _ ->
+                  viewModel.referenceSendPromotionClickEvent()
+                }
 
-            else -> {}
+              else -> {}
+            }
           }
         }
 
@@ -380,8 +382,28 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     promotionsModel: Async<PromotionsModel>,
     promotionsGamificationStats: Async<PromotionsGamificationStats>
   ) {
+    if (promotionsModel.value?.walletOrigin == PARTNER) {
+      val gamificationStatus =
+        promotionsGamificationStats.value?.gamificationStatus
 
-    if (promotionsGamificationStats.value != null && promotionsModel.value?.promotions != null) {
+      val perkItem = (promotionsModel.value?.perks?.getOrNull(0) as? DefaultItem)
+
+      viewModel.gamificationHeaderModel.value = GamificationHeaderModel(
+        color = Color.Transparent.toArgb(),
+        planetImage = null,
+        spendMoreAmount = "",
+        currentSpent = 0,
+        nextLevelSpent = if (promotionsGamificationStats.value?.nextLevelAmount != null)
+          promotionsGamificationStats.value?.nextLevelAmount?.toInt()
+        else null,
+        bonusPercentage = 0.0,
+        isVip = gamificationStatus == GamificationStatus.VIP,
+        isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
+        walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
+        uninitialized = false,
+        bonusPerkDescription = perkItem?.description
+      )
+    } else if (promotionsGamificationStats.value != null && promotionsModel.value?.promotions != null) {
       val gamificationItem: GamificationItem? =
         (promotionsModel.value?.promotions?.getOrNull(0) as? GamificationItem)
       val gamificationStatus =
@@ -407,7 +429,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             isVip = gamificationStatus == GamificationStatus.VIP,
             isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
             walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
-            uninitialized = false
+            uninitialized = false,
+            bonusPerkDescription = null
           )
       } else {
         viewModel.gamificationHeaderModel.value = null

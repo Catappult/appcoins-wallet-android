@@ -10,6 +10,7 @@ data class GamificationHeaderModel(
   val currentSpent: Int,
   val nextLevelSpent: Int?,
   val bonusPercentage: Double,
+  val bonusPerkDescription: String?,
   val isVip: Boolean,
   val isMaxVip: Boolean,
   val walletOrigin: WalletOrigin,
