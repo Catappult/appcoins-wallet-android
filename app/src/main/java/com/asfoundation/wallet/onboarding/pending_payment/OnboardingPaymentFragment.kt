@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.onboarding.pending_payment
 
+import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.net.Uri
@@ -13,7 +14,6 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.Nullable
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -54,13 +54,14 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
 
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     return FragmentOnboardingPaymentBinding.inflate(inflater).root
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     editToolbar()
     initInnerNavController()
@@ -153,6 +154,7 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     }
   }
 
+  @SuppressLint("SetTextI18n")
   private fun showHeaderContent(transactionContent: TransactionContent) {
     views.loadingAnimation.visibility = View.GONE
     views.onboardingPaymentErrorLayout?.root?.visibility = View.GONE
