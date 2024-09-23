@@ -292,49 +292,34 @@ fun GamificationHeaderNoPurchases() {
 fun GamificationHeaderPartner(bonusPerkDescription: String) {
   Card(
     modifier = Modifier
-      .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-      .fillMaxWidth()
-      .height(72.dp),
+      .padding(16.dp)
+      .fillMaxWidth(),
     shape = RoundedCornerShape(8.dp),
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
   ) {
-    Box(
-      contentAlignment = Alignment.Center,
+    Row( // Bottom main content
       modifier = Modifier
-        .fillMaxSize()
-        .align(Alignment.CenterHorizontally)
+        .padding(16.dp)
+        .fillMaxWidth(),
+      verticalAlignment = Alignment.CenterVertically
     ) {
-      Row( // Bottom main content
+      val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bonus_gift_animation))
+      val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
+      LottieAnimation(
         modifier = Modifier
-          .fillMaxWidth()
-          .height(48.dp)
-          .padding(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
-      ) {
-        val composition by rememberLottieComposition(
-          LottieCompositionSpec.RawRes(R.raw.bonus_gift_animation)
-        )
-        val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
-        LottieAnimation(
-          modifier = Modifier
-            .size(48.dp)
-            .align(Alignment.CenterVertically),
-          composition = composition,
-          progress = { progress })
+          .size(48.dp)
+          .align(Alignment.CenterVertically),
+        composition = composition,
+        progress = { progress })
 
-        Text(
-          text = bonusPerkDescription,
-          fontSize = 16.sp,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_light_grey,
-          lineHeight = 24.sp,
-          modifier = Modifier
-            .align(Alignment.CenterVertically)
-            .padding(horizontal = 6.dp)
-            .weight(1f, fill = false)
-        )
-      }
+      Text(
+        text = bonusPerkDescription,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
+        color = WalletColors.styleguide_light_grey,
+        lineHeight = 24.sp,
+        modifier = Modifier.padding(start = 16.dp)
+      )
     }
   }
 }

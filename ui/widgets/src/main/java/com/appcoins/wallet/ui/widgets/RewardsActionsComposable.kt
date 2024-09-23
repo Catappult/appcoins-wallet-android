@@ -49,7 +49,6 @@ fun RewardsActions(
     modifier = Modifier
       .horizontalScroll(scrollState)
       .padding(horizontal = 16.dp)
-      .padding(top = 24.dp)
       .height(IntrinsicSize.Max),
     horizontalArrangement = Arrangement.spacedBy(8.dp),
   ) {
