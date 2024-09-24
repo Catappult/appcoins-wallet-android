@@ -1,6 +1,10 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -287,14 +291,35 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   private fun createWebSocketSdk() {
     if (args.transactionBuilder.type == "INAPP") {
-      val request =
-        Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
-      val listener = SdkPaymentWebSocketListener(
-        args.paymentModel.purchaseUid,
-        args.paymentModel.uid,
-        viewModel.getResponseCodeWebSocket()
-      )
-      clientWebSocket.newWebSocket(request, listener)
+      if (args.transactionBuilder.wspPort == null) {
+        val responseCode = viewModel.getResponseCodeWebSocket()
+        val productToken = args.paymentModel.hash
+        val purchaseResultJson = """{"responseCode": $responseCode, "purchaseToken": "$productToken"}"""
+        val encodedPurchaseResult = Uri.encode(purchaseResultJson)
+
+        val deepLinkUri = Uri.Builder()
+          .scheme("web-iap-result")
+          .authority(args.transactionBuilder.domain)
+          .appendQueryParameter("purchaseResult", encodedPurchaseResult)
+          .build()
+
+        val deepLinkIntent = Intent(Intent.ACTION_VIEW, deepLinkUri)
+
+        deepLinkIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        Handler(Looper.getMainLooper()).postDelayed({
+          startActivity(deepLinkIntent)
+        }, 1600)
+
+      } else {
+        val request =
+          Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
+        val listener = SdkPaymentWebSocketListener(
+          args.paymentModel.purchaseUid,
+          args.paymentModel.uid,
+          viewModel.getResponseCodeWebSocket()
+        )
+        clientWebSocket.newWebSocket(request, listener)
+      }
     }
   }
 
