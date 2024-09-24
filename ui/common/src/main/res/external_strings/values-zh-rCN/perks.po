@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2023-03-29 11:54\n"
+"PO-Revision-Date: 2024-09-24 13:55\n"
 
 #. Card Title
 #:
@@ -116,4 +116,9 @@ msgstr "你的所有购买可额外获得{0}%的AppCoins积金，使用AppCoins�
 #:
 msgid "New Perk Available"
 msgstr "新津贴可用"
+
+#. Card - Title - Enjoy
+#:
+msgid "Enjoy {0}% bonus in every purchase."
+msgstr ""
 
