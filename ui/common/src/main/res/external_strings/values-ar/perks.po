@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Arabic\n"
 "Language: ar_SA\n"
-"PO-Revision-Date: 2023-03-29 11:53\n"
+"PO-Revision-Date: 2024-09-24 13:55\n"
 
 #. Card Title
 #:
@@ -116,4 +116,9 @@ msgstr "احصل على {0}% مكافأة إضافية على كل مشتريا�
 #:
 msgid "New Perk Available"
 msgstr "مزايا جديدة متوفرة"
+
+#. Card - Title - Enjoy
+#:
+msgid "Enjoy {0}% bonus in every purchase."
+msgstr ""
 
