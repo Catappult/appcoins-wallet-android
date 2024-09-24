@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2023-03-29 11:54\n"
+"PO-Revision-Date: 2024-09-24 13:55\n"
 
 #. Card Title
 #:
@@ -116,4 +116,9 @@ msgstr ""
 #:
 msgid "New Perk Available"
 msgstr "有新的獎勵"
+
+#. Card - Title - Enjoy
+#:
+msgid "Enjoy {0}% bonus in every purchase."
+msgstr ""
 
