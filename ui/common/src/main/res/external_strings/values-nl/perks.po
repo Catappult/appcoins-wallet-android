@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2024-09-24 13:55\n"
+"PO-Revision-Date: 2024-09-24 14:04\n"
 
 #. Card Title
 #:
@@ -120,5 +120,5 @@ msgstr "Nieuw voordeel beschikbaar"
 #. Card - Title - Enjoy
 #:
 msgid "Enjoy {0}% bonus in every purchase."
-msgstr ""
+msgstr "Geniet van een bonus van {0}% bij elke aankoop."
 
