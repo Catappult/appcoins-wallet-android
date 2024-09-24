@@ -5,11 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -184,6 +186,13 @@ class BillingWebViewFragment : BasePageViewFragment() {
     binding.webview.settings.javaScriptEnabled = true
     binding.webview.settings.domStorageEnabled = true
     binding.webview.settings.useWideViewPort = true
+    // Enable autofill feature
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+      binding.webview.settings.saveFormData = true
+    } else {
+      val autofillManager = requireContext().getSystemService(AutofillManager::class.java)
+      autofillManager?.notifyViewEntered(binding.webview)
+    }
     binding.webview.loadUrl(currentUrl)
 
     binding.warningGetBt.setOnClickListener {
