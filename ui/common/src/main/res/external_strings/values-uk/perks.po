@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2024-09-24 13:55\n"
+"PO-Revision-Date: 2024-09-24 14:04\n"
 
 #. Card Title
 #:
@@ -120,5 +120,5 @@ msgstr "Доступний новий бонус"
 #. Card - Title - Enjoy
 #:
 msgid "Enjoy {0}% bonus in every purchase."
-msgstr ""
+msgstr "Отримуйте бонус {0}% до кожної покупки."
 
