@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2023-03-29 11:53\n"
+"PO-Revision-Date: 2024-09-24 13:55\n"
 
 #. Card Title
 #:
@@ -116,4 +116,9 @@ msgstr "Krijg een extra bonus van {0}% bij al je aankopen, behalve als je AppCoi
 #:
 msgid "New Perk Available"
 msgstr "Nieuw voordeel beschikbaar"
+
+#. Card - Title - Enjoy
+#:
+msgid "Enjoy {0}% bonus in every purchase."
+msgstr ""
 
