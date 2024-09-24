@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Marathi\n"
 "Language: mr_IN\n"
-"PO-Revision-Date: 2024-09-24 13:56\n"
+"PO-Revision-Date: 2024-09-24 14:05\n"
 
 #. Card Title
 #:
@@ -120,5 +120,5 @@ msgstr "कोणतेही पर्क उपलब्ध नाहीत"
 #. Card - Title - Enjoy
 #:
 msgid "Enjoy {0}% bonus in every purchase."
-msgstr ""
+msgstr "प्रत्येक खरेदीवर {0}% बोनस मिळवा"
 
