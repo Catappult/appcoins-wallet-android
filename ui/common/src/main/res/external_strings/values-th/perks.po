@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
-"PO-Revision-Date: 2024-09-24 13:56\n"
+"PO-Revision-Date: 2024-09-24 14:05\n"
 
 #. Card Title
 #:
@@ -120,5 +120,5 @@ msgstr "มีสิทธิพิเศษใหม่"
 #. Card - Title - Enjoy
 #:
 msgid "Enjoy {0}% bonus in every purchase."
-msgstr ""
+msgstr "เพลิดเพลินกับโบนัส {0}% ในการซื้อทุกครั้ง."
 
