@@ -293,7 +293,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     if (args.transactionBuilder.type == "INAPP") {
       if (args.transactionBuilder.wspPort == null) {
         val responseCode = viewModel.getResponseCodeWebSocket()
-        val productToken = args.paymentModel.hash
+        val productToken = args.paymentModel.purchaseUid
         val purchaseResultJson = """{"responseCode": $responseCode, "purchaseToken": "$productToken"}"""
         val encodedPurchaseResult = Uri.encode(purchaseResultJson)
 
