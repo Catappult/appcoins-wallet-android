@@ -11,6 +11,8 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.Token
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
+import com.asfoundation.wallet.onboarding.CachedTransaction
+import com.asfoundation.wallet.onboarding.CachedTransactionRepository.Companion.PAYMENT_TYPE_SDK
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
@@ -58,6 +60,45 @@ class OneStepTransactionParser @Inject constructor(
             getOriginAmount(completedOneStepUri),
             getOriginCurrency(completedOneStepUri),
             referrerUrl,
+            ""
+          ).shouldSendToken(true)
+        })
+        .doOnSuccess { transactionBuilder ->
+          cache.saveSync(completedOneStepUri.toString(), transactionBuilder)
+        }
+        .subscribeOn(Schedulers.io())
+    }
+  }
+
+  fun buildTransaction(oneStepUri: OneStepUri, cachedTransaction: CachedTransaction): Single<TransactionBuilder> {
+    return if (cache.getSync(oneStepUri.toString()) != null) {
+      Single.just(cache.getSync(oneStepUri.toString()))
+    } else {
+      val completedOneStepUri = completeUri(oneStepUri)
+      Single.zip(getToken(), getWallet(oneStepUri),
+        BiFunction { token: Token, walletAddress: String ->
+          val paymentType = if (isSkills(oneStepUri)) {
+            Parameters.ESKILLS
+          } else cachedTransaction.type
+          TransactionBuilder(
+            token.tokenInfo.symbol,
+            "",
+            getChainId(completedOneStepUri),
+            walletAddress,
+            getAppcAmount(completedOneStepUri),
+            getSkuId(completedOneStepUri),
+            token.tokenInfo.decimals,
+            "",
+            paymentType,
+            null,
+            getDomain(completedOneStepUri),
+            getPayload(completedOneStepUri) ?: cachedTransaction.orderReference,
+            getCallback(completedOneStepUri),
+            getOrderReference(completedOneStepUri) ?: cachedTransaction.orderReference,
+            getProductToken(completedOneStepUri),
+            getOriginAmount(completedOneStepUri),
+            getOriginCurrency(completedOneStepUri),
+            if (cachedTransaction.type != PAYMENT_TYPE_SDK) cachedTransaction.referrerUrl else null,
             ""
           ).shouldSendToken(true)
         })
