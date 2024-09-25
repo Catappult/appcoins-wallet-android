@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -90,7 +89,6 @@ import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Load
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Success
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletChanged
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletCreated
-import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletDeleted
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletSharedViewModel
 import com.asfoundation.wallet.my_wallets.main.MyWalletsNavigator
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
@@ -173,7 +171,6 @@ class ManageWalletFragment : BasePageViewFragment() {
             Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
           }
 
-        WalletDeleted -> viewModel.updateWallets()
         else -> {}
       }
     }

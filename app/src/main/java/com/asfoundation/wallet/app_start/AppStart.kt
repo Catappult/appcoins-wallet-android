@@ -39,6 +39,9 @@ sealed class StartMode {
 
   data class RestoreGuestWalletFlow(
     val backup: String,
+    val integrationFlow: String? = null,
+    val sku: String? = null,
+    val packageName: String? = null
   ) : StartMode()
 
   object Subsequent : StartMode()
@@ -71,7 +74,6 @@ class AppStartUseCase @Inject constructor(
     } else {
       StartMode.Subsequent
     }
-
     _startModes.emit(mode)
   }
 

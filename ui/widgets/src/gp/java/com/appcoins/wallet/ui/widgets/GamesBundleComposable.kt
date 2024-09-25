@@ -1,9 +1,11 @@
 package com.appcoins.wallet.ui.widgets
 
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 
 @Composable
 fun GamesBundle(
+  stateList: LazyListState,
   items: List<GameData>,
   sendPromotionClickEvent: (String?, String) -> Unit,
   fetchFromApiCallback: () -> Unit
