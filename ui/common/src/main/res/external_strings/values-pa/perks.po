@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Punjabi\n"
 "Language: pa_IN\n"
-"PO-Revision-Date: 2023-03-29 11:53\n"
+"PO-Revision-Date: 2024-09-24 14:04\n"
 
 #. Card Title
 #:
@@ -116,4 +116,9 @@ msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਨੂੰ ਛੱਡ �
 #:
 msgid "New Perk Available"
 msgstr "ਨਵਾਂ ਲਾਭ ਉਪਲੱਬਧ ਹੈ"
+
+#. Card - Title - Enjoy
+#:
+msgid "Enjoy {0}% bonus in every purchase."
+msgstr "ਹਰ ਖਰੀਦ ਤੇ {0}% ਬੋਨਸ ਕਮਾਓ."
 
