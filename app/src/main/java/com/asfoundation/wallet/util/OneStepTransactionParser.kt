@@ -92,7 +92,7 @@ class OneStepTransactionParser @Inject constructor(
             paymentType,
             null,
             getDomain(completedOneStepUri),
-            getPayload(completedOneStepUri) ?: cachedTransaction.orderReference,
+            getPayload(completedOneStepUri) ?: cachedTransaction.metadata,
             getCallback(completedOneStepUri),
             getOrderReference(completedOneStepUri) ?: cachedTransaction.orderReference,
             getProductToken(completedOneStepUri),

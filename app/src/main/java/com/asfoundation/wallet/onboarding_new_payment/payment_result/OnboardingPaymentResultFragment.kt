@@ -37,6 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.apache.commons.lang3.StringUtils
+import org.json.JSONObject
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -294,7 +295,11 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
       if (args.transactionBuilder.wspPort == null) {
         val responseCode = viewModel.getResponseCodeWebSocket()
         val productToken = args.paymentModel.purchaseUid
-        val purchaseResultJson = """{"responseCode": $responseCode, "purchaseToken": "$productToken"}"""
+        val purchaseResultJson = JSONObject().apply {
+          put("responseCode", responseCode)
+          put("purchaseToken", productToken)
+        }.toString()
+
         val encodedPurchaseResult = Uri.encode(purchaseResultJson)
 
         val deepLinkUri = Uri.Builder()

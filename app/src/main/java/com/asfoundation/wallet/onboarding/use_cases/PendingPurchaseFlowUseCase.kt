@@ -21,20 +21,12 @@ class PendingPurchaseFlowUseCaseImpl @Inject constructor(
     var startModeResult: StartMode.PendingPurchaseFlow? = null
     val cachedTransaction = cachedTransaction.getCachedTransaction().blockingGet()
     val cachedBackupKey = cachedBackup.getCachedBackup().blockingGet()
-    val integrationFlow = if (cachedBackupKey != null) {
-      if (cachedTransaction?.type?.uppercase() == PAYMENT_TYPE_SDK) {
+    val integrationFlow = when {
+      (cachedBackupKey != null && cachedTransaction?.type?.uppercase() == PAYMENT_TYPE_SDK) || cachedTransaction?.callbackUrl == null ->
         "sdk"
-      } else {
-        "osp"
-      }
-    } else {
-      if (cachedTransaction?.callbackUrl != null) {
-        "osp"
-      } else {
-        "sdk"
-      }
+      else -> "osp"
     }
-    if (cachedBackupKey != null || cachedTransaction?.value != 0.0) {
+    if (!cachedBackupKey.isNullOrEmpty() || cachedTransaction?.value!! > 0.0) {
       startModeResult = StartMode.PendingPurchaseFlow(
         integrationFlow = integrationFlow,
         sku = cachedTransaction.sku,
