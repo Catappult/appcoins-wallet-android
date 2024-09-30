@@ -1,0 +1,220 @@
+package com.asfoundation.wallet.iab.presentation
+
+import android.graphics.drawable.Drawable
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
+import com.appcoins.wallet.ui.common.getAppIconDrawable
+import com.appcoins.wallet.ui.common.getAppName
+import com.asfoundation.wallet.iab.presentation.icon.getDownArrow
+import com.asfoundation.wallet.iab.theme.IAPTheme
+import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import kotlin.random.Random
+
+@Composable
+fun PurchaseInfo(
+  modifier: Modifier = Modifier,
+  purchaseInfo: PurchaseInfoData,
+  isExpanded: Boolean,
+) {
+  val localContext = LocalContext.current
+  val appIcon = localContext.getAppIconDrawable(purchaseInfo.packageName)
+  val appName = localContext.getAppName(purchaseInfo.packageName)
+
+  RealPurchaseInfo(
+    modifier = modifier,
+    appIcon = appIcon,
+    appName = appName,
+    purchaseInfo = purchaseInfo,
+    isExpanded = isExpanded,
+  )
+}
+
+@Composable
+private fun RealPurchaseInfo(
+  modifier: Modifier = Modifier,
+  appIcon: Drawable?,
+  appName: String,
+  purchaseInfo: PurchaseInfoData,
+  isExpanded: Boolean,
+) {
+  val colorState by animateColorAsState(
+    targetValue = if (isExpanded) IAPTheme.colors.backArrow else IAPTheme.colors.arrowColor,
+    label = "ColorState"
+  )
+
+  val rotationState by animateFloatAsState(
+    targetValue = if (isExpanded) -180F else 0F,
+    label = "RotationState"
+  )
+
+  Column(modifier = modifier) {
+    Row {
+      Image(
+        modifier = Modifier
+          .size(40.dp)
+          .clip(RoundedCornerShape(12.dp))
+          .align(Alignment.CenterVertically),
+        painter = rememberDrawablePainter(drawable = appIcon),
+        contentDescription = null
+      )
+      Column(
+        modifier = Modifier
+          .padding(start = 12.dp)
+          .fillMaxWidth()
+          .weight(1f)
+          .align(Alignment.CenterVertically)
+      ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+          Text(
+            modifier = Modifier
+              .padding(bottom = 4.dp)
+              .fillMaxWidth()
+              .weight(1f),
+            text = appName,
+            style = IAPTheme.typography.bodyLarge,
+            color = IAPTheme.colors.onPrimary,
+          )
+          AnimatedVisibility(!isExpanded || !purchaseInfo.hasFees) {
+            Text(
+              modifier = Modifier.padding(bottom = 4.dp),
+              text = purchaseInfo.cost,
+              style = IAPTheme.typography.bodyLarge,
+              color = IAPTheme.colors.onPrimary,
+            )
+          }
+          if (purchaseInfo.hasFees) {
+            Image(
+              modifier = Modifier
+                .padding(start = 8.dp)
+                .size(12.dp)
+                .rotate(rotationState),
+              imageVector = getDownArrow(arrowColor = colorState),
+              contentDescription = null,
+            )
+          }
+        }
+        Text(
+          text = purchaseInfo.productName,
+          style = IAPTheme.typography.bodyMedium,
+          color = IAPTheme.colors.smallText,
+        )
+      }
+    }
+    AnimatedVisibility(isExpanded && purchaseInfo.hasFees) {
+      Column {
+        PurchaseDetails(
+          modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
+          name = "Subtotal", //TODO hardcoded text
+          value = purchaseInfo.subtotal,
+        )
+        PurchaseDetails(
+          modifier = Modifier.padding(vertical = 8.dp),
+          name = "Taxes", //TODO hardcoded text
+          value = purchaseInfo.taxes,
+        )
+        PurchaseDetails(
+          modifier = Modifier.padding(vertical = 8.dp),
+          name = "Gift Card Discount", //TODO hardcoded text
+          value = purchaseInfo.giftCardDiscount,
+        )
+        PurchaseDetails(
+          modifier = Modifier.padding(top = 8.dp),
+          name = "Total", //TODO hardcoded text
+          value = purchaseInfo.cost,
+          style = IAPTheme.typography.bodyLarge,
+          color = IAPTheme.colors.onPrimary,
+        )
+      }
+    }
+  }
+}
+
+@Composable
+private fun PurchaseDetails(
+  modifier: Modifier = Modifier,
+  name: String,
+  value: String?,
+  style: TextStyle = IAPTheme.typography.bodyMedium,
+  color: Color = IAPTheme.colors.smallText,
+) {
+  value?.let {
+    Row(modifier = modifier) {
+      Text(
+        modifier = Modifier
+          .fillMaxWidth()
+          .weight(1f),
+        text = name,
+        style = style,
+        color = color,
+      )
+      Text(
+        text = it,
+        style = style,
+        color = color,
+      )
+    }
+  }
+}
+
+@PreviewAll
+@Composable
+private fun PurchaseInfoPreview(
+  @PreviewParameter(IsPurchaseInfoExpandedProvider::class) isExpanded: Boolean
+) {
+  IAPTheme {
+    RealPurchaseInfo(
+      appIcon = null,
+      appName = "App name",
+      purchaseInfo = emptyPurchaseInfo.copy(hasFees = Random.nextBoolean()),
+      isExpanded = isExpanded,
+    )
+  }
+}
+
+private class IsPurchaseInfoExpandedProvider : PreviewParameterProvider<Boolean> {
+  override val values = sequenceOf(
+    false,
+    true
+  )
+}
+
+data class PurchaseInfoData(
+  val packageName: String,
+  val productName: String,
+  val cost: String,
+  val hasFees: Boolean,
+  val subtotal: String? = null,
+  val taxes: String? = null,
+  val giftCardDiscount: String? = null,
+)
+
+val emptyPurchaseInfo = PurchaseInfoData(
+  packageName = "com.appcoins.trivialdrivesample.test",
+  productName = "Product name",
+  cost = "€12.98",
+  hasFees = true,
+  subtotal = "€12.73",
+  taxes = "€0.24",
+  giftCardDiscount = "€0.00",
+)

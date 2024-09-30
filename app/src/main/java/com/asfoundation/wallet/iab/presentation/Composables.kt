@@ -1,9 +1,14 @@
 package com.asfoundation.wallet.iab.presentation
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
 
 inline fun Modifier.conditional(
@@ -15,6 +20,15 @@ inline fun Modifier.conditional(
 } else {
   then(ifFalse(Modifier))
 }
+
+@OptIn(ExperimentalComposeUiApi::class)
+fun Modifier.addClick(onClick: () -> Unit, testTag: String, enabled: Boolean = true): Modifier =
+  this.then(
+    Modifier
+      .semantics { testTagsAsResourceId = true }
+      .clickable(enabled = enabled, onClick = onClick)
+      .testTag(testTag)
+  )
 
 @Composable
 fun isInLandscape() = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
