@@ -200,15 +200,14 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             SkeletonLoadingRewardsActionsCard()
           } else {
             RewardsActions(
-              { navigator.navigateToWithdrawScreen() },
-              {
+              onClickPromoCode = {
                 analytics.promoCodeClickEvent()
                 navigator.showPromoCodeFragment()
               },
-              { navigator.showGiftCardFragment() },
-              challengeRewardNavigation,
-              fragmentName,
-              buttonsAnalytics
+              onClickGiftCard = { navigator.showGiftCardFragment() },
+              onClickChallengeReward = challengeRewardNavigation,
+              fragmentName = fragmentName,
+              buttonsAnalytics = buttonsAnalytics
             )
           }
           viewModel.activePromoCode.value?.let {
