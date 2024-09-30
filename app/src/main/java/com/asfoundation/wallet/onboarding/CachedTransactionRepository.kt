@@ -70,7 +70,7 @@ data class CachedTransaction(
   var value: Double,
   val signature: String?,
   val origin: String?,
-  val type: String?,
+  var type: String?,
   var oemId: String?,
   var wsPort: String?,
   var metadata: String?

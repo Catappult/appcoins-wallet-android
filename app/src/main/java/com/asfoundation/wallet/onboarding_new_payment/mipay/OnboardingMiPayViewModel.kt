@@ -13,6 +13,8 @@ import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.asfoundation.wallet.onboarding.use_cases.GetResponseCodeWebSocketUseCase
+import com.asfoundation.wallet.onboarding.use_cases.SetResponseCodeWebSocketUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetMiPayLinkUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
@@ -50,13 +52,15 @@ class OnboardingMiPayViewModel @Inject constructor(
   private val events: OnboardingPaymentEvents,
   private val getTransactionStatusUseCase: GetTransactionStatusUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
+  private val getResponseCodeWebSocketUseCase: GetResponseCodeWebSocketUseCase,
+  private val setResponseCodeWebSocketUseCase: SetResponseCodeWebSocketUseCase,
   savedStateHandle: SavedStateHandle
 ) :
   BaseViewModel<OnboardingMiPayState, OnboardingMiPaySideEffect>(
     OnboardingMiPayState()
   ) {
 
-  private var transactionUid: String? = null
+  var transactionUid: String? = null
   private val JOB_UPDATE_INTERVAL_MS = 20 * DateUtils.SECOND_IN_MILLIS
   private val JOB_TIMEOUT_MS = 30 * DateUtils.SECOND_IN_MILLIS
   private var jobTransactionStatus: Job? = null
@@ -192,8 +196,11 @@ class OnboardingMiPayViewModel @Inject constructor(
   fun handleExploreWalletClick() {
     events.sendPaymentConclusionNavigationEvent(OnboardingPaymentEvents.EXPLORE_WALLET)
     sendSideEffect { OnboardingMiPaySideEffect.NavigateToHome }
-
   }
+
+  fun getResponseCodeWebSocket() = getResponseCodeWebSocketUseCase()
+
+  fun setResponseCodeWebSocket(responseCode: Int) = setResponseCodeWebSocketUseCase(responseCode)
 
   fun showSupport() {
     displayChatUseCase()

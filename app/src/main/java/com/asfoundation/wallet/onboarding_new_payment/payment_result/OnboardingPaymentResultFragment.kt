@@ -313,7 +313,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
         deepLinkIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         Handler(Looper.getMainLooper()).postDelayed({
           startActivity(deepLinkIntent)
-        }, 1600)
+        }, 2000)
 
       } else {
         val request =

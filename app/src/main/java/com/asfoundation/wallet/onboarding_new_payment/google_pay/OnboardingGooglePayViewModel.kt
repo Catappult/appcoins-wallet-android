@@ -25,6 +25,8 @@ import com.asfoundation.wallet.billing.googlepay.usecases.GetGooglePayResultUseC
 import com.asfoundation.wallet.billing.googlepay.usecases.GetGooglePayUrlUseCase
 import com.asfoundation.wallet.billing.googlepay.usecases.WaitForSuccessUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.onboarding.use_cases.GetResponseCodeWebSocketUseCase
+import com.asfoundation.wallet.onboarding.use_cases.SetResponseCodeWebSocketUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
@@ -48,6 +50,8 @@ class OnboardingGooglePayViewModel @Inject constructor(
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   private val rxSchedulers: RxSchedulers,
   private val events: OnboardingPaymentEvents,
+  private val getResponseCodeWebSocketUseCase: GetResponseCodeWebSocketUseCase,
+  private val setResponseCodeWebSocketUseCase: SetResponseCodeWebSocketUseCase,
   savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -76,6 +80,7 @@ class OnboardingGooglePayViewModel @Inject constructor(
   var shouldStartPayment = true
   var isFirstRun: Boolean = true
   var runningCustomTab: Boolean = false
+  var purchaseUid: String? = null
 
   fun startPayment(
     amount: BigDecimal,
@@ -179,6 +184,7 @@ class OnboardingGooglePayViewModel @Inject constructor(
       .subscribe({
         when (it.status) {
           PaymentModel.Status.COMPLETED -> {
+            purchaseUid = it.purchaseUid
             handleSuccess(it.uid, transactionBuilder)
           }
 
@@ -287,6 +293,10 @@ class OnboardingGooglePayViewModel @Inject constructor(
     events.sendPaymentConclusionNavigationEvent(OnboardingPaymentEvents.EXPLORE_WALLET)
     _state.postValue(State.ExploreWallet)
   }
+
+  fun getResponseCodeWebSocket() = getResponseCodeWebSocketUseCase()
+
+  fun setResponseCodeWebSocket(responseCode: Int) = setResponseCodeWebSocketUseCase(responseCode)
 
   companion object {
     private val TAG = GooglePayWebViewModel::class.java.simpleName
