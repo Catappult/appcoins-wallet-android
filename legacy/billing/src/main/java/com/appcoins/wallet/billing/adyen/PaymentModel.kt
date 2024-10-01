@@ -14,7 +14,7 @@ data class PaymentModel(
   val paymentData: String?,
   val uid: String,
   var purchaseUid: String?,
-  val hash: String?,
+  var hash: String?,
   val orderReference: String?,
   val fraudResultIds: List<Int>,
   val status: Status,

@@ -27,10 +27,11 @@ class CachedTransactionRepository @Inject constructor(
         response.origin,
         response.type,
         response.oemId,
-        response.wsPort
+        response.wsPort,
+        response.metadata
       )
     }.onErrorReturn {
-      CachedTransaction(null, null, null, null, null, null, 0.0, null, null, null, null, null)
+      CachedTransaction(null, null, null, null, null, null, 0.0, null, null, null, null, null, null)
     }
   }
 
@@ -69,8 +70,9 @@ data class CachedTransaction(
   var value: Double,
   val signature: String?,
   val origin: String?,
-  val type: String?,
+  var type: String?,
   var oemId: String?,
-  var wsPort: String?
+  var wsPort: String?,
+  var metadata: String?
 )
 
