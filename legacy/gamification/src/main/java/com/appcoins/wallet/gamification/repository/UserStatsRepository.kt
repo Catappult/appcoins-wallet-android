@@ -271,13 +271,6 @@ class UserStatsRepository @Inject constructor(
     preferences.setVipCalloutAlreadySeen(wallet, isSeen)
   }
 
-  override fun isReferralNotificationSeen(wallet: String) =
-    preferences.isReferralNotificationSeen(wallet)
-
-  override fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) {
-    preferences.setReferralNotificationSeen(wallet, isSeen)
-  }
-
   private fun mapToLevelsResponse(
     levelEntity: List<LevelEntity>,
     levelsEntity: LevelsEntity

@@ -90,10 +90,10 @@ class TopUpActivityPresenter(
   fun handlePerkNotifications(bundle: Bundle) {
     disposables.add(topUpInteractor.getWalletAddress()
       .subscribeOn(networkScheduler)
-      .flatMap { startVipReferralPollingUseCase(Wallet(it)).toSingleDefault(it) }
+      .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
       .observeOn(viewScheduler)
       .doOnSuccess {
-        view.launchPerkBonusAndGamificationService(it)
+        view.launchPerkBonusAndGamificationService(it.address)
         view.finishActivity(bundle)
       }
       .doOnError { view.finishActivity(bundle) }

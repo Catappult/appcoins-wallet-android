@@ -336,20 +336,6 @@ class BdsPromotionsRepository @Inject constructor(
     return api.getReferralInfo()
   }
 
-  override fun isReferralNotificationToShow(wallet: String): Observable<Boolean> {
-    return getGamificationStats(wallet, null)
-      .subscribeOn(Schedulers.io())
-      .map {
-        (!local.isReferralNotificationSeen(wallet)) && it.gamificationStatus == GamificationStatus.VIP
-      }
-      .onErrorReturn {
-        false
-      }
-  }
-
-  override fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) =
-    local.setReferralNotificationSeen(wallet, isSeen)
-
   private fun isNoNetworkException(throwable: Throwable): Boolean = throwable is IOException ||
       throwable.cause != null && throwable.cause is IOException
 
