@@ -23,11 +23,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
+import com.asfoundation.wallet.iab.presentation.BonusInfo
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
 import com.asfoundation.wallet.iab.presentation.PreviewAll
-import com.asfoundation.wallet.iab.presentation.PurchaseInfo
 import com.asfoundation.wallet.iab.presentation.addClick
-import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
+import com.asfoundation.wallet.iab.presentation.emptyBonusInfoData
 import com.asfoundation.wallet.iab.theme.IAPTheme
 
 class MainFragment : IabBaseFragment() {
@@ -61,8 +61,8 @@ private fun RealMainScreen(
 ) {
   var isExpanded by rememberSaveable { mutableStateOf(false) }
 
-  val onPurchaseInfoClick = { isExpanded = !isExpanded }
-  
+  val onBonusInfoClick = { isExpanded = !isExpanded }
+
   IAPBottomSheet(
     modifier = modifier,
     showWalletIcon = showWalletIcon,
@@ -74,18 +74,22 @@ private fun RealMainScreen(
         .clip(RoundedCornerShape(12.dp))
         .background(IAPTheme.colors.primaryContainer)
     ) {
-      PurchaseInfo(
+      BonusInfo(
         modifier = Modifier.padding(16.dp),
-        purchaseInfo = emptyPurchaseInfo.copy(hasFees = false),
-        isExpanded = false,
+        bonusInfoData = emptyBonusInfoData,
+        isExpanded = isExpanded,
+        bonusAvailable = false,
+        onPromoCodeAvailableClick = { }
       )
       SeparatorLine()
-      PurchaseInfo(
+      BonusInfo(
         modifier = Modifier
-          .addClick(onClick = onPurchaseInfoClick, "onPurchaseInfoClick")
-          .padding(16.dp),
-        purchaseInfo = emptyPurchaseInfo,
+          .padding(16.dp)
+          .addClick(onClick = onBonusInfoClick, testTag = "onBonusInfoClick"),
+        bonusInfoData = emptyBonusInfoData,
         isExpanded = isExpanded,
+        bonusAvailable = true,
+        onPromoCodeAvailableClick = { }
       )
     }
   }

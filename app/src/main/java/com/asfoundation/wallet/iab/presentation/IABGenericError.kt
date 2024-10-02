@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.iab.presentation
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -84,7 +83,7 @@ fun GenericError(
         .padding(horizontal = 10.dp)
         .padding(top = 10.dp)
         .size(width = 132.dp, height = 20.dp)
-        .clickable(onClick = onSupportClick),
+        .addClick(onClick = onSupportClick, "onSupportClick"),
       painter = painterResource(id = R.drawable.ic_support_chat_dark),
       contentDescription = null,
     )
