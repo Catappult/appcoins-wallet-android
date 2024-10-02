@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,11 +22,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
-import com.asfoundation.wallet.iab.presentation.BonusInfo
+import com.asfoundation.wallet.iab.presentation.BonusInfoSkeleton
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
 import com.asfoundation.wallet.iab.presentation.PreviewAll
-import com.asfoundation.wallet.iab.presentation.addClick
-import com.asfoundation.wallet.iab.presentation.emptyBonusInfoData
+import com.asfoundation.wallet.iab.presentation.PurchaseInfoSkeleton
 import com.asfoundation.wallet.iab.theme.IAPTheme
 
 class MainFragment : IabBaseFragment() {
@@ -59,10 +57,6 @@ private fun RealMainScreen(
   modifier: Modifier = Modifier,
   showWalletIcon: Boolean,
 ) {
-  var isExpanded by rememberSaveable { mutableStateOf(false) }
-
-  val onBonusInfoClick = { isExpanded = !isExpanded }
-
   IAPBottomSheet(
     modifier = modifier,
     showWalletIcon = showWalletIcon,
@@ -74,22 +68,12 @@ private fun RealMainScreen(
         .clip(RoundedCornerShape(12.dp))
         .background(IAPTheme.colors.primaryContainer)
     ) {
-      BonusInfo(
+      PurchaseInfoSkeleton(
         modifier = Modifier.padding(16.dp),
-        bonusInfoData = emptyBonusInfoData,
-        isExpanded = isExpanded,
-        bonusAvailable = false,
-        onPromoCodeAvailableClick = { }
       )
       SeparatorLine()
-      BonusInfo(
-        modifier = Modifier
-          .padding(16.dp)
-          .addClick(onClick = onBonusInfoClick, testTag = "onBonusInfoClick"),
-        bonusInfoData = emptyBonusInfoData,
-        isExpanded = isExpanded,
-        bonusAvailable = true,
-        onPromoCodeAvailableClick = { }
+      BonusInfoSkeleton(
+        modifier = Modifier.padding(16.dp),
       )
     }
   }
