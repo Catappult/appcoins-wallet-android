@@ -28,7 +28,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asf.wallet.R
 import com.asfoundation.wallet.iab.presentation.icon.getIcBack
 import com.asfoundation.wallet.iab.theme.IAPTheme
@@ -53,7 +52,6 @@ fun IAPBottomSheet(
           modifier = modifier,
           content = content,
           fullscreen = fullscreen,
-          showWalletIcon = showWalletIcon,
         )
       }
 
@@ -133,7 +131,6 @@ private fun WalletLogo(
 @Composable
 private fun IAPBottomSheetLandscape(
   modifier: Modifier = Modifier,
-  showWalletIcon: Boolean,
   fullscreen: Boolean,
   content: @Composable () -> Unit,
 ) {
@@ -141,20 +138,15 @@ private fun IAPBottomSheetLandscape(
     Surface(
       modifier = Modifier
         .conditional(fullscreen, { fillMaxHeight() })
+        .width(456.dp)
         .height(intrinsicSize = IntrinsicSize.Min)
         .padding(top = 18.dp)
         .align(Alignment.BottomCenter)
         .clip(RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
     ) {
       Column(
-        modifier = Modifier
-          .conditional(fullscreen, { fillMaxHeight() })
-          .width(456.dp)
-          .background(color = IAPTheme.colors.primary)
+        modifier = Modifier.background(color = IAPTheme.colors.primary)
       ) {
-        if (showWalletIcon) {
-          WalletLogo(modifier = Modifier.padding(top = 16.dp))
-        }
         content()
       }
     }
