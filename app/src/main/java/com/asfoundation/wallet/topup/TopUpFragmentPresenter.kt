@@ -8,7 +8,6 @@ import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
-import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetShowRefundDisclaimerCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
@@ -50,7 +49,6 @@ class TopUpFragmentPresenter(
   private val selectedValue: String?,
   private val logger: Logger,
   private val networkThread: Scheduler,
-  private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase,
   private val getStoredCardsUseCase: GetStoredCardsUseCase,
   private val cardPaymentDataSource: CardPaymentDataSource,
   private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
@@ -94,26 +92,27 @@ class TopUpFragmentPresenter(
     disposables.dispose()
   }
 
-  private fun setupUi(currency: String? = null) {
+  private fun setupUi(paymentMethod: PaymentMethod? = null) {
     disposables.add(
       Single.zip(
-        interactor.getLimitTopUpValues(currency = currency)
-          .subscribeOn(networkScheduler)
-          .observeOn(viewScheduler),
-        interactor.getDefaultValues(currency = currency)
-          .subscribeOn(networkScheduler)
-          .observeOn(viewScheduler)
-      ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
-        if (values.error.hasError || defaultValues.error.hasError &&
-          (values.error.isNoNetwork || defaultValues.error.isNoNetwork)
-        ) {
-          view.showNoNetworkError()
-        } else {
-          view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-          updateDefaultValues(defaultValues, 1)
-        }
-      }
-        .subscribe({}, { handleError(it) })
+        interactor.getLimitTopUpValues(
+          currency = paymentMethod?.price?.currency,
+          method = paymentMethod?.id
+        ),
+        interactor.getDefaultValues(currency = paymentMethod?.price?.currency)
+      ) { values, defaultValues -> values to defaultValues }
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .subscribe({ pair ->
+          if ((pair.first.error.hasError || pair.second.error.hasError) &&
+            (pair.first.error.isNoNetwork || pair.second.error.isNoNetwork)
+          ) {
+            view.showNoNetworkError()
+          } else {
+            view.setupCurrency(LocalCurrency(pair.first.maxValue.symbol, pair.first.maxValue.currency))
+            updateDefaultValues(pair.second)
+          }
+        }, { handleError(it) })
     )
   }
 
@@ -141,11 +140,12 @@ class TopUpFragmentPresenter(
               !storedCardID.isNullOrEmpty() && it.id == storedCardID
             )
           }
+          val selectedPaymentMethod = getSelectedPaymentMethod(paymentMethods)
           val selectedCurrency = getCurrencyOfSelectedPaymentMethod(paymentMethods)
           view.setupPaymentMethods(paymentMethods = paymentMethods, cardList)
-          handleFeeVisibility(getSelectedPaymentMethod(paymentMethods).fee)
+          handleFeeVisibility(selectedPaymentMethod.fee)
           if (selectedCurrency != view.getSelectedCurrency().code) {
-            setupUi(selectedCurrency)
+            setupUi(selectedPaymentMethod)
           } else {
             view.hideValuesSkeletons()
             loadBonusIntoView(appPackage, fiatAmount, selectedCurrency)
@@ -193,7 +193,7 @@ class TopUpFragmentPresenter(
   private fun handleBonus(bonusAndLevel: ForecastBonusAndLevel) {
     if (interactor.isBonusValidAndActive(bonusAndLevel)) {
       val scaledBonus = formatter.scaleFiat(bonusAndLevel.amount)
-      if (view.getCurrentPaymentMethod() == PaymentMethodId.CHALLENGE_REWARD.id) {
+      if (view.getCurrentPaymentMethod()?.id == PaymentMethodId.CHALLENGE_REWARD.id) {
         view.hideBonusAndSkeletons()
       } else {
         view.showBonus(scaledBonus, bonusAndLevel.currency)
@@ -206,7 +206,7 @@ class TopUpFragmentPresenter(
 
   private fun updateDefaultValues(
     topUpValuesModel: TopUpValuesModel,
-    defaultValueIndex: Int
+    defaultValueIndex: Int = 1
   ) {
     hasDefaultValues =
       topUpValuesModel.error.hasError.not() && topUpValuesModel.values.size >= 3
@@ -233,7 +233,7 @@ class TopUpFragmentPresenter(
 
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
-    if (throwable.isNoNetworkException()) view.showNoNetworkError()
+    if (throwable.isNoNetworkException()) view.showNoNetworkError() else view.showNoMethodsError()
   }
 
   private fun handleNextClick() {
@@ -241,7 +241,10 @@ class TopUpFragmentPresenter(
       .throttleFirst(500, TimeUnit.MILLISECONDS)
       .observeOn(networkScheduler)
       .switchMap { topUpData ->
-        interactor.getLimitTopUpValues(currency = topUpData.currency.fiatCurrencyCode)
+        interactor.getLimitTopUpValues(
+          currency = topUpData.currency.fiatCurrencyCode,
+          method = view.getCurrentPaymentMethod()?.id
+        )
           .toObservable()
           .filter {
             isCurrencyValid(topUpData.currency)
@@ -263,7 +266,10 @@ class TopUpFragmentPresenter(
   }
 
   fun handleNewCardActon(topUpData: TopUpData) {
-    disposables.add(interactor.getLimitTopUpValues(currency = topUpData.currency.fiatCurrencyCode)
+    disposables.add(interactor.getLimitTopUpValues(
+      currency = topUpData.currency.fiatCurrencyCode,
+      method = view.getCurrentPaymentMethod()?.id
+    )
       .toObservable()
       .filter {
         isCurrencyValid(topUpData.currency)
@@ -297,7 +303,10 @@ class TopUpFragmentPresenter(
           .observeOn(viewScheduler)
           .doOnComplete { view.setConversionValue(topUpData) }
           .flatMapCompletable {
-            interactor.getLimitTopUpValues(currency = topUpData.currency.fiatCurrencyCode)
+            interactor.getLimitTopUpValues(
+              currency = topUpData.currency.fiatCurrencyCode,
+              method = view.getCurrentPaymentMethod()?.id
+            )
               .toObservable()
               .subscribeOn(networkScheduler)
               .observeOn(viewScheduler)
@@ -367,16 +376,21 @@ class TopUpFragmentPresenter(
     }
 
   private fun handlePaymentMethodSelected() {
-    disposables.add(view.getPaymentMethodClick()
-      .doOnNext { paymentMethod ->
-        if (paymentMethod.id == PaymentMethodId.CHALLENGE_REWARD.id)
-          view.hideBonus() else view.showBonus()
-        view.paymentMethodsFocusRequest()
-        setNextButton(paymentMethod.id)
-        reloadUiByCurrency(paymentMethod.price.currency)
-        handleFeeVisibility(paymentMethod.fee)
-      }
-      .subscribe({}, { it.printStackTrace() })
+    disposables.add(
+      view.getPaymentMethodClick()
+        .distinctUntilChanged()
+        .doOnError { it.printStackTrace() }
+        .subscribe { paymentMethod ->
+          if (paymentMethod.id == PaymentMethodId.CHALLENGE_REWARD.id)
+            view.hideBonus()
+          else
+            view.showBonus()
+
+          view.paymentMethodsFocusRequest()
+          setNextButton(paymentMethod.id)
+          reloadUiByCurrency(paymentMethod)
+          handleFeeVisibility(paymentMethod.fee)
+        }
     )
   }
 
@@ -384,14 +398,9 @@ class TopUpFragmentPresenter(
     view.showFee(fee != null && fee.isValidFee())
   }
 
-  private fun reloadUiByCurrency(paymentMethodCurrency: String) {
-    if (paymentMethodCurrency != getCachedCurrencyUseCase()) {
-      view.showValuesSkeletons()
-      setupUi()
-    } else if (view.getSelectedCurrency().code != paymentMethodCurrency) {
-      view.showValuesSkeletons()
-      setupUi(paymentMethodCurrency)
-    }
+  private fun reloadUiByCurrency(paymentMethod: PaymentMethod) {
+    view.showValuesSkeletons()
+    setupUi(paymentMethod)
   }
 
   private fun setNextButton(methodSelected: String?) {
@@ -457,7 +466,7 @@ class TopUpFragmentPresenter(
       .observeOn(viewScheduler)
       .doOnNext {
         view.showSkeletons()
-        setupUi()
+        setupUi(view.getCurrentPaymentMethod())
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -612,7 +621,8 @@ class TopUpFragmentPresenter(
     getSelectedPaymentMethod(paymentMethods).price.currency
 
   private fun getSelectedPaymentMethod(paymentMethods: List<PaymentMethod>) =
-    paymentMethods.firstOrNull { it.id == view.getCurrentPaymentMethod() } ?: paymentMethods.first()
+    paymentMethods.firstOrNull { it.id == view.getCurrentPaymentMethod()?.id }
+      ?: paymentMethods.first()
 
   private fun navigateToPayment(
     topUpData: TopUpData,

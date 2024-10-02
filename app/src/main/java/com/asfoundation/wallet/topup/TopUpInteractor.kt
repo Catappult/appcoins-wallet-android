@@ -39,8 +39,8 @@ class TopUpInteractor @Inject constructor(
   private val walletService: WalletService,
 ) {
 
-  private var chipValuesIndexMap: List<LinkedHashMap<FiatValue, Int>> = listOf()
-  private var limitValues: List<TopUpLimitValues> = listOf()
+  private var chipValuesIndexMap: MutableList<LinkedHashMap<FiatValue, Int>> = mutableListOf()
+  private var limitValues: HashMap<String, TopUpLimitValues> = hashMapOf()
 
   fun getPaymentMethods(
     value: String,
@@ -111,20 +111,38 @@ class TopUpInteractor @Inject constructor(
   }
 
   fun getEarningBonus(
-    packageName: String, amount: BigDecimal, currency: String
-  ): Single<ForecastBonusAndLevel> = getCurrentPromoCodeUseCase().flatMap {
-    gamificationInteractor.getEarningBonus(packageName, amount, it.code, currency)
-  }
+    packageName: String,
+    amount: BigDecimal,
+    currency: String
+  ): Single<ForecastBonusAndLevel> =
+    getCurrentPromoCodeUseCase()
+      .flatMap {
+        gamificationInteractor.getEarningBonus(
+          packageName = packageName,
+          amount = amount,
+          promoCodeString = it.code,
+          currency = currency
+        )
+      }
 
-  fun getLimitTopUpValues(currency: String? = null): Single<TopUpLimitValues> {
-    val limitValue: TopUpLimitValues =
-      limitValues.firstOrNull { it.maxValue.currency == currency } ?: TopUpLimitValues()
-    return if (limitValue.maxValue.currency == currency && limitValue.maxValue != TopUpLimitValues.INITIAL_LIMIT_VALUE && limitValue.minValue != TopUpLimitValues.INITIAL_LIMIT_VALUE) {
-      Single.just(limitValue)
-    } else {
-      topUpValuesService.getLimitValues(currency)
-        .doOnSuccess { if (!it.error.hasError) cacheLimitValues(it) }
+  fun getLimitTopUpValues(
+    currency: String? = null,
+    method: String? = null
+  ): Single<TopUpLimitValues> {
+    val limitValue = method?.let { limitValues[it] }
+
+    if (limitValue != null) {
+      return Single.just(limitValue)
     }
+
+    return topUpValuesService.getLimitValues(
+      currency = currency,
+      method = method
+    )
+      .doOnSuccess {
+        if (!it.error.hasError && method != null)
+          cacheLimitValues(method, it)
+      }
   }
 
   fun getDefaultValues(currency: String? = null): Single<TopUpValuesModel> {
@@ -140,8 +158,8 @@ class TopUpInteractor @Inject constructor(
   }
 
   fun cleanCachedValues() {
-    limitValues = listOf()
-    chipValuesIndexMap = listOf()
+    limitValues.clear()
+    chipValuesIndexMap.clear()
   }
 
   fun isBonusValidAndActive(): Boolean = gamificationInteractor.isBonusActiveAndValid()
@@ -157,8 +175,8 @@ class TopUpInteractor @Inject constructor(
     }
   }
 
-  private fun cacheLimitValues(values: TopUpLimitValues) {
-    limitValues = limitValues.plusElement(TopUpLimitValues(values.minValue, values.maxValue))
+  private fun cacheLimitValues(method: String, values: TopUpLimitValues) {
+    limitValues[method] = values
   }
 
   fun getWalletAddress(): Single<String> = inAppPurchaseInteractor.walletAddress
