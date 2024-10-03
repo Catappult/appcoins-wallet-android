@@ -76,9 +76,15 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       }
     }
 
+    val partnerPerk: PartnerPerk? = if (userStats.walletOrigin == WalletOrigin.PARTNER) {
+      val index = perks.indexOfFirst { it.id == "PARTNER_PERK" }
+      toPartnerPerk(perks.removeAt(index))
+    } else null
+
     return PromotionsModel(
       promotions = promotions,
       perks = perks,
+      partnerPerk = partnerPerk,
       maxBonus = maxBonus,
       wallet = wallet,
       walletOrigin = map(userStats.walletOrigin),
@@ -86,6 +92,18 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       fromCache = levels.fromCache && userStats.fromCache,
       vipReferralInfo = vipReferralResponse.map()
     )
+  }
+
+  private fun toPartnerPerk(promotion: Promotion): PartnerPerk? {
+    val pair = when (promotion) {
+      is DefaultItem -> promotion.id to promotion.description
+      is FutureItem -> promotion.id to promotion.description
+      is ProgressItem -> promotion.id to promotion.description
+      is GamificationLinkItem -> promotion.id to promotion.description
+      is PromoCodeItem -> promotion.id to promotion.description
+      else -> null
+    }
+    return pair?.let { PartnerPerk(it.first, it.second) }
   }
 
   private fun map(walletOrigin: WalletOrigin): PromotionsModel.WalletOrigin {

@@ -70,6 +70,8 @@ import com.appcoins.wallet.ui.widgets.component.BalanceValue
 import com.appcoins.wallet.ui.widgets.openGame
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
+import com.asfoundation.wallet.home.HomeViewModel.UiState
+import com.asfoundation.wallet.home.HomeViewModel.UiState.Success
 import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
 import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
@@ -78,8 +80,6 @@ import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
-import com.asfoundation.wallet.home.HomeViewModel.UiState
-import com.asfoundation.wallet.home.HomeViewModel.UiState.Success
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
@@ -328,7 +328,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             hideUserEmailCard.value = true
           },
           isEmailError,
-          if(isEmailError) stringResource(id = viewModel.emailErrorText) else "",
+          if (isEmailError) stringResource(id = viewModel.emailErrorText) else "",
           fragmentName = fragmentName,
           buttonsAnalytics = buttonsAnalytics
         )
@@ -472,18 +472,18 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     when (promotionsModel) {
       is Async.Success -> {
         viewModel.activePromotions.clear()
-        promotionsModel.value!!.perks.forEach { promotion ->
+        promotionsModel.value?.perks?.forEach { promotion ->
           if (promotion is DefaultItem) {
             val cardItem =
               CardPromotionItem(
-                promotion.appName,
-                promotion.description,
-                promotion.startDate,
-                promotion.endDate,
-                promotion.icon,
-                promotion.actionUrl,
-                promotion.packageName,
-                promotion.gamificationStatus == GamificationStatus.VIP ||
+                title = promotion.appName,
+                subtitle = promotion.description,
+                promotionStartTime = promotion.startDate,
+                promotionEndTime = promotion.endDate,
+                imageUrl = promotion.icon,
+                urlRedirect = promotion.actionUrl,
+                packageName = promotion.packageName,
+                hasVipPromotion = promotion.gamificationStatus == GamificationStatus.VIP ||
                     promotion.gamificationStatus == GamificationStatus.VIP_MAX,
                 hasFuturePromotion = false,
                 hasVerticalList = false,
