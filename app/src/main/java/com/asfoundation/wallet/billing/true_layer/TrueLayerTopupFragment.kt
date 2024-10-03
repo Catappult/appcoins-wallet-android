@@ -284,9 +284,9 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     }
   }
 
-  private val amount: String by lazy {
+  private val amount by lazy {
     if (requireArguments().containsKey(AMOUNT_KEY)) {
-      requireArguments().getSerializable(AMOUNT_KEY) as String
+      requireArguments().getString(AMOUNT_KEY)!!
     } else {
       throw IllegalArgumentException("amount data not found")
     }
@@ -344,7 +344,7 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     ): TrueLayerTopupFragment = TrueLayerTopupFragment().apply {
       arguments = Bundle().apply {
         putString(PAYMENT_TYPE_KEY, paymentType.name)
-        putSerializable(AMOUNT_KEY, amount)
+        putString(AMOUNT_KEY, amount)
         putString(CURRENCY_KEY, currency)
         putString(CURRENCY_SYMBOL, data.fiatCurrencySymbol)
         putString(BONUS_KEY, bonus)

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.Window
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityTokenDetailsBinding
 import com.asfoundation.wallet.router.TopUpRouter
@@ -103,11 +104,8 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
 
   override fun setupUi() {
     intent.extras?.let {
-      if (it.containsKey(
-          KEY_CONTENT
-        )
-      ) {
-        token = it.getSerializable(KEY_CONTENT) as TokenDetailsId
+      if (it.containsKey(KEY_CONTENT)) {
+        token = it.getSerializableExtra<TokenDetailsId>(KEY_CONTENT)!!
         setContent(token)
       }
     }

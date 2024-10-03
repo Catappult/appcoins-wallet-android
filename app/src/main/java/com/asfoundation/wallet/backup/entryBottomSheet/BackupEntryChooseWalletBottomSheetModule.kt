@@ -2,6 +2,7 @@ package com.asfoundation.wallet.backup.entryBottomSheet
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.asfoundation.wallet.backup.entryBottomSheet.BackupEntryChooseWalletBottomSheetFragment.Companion.WALLET_MODEL_KEY
 import dagger.Module
@@ -30,10 +31,8 @@ class BackupEntryChooseWalletBottomSheetModule {
   @Provides
   fun providesSettingsWalletsBottomSheetData(
     fragment: Fragment
-  ): BackupEntryChooseWalletBottomSheetData {
-    fragment.requireArguments()
-      .apply {
-        return BackupEntryChooseWalletBottomSheetData(getSerializable(WALLET_MODEL_KEY) as WalletsModel)
-      }
-  }
+  ) =
+    BackupEntryChooseWalletBottomSheetData(
+      fragment.getSerializableExtra<WalletsModel>(WALLET_MODEL_KEY)!!
+    )
 }
