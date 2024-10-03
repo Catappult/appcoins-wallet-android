@@ -42,7 +42,7 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
       return RecoveryWalletSuccessBottomSheetFragment()
         .apply {
           arguments = Bundle().apply {
-            putSerializable(IS_FROM_ONBOARDING, isFromOnboarding)
+            putBoolean(IS_FROM_ONBOARDING, isFromOnboarding)
           }
         }
     }
@@ -57,7 +57,7 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
     super.onViewCreated(view, savedInstanceState)
 
     views.recoveryWalletBottomButton.setOnClickListener {
-      if (requireArguments().getSerializable(IS_FROM_ONBOARDING) as Boolean) {
+      if (requireArguments().getBoolean(IS_FROM_ONBOARDING)) {
         restart(requireContext())
       } else {
         navigator.navigateBack()

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.asf.wallet.R
 import com.asf.wallet.databinding.EarnAppcoinsLayoutBinding
 import com.jakewharton.rxbinding2.view.RxView
@@ -89,20 +90,15 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
 
   val skuId: String? by lazy {
     if (requireArguments().containsKey(PARAM_SKUID)) {
-      val value = requireArguments().getString(PARAM_SKUID) ?: return@lazy null
-      value
+      requireArguments().getString(PARAM_SKUID) ?: return@lazy null
     } else {
       throw IllegalArgumentException("SkuId not found")
     }
   }
 
-  val amount: BigDecimal by lazy {
-    if (requireArguments().containsKey(PARAM_AMOUNT)) {
-      val value = requireArguments().getSerializable(PARAM_AMOUNT) as BigDecimal
-      value
-    } else {
-      throw IllegalArgumentException("amount not found")
-    }
+  val amount by lazy {
+    getSerializableExtra<BigDecimal>(PARAM_AMOUNT)
+      ?: throw IllegalArgumentException("amount not found")
   }
 
   val type: String by lazy {

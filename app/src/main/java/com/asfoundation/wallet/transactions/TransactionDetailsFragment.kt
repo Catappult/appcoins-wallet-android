@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDayAndHour
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.widgets.TopBar
@@ -81,13 +82,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    requireArguments().run {
-      viewModel.updateTransaction(
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-          getParcelable(TRANSACTION_KEY, TransactionModel::class.java)
-        else getParcelable(TRANSACTION_KEY)
-      )
-    }
+    viewModel.updateTransaction(getParcelableExtra<TransactionModel>(TRANSACTION_KEY))
   }
 
   @Composable

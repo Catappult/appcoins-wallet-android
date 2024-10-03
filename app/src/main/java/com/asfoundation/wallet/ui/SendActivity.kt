@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.appcoins.wallet.core.utils.android_common.Log.Companion.e
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelable
 import com.appcoins.wallet.core.utils.jvm_common.C
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.Result
@@ -54,7 +55,7 @@ class SendActivity : BaseActivity() {
     viewModel = ViewModelProvider(this, sendViewModelFactory)
       .get(SendViewModel::class.java)
     viewModel.init(
-      intent.getParcelableExtra(C.EXTRA_TRANSACTION_BUILDER),
+      getParcelable(C.EXTRA_TRANSACTION_BUILDER),
       intent.data
     )
     viewModel.symbol()
@@ -113,7 +114,7 @@ class SendActivity : BaseActivity() {
     ) {
       if (resultCode == CommonStatusCodes.SUCCESS) {
         if (data != null) {
-          val barcode: Barcode? = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject)
+          val barcode: Barcode? = data.getParcelable(BarcodeCaptureActivity.BarcodeObject)
           if (!viewModel.extractFromQR(barcode)) {
             Toast.makeText(this, R.string.toast_qr_code_no_address, Toast.LENGTH_SHORT)
               .show()

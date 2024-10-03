@@ -17,6 +17,7 @@ dependencies {
   implementation(project(":core:network:eskills"))
   implementation(project(":core:network:analytics"))
   implementation(project(":core:analytics"))
+  implementation(project(":core:utils:android-common"))
   implementation(libs.androidx.core.ktx)
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.appcompact)
