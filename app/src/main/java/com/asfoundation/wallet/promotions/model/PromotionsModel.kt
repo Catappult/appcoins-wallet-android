@@ -4,7 +4,6 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 
 data class PromotionsModel(
   val promotions: List<Promotion>,
-  val vouchers: List<VoucherItem>,
   val perks: List<PerkPromotion>,
   val maxBonus: Double,
   val wallet: Wallet,
