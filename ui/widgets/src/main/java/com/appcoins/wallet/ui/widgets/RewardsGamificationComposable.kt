@@ -292,7 +292,8 @@ fun GamificationHeaderNoPurchases() {
 fun GamificationHeaderPartner(bonusPerkDescription: String) {
   Card(
     modifier = Modifier
-      .padding(16.dp)
+      .padding(horizontal = 16.dp)
+      .padding(top = 16.dp)
       .fillMaxWidth(),
     shape = RoundedCornerShape(8.dp),
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),

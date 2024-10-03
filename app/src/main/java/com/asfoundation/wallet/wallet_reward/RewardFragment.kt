@@ -185,7 +185,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             }
 
             this != null && walletOrigin == PARTNER -> {
-              GamificationHeaderPartner(this.bonusPerkDescription ?: "")
+              GamificationHeaderPartner(this.partnerPerk?.description ?: "")
             }
 
             this != null && this.uninitialized -> {
@@ -343,28 +343,26 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       is Async.Success -> {
         viewModel.promotions.clear()
         viewModel.activePromoCode.value = null
-        if (promotionsModel.value?.walletOrigin != PARTNER) {
-          promotionsModel.value!!.perks.forEach { promotion ->
-            when (promotion) {
-              is DefaultItem -> viewModel.promotions.add(
-                promotion.toCardPromotionItem(requireContext()) { _, _ ->
-                  viewModel.referenceSendPromotionClickEvent()
-                }
-              )
+        promotionsModel.value?.perks?.forEach { promotion ->
+          when (promotion) {
+            is DefaultItem -> viewModel.promotions.add(
+              promotion.toCardPromotionItem(requireContext()) { _, _ ->
+                viewModel.referenceSendPromotionClickEvent()
+              }
+            )
 
-              is FutureItem -> viewModel.promotions.add(
-                promotion.toCardPromotionItem(requireContext()) { _, _ ->
-                  viewModel.referenceSendPromotionClickEvent()
-                }
-              )
+            is FutureItem -> viewModel.promotions.add(
+              promotion.toCardPromotionItem(requireContext()) { _, _ ->
+                viewModel.referenceSendPromotionClickEvent()
+              }
+            )
 
-              is PromoCodeItem -> viewModel.activePromoCode.value =
-                promotion.toCardPromotionItem(requireContext()) { _, _ ->
-                  viewModel.referenceSendPromotionClickEvent()
-                }
+            is PromoCodeItem -> viewModel.activePromoCode.value =
+              promotion.toCardPromotionItem(requireContext()) { _, _ ->
+                viewModel.referenceSendPromotionClickEvent()
+              }
 
-              else -> {}
-            }
+            else -> {}
           }
         }
 
@@ -381,59 +379,30 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     promotionsModel: Async<PromotionsModel>,
     promotionsGamificationStats: Async<PromotionsGamificationStats>
   ) {
-    if (promotionsModel.value?.walletOrigin == PARTNER) {
-      val gamificationStatus =
-        promotionsGamificationStats.value?.gamificationStatus
-
-      val perkItem = (promotionsModel.value?.perks?.getOrNull(0) as? DefaultItem)
-
-      viewModel.gamificationHeaderModel.value = GamificationHeaderModel(
-        color = Color.Transparent.toArgb(),
-        planetImage = null,
-        spendMoreAmount = "",
-        currentSpent = 0,
-        nextLevelSpent = if (promotionsGamificationStats.value?.nextLevelAmount != null)
-          promotionsGamificationStats.value?.nextLevelAmount?.toInt()
-        else null,
-        bonusPercentage = 0.0,
-        isVip = gamificationStatus == GamificationStatus.VIP,
-        isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
-        walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
-        uninitialized = false,
-        bonusPerkDescription = perkItem?.description
-      )
-    } else if (promotionsGamificationStats.value != null && promotionsModel.value?.promotions != null) {
+    if (promotionsGamificationStats.value != null && promotionsModel.value?.promotions != null) {
       val gamificationItem: GamificationItem? =
         (promotionsModel.value?.promotions?.getOrNull(0) as? GamificationItem)
       val gamificationStatus =
         promotionsGamificationStats.value?.gamificationStatus ?: GamificationStatus.NONE
 
-      if (gamificationItem != null) {
-        viewModel.gamificationHeaderModel.value =
-          GamificationHeaderModel(
-            color = gamificationItem.levelColor,
-            planetImage = gamificationItem.planet,
-            spendMoreAmount =
-            if (gamificationItem.toNextLevelAmount != null)
-              currencyFormatUtils.formatGamificationValues(
-                gamificationItem.toNextLevelAmount
-              )
-            else "",
-            currentSpent = promotionsGamificationStats.value!!.totalSpend.toInt(),
-            nextLevelSpent =
-            if (promotionsGamificationStats.value!!.nextLevelAmount != null)
-              promotionsGamificationStats.value!!.nextLevelAmount!!.toInt()
-            else null,
-            bonusPercentage = gamificationItem.bonus,
-            isVip = gamificationStatus == GamificationStatus.VIP,
-            isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
-            walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
-            uninitialized = false,
-            bonusPerkDescription = null
-          )
-      } else {
-        viewModel.gamificationHeaderModel.value = null
-      }
+      viewModel.gamificationHeaderModel.value =
+        GamificationHeaderModel(
+          color = gamificationItem?.levelColor ?: Color.Transparent.toArgb(),
+          planetImage = gamificationItem?.planet,
+          spendMoreAmount = gamificationItem?.toNextLevelAmount
+            ?.let { currencyFormatUtils.formatGamificationValues(it) }
+            ?: "",
+          currentSpent = promotionsGamificationStats.value?.totalSpend?.toInt() ?: 0,
+          nextLevelSpent = promotionsGamificationStats.value?.nextLevelAmount?.toInt(),
+          bonusPercentage = gamificationItem?.bonus ?: 0.0,
+          isVip = gamificationStatus == GamificationStatus.VIP,
+          isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
+          walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
+          uninitialized = false,
+          partnerPerk = promotionsModel.value?.partnerPerk
+        )
+    } else {
+      viewModel.gamificationHeaderModel.value = null
     }
   }
 
