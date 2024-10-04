@@ -23,6 +23,7 @@ import com.asf.wallet.databinding.MipayLayoutBinding
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_FATAL_ERROR
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_SUCCESS
+import com.asfoundation.wallet.onboarding_new_payment.utils.OnboardingUtils
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -176,7 +177,10 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
 
   private fun createWebSocketSdk() {
     if (args.transactionBuilder.type == "INAPP") {
-      if (args.transactionBuilder.wspPort == null) {
+      if (
+        args.transactionBuilder.wspPort == null &&
+        OnboardingUtils.isSdkVersionAtLeast2(args.transactionBuilder.sdkVersion)
+      ) {
         val responseCode = viewModel.getResponseCodeWebSocket()
         val productToken = viewModel.transactionUid
         val purchaseResultJson = JSONObject().apply {
@@ -200,14 +204,19 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
         }, 2000)
 
       } else {
-        val request =
+        val request = try {
           Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
+        } catch (e: IllegalArgumentException) {
+          null
+        }
         val listener = SdkPaymentWebSocketListener(
           viewModel.transactionUid,
           args.transactionBuilder.chainId.toString(),
           viewModel.getResponseCodeWebSocket()
         )
-        clientWebSocket.newWebSocket(request, listener)
+        request?.let {
+          clientWebSocket.newWebSocket(request, listener)
+        }
       }
     }
   }

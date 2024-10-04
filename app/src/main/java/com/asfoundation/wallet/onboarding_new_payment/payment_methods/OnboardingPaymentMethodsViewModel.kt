@@ -59,6 +59,7 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
       if (it.type != args.transactionBuilder.type) {
         args.transactionBuilder.type = it.type
         args.transactionBuilder.wspPort = it.wsPort
+        args.transactionBuilder.sdkVersion = it.sdkVersion
         args.transactionBuilder.origin = it.origin
         args.transactionBuilder.referrerUrl = it.referrerUrl
       }

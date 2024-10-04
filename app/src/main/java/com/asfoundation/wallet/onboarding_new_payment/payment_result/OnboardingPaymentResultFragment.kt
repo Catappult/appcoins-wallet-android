@@ -31,6 +31,7 @@ import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentW
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_NETWORK_DOWN
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_SUCCESS
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_USER_CANCEL
+import com.asfoundation.wallet.onboarding_new_payment.utils.OnboardingUtils
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -292,7 +293,10 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   private fun createWebSocketSdk() {
     if (args.transactionBuilder.type == "INAPP") {
-      if (args.transactionBuilder.wspPort == null) {
+      if (
+        args.transactionBuilder.wspPort == null &&
+        OnboardingUtils.isSdkVersionAtLeast2(args.transactionBuilder.sdkVersion)
+      ) {
         val responseCode = viewModel.getResponseCodeWebSocket()
         val productToken = args.paymentModel.purchaseUid
         val purchaseResultJson = JSONObject().apply {
@@ -316,14 +320,19 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
         }, 2000)
 
       } else {
-        val request =
+        val request = try {
           Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
+        } catch (e: IllegalArgumentException) {
+          null
+        }
         val listener = SdkPaymentWebSocketListener(
           args.paymentModel.purchaseUid,
           args.paymentModel.uid,
           viewModel.getResponseCodeWebSocket()
         )
-        clientWebSocket.newWebSocket(request, listener)
+        request?.let {
+          clientWebSocket.newWebSocket(request, listener)
+        }
       }
     }
   }
