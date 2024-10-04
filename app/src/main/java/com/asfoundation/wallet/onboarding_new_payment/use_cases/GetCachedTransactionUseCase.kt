@@ -10,16 +10,17 @@ import javax.inject.Inject
 class GetCachedTransactionUseCase @Inject constructor(
   private val cachedTransactionRepository: CachedTransactionRepository
 ) {
-  operator fun invoke(currencyCode: String, amount: Double):  Single<CachedTransaction> {
+  operator fun invoke(currencyCode: String, amount: Double): Single<CachedTransaction> {
     return cachedTransactionRepository.getCachedTransaction()
       .flatMap { cachedTransaction ->
         val integrationFlow = when {
           (cachedTransaction.type?.uppercase() == PAYMENT_TYPE_SDK) || cachedTransaction.callbackUrl == null ->
             "sdk"
+
           else -> "osp"
         }
         if (cachedTransaction.value <= 0.0) {
-           cachedTransaction.value = amount
+          cachedTransaction.value = amount
         }
         if (cachedTransaction.currency.isNullOrEmpty()) {
           cachedTransaction.currency = currencyCode
@@ -30,7 +31,8 @@ class GetCachedTransactionUseCase @Inject constructor(
           cachedTransaction.referrerUrl = null
         } else {
           cachedTransaction.type = PAYMENT_TYPE_OSP
-            cachedTransaction.wsPort = null
+          cachedTransaction.wsPort = null
+          cachedTransaction.sdkVersion = null
         }
         Single.just(cachedTransaction)
       }

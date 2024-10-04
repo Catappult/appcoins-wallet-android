@@ -8,6 +8,7 @@ class OnboardingPaymentSdkPreferencesDataSource @Inject constructor(private val 
 
   private companion object {
     private const val WS_PORT = "ws_port"
+    private const val SDK_VERSION = "sdk_version"
     private const val RESPONSE_CODE_WEB_SOCKET = "response_code_web_socket"
   }
 
@@ -17,6 +18,13 @@ class OnboardingPaymentSdkPreferencesDataSource @Inject constructor(private val 
       .apply()
 
   fun getWsPort() = sharedPreferences.getString(WS_PORT, "")
+
+  fun setSdkVersion(sdkVersion: String) =
+    sharedPreferences.edit()
+      .putString(SDK_VERSION, sdkVersion)
+      .apply()
+
+  fun getSdkVersion() = sharedPreferences.getString(SDK_VERSION, "")
 
   fun setResponseCodeWebSocket(responseCode: Int) =
     sharedPreferences.edit()
