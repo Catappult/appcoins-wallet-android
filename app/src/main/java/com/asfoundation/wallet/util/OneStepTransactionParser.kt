@@ -61,7 +61,8 @@ class OneStepTransactionParser @Inject constructor(
             getOriginCurrency(completedOneStepUri),
             referrerUrl,
             ""
-          ).shouldSendToken(true)
+          )
+            .shouldSendToken(true)
         })
         .doOnSuccess { transactionBuilder ->
           cache.saveSync(completedOneStepUri.toString(), transactionBuilder)
@@ -100,7 +101,9 @@ class OneStepTransactionParser @Inject constructor(
             getOriginCurrency(completedOneStepUri),
             if (cachedTransaction.type != PAYMENT_TYPE_SDK) cachedTransaction.referrerUrl else null,
             ""
-          ).shouldSendToken(true)
+          )
+            .shouldSendToken(true)
+            .addSdkVersion(cachedTransaction.sdkVersion)
         })
         .doOnSuccess { transactionBuilder ->
           cache.saveSync(completedOneStepUri.toString(), transactionBuilder)
