@@ -242,6 +242,11 @@ public class TransactionBuilder implements Parcelable {
     return this;
   }
 
+  public TransactionBuilder addSdkVersion(String sdkVersion) {
+    this.sdkVersion = sdkVersion;
+    return this;
+  }
+
   public boolean shouldSendToken() {
     return shouldSendToken;
   }
