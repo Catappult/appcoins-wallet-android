@@ -15,6 +15,7 @@ class CachedTransactionRepository @Inject constructor(
   fun getCachedTransaction(): Single<CachedTransaction> {
     return api.getCachedTransaction().subscribeOn(rxSchedulers.io).map { response ->
       setWsPort(response.wsPort)
+      setSdkVersion(response.sdkVersion)
       CachedTransaction(
         response.referrerUrl,
         response.product,
@@ -28,10 +29,26 @@ class CachedTransactionRepository @Inject constructor(
         response.type,
         response.oemId,
         response.wsPort,
+        response.sdkVersion,
         response.metadata
       )
     }.onErrorReturn {
-      CachedTransaction(null, null, null, null, null, null, 0.0, null, null, null, null, null, null)
+      CachedTransaction(
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0.0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      )
     }
   }
 
@@ -41,15 +58,25 @@ class CachedTransactionRepository @Inject constructor(
     }
   }
 
-  fun getWsPort() : String? {
+  fun getWsPort(): String? {
     return onboardingPaymentSdkPreferencesDataSource.getWsPort()
+  }
+
+  private fun setSdkVersion(sdkVersion: String?) {
+    if (sdkVersion != null) {
+      onboardingPaymentSdkPreferencesDataSource.setSdkVersion(sdkVersion)
+    }
+  }
+
+  fun getSdkVersion(): String? {
+    return onboardingPaymentSdkPreferencesDataSource.getSdkVersion()
   }
 
   fun setResponseCodeToPaymentWebSocket(responseCode: Int) {
     onboardingPaymentSdkPreferencesDataSource.setResponseCodeWebSocket(responseCode)
   }
 
-  fun getResponseCodeToPaymentWebSocket() : Int {
+  fun getResponseCodeToPaymentWebSocket(): Int {
     return onboardingPaymentSdkPreferencesDataSource.getResponseCodeWebSocket()
   }
 
@@ -73,6 +100,7 @@ data class CachedTransaction(
   var type: String?,
   var oemId: String?,
   var wsPort: String?,
+  var sdkVersion: String?,
   var metadata: String?
 )
 

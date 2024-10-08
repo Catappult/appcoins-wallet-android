@@ -40,6 +40,7 @@ class PendingPurchaseFlowUseCaseImpl @Inject constructor(
         type = if (integrationFlow == "sdk") PAYMENT_TYPE_SDK else PAYMENT_TYPE_OSP,
         oemId = cachedTransaction.oemId,
         wsPort = cachedTransaction.wsPort,
+        sdkVersion = cachedTransaction.sdkVersion,
         backup = cachedBackupKey
       )
     }
