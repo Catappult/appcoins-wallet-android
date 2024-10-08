@@ -105,27 +105,34 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
   }
 
   override fun show() {
-    val bonusAvailable = bonus.takeIf { it.isNotEmpty() && it != "0" }
     when {
       pendingFinalConfirmation -> {
-        binding.topUpSuccessAnimation.visibility = View.GONE
-        binding.topUpPendingSuccessAnimation.visibility = View.VISIBLE
+        handleBonus()
         formatPendingSuccessMessage()
-        bonusAvailable?.let {
-          setBonusText(isPendingSuccess = true)
-        } ?: run { binding.bonusViews.visibility = View.GONE }
+        setAnimation(R.raw.wait_trasaction, LottieDrawable.INFINITE)
       }
 
       else -> {
-        bonusAvailable?.let {
-          setBonusText(isPendingSuccess = false)
-        } ?: run { binding.bonusViews.visibility = View.GONE }
+        handleBonus()
         formatSuccessMessage()
-        binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_success_animation)
-        binding.topUpSuccessAnimation.playAnimation()
+        setAnimation(R.raw.top_up_success_animation, 0)
       }
     }
+  }
 
+  private fun setAnimation(@RawRes animation: Int, repeatCount: Int) {
+    binding.topUpSuccessAnimation.setRepeatCount(repeatCount)
+    binding.topUpSuccessAnimation.setAnimation(animation)
+    binding.topUpSuccessAnimation.playAnimation()
+  }
+
+  private fun handleBonus() {
+    val bonusAvailable = bonus.takeIf { it.isNotEmpty() && it != "0" }
+    if (bonusAvailable != null) {
+      setBonusText(isPendingSuccess = pendingFinalConfirmation)
+    } else {
+      binding.bonusViews.visibility = View.GONE
+    }
   }
 
   override fun clean() {
@@ -157,15 +164,18 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     val initialString = getFormattedTopUpValue()
     val secondString = String.format(resources.getString(R.string.topup_completed_2_without_bonus))
     binding.value.text = "$initialString\n$secondString"
+    binding.info.visibility = View.GONE
   }
 
   private fun formatPendingSuccessMessage() {
     val initialString = formatter.formatCurrency(amount, WalletCurrency.FIAT) + " " + currency
     val completedString = String.format(
-      resources.getString(R.string.purchase_bank_transfer_success_disclaimer),
+      resources.getString(R.string.purchase_bank_transfer_success_1),
       initialString
     )
     binding.value.text = completedString
+    binding.info.text = getString(R.string.purchase_bank_transfer_success_2)
+    binding.success.visibility = View.GONE
   }
 
   private fun getFormattedTopUpValue(): String {
