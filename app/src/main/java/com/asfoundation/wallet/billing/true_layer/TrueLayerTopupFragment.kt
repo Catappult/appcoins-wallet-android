@@ -2,17 +2,15 @@ package com.asfoundation.wallet.billing.true_layer
 
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.getIntent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.StringRes
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -54,8 +52,6 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
   private lateinit var compositeDisposable: CompositeDisposable
   private var topUpActivityView: TopUpActivityView? = null
 
-  private lateinit var processorResult: ActivityResultLauncher<ProcessorContext>
-
   @Inject
   lateinit var navigator: TopUpNavigator
 
@@ -67,8 +63,6 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
   ): View {
     binding = FragmentTrueLayerTopupBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
-//    iabView.disableBack()
-//    registerSdkResult()
     return views.root
   }
 
@@ -83,10 +77,8 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     super.onViewCreated(view, savedInstanceState)
     setListeners()
     handleBonusAnimation()
-    showLoadingAnimation()
     setObserver()
     startPayment()
-//    viewModel.handleBack(iabView.backButtonPress())
   }
 
   private fun setObserver() {
@@ -105,6 +97,7 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
         }
 
         is TrueLayerTopupViewModel.State.LaunchTrueLayerSDK -> {
+          hideLoadingAnimation()
           launchTrueLayerSDK(state.paymentId, state.resourceToken)
         }
 
@@ -162,6 +155,10 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
   override fun onDestroyView() {
     super.onDestroyView()
     topUpActivityView?.unlockRotation()
+  }
+
+  private fun hideLoadingAnimation() {
+    views.loadingAuthorizationAnimation.visibility = View.GONE
   }
 
   private fun showLoadingAnimation() {
@@ -237,6 +234,8 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
 
     topUpActivityView?.getFullscreenComposeView()?.visibility = View.VISIBLE
     topUpActivityView?.getFullscreenComposeView()?.setContent {
+      val coroutineScope = rememberCoroutineScope()
+
       Theme(
         theme = theme
       ) {
@@ -254,7 +253,10 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
               }
 
               ProcessorResult.PaymentStep.Redirect -> {
-                handleSuccess()
+                coroutineScope.launch {
+                  delay(500L)
+                  handleSuccess()
+                }
               }
 
               ProcessorResult.PaymentStep.Wait -> {}
