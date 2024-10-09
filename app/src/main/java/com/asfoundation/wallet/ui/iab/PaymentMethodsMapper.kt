@@ -26,6 +26,7 @@ class PaymentMethodsMapper @Inject constructor(
       "vk_pay" -> SelectedPaymentMethod.VKPAY
       "googlepay" -> SelectedPaymentMethod.GOOGLEPAY_WEB
       "mipay" -> SelectedPaymentMethod.MI_PAY
+      "amazonpay" -> SelectedPaymentMethod.AMAZONPAY
       "" -> SelectedPaymentMethod.ERROR
       else -> SelectedPaymentMethod.LOCAL_PAYMENTS
     }
@@ -48,6 +49,7 @@ class PaymentMethodsMapper @Inject constructor(
       SelectedPaymentMethod.VKPAY -> "vk_pay"
       SelectedPaymentMethod.GOOGLEPAY_WEB -> "googlepay"
       SelectedPaymentMethod.MI_PAY -> "mipay"
+      SelectedPaymentMethod.AMAZONPAY -> "amazonpay"
       SelectedPaymentMethod.ERROR -> ""
     }
   }
