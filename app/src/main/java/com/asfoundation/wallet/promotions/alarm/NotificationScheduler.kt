@@ -34,7 +34,7 @@ class NotificationScheduler @Inject constructor(
       }
     )
 
-    alarmManager.setExactAndAllowWhileIdle(
+    alarmManager.setAndAllowWhileIdle(
       AlarmManager.RTC_WAKEUP,
       scheduleDate.time,
       pendingIntent
