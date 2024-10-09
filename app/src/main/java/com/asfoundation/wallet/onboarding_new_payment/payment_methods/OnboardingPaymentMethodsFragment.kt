@@ -121,6 +121,13 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
           args.forecastBonus
         )
 
+        is PaymentMethodClick.AmazonPayClick -> navigator.navigateToAmazonPay(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
         PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
       }
     }

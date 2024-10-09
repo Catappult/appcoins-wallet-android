@@ -722,6 +722,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
         PaymentType.TRUE_LAYER.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.TRUE_LAYER, data.id, data.label, data.iconUrl)
 
+        PaymentType.AMAZONPAY.subTypes.contains(data.id) ->
+          PaymentTypeInfo(PaymentType.AMAZONPAY, data.id, data.label, data.iconUrl)
+
         else -> PaymentTypeInfo(
           PaymentType.LOCAL_PAYMENTS, data.id, data.label,
           data.iconUrl, data.async
