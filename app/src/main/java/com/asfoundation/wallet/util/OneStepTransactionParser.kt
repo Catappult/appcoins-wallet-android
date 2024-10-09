@@ -104,6 +104,7 @@ class OneStepTransactionParser @Inject constructor(
           )
             .shouldSendToken(true)
             .addSdkVersion(cachedTransaction.sdkVersion)
+            .addWsPort(cachedTransaction.wsPort)
         })
         .doOnSuccess { transactionBuilder ->
           cache.saveSync(completedOneStepUri.toString(), transactionBuilder)

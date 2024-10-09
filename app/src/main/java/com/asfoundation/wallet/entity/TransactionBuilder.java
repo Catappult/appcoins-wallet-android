@@ -247,6 +247,11 @@ public class TransactionBuilder implements Parcelable {
     return this;
   }
 
+  public TransactionBuilder addWsPort(String wspPort) {
+    this.wspPort = wspPort;
+    return this;
+  }
+
   public boolean shouldSendToken() {
     return shouldSendToken;
   }
