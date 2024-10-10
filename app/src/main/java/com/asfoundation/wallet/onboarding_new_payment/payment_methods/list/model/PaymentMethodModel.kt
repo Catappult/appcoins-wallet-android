@@ -9,11 +9,11 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 @EpoxyModelClass
@@ -29,7 +29,7 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
   var clickListener: ((PaymentMethodClick) -> Unit)? = null
 
   override fun bind(holder: PaymentMethodHolder) {
-    GlideApp
+    Glide
       .with(holder.itemView.context)
       .load(Uri.parse(paymentMethod.iconUrl))
       .transition(DrawableTransitionOptions.withCrossFade())
