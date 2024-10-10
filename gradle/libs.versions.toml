@@ -161,7 +161,7 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt_
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt_version" }
 # hilt-interface-extensions to allow injecting an implementation that has an interface
 hilt-interface-extensions = { module = "it.czerwinski.android.hilt:hilt-extensions", version.ref = "hilt_czerwinski_extensions_version" }
-hilt-interface-extensions-processor = { module = "it.czerwinski.android.hilt:hilt-processor", version.ref = "hilt_czerwinski_extensions_version" }
+hilt-interface-extensions-processor = { module = "it.czerwinski.android.hilt:hilt-processor-ksp", version.ref = "hilt_czerwinski_extensions_version" }
 
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin_version" }
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines_version" }

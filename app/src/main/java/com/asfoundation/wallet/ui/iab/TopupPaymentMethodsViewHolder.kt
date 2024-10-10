@@ -17,8 +17,8 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ItemTopupPaymentMethodBinding
-import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.manage_cards.models.StoredCard
+import com.bumptech.glide.Glide
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
@@ -42,7 +42,7 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     else
       data.iconUrl
 
-    GlideApp.with(itemView.context)
+    Glide.with(itemView.context)
       .load(imageUrl)
       .into(binding.paymentMethodIc)
 

@@ -18,8 +18,8 @@ import com.appcoins.wallet.core.utils.android_common.extensions.getStringSpanned
 import com.appcoins.wallet.ui.common.withNoLayoutTransition
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCarrierConfirmBinding
-import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.ui.iab.IabView
+import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.RxView
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -115,7 +115,7 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
     views.feeTitle.text =
       context?.getStringSpanned(R.string.carrier_billing_carrier_fees_body, feeString)
 
-    GlideApp.with(requireContext())
+    Glide.with(requireContext())
       .load(carrierImage)
       .into(views.carrierImage)
 

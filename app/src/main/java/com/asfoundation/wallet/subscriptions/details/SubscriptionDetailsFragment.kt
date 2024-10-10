@@ -15,9 +15,9 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentSubscriptionDetailsBinding
-import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.subscriptions.Status
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestOptions
@@ -225,7 +225,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   }
 
   private fun loadImages(context: Context, appIcon: String, paymentIcon: String) {
-    GlideApp.with(context)
+    Glide.with(context)
       .asBitmap()
       .load(appIcon)
       .apply { RequestOptions().dontTransform() }
