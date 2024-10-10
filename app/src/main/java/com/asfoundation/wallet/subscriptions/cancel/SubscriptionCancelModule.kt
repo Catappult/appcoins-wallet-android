@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.subscriptions.cancel
 
 import androidx.fragment.app.Fragment
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import dagger.Module
@@ -29,13 +30,11 @@ class SubscriptionCancelModule {
   }
 
   @Provides
-  fun providesSubscriptionCancelData(fragment: Fragment): SubscriptionCancelData {
-    fragment.requireArguments()
-      .apply {
-        return SubscriptionCancelData(
-          getSerializable(SubscriptionCancelFragment.SUBSCRIPTION_ITEM_KEY) as SubscriptionItem,
-          getString(SubscriptionCancelFragment.TRANSITION_NAME_KEY, "")
-        )
-      }
-  }
+  fun providesSubscriptionCancelData(fragment: Fragment) =
+    fragment.run {
+      SubscriptionCancelData(
+        subscriptionItem = getSerializableExtra<SubscriptionItem>(SubscriptionCancelFragment.SUBSCRIPTION_ITEM_KEY)!!,
+        transitionName = requireArguments().getString(SubscriptionCancelFragment.TRANSITION_NAME_KEY, "")
+      )
+    }
 }

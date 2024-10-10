@@ -25,13 +25,18 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentAdyenTopUpBinding
-import com.asfoundation.wallet.billing.adyen.*
+import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
+import com.asfoundation.wallet.billing.adyen.AdyenComponentResponseModel
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpActivityView
@@ -500,16 +505,13 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   }
 
   private val data: TopUpPaymentData by lazy {
-    if (requireArguments().containsKey(PAYMENT_DATA)) {
-      requireArguments().getSerializable(PAYMENT_DATA) as TopUpPaymentData
-    } else {
-      throw IllegalArgumentException("previous payment data not found")
-    }
+    getSerializableExtra<TopUpPaymentData>(PAYMENT_DATA)
+      ?: throw IllegalArgumentException("previous payment data not found")
   }
 
   private val hasStoredCardForAutomaticBuy: Boolean by lazy {
     if (requireArguments().containsKey(HAS_STORED_CARD_FOR_AUTOMATIC_BUY)) {
-      requireArguments().getSerializable(HAS_STORED_CARD_FOR_AUTOMATIC_BUY) as Boolean
+      requireArguments().getBoolean(HAS_STORED_CARD_FOR_AUTOMATIC_BUY)
     } else {
       throw IllegalArgumentException("previous payment data not found")
     }

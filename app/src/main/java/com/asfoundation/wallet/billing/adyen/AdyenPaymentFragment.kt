@@ -44,6 +44,8 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
@@ -1126,20 +1128,14 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     }
   }
 
-  private val transactionBuilder: TransactionBuilder by lazy {
-    if (requireArguments().containsKey(TRANSACTION_DATA_KEY)) {
-      requireArguments().getParcelable<TransactionBuilder>(TRANSACTION_DATA_KEY)!!
-    } else {
-      throw IllegalArgumentException("transaction data not found")
-    }
+  private val transactionBuilder by lazy {
+    getParcelableExtra<TransactionBuilder>(TRANSACTION_DATA_KEY)
+      ?: throw IllegalArgumentException("transaction data not found")
   }
 
-  private val amount: BigDecimal by lazy {
-    if (requireArguments().containsKey(AMOUNT_KEY)) {
-      requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("amount data not found")
-    }
+  private val amount by lazy {
+    getSerializableExtra<BigDecimal>(AMOUNT_KEY)
+      ?: throw IllegalArgumentException("amount data not found")
   }
 
   private val currency: String by lazy {

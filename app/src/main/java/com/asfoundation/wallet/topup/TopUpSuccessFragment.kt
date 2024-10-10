@@ -1,11 +1,15 @@
 package com.asfoundation.wallet.topup
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RawRes
+import androidx.core.os.bundleOf
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.airbnb.lottie.LottieDrawable
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.R
@@ -22,18 +26,19 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
   companion object {
     @JvmStatic
     fun newInstance(
-      amount: String, currency: String, bonus: String,
-      currencySymbol: String, pendingFinalConfirmation: Boolean,
-    ): TopUpSuccessFragment {
-      return TopUpSuccessFragment().apply {
-        arguments = Bundle().apply {
-          putString(PARAM_AMOUNT, amount)
-          putString(CURRENCY, currency)
-          putString(CURRENCY_SYMBOL, currencySymbol)
-          putString(BONUS, bonus)
-          putBoolean(PENDING_FINAL_CONFIRMATION, pendingFinalConfirmation)
-        }
-      }
+      amount: String,
+      currency: String,
+      bonus: String,
+      currencySymbol: String,
+      pendingFinalConfirmation: Boolean,
+    ) = TopUpSuccessFragment().apply {
+      arguments = bundleOf(
+        PARAM_AMOUNT to amount,
+        CURRENCY to currency,
+        CURRENCY_SYMBOL to currencySymbol,
+        BONUS to bonus,
+        PENDING_FINAL_CONFIRMATION to pendingFinalConfirmation,
+      )
     }
 
     private const val PARAM_AMOUNT = "amount"
@@ -45,73 +50,52 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
-  private lateinit var presenter: TopUpSuccessPresenter
-  private lateinit var topUpActivityView: TopUpActivityView
 
-  val amount: String? by lazy {
-    if (requireArguments().containsKey(PARAM_AMOUNT)) {
-      requireArguments().getString(PARAM_AMOUNT)
-    } else {
-      throw IllegalArgumentException("product name not found")
-    }
+  private val presenter: TopUpSuccessPresenter by lazy { TopUpSuccessPresenter(this) }
+
+  private val topUpActivityView get() = activity as TopUpActivityView
+
+  private val binding by viewBinding(FragmentTopUpSuccessBinding::bind)
+
+  val amount by lazy {
+    requireArguments().getString(PARAM_AMOUNT)
+      ?: throw IllegalArgumentException("product name not found")
   }
 
-  val currency: String? by lazy {
-    if (requireArguments().containsKey(CURRENCY)) {
-      requireArguments().getString(CURRENCY)
-    } else {
-      throw IllegalArgumentException("currency not found")
-    }
+  val currency by lazy {
+    requireArguments().getString(CURRENCY)
+      ?: throw IllegalArgumentException("currency not found")
   }
 
-  val bonus: String by lazy {
-    if (requireArguments().containsKey(BONUS)) {
-      requireArguments().getString(BONUS, "")
-    } else {
-      throw IllegalArgumentException("bonus not found")
-    }
+  val bonus by lazy {
+    requireArguments().getString(BONUS)
+      ?: throw IllegalArgumentException("bonus not found")
   }
 
-  private val currencySymbol: String by lazy {
-    if (requireArguments().containsKey(CURRENCY_SYMBOL)) {
-      requireArguments().getString(CURRENCY_SYMBOL, "")
-    } else {
-      throw IllegalArgumentException("bonus not found")
-    }
+  private val currencySymbol by lazy {
+    requireArguments().getString(CURRENCY_SYMBOL)
+      ?: throw IllegalArgumentException("bonus not found")
   }
 
   private val pendingFinalConfirmation: Boolean by lazy {
-    if (requireArguments().containsKey(PENDING_FINAL_CONFIRMATION)) {
-      requireArguments().getBoolean(PENDING_FINAL_CONFIRMATION)
-    } else {
-      false
-    }
+    requireArguments().getBoolean(PENDING_FINAL_CONFIRMATION, false)
   }
-
-  private val binding by viewBinding(FragmentTopUpSuccessBinding::bind)
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is TopUpActivityView) {
-      throw IllegalStateException(
-        "Express checkout buy fragment must be attached to IAB activity"
-      )
+      throw IllegalStateException("Express checkout buy fragment must be attached to IAB activity")
     }
-    topUpActivityView = context
-  }
-
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    presenter = TopUpSuccessPresenter(this)
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View = FragmentTopUpSuccessBinding.inflate(inflater).root
+  ) = FragmentTopUpSuccessBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
     presenter.present()
   }
 
@@ -121,27 +105,34 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
   }
 
   override fun show() {
-    val bonusAvailable = bonus.takeIf { it.isNotEmpty() && it != "0" }
     when {
       pendingFinalConfirmation -> {
-        binding.topUpSuccessAnimation.visibility = View.GONE
-        binding.topUpPendingSuccessAnimation.visibility = View.VISIBLE
+        handleBonus()
         formatPendingSuccessMessage()
-        bonusAvailable?.let {
-          setBonusText(isPendingSuccess = true)
-        } ?: run { binding.bonusViews.visibility = View.GONE }
+        setAnimation(R.raw.wait_trasaction, LottieDrawable.INFINITE)
       }
 
       else -> {
-        bonusAvailable?.let {
-          setBonusText(isPendingSuccess = false)
-        } ?: run { binding.bonusViews.visibility = View.GONE }
+        handleBonus()
         formatSuccessMessage()
-        binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_success_animation)
-        binding.topUpSuccessAnimation.playAnimation()
+        setAnimation(R.raw.top_up_success_animation, 0)
       }
     }
+  }
 
+  private fun setAnimation(@RawRes animation: Int, repeatCount: Int) {
+    binding.topUpSuccessAnimation.setRepeatCount(repeatCount)
+    binding.topUpSuccessAnimation.setAnimation(animation)
+    binding.topUpSuccessAnimation.playAnimation()
+  }
+
+  private fun handleBonus() {
+    val bonusAvailable = bonus.takeIf { it.isNotEmpty() && it != "0" }
+    if (bonusAvailable != null) {
+      setBonusText(isPendingSuccess = pendingFinalConfirmation)
+    } else {
+      binding.bonusViews.visibility = View.GONE
+    }
   }
 
   override fun clean() {
@@ -168,24 +159,28 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     binding.bonusViews.visibility = View.VISIBLE
   }
 
+  @SuppressLint("SetTextI18n")
   private fun formatSuccessMessage() {
     val initialString = getFormattedTopUpValue()
     val secondString = String.format(resources.getString(R.string.topup_completed_2_without_bonus))
     binding.value.text = "$initialString\n$secondString"
+    binding.info.visibility = View.GONE
   }
 
   private fun formatPendingSuccessMessage() {
-    val initialString = formatter.formatCurrency(amount!!, WalletCurrency.FIAT) + " " + currency
+    val initialString = formatter.formatCurrency(amount, WalletCurrency.FIAT) + " " + currency
     val completedString = String.format(
-      resources.getString(R.string.purchase_bank_transfer_success_disclaimer),
+      resources.getString(R.string.purchase_bank_transfer_success_1),
       initialString
     )
     binding.value.text = completedString
+    binding.info.text = getString(R.string.purchase_bank_transfer_success_2)
+    binding.success.visibility = View.GONE
   }
 
   private fun getFormattedTopUpValue(): String {
     val fiatValue =
-      formatter.formatCurrency(amount!!, WalletCurrency.FIAT) + " " + currency
+      formatter.formatCurrency(amount, WalletCurrency.FIAT) + " " + currency
     return String.format(resources.getString(R.string.topup_completed_1), fiatValue)
   }
 

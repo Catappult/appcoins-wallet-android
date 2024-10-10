@@ -39,8 +39,7 @@
         android:id="@+id/top_up_success_animation"
         android:layout_width="192dp"
         android:layout_height="192dp"
-        android:translationY="-56dp"
-        app:layout_constraintBottom_toTopOf="@id/top_up_pending_success_animation"
+        app:layout_constraintBottom_toTopOf="@id/text_container"
         app:layout_constraintEnd_toStartOf="@id/right_animation_space"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@id/left_animation_space"
@@ -50,32 +49,14 @@
         app:lottie_rawRes="@raw/top_up_success_animation"
         />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/top_up_pending_success_animation"
-        android:layout_width="128dp"
-        android:layout_height="192dp"
-        android:translationY="-32dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/text_container"
-        app:layout_constraintEnd_toStartOf="@id/right_animation_space"
-        app:layout_constraintHorizontal_weight="3"
-        app:layout_constraintStart_toEndOf="@id/left_animation_space"
-        app:layout_constraintTop_toBottomOf="@id/top_up_success_animation"
-        app:layout_constraintVertical_weight="1"
-        app:lottie_autoPlay="true"
-        app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_rawRes="@raw/wait_trasaction"
-        />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/text_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:translationY="-80dp"
         app:layout_constraintBottom_toTopOf="@id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_up_pending_success_animation"
+        app:layout_constraintTop_toBottomOf="@id/top_up_success_animation"
         >
 
       <TextView
@@ -83,6 +64,7 @@
           style="@style/TopUpTextStyle.SuccessTitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
           android:fontFamily="@font/roboto_bolt"
           android:paddingHorizontal="8dp"
           android:text="@string/transaction_status_success"
@@ -99,17 +81,32 @@
           style="@style/TopUpTextStyle.SuccessTitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
           android:fontFamily="@font/roboto_medium"
           android:paddingHorizontal="@dimen/big_margin"
           android:text="@string/topup_completed_2_with_bonus"
-          android:textColor="@color/styleguide_light_grey"
-          app:layout_constraintBottom_toTopOf="@id/bonus_received"
+          android:textColor="@color/styleguide_payments_background"
+          android:textSize="16.sp"
+          app:layout_constraintBottom_toTopOf="@id/info"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/success"
           app:layout_constraintVertical_chainStyle="packed"
           tools:text="1,23 EUR in AppCoins Credits were deposited in your account."
+          />
+
+      <TextView
+          android:id="@+id/info"
+          style="@style/TopUpTextStyle.SuccessTitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:fontFamily="@font/roboto_regular"
+          android:paddingHorizontal="62dp"
+          android:textColor="@color/styleguide_dark_grey"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/value"
+          tools:text="Please note that the deposit may take 1 to 2 business days to process."
           />
 
       <androidx.constraintlayout.widget.Group
@@ -121,14 +118,15 @@
 
       <ImageView
           android:id="@+id/ic_guest_wallet_bonus"
-          android:layout_width="32dp"
-          android:layout_height="22dp"
+          android:layout_width="44dp"
+          android:layout_height="30dp"
+          android:contentDescription="@null"
           android:src="@drawable/ic_guest_wallet_bonus"
           app:layout_constraintBottom_toBottomOf="@id/bonus_received"
-          app:layout_constraintEnd_toStartOf="@id/bonus_received"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_chainStyle="packed"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="@id/bonus_received"
+          app:layout_constraintTop_toBottomOf="@id/info"
           />
 
       <TextView
@@ -143,8 +141,8 @@
           android:textColor="@color/styleguide_light_grey"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/ic_guest_wallet_bonus"
-          app:layout_constraintTop_toBottomOf="@id/value"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/ic_guest_wallet_bonus"
           tools:text="Bonus received 2.20€"
           />
 
@@ -154,11 +152,11 @@
         android:id="@+id/button"
         android:layout_width="328dp"
         android:layout_height="@dimen/large_button_height"
+        android:layout_marginTop="36dp"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginEnd="@dimen/big_margin"
         android:layout_marginBottom="36dp"
-        android:translationY="-40dp"
         app:buttonText="@string/button_ok"
         app:buttonType="filled"
         app:layout_constraintBottom_toBottomOf="parent"

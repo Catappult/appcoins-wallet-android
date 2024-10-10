@@ -14,11 +14,14 @@ import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.feature.vkpay.VkPayManager
 import com.appcoins.wallet.sharedpreferences.VkDataPreferencesDataSource
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.VkPaymentIabLayoutBinding
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
@@ -145,14 +148,14 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       requireArguments().containsKey(ORIGIN_KEY)
     ) {
       viewModel.getPaymentLink(
-        requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
-        (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
+        getParcelableExtra<TransactionBuilder>(TRANSACTION_DATA_KEY)!!,
+        getSerializableExtra<BigDecimal>(AMOUNT_KEY).toString(),
         requireArguments().getString(CURRENCY_KEY)!!,
         requireArguments().getString(ORIGIN_KEY)!!,
         email,
         phone
       )
-      viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
+      viewModel.sendPaymentStartEvent(getParcelableExtra(TRANSACTION_DATA_KEY))
     } else {
       showError()
     }
@@ -231,9 +234,9 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   fun showError() {
     viewModel.sendPaymentErrorEvent(
-      "",
-      "",
-      requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!
+      errorCode = "",
+      errorMessage = "",
+      transactionBuilder = getParcelableExtra<TransactionBuilder>(TRANSACTION_DATA_KEY)!!
     )
     binding.loading.visibility = View.GONE
     binding.loadingHintTextView.visibility = View.GONE
@@ -288,8 +291,8 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   private fun showSuccessAnimation() {
     viewModel.sendPaymentSuccessEvent(
-      requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
-      viewModel.transactionUid!!
+      transactionBuilder = getParcelableExtra<TransactionBuilder>(TRANSACTION_DATA_KEY)!!,
+      txId = viewModel.transactionUid!!
     )
     val bonus = requireArguments().getString(BONUS_KEY)
     if (!bonus.isNullOrEmpty()) {
@@ -305,7 +308,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   }
 
   private fun handleCompletePurchase() {
-    viewModel.getSuccessBundle(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
+    viewModel.getSuccessBundle(getParcelableExtra(TRANSACTION_DATA_KEY))
   }
 
   companion object {

@@ -17,6 +17,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelable
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.ui.widgets.NoNetworkCard
 import com.asf.wallet.BuildConfig
@@ -40,7 +41,6 @@ import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
-import com.asfoundation.wallet.util.getParcelable
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -68,7 +68,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private val results by lazy { PublishRelay.create<Uri>() }
   private val authenticationResultSubject by lazy { PublishSubject.create<Boolean>() }
 
-  private val transaction by lazy { intent.getParcelable<TransactionBuilder>(TRANSACTION_EXTRA) }
+  private val transaction by lazy { getParcelable<TransactionBuilder>(TRANSACTION_EXTRA) }
   private val isBds by lazy { intent.getBooleanExtra(IS_BDS_EXTRA, false) }
   private val developerPayload by lazy { intent.getStringExtra(DEVELOPER_PAYLOAD) }
   private val uri by lazy { intent.getStringExtra(URI) }

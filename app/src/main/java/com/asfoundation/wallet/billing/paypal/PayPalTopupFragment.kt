@@ -202,15 +202,15 @@ class PayPalTopupFragment : BasePageViewFragment() {
     })
   }
 
-  private val amount: String by lazy {
+  private val amount by lazy {
     if (requireArguments().containsKey(AMOUNT_KEY)) {
-      requireArguments().getSerializable(AMOUNT_KEY) as String
+      requireArguments().getString(AMOUNT_KEY) as String
     } else {
       throw IllegalArgumentException("amount data not found")
     }
   }
 
-  private val currency: String by lazy {
+  private val currency by lazy {
     if (requireArguments().containsKey(CURRENCY_KEY)) {
       requireArguments().getString(CURRENCY_KEY, "")
     } else {
@@ -218,7 +218,7 @@ class PayPalTopupFragment : BasePageViewFragment() {
     }
   }
 
-  private val currencySymbol: String by lazy {
+  private val currencySymbol by lazy {
     if (requireArguments().containsKey(CURRENCY_SYMBOL)) {
       requireArguments().getString(CURRENCY_SYMBOL, "")
     } else {
@@ -226,7 +226,7 @@ class PayPalTopupFragment : BasePageViewFragment() {
     }
   }
 
-  private val bonus: String by lazy {
+  private val bonus by lazy {
     if (requireArguments().containsKey(BONUS_KEY)) {
       requireArguments().getString(BONUS_KEY, "")
     } else {
@@ -234,7 +234,7 @@ class PayPalTopupFragment : BasePageViewFragment() {
     }
   }
 
-  private val gamificationLevel: Int by lazy {
+  private val gamificationLevel by lazy {
     if (requireArguments().containsKey(GAMIFICATION_LEVEL)) {
       requireArguments().getInt(GAMIFICATION_LEVEL, 0)
     } else {
@@ -262,7 +262,7 @@ class PayPalTopupFragment : BasePageViewFragment() {
     ): PayPalTopupFragment = PayPalTopupFragment().apply {
       arguments = Bundle().apply {
         putString(PAYMENT_TYPE_KEY, paymentType.name)
-        putSerializable(AMOUNT_KEY, amount)
+        putString(AMOUNT_KEY, amount)
         putString(CURRENCY_KEY, currency)
         putString(CURRENCY_SYMBOL, data.fiatCurrencySymbol)
         putString(BONUS_KEY, bonus)

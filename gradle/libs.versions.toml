@@ -27,7 +27,7 @@ commons_lang3_version = "3.7"
 corektx_version = "1.7.0"
 coroutines_version = "1.6.1"
 cpp_version = "2.5.4"
-desugar_version = "2.0.4"
+desugar_version = "2.1.2"
 epoxy_version = "4.5.0"
 erc681_version = "0.36"
 espresso_version = "3.4.0"
@@ -84,7 +84,7 @@ paging_compose_version = "1.0.0-alpha19"
 fyber_sdk_version = "3.42.0"
 vk_pay_version = "0.112-beta24429"
 vk_pay_checkout_version = "0.112-beta24429"
-truelayer_payments_version = "2.6.0"
+truelayer_payments_version = "3.2.1"
 
 [libraries]
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation_version" }
