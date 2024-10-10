@@ -78,15 +78,20 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
 internal class SkeletonGlideRequestListener(private val skeleton: View) : RequestListener<Bitmap> {
 
   override fun onLoadFailed(
-    e: GlideException?, model: Any?, target: Target<Bitmap>?,
+    e: GlideException?,
+    model: Any?,
+    target: Target<Bitmap>,
     isFirstResource: Boolean
   ): Boolean {
     return true
   }
 
   override fun onResourceReady(
-    resource: Bitmap?, model: Any?, target: Target<Bitmap>?,
-    dataSource: DataSource?, isFirstResource: Boolean
+    resource: Bitmap,
+    model: Any,
+    target: Target<Bitmap>?,
+    dataSource: DataSource,
+    isFirstResource: Boolean
   ): Boolean {
     skeleton.visibility = View.GONE
     return false
