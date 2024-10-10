@@ -24,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,14 +32,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -264,6 +272,46 @@ fun TransactionDetailLinkedHeader(description: String, appIcon: String? = null) 
     }
   }
 }
+@Composable
+fun PendingTransactionCard() {
+
+  val composition by
+  rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.wait_trasaction))
+  val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
+
+  Card(
+    colors = CardDefaults.cardColors(styleguide_blue),
+    modifier = Modifier.fillMaxWidth(),
+    shape = RoundedCornerShape(8.dp)
+  ) {
+    Row(
+      verticalAlignment = Alignment.CenterVertically,
+      modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+    ) {
+      LottieAnimation(
+        composition = composition,
+        progress = { progress },
+        modifier = Modifier.size(24.dp)
+      )
+      Spacer(modifier = Modifier.width(16.dp))
+      Text(
+        text = buildAnnotatedString {
+          withStyle(style = SpanStyle(color = styleguide_light_grey)) {
+            append(stringResource(id = R.string.transaction_status_pending) + " - ")
+          }
+          withStyle(style = SpanStyle(color = WalletColors.styleguide_dark_grey)) {
+            append(stringResource(id = R.string.purchase_bank_transfer_pending_disclaimer))
+          }
+        },
+        style = MaterialTheme.typography.bodySmall,
+        maxLines = Int.MAX_VALUE,
+        overflow = TextOverflow.Ellipsis
+      )
+    }
+  }
+}
+
+
 
 @Composable
 fun TransactionDetailItem(
@@ -541,4 +589,10 @@ fun PreviewDownloadButton() {
 @Composable
 private fun LoadingTransactionCard() {
   SkeletonLoadingTransactionCard()
+}
+
+@Preview
+@Composable
+fun PreviewPendingTransactionCard() {
+  PendingTransactionCard()
 }

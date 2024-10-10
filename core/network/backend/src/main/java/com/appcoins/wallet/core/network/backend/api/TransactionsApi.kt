@@ -21,7 +21,7 @@ interface TransactionsApi {
     @Query("lang_code") languageCode: String
   ): Call<WalletHistory>
 
-  @GET(value = "/appc/wallet/{wallet}/history")
+  @GET(value = "/appc/1.20240925/wallet/{wallet}/history")  // TODO new pagination (from offset to cursor based)
   suspend fun getTransactionHistory(
     @Path("wallet") wallet: String,
     @Query("limit") limit: Int = 10,

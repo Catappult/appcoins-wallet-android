@@ -46,6 +46,7 @@ import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDayAndHour
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
+import com.appcoins.wallet.ui.widgets.PendingTransactionCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionDetailHeader
 import com.appcoins.wallet.ui.widgets.TransactionDetailItem
@@ -175,6 +176,9 @@ class TransactionDetailsFragment : BasePageViewFragment() {
                 description = description
               )
 
+              if (isPending)
+                PendingTransactionCard()
+
               TransactionDetailItem(
                 stringResource(R.string.transaction_status_label),
                 stringResource(status.description),
@@ -288,7 +292,8 @@ class TransactionDetailsFragment : BasePageViewFragment() {
         id = "0x385e12aa45036de011b8e67ceef307791c64a93bb01089d85b0fc2eda6a5aaec",
         from = "0x31a16aDF2D5FC73F149fBB779D20c036678b1bBD",
         to = "0xd21e10A8bd5917Fa57776dE4654284dCc8434F23",
-        invoiceId = "123"
+        invoiceId = "123",
+        isPending = true
       )
     )
   }

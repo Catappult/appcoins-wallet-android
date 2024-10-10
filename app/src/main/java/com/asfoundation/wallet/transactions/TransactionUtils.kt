@@ -57,6 +57,7 @@ data class TransactionCardInfo(
   val txId: String? = null,
   val invoiceId: String? = null,
   val category: Int? = null,
+  val isPending: Boolean = false
 )
 
 object DownloadHelper {
@@ -99,17 +100,31 @@ fun TransactionModel.cardInfoByType() =
         invoiceId = invoiceId
       )
 
-    TOPUP ->
-      TransactionCardInfo(
-        icon = R.drawable.ic_transaction_topup,
-        title = R.string.transaction_type_topup,
-        amount = amount,
-        amountSubtitle = amountSubtitle,
-        date = date,
-        status = status,
-        txId = txId,
-        invoiceId = invoiceId
-      )
+    TOPUP -> {
+      if (status == StatusType.PENDING)
+        TransactionCardInfo(
+          icon = R.drawable.ic_transaction_topup,
+          title = R.string.transaction_type_topup,
+          amount = amount,
+          amountSubtitle = amountSubtitle,
+          date = date,
+          status = status,
+          txId = txId,
+          invoiceId = invoiceId,
+          isPending = true
+        )
+      else
+        TransactionCardInfo(
+          icon = R.drawable.ic_transaction_topup,
+          title = R.string.transaction_type_topup,
+          amount = amount,
+          amountSubtitle = amountSubtitle,
+          date = date,
+          status = status,
+          txId = txId,
+          invoiceId = invoiceId
+        )
+    }
 
     GIFTCARD ->
       TransactionCardInfo(
