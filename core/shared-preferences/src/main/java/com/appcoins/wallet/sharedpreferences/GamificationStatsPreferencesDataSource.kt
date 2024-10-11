@@ -12,7 +12,6 @@ class GamificationStatsPreferencesDataSource @Inject constructor(
     private const val SHOW_GAMIFICATION_DISCLAIMER = "SHOW_GAMIFICATION_DISCLAIMER"
     private const val WALLET_ORIGIN = "wallet_origin"
     private const val VIP_CALLOUT_SEEN = "vip_callout_seen"
-    private const val REFERRAL_NOTIFIC_SEEN = "ref_notific_seen"
   }
 
   fun getLastShownLevel(key: String, gamificationStats: Int) =
@@ -61,13 +60,5 @@ class GamificationStatsPreferencesDataSource @Inject constructor(
   fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) =
     sharedPreferences.edit()
       .putBoolean(VIP_CALLOUT_SEEN + wallet, isSeen)
-      .apply()
-
-  fun isReferralNotificationSeen(wallet: String) =
-    sharedPreferences.getBoolean(REFERRAL_NOTIFIC_SEEN + wallet, false)
-
-  fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) =
-    sharedPreferences.edit()
-      .putBoolean(REFERRAL_NOTIFIC_SEEN + wallet, isSeen)
       .apply()
 }

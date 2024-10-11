@@ -45,6 +45,10 @@
       tools:replace="android:name, android:theme, android:allowBackup">
 
     <meta-data
+        android:name="android.autofill"
+        android:value="true" />
+
+    <meta-data
         android:name="com.google.firebase.messaging.default_notification_channel_id"
         android:value="Support notification channel" />
 
@@ -85,15 +89,16 @@
     <activity
         android:name="com.asfoundation.wallet.main.MainActivity"
         android:exported="true"
+        android:launchMode="singleTask"
         android:theme="@style/SplashTheme"
-        android:windowSoftInputMode="adjustResize"
-        android:launchMode="singleTask">
+        android:windowSoftInputMode="adjustResize">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
 
@@ -219,11 +224,13 @@
       </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data
-            android:scheme="appcoins"
-            android:host="truelayer" />
+            android:host="truelayer"
+            android:scheme="appcoins" />
       </intent-filter>
     </activity>
 
@@ -348,6 +355,12 @@
           android:name="android.support.FILE_PROVIDER_PATHS"
           android:resource="@xml/file_provider_paths" />
     </provider>
+
+    <receiver
+        android:name="com.asfoundation.wallet.promotions.alarm.PromotionBroadcastReceiver"
+        android:enabled="true"
+        android:exported="false" />
+
   </application>
 
 </manifest>

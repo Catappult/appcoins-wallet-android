@@ -34,6 +34,7 @@ sealed class StartMode {
     val type: String?,
     val oemId: String?,
     val wsPort: String?,
+    val sdkVersion: String?,
     val backup: String?
   ) : StartMode()
 

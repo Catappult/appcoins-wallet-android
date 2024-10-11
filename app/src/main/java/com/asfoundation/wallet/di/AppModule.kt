@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di
 
+import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ClipboardManager
@@ -278,4 +279,9 @@ internal class AppModule {
   @Provides
   fun provideWalletAddress(walletRepository: WalletRepositoryType): WalletAddress =
     WalletsAddressProvider(walletRepository)
+
+  @Singleton
+  @Provides
+  fun provideAlarmManager(@ApplicationContext context: Context) =
+    context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 }

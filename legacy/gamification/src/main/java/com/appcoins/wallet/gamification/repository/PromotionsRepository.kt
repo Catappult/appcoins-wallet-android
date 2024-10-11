@@ -12,7 +12,7 @@ interface PromotionsRepository {
 
   fun getGamificationStats(
     wallet: String,
-    promoCodeString: String?
+    promoCodeString: String? = null
   ): Observable<PromotionsGamificationStats>
 
   fun getGamificationLevel(wallet: String, promoCodeString: String?): Single<Int>
@@ -52,9 +52,5 @@ interface PromotionsRepository {
   fun isVipCalloutAlreadySeen(wallet: String): Boolean
 
   fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean)
-
-  fun isReferralNotificationToShow(wallet: String): Observable<Boolean>
-
-  fun setReferralNotificationSeen(wallet: String, isSeen: Boolean)
 
 }

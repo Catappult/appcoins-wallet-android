@@ -16,7 +16,7 @@ class CheckAndCancelVipPollingUseCase @Inject constructor(
     return getVipReferralUseCase(wallet)
       .doOnSuccess {
         if (it.active) {
-          workManager.cancelUniqueWork(GetVipReferralWorker.getUniqueName(wallet))
+          GetVipReferralWorker.cancelUniqueWork(workManager, wallet)
         }
       }
   }

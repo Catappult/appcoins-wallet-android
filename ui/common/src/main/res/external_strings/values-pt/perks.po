@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2023-03-29 11:54\n"
+"PO-Revision-Date: 2024-09-24 14:04\n"
 
 #. Card Title
 #:
@@ -116,4 +116,9 @@ msgstr "Recebe um Bónus extra de {0}% em todas as tuas compras, exceto quando u
 #:
 msgid "New Perk Available"
 msgstr "Novo Benefício Disponível"
+
+#. Card - Title - Enjoy
+#:
+msgid "Enjoy {0}% bonus in every purchase."
+msgstr "Aproveita um bónus de {0}% em cada compra."
 

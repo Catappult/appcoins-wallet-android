@@ -37,7 +37,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
 fun RewardsActions(
-  onClickEskills: () -> Unit,
   onClickPromoCode: () -> Unit,
   onClickGiftCard: () -> Unit,
   onClickChallengeReward: (() -> Unit)?,
@@ -49,7 +48,7 @@ fun RewardsActions(
     modifier = Modifier
       .horizontalScroll(scrollState)
       .padding(horizontal = 16.dp)
-      .padding(top = 24.dp)
+      .padding(top = 16.dp)
       .height(IntrinsicSize.Max),
     horizontalArrangement = Arrangement.spacedBy(8.dp),
   ) {
@@ -145,7 +144,7 @@ fun SkeletonLoadingRewardsActionsCard() {
     modifier = Modifier
       .horizontalScroll(scrollState)
       .padding(horizontal = 16.dp)
-      .padding(top = 24.dp),
+      .padding(top = 16.dp),
     horizontalArrangement = Arrangement.spacedBy(8.dp),
   ) {
     SkeletonLoadingRewardActionCard()
@@ -207,12 +206,11 @@ private fun SkeletonLoadingRewardActionCard() {
 @Composable
 private fun PreviewRewardsActions() {
   RewardsActions(
-    { },
-    { },
-    { },
-    { },
-    "RewardFragment",
-    null
+    onClickPromoCode = { },
+    onClickGiftCard = { },
+    onClickChallengeReward = { },
+    fragmentName = "RewardFragment",
+    buttonsAnalytics = null
   )
 }
 

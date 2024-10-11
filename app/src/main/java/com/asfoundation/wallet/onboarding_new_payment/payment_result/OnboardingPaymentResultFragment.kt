@@ -1,6 +1,10 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,12 +31,14 @@ import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentW
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_NETWORK_DOWN
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_SUCCESS
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_USER_CANCEL
+import com.asfoundation.wallet.onboarding_new_payment.utils.OnboardingUtils
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.apache.commons.lang3.StringUtils
+import org.json.JSONObject
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -287,14 +293,47 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   private fun createWebSocketSdk() {
     if (args.transactionBuilder.type == "INAPP") {
-      val request =
-        Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
-      val listener = SdkPaymentWebSocketListener(
-        args.paymentModel.purchaseUid,
-        args.paymentModel.uid,
-        viewModel.getResponseCodeWebSocket()
-      )
-      clientWebSocket.newWebSocket(request, listener)
+      if (
+        args.transactionBuilder.wspPort == null &&
+        OnboardingUtils.isSdkVersionAtLeast2(args.transactionBuilder.sdkVersion)
+      ) {
+        val responseCode = viewModel.getResponseCodeWebSocket()
+        val productToken = args.paymentModel.purchaseUid
+        val purchaseResultJson = JSONObject().apply {
+          put("responseCode", responseCode)
+          put("purchaseToken", productToken)
+        }.toString()
+
+        val encodedPurchaseResult = Uri.encode(purchaseResultJson)
+
+        val deepLinkUri = Uri.Builder()
+          .scheme("web-iap-result")
+          .authority(args.transactionBuilder.domain)
+          .appendQueryParameter("purchaseResult", encodedPurchaseResult)
+          .build()
+
+        val deepLinkIntent = Intent(Intent.ACTION_VIEW, deepLinkUri)
+
+        deepLinkIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        Handler(Looper.getMainLooper()).postDelayed({
+          startActivity(deepLinkIntent)
+        }, 2000)
+
+      } else {
+        val request = try {
+          Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
+        } catch (e: IllegalArgumentException) {
+          null
+        }
+        val listener = SdkPaymentWebSocketListener(
+          args.paymentModel.purchaseUid,
+          args.paymentModel.uid,
+          viewModel.getResponseCodeWebSocket()
+        )
+        request?.let {
+          clientWebSocket.newWebSocket(request, listener)
+        }
+      }
     }
   }
 

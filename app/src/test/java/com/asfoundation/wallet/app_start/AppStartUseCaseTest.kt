@@ -143,7 +143,8 @@ internal class AppStartUseCaseTest {
       "21",
       "8362",
       "",
-       ""
+       "",
+      "",
     )
 
     @JvmStatic

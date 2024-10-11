@@ -52,6 +52,7 @@ public class TransactionBuilder implements Parcelable {
   @Nullable private String subscriptionPeriod;
   @Nullable private String trialPeriod;
   @Nullable private String wspPort;
+  @Nullable private String sdkVersion;
   @Nullable private String oemIdSdk;
   @Nullable private String guestWalletId;
 
@@ -83,6 +84,7 @@ public class TransactionBuilder implements Parcelable {
     this.subscriptionPeriod = transactionBuilder.subscriptionPeriod;
     this.trialPeriod = transactionBuilder.trialPeriod;
     this.wspPort = transactionBuilder.wspPort;
+    this.sdkVersion = transactionBuilder.sdkVersion;
     this.oemIdSdk = transactionBuilder.oemIdSdk;
     this.guestWalletId = transactionBuilder.guestWalletId;
   }
@@ -125,6 +127,7 @@ public class TransactionBuilder implements Parcelable {
     subscriptionPeriod = in.readString();
     trialPeriod = in.readString();
     wspPort = in.readString();
+    sdkVersion = in.readString();
     oemIdSdk = in.readString();
     guestWalletId = in.readString();
   }
@@ -239,6 +242,16 @@ public class TransactionBuilder implements Parcelable {
     return this;
   }
 
+  public TransactionBuilder addSdkVersion(String sdkVersion) {
+    this.sdkVersion = sdkVersion;
+    return this;
+  }
+
+  public TransactionBuilder addWsPort(String wspPort) {
+    this.wspPort = wspPort;
+    return this;
+  }
+
   public boolean shouldSendToken() {
     return shouldSendToken;
   }
@@ -333,8 +346,16 @@ public class TransactionBuilder implements Parcelable {
     return wspPort;
   }
 
+  public String getSdkVersion() {
+    return sdkVersion;
+  }
+
   public void setWspPort(String wspPort) {
     this.wspPort = wspPort;
+  }
+
+  public void setSdkVersion(String sdkVersion) {
+    this.sdkVersion = sdkVersion;
   }
 
   public String getDomain() {
@@ -490,6 +511,7 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(subscriptionPeriod);
     dest.writeString(trialPeriod);
     dest.writeString(wspPort);
+    dest.writeString(sdkVersion);
     dest.writeString(oemIdSdk);
     dest.writeString(guestWalletId);
   }
