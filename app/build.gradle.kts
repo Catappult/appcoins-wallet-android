@@ -103,7 +103,6 @@ dependencies {
   implementation(platform(libs.firebase.bom))
   implementation(libs.firebase.messaging)
   implementation(libs.intercom) { exclude(group = "com.google.android", module = "flexbox") }
-  implementation(libs.paranoid)
   implementation(libs.flexbox)
 
   implementation(libs.analytics.sentry)
