@@ -14,6 +14,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPaypalBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -210,15 +212,12 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
     }
   }
 
-  private val amount: BigDecimal by lazy {
-    if (requireArguments().containsKey(AMOUNT_KEY)) {
-      requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("amount data not found")
-    }
+  private val amount by lazy {
+    getSerializableExtra<BigDecimal>(AMOUNT_KEY)
+      ?: throw IllegalArgumentException("amount data not found")
   }
 
-  private val currency: String by lazy {
+  private val currency by lazy {
     if (requireArguments().containsKey(CURRENCY_KEY)) {
       requireArguments().getString(CURRENCY_KEY, "")
     } else {
@@ -234,15 +233,12 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
     }
   }
 
-  private val transactionBuilder: TransactionBuilder by lazy {
-    if (requireArguments().containsKey(TRANSACTION_DATA_KEY)) {
-      requireArguments().getParcelable<TransactionBuilder>(TRANSACTION_DATA_KEY)!!
-    } else {
-      throw IllegalArgumentException("transaction data not found")
-    }
+  private val transactionBuilder by lazy {
+    getParcelableExtra<TransactionBuilder>(TRANSACTION_DATA_KEY)
+      ?: throw IllegalArgumentException("transaction data not found")
   }
 
-  private val bonus: String by lazy {
+  private val bonus by lazy {
     if (requireArguments().containsKey(BONUS_KEY)) {
       requireArguments().getString(BONUS_KEY, "")
     } else {
@@ -250,7 +246,7 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
     }
   }
 
-  private val gamificationLevel: Int by lazy {
+  private val gamificationLevel by lazy {
     if (requireArguments().containsKey(GAMIFICATION_LEVEL)) {
       requireArguments().getInt(GAMIFICATION_LEVEL, 0)
     } else {

@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.subscriptions.details
 
 import androidx.fragment.app.Fragment
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import dagger.Module
@@ -28,15 +29,11 @@ class SubscriptionDetailsModule {
   }
 
   @Provides
-  fun providesSubscriptionDetailsData(fragment: Fragment): SubscriptionDetailsData {
-    fragment.requireArguments()
-      .apply {
-        return SubscriptionDetailsData(
-          getSerializable(
-            SubscriptionDetailsFragment.SUBSCRIPTION_ITEM_KEY
-          ) as SubscriptionItem,
-          getString(SubscriptionDetailsFragment.TRANSITION_NAME_KEY, "")
-        )
-      }
-  }
+  fun providesSubscriptionDetailsData(fragment: Fragment): SubscriptionDetailsData =
+    fragment.run {
+      SubscriptionDetailsData(
+        subscriptionItem = getSerializableExtra<SubscriptionItem>(SubscriptionDetailsFragment.SUBSCRIPTION_ITEM_KEY)!!,
+        transitionName = requireArguments().getString(SubscriptionDetailsFragment.TRANSITION_NAME_KEY, "")
+      )
+    }
 }
