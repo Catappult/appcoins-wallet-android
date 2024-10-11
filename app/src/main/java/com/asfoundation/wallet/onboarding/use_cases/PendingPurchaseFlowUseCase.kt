@@ -26,7 +26,7 @@ class PendingPurchaseFlowUseCaseImpl @Inject constructor(
         "sdk"
       else -> "osp"
     }
-    if (!cachedBackupKey.isNullOrEmpty() || cachedTransaction?.value!! > 0.0) {
+    if (!cachedBackupKey.isNullOrEmpty() || cachedTransaction?.callbackUrl != null) {
       startModeResult = StartMode.PendingPurchaseFlow(
         integrationFlow = integrationFlow,
         sku = cachedTransaction.sku,
