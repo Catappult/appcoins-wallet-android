@@ -5,9 +5,11 @@ androidx_browser_version = "1.4.0"
 androidx_cardview_version = "1.0.0"
 androidx_constraintlayout_version = "2.1.3"
 androidx_compose = "1.4.3"
+androidx_compose_activity = "1.4.3"
 androidx_compose_material3 = "1.1.0"
 androidx_compose_compiler = "1.5.13"
-androidx_ktx_version = "1.3.0"
+androidx_activity_ktx_version = "1.3.0"
+androidx_fragment_ktx_version = "1.3.0"
 androidx_lifecycle_ktx_version = "2.4.1"
 androidx_lifecycle_version = "2.2.0"
 androidx_multidex_version = "2.0.1"
@@ -26,6 +28,7 @@ coil_version = "2.3.0"
 commons_lang3_version = "3.7"
 corektx_version = "1.7.0"
 coroutines_version = "1.6.1"
+coroutines_test_version = "1.6.1"
 cpp_version = "2.5.4"
 desugar_version = "2.0.4"
 epoxy_version = "5.1.4"
@@ -90,9 +93,9 @@ truelayer_payments_version = "2.6.0"
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation_version" }
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx_navigation_version" }
 androidx-navigation-safeargs = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "androidx_navigation_version" }
-androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "androidx_ktx_version" }
-androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx_ktx_version" }
-androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx_ktx_version" }
+androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "androidx_fragment_ktx_version" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx_fragment_ktx_version" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx_activity_ktx_version" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "corektx_version" }
 
 androidx-appcompact = { module = "androidx.appcompat:appcompat", version.ref = "androidx_appcompat_version" }
@@ -135,7 +138,7 @@ compose-ui-preview = { module = "androidx.compose.ui:ui-tooling-preview", versio
 compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx_compose" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "androidx_compose" }
 compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "androidx_compose" }
-compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx_compose" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx_compose_activity" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "androidx_compose_compiler" }
 compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie_version" }
 
@@ -165,7 +168,7 @@ hilt-interface-extensions-processor = { module = "it.czerwinski.android.hilt:hil
 
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin_version" }
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines_version" }
-kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines_version" }
+kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines_test_version" }
 kotlin-coroutines-rx2 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-rx2", version.ref = "coroutines_version" }
 kotlin-result = { module = "com.michael-bull.kotlin-result:kotlin-result", version.ref = "michel_bull_kotlin_result" }
 kotlin-result-coroutines = { module = "com.michael-bull.kotlin-result:kotlin-result-coroutines", version.ref = "michel_bull_kotlin_result" }
@@ -178,7 +181,7 @@ rx-rxlifecyle-components = { module = "com.trello:rxlifecycle-components", versi
 
 adyen-card = { module = "com.adyen.checkout:card", version.ref = "adyen_version" }
 adyen-redirect = { module = "com.adyen.checkout:redirect", version.ref = "adyen_version" }
-adyen-3ds2 = { module = "com.adyen.checkout:3ds2", version.ref = "adyen_version" }
+adyen-threeds = { module = "com.adyen.checkout:3ds2", version.ref = "adyen_version" }
 
 appcoins-sdk = { module = "io.catappult:appcoins-contract-proxy", version.ref = "appcoins_sdk_version" }
 appcoins-sdk-debug = { module = "io.catappult:appcoins-contract-proxy", version.ref = "appcoins_sdk_dev_version" }
@@ -253,7 +256,7 @@ androidx-work = ["androidx-work-runtime", "androidx-work-rxjava2"]
 androidx-compose = ["compose-ui-viewbinding", "compose-ui-util", "compose-ui-ui", "compose-ui-preview", "compose-ui-tooling", "compose-ui-test", "compose-material3", "compose-foundation-layout", "compose-foundation-foundation", "compose-animation-animation", "compose-compiler", "compose-activity"]
 coil = ["coil-kt", "coil-kt-compose", "coil-kt-svg"]
 network = ["network-retrofit", "network-retrofit-adapter-rxjava", "network-retrofit-converter-gson", "network-retrofit-converter-jackson", "network-okhttp", "google-gson"]
-adyen = ["adyen-card", "adyen-redirect", "adyen-3ds2"]
+adyen = ["adyen-card", "adyen-redirect", "adyen-threeds"]
 analytics = ["analytics-sentry", "analytics-indicative", "analytics-flurry", "analytics-appsflyer"]
 testing = ["test-junit", "test-mockito", "test-espresso", "test-mockk"]
 jackson = ["jackson-annotation", "jackson-databind"]
