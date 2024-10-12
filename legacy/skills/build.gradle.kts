@@ -34,5 +34,4 @@ dependencies {
   }
 
   testImplementation(libs.bundles.testing)
-  androidTestImplementation(libs.test.junit.ext)
 }
