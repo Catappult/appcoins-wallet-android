@@ -1,13 +1,15 @@
 package com.asfoundation.wallet.repository
 
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.service.TokenRateService
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
-import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Single
 import javax.inject.Inject
 
-class CurrencyConversionService @Inject constructor(private val tokenRateService: TokenRateService,
-                                private val localCurrencyConversionService: LocalCurrencyConversionService) {
+class CurrencyConversionService @Inject constructor(
+  private val tokenRateService: TokenRateService,
+  private val localCurrencyConversionService: LocalCurrencyConversionService
+) {
 
   fun getTokenValue(currency: String?): Single<FiatValue> {
     return tokenRateService.getAppcRate(currency)

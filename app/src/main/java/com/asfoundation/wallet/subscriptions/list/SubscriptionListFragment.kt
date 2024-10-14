@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentSubscriptionListBinding
 import com.asfoundation.wallet.subscriptions.SubscriptionAdapter
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -33,8 +34,10 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
     clickSubject = PublishSubject.create()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentSubscriptionListBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentSubscriptionListBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -46,9 +49,19 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
     expiredAdapter = SubscriptionAdapter(clickSubject)
 
     binding.rvActiveSubs.adapter = activeAdapter
-    binding.rvActiveSubs.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+    binding.rvActiveSubs.addItemDecoration(
+      DividerItemDecoration(
+        context,
+        DividerItemDecoration.VERTICAL
+      )
+    )
     binding.rvExpiredSubs.adapter = expiredAdapter
-    binding.rvExpiredSubs.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+    binding.rvExpiredSubs.addItemDecoration(
+      DividerItemDecoration(
+        context,
+        DividerItemDecoration.VERTICAL
+      )
+    )
 
     presenter.present()
   }
@@ -88,6 +101,8 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
   }
 
   override fun showGenericError() {
+    binding.genericErrorRetryOnlyLayout.genericErrorBase.genericErrorMessage
+      .setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     binding.mainLayout.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
     binding.genericErrorRetryOnlyLayout.genericRetryAnimation.visibility = View.GONE
@@ -102,19 +117,19 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
     binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
     binding.genericErrorRetryOnlyLayout.root.visibility = View.GONE
     binding.layoutNoSubscriptions.root.visibility = View.GONE
-    binding.mainLayout.visibility = View.VISIBLE
+    binding.contentLayout.visibility = View.VISIBLE
   }
 
   override fun showNoSubscriptions() {
     binding.loadingAnimation.visibility = View.GONE
-    binding.mainLayout.visibility = View.GONE
+    binding.contentLayout.visibility = View.GONE
     binding.genericErrorRetryOnlyLayout.root.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
     binding.layoutNoSubscriptions.root.visibility = View.VISIBLE
   }
 
   override fun showLoading() {
-    binding.mainLayout.visibility = View.GONE
+    binding.contentLayout.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
     binding.genericErrorRetryOnlyLayout.root.visibility = View.GONE
     binding.layoutNoSubscriptions.root.visibility = View.GONE
@@ -123,7 +138,8 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
 
   override fun retryClick() = RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
 
-  override fun getRetryGenericClicks() = RxView.clicks(binding.genericErrorRetryOnlyLayout.genericRetryButton)
+  override fun getRetryGenericClicks() =
+    RxView.clicks(binding.genericErrorRetryOnlyLayout.genericRetryButton)
 
   override fun getRetryNetworkClicks() = RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
 
@@ -148,11 +164,11 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
 
     fun newInstance(freshReload: Boolean = false): SubscriptionListFragment {
       return SubscriptionListFragment()
-          .apply {
-            arguments = Bundle().apply {
-              putBoolean(FRESH_RELOAD_KEY, freshReload)
-            }
+        .apply {
+          arguments = Bundle().apply {
+            putBoolean(FRESH_RELOAD_KEY, freshReload)
           }
+        }
     }
   }
 }

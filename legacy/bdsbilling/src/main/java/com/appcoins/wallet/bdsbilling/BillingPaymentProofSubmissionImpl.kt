@@ -1,14 +1,18 @@
 package com.appcoins.wallet.bdsbilling
 
-import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.InAppMapper
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.SubscriptionsMapper
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -50,7 +54,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
       authorizationProof.developerPayload,
       authorizationProof.callback,
       authorizationProof.orderReference,
-      authorizationProof.referrerUrl
+      authorizationProof.referrerUrl,
+      authorizationProof.guestWalletId,
     )
       .doOnSuccess { transaction -> transactionFromApprove[authorizationProof.id] = transaction }
 
@@ -88,7 +93,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     developerPayload: String?,
     callback: String?,
     orderReference: String?,
-    referrerUrl: String?
+    referrerUrl: String?,
+    guestWalletId: String?
   ): Single<Transaction> =
     walletService.getWalletAddress().observeOn(networkScheduler).flatMap { walletAddress ->
       walletService.signContent(walletAddress).observeOn(networkScheduler).flatMap { signedData ->
@@ -100,7 +106,6 @@ class BillingPaymentProofSubmissionImpl internal constructor(
           productName,
           packageName,
           priceValue,
-          developerWallet,
           entityOemId,
           entityDomain,
           origin,
@@ -108,7 +113,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
           developerPayload,
           callback,
           orderReference,
-          referrerUrl
+          referrerUrl,
+          guestWalletId
         )
       }
     }
@@ -130,19 +136,16 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private var networkScheduler: Scheduler = Schedulers.io()
     private var brokerBdsApi: BrokerBdsApi? = null
     private var inappApi: InappBillingApi? = null
-    private var bdsApiSecondary: BdsApiSecondary? = null
     private var subscriptionBillingApi: SubscriptionBillingApi? = null
     private var ewtObtainer: EwtAuthenticatorService? = null
     private var rxSchedulers: RxSchedulers? = null
+    private var fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource? = null
 
     fun setBrokerBdsApi(brokerBdsApi: BrokerBdsApi) =
       apply { this.brokerBdsApi = brokerBdsApi }
 
     fun setInappApi(inappApi: InappBillingApi) =
       apply { this.inappApi = inappApi }
-
-    fun setBdsApiSecondary(bdsApi: BdsApiSecondary) =
-      apply { bdsApiSecondary = bdsApi }
 
     fun setSubscriptionBillingService(subscriptionBillingApi: SubscriptionBillingApi) =
       apply { this.subscriptionBillingApi = subscriptionBillingApi }
@@ -159,14 +162,17 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     fun setRxSchedulers(rxSchedulers: RxSchedulers) =
       apply { this.rxSchedulers = rxSchedulers }
 
+    fun setFiatCurrenciesPreferencesDataSource(fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource) =
+      apply { this.fiatCurrenciesPreferencesDataSource = fiatCurrenciesPreferencesDataSource }
+
     fun build(): BillingPaymentProofSubmissionImpl =
       ewtObtainer?.let { ewtObtainer ->
         rxSchedulers?.let { rxSchedulers ->
           walletService?.let { walletService ->
             brokerBdsApi?.let { brokerBdsApi ->
               inappApi?.let { inappApi ->
-                bdsApiSecondary?.let { bdsApiSecondary ->
-                  subscriptionBillingApi?.let { subscriptionsApi ->
+                subscriptionBillingApi?.let { subscriptionsApi ->
+                  fiatCurrenciesPreferencesDataSource?.let { fiatCurrenciesPreferencesDataSource ->
                     BillingPaymentProofSubmissionImpl(
                       walletService,
                       BdsRepository(
@@ -174,10 +180,10 @@ class BillingPaymentProofSubmissionImpl internal constructor(
                           brokerBdsApi,
                           inappApi,
                           BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-                          bdsApiSecondary,
                           subscriptionsApi,
                           ewtObtainer,
-                          rxSchedulers
+                          rxSchedulers,
+                          fiatCurrenciesPreferencesDataSource
                         )
                       ),
                       networkScheduler,
@@ -186,8 +192,9 @@ class BillingPaymentProofSubmissionImpl internal constructor(
                       ewtObtainer,
                       rxSchedulers
                     )
-                  } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
-                } ?: throw IllegalArgumentException("BdsApiSecondary not defined")
+                  }
+                    ?: throw IllegalArgumentException("fiatCurrenciesPreferencesDataSource not defined")
+                } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
               } ?: throw IllegalArgumentException("InappBdsApi not defined")
             } ?: throw IllegalArgumentException("BrokerBdsApi not defined")
           } ?: throw IllegalArgumentException("WalletService not defined")
@@ -211,7 +218,8 @@ data class AuthorizationProof(
   val developerPayload: String?,
   val callback: String?,
   val orderReference: String?,
-  val referrerUrl: String?
+  val referrerUrl: String?,
+  val guestWalletId: String?
 )
 
 data class PaymentProof(

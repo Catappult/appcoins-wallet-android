@@ -1,44 +1,37 @@
 package com.asfoundation.wallet.promotions.ui.vip_referral
 
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
+import androidx.lifecycle.ViewModel
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.promotions.usecases.ConvertToLocalFiatUseCase
-import com.asfoundation.wallet.ui.iab.FiatValue
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
-
-
-data class PromotionsVipReferralState(
-  val convertTotalAsync: Async<FiatValue> = Async.Uninitialized,
-  val shouldShowDefault: Boolean = false
-) : ViewState
-
-sealed class PromotionsVipReferralSideEffect : SideEffect {
-  object NavigateBack : PromotionsVipReferralSideEffect()
-}
 
 @HiltViewModel
 class PromotionsVipReferralViewModel @Inject constructor(
-  private val convertToLocalFiatUseCase: ConvertToLocalFiatUseCase
-) :
-  BaseViewModel<PromotionsVipReferralState, PromotionsVipReferralSideEffect>(initialState()) {
+  private val convertToLocalFiatUseCase: ConvertToLocalFiatUseCase,
+  private val displayChatUseCase: DisplayChatUseCase,
+) : ViewModel() {
 
-  companion object {
-    fun initialState(): PromotionsVipReferralState {
-      return PromotionsVipReferralState()
-    }
-  }
+  private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
+  var uiState: StateFlow<UiState> = _uiState
 
   fun getCurrency(earnedValue: String) {
     convertToLocalFiatUseCase(earnedValue, "USD")
-      .asAsyncToState { async ->
-        copy(convertTotalAsync = async)
-      }
-      .repeatableScopedSubscribe(PromotionsVipReferralState::convertTotalAsync.name) { e ->
-        e.printStackTrace()
-      }
+      .doOnSuccess { _uiState.value = UiState.Success(it) }
+      .doOnError { _uiState.value = UiState.Fail(it) }
+      .doOnSubscribe { _uiState.value = UiState.Loading }
+      .subscribe()
   }
 
+  fun displayChat() = displayChatUseCase()
+
+  sealed class UiState {
+    object Idle : UiState()
+    object Loading : UiState()
+    data class Fail(val error: Throwable) : UiState()
+    data class Success(val fiatValue: FiatValue?) : UiState()
+  }
 }

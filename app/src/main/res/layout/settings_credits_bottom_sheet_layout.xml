@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settings_credits_bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialog_dark"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/half_large_margin"
+    android:paddingBottom="@dimen/half_large_margin"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:src="@drawable/pull_up_home_bar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/settings_credits_bottom_sheet_title"
+      style="@style/SettingsTextStyle.TextBody"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="32dp"
+      android:text="@string/settings_fragment_credits"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
+      />
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/settings_credits_bottom_sheet_close_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="30dp"
+      app:buttonText="@string/close_button"
+      app:buttonType="filled"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/settings_credits_bottom_sheet_title"
+      />
+
+  <com.appcoins.wallet.ui.widgets.SystemView
+      android:id="@+id/settings_credits_bottom_sheet_system_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="26dp"
+      android:background="@color/styleguide_blue_secondary"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

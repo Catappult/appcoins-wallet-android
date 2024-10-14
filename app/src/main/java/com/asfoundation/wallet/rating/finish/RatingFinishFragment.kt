@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentRatingFinishBinding
 import com.asfoundation.wallet.rating.RatingActivity
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -30,8 +29,10 @@ class RatingFinishFragment : BasePageViewFragment(), RatingFinishView {
     (requireActivity() as RatingActivity).disableBack()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentRatingFinishBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentRatingFinishBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -39,6 +40,7 @@ class RatingFinishFragment : BasePageViewFragment(), RatingFinishView {
       override fun onAnimationEnd(animation: Animator) {
         animationEndSubject.onNext(Unit)
       }
+
       override fun onAnimationRepeat(animation: Animator) = Unit
       override fun onAnimationCancel(animation: Animator) = Unit
       override fun onAnimationStart(animation: Animator) = Unit

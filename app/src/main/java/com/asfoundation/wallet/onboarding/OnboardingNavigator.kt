@@ -6,9 +6,9 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.data.Navigator
-import com.appcoins.wallet.ui.arch.data.navigate
 import javax.inject.Inject
 
 class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
@@ -28,11 +28,12 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
     )
   }
 
-  fun navigateToCreateWalletDialog() {
+  fun navigateToCreateWalletDialog(isPayment: Boolean) {
     navigate(
       fragment.findNavController(),
       OnboardingFragmentDirections.actionNavigateCreateWalletDialog(
-        needsWalletCreation = true
+        needsWalletCreation = true,
+        isPayment = isPayment
       )
     )
   }
@@ -48,5 +49,31 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
       Toast.makeText(fragment.requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT)
         .show()
     }
+  }
+
+  fun navigateToVerify(flow: String) {
+    when (flow) {
+      OnboardingFlow.VERIFY_PAYPAL.name -> {
+        navigate(
+          fragment.findNavController(),
+          OnboardingFragmentDirections.actionNavigateToVerifyPaypal()
+        )
+      }
+
+      OnboardingFlow.VERIFY_CREDIT_CARD.name -> {
+        navigate(
+          fragment.findNavController(),
+          OnboardingFragmentDirections.actionNavigateToVerifyCreditCard()
+        )
+        fragment.requireActivity().finish()
+      }
+    }
+  }
+
+  fun navigateToOnboardingPayment() {
+    navigate(
+      fragment.findNavController(),
+      OnboardingFragmentDirections.actionNavigateToFirstPaymentFragment()
+    )
   }
 }

@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.R
 import com.asf.wallet.databinding.ErrorVerificationLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -26,16 +26,20 @@ class VerificationErrorFragment : BasePageViewFragment(), VerificationErrorView 
 
   private val views by viewBinding(ErrorVerificationLayoutBinding::bind)
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = ErrorVerificationLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = ErrorVerificationLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
   }
 
-  override fun initializeView(errorType: VerificationCodeResult.ErrorType, amount: String,
-                              symbol: String) {
+  override fun initializeView(
+    errorType: VerificationCodeResult.ErrorType, amount: String,
+    symbol: String
+  ) {
     when (errorType) {
       VerificationCodeResult.ErrorType.TOO_MANY_ATTEMPTS -> {
         views.errorMessage.visibility = View.GONE
@@ -50,10 +54,11 @@ class VerificationErrorFragment : BasePageViewFragment(), VerificationErrorView 
         views.attemptsGroup.visibility = View.VISIBLE
 
         val amountWithCurrency =
-            "$symbol${formatter.formatCurrency(amount, WalletCurrency.FIAT)}"
+          "$symbol${formatter.formatCurrency(amount, WalletCurrency.FIAT)}"
         views.errorTitle2.text =
-            getString(R.string.card_verification_no_attempts_title, amountWithCurrency)
+          getString(R.string.card_verification_no_attempts_title, amountWithCurrency)
       }
+
       VerificationCodeResult.ErrorType.WRONG_CODE,
       VerificationCodeResult.ErrorType.OTHER -> {
         views.errorMessage.visibility = View.VISIBLE
@@ -88,8 +93,10 @@ class VerificationErrorFragment : BasePageViewFragment(), VerificationErrorView 
     internal const val SYMBOL = "symbol"
 
     @JvmStatic
-    fun newInstance(errorType: VerificationCodeResult.ErrorType, verificationAmount: String?,
-                    symbol: String?): VerificationErrorFragment {
+    fun newInstance(
+      errorType: VerificationCodeResult.ErrorType, verificationAmount: String?,
+      symbol: String?
+    ): VerificationErrorFragment {
       return VerificationErrorFragment().apply {
         arguments = Bundle().apply {
           putInt(ERROR_TYPE, errorType.ordinal)

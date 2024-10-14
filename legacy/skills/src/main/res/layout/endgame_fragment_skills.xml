@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -71,11 +72,11 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="4dp"
           android:maxLines="1"
-          android:text="@string/opponent_details"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/animation_description_text"
+          tools:text=""
           />
 
       <androidx.recyclerview.widget.RecyclerView
@@ -98,7 +99,7 @@
           android:layout_marginStart="32dp"
           android:layout_marginTop="@dimen/big_margin"
           android:layout_marginEnd="32dp"
-          android:text="@string/restart_btn_text"
+          android:text="@string/restart_button"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/ranking_recycler_view"
@@ -115,7 +116,8 @@
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/restart_button">
+          app:layout_constraintTop_toBottomOf="@id/restart_button"
+          >
 
         <!-- Your button -->
         <Button
@@ -123,11 +125,12 @@
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/leaderboard_btn_text"
+            android:text="@string/leaderboard_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintVertical_bias="0"
+            />
         <ImageView
             android:id="@+id/sticker_image"
             android:layout_width="54dp"
@@ -148,7 +151,7 @@
           android:layout_marginTop="@dimen/big_margin"
           android:layout_marginEnd="32dp"
           android:layout_marginBottom="@dimen/big_margin"
-          android:text="@string/retry_btn_text"
+          android:text="@string/retry_button"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

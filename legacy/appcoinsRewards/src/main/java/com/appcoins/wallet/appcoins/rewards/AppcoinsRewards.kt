@@ -2,8 +2,6 @@ package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.core.network.microservices.model.Transaction as CoreTransaction
-import com.appcoins.wallet.core.network.microservices.model.Transaction.Status as CoreStatus
 import com.appcoins.wallet.core.utils.jvm_common.Repository
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -11,6 +9,8 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
+import com.appcoins.wallet.core.network.microservices.model.Transaction as CoreTransaction
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status as CoreStatus
 
 class AppcoinsRewards(
   private val repository: AppcoinsRewardsRepository,
@@ -24,15 +24,15 @@ class AppcoinsRewards(
   var lastPayTransaction: Transaction? = null
 
   fun pay(
-    amount: BigDecimal, origin: String?, sku: String?, type: String, developerAddress: String,
+    amount: BigDecimal, origin: String?, sku: String?, type: String,
     entityOemId: String?, entityDomainId: String?, packageName: String, payload: String?,
     callbackUrl: String?, orderReference: String?, referrerUrl: String?,
-    productToken: String?
+    productToken: String?, guestWalletId: String?
   ): Completable {
     lastPayTransaction = Transaction(
       sku = sku,
       type = type,
-      developerAddress = developerAddress,
+      developerAddress = "",
       entityOemId = entityOemId,
       entityDomain = entityDomainId,
       packageName = packageName,
@@ -45,6 +45,7 @@ class AppcoinsRewards(
       callback = callbackUrl,
       orderReference = orderReference,
       referrerUrl = referrerUrl,
+      guestWalletId = guestWalletId,
       productToken = productToken
     )
     return cache.save(getKey(amount.toString(), sku, packageName), lastPayTransaction)
@@ -67,13 +68,21 @@ class AppcoinsRewards(
                 walletService.signContent(walletAddress)
                   .flatMap { signature ->
                     repository.pay(
-                      walletAddress, signature, transaction.amount,
-                      getOrigin(transaction), transaction.sku, transaction.type,
-                      transaction.developerAddress, transaction.entityOemId,
-                      transaction.entityDomain, transaction.packageName,
-                      transaction.payload, transaction.callback,
-                      transaction.orderReference, transaction.referrerUrl,
-                      transaction.productToken
+                      walletAddress = walletAddress,
+                      signature = signature,
+                      amount = transaction.amount,
+                      origin = getOrigin(transaction),
+                      sku = transaction.sku,
+                      type = transaction.type,
+                      entityOemId = transaction.entityOemId,
+                      entityDomain = transaction.entityDomain,
+                      packageName = transaction.packageName,
+                      payload = transaction.payload,
+                      callback = transaction.callback,
+                      orderReference = transaction.orderReference,
+                      referrerUrl = transaction.referrerUrl,
+                      productToken = transaction.productToken,
+                      guestWalletId = transaction.guestWalletId
                     )
                   }
                   .flatMapCompletable { transaction1 ->
@@ -143,7 +152,7 @@ class AppcoinsRewards(
 
   fun sendCredits(
     toWallet: String, amount: BigDecimal,
-    packageName: String
+    packageName: String, guestWalletId: String?
   ): Single<AppcoinsRewardsRepository.Status> {
     return walletService.getWalletAddress()
       .flatMap { walletAddress ->
@@ -151,7 +160,7 @@ class AppcoinsRewards(
           .flatMap { signature ->
             repository.sendCredits(
               toWallet, walletAddress, signature, amount, "BDS",
-              "TRANSFER", packageName
+              "TRANSFER", packageName, guestWalletId
             )
           }.map { statusAndTransaction ->
             statusAndTransaction.first

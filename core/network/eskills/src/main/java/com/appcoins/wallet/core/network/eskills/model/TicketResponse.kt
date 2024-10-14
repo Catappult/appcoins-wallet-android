@@ -45,4 +45,28 @@ data class TicketResponse(
 
   @SerializedName("queue_id")
   val queueId: String?,
-)
+) {
+  companion object {
+    /**
+     * Creates an empty ticket response with the given status.
+     */
+    fun emptyWithStatus(ticketStatus: TicketStatus): TicketResponse {
+      return TicketResponse(
+        timestamp = "",
+        ticketId = "",
+        ticketStatus = ticketStatus,
+        walletAddress = "",
+        packageName = "",
+        userId = "",
+        callbackUrl = "",
+        ticketPrice = BigDecimal.ZERO,
+        priceCurrency = "",
+        productToken = "",
+        roomMetadata = emptyMap(),
+        paymentTransaction = "",
+        roomId = null,
+        queueId = null
+      )
+    }
+  }
+}

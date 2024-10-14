@@ -8,12 +8,12 @@
 
   <TextView
       android:id="@+id/last_bill_title"
-      style="@style/TextAppearance.AppCompat.Headline.Roboto.Medium"
+      style="@style/TransactionDetailsTextStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:lineSpacingExtra="0.25sp"
       android:text="@string/subscriptions_details_last_bill"
-      android:textColor="@color/styleguide_black_transparent_80"
+      android:textColor="@color/styleguide_dark_grey"
       app:layout_constraintEnd_toStartOf="@id/guideline_mid"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toStartOf="parent"
@@ -26,8 +26,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:fontFamily="sans-serif"
-      android:textColor="@color/styleguide_black_transparent_80"
-      android:textSize="16sp"
+      android:textColor="@color/styleguide_light_grey"
+      android:textSize="14sp"
       app:layout_constraintBottom_toBottomOf="@id/last_bill_title"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
@@ -43,6 +43,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="12dp"
       android:text="@string/subscriptions_details_start_date_title"
+      android:textColor="@color/styleguide_dark_grey"
       app:layout_constraintEnd_toStartOf="@id/guideline_mid"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toStartOf="@+id/last_bill_title"
@@ -68,26 +69,11 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="12dp"
       android:text="@string/subscriptions_details_payment_method_title"
+      android:textColor="@color/styleguide_dark_grey"
       app:layout_constraintEnd_toStartOf="@id/guideline_mid"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toStartOf="@+id/start_date_label"
       app:layout_constraintTop_toBottomOf="@id/start_date_label"
-      />
-
-  <ImageView
-      android:id="@+id/payment_method_icon"
-      android:layout_width="21dp"
-      android:layout_height="21dp"
-      android:layout_marginEnd="12dp"
-      android:adjustViewBounds="true"
-      android:contentDescription="@string/empty"
-      android:scaleType="centerInside"
-      app:layout_constraintBottom_toBottomOf="@+id/payment_method_value"
-      app:layout_constraintEnd_toStartOf="@id/payment_method_value"
-      app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintStart_toEndOf="@id/guideline_mid"
-      app:layout_constraintTop_toTopOf="@+id/payment_method_value"
-      tools:src="@drawable/ic_payment_method_paypal"
       />
 
   <TextView

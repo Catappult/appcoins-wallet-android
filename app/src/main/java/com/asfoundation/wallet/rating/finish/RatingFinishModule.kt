@@ -14,10 +14,14 @@ import io.reactivex.disposables.CompositeDisposable
 class RatingFinishModule {
 
   @Provides
-  fun providesRatingFinishPresenter(fragment: Fragment,
-                                    navigator: RatingNavigator,
-                                    ratingAnalytics: RatingAnalytics): RatingFinishPresenter {
-    return RatingFinishPresenter(fragment as RatingFinishView, ratingAnalytics, navigator,
-        CompositeDisposable())
+  fun providesRatingFinishPresenter(
+    fragment: Fragment,
+    navigator: RatingNavigator,
+    ratingAnalytics: RatingAnalytics
+  ): RatingFinishPresenter {
+    return RatingFinishPresenter(
+      fragment as RatingFinishView, ratingAnalytics, navigator,
+      CompositeDisposable()
+    )
   }
 }

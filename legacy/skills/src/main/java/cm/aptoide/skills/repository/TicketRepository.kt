@@ -1,8 +1,17 @@
 package cm.aptoide.skills.repository
 
-import cm.aptoide.skills.model.*
+import cm.aptoide.skills.model.EskillsVerification
+import cm.aptoide.skills.model.ReferralMapper
+import cm.aptoide.skills.model.ReferralResult
+import cm.aptoide.skills.model.SuccessfulReferral
+import cm.aptoide.skills.model.Ticket
+import cm.aptoide.skills.model.WalletAddress
 import com.appcoins.wallet.core.network.eskills.api.TicketApi
-import com.appcoins.wallet.core.network.eskills.model.*
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
+import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
+import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
+import com.appcoins.wallet.core.network.eskills.model.TicketRequest
+import com.appcoins.wallet.core.network.eskills.model.TicketResponse
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
@@ -37,7 +46,9 @@ class TicketRepository @Inject constructor(
     eskillsPaymentData.currency,
     eskillsPaymentData.product,
     eskillsPaymentData.timeout,
-    eskillsPaymentData.queueId?.id
+    eskillsPaymentData.queueId?.id,
+    eskillsPaymentData.versionName,
+    eskillsPaymentData.versionCode,
   )
 
   fun getTicket(ewt: String, ticketId: String, queueIdentifier: QueueIdentifier?): Single<Ticket> {
@@ -59,7 +70,7 @@ class TicketRepository @Inject constructor(
   ): Single<ReferralResult> {
     return ticketApi.postReferralTransaction(ewt, referralCode)
       .subscribeOn(Schedulers.io())
-      .map{
+      .map {
         SuccessfulReferral(it) as ReferralResult
       }
       .onErrorReturn {
@@ -69,10 +80,10 @@ class TicketRepository @Inject constructor(
 
   fun getFirstTimeUserCheck(
     ewt: String
-  ): Single<Boolean>{
+  ): Single<Boolean> {
     return ticketApi.getFirstTimeUserCheck(ewt)
       .subscribeOn(Schedulers.io())
-      .map{ it.firstTimeUserCheck }
+      .map { it.firstTimeUserCheck }
       .onErrorReturn { false }
   }
 

@@ -1,9 +1,9 @@
 package com.appcoins.wallet.gamification.repository
 
-import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.core.network.backend.model.LevelsResponse
 import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
+import com.appcoins.wallet.gamification.GamificationContext
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -48,8 +48,4 @@ interface UserStatsLocalData {
   fun isVipCalloutAlreadySeen(wallet: String): Boolean
 
   fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean)
-
-  fun isReferralNotificationSeen(wallet: String): Boolean
-
-  fun setReferralNotificationSeen(wallet: String, isSeen: Boolean)
 }

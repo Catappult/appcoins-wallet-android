@@ -1,8 +1,8 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.payments.response.Action
-import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
 import com.appcoins.wallet.billing.util.Error
+import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
 import java.io.Serializable
 
 data class PaymentModel(
@@ -13,8 +13,8 @@ data class PaymentModel(
   val redirectUrl: String?,
   val paymentData: String?,
   val uid: String,
-  val purchaseUid: String?,
-  val hash: String?,
+  var purchaseUid: String?,
+  var hash: String?,
   val orderReference: String?,
   val fraudResultIds: List<Int>,
   val status: Status,
@@ -28,9 +28,14 @@ data class PaymentModel(
     Status.FAILED, null, null, error
   )
 
+  constructor() : this(
+    "", null, null, null, "", "", "", null, "", "", emptyList(),
+    Status.COMPLETED, null, null
+  )
+
   constructor(response: TransactionResponse, status: Status) : this(
     "", null, null, null, "", "",
-    response.uid, null, response.hash, response.orderReference, emptyList(), status,
+    response.uid, response.metadata?.purchaseUid, response.hash, response.orderReference, emptyList(), status,
     response.metadata?.errorMessage, response.metadata?.errorCode
   )
 

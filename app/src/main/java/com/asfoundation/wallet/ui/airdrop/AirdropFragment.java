@@ -15,14 +15,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.appcoins.wallet.core.utils.android_common.Log;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
-import com.appcoins.wallet.core.utils.android_common.Log;
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -54,49 +54,6 @@ import javax.inject.Inject;
     presenter = new AirdropPresenter(this, new CompositeDisposable(), airdropInteractor,
         AndroidSchedulers.mainThread());
     terminateStateConsumed = BehaviorSubject.create();
-  }
-
-  @Nullable @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_airdrop, container, false);
-  }
-
-  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    captchaView = view.findViewById(R.id.captcha_img);
-    submitButton = view.findViewById(R.id.submit_btn);
-    refreshButton = view.findViewById(R.id.refresh_btn);
-    captchaAnswerView = view.findViewById(R.id.answer_text);
-    captchaAnswerView.addTextChangedListener(new TextWatcher() {
-      @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-      }
-
-      @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (!submitButton.isEnabled() && s.length() > 0) {
-          submitButton.setEnabled(true);
-        } else if (submitButton.isEnabled() && s.length() == 0) {
-          submitButton.setEnabled(false);
-        }
-      }
-
-      @Override public void afterTextChanged(Editable s) {
-
-      }
-    });
-    presenter.present();
-  }
-
-  @Override public void onDestroyView() {
-    presenter.stop();
-    dismissDialog(loading);
-    loading = null;
-    dismissDialog(genericErrorDialog);
-    genericErrorDialog = null;
-    dismissDialog(errorDialog);
-    errorDialog = null;
-    super.onDestroyView();
   }
 
   private void dismissDialog(Dialog dialog) {
@@ -200,6 +157,49 @@ import javax.inject.Inject;
           .getSimpleName() + " should implement " + AirdropBack.class.getSimpleName());
     }
     airdropBack = ((AirdropBack) context);
+  }
+
+  @Nullable @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.fragment_airdrop, container, false);
+  }
+
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    captchaView = view.findViewById(R.id.captcha_img);
+    submitButton = view.findViewById(R.id.submit_btn);
+    refreshButton = view.findViewById(R.id.refresh_btn);
+    captchaAnswerView = view.findViewById(R.id.answer_text);
+    captchaAnswerView.addTextChangedListener(new TextWatcher() {
+      @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+      }
+
+      @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (!submitButton.isEnabled() && s.length() > 0) {
+          submitButton.setEnabled(true);
+        } else if (submitButton.isEnabled() && s.length() == 0) {
+          submitButton.setEnabled(false);
+        }
+      }
+
+      @Override public void afterTextChanged(Editable s) {
+
+      }
+    });
+    presenter.present();
+  }
+
+  @Override public void onDestroyView() {
+    presenter.stop();
+    dismissDialog(loading);
+    loading = null;
+    dismissDialog(genericErrorDialog);
+    genericErrorDialog = null;
+    dismissDialog(errorDialog);
+    errorDialog = null;
+    super.onDestroyView();
   }
 
   public interface AirdropBack {

@@ -20,7 +20,8 @@ class TransferConfirmationModule {
     interactor: TransferConfirmationInteractor,
     gasSettingsRouter: GasSettingsRouter,
     logger: Logger,
-    navigator: TransferConfirmationNavigator) =
+    navigator: TransferConfirmationNavigator
+  ) =
     TransferConfirmationViewModelFactory(interactor, gasSettingsRouter, logger, navigator)
 }
 
@@ -28,11 +29,14 @@ class TransferConfirmationViewModelFactory(
   private val transferConfirmationInteractor: TransferConfirmationInteractor,
   private val gasSettingsRouter: GasSettingsRouter,
   private val logger: Logger,
-  private val transferConfirmationNavigator: TransferConfirmationNavigator) :
+  private val transferConfirmationNavigator: TransferConfirmationNavigator
+) :
   ViewModelProvider.Factory {
 
   override fun <T : ViewModel> create(modelClass: Class<T>): T {
-    return TransferConfirmationViewModel(transferConfirmationInteractor, gasSettingsRouter,
-      logger, transferConfirmationNavigator) as T
+    return TransferConfirmationViewModel(
+      transferConfirmationInteractor, gasSettingsRouter,
+      logger, transferConfirmationNavigator
+    ) as T
   }
 }

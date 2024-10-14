@@ -91,7 +91,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
   fun sendPaypalErrorEvent(errorCode: String? = null, errorDetails: String) {
     val map = HashMap<String, Any>()
     map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
-    errorCode?.let{ map[ERROR_CODE] = errorCode }
+    errorCode?.let { map[ERROR_CODE] = errorCode }
     map[ERROR_DETAILS] = errorDetails
     analyticsManager.logEvent(
       map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
@@ -99,17 +99,24 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     )
   }
 
-  fun sendBillingAddressActionEvent(
-    value: Double,
-    paymentMethod: String,
-    action: String
-  ) {
-    val map = topUpBaseMap(value, paymentMethod)
-
-    map[ACTION] = action
-
+  fun sendGooglePaySuccessEvent(value: String) {
+    val map = HashMap<String, Any>()
+    map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
+    map[VALUE] = value
+    map[STATUS] = STATUS_SUCCESS
     analyticsManager.logEvent(
-      map, WALLET_TOP_UP_BILLING, AnalyticsManager.Action.CLICK,
+      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
+  fun sendGooglePayErrorEvent(errorCode: String? = null, errorDetails: String) {
+    val map = HashMap<String, Any>()
+    map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
+    errorCode?.let { map[ERROR_CODE] = errorCode }
+    map[ERROR_DETAILS] = errorDetails
+    analyticsManager.logEvent(
+      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
       WALLET
     )
   }
@@ -150,6 +157,35 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     )
   }
 
+  fun openChangeCardBottomSheet() {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(),
+      WALLET_APP_TOP_UP_CLICK,
+      AnalyticsManager.Action.CLICK,
+      PaymentMethodsAnalytics.WALLET
+    )
+  }
+
+  fun sendChangeAndAddCardClickEvent() {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(),
+      WALLET_APP_TOP_UP_CHANGE_CARD_PROMPT_CLICK,
+      AnalyticsManager.Action.CLICK,
+      PaymentMethodsAnalytics.WALLET
+    )
+  }
+
+  fun sendTrueLayerErrorEvent(errorCode: String? = null, errorDetails: String) {
+    val map = HashMap<String, Any>()
+    map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_TRUE_LAYER
+    errorCode?.let { map[ERROR_CODE] = errorCode }
+    map[ERROR_DETAILS] = errorDetails
+    analyticsManager.logEvent(
+      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
   companion object {
     const val WALLET_TOP_UP_START = "wallet_top_up_start"
     const val WALLET_TOP_UP_SELECTION = "wallet_top_up_selection"
@@ -158,6 +194,10 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     const val WALLET_TOP_UP_PAYPAL_URL = "wallet_top_up_conclusion_paypal"
     const val WALLET_TOP_UP_BILLING = "wallet_top_up_billing"
     const val STATUS_SUCCESS = "success"
+    const val WALLET_APP_TOP_UP_IMPRESSION = "wallet_app_top_up_impression"
+    const val WALLET_APP_TOP_UP_CLICK = "wallet_app_top_up_click"
+    const val WALLET_APP_TOP_UP_CHANGE_CARD_PROMPT_CLICK =
+      "wallet_app_top_up_change_card_prompt_click"
     private const val VALUE = "value"
     private const val ACTION = "action"
     private const val METHOD = "payment_method"

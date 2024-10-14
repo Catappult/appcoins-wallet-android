@@ -14,6 +14,6 @@ dependencies {
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:shared-preferences"))
-  implementation(project(":ui:arch"))
+  implementation(project(":core:arch"))
   implementation(project(":core:walletServices"))
 }

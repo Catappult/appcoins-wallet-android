@@ -1,12 +1,11 @@
 package com.asfoundation.wallet.ui.iab
 
-import com.appcoins.wallet.appcoins.rewards.Transaction
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -61,7 +60,6 @@ class AppcoinsRewardsBuyPresenter(
       .pay(
         transactionBuilder.skuId,
         transactionBuilder.amount(),
-        transactionBuilder.toAddress(),
         packageName,
         getOrigin(isBds, transactionBuilder),
         transactionBuilder.type,
@@ -69,7 +67,8 @@ class AppcoinsRewardsBuyPresenter(
         transactionBuilder.callbackUrl,
         transactionBuilder.orderReference,
         transactionBuilder.referrerUrl,
-        transactionBuilder.productToken
+        transactionBuilder.productToken,
+        transactionBuilder.guestWalletId
       )
       .andThen(
         rewardsManager.getPaymentStatus(
@@ -117,7 +116,13 @@ class AppcoinsRewardsBuyPresenter(
             .flatMapCompletable { purchase ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
-                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
+                .andThen(
+                  Completable.timer(
+                    view.getAnimationDuration(),
+                    TimeUnit.MILLISECONDS,
+                    viewScheduler
+                  )
+                )
                 .andThen(Completable.fromAction { appcoinsRewardsBuyInteract.removeAsyncLocalPayment() })
                 .andThen(Completable.fromAction {
                   view.finish(purchase, transaction.orderReference)
@@ -136,23 +141,38 @@ class AppcoinsRewardsBuyPresenter(
             .flatMapCompletable { transactionModel ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
-                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
-                .andThen(Completable.fromAction { view.finish(transactionModel.txId, transactionModel.txId ?: "") })
+                .andThen(
+                  Completable.timer(
+                    view.getAnimationDuration(),
+                    TimeUnit.MILLISECONDS,
+                    viewScheduler
+                  )
+                )
+                .andThen(Completable.fromAction {
+                  view.finish(
+                    transactionModel.txId,
+                    transactionModel.txId ?: ""
+                  )
+                })
             }
         }
       }
+
       Status.ERROR -> Completable.fromAction {
         logger.log(TAG, "Credits error: ${transaction.errorMessage}")
         view.showError(null)
       }.subscribeOn(viewScheduler)
+
       Status.FORBIDDEN -> Completable.fromAction {
         logger.log(TAG, "Forbidden")
         handleFraudFlow()
       }
+
       Status.SUB_ALREADY_OWNED -> Completable.fromAction {
         logger.log(TAG, "Sub already owned")
         view.showError(R.string.subscriptions_error_already_subscribed)
       }.subscribeOn(viewScheduler)
+
       Status.NO_NETWORK -> Completable.fromAction {
         logger.log(TAG, Exception("PaymentStatus no network"))
         view.showNoNetworkError()
@@ -171,12 +191,12 @@ class AppcoinsRewardsBuyPresenter(
             appcoinsRewardsBuyInteract
               .isWalletVerified()
               .observeOn(viewScheduler)
-              .doOnSuccess {
-                if (it) {
+              .doOnSuccess { walletVerified ->
+                if (walletVerified) {
                   logger.log(TAG, Exception("FraudFlow blocked"))
                   view.showError(R.string.purchase_error_wallet_block_code_403)
                 } else {
-                  view.showVerification()
+                  view.showCreditCardVerification()
                 }
               }
           } else {
@@ -219,6 +239,18 @@ class AppcoinsRewardsBuyPresenter(
       ).toString()
     )
   }
+
+  fun sendPaymentConfirmationEvent() {
+    analytics.sendPaymentConfirmationEvent(
+      packageName = packageName,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_REWARDS,
+      transactionType = transactionBuilder.type,
+      action = BillingAnalytics.ACTION_BUY
+    )
+  }
+
 
   fun sendPaymentSuccessEvent(txId: String) {
     paymentAnalytics.stopTimingForPurchaseEvent(

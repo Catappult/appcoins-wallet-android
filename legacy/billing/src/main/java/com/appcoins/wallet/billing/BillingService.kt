@@ -8,7 +8,11 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingFactory
 import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
-import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.InAppMapper
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.SubscriptionsMapper
 import io.reactivex.schedulers.Schedulers
 
 class BillingService : Service() {
@@ -35,14 +39,15 @@ class BillingService : Service() {
               dependenciesProvider.brokerBdsApi(),
               dependenciesProvider.inappApi(),
               BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-              dependenciesProvider.bdsApiSecondary(),
               dependenciesProvider.subscriptionsApi(),
               dependenciesProvider.ewtObtainer(),
-              dependenciesProvider.rxSchedulers()
+              dependenciesProvider.rxSchedulers(),
+              dependenciesProvider.fiatCurrenciesPreferencesDataSource()
             )
           ),
           dependenciesProvider.walletService(),
-          BillingThrowableCodeMapper()
+          BillingThrowableCodeMapper(),
+          dependenciesProvider.partnerAddressService()
         )
       },
       serializer,

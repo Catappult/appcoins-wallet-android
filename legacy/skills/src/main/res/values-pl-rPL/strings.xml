@@ -7,6 +7,13 @@
   <string name="cancel">Anuluj</string>
   <string name="buy_button">Kup</string>
   <string name="topup_button">Doładowanie</string>
+  <string name="downloading">Pobieranie</string>
+  <string name="get_button">Pobierz</string>
+  <string name="got_it_button">Rozumiem</string>
+  <string name="install_button">Instaluj</string>
+  <string name="retry_button">Spróbuj ponownie</string>
+  <string name="restart_button">Restart</string>
+  <string name="update_button">Aktualizuj</string>
   <string name="provide_wallet_creating_wallet_header">Tworzenie adresu portfela&#8230;</string>
   <string name="processing_loading_title">Drukowanie biletu</string>
   <string name="finding_room_loading_title">Czekanie na przeciwnika</string>
@@ -36,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Ta wersja portfela nie jest obsługiwana!</string>
   <string name="update_not_supported_body">Zaktualizuj aplikację AppCoins Wallet do najnowszej wersji.</string>
-  <string name="update_button">Aktualizuj</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Ty i zaproszeni znajomi otrzymacie bonus $%s. Możesz zaprosić do 5 znajomych, którzy muszą być nowymi użytkownikami. Bonus zostanie zaksięgowany w portfelu, gdy użyją kodu zaproszenia w pierwszej grze e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Gotów pokazać, co potrafisz?</string>
@@ -54,4 +60,65 @@
   <string name="not_enough_funds_body">Brak wystarczających środków! Doładuj portfel, by kupić bilet wstępu.</string>
   <string name="error_message_local_payment_method_body">Lokalne metody płatności nie są akceptowane do zakupu wejścia. Utwórz nowy portfel i uzupełnij go kartą bankową lub PayPal!</string>
   <string name="rooted_device_blocked_body">Niestety nie można grać w gry e-Skills za pomocą zrootowanego urządzenia.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">Zaktualizuj wersję gry do najnowszej wersji!</string>
+  <string name="error_game_not_supported_body">Wygląda na to, że ta gra jest teraz niedostępna.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">Czekamy, aż przeciwnicy zakończą grę.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s zdobył %2$d punktów)</item>
+    <item quantity="few">(%1$s zdobyło %2$d punkty)</item>
+    <item quantity="many">(%1$s zdobyli %2$d punktów)</item>
+    <item quantity="other">(%1$s zdobyło %2$d punktów)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d punkt</item>
+    <item quantity="few">%1$d punkty</item>
+    <item quantity="many">%1$d punktów</item>
+    <item quantity="other">%1$d punktów</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f zostały zapisane do Twojego portfela)</string>
+  <string name="you_won">Wygrywasz! %1$s</string>
+  <string name="you_lost_timeout">Koniec czasu, przegrywasz! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="one">Dzień</item>
+    <item quantity="few">Dni</item>
+    <item quantity="many">Dni</item>
+    <item quantity="other">Dni</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Godzina</item>
+    <item quantity="few">Godziny</item>
+    <item quantity="many">Godzin</item>
+    <item quantity="other">Godzin</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Minuta</item>
+    <item quantity="few">Minuty</item>
+    <item quantity="many">Minut</item>
+    <item quantity="other">Minut</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Sekunda</item>
+    <item quantity="few">Sekundy</item>
+    <item quantity="many">Sekund</item>
+    <item quantity="other">Sekund</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Kolejna nagroda za</string>
+  <string name="current_top_3">Obecne Top 3</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">Leaderboardy</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">Zarabiaj</string>
+  <string name="eskills_carousel_body">Pokonaj innych graczy z e-Skills</string>
+  <string name="eskills_game_1">Pobierz e-Skills jeśli czujesz, że to dla Ciebie.</string>
+  <string name="carousel_game_2">Otwórz i otrzymaj bilet na mecz przeciwko innym graczom.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">Opis</string>
 </resources>

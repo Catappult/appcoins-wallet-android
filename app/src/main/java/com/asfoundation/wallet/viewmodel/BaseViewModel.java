@@ -4,9 +4,9 @@ import android.text.TextUtils;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.asfoundation.wallet.C;
-import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.appcoins.wallet.core.utils.android_common.Log;
+import com.appcoins.wallet.core.utils.jvm_common.C;
+import com.asfoundation.wallet.entity.ErrorEnvelope;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class BaseViewModel extends ViewModel {

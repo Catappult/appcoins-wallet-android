@@ -1,19 +1,19 @@
-import groovy.json.JsonSlurper
-
 plugins {
   id("appcoins.android.app")
   id("appcoins.room")
   id("appcoins.hilt")
+  id("appcoins.firebase")
   id("com.google.gms.google-services")
   id("androidx.navigation.safeargs.kotlin")
   id("de.mannodermaus.android-junit5")
 }
 
 android {
+  namespace = "com.asf.wallet"
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 270
-    versionName = "2.15.2"
+    versionCode = 329
+    versionName = "3.29.4"
   }
 }
 
@@ -41,11 +41,23 @@ dependencies {
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:utils:properties"))
+  implementation(project(":core:arch"))
+  implementation(project(":core:legacy-base"))
   implementation(project(":ui:common"))
-  implementation(project(":ui:arch"))
   implementation(project(":ui:widgets"))
+  implementation(project(":feature:challenge-reward:data"))
+  implementation(project(":feature:change-currency:data"))
+  implementation(project(":feature:change-currency:ui"))
+  implementation(project(":feature:wallet-info:data"))
+  implementation(project(":feature:backup:data"))
+  implementation(project(":feature:support:data"))
+  implementation(project(":feature:backup:ui"))
+  implementation(project(":feature:promo-code:data"))
+  implementation(project(":feature:vk-pay"))
 
   implementation(libs.kotlin.coroutines)
+  implementation(libs.kotlin.coroutines.rx2)
+  implementation(libs.bundles.result)
 
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.core.ktx)
@@ -83,24 +95,26 @@ dependencies {
   implementation(libs.google.zxing)
   implementation(libs.zxing.android)
 
+  implementation(libs.bundles.vk)
+
   implementation(libs.bundles.adyen) {
     exclude(group = "io.michaelrocks", module = "paranoid-core")
     // To resolve the bouncycastle version conflict with the adyen (1.68 vs 1.69)
     exclude(group = "org.bouncycastle", module = "bcprov-jdk15to18")
   }
+  implementation(platform(libs.firebase.bom))
   implementation(libs.firebase.messaging)
-  implementation(libs.intercom) {
-    exclude(group = "com.google.android", module = "flexbox")
-  }
+  implementation(libs.intercom) { exclude(group = "com.google.android", module = "flexbox") }
   implementation(libs.paranoid)
   implementation(libs.flexbox)
 
   implementation(libs.bundles.analytics)
 
-  implementation(libs.lottie)
+  implementation(libs.bundles.lottie)
   implementation(libs.shimmer)
   implementation(libs.glide)
   kapt(libs.glide.compiler)
+  implementation(libs.bundles.coil)
 
   implementation(libs.epoxy)
   kapt(libs.epoxy.processor)
@@ -115,6 +129,10 @@ dependencies {
   implementation(libs.commons.lang3)
   implementation(libs.android.support.annotations)
   implementation(libs.android.installreferrer)
+
+  implementation(libs.truelayer.payments)
+
+  implementation(libs.bundles.paging)
 
   testImplementation(libs.bundles.testing)
   androidTestImplementation(libs.test.junit.ext)

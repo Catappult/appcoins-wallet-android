@@ -8,14 +8,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
+import com.appcoins.wallet.core.utils.android_common.extensions.safeLet
+import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.appcoins.wallet.core.utils.android_common.extensions.safeLet
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class SettingsCurrencyPreference(context: Context, attrs: AttributeSet?) :
-    Preference(context, attrs) {
-  private var selectedCurrency: FiatCurrencyEntity? = null
+  Preference(context, attrs) {
+  private var selectedCurrency: FiatCurrency? = null
   private var currency: TextView? = null
   private var flag: ImageView? = null
   var preferenceClickListener: View.OnClickListener? = null
@@ -32,7 +33,7 @@ class SettingsCurrencyPreference(context: Context, attrs: AttributeSet?) :
     setFlagImageView()
   }
 
-  fun setCurrency(selectedCurrency: FiatCurrencyEntity) {
+  fun setCurrency(selectedCurrency: FiatCurrency) {
     this.selectedCurrency = selectedCurrency
     setCurrencyTextView()
     setFlagImageView()
@@ -45,10 +46,10 @@ class SettingsCurrencyPreference(context: Context, attrs: AttributeSet?) :
   private fun setFlagImageView() {
     safeLet(flag, selectedCurrency?.flag) { flagView, flagUrl ->
       GlideApp.with(context)
-          .load(Uri.parse(flagUrl))
-          .transition(DrawableTransitionOptions.withCrossFade())
-          .circleCrop()
-          .into(flagView)
+        .load(Uri.parse(flagUrl))
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .circleCrop()
+        .into(flagView)
     }
   }
 }

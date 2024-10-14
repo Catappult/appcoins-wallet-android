@@ -8,12 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletButtonViewBinding
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.appcoins.wallet.ui.common.setMargins
+import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletButtonViewBinding
 
 class WalletButtonView : FrameLayout {
 
@@ -23,6 +22,8 @@ class WalletButtonView : FrameLayout {
   private var type = Type.FILLED
 
   private var color = ContextCompat.getColor(this.context, R.color.styleguide_pink)
+
+  private var greyColor = ContextCompat.getColor(this.context, R.color.styleguide_light_grey)
 
   private var enabled = true
 
@@ -97,10 +98,6 @@ class WalletButtonView : FrameLayout {
     applyType()
   }
 
-  fun setColorResource(@ColorRes colorRes: Int) {
-    setColor(ContextCompat.getColor(this.context, colorRes))
-  }
-
   private fun applyType() {
     if (enabled) {
       views.root.isClickable = true
@@ -126,6 +123,7 @@ class WalletButtonView : FrameLayout {
               ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.styleguide_white))
           }
         }
+
         Type.OUTLINED -> {
           views.root.setCardBackgroundColor(
             ContextCompat.getColor(this.context, R.color.transparent)
@@ -146,6 +144,28 @@ class WalletButtonView : FrameLayout {
             views.imageRight.imageTintList = ColorStateList.valueOf(color)
           }
         }
+
+        Type.OUTLINED_GREY -> {
+          views.root.setCardBackgroundColor(
+            ContextCompat.getColor(this.context, R.color.transparent)
+          )
+          views.root.strokeColor = greyColor
+          views.root.strokeWidth = 1.convertDpToPx(resources)
+          views.root.rippleColor = ColorStateList.valueOf(color)
+          views.text.setTextColor(greyColor)
+          views.text.isAllCaps = isAllCaps
+          imageLeft?.let { image ->
+            views.imageLeft.setImageDrawable(image)
+            views.imageLeft.visibility = View.VISIBLE
+            views.imageLeft.imageTintList = ColorStateList.valueOf(color)
+          }
+          imageRight?.let { image ->
+            views.imageRight.setImageDrawable(image)
+            views.imageRight.visibility = View.VISIBLE
+            views.imageRight.imageTintList = ColorStateList.valueOf(color)
+          }
+        }
+
         Type.TEXT -> {
           views.root.setCardBackgroundColor(
             ContextCompat.getColor(this.context, R.color.transparent)
@@ -168,6 +188,7 @@ class WalletButtonView : FrameLayout {
             views.imageRight.imageTintList = ColorStateList.valueOf(color)
           }
         }
+
         Type.FILLED_GRAY_PINK -> {
           views.root.setCardBackgroundColor(
             ContextCompat.getColor(
@@ -197,11 +218,17 @@ class WalletButtonView : FrameLayout {
             views.imageRight.setMargins(0, 0, 0, 0)
           }
         }
+
         else -> {}
       }
     } else {
       views.root.isClickable = false
-      views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.styleguide_medium_grey))
+      views.root.setCardBackgroundColor(
+        ContextCompat.getColor(
+          this.context,
+          R.color.styleguide_medium_grey
+        )
+      )
       views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
       views.root.strokeWidth = 0
       views.root.setRippleColorResource(R.color.styleguide_white)
@@ -213,5 +240,5 @@ class WalletButtonView : FrameLayout {
     views.root.setOnClickListener(l)
   }
 
-  enum class Type { FILLED, OUTLINED, TEXT, DISABLE, FILLED_GRAY_PINK }
+  enum class Type { FILLED, OUTLINED, TEXT, DISABLE, FILLED_GRAY_PINK, OUTLINED_GREY }
 }

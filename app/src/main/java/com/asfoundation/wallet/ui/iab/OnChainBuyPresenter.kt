@@ -2,12 +2,12 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
-import com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -134,6 +134,7 @@ class OnChainBuyPresenter(
           .flatMapCompletable { bundle -> handleSuccessTransaction(bundle, transaction.uid ?: "") }
           .onErrorResumeNext { Completable.fromAction { showError(it) } }
       }
+
       Payment.Status.NO_FUNDS -> Completable.fromAction {
         logger.log(TAG, Exception("PendingTransaction no funds"))
         view.showNoFundsError()
@@ -179,11 +180,14 @@ class OnChainBuyPresenter(
         view.lockRotation()
         Completable.fromAction { view.showBuying() }
       }
+
       Payment.Status.FORBIDDEN -> Completable.fromAction { handleFraudFlow() }
         .andThen(onChainBuyInteract.remove(transaction.uri))
+
       Payment.Status.SUB_ALREADY_OWNED -> Completable.fromAction {
         showError(null, "Sub Already Owned", R.string.subscriptions_error_already_subscribed)
       }
+
       Payment.Status.ERROR -> Completable.fromAction {
         showError(null, "Payment status: ${transaction.status.name}")
       }
@@ -293,7 +297,7 @@ class OnChainBuyPresenter(
                 logger.log(TAG, Exception("FraudFlow blocked"))
                 view.showForbiddenError()
               } else {
-                view.showVerification()
+                view.showCreditCardVerification()
               }
             }
         } else {

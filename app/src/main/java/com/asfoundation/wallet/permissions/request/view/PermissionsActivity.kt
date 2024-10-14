@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.PermissionsInteractor
-import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionFragmentNavigator,
-    CreateWalletNavigator {
+  CreateWalletNavigator {
 
   companion object {
     private const val PERMISSION_NAME_KEY = "PERMISSION_NAME_KEY"
@@ -37,13 +37,16 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
       val permissionName = getPermission()
       callingPackage?.let {
         presenter =
-            PermissionsActivityPresenter(this, permissionsInteractor, it,
-                getSignature(it), permissionName, CompositeDisposable(),
-                AndroidSchedulers.mainThread(), savedInstanceState == null)
+          PermissionsActivityPresenter(
+            this, permissionsInteractor, it,
+            getSignature(it), permissionName, CompositeDisposable(),
+            AndroidSchedulers.mainThread(), savedInstanceState == null
+          )
       } ?: closeError("Null calling package")
     } catch (e: IllegalArgumentException) {
       closeError(
-          "Unknown permission name. \nKnown permissions: " + PermissionName.WALLET_ADDRESS.name)
+        "Unknown permission name. \nKnown permissions: " + PermissionName.WALLET_ADDRESS.name
+      )
     }
   }
 
@@ -64,7 +67,7 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
   private fun getSignature(callingPackage: String): String {
     val signature = StringBuilder()
     for (sig in packageManager
-        .getPackageInfo(callingPackage, PackageManager.GET_SIGNATURES).signatures) {
+      .getPackageInfo(callingPackage, PackageManager.GET_SIGNATURES).signatures) {
       signature.append(String(sig.toByteArray()))
     }
     return signature.toString()
@@ -95,8 +98,10 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
     return PermissionName.valueOf(intent.extras?.get(PERMISSION_NAME_KEY) as String)
   }
 
-  override fun showPermissionFragment(callingPackage: String,
-                                      permission: PermissionName, apkSignature: String) {
+  override fun showPermissionFragment(
+    callingPackage: String,
+    permission: PermissionName, apkSignature: String
+  ) {
     showFragment(PermissionFragment.newInstance(callingPackage, apkSignature, permission))
   }
 
@@ -106,8 +111,8 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
 
   private fun showFragment(fragment: Fragment) {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, fragment)
-        .commit()
+      .replace(R.id.fragment_container, fragment)
+      .commit()
   }
 
   override fun closeSuccess() {

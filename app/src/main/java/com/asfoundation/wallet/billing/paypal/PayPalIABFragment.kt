@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,8 +13,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
-import com.airbnb.lottie.FontAssetDelegate
-import com.airbnb.lottie.TextDelegate
+import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPaypalBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -24,16 +22,19 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
+import com.asfoundation.wallet.ui.iab.OnBackPressedListener
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PayPalIABFragment() : BasePageViewFragment() {
+class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
 
   @Inject
   lateinit var navigator: PayPalIABNavigator
@@ -103,15 +104,19 @@ class PayPalIABFragment() : BasePageViewFragment() {
         PayPalIABViewModel.State.Start -> {
           showLoadingAnimation()
         }
+
         is PayPalIABViewModel.State.Error -> {
           showSpecificError(state.stringRes)
         }
+
         is PayPalIABViewModel.State.SuccessPurchase -> {
           handleSuccess(state.bundle)
         }
+
         PayPalIABViewModel.State.TokenCanceled -> {
-          close()
+          iabView.showPaymentMethodsView()
         }
+
         is PayPalIABViewModel.State.WebViewAuthentication -> {
           startWebViewAuthorization(state.url)
         }
@@ -120,7 +125,7 @@ class PayPalIABFragment() : BasePageViewFragment() {
   }
 
   private fun startPayment() {
-    viewModel.attemptTransaction(
+    viewModel.startPayment(
       createTokenIfNeeded = true,
       amount = amount,
       currency = currency,
@@ -157,7 +162,10 @@ class PayPalIABFragment() : BasePageViewFragment() {
   }
 
   private fun concludeWithSuccess() {
-    navigatorIAB?.popView(successBundle)
+    viewLifecycleOwner.lifecycleScope.launch {
+      delay(1500L)
+      navigatorIAB?.popView(successBundle)
+    }
   }
 
   private fun handleSuccess(bundle: Bundle) {
@@ -165,7 +173,7 @@ class PayPalIABFragment() : BasePageViewFragment() {
   }
 
   private fun close() {
-    iabView.close(null)
+    iabView.close(Bundle())
   }
 
   private fun showSuccessAnimation(bundle: Bundle) {
@@ -192,28 +200,14 @@ class PayPalIABFragment() : BasePageViewFragment() {
   private fun getAnimationDuration() = views.successContainer.lottieTransactionSuccess.duration
 
   private fun handleBonusAnimation() {
+    views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation)
-      setupTransactionCompleteAnimation()
+      views.successContainer.transactionSuccessBonusText.text =
+        getString(R.string.purchase_success_bonus_received_title, bonus)
+      views.successContainer.bonusSuccessLayout.visibility = View.VISIBLE
     } else {
-      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
+      views.successContainer.bonusSuccessLayout.visibility = View.GONE
     }
-  }
-
-  private fun setupTransactionCompleteAnimation() {
-    val textDelegate = TextDelegate(views.successContainer.lottieTransactionSuccess)
-    textDelegate.setText("bonus_value", bonus)
-    textDelegate.setText(
-      "bonus_received",
-      resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
-    views.successContainer.lottieTransactionSuccess.setTextDelegate(textDelegate)
-    views.successContainer.lottieTransactionSuccess.setFontAssetDelegate(object :
-      FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
   }
 
   private val amount: BigDecimal by lazy {
@@ -312,6 +306,10 @@ class PayPalIABFragment() : BasePageViewFragment() {
       }
     }
 
+  }
+
+  override fun onBackPressed() {
+    iabView.showPaymentMethodsView()
   }
 
 }

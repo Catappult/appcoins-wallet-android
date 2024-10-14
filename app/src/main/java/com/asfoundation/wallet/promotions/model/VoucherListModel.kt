@@ -6,5 +6,7 @@ data class VoucherListModel(val vouchers: List<Voucher>, val error: Error? = nul
   constructor(error: Error) : this(emptyList(), error)
 }
 
-data class Voucher(val packageName: String, val title: String, val icon: String,
-                   val hasAppcoins: Boolean)
+data class Voucher(
+  val packageName: String, val title: String, val icon: String,
+  val hasAppcoins: Boolean
+)

@@ -36,6 +36,18 @@
     <action
         android:id="@+id/action_navigate_to_onboarding_local_payment"
         app:destination="@id/onboarding_local_payment_fragment" />
+
+    <action
+        android:id="@+id/action_navigate_to_onboarding_vk_payment"
+        app:destination="@id/onboarding_vk_payment_fragment" />
+
+    <action
+        android:id="@+id/action_navigate_to_onboarding_google_pay"
+        app:destination="@id/onboarding_google_pay_fragment" />
+
+    <action
+        android:id="@+id/action_navigate_to_onboarding_mi_pay"
+        app:destination="@id/onboarding_mi_pay_fragment" />
   </fragment>
   <fragment
       android:id="@+id/onboarding_adyen_payment_fragment"
@@ -85,7 +97,20 @@
     <argument
         android:name="forecast_bonus"
         app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
+
+    <action
+        android:id="@+id/action_navigate_to_verify_credit_card"
+        app:destination="@id/verify_credit_card_wallet_activity" />
   </fragment>
+
+  <activity
+      android:id="@+id/verify_credit_card_wallet_activity"
+      android:name="com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity"
+      tools:layout="@layout/activity_wallet_verification">
+    <argument
+        android:name="is_wallet_verified"
+        app:argType="boolean" />
+  </activity>
 
   <fragment
       android:id="@+id/onboarding_local_payment_fragment"
@@ -111,4 +136,85 @@
         android:id="@+id/action_navigate_to_onboarding_payment_result"
         app:destination="@id/onboarding_payment_result_fragment" />
   </fragment>
+
+  <fragment
+      android:id="@+id/onboarding_vk_payment_fragment"
+      android:name="com.asfoundation.wallet.onboarding_new_payment.vkPayment.OnboardingVkPaymentFragment"
+      tools:layout="@layout/onboarding_vk_payment_layout">
+
+    <argument
+        android:name="transaction_builder"
+        app:argType="com.asfoundation.wallet.entity.TransactionBuilder" />
+
+    <argument
+        android:name="payment_type"
+        app:argType="com.asfoundation.wallet.billing.adyen.PaymentType" />
+    <argument
+        android:name="amount"
+        app:argType="string" />
+    <argument
+        android:name="currency"
+        app:argType="string" />
+    <argument
+        android:name="forecast_bonus"
+        app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
+
+    <action
+        android:id="@+id/action_navigate_to_onboarding_payment_result"
+        app:destination="@id/onboarding_payment_result_fragment" />
+  </fragment>
+
+  <fragment
+      android:id="@+id/onboarding_google_pay_fragment"
+      android:name="com.asfoundation.wallet.onboarding_new_payment.google_pay.OnboardingGooglePayFragment"
+      tools:layout="@layout/onboarding_google_pay_layout">
+
+    <argument
+        android:name="transaction_builder"
+        app:argType="com.asfoundation.wallet.entity.TransactionBuilder" />
+    <argument
+        android:name="payment_type"
+        app:argType="com.asfoundation.wallet.billing.adyen.PaymentType" />
+    <argument
+        android:name="amount"
+        app:argType="string" />
+    <argument
+        android:name="currency"
+        app:argType="string" />
+    <argument
+        android:name="forecast_bonus"
+        app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
+
+    <action
+        android:id="@+id/action_navigate_to_onboarding_payment_result"
+        app:destination="@id/onboarding_payment_result_fragment" />
+
+  </fragment>
+
+  <fragment
+      android:id="@+id/onboarding_mi_pay_fragment"
+      android:name="com.asfoundation.wallet.onboarding_new_payment.mipay.OnboardingMiPayFragment">
+
+    <argument
+        android:name="transaction_builder"
+        app:argType="com.asfoundation.wallet.entity.TransactionBuilder" />
+    <argument
+        android:name="payment_type"
+        app:argType="com.asfoundation.wallet.billing.adyen.PaymentType" />
+    <argument
+        android:name="amount"
+        app:argType="string" />
+    <argument
+        android:name="currency"
+        app:argType="string" />
+    <argument
+        android:name="forecast_bonus"
+        app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
+
+    <action
+        android:id="@+id/action_navigate_to_onboarding_payment_result"
+        app:destination="@id/onboarding_payment_result_fragment" />
+
+  </fragment>
+
 </navigation>

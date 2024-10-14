@@ -39,8 +39,9 @@
   <string name="ok">تایید</string>
   <string name="barcode_error_format">قالب غیرمعتبر بارکد: %s</string>
   <string name="title_delete_account">آیا می خواهید این کیف پول را حذف کنید؟</string>
-  <string name="twitter">توییتر</string>
+  <string name="twitter">X</string>
   <string name="telegram">گروه تلگرام</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">جامعه</string>
   <string name="title_opensource">برنامه‌نویسی منبع آزاد</string>
@@ -137,6 +138,13 @@
   <string name="intro_welcome_body_2">پاداش‌ها قابل استفاده در هر اپلیکیشن و بازی هستند.</string>
   <string name="intro_already_have_wallet_button">از قبل کیف پول دارم</string>
   <string name="intro_get_started_button">راه‌اندازی کیف پول</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">ابزار شما برای خریدهای داخل اپلیکیشنی</string>
+  <string name="new_intro_1_body">با AppCoins Wallet در اپلیکیشن‌ها و بازی‌های مورد علاقه خود خرید کنید.</string>
+  <string name="new_intro_2_header">تا %s%% بونوس در همه خریدها</string>
+  <string name="new_intro_2_body">با هر خرید در یک بازی سازگار با AppCoins سرمایه بیشتری بدست آورید.</string>
+  <string name="new_intro_3_header">روش‌های خرید مورد علاقه شما اینجا هستند!</string>
+  <string name="new_intro_3_body">روش‌های خرید موجود</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">راه‌اندازی کیف پول&#8230;</string>
   <string name="select_method_title">یک روش پرداخت انتخاب کنید</string>
@@ -147,6 +155,9 @@
   <string name="bonus_received_body">شما %s پاداش دریافت کردید.</string>
   <string name="back_to_the_game_button">بازگشت به بازی</string>
   <string name="other_payment_methos_title">سایر روش‌های پرداخت:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">پیشاپیش برای شما</string>
+  <string name="intro_from_web_payment_to_spend_body">برای خرج در بازی‌های موردعلاقه خود.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">از</string>
@@ -229,6 +240,7 @@
   <string name="activity_iab_approving_message">بررسی همه جزییات: بالانس، موارد، شبکه…</string>
   <string name="activity_iab_buying_message">جزییات بررسی شد\nدرحال دریافت مورد شما…</string>
   <string name="activity_iab_change_card">تغییر کارت</string>
+  <string name="activity_iab_change_card_lower_case_button">تغییر کارت</string>
   <string name="activity_iab_fees">هزینه‌ها</string>
   <string name="notification_ongoing_poa">درحال پردازش جایزه شما</string>
   <string name="notification_completed_poa">پاداش دریافت شد!👌 باید %1$sساعت و %2$sدقیقه منتظر بمانید تا بتوانید پاداش بیشتری با امتحان اپلیکیشن‌ها بدست آورید ⏰!</string>
@@ -249,6 +261,10 @@
   <string name="transaction_status_pending">در حال انتظار</string>
   <string name="transaction_status_failed">انجام نشد</string>
   <string name="transaction_status_reverted">برگشت داده شد</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
+  <string name="transaction_type_challenge_reward">چالش پاداش</string>
+  <string name="transaction_type_challenge_reward_rejected">چالش پاداش رد شده</string>
+  <string name="transaction_type_challenge_reward_reverted">چالش پاداش پس داده شده</string>
   <string name="transaction_type_iab">خرید داخل اپلیکیشن</string>
   <string name="transaction_type_poa">پاداش</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -265,6 +281,7 @@
   <string name="transaction_type_reverted_topup_body">شارژی که در %s انجام دادید بازگردانده شد. برای اطلاعات بیشتر با پشتیبانی تماس بگیرید.</string>
   <string name="transaction_type_reverted_purchase_title">برگشت خرید</string>
   <string name="transaction_type_reverted_purchase_body">خریدی که در %s انجام دادید بازگردانده شد. برای اطلاعات بیشتر با پشتیبانی تماس بگیرید.</string>
+  <string name="transaction_bonus_reverted_body">این بونوس برگردانده شده است. برای اطلاعات بیشتر با پشتیبانی تماس بگیرید.</string>
   <string name="transaction_reverted_view_original_header">تراکنش اصلی</string>
   <string name="transaction_onchain_completed_title">تراکنش در راه است!</string>
   <string name="transaction_onchain_completed_body">شما می‌توانید آن را در Etherscan دنبال کنید.</string>
@@ -280,6 +297,8 @@
   <string name="transaction_order_reference_label">کد سفارش</string>
   <string name="transaction_details_label">جزئیات</string>
   <string name="transaction_to_label">به</string>
+  <string name="transaction_invoice_label">صورتحساب</string>
+  <string name="iab_payment_method_vkpay_title">کارت اعتباری (VK Pay)</string>
   <string name="dialog_credit_card_remember">کارت را به یاد داشته باش</string>
   <string name="notification_payment_refused">پرداخت رد شد</string>
   <string name="dialog_credit_card_number">شماره کارت</string>
@@ -310,6 +329,8 @@
   <string name="transaction_reverted_body">این خرید برگردانده شده است.\nبرای اطلاعات بیشتر با پشتیبانی تماس بگیرید.</string>
   <string name="transaction_status_rejected">ردشده</string>
   <string name="transaction_details_header">جزییات تراکنش</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">تایید کنید که انسان هستید تا AppCoins دریافت کنید</string>
   <string name="activity_airdrop_details">این فقط یک کار امنیتی است.</string>
   <string name="activity_airdrop_hint">کلمات داخل تصویر را تایپ کنید</string>
@@ -419,6 +440,8 @@
   <string name="topup_maximum_value">حداکثر مقدار افزایش برابر %s است</string>
   <string name="topup_no_method_available_title">بدون روش پرداخت!</string>
   <string name="topup_no_method_available_body">هیچ روش پرداختی در حال حاضر برای کشور شما موجود نیست. در تماس بمانید!</string>
+  <string name="topup_bonus_amount_body">%s بونوس با این شارژ دریافت کنید</string>
+  <string name="topup_success_body">%s به حساب شما در AppCoins Credits وارد شد.</string>
   <!--Balance-->
   <string name="balance_title">بالانس</string>
   <string name="balance_total_body">بالانس کلی در %s</string>
@@ -447,6 +470,7 @@
   <string name="askafriend_share_note_to_friend">سلام! لطفا %1$s اعتبار AppCoins برای خرید یک آیتم در%2$s برای من بفرستید. لینک: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ارسال پول</string>
+  <string name="p2p_receive_title">دریافت</string>
   <string name="p2p_send_body">آدرس کیف پول دوست خود را وارد یا اسکن کنید.</string>
   <string name="p2p_send_confirmation_message">%1$s%2$s به آدرس زیر ارسال شد:</string>
   <string name="p2p_send_current_balance_message">تراز فعلی: %1$s %2$s</string>
@@ -455,6 +479,7 @@
   <string name="p2p_send_error_amount_zero">باید بیش از صفر باشد</string>
   <string name="p2p_send_confirmation_header">جزییات انتقال‌ها</string>
   <!--Common-->
+  <string name="oops_title">اوه</string>
   <string name="error_general">مشکلی پیش آمده است</string>
   <string name="error_missing_field">فیلد اجباری</string>
   <string name="cancel_button">لغو</string>
@@ -467,8 +492,9 @@
   <string name="discover_button">کشف‌کردن</string>
   <string name="retry_button">تلاش مجدد</string>
   <string name="do_it_later_button">بعدا انجام شود</string>
+  <string name="connection_error_title">اتصال اینترنت قطع است</string>
   <string name="connection_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
-  <string name="common_or">یا</string>
+  <string name="common_or">or</string>
   <string name="share_via">به اشتراک گذاری از طریق:</string>
   <string name="password">رمزعبور</string>
   <string name="repeat_password">تکرار رمز عبور</string>
@@ -491,6 +517,21 @@
   <string name="play_button">بازی</string>
   <string name="manage_wallet_button">مدیریت کیف‌پول</string>
   <string name="log_out_button">خروج از سیستم</string>
+  <string name="download_button">دانلود</string>
+  <string name="done">تمام!</string>
+  <string name="see_more_button">مشاهده بیشتر</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
+  <string name="ending_in_title">پایان در</string>
+  <string name="start_date_title">تاریخ شروع:</string>
+  <string name="end_date_title">تاریخ اتمام:</string>
+  <string name="send_button">ارسال</string>
+  <string name="resend_button">ارسال مجدد</string>
+  <string name="continue_button">ادامه</string>
+  <string name="card_expired_tag">منقضی</string>
+  <string name="start_again_button">شروع مجدد</string>
+  <string name="max">نهایت</string>
+  <string name="amount">مقدار</string>
+  <string name="total_title">مجموع</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -499,6 +540,7 @@
   <string name="decline_button">رد کردن</string>
   <string name="get_started">شروع کنید</string>
   <string name="existent_wallet">پیشاپیش کیف پول دارم</string>
+  <string name="onboarding_verification_body">برای تکمیل خرید خود، روش پرداخت خود را تایید کنید.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">در بازی موردعلاقه خود خریدی انجام دهید و ما بقیه کارها را انجام می‌دهیم.</string>
   <string name="home_empty_discover_apps_button">اپلیکیشن‌های برتر را کشف کنید</string>
@@ -539,7 +581,7 @@
   <string name="verification_settings_verified_title">کیف پول تاییدشد</string>
   <string name="verification_settings_verifying_title">درحال تایید...</string>
   <string name="verification_verified_paypal_description">مبلغ برداشتی فورا بازگردانده می‌شود. روش خرید شما بزودی تایید می‌شود.</string>
-  <string name="verification_verify_paypal_description">برای تایید حساب کاربری شما، یک تراکنش حداقل %s از حساب شما انجام می‌شود. فورا بازگردانده خواهد شد.</string>
+  <string name="verification_verify_paypal_description">برای تایید حساب کاربری شما، یک تراکنش %s از حساب شما انجام می‌شود. فورا بازگردانده خواهد شد.</string>
   <string name="verification_verify_paypal_button">تایید همین حالا</string>
   <string name="verification_settings_card_verified_title">کارت تایید شد</string>
   <string name="verification_settings_no_internet">نیاز به ارتباط با اینترنت دارید</string>
@@ -548,9 +590,21 @@
   <string name="verified_tag">تاییدشده</string>
   <string name="unferified_tag">کیف پول تاییدنشده</string>
   <string name="verification_wallets_verify_button">تایید</string>
+  <string name="verification_verified_paypal_body">تایید با پی‌پال.</string>
+  <string name="verification_verified_credit_debit_card_body">تایید با کارت اعتباری/نقدی.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">تایید با کارت اعتباری/نقدی و پی‌پال.</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">یک قدم فاصله!</string>
+  <string name="paypal_verification_home_one_step_card_body">کدی را که به ایمیل شما ارسال شده را وارد کنید تا حساب پی پال شما تایید شود.</string>
+  <string name="paypal_verification_header">تایید پی پال</string>
+  <string name="paypal_verification_insert_code_body">کد چهار رقمی را که به ایمیل شما در ارتباط با حساب پی پال شما ارسال شده است را در زیر وارد کنید.</string>
+  <string name="paypal_verification_didnt_receive_title">آیا دریافت نکرده‌اید؟</string>
+  <string name="paypal_verification_completed_body">فورا بازگردانده خواهد شود و حساب پی پال شما بزودی تایید می‌شود.</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">مجموع %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">به نظر می‌رسد که این خرید پردازش شده است. لطفا منتظر بمانید تا تراکنش تکمیل شود یا با تیم پشتیبانی تماس بگیرید.</string>
   <string name="purchase_more_payment_methods_button">سایر روش‌های پرداخت</string>
+  <string name="purchase_more_payment_methods_lower_case_button">سایر روش‌های پرداخت</string>
   <string name="purchase_appcoins_available_body">برای پرداخت این مبلغ، مقدار اندکی از ETH را پرداخت خواهید کرد.</string>
   <string name="purchase_appcoins_noavailable_body">به مقدار کافی AppCoins یا Ether برای این خرید ندارید.</string>
   <string name="purchase_no_eth_body">به اندازه کافی ETH برای پرداخت گاز نداری.</string>
@@ -612,7 +666,35 @@
   <string name="error_blocked_wallet_title">کیف پول مسدودشده</string>
   <string name="error_blocked_wallet_body">به دلایل امنیتی کیف پول شما مسدود شده‌است. برای اطلاعات بیشتر با ما تماس بگیرید.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">ممکن است هزینه‌های اضافی وارد شود.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s با هزینه‌ها و VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">هزینه‌های اضافی محاسبه شده</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">هزینه‌های اضافی محاسبه نشده</string>
   <string name="purchase_error_paypal">مشکلی با پرداخت پی‌پال شما وجود دارد. لطفا مجددا امتحان کنید یا یک روش دیگر پرداخت را استفاده کنید.</string>
+  <string name="purchase_error_google_pay">مشکلی با پرداخت Google Pay شما وجود دارد. لطفا مجددا امتحان کنید یا یک روش دیگر پرداخت را استفاده کنید.</string>
+  <string name="purchase_success_bonus_received_title">%s پاداش دریافت شد.</string>
+  <string name="purchase_making_purchase_title">انجام خرید&#8230;</string>
+  <string name="purchase_fee_title">هزینه %1$s %2$s</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">این روش پرداخت واحد پولی شما را پشتیبانی نمی‌کند، پس هزینه این پروسه افزوده می‌شود. این هزینه اضافی و VAT در بخش مجموع هزینه در بالای صفحه در نظر گرفته شده است.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">این روش پرداخت هزینه ای برای پردازش شارژ می‌کند. این هزینه اضافی و VAT در بخش مجموع هزینه در بالای صفحه در نظر گرفته شده است.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">این روش پرداخت واحد پولی شما را پشتیبانی نمی‌کند پس هزینه این پروسه افزوده می‌شود.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">با این روش پرداخت، هزینه‌های پردازش و VAT را نیز پرداخت می‌کنید.</string>
+  <string name="purchase_fee_included_body">شامل هزینه‌ها</string>
+  <string name="purchase_error_one_wallet_generic">مشکلی با پرداخت Wallet One شما وجود دارد. لطفا مجددا امتحان کنید یا یک روش دیگر پرداخت را استفاده کنید.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">تنها برای شارژها موجود است.</string>
+  <string name="purchase_payment_method_minimum_amount">تنها برای خریدهای روی %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">در این خرید موجود نیست.</string>
+  <string name="purchase_error_no_method_available_body">هیچ روش پرداختی در حال حاضر برای تکمیل این خرید در منطقه شما موجود نیست. در تماس بمانید!</string>
+  <string name="purchase_legal_disclaimer">با پردازش این پرداخت، موافقت و اجازه خود را با محتوا در قبال پرداخت اعلام می‌کنید و در نتیجه حق خود را برای برداشت از حساب از دست می‌دهید.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">پاداش در AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>
@@ -704,6 +786,7 @@
   <string name="import_wallet_button">بازیابی کیف‌پول</string>
   <string name="import_wallet_password_body">این کیف‌پول با رمز، محافظت شده‌است!</string>
   <string name="import_wallet_wrong_password_body">اوه، رمز عبور اشتباه است!</string>
+  <string name="import_code_here_field">بازیابی کد در اینجا&#8230;</string>
   <string name="error_invalid_private_key">کلید خصوصی غیرمعتبر</string>
   <string name="error_invalid_keystore">keystore نامعتبر</string>
   <string name="backup_title">از کیف پول خود بک‌آپ بگیرید!</string>
@@ -716,9 +799,9 @@
   <string name="backup_ready_email_button">به ایمیل ارسال کنید</string>
   <string name="backup_ready_device_button">روی دستگاه ذخیره کنید</string>
   <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
-  <string name="backup_confirmation_tips_1"><b>آن را پرینت کنید</b> و در جای امنی نگه‌داری کنید.</string>
-  <string name="backup_confirmation_tips_2">آن را روی یک USB <b>ذخیره کنید.</b></string>
-  <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b></string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>آن را پرینت کنید</b> و در جای امنی نگه‌داری کنید.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[آن را روی یک USB <b>ذخیره کنید.</b>]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b>]]></string>
   <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_tooltip_later_button">شاید بعدا</string>
   <string name="backup_tooltip_backup_button">بک‌آپ</string>
@@ -729,13 +812,16 @@
   <string name="backup_additional_security_disclaimer_body">بازیابی برای رمزعبور وجود ندارد.</string>
   <string name="backup_additional_security_password_not_march">رمزعبور همخوانی ندارد.</string>
   <string name="import_wallet_recovering_body">بازیابی کیف‌پول...</string>
-  <string name="backup_skip_title">متوجه هستم که در صورت عدم بک‌آپ کیف پول، ممکن است دارایی خود را از دست بدهم.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">بک‌آپ کیف پول</string>
   <string name="backup_success_save_on_email">فایل بک‌آپ شما در ایمیل شماست.</string>
   <string name="backup_success_save_on_device">فایل بک‌آپ شما در دستگاه شما ذخیره شده‌است.</string>
   <string name="backup_popup_title">از کیف پول خود بک‌آپ بگیرید!</string>
   <string name="backup_popup_purchase_body">سرمایه خود را در همه زمان امن نگه دارید.</string>
   <string name="backup_popup_gamification_body">پاداش خود را در همه زمان امن نگه دارید.</string>
+  <string name="backup_error_body">قادر به تولید فایل بک آپ شما نیستیم. بعدا امتحان کنید.</string>
+  <string name="backup_confirmation_save_device">فایل بک‌آپ شما در دستگاه شما است</string>
+  <string name="backup_confirmation_save_email">فایل بک‌آپ شما در ایمیل شماست</string>
   <!--Wallets Management-->
   <string name="wallets_title">کیف‌پول‌ها</string>
   <string name="wallets_total_balance_title">تراز کلی در %s</string>
@@ -767,6 +853,8 @@
   <string name="remove_wallet_no_button">خیر، بازگشت به قبل</string>
   <string name="remove_wallet_yes_button">بله، حذف کیف پول</string>
   <string name="remove_wallet_removed_body">کیف‌پول حذف شد!</string>
+  <string name="remove_wallet_extra_confirmation_title">مطمئن هستید؟</string>
+  <string name="remove_wallet_extra_confirmation_body">به خاطر داشته باشید که بدون بکاپ شما سرمایه و مرحله بونوس خود را از دست خواهید داد.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">انتقال</string>
   <string name="transfer_title">انتقال وجه</string>
@@ -822,7 +910,7 @@
   <string name="subscriptions_cancel_title">لغو آبونمان</string>
   <string name="subscriptions_cancel_body">آیا مطمئن هستید که می‌خواهید این آبونمان را لغو کنید؟</string>
   <string name="subscriptions_cancel_no_button">خیر، بازگشت به قبل</string>
-  <string name="subscriptions_cancel_yes_button">بله، لغو آبونمان</string>
+  <string name="subscriptions_cancel_yes_button">بله، لغو</string>
   <string name="subscriptions_cancel_confirmation_title">آبونمان لغو شد!</string>
   <string name="subscriptions_cancel_confirmation_body">دیگر برای این آبونمان پرداختی نخواهید داشت، تا %s می‌توانید آن را استفاده کنید.</string>
   <string name="subscriptions_category_title">آبونمان</string>
@@ -885,6 +973,7 @@
   <string name="gamif_placeholder_unknown">یک سیاره ناشناخته</string>
   <string name="gamif_distance_unkown">موقعیت ناشناخته</string>
   <string name="gamif_placeholder_new_planet">یک سیاره جدید</string>
+  <string name="gamif_header">پاداش‌ها</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">پرداخت از طریق سرویس مخابراتی</string>
   <string name="carrier_billing_fees_disclaimer">ممکن است هزینه‌های جانبی وارد شود</string>
@@ -907,17 +996,29 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">افزودن کارت اعتباری / بانکی</string>
   <string name="manage_cards_settings_manage_title">مدیریت کارت‌ها</string>
+  <string name="manage_cards_add_credit_debit_card_button_">افزودن کارت اعتباری / بانکی</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">کارت دیگری استفاده کنید</string>
   <string name="manage_cards_view_title">مدیریت کارت‌ها</string>
+  <string name="manage_cards_empty_body">هنوز کارت ذخیره‌شده‌ای ندارید.</string>
   <string name="manage_cards_view_manage_subtitle">مدیریت کارت‌های پرداختی خود</string>
   <string name="manage_cards_add_title">افزودن کارت جدید</string>
+  <string name="manage_cards_add_button">افزودن کارت</string>
   <string name="manage_cards_remove_confirmation">آیا مطمئن هستید که می‌خواهید این کارت را حذف کنید؟</string>
-  <string name="manage_cards_remove_no">نه، لغو</string>
-  <string name="manage_cards_remove_yes">بله، حذف</string>
+  <string name="manage_cards_remove_no">خیر، لغو</string>
+  <string name="manage_cards_remove_yes">بله، آن را حذف کنید</string>
   <string name="manage_cards_card_ending_body">کارت با انتهای %s</string>
   <string name="manage_cards_error_details">آیا مطمئن هستید که اطلاعات کارت شما صحیح است؟ لطفا مجدد امتحان کنید!</string>
   <string name="manage_cards_error_card_problem">به نظر می‌رسد مشکلی برای کارت شما وجود دارد. لطفا کارت دیگری را امتحان کنید.</string>
   <string name="manage_cards_select_title">انتخاب کارت پرداخت</string>
   <string name="manage_cards_remember">کارت را به یاد داشته باش</string>
+  <string name="add_new_card_button">افزودن کارت جدید</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">مدیریت کارت‌های پرداختی</string>
+  <string name="card_added_title">کارت افزوده شد</string>
+  <string name="card_removed">کارت حذف شد</string>
+  <string name="choose_card_title">انتخاب کارت</string>
+  <string name="manage_cards_update_disclaimer_1">برای بروزرسانی یا حذف کارت برو به:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">برای هر خرید، تا %s%% پاداش دریافت کنید</string>
   <string name="perks_gamif_subtitle">هر چه بیشتر در اپلیکیشن‌های محبوب خود خرج کنید، پاداش بزرگتر خواهد بود!</string>
@@ -963,7 +1064,7 @@
   <string name="perks_empty_state_first_purchase_body">اولین خرید خود را در یک اپلیکیشن سازگار با AppCoins انجام دهید تا پیشنهادهای تشویقی که برای شما در نظر گرفتیم را باز کنید!</string>
   <string name="perks_empty_body">هیچ پیشنهاد تشویقی در حال حاضر موجود نیست.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">قفل با اثرانگشت</string>
+  <string name="fingerprint_settings">قفل بیومتریک</string>
   <string name="fingerprint_failed_title">احراز هویت موفق نبود!</string>
   <string name="fingerprint_failed_body">لطفا در %s ثانیه مجدد امتحان کنید.</string>
   <string name="fingerprint_authentication_required_title">احراز هویت الزامی است!</string>
@@ -1014,8 +1115,6 @@
   <string name="card_verification_no_attempts_title">کد اشتباهی را به دفعات وارد کرده اید پس %1$s به کارت شما بازگردانده خواهد شد.</string>
   <string name="card_verification_no_attempts_body">لطفا پروسه تایید هویت را مجدد شروع کنید.</string>
   <string name="wallet_verify_header">حداقل یک روش پرداخت را تایید کنید</string>
-  <string name="verify_card_title">تایید کارت</string>
-  <string name="verify_card_button">تایید کارت بانکی</string>
   <string name="verify_paypal_button">تایید حساب پی‌پال</string>
   <string name="card_verification_body_new">%s به از کارت شما شارژ شده و فورا بازگردانده می‌شود. صورتحساب کارت خود را برای دریافت کد تایید بررسی کرده و آن کد را در اینجا وارد کنید.</string>
   <string name="card_verification_disclaimer_body">بدانید که ممکن است کد تایید در اعلامیه بازپرداخت دیده شود.</string>
@@ -1096,28 +1195,8 @@
   <string name="appcoins_info_explorer_title">مرورگر</string>
   <string name="appcoins_info_market_cap_title">Market Cap</string>
   <string name="appcoins_info_volume_title">حجم (۲۴ساعته)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT ها</string>
-  <string name="nfts_no_nfts">هیچ NFT در این کیف پول ندارید!</string>
-  <string name="nfts_transact_button">این NFT را ارسال کنید</string>
-  <string name="nfts_transact_button_send">ارسال</string>
-  <string name="nfts_transact_button_next">بعدی</string>
-  <string name="nfts_transact_button_done">انجام شد</string>
-  <string name="nfts_transact_button_success">متوجه شدم</string>
-  <string name="nfts_transact_tip">آدرس کیف پول دوست خود را وارد کنید</string>
-  <string name="nfts_transact_input_tip">آدرس کیف‌پول در اینجا...</string>
-  <string name="nfts_transact_done_mensage">%s با موفقیت ارسال شد!</string>
-  <string name="nfts_generic_error">اوه، مشکلی پیش آمده است!</string>
-  <string name="nfts_transact_gas_title">آیا عجله دارید؟</string>
-  <string name="nfts_transact_gas_description">مقدار مورد نظر خود را برای پرداخت هزینه انتخاب کنید. هزینه بالاتر به تراکنش سریعتر می‌انجامد.</string>
-  <string name="nfts_transact_gas_price">قیمت گس</string>
-  <string name="nfts_transact_gas_limit">حد گس</string>
-  <string name="nfts_transact_gas_fee_message">هزینه تراکنش</string>
-  <string name="nfts_transact_error_no_funds">دارایی شما کافی نیست! به اندازه کافی ETH برای پرداخت هزینه‌ها ندارید.</string>
-  <string name="nfts_transact_error_low_gas">Gas بسیار کم است! Gas خود را افزایش دهید تا شبکه بتواند تراکنش شما را تایید کند.</string>
-  <string name="nfts_transact_error_already_in_progress">این NFT پیشاپیش ارسال شده‌است! یکی از پرداخت‌های قبلی در حال پردازش است.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">کد کارت هدیه خود را استفاده کنید</string>
+  <string name="gift_card_title">کد کارت هدیه خود را استفاده کنید.</string>
   <string name="gift_card_field">کد کارت در اینجا...</string>
   <string name="gift_card_done_title">کد استفاده شد!</string>
   <string name="gift_card_done_body">لیست تراکنش‌های خود را بررسی کنید.</string>
@@ -1164,11 +1243,13 @@
   <string name="vip_program_promotions_list_title">پیشنهاد تشویقی ویژه برای شما</string>
   <string name="vip_program_promo_code_tag">کد پرومو</string>
   <string name="vip_program_referral_page_title">VIP Referral Program</string>
-  <string name="vip_program_referral_page_body">این کد پرومورا با دوستان خود به اشتراک بگذارید تا در حین بازی درآمد داشته باشند. برای همه خرید داخل اپلیکیشنی آنها می‌توانید هردوی <b>شما و دوستان شما %s%% پاداشت دریافت کنید</b> و علاوه بر آن پیشنهادات تخفیفی دیگری نیز در ماه بدست آورید!</string>
+  <string name="vip_program_referral_page_body">این کد پرومو را با دوستان خود به اشتراک بگذارید تا در حین بازی درآمد داشته باشند. برای همه خرید داخل اپلیکیشنی آنها می‌توانید هردوی <b>شما و دوستان شما %1$s%% پاداش دریافت کنید</b> علاوه بر آن پیشنهادات تخفیفی دیگر. <b> معتبر تا %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">این کد را با دوستان خود به شاتراک بگذارید</string>
+  <string name="vip_program_referral_page_only_app_title">تنها برای خریدها در</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s دریافت از %3$s برنامه همکاری</string>
   <string name="vip_program_gamification_title">درجه پاداش من چقدر است؟</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">پاداش دریافتی از خریدهای شما.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">پاداش دریافتی از خریدهای شما</string>
   <string name="vip_program_gamification_amoung_referral_bonus">پاداش دریافتی از برنامه همکاری</string>
   <string name="vip_program_max_bonus_title">از %s%% پاداش برای هر خرید لذت ببرید</string>
   <string name="vip_program_max_bonus_body">شما به حد کیهانی ما رسیده اید.</string>
@@ -1176,6 +1257,7 @@
   <string name="vip_program_referral_notification_title">کد معرفی VIP موجود است!</string>
   <string name="vip_program_referral_notification_body">کد خود را با دوستان خود به اشتراک بگذارید تا همگی درحال بازی درآمد داشته باشید!</string>
   <string name="vip_program_title_vip_offer">پیشنهاد وی‌آی‌پی</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">به AppCoins Wallet خوش آمدید</string>
   <string name="intro_welcome_body">کیف پول خود را شارژ کنید تا بتوانید در هر اپلیکیشن و بازی سازگار با AppCoins خرید کنید.</string>
@@ -1184,43 +1266,86 @@
   <string name="topup_home_button">افزایش اعتبار</string>
   <string name="intro_home_button">خانه</string>
   <string name="intro_rewards_button">پاداش‌ها</string>
-  <plurals name="days">
-    <item quantity="one">DAY</item>
+  <plurals name="day">
+    <item quantity="one">روز</item>
     <item quantity="other">روز</item>
   </plurals>
-  <plurals name="hours">
-    <item quantity="one">HOUR</item>
+  <plurals name="hour">
+    <item quantity="one">ساعت</item>
     <item quantity="other">ساعت</item>
   </plurals>
-  <plurals name="minutes">
-    <item quantity="one">MINUTE</item>
+  <plurals name="minute">
+    <item quantity="one">دقیقه</item>
     <item quantity="other">دقیقه</item>
   </plurals>
-  <plurals name="seconds">
-    <item quantity="one">SECOND</item>
+  <plurals name="second">
+    <item quantity="one">ثانیه</item>
     <item quantity="other">ثانیه</item>
   </plurals>
   <string name="intro_transactions_header">تراکنش‌ها</string>
   <string name="intro_backup_card_title">سرمایه خود را از دست ندهید!</string>
   <string name="intro_backup_card_body">ار کیف پول خود بک‌آپ بگیرید و همیشه آن را امن نگه دارید.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s بیشتر خرج کنید تا به مرحله بعدی برسید!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s خرج کنید تا به مرحله بعدی برسید!</string>
   <string name="rewards_current_bonus_title">%s%% پاداش برای هر خرید</string>
-  <string name="rewards_eskills_card_title">پول درآوردید!</string>
-  <string name="rewards_eskills_card_body">سایر بازیکنان را در e-Skills شکست دهید</string>
-  <string name="rewards_promo_code_card_title">کدهای پرومو</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">برداشت درآمد e-Skills شما.</string>
+  <string name="rewards_promo_code_card_title">کد پرومو</string>
   <string name="rewards_promo_code_card_body">برای دریافت پیشنهادات ویژه، یک کد پرومو استفاده کنید!</string>
   <string name="rewards_promo_code_status">وضعیت:</string>
   <string name="rewards_promo_code_status_active">فعال</string>
   <string name="rewards_promo_code_status_expired">منقضی</string>
-  <string name="home_nft_title">کیف پول AppCoins اکنون NFTها را پشتیبانی می کند</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">بازی‌های سازگار با AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">اولین خرید خود را در یک بازی سازگار با AppCoins انجام دهید و در هر خرید یک پاداش فعال کنید.</string>
-  <string name="rewards_bonus_every_purchase_title">از %s%% پاداش برای هر خرید لذت ببرید</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% پاداش برای همه خریدها</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">مدیریت کیف‌پول‌ها</string>
+  <string name="manage_wallet_view_title">مدیریت کیف‌پول‌ها</string>
   <string name="manage_wallet_wallet_changed_title">کیف‌پول تغییر کرد</string>
   <string name="manage_wallet_change_active_wallet_title">آیا نمی‌خواهید این کیف پول را انتخاب کنید؟</string>
   <string name="manage_wallet_change_wallet_name_title">تغییر نام کیف‌پول</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_set_a_name_button">نامی برای فایل کیف پول خود انتخاب کنید</string>
+  <string name="manage_wallet_my_wallet_address_title">آدرس کیف‌پول من</string>
+  <string name="manage_wallet_verify_title">تایید یک روش پرداخت</string>
+  <string name="manage_wallet_verify_body">با تایید روش پرداخت از بلاک شدن جلوگیری کنید.</string>
+  <string name="manage_wallet_currency_disclaimer">بالانس شما برای سادگی در واحد پولی محلی شما نمایش داده می‌شود ولی به دلار متصل است، پس تغییرات قیمت دلار ممکن است بر بالانس شما تاثیر بگذارد.</string>
+  <!-- Refactor Verify Payment Method -->
+  <string name="verify_card_title">تایید یک روش پرداخت</string>
+  <string name="verify_card_body">با تایید روش پرداخت از بلاک شدن جلوگیری کنید.</string>
+  <string name="verify_card_one_more_step_title">یک قدم دیگر تا تایید</string>
+  <string name="verify_card_one_more_step_body">کدی را که در جزییات تراکنش است را وارد کنید</string>
+  <string name="verify_card_one_more_step_button">وارد کردن کد</string>
+  <string name="verify_card_verified">روش پرداخت تایید شد!</string>
+  <string name="verify_card_button">تایید کارت اعتباری/نقدی</string>
+  <string name="verify_card_view_title">تایید کارت</string>
+  <string name="verify_card_view_disclaimer">ما %s از کارت شما شارژ خواهیم کرد و پس از تایید کد توسط شما آن را باز می‌گردانیم.</string>
+  <string name="verify_card_view_title_2">اطلاعات کارت بانکی خود را وارد کنید</string>
+  <string name="verify_card_get_a_code_button">دریافت کد</string>
+  <string name="verify_card_code_title">کد را در جزییات تراکنش پیدا کنید</string>
+  <string name="verify_card_code_body">یک کد ویژه در خلاصه تراکنش توسط بانک شما دیده می‌شود.</string>
+  <string name="verify_card_code_example_title">نمونه خلاصه یک تراکنش</string>
+  <string name="verify_card_code_example_date">تاریخ تراکنش</string>
+  <string name="verify_card_code_example_description">توضیحات</string>
+  <string name="verify_card_code_example_amount">مقدار</string>
+  <string name="verify_card_code_enter_title">کد 4 رقمی را وارد کنید</string>
+  <string name="verify_card_code_refund_body">%s در ۲۴ ساعت پس از تایید کد توسط شما، بازگردانده خواهد شد.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">چالش پاداش</string>
+  <string name="challenge_reward_card_body">یک چالش را کامل کنید تا AppCoins Credits دریافت کنید.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">از %s AppCoins Credits در کیف پول خود لذت ببرید</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">در تماس باشید!</string>
+  <string name="mail_list_card_body">در لیست ایمیلی ما عضو شوید تا بروزرسانی ویژه دریافت کنید و شانسی برای بردن کارت هدیه داشته باشید.</string>
+  <string name="mail_list_card_confirmation_title">تایید ایمیل شما</string>
+  <string name="mail_list_card_confirmation_body">ایمیلی به %s ارسال کرده‌ایم</string>
+  <string name="mail_list_backup">در لیست ایمیلی ما عضو شوید تا بروزرسانی ویژه دریافت کنید و شانسی برای بردن کارت هدیه داشته باشید.</string>
+  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
+  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
+  <string name="mail_list_confirmation_email_button">Confirm email</string>
+  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>

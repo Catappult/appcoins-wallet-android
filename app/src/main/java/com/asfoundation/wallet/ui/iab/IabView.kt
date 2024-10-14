@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
@@ -16,9 +15,7 @@ import java.math.BigDecimal
 
 interface IabView {
 
-  fun disableBack()
-
-  fun enableBack()
+  fun setBackEnable(enable: Boolean)
 
   fun finish(bundle: Bundle)
 
@@ -64,6 +61,51 @@ interface IabView {
     frequency: String?
   )
 
+  fun showSandbox(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    isPreselected: Boolean,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  )
+
+  fun showVkPay(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  )
+
+  fun showGooglePayWeb(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    isPreselected: Boolean,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  )
+
+  fun showMiPayWeb(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    bonus: String?,
+  )
+
   fun showCarrierBilling(
     currency: String?,
     amount: BigDecimal,
@@ -96,8 +138,13 @@ interface IabView {
     paymentMethodLabel: String,
     async: Boolean,
     referralUrl: String?,
-    gamificationLevel: Int
+    gamificationLevel: Int,
+    guestWalletId: String?,
   )
+
+  fun createChallengeReward(walletAddress: String)
+
+  fun showChallengeReward()
 
   fun showPaymentMethodsView()
 
@@ -123,16 +170,6 @@ interface IabView {
     frequency: String?
   )
 
-  fun showBillingAddress(
-    value: BigDecimal,
-    currency: String,
-    bonus: String,
-    appcAmount: BigDecimal,
-    targetFragment: Fragment,
-    shouldStoreCard: Boolean,
-    isStored: Boolean
-  )
-
   fun lockRotation()
 
   fun unlockRotation()
@@ -147,13 +184,19 @@ interface IabView {
 
   fun showBackupNotification(walletAddress: String)
 
-  fun showVerification(isWalletVerified: Boolean)
+  fun showCreditCardVerification(isWalletVerified: Boolean)
+
+  fun showPayPalVerification()
 
   fun showError(@StringRes error: Int)
+
+  fun showNoNetworkError()
 
   fun getSupportClicks(): Observable<Any>
 
   fun errorDismisses(): Observable<Any>
+
+  fun errorTryAgain(): Observable<Any>
 
   fun launchPerkBonusAndGamificationService(address: String)
 
@@ -168,6 +211,8 @@ interface IabView {
   fun authenticationResult(success: Boolean)
 
   fun showTopupFlow()
+
+  fun handleConnectionObserver()
 
   var webViewResultCode: String?
 }

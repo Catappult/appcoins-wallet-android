@@ -13,13 +13,19 @@ class PlayerRankingAdapter(dataSet: List<User>) :
   private var localDataSet: List<User>
 
   class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val userNameTextView: TextView = view.findViewById<View>(R.id.user_name) as TextView // TODO
-    private val userScoreTextView: TextView = view.findViewById<View>(R.id.user_score) as TextView  // TODO
+    private val userNameTextView: TextView =
+      view.findViewById<View>(R.id.user_name) as TextView // TODO
+    private val userScoreTextView: TextView =
+      view.findViewById<View>(R.id.user_score) as TextView  // TODO
 
     fun bind(user: User) {
       userNameTextView.text = user.userName
-      userScoreTextView.text = itemView.resources
-        .getString(R.string.rank_score_details, user.score)
+      userScoreTextView.text =
+        itemView.context.resources.getQuantityString(
+          R.plurals.rank_score_details,
+          user.score.toInt(),
+          user.score.toInt()
+        )
     }
   }
 

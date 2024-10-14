@@ -2,8 +2,9 @@ package com.appcoins.wallet.core.network.microservices
 
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
-import com.appcoins.wallet.core.network.microservices.ProductApiModule.FiatCurrenciesApi
+import com.appcoins.wallet.core.network.base.call_adapter.ApiResultCallAdapterFactory
 import com.appcoins.wallet.core.network.microservices.annotations.BrokerBlockchainRetrofit
+import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultResultRetrofit
 import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultRetrofit
 import com.appcoins.wallet.core.network.microservices.api.*
 import com.appcoins.wallet.core.network.microservices.api.broker.*
@@ -55,6 +56,21 @@ class BrokerApiModule {
 
   @Singleton
   @Provides
+  @BrokerDefaultResultRetrofit
+  fun provideBrokerDefaultResultRetrofit(
+    @DefaultHttpClient client: OkHttpClient,
+    apiResultCallAdapterFactory: ApiResultCallAdapterFactory
+  ): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(brokerUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(apiResultCallAdapterFactory)
+      .build()
+  }
+
+  @Singleton
+  @Provides
   fun providesAdyenApi(
     @BrokerDefaultRetrofit retrofit: Retrofit
   ): AdyenApi {
@@ -63,10 +79,34 @@ class BrokerApiModule {
 
   @Singleton
   @Provides
+  fun providesAdyenSessionApi(
+    @BrokerDefaultRetrofit retrofit: Retrofit
+  ): AdyenSessionApi {
+    return retrofit.create(AdyenSessionApi::class.java)
+  }
+
+  @Singleton
+  @Provides
   fun providesPaypalApi(
     @BrokerDefaultRetrofit retrofit: Retrofit
   ): PaypalV2Api {
     return retrofit.create(PaypalV2Api::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSandboxApi(
+    @BrokerDefaultRetrofit retrofit: Retrofit
+  ): SandboxApi {
+    return retrofit.create(SandboxApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesVkPayApi(
+    @BrokerDefaultRetrofit retrofit: Retrofit
+  ): VkPayApi {
+    return retrofit.create(VkPayApi::class.java)
   }
 
   @Singleton
@@ -99,7 +139,7 @@ class BrokerApiModule {
   @Singleton
   @Provides
   fun providesFiatCurrenciesApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
+    @BrokerDefaultResultRetrofit retrofit: Retrofit
   ): FiatCurrenciesApi {
     return retrofit.create(FiatCurrenciesApi::class.java)
   }
@@ -130,9 +170,9 @@ class BrokerApiModule {
 
   @Singleton
   @Provides
-  fun providesTopUpApi(
+  fun providesTrueLayerApi(
     @BrokerDefaultRetrofit retrofit: Retrofit
-  ): TopUpApi {
-    return retrofit.create(TopUpApi::class.java)
+  ): TrueLayerApi {
+    return retrofit.create(TrueLayerApi::class.java)
   }
 }

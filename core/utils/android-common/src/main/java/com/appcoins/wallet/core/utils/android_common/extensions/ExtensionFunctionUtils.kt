@@ -1,5 +1,8 @@
 package com.appcoins.wallet.core.utils.android_common.extensions
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.util.Base64
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -7,7 +10,8 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 /**
  *
@@ -87,4 +91,13 @@ inline fun Fragment.requestPermission(
       else -> explained.invoke(permission)
     }
   }.launch(permission)
+}
+
+inline fun Context.getActivity(): Activity? {
+  var context = this
+  while (context is ContextWrapper) {
+    if (context is Activity) return context
+    context = context.baseContext
+  }
+  return null
 }

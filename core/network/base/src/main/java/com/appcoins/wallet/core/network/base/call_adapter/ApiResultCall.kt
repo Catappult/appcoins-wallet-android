@@ -1,5 +1,6 @@
 package com.appcoins.wallet.core.network.base.call_adapter
 
+import com.appcoins.wallet.core.arch.data.Error
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import okhttp3.Request
@@ -11,12 +12,13 @@ import retrofit2.Converter
 import retrofit2.Response
 import java.io.IOException
 import java.lang.reflect.Type
-import com.appcoins.wallet.ui.arch.data.Error
 
-class ApiResultCall<T, E>(private val call: Call<T>,
-                          private val successType: Type,
-                          private val errorConverter: Converter<ResponseBody, E>) :
-    Call<ApiResult<T, E>> {
+class ApiResultCall<T, E>(
+  private val call: Call<T>,
+  private val successType: Type,
+  private val errorConverter: Converter<ResponseBody, E>
+) :
+  Call<ApiResult<T, E>> {
 
   override fun enqueue(callback: Callback<ApiResult<T, E>>) {
     call.enqueue(object : Callback<T> {
@@ -43,14 +45,15 @@ class ApiResultCall<T, E>(private val call: Call<T>,
     } else {
       val errorBody = errorBody()
       val convertedBody = if (errorBody == null) {
-        return Err(Error.ApiError.UnknownError(IllegalStateException("Unexpected null error body."))
+        return Err(
+          Error.ApiError.UnknownError(IllegalStateException("Unexpected null error body."))
         )
       } else {
         try {
           errorConverter.convert(errorBody)!!
         } catch (e: Exception) {
           return Err(
-              Error.ApiError.UnknownError(IllegalStateException("Unexpected conversion error."))
+            Error.ApiError.UnknownError(IllegalStateException("Unexpected conversion error."))
           )
         }
       }
@@ -60,10 +63,10 @@ class ApiResultCall<T, E>(private val call: Call<T>,
 
   private fun Throwable.mapToApiResult(): ApiResult<T, E> {
     return Err(
-        when (this) {
-          is IOException -> Error.ApiError.NetworkError(this)
-          else -> Error.ApiError.UnknownError(this)
-        }
+      when (this) {
+        is IOException -> Error.ApiError.NetworkError(this)
+        else -> Error.ApiError.UnknownError(this)
+      }
     )
   }
 

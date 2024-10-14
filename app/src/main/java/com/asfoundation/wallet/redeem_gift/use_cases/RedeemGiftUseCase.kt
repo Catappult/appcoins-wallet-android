@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.redeem_gift.use_cases
 
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
 import com.asfoundation.wallet.redeem_gift.repository.RedeemGiftRepository
-import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import io.reactivex.Single
 import javax.inject.Inject
 

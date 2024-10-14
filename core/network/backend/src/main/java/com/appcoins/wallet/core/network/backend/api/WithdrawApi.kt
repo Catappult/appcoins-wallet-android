@@ -12,12 +12,12 @@ import retrofit2.http.POST
 interface WithdrawApi {
   @GET("transaction/wallet/withdraw/credits")
   fun getAvailableAmount(
-      @Header("authorization") authorization: String
+    @Header("authorization") authorization: String
   ): Single<WithdrawAvailableAmountResult>
 
   @POST("transaction/wallet/withdraw/credits")
   fun withdrawAppcCredits(
-      @Header("authorization") authorization: String,
-      @Body withdrawBody: WithdrawBody
+    @Header("authorization") authorization: String,
+    @Body withdrawBody: WithdrawBody
   ): Completable
 }

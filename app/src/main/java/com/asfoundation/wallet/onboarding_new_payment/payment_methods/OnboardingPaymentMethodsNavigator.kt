@@ -7,10 +7,10 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.data.Navigator
-import com.appcoins.wallet.ui.arch.data.navigate
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import javax.inject.Inject
@@ -37,7 +37,7 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
   fun navigateBackToGame(packageName: String) {
     try {
       fragment.startActivity(
-        packageManager.getLaunchIntentForPackage(packageName)
+        packageManager.getLaunchIntentForPackage(packageName)!!
       )
     } catch (e: Throwable) {
       e.printStackTrace()
@@ -81,28 +81,9 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
     )
   }
 
-  fun navigateToGiroAdyen(
-    transactionBuilder: TransactionBuilder,
-    amount: String,
-    currency: String,
-    forecastBonus: ForecastBonusAndLevel
-  ) {
-    navigate(
-      fragment.findNavController(),
-      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingAdyenPayment(
-        transactionBuilder,
-        PaymentType.GIROPAY,
-        amount,
-        currency,
-        forecastBonus
-      )
-    )
-  }
-
-  fun navigateToPaypalDirect() = Unit
-
-  fun navigateToLocalPayment(transactionBuilder: TransactionBuilder, paymentId: String, amount: String,
-                             currency: String
+  fun navigateToLocalPayment(
+    transactionBuilder: TransactionBuilder, paymentId: String, amount: String,
+    currency: String
   ) {
     navigate(
       fragment.findNavController(),
@@ -118,4 +99,60 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
   fun navigateToCarrierBilling() = Unit
 
   fun navigateToShareLinkPayment() = Unit
+
+  fun navigateToChallengeReward() = Unit
+
+  fun navigateToVkPayPayment(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
+  ) {
+    navigate(
+      fragment.findNavController(),
+      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingVkPayment(
+        transactionBuilder,
+        PaymentType.VKPAY,
+        amount,
+        currency,
+        forecastBonus
+      )
+    )
+  }
+
+  fun navigateToGooglePay(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
+  ) {
+    navigate(
+      fragment.findNavController(),
+      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingGooglePay(
+        transactionBuilder,
+        PaymentType.GOOGLEPAY_WEB,
+        amount,
+        currency,
+        forecastBonus
+      )
+    )
+  }
+
+  fun navigateToMiPay(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
+  ) {
+    navigate(
+      fragment.findNavController(),
+      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingMiPay(
+        transactionBuilder,
+        PaymentType.MI_PAY,
+        amount,
+        currency,
+        forecastBonus
+      )
+    )
+  }
 }

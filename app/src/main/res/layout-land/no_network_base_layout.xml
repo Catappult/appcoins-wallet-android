@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    tools:background="@color/styleguide_blue"
     >
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/no_network_animation"
-      android:layout_width="96dp"
-      android:layout_height="96dp"
+      android:layout_width="72dp"
+      android:layout_height="72dp"
+      app:layout_constraintBottom_toTopOf="@id/no_network_title"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -17,24 +19,39 @@
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
       app:lottie_rawRes="@raw/no_network_animation"
-      tools:src="@drawable/ic_topup_error"
+      tools:src="@drawable/ic_error_pink"
       />
 
-
   <TextView
-      android:id="@+id/no_network_message"
-      style="@style/TextM"
-      android:layout_width="0dp"
+      android:id="@+id/no_network_title"
+      style="@style/TextXL"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="44dp"
-      android:layout_marginTop="@dimen/big_margin"
-      android:layout_marginEnd="44dp"
-      android:fontFamily="sans-serif"
+      android:layout_marginTop="16dp"
       android:gravity="center"
       android:lineSpacingExtra="4sp"
-      android:text="@string/connection_error_body"
+      android:text="@string/oops_title"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintBottom_toTopOf="@id/no_network_message"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/no_network_animation"
+      />
+  <TextView
+      android:id="@+id/no_network_message"
+      style="@style/TextM"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:fontFamily="sans-serif"
+      android:gravity="center"
+      android:lineSpacingExtra="4sp"
+      android:maxWidth="320dp"
+      android:text="@string/connection_error_body"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/no_network_title"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

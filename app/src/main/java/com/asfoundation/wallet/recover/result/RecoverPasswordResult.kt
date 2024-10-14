@@ -1,5 +1,8 @@
 package com.asfoundation.wallet.recover.result
 
+import com.appcoins.wallet.feature.walletInfo.data.FailedRestore
+import com.appcoins.wallet.feature.walletInfo.data.RestoreResult
+import com.appcoins.wallet.feature.walletInfo.data.SuccessfulRestore
 import com.asfoundation.wallet.entity.WalletKeyStore
 import io.reactivex.Single
 
@@ -20,10 +23,13 @@ class RecoverPasswordResultMapper(
     return when (restoreResult) {
       is FailedRestore.GenericError ->
         Single.just(FailedPasswordRecover.GenericError(restoreResult.throwable))
+
       is FailedRestore.InvalidPassword ->
         Single.just(FailedPasswordRecover.InvalidPassword(restoreResult.throwable))
+
       is SuccessfulRestore ->
         Single.just(SuccessfulPasswordRecover(restoreResult.address, walletKeyStore.name))
+
       else -> TODO()
     }
   }

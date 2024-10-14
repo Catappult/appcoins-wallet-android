@@ -1,13 +1,13 @@
 package com.asfoundation.wallet.update_required
 
 import android.content.Intent
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
-import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletsModelUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
-import com.asfoundation.wallet.wallets.usecases.ObserveWalletsModelUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

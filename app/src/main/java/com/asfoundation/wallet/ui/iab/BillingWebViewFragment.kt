@@ -5,24 +5,26 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.WebviewFragmentBinding
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URISyntaxException
 import java.util.concurrent.Executors
@@ -37,8 +39,10 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
   @Inject
   lateinit var analytics: BillingAnalytics
+
   @Inject
   lateinit var logger: Logger
 
@@ -71,15 +75,19 @@ class BillingWebViewFragment : BasePageViewFragment() {
       ExternalAppEnum.PHONEPE.uriScheme,
       ExternalAppEnum.PAYTM.uriScheme,
       ExternalAppEnum.BHIM.uriScheme,
+      ExternalAppEnum.DANA.uriScheme,
     )
     private const val ASYNC_PAYMENT_FORM_SHOWN_SCHEMA = "https://pm.dlocal.com//v1/gateway/show?"
-    private const val CODAPAY_FINAL_REDIRECT_SCHEMA = "https://airtime.codapayments.com/epcgw/dlocal/"
-    private const val CODAPAY_BACK_URL = "https://pay.dlocal.com/payment_method_connectors/global_pm//back"
+    private const val CODAPAY_FINAL_REDIRECT_SCHEMA =
+      "https://airtime.codapayments.com/epcgw/dlocal/"
+    private const val CODAPAY_BACK_URL =
+      "https://pay.dlocal.com/payment_method_connectors/global_pm//back"
     private const val CODAPAY_CANCEL_URL = "codapayments.com/airtime/cancelConfirm"
     private const val URL = "url"
     private const val CURRENT_URL = "currentUrl"
     private const val ORDER_ID_PARAMETER = "OrderId"
     val OPEN_SUPPORT = "${HostProperties.MY_APPCOINS_HOST}open-support/"
+    private const val APP_REDIRECT_SCHEMA = "appcoins://"
 
     private var currentExtAppSelected: ExternalAppEnum? = null
 
@@ -123,14 +131,18 @@ class BillingWebViewFragment : BasePageViewFragment() {
       override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
         when {
           clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) ||
-                  clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
-                  clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) -> {
+              clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
+              clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) ||
+              clickUrl.contains(APP_REDIRECT_SCHEMA)
+          -> {
             currentUrl = clickUrl
             finishWithValidations(clickUrl)
           }
+
           isExternalIntentSchema(clickUrl) -> {
             launchActivityForSchema(view, clickUrl)
           }
+
           clickUrl.contains(CODAPAY_FINAL_REDIRECT_SCHEMA) && clickUrl.contains(
             ORDER_ID_PARAMETER
           ) -> {
@@ -138,10 +150,12 @@ class BillingWebViewFragment : BasePageViewFragment() {
               .getQueryParameter(ORDER_ID_PARAMETER)
             finishWithValidations(LOCAL_PAYMENTS_URL + orderId)
           }
+
           clickUrl.contains(CARRIER_BILLING_RETURN_SCHEMA.format(BuildConfig.APPLICATION_ID)) -> {
             currentUrl = clickUrl
             finishWithValidations(clickUrl)
           }
+
           clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
           clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
           clickUrl.contains(PAYPAL_CANCEL_SCHEMA) -> finishWithFail(clickUrl)
@@ -158,7 +172,11 @@ class BillingWebViewFragment : BasePageViewFragment() {
         if (!url.contains("/redirect")) {
           val timeout = timeoutReference.getAndSet(null)
           timeout?.cancel(false)
-          binding.webviewProgressBar.visibility = View.GONE
+          try {
+            binding.webviewProgressBar.visibility = View.GONE
+          } catch (exception: Exception) {
+            logger.log(TAG, exception)
+          }
         }
         if (url.contains(ASYNC_PAYMENT_FORM_SHOWN_SCHEMA)) {
           asyncDetailsShown = true
@@ -168,6 +186,13 @@ class BillingWebViewFragment : BasePageViewFragment() {
     binding.webview.settings.javaScriptEnabled = true
     binding.webview.settings.domStorageEnabled = true
     binding.webview.settings.useWideViewPort = true
+    // Enable autofill feature
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+      binding.webview.settings.saveFormData = true
+    } else {
+      val autofillManager = requireContext().getSystemService(AutofillManager::class.java)
+      autofillManager?.notifyViewEntered(binding.webview)
+    }
     binding.webview.loadUrl(currentUrl)
 
     binding.warningGetBt.setOnClickListener {
@@ -243,7 +268,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
           requireContext().startActivity(intent)
         } else {
           val fallbackUrl = intent.getStringExtra("browser_fallback_url")
-          if(fallbackUrl != null) {
+          if (fallbackUrl != null) {
             webView.loadUrl(fallbackUrl)
           } else {
             val appInfo = getAppInfo(url)
@@ -266,7 +291,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
     }
   }
 
-  private fun prepareIntentToFinishURL(url: String) : Intent {
+  private fun prepareIntentToFinishURL(url: String): Intent {
     val intent = Intent()
     intent.data = Uri.parse(url)
     return intent
@@ -295,14 +320,24 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
   private fun showGetAppWarning(appInfo: ExternalAppEnum) {
     currentExtAppSelected = appInfo
-    binding.warningGroup.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_in_animation))
+    binding.warningGroup.startAnimation(
+      AnimationUtils.loadAnimation(
+        context,
+        R.anim.pop_in_animation
+      )
+    )
     binding.warningGroup.visibility = View.VISIBLE
     binding.warningNameTv.text = appInfo.appName
     binding.warningAppIv.setImageResource(appInfo.appIcon)
   }
 
   private fun dismissGetAppWarning() {
-    binding.warningGroup.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_out_animation))
+    binding.warningGroup.startAnimation(
+      AnimationUtils.loadAnimation(
+        context,
+        R.anim.pop_out_animation
+      )
+    )
     binding.warningGroup.visibility = View.GONE
   }
 }

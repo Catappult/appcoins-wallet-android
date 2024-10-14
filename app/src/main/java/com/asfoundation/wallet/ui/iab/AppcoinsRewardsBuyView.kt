@@ -37,5 +37,5 @@ interface AppcoinsRewardsBuyView {
 
   fun lockRotation()
 
-  fun showVerification()
+  fun showCreditCardVerification()
 }

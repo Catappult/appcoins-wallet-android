@@ -1,35 +1,43 @@
 package com.asfoundation.wallet.ui.settings.entry
 
-import android.app.AlertDialog
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.ui.platform.ComposeView
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.PageViewAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
+import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics
+import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
+import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
+import com.appcoins.wallet.core.utils.properties.UrlPropertiesFormatter
+import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
+import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
-import com.asf.wallet.databinding.PreferenceFingerprintBinding
-import com.asf.wallet.databinding.PreferenceFingerprintOffBinding
-import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
-import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
+import com.asfoundation.wallet.manage_cards.ManageCardSharedViewModel
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
-import com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
-import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
-import com.asfoundation.wallet.ui.settings.SettingsActivityView
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,16 +47,30 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   lateinit var pageViewAnalytics: PageViewAnalytics
 
   @Inject
+  lateinit var analytics: SettingsAnalytics
+
+  @Inject
   lateinit var walletsEventSender: WalletsEventSender
 
   @Inject
+  lateinit var manageCardsAnalytics: ManageCardsAnalytics
+
+  @Inject
   lateinit var presenter: SettingsPresenter
-  private lateinit var activityView: SettingsActivityView
+
   private var switchSubject: PublishSubject<Unit>? = null
+  private lateinit var authenticationResultLauncher: ActivityResultLauncher<Intent>
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
+  private val manageCardSharedViewModel: ManageCardSharedViewModel by activityViewModels()
 
   companion object {
-
     const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
+
+    const val MANAGE_WALLET_EVENT = "manage_wallet"
 
     @JvmStatic
     fun newInstance(turnOnFingerprint: Boolean = false): SettingsFragment {
@@ -60,27 +82,48 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    if (context !is SettingsActivityView) {
-      throw IllegalStateException("Settings Fragment must be attached to Settings Activity")
-    }
-    activityView = context
-  }
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     switchSubject = PublishSubject.create()
     presenter.setFingerPrintPreference()
-  }
-
-  override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-    setPreferencesFromResource(R.xml.fragment_settings, rootKey)
+    handleAuthenticationResult()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present(savedInstanceState)
+    view.findViewById<ComposeView>(R.id.app_bar).apply {
+      setContent {
+        TopBar(
+          isMainBar = false,
+          onClickSupport = { presenter.displayChat() },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
+        )
+      }
+    }
+    if (manageCardSharedViewModel.isCardSaved.value) {
+      manageCardsAnalytics.addedNewCardSuccessEvent()
+      Toast.makeText(context, R.string.card_added_title, Toast.LENGTH_LONG)
+        .show()
+      manageCardSharedViewModel.resetCardResult()
+    } else if (manageCardSharedViewModel.isCardError.value) {
+      Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_LONG)
+        .show()
+      manageCardSharedViewModel.resetCardResult()
+    }
+  }
+
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
+    val layout = inflater.inflate(R.layout.fragment_settings, container, false)
+    val settingsContainer = layout.findViewById<FrameLayout>(R.id.settings_container_view)
+    val settingsView = super.onCreateView(inflater, settingsContainer, savedInstanceState)
+    settingsContainer.addView(settingsView)
+    return layout
   }
 
   override fun onResume() {
@@ -96,7 +139,25 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun onDestroy() {
     switchSubject = null
+    authenticationResultLauncher.unregister()
     super.onDestroy()
+  }
+
+  private fun handleAuthenticationResult() {
+    authenticationResultLauncher =
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == AuthenticationPromptActivity.RESULT_OK) {
+          val hasPermission = presenter.hasAuthenticationPermission()
+          presenter.changeAuthorizationPermission()
+          toggleFingerprint(!hasPermission)
+        } else {
+          Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_SHORT).show()
+        }
+      }
+  }
+
+  override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+    setPreferencesFromResource(R.xml.settings_options, rootKey)
   }
 
   private fun startBrowserActivity(uri: Uri, newTaskFlag: Boolean) {
@@ -137,63 +198,38 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setCurrencyPreference(selectedCurrency: FiatCurrencyEntity) {
+  override fun setCurrencyPreference(selectedCurrency: FiatCurrency?) {
     val settingsCurrencyPreference = findPreference<SettingsCurrencyPreference>("pref_currency")
-    settingsCurrencyPreference?.setCurrency(selectedCurrency)
+    selectedCurrency?.let {
+      settingsCurrencyPreference?.setCurrency(selectedCurrency)
+    }
     settingsCurrencyPreference?.setOnPreferenceClickListener {
-      context?.let {
-        val intent = ChangeFiatCurrencyActivity.newIntent(it)
-          .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
-        startActivity(intent)
-      }
-
+      presenter.onChangeCurrencyPreferenceClick(navController())
       false
     }
   }
 
-  override fun setBackupPreference() {
-    val backupPreference = findPreference<Preference>("pref_backup")
-    backupPreference?.setOnPreferenceClickListener {
-      walletsEventSender.sendCreateBackupEvent(
-        null,
-        WalletsAnalytics.SETTINGS,
-        null
-      )
-      presenter.onBackupPreferenceClick()
+  override fun setManageWalletPreference() {
+    val manageWalletPreference = findPreference<Preference>("pref_manage_wallet")
+    manageWalletPreference?.setOnPreferenceClickListener {
+      analytics.sendManageWalletScreenEvent(action = MANAGE_WALLET_EVENT)
+      presenter.onManageWalletPreferenceClick(navController())
       false
     }
   }
 
-  override fun setRestorePreference() {
-    val restorePreference = findPreference<Preference>("pref_restore")
-    restorePreference?.setOnPreferenceClickListener {
-      presenter.onRecoverWalletPreferenceClick()
-      false
-    }
-  }
-
-  override fun setRedeemCodePreference(walletAddress: String) {
-    val redeemPreference = findPreference<Preference>("pref_redeem")
-    redeemPreference?.setOnPreferenceClickListener {
-      presenter.onRedeemGiftPreferenceClick()
-      false
-    }
-  }
-
-  override fun setPromoCodePreference(promoCode: PromoCode) {
-    val promoCodePreference = findPreference<SettingsPreferencePromoCodeState>("pref_promo_code")
-    promoCodePreference?.setPromoCode(promoCode)
-    promoCodePreference?.setOnPreferenceClickListener {
-      presenter.onPromoCodePreferenceClick()
+  override fun setAccountPreference() {
+    val accountPreference = findPreference<Preference>("pref_account")
+    accountPreference?.setOnPreferenceClickListener {
+      Toast.makeText(context, "In Progress", Toast.LENGTH_SHORT)
+        .show() // TODO create account screen
       false
     }
   }
 
   override fun navigateToIntent(intent: Intent) = startActivity(intent)
 
-  override fun authenticationResult(): Observable<Boolean> {
-    return activityView.authenticationResult()
-  }
+  override fun authenticationResult(): ActivityResultLauncher<Intent> = authenticationResultLauncher
 
   override fun toggleFingerprint(enabled: Boolean) {
     setFingerprintPreference(enabled)
@@ -258,22 +294,41 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
+  override fun setManageCardsPreference() {
+    val manageCardsPreference = findPreference<Preference>("pref_manage_cards")
+    manageCardsPreference?.layoutResource = R.layout.preference_without_summary_layout
+    manageCardsPreference?.title = getString(R.string.manage_cards_settings_manage_title)
+    manageCardsPreference?.setOnPreferenceClickListener {
+      manageCardsAnalytics.settingsManageCardsClickEvent()
+      presenter.onManageCardsPreferenceClick(navController())
+      false
+    }
+  }
+
+  override fun setSkeletonCardPreference() {
+    val manageCardsPreference = findPreference<Preference>("pref_manage_cards")
+    manageCardsPreference?.layoutResource = R.layout.skeleton_settings
+    manageCardsPreference?.title = ""
+  }
+
+  override fun setAddNewCardPreference() {
+    val addCardsPreference = findPreference<Preference>("pref_manage_cards")
+    addCardsPreference?.layoutResource = R.layout.preference_without_summary_layout
+    addCardsPreference?.title = getString(R.string.manage_cards_settings_add_title)
+    addCardsPreference?.setOnPreferenceClickListener {
+      manageCardsAnalytics.settingsManageCardsClickEvent()
+      presenter.onAddCardsPreferenceClick(navController())
+      false
+    }
+  }
+
+
   override fun setIssueReportPreference() {
     val bugReportPreference = findPreference<Preference>("pref_contact_support")
     bugReportPreference?.setOnPreferenceClickListener {
       presenter.onBugReportClicked()
       false
     }
-  }
-
-
-  override fun setWithdrawPreference() {
-    val bugReportPreference = findPreference<Preference>("pref_withdraw")
-    bugReportPreference?.setOnPreferenceClickListener {
-      presenter.onWithdrawClicked()
-      false
-    }
-
   }
 
   override fun setFaqsPreference() {
@@ -291,7 +346,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-
   override fun setTwitterPreference() {
     val twitterPreference = findPreference<Preference>("pref_twitter")
     twitterPreference?.setOnPreferenceClickListener {
@@ -305,10 +359,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setTelegramPreference() {
-    val telegramPreference = findPreference<Preference>("pref_telegram")
-    telegramPreference?.setOnPreferenceClickListener {
-      startBrowserActivity(Uri.parse("https://t.me/appcoinsofficial"), false)
+  override fun setDiscordPreference() {
+    val discordPreference = findPreference<Preference>("pref_discord")
+    discordPreference?.setOnPreferenceClickListener {
+      startBrowserActivity(Uri.parse("https://discord.gg/aptoide"), false)
       false
     }
   }
@@ -341,12 +395,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val privacyPolicyPreference = findPreference<Preference>("pref_privacy_policy")
     privacyPolicyPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
-        Uri.parse(
-          "https://wallet.appcoins.io/legal?section=privacy&lang=${
-            Locale.getDefault().toLanguageTag()
-          }"
-        ),
-        false
+        uri = UrlPropertiesFormatter.addLanguageElementToUrl(PRIVACY_POLICY_URL),
+        newTaskFlag = false
       )
       false
     }
@@ -356,12 +406,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val termsConditionsPreference = findPreference<Preference>("pref_terms_condition")
     termsConditionsPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
-        Uri.parse(
-          "https://wallet.appcoins.io/legal?section=terms&lang=${
-            Locale.getDefault().toLanguageTag()
-          }"
-        ),
-        false
+        uri = UrlPropertiesFormatter.addLanguageElementToUrl(TERMS_CONDITIONS_URL),
+        newTaskFlag = false
       )
       false
     }
@@ -370,13 +416,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setCreditsPreference() {
     val creditsPreference = findPreference<Preference>("pref_credits")
     creditsPreference?.setOnPreferenceClickListener {
-      AlertDialog.Builder(activity)
-        .setPositiveButton(
-          R.string.close
-        ) { dialog, _ -> dialog.dismiss() }
-        .setMessage(R.string.settings_fragment_credits)
-        .create()
-        .show()
+      val bottomSheet = SettingsCreditsBottomSheetFragment.newInstance()
+      bottomSheet.show(parentFragmentManager, "ManageWalletName")
       true
     }
   }
@@ -402,5 +443,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       e.printStackTrace()
     }
     return version
+  }
+
+  private fun navController(): NavController {
+    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
+      R.id.main_host_container
+    ) as NavHostFragment
+    return navHostFragment.navController
   }
 }

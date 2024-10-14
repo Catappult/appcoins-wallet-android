@@ -1,15 +1,20 @@
 package com.appcoins.wallet.core.network.base
 
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.google.gson.JsonObject
 import io.reactivex.Single
+
 
 /**
  * Variable representing in seconds the time to live interval of the authentication token.
  **/
 private const val TTL_IN_SECONDS = 3600
 
+
+/**
+ * This class is here temporarily only
+ */
 class EwtAuthenticatorService(
   private val walletService: WalletService,
   private val header: String

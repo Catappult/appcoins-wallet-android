@@ -3,8 +3,8 @@ package com.asfoundation.wallet.onboarding_new_payment
 import android.content.Intent
 import android.net.Uri
 import cm.aptoide.analytics.AnalyticsManager
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetAnalyticsRevenueValueUseCase
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -18,18 +18,17 @@ class OnboardingPaymentEvents @Inject constructor(
   private val analyticsManager: AnalyticsManager
 ) {
 
-
   fun sendPaymentConfirmationEvent(
     transactionBuilder: TransactionBuilder,
     paymentType: PaymentType
   ) {
     billingAnalytics.sendPaymentConfirmationEvent(
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      transactionBuilder.amount().toString(),
-      paymentType.mapToService().transactionType,
-      transactionBuilder.type,
-      "buy",
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = paymentType.mapToService().transactionType,
+      transactionType = transactionBuilder.type,
+      action = BillingAnalytics.ACTION_BUY,
       isOnboardingPayment = true
     )
   }
@@ -41,16 +40,38 @@ class OnboardingPaymentEvents @Inject constructor(
     refusalReason: String? = null,
     riskRules: String? = null
   ) {
-    stopTimingForPurchaseEvent(success = false, paymentType)
+    stopTimingForPurchaseEvent(
+      success = false,
+      paymentType = paymentType
+    )
     billingAnalytics.sendPaymentErrorWithDetailsAndRiskEvent(
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      transactionBuilder.amount().toString(),
-      paymentType.mapToService().transactionType,
-      transactionBuilder.type,
-      refusalCode.toString(),
-      refusalReason,
-      riskRules,
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = paymentType.mapToService().transactionType,
+      transactionType = transactionBuilder.type,
+      errorCode = refusalCode.toString(),
+      errorDetails = refusalReason,
+      riskRules = riskRules,
+      isOnboardingPayment = true
+    )
+  }
+
+  fun sendPaymentErrorMessageEvent(
+    errorCode: String? = null,
+    errorMessage: String?,
+    transactionBuilder: TransactionBuilder,
+    paymentMethod: String,
+  ) {
+    billingAnalytics.sendPaymentErrorWithDetailsAndRiskEvent(
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = paymentMethod,
+      transactionType = transactionBuilder.type,
+      errorCode = errorCode ?: "",
+      errorDetails = errorMessage ?: "",
+      riskRules = "",
       isOnboardingPayment = true
     )
   }
@@ -61,23 +82,24 @@ class OnboardingPaymentEvents @Inject constructor(
     action: String
   ) {
     paymentMethodsAnalytics.sendPaymentMethodEvent(
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      transactionBuilder.amount().toString(),
-      paymentType?.mapToService()?.transactionType ?: "other_payment_methods",
-      transactionBuilder.type,
-      action,
+      appPackage = transactionBuilder.domain,
+      skuId = transactionBuilder.skuId,
+      amount = transactionBuilder.amount().toString(),
+      paymentId = paymentType?.mapToService()?.transactionType ?: "other_payment_methods",
+      type = transactionBuilder.type,
+      action = action,
       isOnboardingPayment = true
     )
   }
 
-  fun sendPurchaseStartWithoutDetailsEvent(transactionBuilder: TransactionBuilder) {
-    billingAnalytics.sendPurchaseStartWithoutDetailsEvent(
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      transactionBuilder.amount().toString(),
-      transactionBuilder.type,
-      BillingAnalytics.WALLET_PAYMENT_METHOD,
+  fun sendPurchaseStartEvent(transactionBuilder: TransactionBuilder, oemId: String?) {
+    billingAnalytics.sendPurchaseStartEvent(
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      transactionType = transactionBuilder.type,
+      context = BillingAnalytics.WALLET_PAYMENT_METHOD,
+      oemId = oemId,
       isOnboardingPayment = true
     )
   }
@@ -92,11 +114,11 @@ class OnboardingPaymentEvents @Inject constructor(
       isPreselected = false
     )
     billingAnalytics.sendPaymentEvent(
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      transactionBuilder.amount().toString(),
-      paymentType.mapToService().transactionType,
-      transactionBuilder.type,
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = paymentType.mapToService().transactionType,
+      transactionType = transactionBuilder.type,
       isOnboardingPayment = true
     )
     billingAnalytics.sendRevenueEvent(revenueValueUseCase(transactionBuilder))
@@ -107,7 +129,10 @@ class OnboardingPaymentEvents @Inject constructor(
     paymentType: PaymentType,
     txId: String
   ) {
-    stopTimingForPurchaseEvent(success = true, paymentType)
+    stopTimingForPurchaseEvent(
+      success = true,
+      paymentType = paymentType
+    )
     billingAnalytics.sendPaymentSuccessEvent(
       packageName = transactionBuilder.domain,
       skuDetails = transactionBuilder.skuId,
@@ -122,47 +147,51 @@ class OnboardingPaymentEvents @Inject constructor(
 
   fun sendCarrierBillingConfirmationEvent(transactionBuilder: TransactionBuilder, action: String) {
     billingAnalytics.sendPaymentConfirmationEvent(
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      transactionBuilder.amount()
-        .toString(),
-      BillingAnalytics.PAYMENT_METHOD_CARRIER,
-      transactionBuilder.type,
-      action,
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_CARRIER,
+      transactionType = transactionBuilder.type,
+      action = action,
       isOnboardingPayment = true
     )
   }
 
-  fun sendAdyenPaymentConfirmationEvent(transactionBuilder: TransactionBuilder, action: String, paymentType: String) {
+  fun sendAdyenPaymentConfirmationEvent(
+    transactionBuilder: TransactionBuilder,
+    action: String,
+    paymentType: String
+  ) {
     billingAnalytics.sendPaymentConfirmationEvent(
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      transactionBuilder.amount()
-        .toString(),
-      paymentType,
-      transactionBuilder.type,
-      action,
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = paymentType,
+      transactionType = transactionBuilder.type,
+      action = action,
       isOnboardingPayment = true
     )
   }
 
-  fun sendAdyenPaymentUrlEvent(transactionBuilder: TransactionBuilder, data: Intent, paymentType: String) {
-    val amountString = transactionBuilder.amount()
-      .toString()
+  fun sendAdyenPaymentUrlEvent(
+    transactionBuilder: TransactionBuilder,
+    data: Intent,
+    paymentType: String
+  ) {
+    val amountString = transactionBuilder.amount().toString()
     billingAnalytics.sendPaypalUrlEvent(
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      amountString, paymentType,
-      getQueryParameter(data, "type"),
-      getQueryParameter(data, "resultCode"),
-      data.dataString,
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = amountString, transactionType = paymentType,
+      type = getQueryParameter(data, "type"),
+      resultCode = getQueryParameter(data, "resultCode"),
+      url = data.dataString,
       isOnboardingPayment = true
     )
   }
 
-  fun getQueryParameter(data: Intent, parameter: String): String? {
-    return Uri.parse(data.dataString)
-      .getQueryParameter(parameter)
+  private fun getQueryParameter(data: Intent, parameter: String): String? {
+    return Uri.parse(data.dataString).getQueryParameter(parameter)
   }
 
   fun startTimingForPurchaseEvent() {
@@ -171,8 +200,8 @@ class OnboardingPaymentEvents @Inject constructor(
 
   private fun stopTimingForPurchaseEvent(success: Boolean, paymentType: PaymentType) {
     paymentMethodsAnalytics.stopTimingForPurchaseEvent(
-      paymentType.mapToService().transactionType,
-      success,
+      paymentMethod = paymentType.mapToService().transactionType,
+      success = success,
       isPreselected = false
     )
   }
@@ -201,16 +230,85 @@ class OnboardingPaymentEvents @Inject constructor(
     )
   }
 
-  fun sendLocalNavigationToUrlEvents(packageName: String, skuId: String?, amount: String, type: String,
-                                     paymentId: String) {
-    billingAnalytics.sendPaymentMethodDetailsEvent(packageName, skuId, amount, paymentId, type)
-    billingAnalytics.sendPaymentConfirmationEvent(packageName, skuId, amount, paymentId, type, "buy")
+  fun sendLocalNavigationToUrlEvents(
+    packageName: String, skuId: String?, amount: String, type: String,
+    paymentId: String
+  ) {
+    billingAnalytics.sendPaymentMethodDetailsEvent(
+      packageName = packageName,
+      skuDetails = skuId,
+      value = amount,
+      purchaseDetails = paymentId,
+      transactionType = type
+    )
+    billingAnalytics.sendPaymentConfirmationEvent(
+      packageName = packageName,
+      skuDetails = skuId,
+      value = amount,
+      purchaseDetails = paymentId,
+      transactionType = type,
+      action = BillingAnalytics.ACTION_BUY
+    )
   }
 
-  fun sendPaymentConclusionEvents(packageName: String, skuId: String?, amount: BigDecimal,
-                                  type: String, paymentId: String, txId: String,
-                                  amountUsd: BigDecimal) {
-    billingAnalytics.sendPaymentEvent(packageName, skuId, amount.toString(), paymentId, type)
+  fun sendPaymentConfirmationGooglePayEvent(
+    transactionBuilder: TransactionBuilder,
+  ) {
+    billingAnalytics.sendPaymentConfirmationEvent(
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
+      transactionType = transactionBuilder.type,
+      action = BillingAnalytics.ACTION_BUY,
+      isOnboardingPayment = true
+    )
+  }
+
+  fun sendGooglePaySuccessFinishEvents(
+    transactionBuilder: TransactionBuilder,
+    txId: String
+  ) {
+    paymentMethodsAnalytics.stopTimingForPurchaseEvent(
+      paymentMethod = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
+      success = true,
+      isPreselected = false
+    )
+    billingAnalytics.sendPaymentSuccessEvent(
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
+      transactionType = transactionBuilder.type,
+      txId = txId,
+      valueUsd = transactionBuilder.amountUsd.toString()
+    )
+    billingAnalytics.sendPaymentEvent(
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
+      transactionType = transactionBuilder.type, isOnboardingPayment = true
+    )
+    billingAnalytics.sendRevenueEvent(revenueValueUseCase(transactionBuilder))
+  }
+
+  fun sendPaymentConclusionEvents(
+    packageName: String,
+    skuId: String?,
+    amount: BigDecimal,
+    type: String,
+    paymentId: String,
+    txId: String,
+    amountUsd: BigDecimal
+  ) {
+    billingAnalytics.sendPaymentEvent(
+      packageName = packageName,
+      skuDetails = skuId,
+      value = amount.toString(),
+      purchaseDetails = paymentId,
+      transactionType = type
+    )
     billingAnalytics.sendPaymentSuccessEvent(
       packageName = packageName,
       skuDetails = skuId,
@@ -220,12 +318,6 @@ class OnboardingPaymentEvents @Inject constructor(
       txId = txId,
       valueUsd = amountUsd.toString()
     )
-  }
-
-  fun sendPendingPaymentEvents(packageName: String, skuId: String?, amount: String, type: String,
-                               paymentId: String) {
-    billingAnalytics.sendPaymentEvent(packageName, skuId, amount, paymentId, type)
-    billingAnalytics.sendPaymentPendingEvent(packageName, skuId, amount, paymentId, type)
   }
 
   fun sendRevenueEvent(fiatAmount: String) = billingAnalytics.sendRevenueEvent(fiatAmount)

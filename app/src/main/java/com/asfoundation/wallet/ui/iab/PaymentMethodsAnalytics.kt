@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
 import com.appcoins.wallet.core.analytics.analytics.TaskTimer
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,11 +28,16 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val PAYMENT_METHOD_SELECTION = "selection"
     const val PAYMENT_METHOD_CC = "credit_card"
     const val PAYMENT_METHOD_PP = "paypal"
-    const val PAYMENT_METHOD_GIROPAY = "giro_pay"
     const val PAYMENT_METHOD_PP_V2 = "paypal_v2"
+    const val PAYMENT_METHOD_VKPAY = "vk_pay"
     const val PAYMENT_METHOD_APPC = "appc_c"
     const val PAYMENT_METHOD_LOCAL = "local"
+    const val PAYMENT_METHOD_SANDBOX = "sandbox"
+    const val PAYMENT_METHOD_GOOGLEPAY_WEB = "googlepay"
     const val PAYMENT_METHOD_ASK_FRIEND = "ask_friend"
+    const val PAYMENT_METHOD_CHALLENGE_REWARD = "challenge_reward"
+    const val PAYMENT_METHOD_MI_PAY = "mipay"
+    const val PAYMENT_METHOD_TRUE_LAYER = "truelayer"
 
     const val LOADING_STEP_WALLET_INFO = "get_wallet_info"
     const val LOADING_STEP_CONVERT_TO_FIAT = "convert_to_local_fiat"
@@ -55,6 +60,8 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val WALLET_3DS_CANCEL = "wallet_3ds_cancel"
     const val WALLET_3DS_ERROR = "wallet_3ds_error"
 
+    const val WALLET_PAYMENT_START_CARD_LIST = "wallet_payment_start_change_card_prompt_click"
+
   }
 
   var startedIntegration: String? = null
@@ -76,7 +83,7 @@ class PaymentMethodsAnalytics @Inject constructor(
     type: String?,
     action: String,
     isPreselected: Boolean = false,
-    isOnboardingPayment : Boolean = false
+    isOnboardingPayment: Boolean = false
   ) {
     if (isPreselected) {
       billingAnalytics.sendPreSelectedPaymentMethodEvent(
@@ -89,7 +96,15 @@ class PaymentMethodsAnalytics @Inject constructor(
         isOnboardingPayment
       )
     } else {
-      billingAnalytics.sendPaymentMethodEvent(appPackage, skuId, amount, paymentId, type, action, isOnboardingPayment)
+      billingAnalytics.sendPaymentMethodEvent(
+        appPackage,
+        skuId,
+        amount,
+        paymentId,
+        type,
+        action,
+        isOnboardingPayment
+      )
     }
   }
 
@@ -180,6 +195,15 @@ class PaymentMethodsAnalytics @Inject constructor(
     analyticsManager.logEvent(
       hashMapOf<String, Any>(ERROR to (error ?: "")),
       WALLET_3DS_ERROR,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
+  fun sendShowStoredCardList() {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(),
+      WALLET_PAYMENT_START_CARD_LIST,
       AnalyticsManager.Action.CLICK,
       WALLET
     )

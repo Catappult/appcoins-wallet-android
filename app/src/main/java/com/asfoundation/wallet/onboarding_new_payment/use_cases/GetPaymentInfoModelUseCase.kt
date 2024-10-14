@@ -51,9 +51,7 @@ class GetPaymentInfoModelUseCase @Inject constructor(
       PaymentType.CARD.name -> {
         AdyenPaymentRepository.Methods.CREDIT_CARD
       }
-      PaymentType.GIROPAY.name -> {
-        AdyenPaymentRepository.Methods.GIROPAY
-      }
+
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL
       }

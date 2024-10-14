@@ -60,6 +60,7 @@
       android:layout_marginTop="32dp"
       android:text="@string/error_contac_us_body"
       android:textAlignment="center"
+      android:textColor="@color/styleguide_dark_grey"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/error_message"

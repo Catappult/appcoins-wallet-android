@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.asf.wallet">
 
-  <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS"
+  <uses-permission
+      android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS"
       tools:ignore="ProtectedPermissions" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,12 +20,16 @@
       android:maxSdkVersion="28" />
   <uses-permission android:name="android.permission.USE_BIOMETRIC" />
   <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+  <uses-permission android:name="com.dti.folderlauncher.provider.permission.READ_APP_DETAILS" />
 
   <queries>
     <package android:name="com.gojek.app" />
     <package android:name="net.one97.paytm" />
     <package android:name="com.phonepe.app" />
     <package android:name="in.org.npci.upiapp" />
+    <package android:name="id.dana" />
+    <package android:name="com.dti.folderlauncher" />
+    <package android:name="com.android.chrome" />
   </queries>
 
   <application
@@ -40,6 +45,10 @@
       tools:replace="android:name, android:theme, android:allowBackup">
 
     <meta-data
+        android:name="android.autofill"
+        android:value="true" />
+
+    <meta-data
         android:name="com.google.firebase.messaging.default_notification_channel_id"
         android:value="Support notification channel" />
 
@@ -53,12 +62,12 @@
         android:exported="false" />
 
     <activity
-        android:taskAffinity=".invisible"
-        android:excludeFromRecents="true"
-        android:launchMode="singleTask"
         android:name="com.asfoundation.wallet.backup.BackupBroadcastReceiver"
         android:enabled="true"
-        android:exported="false" />
+        android:excludeFromRecents="true"
+        android:exported="false"
+        android:launchMode="singleTask"
+        android:taskAffinity=".invisible" />
 
     <receiver
         android:name="com.asfoundation.wallet.support.BootCompletedBroadcastReceiver"
@@ -70,26 +79,35 @@
     </receiver>
 
     <activity
-        android:taskAffinity=".invisible"
-        android:excludeFromRecents="true"
-        android:launchMode="singleTask"
         android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
         android:enabled="true"
-        android:exported="false" />
+        android:excludeFromRecents="true"
+        android:exported="false"
+        android:launchMode="singleTask"
+        android:taskAffinity=".invisible" />
 
     <activity
         android:name="com.asfoundation.wallet.main.MainActivity"
         android:exported="true"
-        android:theme="@style/SplashTheme">
+        android:launchMode="singleTask"
+        android:theme="@style/SplashTheme"
+        android:windowSoftInputMode="adjustResize">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
-    </activity>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
 
-    <activity
-        android:name="com.asfoundation.wallet.ui.settings.SettingsActivity"
-        android:label="@string/title_activity_settings" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="appcoins" />
+        <data android:host="${giftCardHost}" />
+        <data android:host="${promoCodeHost}" />
+      </intent-filter>
+
+    </activity>
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TransactionDetailActivity"
         android:label="" />
@@ -130,6 +148,7 @@
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter
           android:autoVerify="true"
+          android:priority="10"
           tools:ignore="UnusedAttribute">
         <action android:name="android.intent.action.VIEW" />
 
@@ -162,9 +181,6 @@
     </activity>
     <activity android:name="com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity" />
     <activity
-        android:name="com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity"
-        android:label="@string/change_currency_title" />
-    <activity
         android:name="com.asfoundation.wallet.ui.iab.IabActivity"
         android:exported="true"
         android:launchMode="singleTask"
@@ -182,7 +198,7 @@
     </activity>
     <activity
         android:name="com.asfoundation.wallet.rating.RatingActivity"
-        android:launchMode="singleInstance"
+        android:launchMode="singleTask"
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow" />
     <activity
         android:name="com.asfoundation.wallet.ui.airdrop.AirdropActivity"
@@ -191,14 +207,11 @@
         tools:ignore="LockedOrientationActivity" />
     <activity android:name="com.asfoundation.wallet.ui.gamification.GamificationActivity" />
     <activity
-        android:name="com.asfoundation.wallet.ui.transact.TransferActivity"
-        android:label="@string/title_activity_send" />
-    <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
         android:exported="true"
         android:label="@string/topup_title"
-        android:theme="@style/TopupTheme"
-        >
+        android:launchMode="singleTask"
+        android:theme="@style/TopupTheme">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
 
@@ -209,16 +222,47 @@
             android:host="${applicationId}"
             android:scheme="adyencheckout" />
       </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data
+            android:host="truelayer"
+            android:scheme="appcoins" />
+      </intent-filter>
     </activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.billing.googlepay.GooglePayReturnActivity"
+        android:exported="true"
+        android:launchMode="singleTask"
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data
+            android:host="${applicationId}"
+            android:scheme="googlepayresult" />
+        <data
+            android:host="wallet.dev.appcoins.io"
+            android:pathPrefix="/app/googlepay/result"
+            android:scheme="http" />
+        <data
+            android:host="wallet.dev.appcoins.io"
+            android:pathPrefix="/app/googlepay/result"
+            android:scheme="https" />
+      </intent-filter>
+    </activity>
+
     <activity
         android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
         android:label="@string/subscriptions_title" />
 
-    <activity
-        android:name="com.asfoundation.wallet.referrals.InviteFriendsActivity"
-        android:label="@string/referral_view_title"
-        android:screenOrientation="portrait"
-        tools:ignore="LockedOrientationActivity" />
     <activity
         android:name="com.asfoundation.wallet.update_required.UpdateRequiredActivity"
         android:label=""
@@ -242,7 +286,7 @@
         tools:ignore="LockedOrientationActivity" />
 
     <activity
-        android:name="com.asfoundation.wallet.backup.BackupActivity"
+        android:name="com.appcoins.wallet.feature.backup.ui.BackupActivity"
         android:label="@string/action_backup_wallet"
         android:theme="@style/MaterialAppTheme" />
 
@@ -259,15 +303,8 @@
 
     <activity
         android:name="com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity"
-        android:label="@string/verification_settings_unverified_title"
+        android:label=""
         android:windowSoftInputMode="stateHidden" />
-    <activity
-        android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
-        android:label="@string/verification_settings_unverified_title"
-        android:windowSoftInputMode="stateHidden" />
-    <activity
-        android:name="com.asfoundation.wallet.eskills.withdraw.WithdrawActivity"
-        android:label="@string/e_skills_withdraw_title" />
 
     <!-- Overrides adyen manifest to force the 3ds2 activity to run on the same task as the payment-->
     <!-- The standard adyen behavior would open the 3ds2 activity in the "main" wallet task, -->
@@ -280,8 +317,10 @@
         tools:replace="launchMode">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data
             android:host="${applicationId}"
             android:scheme="adyen3ds2" />
@@ -305,8 +344,7 @@
     <provider
         android:name="androidx.startup.InitializationProvider"
         android:authorities="${applicationId}.androidx-startup"
-        tools:node="remove">
-    </provider>
+        tools:node="remove" />
     <!--Needed to share file in android P and above -->
     <provider
         android:name="androidx.core.content.FileProvider"
@@ -317,6 +355,12 @@
           android:name="android.support.FILE_PROVIDER_PATHS"
           android:resource="@xml/file_provider_paths" />
     </provider>
+
+    <receiver
+        android:name="com.asfoundation.wallet.promotions.alarm.PromotionBroadcastReceiver"
+        android:enabled="true"
+        android:exported="false" />
+
   </application>
 
 </manifest>

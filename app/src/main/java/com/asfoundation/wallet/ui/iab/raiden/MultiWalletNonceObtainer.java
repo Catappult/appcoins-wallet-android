@@ -41,20 +41,18 @@ public class MultiWalletNonceObtainer {
       this.chainId = chainId;
     }
 
-    @Override public boolean equals(Object o) {
-      if (this == o) return true;
-      if (!(o instanceof Key)) return false;
-
-      Key key = (Key) o;
-
-      if (chainId != key.chainId) return false;
-      return address.equals(key.address);
-    }
-
     @Override public int hashCode() {
       int result = address.hashCode();
       result = 31 * result + (int) (chainId ^ (chainId >>> 32));
       return result;
+    }
+
+    @Override public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof Key key)) return false;
+
+      if (chainId != key.chainId) return false;
+      return address.equals(key.address);
     }
   }
 }

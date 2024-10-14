@@ -10,6 +10,7 @@ dependencies {
   implementation(project(":core:network:base"))
   implementation(project(":core:utils:properties"))
   implementation(project(":core:utils:android-common"))
+  implementation(project(":core:arch"))
   implementation(libs.bundles.network)
   implementation(libs.bundles.rx)
   implementation(libs.bundles.jackson)

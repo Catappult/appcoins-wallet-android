@@ -37,18 +37,19 @@
 
       <TextView
           android:id="@+id/onboarding_value1_title"
+          style="@style/OnboardingValuesTitleTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/intro_2_title"
-          style="@style/OnboardingValuesTitleTextStyle"
           />
       <TextView
           android:id="@+id/onboarding_value1_body"
+          style="@style/OnboardingValuesBodyTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
           android:text="@string/intro_2_body"
-          style="@style/OnboardingValuesBodyTextStyle"
+          android:textAlignment="center"
           />
     </LinearLayout>
   </LinearLayout>
@@ -82,18 +83,19 @@
         >
       <TextView
           android:id="@+id/onboarding_value2_title"
+          style="@style/OnboardingValuesTitleTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/intro_3_title"
-          style="@style/OnboardingValuesTitleTextStyle"
           />
       <TextView
           android:id="@+id/onboarding_value2_body"
+          style="@style/OnboardingValuesBodyTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
           android:text="@string/intro_3_body"
-          style="@style/OnboardingValuesBodyTextStyle"
+          android:textAlignment="center"
           />
     </LinearLayout>
 
@@ -127,19 +129,20 @@
         >
       <TextView
           android:id="@+id/onboarding_value3_title"
+          style="@style/OnboardingValuesTitleTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/intro_4_title"
-          style="@style/OnboardingValuesTitleTextStyle"
           />
 
       <TextView
           android:id="@+id/onboarding_value3_body"
+          style="@style/OnboardingValuesBodyTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
           android:text="@string/intro_4_body"
-          style="@style/OnboardingValuesBodyTextStyle"
+          android:textAlignment="center"
           />
     </LinearLayout>
   </LinearLayout>

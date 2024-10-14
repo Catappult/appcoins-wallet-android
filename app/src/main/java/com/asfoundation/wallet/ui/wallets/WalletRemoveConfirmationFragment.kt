@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asf.wallet.R
 import com.asf.wallet.databinding.RemoveWalletSecondLayoutBinding
 import com.asfoundation.wallet.interact.DeleteWalletInteract
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -33,21 +32,26 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = WalletRemoveConfirmationPresenter(this, walletAddress, deleteWalletInteract, logger,
-        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
+    presenter = WalletRemoveConfirmationPresenter(
+      this, walletAddress, deleteWalletInteract, logger,
+      CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io()
+    )
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is RemoveWalletActivityView) {
       throw IllegalStateException(
-          "Wallet Confirmation must be attached to Remove Wallet Activity")
+        "Wallet Confirmation must be attached to Remove Wallet Activity"
+      )
     }
     activityView = context
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = RemoveWalletSecondLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = RemoveWalletSecondLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -132,9 +136,11 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
     private const val CREDITS_BALANCE_KEY = "credits_balance"
     private const val ETHEREUM_BALANCE_KEY = "ethereum_balance"
 
-    fun newInstance(walletAddress: String, totalFiatBalance: String,
-                    appcoinsBalance: String, creditsBalance: String,
-                    ethereumBalance: String): WalletRemoveConfirmationFragment {
+    fun newInstance(
+      walletAddress: String, totalFiatBalance: String,
+      appcoinsBalance: String, creditsBalance: String,
+      ethereumBalance: String
+    ): WalletRemoveConfirmationFragment {
       val fragment = WalletRemoveConfirmationFragment()
       Bundle().apply {
         putString(WALLET_ADDRESS_KEY, walletAddress)

@@ -2,29 +2,30 @@
 <resources>
 
   <declare-styleable name="SeparatorView">
-    <attr format="enum" name="line_type">
+    <attr name="line_type" format="enum">
       <enum name="solid" value="0" />
       <enum name="dashed" value="1" />
     </attr>
-    <attr format="enum" name="line_orientation">
+    <attr name="line_orientation" format="enum">
       <enum name="horizontal" value="0" />
       <enum name="vertical" value="1" />
     </attr>
   </declare-styleable>
 
   <declare-styleable name="WalletButtonView">
-    <attr format="enum" name="buttonType">
+    <attr name="buttonType" format="enum">
       <enum name="filled" value="0" />
       <enum name="outlined" value="1" />
       <enum name="text" value="2" />
       <enum name="disabled" value="3" />
       <enum name="filled_gray_pink" value="4" />
+      <enum name="outlined_grey" value="5" />
     </attr>
-    <attr format="string" name="buttonText" />
-    <attr format="color" name="buttonColor" />
-    <attr format="boolean" name="buttonIsAllCaps"  />
-    <attr format="reference" name="buttonImageRight"  />
-    <attr format="reference" name="buttonImageLeft"  />
+    <attr name="buttonText" format="string" />
+    <attr name="buttonColor" format="color" />
+    <attr name="buttonIsAllCaps" format="boolean" />
+    <attr name="buttonImageRight" format="reference" />
+    <attr name="buttonImageLeft" format="reference" />
   </declare-styleable>
 
   <declare-styleable name="WalletTextFieldView">
@@ -33,13 +34,16 @@
       <enum name="outlined" value="1" />
       <enum name="password" value="2" />
       <enum name="read_only" value="3" />
+      <enum name="number" value="4" />
+      <enum name="all_caps" value="5" />
     </attr>
     <attr name="textFieldHint" format="string" />
     <attr name="textFieldColor" format="color" />
+    <attr name="digitsRegex" format="string" />
   </declare-styleable>
 
   <declare-styleable name="AnimatedTextSwitcher">
-    <attr format="string" name="toolbarText" />
+    <attr name="toolbarText" format="string" />
   </declare-styleable>
 
   <style name="ToolbarTextSwitcher" />

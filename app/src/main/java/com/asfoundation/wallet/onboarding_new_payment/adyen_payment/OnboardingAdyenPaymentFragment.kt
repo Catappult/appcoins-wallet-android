@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Nullable
@@ -23,16 +24,16 @@ import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.repository.entity.TransactionData
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingAdyenPaymentFragmentBinding
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.util.AdyenCardView
-import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -58,7 +59,6 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
   private lateinit var adyenCardWrapper: AdyenCardWrapper
 
   private lateinit var webViewLauncher: ActivityResultLauncher<Intent>
-  private lateinit var outerNavController: NavController
 
   @Inject
   lateinit var navigator: OnboardingAdyenPaymentNavigator
@@ -76,7 +76,6 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingAdyenPaymentFragmentArgs.fromBundle(requireArguments())
-    initOuterNavController()
     setupUi()
     clickListeners()
     createResultLauncher()
@@ -97,8 +96,12 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
     views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.setOnClickListener {
       viewModel.handleBuyClick(
         adyenCardWrapper,
+        shouldStoreCard(),
         RedirectComponent.getReturnUrl(requireContext())
       )
+    }
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+      navigator.navigateBack()
     }
   }
 
@@ -108,22 +111,23 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
       is Async.Loading -> {
         views.loadingAnimation.playAnimation()
       }
+
       is Async.Success -> {
         state.paymentInfoModel()?.let {
           when (args.paymentType) {
             PaymentType.CARD -> {
               prepareCardComponent(it)
             }
+
             PaymentType.PAYPAL -> {
               viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
             }
-            PaymentType.GIROPAY -> {
-              viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
-            }
+
             else -> Unit
           }
         }
       }
+
       is Async.Fail -> Unit
     }
   }
@@ -131,7 +135,6 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingAdyenPaymentSideEffect) {
     when (sideEffect) {
       is OnboardingAdyenPaymentSideEffect.NavigateToPaymentResult -> navigator.navigateToPaymentResult(
-        outerNavController,
         sideEffect.paymentModel,
         args.transactionBuilder,
         args.paymentType,
@@ -139,6 +142,7 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
         args.currency,
         args.forecastBonus
       )
+
       is OnboardingAdyenPaymentSideEffect.NavigateToWebView -> {
         sideEffect.paymentModel.redirectUrl?.let {
           navigator.navigateToWebView(
@@ -147,9 +151,11 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
           )
         }
       }
+
       is OnboardingAdyenPaymentSideEffect.HandleWebViewResult -> redirectComponent.handleIntent(
         Intent("", sideEffect.uri)
       )
+
       is OnboardingAdyenPaymentSideEffect.Handle3DS -> handle3DSAction(sideEffect.action)
       OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBack()
       OnboardingAdyenPaymentSideEffect.ShowCvvError -> handleCVCError()
@@ -192,8 +198,8 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
     }
   }
 
-  private fun initOuterNavController() {
-    outerNavController = Navigation.findNavController(requireActivity(), R.id.full_host_container)
+  fun shouldStoreCard(): Boolean {
+    return adyenCardView.cardSave
   }
 
   private fun showLoading(shouldShow: Boolean) {
@@ -254,10 +260,12 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
       ) -> {
         views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.setText(getString(R.string.action_donate))
       }
+
       args.transactionBuilder.type.equals(
         TransactionData.TransactionType.INAPP_SUBSCRIPTION.name,
         ignoreCase = true
       ) -> views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.setText(getString(R.string.subscriptions_subscribe_button))
+
       else -> {
         views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.setText(getString(R.string.action_buy))
       }

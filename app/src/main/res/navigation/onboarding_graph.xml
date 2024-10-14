@@ -11,12 +11,18 @@
       tools:layout="@layout/fragment_onboarding">
 
     <argument
-        android:name="from_iap"
-        app:argType="boolean" />
+        android:name="backup"
+        android:defaultValue=""
+        app:argType="string" />
+
+    <argument
+        android:name="flow"
+        android:defaultValue=""
+        app:argType="string" />
 
     <action
         android:id="@+id/action_navigate_to_recover_wallet_graph"
-        app:destination="@id/recover_wallet_graph" >
+        app:destination="@id/recover_wallet_graph">
       <argument
           android:name="onboarding_layout"
           app:argType="boolean" />
@@ -31,12 +37,44 @@
         app:destination="@id/nav_bar_fragment"
         app:popUpTo="@+id/onboarding_fragment"
         app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_navigate_to_verify_paypal"
+        app:destination="@id/verify_paypal_wallet_fragment"
+        app:popUpTo="@+id/onboarding_fragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_navigate_to_verify_credit_card"
+        app:destination="@id/verify_credit_card_wallet_activity"
+        app:popUpTo="@+id/onboarding_fragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_navigate_to_first_payment_fragment"
+        app:destination="@id/onboarding_payment_fragment"
+        app:popUpTo="@+id/onboarding_fragment"
+        app:popUpToInclusive="true"/>
   </fragment>
+
+  <fragment
+      android:id="@+id/verify_paypal_wallet_fragment"
+      android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalFragment" />
+
+  <activity
+      android:id="@+id/verify_credit_card_wallet_activity"
+      android:name="com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity"
+      tools:layout="@layout/activity_wallet_verification">
+    <argument
+        android:name="is_wallet_verified"
+        android:defaultValue="false"
+        app:argType="boolean" />
+  </activity>
 
   <fragment
       android:id="@+id/nav_bar_fragment"
       android:name="com.asfoundation.wallet.main.nav_bar.NavBarFragment"
-      tools:layout="@layout/nav_bar_fragment"/>
+      tools:layout="@layout/nav_bar_fragment" />
 
   <dialog
       android:id="@+id/create_wallet_dialog_fragment"
@@ -50,6 +88,11 @@
         android:name="is_from_onboarding"
         android:defaultValue="true"
         app:argType="boolean" />
+    <argument
+        android:name="is_payment"
+        android:defaultValue="false"
+        app:argType="boolean" />
+
 
     <action
         android:id="@+id/action_navigate_to_nav_bar_fragment"
@@ -61,4 +104,9 @@
   <include
       android:id="@+id/recover_wallet_graph"
       app:graph="@navigation/recover_wallet_graph" />
+
+  <fragment
+      android:id="@+id/onboarding_payment_fragment"
+      android:name="com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment"
+      tools:layout="@layout/fragment_onboarding_payment" />
 </navigation>

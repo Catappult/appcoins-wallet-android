@@ -11,10 +11,10 @@ import java.math.BigDecimal
 
 data class PaymentInfoModel(
   val paymentMethod: ModelObject?,
-  val isStored: Boolean = false,
+  var isStored: Boolean = false,
   val priceAmount: BigDecimal,
   val priceCurrency: String,
-  val cardComponent: ((Fragment, CardConfiguration) -> CardComponent)? = null,
+  var cardComponent: ((Fragment, CardConfiguration) -> CardComponent)? = null,
   val supportedShopperInteractions: List<String> = emptyList(),
   val error: Error = Error()
 ) {

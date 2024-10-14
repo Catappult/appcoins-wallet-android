@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_manage_wallet_bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialog_dark"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/half_large_margin"
+    android:paddingBottom="@dimen/big_margin"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:contentDescription="@null"
+      android:src="@drawable/pull_up_home_bar"
+      />
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/manage_wallet_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/big_margin"
+      android:orientation="horizontal"
+      android:paddingVertical="@dimen/big_margin"
+      >
+
+    <ImageView
+        android:id="@+id/manage_wallet_img"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_manage_wallet"
+        />
+
+    <TextView
+        android:id="@+id/manage_wallet_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="22dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/manage_wallet_button"
+        android:textColor="@color/styleguide_light_grey"
+        android:textSize="14sp"
+        />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/recover_wallet_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:paddingVertical="@dimen/big_margin"
+      >
+
+    <ImageView
+        android:id="@+id/recover_wallet_icon"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_recover_wallet"
+        />
+
+    <TextView
+        android:id="@+id/recover_wallet_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="22dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/my_wallets_action_recover_wallet"
+        android:textColor="@color/styleguide_light_grey"
+        android:textSize="14sp"
+        />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/backup_wallet_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:paddingVertical="@dimen/big_margin"
+      >
+
+    <ImageView
+        android:id="@+id/backup_wallet_icon"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_backup_white"
+        app:tint="@color/styleguide_pink"
+        />
+
+    <TextView
+        android:id="@+id/backup_wallet_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="22dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/my_wallets_action_backup_wallet"
+        android:textColor="@color/styleguide_light_grey"
+        android:textSize="14sp"
+        />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

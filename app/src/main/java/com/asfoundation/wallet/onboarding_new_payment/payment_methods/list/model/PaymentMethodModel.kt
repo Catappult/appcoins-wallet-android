@@ -7,10 +7,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
-import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
@@ -48,24 +48,47 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
       PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> {
         clickListener?.invoke(PaymentMethodClick.PaypalAdyenClick)
       }
+
       PaymentMethodsView.SelectedPaymentMethod.PAYPAL_V2 -> {
         clickListener?.invoke(PaymentMethodClick.PaypalDirectClick)
       }
+
       PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD -> {
         clickListener?.invoke(PaymentMethodClick.CreditCardClick)
       }
+
       PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK -> {
         clickListener?.invoke(PaymentMethodClick.ShareLinkPaymentClick)
       }
+
       PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> {
         clickListener?.invoke(PaymentMethodClick.LocalPaymentClick(paymentMethod.id))
       }
+
       PaymentMethodsView.SelectedPaymentMethod.CARRIER_BILLING -> {
         clickListener?.invoke(PaymentMethodClick.CarrierBillingClick)
       }
-      PaymentMethodsView.SelectedPaymentMethod.GIROPAY -> {
-        clickListener?.invoke(PaymentMethodClick.GiroPayAdyenClick)
+
+      PaymentMethodsView.SelectedPaymentMethod.SANDBOX -> {
+        clickListener?.invoke(PaymentMethodClick.PaypalDirectClick)
       }
+
+      PaymentMethodsView.SelectedPaymentMethod.CHALLENGE_REWARD -> {
+        clickListener?.invoke(PaymentMethodClick.ChallengeRewardClick)
+      }
+
+      PaymentMethodsView.SelectedPaymentMethod.VKPAY -> {
+        clickListener?.invoke(PaymentMethodClick.VkPayPaymentClick)
+      }
+
+      PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB -> {
+        clickListener?.invoke(PaymentMethodClick.GooglePayClick)
+      }
+
+      PaymentMethodsView.SelectedPaymentMethod.MI_PAY -> {
+        clickListener?.invoke(PaymentMethodClick.MiPayPayClick(paymentMethod.id))
+      }
+
       PaymentMethodsView.SelectedPaymentMethod.APPC -> Unit
       PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> Unit
       PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> Unit

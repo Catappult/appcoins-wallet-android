@@ -1,10 +1,10 @@
 package com.appcoins.wallet.gamification
 
-import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
-import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.core.network.backend.model.LevelsResponse
 import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
+import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -97,9 +97,5 @@ class UserStatsDataTest : UserStatsLocalData {
   override fun isVipCalloutAlreadySeen(wallet: String): Boolean = false
 
   override fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) = Unit
-
-  override fun isReferralNotificationSeen(wallet: String): Boolean = false
-
-  override fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) = Unit
 
 }

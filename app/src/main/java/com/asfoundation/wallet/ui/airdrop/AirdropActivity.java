@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.ui.BaseActivity;
+import com.wallet.appcoins.core.legacy_base.BaseActivity;
 
 public class AirdropActivity extends BaseActivity implements AirdropFragment.AirdropBack {
   public static Intent newIntent(Context context) {
@@ -30,6 +32,22 @@ public class AirdropActivity extends BaseActivity implements AirdropFragment.Air
       finish();
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  /**
+   * function hardcoded temporarily, must be changed
+   *
+   * @return
+   */
+  protected Toolbar toolbar() {
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    toolbar.setVisibility(View.VISIBLE);
+    if (toolbar != null) {
+      setSupportActionBar(toolbar);
+      toolbar.setTitle(getTitle());
+    }
+    enableDisplayHomeAsUp();
+    return toolbar;
   }
 
   @Override public void onAirdropFinish() {

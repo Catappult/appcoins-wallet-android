@@ -11,8 +11,6 @@ import io.reactivex.Single
 import java.math.BigDecimal
 
 class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRepository {
-  override fun getWallet(packageName: String): Single<String> =
-    remoteRepository.getWallet(packageName).map { it.data.address }
 
   override fun registerAuthorizationProof(
     id: String,
@@ -22,7 +20,6 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     productName: String?,
     packageName: String,
     priceValue: BigDecimal,
-    developerWallet: String,
     entityOemId: String?,
     entityDomainId: String?,
     origin: String,
@@ -30,7 +27,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     developerPayload: String?,
     callback: String?,
     orderReference: String?,
-    referrerUrl: String?
+    referrerUrl: String?,
+    guestWalletId: String?
   ): Single<Transaction> = remoteRepository.registerAuthorizationProof(
     origin,
     type,
@@ -42,12 +40,12 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     productName,
     packageName,
     priceValue,
-    developerWallet,
     developerPayload,
     callback,
     orderReference,
     referrerUrl,
-    null
+    null,
+    guestWalletId
   )
 
   override fun registerPaymentProof(
@@ -153,14 +151,18 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     currencyType: String?,
     direct: Boolean?,
     transactionType: String?,
-    packageName: String?
+    packageName: String?,
+    entityOemId: String?,
+    address: String?,
   ): Single<List<PaymentMethodEntity>> = remoteRepository.getPaymentMethods(
     value,
     currency,
     currencyType,
     direct,
     transactionType,
-    packageName
+    packageName,
+    entityOemId,
+    address
   )
     .onErrorReturn {
       it.printStackTrace()

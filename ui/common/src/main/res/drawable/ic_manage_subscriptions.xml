@@ -1,11 +1,39 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:autoMirrored="true"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-  <path
-      android:fillColor="#000"
-      android:fillType="nonZero"
-      android:pathData="M16,19l-4,-4v3c-3.31,0 -6,-2.69 -6,-6 0,-1.01 0.25,-1.97 0.7,-2.8l-1.46,-1.46A7.93,7.93 0,0 0,4 12c0,4.42 3.58,8 8,8v3l4,-4zM12,6c3.31,0 6,2.69 6,6 0,1.01 -0.25,1.97 -0.7,2.8l1.46,1.46A7.93,7.93 0,0 0,20 12c0,-4.42 -3.58,-8 -8,-8v-3l-4,4 4,4v-3z"/>
+    android:width="16dp"
+    android:height="21dp"
+    android:viewportWidth="16"
+    android:viewportHeight="21">
+  <group>
+    <clip-path android:pathData="M14,7L13,7v-2a5,5 0,0 0,-5 -5,5 5,0 0,0 -5,5v2L2,7a2.006,2.006 0,0 0,-2 2v10a2.006,2.006 0,0 0,2 2L14,21a2.006,2.006 0,0 0,2 -2v-10A2.006,2.006 0,0 0,14 7ZM8,16a2.006,2.006 0,0 1,-2 -2,2.006 2.006,0 0,1 2,-2 2.006,2.006 0,0 1,2 2A2.006,2.006 0,0 1,8 16ZM11.1,7L4.9,7v-2a3.1,3.1 0,0 1,3.1 -3.1,3.1 3.1,0 0,1 3.1,3.1Z" />
+    <group>
+      <clip-path android:pathData="M-20,1212L340,1212L340,-105L-20,-105Z" />
+      <group>
+        <clip-path android:pathData="M-5,-5h26v31h-26z" />
+        <group>
+          <clip-path android:pathData="M0,21L16,21v-21L0,0Z" />
+          <path
+              android:fillColor="#ff6381"
+              android:pathData="M-5,-5L21,-5v31L-5,26Z" />
+        </group>
+        <group>
+          <clip-path android:pathData="M14,7L13,7v-2a5,5 0,0 0,-5 -5,5 5,0 0,0 -5,5v2L2,7a2.006,2.006 0,0 0,-2 2v10a2.006,2.006 0,0 0,2 2L14,21a2.006,2.006 0,0 0,2 -2v-10A2.006,2.006 0,0 0,14 7ZM8,16a2.006,2.006 0,0 1,-2 -2,2.006 2.006,0 0,1 2,-2 2.006,2.006 0,0 1,2 2A2.006,2.006 0,0 1,8 16ZM11.1,7L4.9,7v-2a3.1,3.1 0,0 1,3.1 -3.1,3.1 3.1,0 0,1 3.1,3.1Z" />
+          <group>
+            <clip-path android:pathData="M0,21L16,21v-21L0,0Z" />
+            <group>
+              <clip-path android:pathData="M-5,-5h26v31h-26z" />
+              <group>
+                <clip-path android:pathData="M0,21L16,21v-21L0,0Z" />
+                <path
+                    android:fillColor="#ff6381"
+                    android:pathData="M-5,-5L21,-5v31L-5,26Z" />
+                <path
+                    android:fillColor="#ff6381"
+                    android:pathData="M-9,-6L25,-6v34L-9,28Z" />
+              </group>
+            </group>
+          </group>
+        </group>
+      </group>
+    </group>
+  </group>
 </vector>

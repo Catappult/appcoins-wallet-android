@@ -6,13 +6,15 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.atomic.AtomicBoolean
 
-class TransactionsLoadObservable(private val offChainTransactions: OffChainTransactions,
-                                 private val wallet: String,
-                                 private val startingDate: Long? = null,
-                                 private val endDate: Long? = null,
-                                 private val sort: OffChainTransactions.Sort? = null,
-                                 private val limit: Int = 10) :
-    Observable<List<WalletHistory.Transaction>>() {
+class TransactionsLoadObservable(
+  private val offChainTransactions: OffChainTransactions,
+  private val wallet: String,
+  private val startingDate: Long? = null,
+  private val endDate: Long? = null,
+  private val sort: OffChainTransactions.Sort? = null,
+  private val limit: Int = 10
+) :
+  Observable<List<WalletHistory.Transaction>>() {
 
   override fun subscribeActual(observer: Observer<in List<WalletHistory.Transaction>>) {
     val transactionDisposable = TransactionsDisposable()

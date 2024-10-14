@@ -2,6 +2,7 @@ package com.asfoundation.wallet.app_start
 
 import com.asfoundation.wallet.di.IoDispatcher
 import com.asfoundation.wallet.onboarding.use_cases.PendingPurchaseFlowUseCase
+import com.asfoundation.wallet.onboarding.use_cases.RestoreGuestWalletUseCase
 import dagger.Reusable
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -28,7 +29,20 @@ sealed class StartMode {
     val currency: String?,
     val orderReference: String?,
     val value: Double?,
-    val signature: String?
+    val signature: String?,
+    val origin: String?,
+    val type: String?,
+    val oemId: String?,
+    val wsPort: String?,
+    val sdkVersion: String?,
+    val backup: String?
+  ) : StartMode()
+
+  data class RestoreGuestWalletFlow(
+    val backup: String,
+    val integrationFlow: String? = null,
+    val sku: String? = null,
+    val packageName: String? = null
   ) : StartMode()
 
   object Subsequent : StartMode()
@@ -39,6 +53,7 @@ class AppStartUseCase @Inject constructor(
   private val repository: AppStartRepository,
   private val gpInstallUseCase: GPInstallUseCase,
   private val pendingPurchaseFlowUseCase: PendingPurchaseFlowUseCase,
+  private val restoreGuestWalletUseCase: RestoreGuestWalletUseCase,
   @IoDispatcher ioDispatcher: CoroutineDispatcher
 ) {
   private val scope = CoroutineScope(ioDispatcher)
@@ -54,12 +69,12 @@ class AppStartUseCase @Inject constructor(
 
     val mode = if (firstInstallTime == lastUpdateTime && runs == 1) {
       pendingPurchaseFlowUseCase()
+        ?: restoreGuestWalletUseCase()
         ?: gpInstallUseCase()
         ?: StartMode.Regular
     } else {
       StartMode.Subsequent
     }
-
     _startModes.emit(mode)
   }
 
@@ -71,4 +86,5 @@ interface AppStartRepository {
   suspend fun saveRunCount(count: Int)
   suspend fun getFirstInstallTime(): Long
   suspend fun getLastUpdateTime(): Long
+  fun saveIsFirstPayment(isFirstPayment: Boolean)
 }

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository
 
+import com.appcoins.wallet.sharedpreferences.TransactionsPreferencesDataSource
 import com.asfoundation.wallet.repository.entity.LastUpdatedWalletEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
@@ -7,15 +8,15 @@ import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
-import com.appcoins.wallet.sharedpreferences.TransactionsPreferencesDataSource
 import javax.inject.Inject
+
 @BoundTo(supertype = TransactionsRepository::class)
 class TransactionsLocalRepository @Inject constructor(
   private val transactionsDao: TransactionsDao,
   private val sharedPreferences: TransactionsPreferencesDataSource,
   private val transactionLinkIdDao: TransactionLinkIdDao
 ) :
-    TransactionsRepository {
+  TransactionsRepository {
 
   override fun getAllAsFlowable(relatedWallet: String): Flowable<List<TransactionEntity>> {
     return transactionsDao.getAllAsFlowable(relatedWallet)
@@ -66,16 +67,16 @@ class TransactionsLocalRepository @Inject constructor(
 
   override fun getRevertedTransaction(wallet: String, txId: String): Single<TransactionEntity> {
     return transactionLinkIdDao.getRevertedTransaction(txId)
-        .flatMap { link -> transactionsDao.getById(wallet, link.linkTransactionId) }
+      .flatMap { link -> transactionsDao.getById(wallet, link.linkTransactionId) }
   }
 
   override fun getRevertTransaction(wallet: String, txId: String): Single<TransactionEntity> {
     return transactionLinkIdDao.getRevertTransaction(txId)
-        .flatMap { link -> transactionsDao.getById(wallet, link.transactionId) }
+      .flatMap { link -> transactionsDao.getById(wallet, link.transactionId) }
   }
 
   override fun getRevertedTxId(wallet: String, txId: String): Single<String> {
     return transactionLinkIdDao.getRevertedTransaction(txId)
-        .map { it.linkTransactionId }
+      .map { it.linkTransactionId }
   }
 }

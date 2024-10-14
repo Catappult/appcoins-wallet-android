@@ -1,12 +1,22 @@
 package com.appcoins.wallet.gamification.repository
 
-import com.appcoins.wallet.core.network.backend.model.*
+import com.appcoins.wallet.core.network.backend.model.GamificationResponse
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.GenericResponse
+import com.appcoins.wallet.core.network.backend.model.Level
+import com.appcoins.wallet.core.network.backend.model.LevelsResponse
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
+import com.appcoins.wallet.core.network.backend.model.ReferralResponse
+import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.appcoins.wallet.gamification.Gamification.Companion.GAMIFICATION_ID
 import com.appcoins.wallet.gamification.Gamification.Companion.REFERRAL_ID
 import com.appcoins.wallet.gamification.GamificationContext
-import com.appcoins.wallet.gamification.GamificationContext.*
+import com.appcoins.wallet.gamification.GamificationContext.SCREEN_MY_LEVEL
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats.Companion.INVALID_LEVEL
-import com.appcoins.wallet.gamification.repository.entity.*
+import com.appcoins.wallet.gamification.repository.entity.LevelEntity
+import com.appcoins.wallet.gamification.repository.entity.LevelsEntity
+import com.appcoins.wallet.gamification.repository.entity.PromotionEntity
+import com.appcoins.wallet.gamification.repository.entity.WalletOriginEntity
 import com.appcoins.wallet.sharedpreferences.GamificationStatsPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -99,6 +109,7 @@ class UserStatsRepository @Inject constructor(
             it.status!!,
             it.bundle!!
           )
+
         REFERRAL_ID -> ReferralResponse(
           it.id,
           it.priority,
@@ -118,6 +129,7 @@ class UserStatsRepository @Inject constructor(
           it.status!!,
           it.amount!!
         )
+
         else ->
           GenericResponse(
             id = it.id,
@@ -134,7 +146,9 @@ class UserStatsRepository @Inject constructor(
             startDate = it.startDate,
             notificationTitle = it.notificationTitle!!,
             viewType = it.viewType!!,
-            detailsLink = it.detailsLink
+            detailsLink = it.detailsLink,
+            actionUrl = it.actionUrl,
+            packageName = it.packageName
           )
       }
     }
@@ -157,6 +171,7 @@ class UserStatsRepository @Inject constructor(
               status = it.status,
               bundle = it.bundle
             )
+
           is ReferralResponse -> {
             PromotionEntity(
               id = it.id,
@@ -178,6 +193,7 @@ class UserStatsRepository @Inject constructor(
               amount = it.amount
             )
           }
+
           else -> {
             val genericResponse = it as GenericResponse
             PromotionEntity(
@@ -192,7 +208,9 @@ class UserStatsRepository @Inject constructor(
               objectiveProgress = genericResponse.objectiveProgress,
               startDate = genericResponse.startDate,
               notificationTitle = genericResponse.notificationTitle,
-              viewType = genericResponse.viewType, detailsLink = genericResponse.detailsLink
+              viewType = genericResponse.viewType, detailsLink = genericResponse.detailsLink,
+              actionUrl = genericResponse.actionUrl,
+              packageName = genericResponse.packageName
             )
           }
         }
@@ -251,13 +269,6 @@ class UserStatsRepository @Inject constructor(
 
   override fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) {
     preferences.setVipCalloutAlreadySeen(wallet, isSeen)
-  }
-
-  override fun isReferralNotificationSeen(wallet: String) =
-    preferences.isReferralNotificationSeen(wallet)
-
-  override fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) {
-    preferences.setReferralNotificationSeen(wallet, isSeen)
   }
 
   private fun mapToLevelsResponse(

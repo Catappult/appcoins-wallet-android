@@ -8,20 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.gamification.GamificationAnalytics
-import com.asf.wallet.R
-import com.appcoins.wallet.ui.common.MarginItemDecoration
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.ui.common.MarginItemDecoration
+import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentGamificationBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -55,7 +56,8 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
-        context is GamificationActivityView) { GamificationFragment::class.java.simpleName + " needs to be attached to a " + GamificationActivityView::class.java.simpleName }
+      context is GamificationActivityView
+    ) { GamificationFragment::class.java.simpleName + " needs to be attached to a " + GamificationActivityView::class.java.simpleName }
     activityView = context
   }
 
@@ -64,38 +66,46 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     uiEventListener = PublishSubject.create()
     onBackPressedSubject = PublishSubject.create()
     presenter =
-        GamificationPresenter(this, activityView, interactor, analytics, formatter,
-            CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
+      GamificationPresenter(
+        this, activityView, interactor, analytics, formatter,
+        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io()
+      )
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentGamificationBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentGamificationBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     detailsBottomSheet = BottomSheetBehavior.from(binding.bottomSheetFragmentContainer.root)
     detailsBottomSheet.addBottomSheetCallback(
-        object : BottomSheetBehavior.BottomSheetCallback() {
-          override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
+      object : BottomSheetBehavior.BottomSheetCallback() {
+        override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
 
-          override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            if (slideOffset == 0f) binding.bottomsheetCoordinatorContainer.visibility = View.GONE
-            binding.bottomsheetCoordinatorContainer.background.alpha = (255 * slideOffset).toInt()
-          }
-        })
+        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+          if (slideOffset == 0f) binding.bottomsheetCoordinatorContainer.visibility = View.GONE
+          binding.bottomsheetCoordinatorContainer.background?.alpha = (255 * slideOffset).toInt()
+        }
+      })
     binding.gamificationRecyclerView.visibility = View.INVISIBLE
     levelsAdapter = LevelsAdapter(formatter, mapper, uiEventListener!!)
     binding.gamificationRecyclerView.adapter = levelsAdapter
     binding.gamificationRecyclerView.addItemDecoration(
-        MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
-            .toInt())
+      MarginItemDecoration(
+        resources.getDimension(R.dimen.gamification_card_margin)
+          .toInt()
+      )
     )
     presenter.present(savedInstanceState)
   }
 
-  override fun displayGamificationInfo(hiddenLevels: List<LevelItem>,
-                                       shownLevels: List<LevelItem>,
-                                       updateDate: Date?) {
+  override fun displayGamificationInfo(
+    hiddenLevels: List<LevelItem>,
+    shownLevels: List<LevelItem>,
+    updateDate: Date?
+  ) {
     binding.gamificationRecyclerView.visibility = View.VISIBLE
     levelsAdapter.setLevelsContent(hiddenLevels, shownLevels)
     handleBonusUpdatedText(updateDate)
@@ -122,7 +132,8 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     if (updateDate != null) {
       val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
       val date = dateFormat.format(updateDate)
-      binding.bonusUpdate.bonusUpdateText.text = getString(R.string.pioneer_bonus_updated_body, date)
+      binding.bonusUpdate.bonusUpdateText.text =
+        getString(R.string.pioneer_bonus_updated_body, date)
       binding.bonusUpdate.root.visibility = View.VISIBLE
     }
   }
@@ -140,7 +151,8 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     updateBottomSheetVisibility()
   }
 
-  override fun getBottomSheetButtonClick() = RxView.clicks(binding.bottomSheetFragmentContainer.gotItButton)
+  override fun getBottomSheetButtonClick() =
+    RxView.clicks(binding.bottomSheetFragmentContainer.gotItButton)
 
   override fun getBackPressed() = onBackPressedSubject!!
 
@@ -151,12 +163,13 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     } else {
       detailsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
       binding.bottomsheetCoordinatorContainer.visibility = View.VISIBLE
-      binding.bottomsheetCoordinatorContainer.background.alpha = 255
+      binding.bottomsheetCoordinatorContainer.background?.alpha = 255
       setBackListener(binding.bottomsheetCoordinatorContainer)
     }
   }
 
-  override fun getBottomSheetContainerClick() = RxView.clicks(binding.bottomsheetCoordinatorContainer)
+  override fun getBottomSheetContainerClick() =
+    RxView.clicks(binding.bottomsheetCoordinatorContainer)
 
   private fun setBackListener(view: View) {
     activityView.disableBack()

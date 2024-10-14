@@ -2,20 +2,23 @@ package com.asfoundation.wallet.util
 
 import android.content.Context
 import com.asf.wallet.R
+import java.io.Serializable
 import java.time.format.DateTimeParseException
-import java.util.*
+import java.util.Objects
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-data class Period(val years: Int, val months: Int, val weeks: Int, val days: Int) {
+
+data class Period(val years: Int, val months: Int, val weeks: Int, val days: Int) : Serializable {
 
   companion object {
     /**
      * The pattern for parsing.
      */
     private val PATTERN = Pattern.compile(
-        "([-+]?)P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?",
-        Pattern.CASE_INSENSITIVE)
+      "([-+]?)P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?",
+      Pattern.CASE_INSENSITIVE
+    )
 
 
     //-----------------------------------------------------------------------

@@ -22,14 +22,14 @@ import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PayPalTopupFragment() : BasePageViewFragment() {
+class PayPalTopupFragment : BasePageViewFragment() {
 
   private val viewModel: PayPalTopupViewModel by viewModels()
 
@@ -96,15 +96,19 @@ class PayPalTopupFragment() : BasePageViewFragment() {
         PayPalTopupViewModel.State.Start -> {
           showLoadingAnimation()
         }
+
         is PayPalTopupViewModel.State.Error -> {
           showSpecificError(state.stringRes)
         }
+
         is PayPalTopupViewModel.State.SuccessPurchase -> {
           handleSuccess()
         }
+
         PayPalTopupViewModel.State.TokenCanceled -> {
           close()
         }
+
         is PayPalTopupViewModel.State.WebViewAuthentication -> {
           startWebViewAuthorization(state.url)
         }
@@ -113,7 +117,7 @@ class PayPalTopupFragment() : BasePageViewFragment() {
   }
 
   private fun startPayment() {
-    viewModel.attemptTransaction(
+    viewModel.startPayment(
       createTokenIfNeeded = true,
       amount = amount,
       currency = currency
@@ -175,7 +179,7 @@ class PayPalTopupFragment() : BasePageViewFragment() {
 
   private fun handleBonusAnimation() {
     if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation)
+      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation_new)
       setupTransactionCompleteAnimation()
     } else {
       views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)

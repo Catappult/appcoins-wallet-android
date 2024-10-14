@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.billing.paypal.usecases
 
-import com.appcoins.wallet.core.walletservices.WalletService
-import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
-import com.asfoundation.wallet.billing.partners.AddressService
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -19,11 +19,10 @@ class CreatePaypalTransactionUseCase @Inject constructor(
     value: String, currency: String, reference: String?,
     origin: String?, packageName: String, metadata: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
-    developerWallet: String?,
-    referrerUrl: String?
+    referrerUrl: String?, guestWalletId: String?
   ): Single<PaypalTransaction> {
     return Single.zip(walletService.getWalletAddress(),
-      partnerAddressService.getAttributionEntity(packageName),
+      partnerAddressService.getAttribution(packageName),
       { address, attributionEntity -> Pair(address, attributionEntity) })
       .flatMap { pair ->
         val address = pair.first
@@ -40,12 +39,12 @@ class CreatePaypalTransactionUseCase @Inject constructor(
             sku = sku,
             callbackUrl = callbackUrl,
             transactionType = transactionType,
-            developerWallet = developerWallet,
             entityOemId = attrEntity.oemId,
             entityDomain = attrEntity.domain,
             entityPromoCode = promoCode.code,
             userWallet = address,
-            referrerUrl = referrerUrl
+            referrerUrl = referrerUrl,
+            guestWalletId = guestWalletId,
           )
         }
       }

@@ -39,8 +39,9 @@
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format kod bar tidak sah: %s</string>
   <string name="title_delete_account">Anda pasti mahu alih keluar dompet ini?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Kumpulan Telegram</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Komuniti</string>
   <string name="title_opensource">Pembangunan Sumber Terbuka</string>
@@ -137,6 +138,13 @@
   <string name="intro_welcome_body_2">Bonus boleh digunakan dalam mana-mana aplikasi atau permainan.</string>
   <string name="intro_already_have_wallet_button">Saya sudah ada dompet</string>
   <string name="intro_get_started_button">Lancarkan dompet</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Alat Anda untuk Beli dalam App</string>
+  <string name="new_intro_1_body">Buat pembelian dalam aplikasi dan permainan kegemaran anda dengan Dompet AppCoins.</string>
+  <string name="new_intro_2_header">Bonus sehingga %s%% bagi Semua Pembelian</string>
+  <string name="new_intro_2_body">Dapatkan dana tambahan setiap kali anda membeli dalam permainan serasi AppCoins.</string>
+  <string name="new_intro_3_header">Kaedah Bayaran Kegemaran Anda Sudah Tiba!</string>
+  <string name="new_intro_3_body">Kaedah pembayaran tersedia</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Melancarkan dompet&#8230;</string>
   <string name="select_method_title">Pilih kaedah pembayaran</string>
@@ -147,6 +155,9 @@
   <string name="bonus_received_body">Anda dapat bonus %s dalam dompet anda.</string>
   <string name="back_to_the_game_button">Kembali ke permainan</string>
   <string name="other_payment_methos_title">Kaedah pembayaran lain:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">Anda sudah ada</string>
+  <string name="intro_from_web_payment_to_spend_body">untuk dibelanjakan dalam permainan kegemaran.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Daripada</string>
@@ -229,6 +240,7 @@
   <string name="activity_iab_approving_message">Menyemak semua butiran; baki, item, rangkaian…</string>
   <string name="activity_iab_buying_message">Butiran telah disemak \nMenerima item anda…</string>
   <string name="activity_iab_change_card">TUKAR KAD</string>
+  <string name="activity_iab_change_card_lower_case_button">Tukar kad</string>
   <string name="activity_iab_fees">Yuran</string>
   <string name="notification_ongoing_poa">Memproses ganjaran anda</string>
   <string name="notification_completed_poa">Ganjaran diterima!👌 Anda perlu tunggu selama %1$sj%2$sm lagi untuk peroleh lebih banyak ganjaran dengan mencuba aplikasi ⏰!</string>
@@ -249,6 +261,10 @@
   <string name="transaction_status_pending">Belum selesai</string>
   <string name="transaction_status_failed">Gagal</string>
   <string name="transaction_status_reverted">Dikembalikan</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
+  <string name="transaction_type_challenge_reward">Ganjaran Cabaran</string>
+  <string name="transaction_type_challenge_reward_rejected">Ganjaran Cabaran Ditolak</string>
+  <string name="transaction_type_challenge_reward_reverted">Ganjaran Cabaran Dipulangkan</string>
   <string name="transaction_type_iab">Belian Dalam Aplikasi</string>
   <string name="transaction_type_poa">Ganjaran</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -265,6 +281,7 @@
   <string name="transaction_type_reverted_topup_body">Tambah nilai yang anda buat pada %s telah dikembalikan. Hubungi Sokongan untuk maklumat lanjut.</string>
   <string name="transaction_type_reverted_purchase_title">Bayar Balik Pembelian</string>
   <string name="transaction_type_reverted_purchase_body">Pembelian yang anda buat pada %s telah dikembalikan. Hubungi Sokongan untuk maklumat lanjut.</string>
+  <string name="transaction_bonus_reverted_body">Bonus ini sudah dikembalikan. Untuk maklumat lanjut, hubungi sokongan.</string>
   <string name="transaction_reverted_view_original_header">Transaksi Asal</string>
   <string name="transaction_onchain_completed_title">Transaksi sedang berlangsung!</string>
   <string name="transaction_onchain_completed_body">Anda boleh jejak menggunakan Etherscan.</string>
@@ -280,6 +297,8 @@
   <string name="transaction_order_reference_label">ID Tempahan</string>
   <string name="transaction_details_label">Butiran</string>
   <string name="transaction_to_label">Kepada</string>
+  <string name="transaction_invoice_label">Invois</string>
+  <string name="iab_payment_method_vkpay_title">Kad kredit/debit (VK Pay)</string>
   <string name="dialog_credit_card_remember">Ingat Kad</string>
   <string name="notification_payment_refused">Bayaran Ditolak</string>
   <string name="dialog_credit_card_number">Nombor Kad</string>
@@ -309,7 +328,9 @@
   <string name="transaction_rejected_body">Pembelian ini telah ditolak.\nUntuk maklumat lanjut, hubungi sokongan.</string>
   <string name="transaction_reverted_body">Pembelian ini telah dibatalkan.\nUntuk maklumat lanjut, hubungi sokongan.</string>
   <string name="transaction_status_rejected">Ditolak</string>
-  <string name="transaction_details_header">Butiran transaksi</string>
+  <string name="transaction_details_header">Butiran Transaksi</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Sahkan anda ialah seorang manusia untuk terima AppCoins</string>
   <string name="activity_airdrop_details">Ini hanyalah ciri keselamatan.</string>
   <string name="activity_airdrop_hint">Taipkan perkataan di dalam imej</string>
@@ -419,6 +440,8 @@
   <string name="topup_maximum_value">Tambah nilai maksimum ialah %s</string>
   <string name="topup_no_method_available_title">Tiada kaedah pembayaran!</string>
   <string name="topup_no_method_available_body">Tiada kaedah pembayaran tersedia untuk tambah nilai di negara anda buat masa ini. Ikuti perkembangan seterusnya!</string>
+  <string name="topup_bonus_amount_body">Terima bonus %s dengan tambah nilai ini</string>
+  <string name="topup_success_body">%s telah didepositkan dalam akaun anda berbentuk Kredit AppCoins.</string>
   <!--Balance-->
   <string name="balance_title">Baki</string>
   <string name="balance_total_body">Jumlah Baki dalam %s</string>
@@ -430,7 +453,7 @@
   <string name="my_wallets_action_recover_wallet">Dapatkan semula dompet</string>
   <string name="my_wallets_action_backup_wallet">Dompet sandaran</string>
   <string name="my_wallets_action_verify_new_card">Sahkan kad baru</string>
-  <string name="my_wallets_action_delete_wallet">Hapus dompet</string>
+  <string name="my_wallets_action_delete_wallet">Alih keluar dompet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Minta seseorang bayarkan</string>
   <string name="askafriend_generating_link_message">Kami sedang menjana pautan pembayaran anda&#8230;</string>
@@ -447,6 +470,7 @@
   <string name="askafriend_share_note_to_friend">Hai awak! Boleh hantar %1$s Kredit AppCoins kepada saya untuk beli item dalam %2$s. Pautan: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Hantar Dana</string>
+  <string name="p2p_receive_title">Terima</string>
   <string name="p2p_send_body">Imbas atau masukkan alamat dompet rakan anda.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s telah dihantar ke alamat yang berikut:</string>
   <string name="p2p_send_current_balance_message">Baki semasa: %1$s %2$s</string>
@@ -455,6 +479,7 @@
   <string name="p2p_send_error_amount_zero">Mesti lebih daripada sifar</string>
   <string name="p2p_send_confirmation_header">Butiran Pindahan</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">Sesuatu tidak kena</string>
   <string name="error_missing_field">Ruang wajib diisi</string>
   <string name="cancel_button">Batal</string>
@@ -467,8 +492,9 @@
   <string name="discover_button">Ketahui</string>
   <string name="retry_button">Cuba lagi</string>
   <string name="do_it_later_button">Buat nanti</string>
+  <string name="connection_error_title">Tiada sambungan Internet</string>
   <string name="connection_error_body">Nampaknya anda tiada sambungan Internet. Semak sambungan anda dan cuba lagi!</string>
-  <string name="common_or">ATAU</string>
+  <string name="common_or">or</string>
   <string name="share_via">Kongsi melalui:</string>
   <string name="password">Kata laluan</string>
   <string name="repeat_password">Ulang kata laluan</string>
@@ -491,6 +517,21 @@
   <string name="play_button">Main</string>
   <string name="manage_wallet_button">Urus dompet</string>
   <string name="log_out_button">Log keluar</string>
+  <string name="download_button">Muat turun</string>
+  <string name="done">Selesai!</string>
+  <string name="see_more_button">Lihat selanjutnya</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
+  <string name="ending_in_title">Tamat dalam masa</string>
+  <string name="start_date_title">Tarikh mula:</string>
+  <string name="end_date_title">Tarikh tamat:</string>
+  <string name="send_button">Hantar</string>
+  <string name="resend_button">Hantar semula</string>
+  <string name="continue_button">Teruskan</string>
+  <string name="card_expired_tag">Luput</string>
+  <string name="start_again_button">Mula sekali lagi</string>
+  <string name="max">Maks</string>
+  <string name="amount">Amaun</string>
+  <string name="total_title">Jumlah</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
@@ -499,6 +540,7 @@
   <string name="decline_button">Tolak</string>
   <string name="get_started">Mula</string>
   <string name="existent_wallet">Saya sudah ada dompet</string>
+  <string name="onboarding_verification_body">Sahkan kaedah pembayaran anda untuk selesaikan pembelian anda.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Buat pembelian dalam permainan kegemaran anda dan kami uruskan semuanya.</string>
   <string name="home_empty_discover_apps_button">TEMUI APLIKASI HEBAT</string>
@@ -539,7 +581,7 @@
   <string name="verification_settings_verified_title">Dompet Disahkan</string>
   <string name="verification_settings_verifying_title">Mengesahkan…</string>
   <string name="verification_verified_paypal_description">Wang anda akan dikembalikan segera. Kaedah bayaran anda akan disahkan sebentar lagi.</string>
-  <string name="verification_verify_paypal_description">Transaksi minimum sebanyak %s akan dibuat untuk mengesahkan akaun anda. Ia akan dikembalikan segera.</string>
+  <string name="verification_verify_paypal_description">Transaksi sebanyak %s akan dibuat untuk mengesahkan akaun anda. Ia akan dikembalikan segera.</string>
   <string name="verification_verify_paypal_button">Sahkan Sekarang</string>
   <string name="verification_settings_card_verified_title">Kad Disahkan</string>
   <string name="verification_settings_no_internet">Anda perlu sambungan Internet</string>
@@ -548,9 +590,21 @@
   <string name="verified_tag">Disahkan</string>
   <string name="unferified_tag">Dompet tidak disahkan</string>
   <string name="verification_wallets_verify_button">Sahkan</string>
+  <string name="verification_verified_paypal_body">Disahkan dengan PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Disahkan dengan kad kredit/debit.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Disahkan dengan kad kredit/debit dan PayPal.</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">Satu langkah lagi!</string>
+  <string name="paypal_verification_home_one_step_card_body">Masukkan kod yang dihantar ke alamat e-mel anda untuk sahkan akaun PayPal anda.</string>
+  <string name="paypal_verification_header">Pengesahan PayPal</string>
+  <string name="paypal_verification_insert_code_body">Masukkan kod 4-digit di bawah yang dihantar ke alamat e-mel anda yang dihubungkan dengan Akaun Paypal anda.</string>
+  <string name="paypal_verification_didnt_receive_title">Tak terima?</string>
+  <string name="paypal_verification_completed_body">Wang anda akan dikembalikan dengan segera, dan akaun PayPal anda akan disahkan tak lama lagi.</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Jumlah %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Nampaknya pembelian ini sedang diproses. Sila tunggu sehingga transaksi selesai atau hubungi Pasukan Sokongan kami.</string>
   <string name="purchase_more_payment_methods_button">KAEDAH BAYARAN LAIN</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Kaedah pembayaran lain</string>
   <string name="purchase_appcoins_available_body">Anda akan gunakan sejumlah kecil ETH untuk membayar yuran.</string>
   <string name="purchase_appcoins_noavailable_body">Anda tidak mempunyai AppCoins atau Ether yang cukup untuk pembelian ini.</string>
   <string name="purchase_no_eth_body">Anda tidak cukup ETH untuk bayar gas.</string>
@@ -612,7 +666,34 @@
   <string name="error_blocked_wallet_title">Dompet Disekat</string>
   <string name="error_blocked_wallet_body">Untuk tujuan keselamatan, dompet anda telah disekat. Sila hubungi kami untuk maklumat lanjut.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Caj tambahan mungkin dikenakan.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s dengan caj dan VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">termasuk caj tambahan</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">tidak termasuk caj tambahan</string>
   <string name="purchase_error_paypal">Ada masalah dengan pembayaran PayPal anda. Sila cuba lagi atau guna kaedah bayaran yang lain.</string>
+  <string name="purchase_error_google_pay">Ada masalah dengan pembayaran Google Pay. Sila cuba lagi atau guna kaedah bayaran yang lain.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus diterima.</string>
+  <string name="purchase_making_purchase_title">Membuat pembelian&#8230;</string>
+  <string name="purchase_fee_title">yuran %2$s %1$s</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Kaedah bayaran ini tidak sokong mata wang anda. Jadi, ada caj pemprosesan dikenakan. Caj dan VAT ini dikira sekali bersama Jumlah yang tertera di bahagian atas.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Kaedah bayaran ini mengecaj yuran pemprosesan untuk pembelian ini. Caj dan VAT ini dimasukkan ke dalam Jumlah yang boleh dilihat di sudut atas.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Kaedah bayaran ini tidak sokong mata wang anda. Jadi mungkin ada caj pemprosesan dikenakan.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Dengan kaedah bayaran ini, anda akan bayar caj pemprosesan dan VAT.</string>
+  <string name="purchase_fee_included_body">termasuk yuran</string>
+  <string name="purchase_error_one_wallet_generic">Ada masalah dengan pembayaran Wallet One anda. Sila cuba lagi atau guna kaedah bayaran yang lain.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Hanya tersedia untuk tambah nilai.</string>
+  <string name="purchase_payment_method_minimum_amount">Hanya untuk pembelian melebihi %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Tidak tersedia untuk pembelian ini.</string>
+  <string name="purchase_error_no_method_available_body">Pada masa ini, belum ada kaedah bayaran yang tersedia untuk lengkapkan pembelian ini di rantau anda. Terus ikuti perkembangan!</string>
+  <string name="purchase_legal_disclaimer">Dengan teruskan bayaran, anda bersetuju dan mengizinkan supaya kandungan diberikan setelah pembayaran dibuat dan setelah itu, hilang hak untuk tarik diri.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Bonus dalam Kredit AppCoins.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -704,6 +785,7 @@
   <string name="import_wallet_button">Dapatkan semula dompet</string>
   <string name="import_wallet_password_body">Dompet ini dilindungi kata laluan!</string>
   <string name="import_wallet_wrong_password_body">Oops, kata laluan salah!</string>
+  <string name="import_code_here_field">Pulihkan kod di sini&#8230;</string>
   <string name="error_invalid_private_key">Kunci peribadi tidak sah</string>
   <string name="error_invalid_keystore">Kunci kedai tidak sah</string>
   <string name="backup_title">Sandar dompet anda sekarang!</string>
@@ -716,9 +798,9 @@
   <string name="backup_ready_email_button">Hantar ke e-mel</string>
   <string name="backup_ready_device_button">Simpan dalam peranti</string>
   <string name="backup_confirmation_tips_title">Pastikan fail selamat:</string>
-  <string name="backup_confirmation_tips_1"><b>Cetak ia</b> dan simpan ia di tempat yang selamat.</string>
-  <string name="backup_confirmation_tips_2"><b>Simpan</b> di dalam pemacu USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Salin</b> ke storan awan peribadi dan selamat.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Cetak ia</b> dan simpan ia di tempat yang selamat.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Simpan</b> di dalam pemacu USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Salin</b> ke storan awan peribadi dan selamat.]]></string>
   <string name="backup_tooltip_body">Buat sandaran untuk dompet anda!</string>
   <string name="backup_tooltip_later_button">Nanti</string>
   <string name="backup_tooltip_backup_button">Buat sandaran</string>
@@ -729,13 +811,16 @@
   <string name="backup_additional_security_disclaimer_body">Tiada pemulihan kata laluan.</string>
   <string name="backup_additional_security_password_not_march">Kata laluan tidak sepadan.</string>
   <string name="import_wallet_recovering_body">Mendapatkan semula dompet...</string>
-  <string name="backup_skip_title">Saya faham bahawa saya boleh kehilangan dana saya jika saya tidak buat sandaran kunci dompet saya.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Dompet sandaran</string>
   <string name="backup_success_save_on_email">Fail sandaran anda ada dalam e-mel anda.</string>
   <string name="backup_success_save_on_device">Fail sandaran anda disimpan dalam peranti anda.</string>
   <string name="backup_popup_title">Sandar dompet anda sekarang!</string>
   <string name="backup_popup_purchase_body">Pastikan dana anda selamat sepanjang masa.</string>
   <string name="backup_popup_gamification_body">Pastikan tahap bonus anda selamat sepanjang masa.</string>
+  <string name="backup_error_body">Kami tak dapat cipta fail sandaran anda. Cuba lagi nanti.</string>
+  <string name="backup_confirmation_save_device">Fail sandaran anda pada peranti anda</string>
+  <string name="backup_confirmation_save_email">Fail sandaran anda pada e-mel anda</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Jumlah baki dalam %s</string>
@@ -766,6 +851,8 @@
   <string name="remove_wallet_no_button">Tidak, kembali</string>
   <string name="remove_wallet_yes_button">Ya, alih keluar dompet</string>
   <string name="remove_wallet_removed_body">Dompet sudah dialih keluar!</string>
+  <string name="remove_wallet_extra_confirmation_title">Pasti?</string>
+  <string name="remove_wallet_extra_confirmation_body">Ingat, tanpa sandaran, anda boleh kehilangan dana dan tahap bonus.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Pindahan</string>
   <string name="transfer_title">Pindah Dana</string>
@@ -821,7 +908,7 @@
   <string name="subscriptions_cancel_title">Batal Langganan</string>
   <string name="subscriptions_cancel_body">Anda pasti mahu batalkan langganan ini?</string>
   <string name="subscriptions_cancel_no_button">Tidak, kembali</string>
-  <string name="subscriptions_cancel_yes_button">Ya, batalkan langganan</string>
+  <string name="subscriptions_cancel_yes_button">Ya, batalkan</string>
   <string name="subscriptions_cancel_confirmation_title">Langganan Dibatalkan!</string>
   <string name="subscriptions_cancel_confirmation_body">Anda tidak akan dikenakan bayaran lagi untuk langganan ini, dan anda boleh gunakannya sehingga %s.</string>
   <string name="subscriptions_category_title">Langganan</string>
@@ -884,6 +971,7 @@
   <string name="gamif_placeholder_unknown">planet tidak diketahui</string>
   <string name="gamif_distance_unkown">Lokasi tidak diketahui</string>
   <string name="gamif_placeholder_new_planet">planet baharu</string>
+  <string name="gamif_header">Ganjaran</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Caj syarikat telekomunikasi</string>
   <string name="carrier_billing_fees_disclaimer">Bayaran tambahan mungkin dikenakan</string>
@@ -906,17 +994,29 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Tambah kad kredit/debit</string>
   <string name="manage_cards_settings_manage_title">Urus kad</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Tambah kad kredit/debit</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Guna kad lain</string>
   <string name="manage_cards_view_title">Urus kad</string>
+  <string name="manage_cards_empty_body">Anda tidak ada kad tersimpan.</string>
   <string name="manage_cards_view_manage_subtitle">Urus kad pembayaran anda</string>
-  <string name="manage_cards_add_title">Tambah kad baru</string>
+  <string name="manage_cards_add_title">Tambah Kad Baru</string>
+  <string name="manage_cards_add_button">Tambah kad</string>
   <string name="manage_cards_remove_confirmation">Anda pasti mahu alih keluar kad ini?</string>
-  <string name="manage_cards_remove_no">TIDAK, BATALKAN</string>
-  <string name="manage_cards_remove_yes">YA, ALIH KELUAR</string>
+  <string name="manage_cards_remove_no">Tidak, batalkan</string>
+  <string name="manage_cards_remove_yes">Ya, alih keluar</string>
   <string name="manage_cards_card_ending_body">Kad tamat dengan %s</string>
   <string name="manage_cards_error_details">Anda pasti butiran kad anda betul? Sila cuba lagi!</string>
   <string name="manage_cards_error_card_problem">Nampaknya ada masalah dengan kad anda. Sila cuba kad lain.</string>
   <string name="manage_cards_select_title">Pilih kad pembayaran</string>
   <string name="manage_cards_remember">Ingat kad</string>
+  <string name="add_new_card_button">Tambah kad baru</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Urus kad pembayaran</string>
+  <string name="card_added_title">Kad ditambah</string>
+  <string name="card_removed">Kad dialih keluar</string>
+  <string name="choose_card_title">Pilih kad</string>
+  <string name="manage_cards_update_disclaimer_1">Untuk kemas kini atau alih keluar kad, pergi ke:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Peroleh Bonus sehingga %s%% bagi setiap pembelian</string>
   <string name="perks_gamif_subtitle">Lebih banyak anda berbelanja dalam aplikasi kegemaran anda, lebih besar bonusnya!</string>
@@ -956,7 +1056,7 @@
   <string name="perks_empty_state_first_purchase_body">Buat pembelian pertama anda dalam aplikasi serasi AppCoins dan peroleh promosi yang kami tawarkan kepada anda!</string>
   <string name="perks_empty_body">Tiada promosi buat masa ini.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Kunci Cap Jari</string>
+  <string name="fingerprint_settings">Kunci Biometrik</string>
   <string name="fingerprint_failed_title">Pengesahan gagal!</string>
   <string name="fingerprint_failed_body">Sila cuba lagi dalam masa %s saat.</string>
   <string name="fingerprint_authentication_required_title">Pengesahan diperlukan!</string>
@@ -1005,8 +1105,6 @@
   <string name="card_verification_no_attempts_title">Oops, anda telah masukkan kod yang salah berulang kali, jadi %1$s akan dikembalikan ke kad anda.</string>
   <string name="card_verification_no_attempts_body">Sila mulakan proses pengesahan sekali lagi.</string>
   <string name="wallet_verify_header">Sahkan sekurang-kurangnya satu kaedah bayaran</string>
-  <string name="verify_card_title">Sahkan Kad</string>
-  <string name="verify_card_button">Sahkan kad bank</string>
   <string name="verify_paypal_button">Sahkan akaun PayPal</string>
   <string name="card_verification_body_new">%s akan dicaj pada kad anda dan dikembalikan segera. Semak penyata kad anda untuk kod pengesahan dan masukkan ia di sini.</string>
   <string name="card_verification_disclaimer_body">Sila ambil perhatian bahawa kod pengesahan mungkin dinyatakan dalam notifikasi pengembalian wang.</string>
@@ -1087,28 +1185,8 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Modal Pasaran</string>
   <string name="appcoins_info_volume_title">Jumlah (24j)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT</string>
-  <string name="nfts_no_nfts">Anda belum ada NFT dalam dompet ini!</string>
-  <string name="nfts_transact_button">Hantar NFT ini</string>
-  <string name="nfts_transact_button_send">Hantar</string>
-  <string name="nfts_transact_button_next">Seterusnya</string>
-  <string name="nfts_transact_button_done">Selesai</string>
-  <string name="nfts_transact_button_success">Berjaya</string>
-  <string name="nfts_transact_tip">Masukkan alamat dompet rakan anda</string>
-  <string name="nfts_transact_input_tip">Alamat dompet di sini...</string>
-  <string name="nfts_transact_done_mensage">%s berjaya dihantar!</string>
-  <string name="nfts_generic_error">Oops! Ada yang tak kena!</string>
-  <string name="nfts_transact_gas_title">Anda nak cepat?</string>
-  <string name="nfts_transact_gas_description">Pilih berapa banyak anda mahu bayar untuk fi. Lebih tinggi fi, lebih pantas transaksi.</string>
-  <string name="nfts_transact_gas_price">Harga Minyak</string>
-  <string name="nfts_transact_gas_limit">Had Minyak</string>
-  <string name="nfts_transact_gas_fee_message">Fi Transaksi</string>
-  <string name="nfts_transact_error_no_funds">Dana tidak cukup! ETH anda tidak cukup untuk bayar fi.</string>
-  <string name="nfts_transact_error_low_gas">Minyak terlalu sedikit! Tingkatkan minyak anda supaya rangkaian dapat menerima transaksi anda.</string>
-  <string name="nfts_transact_error_already_in_progress">NFT ini sedang dihantar! Transaksi sebelum ini sedang diproses.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Tebus kod kad hadiah anda</string>
+  <string name="gift_card_title">Tebus kod kad hadiah anda.</string>
   <string name="gift_card_field">Kod kad di sini...</string>
   <string name="gift_card_done_title">Kod telah ditebus!</string>
   <string name="gift_card_done_body">Semak senarai transaksi anda.</string>
@@ -1155,11 +1233,13 @@
   <string name="vip_program_promotions_list_title">Promosi istimewa untuk anda</string>
   <string name="vip_program_promo_code_tag">Kod promo</string>
   <string name="vip_program_referral_page_title">Program Rujukan VIP</string>
-  <string name="vip_program_referral_page_body">Kongsi kod promo ini dengan komuniti dan rakan anda agar mereka dapat manfaat sambil bermain. Bagi setiap pembelian dalam aplikasi yang dibuat, <b>anda dan rakan anda akan dapat bonus %s%%</b> dan juga nikmati promosi aktif lain sepanjang bulan!</string>
+  <string name="vip_program_referral_page_body">Kongsi kod promo ini dengan komuniti dan rakan anda agar mereka dapat manfaat sambil bermain. Bagi setiap pembelian dalam aplikasi yang dibuat, <b>anda dan rakan anda akan dapat bonus %1$s%%</b> dan juga nikmati promosi aktif lain sepanjang bulan.<b>Sah sehingga %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Kongsi kod ini dengan rakan anda</string>
+  <string name="vip_program_referral_page_only_app_title">Hanya untuk pembelian di</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s diperoleh daripada rujukan %3$s</string>
   <string name="vip_program_gamification_title">Apa tahap bonus saya?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus diterima hasil pembelian anda.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus diterima hasil pembelian anda</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus diterima daripada rujukan</string>
   <string name="vip_program_max_bonus_title">Nikmati Bonus %s%% bagi setiap pembelian anda</string>
   <string name="vip_program_max_bonus_body">Anda sudah di hujung benua.</string>
@@ -1167,6 +1247,7 @@
   <string name="vip_program_referral_notification_title">Kod Rujukan VIP Tersedia!</string>
   <string name="vip_program_referral_notification_body">Kongsi kod anda dengan komuniti. Dapat ganjaran sambil bermain!</string>
   <string name="vip_program_title_vip_offer">Tawaran VIP</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Selamat datang ke Dompet AppCoins</string>
   <string name="intro_welcome_body">Tambah nilai dompet anda atau buat pembelian dalam aplikasi atau permainan yang serasi dengan AppCoins.</string>
@@ -1175,39 +1256,82 @@
   <string name="topup_home_button">Tambah Nilai</string>
   <string name="intro_home_button">Utama</string>
   <string name="intro_rewards_button">Ganjaran</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="other">HARI</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="other">JAM</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="other">MINIT</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="other">SAAT</item>
   </plurals>
   <string name="intro_transactions_header">Transaksi</string>
   <string name="intro_backup_card_title">Jangan hilang dana anda!</string>
   <string name="intro_backup_card_body">Sandarkan dompet anda dan pastikan ia selamat sepanjang masa.</string>
-  <string name="rewards_spend_to_next_level_body">Belanja sebanyak %1$s%2$s lagi untuk capai tahap seterusnya!</string>
+  <string name="rewards_spend_to_next_level_body">Belanja %1$s%2$s untuk capai tahap seterusnya!</string>
   <string name="rewards_current_bonus_title">bonus %s%% bagi setiap pembelian</string>
-  <string name="rewards_eskills_card_title">Peroleh Wang!</string>
-  <string name="rewards_eskills_card_body">Tewaskan pemain lain dengan e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Keluarkan pendapatan e-Skills anda.</string>
   <string name="rewards_promo_code_card_title">Kod Promo</string>
   <string name="rewards_promo_code_card_body">Gunakan kod promo untuk dapat tawaran istimewa!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktif</string>
   <string name="rewards_promo_code_status_expired">Luput</string>
-  <string name="home_nft_title">Dompet AppCoins kini menyokong NFT</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">Permainan Serasi AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Buat pembelian pertama anda dalam permainan serasi AppCoins dan dapatkan bonus bagi setiap pembelian.</string>
-  <string name="rewards_bonus_every_purchase_title">Nikmati bonus %s%% bagi setiap pembelian</string>
+  <string name="rewards_bonus_every_purchase_title">Bonus %s%% untuk setiap pembelian</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Urus Dompet</string>
+  <string name="manage_wallet_view_title">Urus Dompet</string>
   <string name="manage_wallet_wallet_changed_title">Dompet diubah</string>
   <string name="manage_wallet_change_active_wallet_title">Anda mahu pilih dompet ini?</string>
   <string name="manage_wallet_change_wallet_name_title">Tukar nama dompet</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_set_a_name_button">Pilih nama untuk dompet anda</string>
+  <string name="manage_wallet_my_wallet_address_title">Alamat Dompet Saya</string>
+  <string name="manage_wallet_verify_title">Sahkan Kaedah Pembayaran</string>
+  <string name="manage_wallet_verify_body">Elak sekatan dengan mengesahkan kaedah pembayaran.</string>
+  <string name="manage_wallet_currency_disclaimer">Baki anda tertera dalam mata wang tempatan agar lebih jelas. Namun ia diikat dengan USD, maka perubahan mata wang boleh memberi kesan pada baki.</string>
+  <!-- Refactor Verify Payment Method -->
+  <string name="verify_card_title">Sahkan Kaedah Pembayaran</string>
+  <string name="verify_card_body">Elak sekatan dengan mengesahkan kaedah pembayaran.</string>
+  <string name="verify_card_one_more_step_title">Satu Lagi Langkah untuk Sahkan</string>
+  <string name="verify_card_one_more_step_body">Masukkan kod yang tertera pada butiran transaksi</string>
+  <string name="verify_card_one_more_step_button">Masukkan kod</string>
+  <string name="verify_card_verified">Kaedah bayaran disahkan!</string>
+  <string name="verify_card_button">Sahkan kad kredit/debit</string>
+  <string name="verify_card_view_title">Sahkan Kad</string>
+  <string name="verify_card_view_disclaimer">Kami akan mengenakan bayaran %s pada kad anda, dan ia akan dikembalikan setelah anda sahkan kod.</string>
+  <string name="verify_card_view_title_2">Masukkan butiran kad bank anda</string>
+  <string name="verify_card_get_a_code_button">Dapatkan kod</string>
+  <string name="verify_card_code_title">Cari kod anda pada butiran transaksi</string>
+  <string name="verify_card_code_body">Kod unik akan terpapar pada ringkasan transaksi yang disediakan oleh pengeluar kad anda.</string>
+  <string name="verify_card_code_example_title">Contoh ringkasan transaksi</string>
+  <string name="verify_card_code_example_date">Tarikh transaksi</string>
+  <string name="verify_card_code_example_description">Keterangan</string>
+  <string name="verify_card_code_example_amount">Amaun</string>
+  <string name="verify_card_code_enter_title">Masukkan kod 4 digit</string>
+  <string name="verify_card_code_refund_body">%s akan dikembalikan dalam masa 24 jam setelah anda sahkan kod.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Ganjaran Cabaran</string>
+  <string name="challenge_reward_card_body">Selesaikan cabaran untuk dapat Kredit AppCoins.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Nikmati %s berbentuk Kredit AppCoins dalam dompet anda</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">Ikuti Kami!</string>
+  <string name="mail_list_card_body">Sertai senarai mel kami untuk dapat kemas kini eksklusif dan peluang menangi kad hadiah.</string>
+  <string name="mail_list_card_confirmation_title">Sahkan E-mel Anda</string>
+  <string name="mail_list_card_confirmation_body">Kami telah hantar e-mel ke %s</string>
+  <string name="mail_list_backup">Sertai senarai mel kami untuk dapat kemas kini eksklusif dan peluang menangi kad hadiah.</string>
+  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
+  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
+  <string name="mail_list_confirmation_email_button">Confirm email</string>
+  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>

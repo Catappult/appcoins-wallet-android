@@ -6,9 +6,11 @@ import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCar
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
 import javax.inject.Inject
 
-class VerificationErrorNavigator @Inject constructor(private val fragmentManager: FragmentManager,
-                                 fragment: Fragment,
-                                 private val activityNavigator: VerificationCreditCardActivityNavigator) {
+class VerificationErrorNavigator @Inject constructor(
+  private val fragmentManager: FragmentManager,
+  fragment: Fragment,
+  private val activityNavigator: VerificationCreditCardActivityNavigator
+) {
 
   private val activityView = fragment.activity as VerificationCreditCardActivityView
 

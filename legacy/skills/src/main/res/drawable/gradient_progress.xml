@@ -14,9 +14,9 @@
         android:height="56dp" />
     <gradient
         android:angle="0"
-        android:centerColor="@color/btn_end_gradient_color"
-        android:endColor="@color/btn_start_gradient_color"
-        android:startColor="#00ff578c"
+        android:centerColor="@color/styleguide_pink"
+        android:endColor="@color/styleguide_pink"
+        android:startColor="@color/styleguide_blue"
         android:type="sweep"
         android:useLevel="false" />
   </shape>

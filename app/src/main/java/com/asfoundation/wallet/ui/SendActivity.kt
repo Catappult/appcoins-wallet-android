@@ -9,18 +9,20 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
+import com.appcoins.wallet.core.utils.android_common.Log.Companion.e
+import com.appcoins.wallet.core.utils.jvm_common.C
 import com.asf.wallet.R
-import com.asfoundation.wallet.C
 import com.asfoundation.wallet.router.Result
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
-import com.appcoins.wallet.core.utils.android_common.Log.Companion.e
 import com.asfoundation.wallet.viewmodel.SendViewModel
 import com.asfoundation.wallet.viewmodel.SendViewModelFactory
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.material.textfield.TextInputLayout
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.text.NumberFormat
@@ -77,11 +79,27 @@ class SendActivity : BaseActivity() {
     }
   }
 
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+  fun toolbar(): Toolbar {
+    val toolbar = findViewById<Toolbar>(R.id.toolbar)
+    toolbar!!.visibility = View.VISIBLE
+    if (toolbar != null) {
+      setSupportActionBar(toolbar)
+      toolbar.title = title
+    }
+    enableDisplayHomeAsUp()
+    return toolbar
+  }
+
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       R.id.action_next -> {
         onNext()
       }
+
       android.R.id.home -> {
         onBackPressed()
       }
@@ -122,7 +140,7 @@ class SendActivity : BaseActivity() {
   }
 
   private fun onAmount(bigDecimal: BigDecimal) {
-    amountText!!.setText(
+    amountText.setText(
       NumberFormat.getInstance()
         .format(bigDecimal)
     )
@@ -136,34 +154,34 @@ class SendActivity : BaseActivity() {
   private fun onNext() {
     // Validate input fields
     var hasError = false
-    val to = toAddressText!!.text
+    val to = toAddressText.text
       .toString()
-    val amount = amountText!!.text
+    val amount = amountText.text
       .toString()
     if (!viewModel.setToAddress(to)) {
-      toInputLayout!!.error = getString(R.string.error_invalid_address)
+      toInputLayout.error = getString(R.string.error_invalid_address)
       hasError = true
     }
     if (!viewModel.setAmount(amount)) {
-      amountInputLayout!!.error = getString(R.string.error_invalid_amount)
+      amountInputLayout.error = getString(R.string.error_invalid_amount)
       hasError = true
     }
     if (!hasError) {
-      toInputLayout!!.isErrorEnabled = false
-      amountInputLayout!!.isErrorEnabled = false
+      toInputLayout.isErrorEnabled = false
+      amountInputLayout.isErrorEnabled = false
       viewModel.openConfirmation(this)
     }
   }
 
   private fun onToAddress(toAddress: String) {
     // Populate to address if it has been passed forward
-    toAddressText!!.setText(toAddress)
+    toAddressText.setText(toAddress)
   }
 
   private fun onSymbol(symbol: String?) {
     if (symbol != null) {
       setTitle(String.format(getString(R.string.title_send_with_token), symbol))
-      amountInputLayout!!.hint =
+      amountInputLayout.hint =
         String.format(getString(R.string.hint_amount_with_token), symbol)
     }
   }

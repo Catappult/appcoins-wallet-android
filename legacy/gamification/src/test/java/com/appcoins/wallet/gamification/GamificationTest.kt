@@ -45,9 +45,23 @@ class GamificationTest {
       )
     val referralResponse =
       ReferralResponse(
-        "REFERRAL", 99, GamificationStatus.NONE, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
-        BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
-        PromotionsResponse.Status.ACTIVE, BigDecimal.ONE
+        "REFERRAL",
+        99,
+        GamificationStatus.NONE,
+        BigDecimal(2.2),
+        3,
+        true,
+        2,
+        "EUR",
+        "€",
+        false,
+        "link",
+        BigDecimal.ONE,
+        BigDecimal.ZERO,
+        ReferralResponse.UserStatus.REDEEMED,
+        BigDecimal.ZERO,
+        PromotionsResponse.Status.ACTIVE,
+        BigDecimal.ONE
       )
     local.walletOriginResponse = Single.just(WalletOrigin.UNKNOWN)
     local.userStatusResponse = Single.just(emptyList())
@@ -60,13 +74,21 @@ class GamificationTest {
     val testObserver = gamification.getUserStats(WALLET, null)
       .test()
     testObserver.assertResult(
-      PromotionsGamificationStats(PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
+      PromotionsGamificationStats(
+        PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
         fromCache = true,
         gamificationStatus = GamificationStatus.NONE
       ),
       PromotionsGamificationStats(
-        PromotionsGamificationStats.ResultState.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE,
-        BigDecimal.ZERO, isActive = true, fromCache = false, gamificationStatus = GamificationStatus.STANDARD
+        PromotionsGamificationStats.ResultState.OK,
+        1,
+        BigDecimal.TEN,
+        2.2,
+        BigDecimal.ONE,
+        BigDecimal.ZERO,
+        isActive = true,
+        fromCache = false,
+        gamificationStatus = GamificationStatus.STANDARD
       )
     )
     testObserver.assertComplete()
@@ -94,8 +116,14 @@ class GamificationTest {
         gamificationStatus = GamificationStatus.STANDARD
       ),
       PromotionsGamificationStats(
-        PromotionsGamificationStats.ResultState.NO_NETWORK, PromotionsGamificationStats.INVALID_LEVEL,
-        BigDecimal.ZERO, -1.0, BigDecimal.ZERO, BigDecimal.ZERO, false, fromCache = false,
+        PromotionsGamificationStats.ResultState.NO_NETWORK,
+        PromotionsGamificationStats.INVALID_LEVEL,
+        BigDecimal.ZERO,
+        -1.0,
+        BigDecimal.ZERO,
+        BigDecimal.ZERO,
+        false,
+        fromCache = false,
         gamificationStatus = GamificationStatus.NONE
       )
     )
@@ -110,12 +138,25 @@ class GamificationTest {
       .test()
     testObserver.assertResult(
       PromotionsGamificationStats(
-        PromotionsGamificationStats.ResultState.UNKNOWN_ERROR, -1, BigDecimal.ZERO, -1.0,
-        BigDecimal.ZERO, BigDecimal.ZERO, isActive = false, fromCache = true, gamificationStatus = GamificationStatus.NONE
+        PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
+        -1,
+        BigDecimal.ZERO,
+        -1.0,
+        BigDecimal.ZERO,
+        BigDecimal.ZERO,
+        isActive = false,
+        fromCache = true,
+        gamificationStatus = GamificationStatus.NONE
       ),
       PromotionsGamificationStats(
-        PromotionsGamificationStats.ResultState.NO_NETWORK, PromotionsGamificationStats.INVALID_LEVEL,
-        BigDecimal.ZERO, -1.0, BigDecimal.ZERO, BigDecimal.ZERO, false, fromCache = false,
+        PromotionsGamificationStats.ResultState.NO_NETWORK,
+        PromotionsGamificationStats.INVALID_LEVEL,
+        BigDecimal.ZERO,
+        -1.0,
+        BigDecimal.ZERO,
+        BigDecimal.ZERO,
+        false,
+        fromCache = false,
         gamificationStatus = GamificationStatus.NONE
       )
     )
@@ -141,9 +182,23 @@ class GamificationTest {
       )
     val referralResponse =
       ReferralResponse(
-        "REFERRAL", 99, GamificationStatus.STANDARD, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
-        BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
-        PromotionsResponse.Status.ACTIVE, BigDecimal.ONE
+        "REFERRAL",
+        99,
+        GamificationStatus.STANDARD,
+        BigDecimal(2.2),
+        3,
+        true,
+        2,
+        "EUR",
+        "€",
+        false,
+        "link",
+        BigDecimal.ONE,
+        BigDecimal.ZERO,
+        ReferralResponse.UserStatus.REDEEMED,
+        BigDecimal.ZERO,
+        PromotionsResponse.Status.ACTIVE,
+        BigDecimal.ONE
       )
     api.userStatusResponse =
       Single.just(
@@ -178,9 +233,23 @@ class GamificationTest {
       )
     val referralResponse =
       ReferralResponse(
-        "REFERRAL", 99, GamificationStatus.STANDARD, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
-        BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
-        PromotionsResponse.Status.ACTIVE, BigDecimal.ONE
+        "REFERRAL",
+        99,
+        GamificationStatus.STANDARD,
+        BigDecimal(2.2),
+        3,
+        true,
+        2,
+        "EUR",
+        "€",
+        false,
+        "link",
+        BigDecimal.ONE,
+        BigDecimal.ZERO,
+        ReferralResponse.UserStatus.REDEEMED,
+        BigDecimal.ZERO,
+        PromotionsResponse.Status.ACTIVE,
+        BigDecimal.ONE
       )
     api.userStatusResponse =
       Single.just(

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -9,14 +8,14 @@
   <androidx.fragment.app.FragmentContainerView
       android:id="@+id/nav_host_container"
       android:name="androidx.navigation.fragment.NavHostFragment"
-      app:navGraph="@navigation/nav_bar_graph"
-      app:defaultNavHost="true"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
-      app:layout_constraintTop_toTopOf="parent"
+      app:defaultNavHost="true"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:navGraph="@navigation/nav_bar_graph"
       />
   <androidx.fragment.app.FragmentContainerView
       android:id="@+id/fragment_container"
@@ -25,46 +24,38 @@
       android:elevation="10dp"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <androidx.fragment.app.FragmentContainerView
       android:id="@+id/full_host_container"
       android:name="androidx.navigation.fragment.NavHostFragment"
-      app:navGraph="@navigation/nav_bar_graph"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:elevation="99dp"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:navGraph="@navigation/nav_bar_graph"
       />
-
-  <include
-      android:id="@+id/vip_promotions_callout"
-      layout="@layout/layout_vip_callout"
-      android:layout_width="match_parent"
-      android:layout_height="76dp"
-      app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
-      android:visibility="visible"
-    />
 
   <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/bottom_nav"
       android:layout_width="0dp"
       android:layout_height="69dp"
       android:background="@color/white"
+      android:visibility="gone"
       app:elevation="5dp"
       app:itemHorizontalTranslationEnabled="false"
       app:itemIconTint="@color/bottom_nav_color_state"
       app:itemRippleColor="@color/styleguide_dark_grey"
       app:itemTextColor="@color/bottom_nav_color_state"
       app:labelVisibilityMode="labeled"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/composeView"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:menu="@menu/bottom_navigation_menu"
@@ -76,8 +67,17 @@
       android:layout_height="0dp"
       android:elevation="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/composeView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:elevation="6dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,10 @@ package com.asfoundation.wallet.permissions.manage.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.widget.Toolbar
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +25,21 @@ class ManagePermissionsActivity : BaseActivity(), ManagePermissionsView, Toolbar
 
   private lateinit var presenter: ManagePermissionsPresenter
 
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+  fun toolbar(): Toolbar {
+    val toolbar = findViewById<Toolbar>(R.id.toolbar)
+    toolbar!!.visibility = View.VISIBLE
+    if (toolbar != null) {
+      setSupportActionBar(toolbar)
+      toolbar.title = title
+    }
+    enableDisplayHomeAsUp()
+    return toolbar
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_permissions_layout)
@@ -32,6 +49,6 @@ class ManagePermissionsActivity : BaseActivity(), ManagePermissionsView, Toolbar
 
   override fun showPermissionsList() {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, PermissionsListFragment.newInstance()).commit()
+      .replace(R.id.fragment_container, PermissionsListFragment.newInstance()).commit()
   }
 }

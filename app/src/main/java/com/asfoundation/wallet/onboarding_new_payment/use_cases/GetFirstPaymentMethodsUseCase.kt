@@ -1,9 +1,11 @@
 package com.asfoundation.wallet.onboarding_new_payment.use_cases
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.microservices.model.FeeEntity
 import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
+import com.asfoundation.wallet.billing.googlepay.usecases.FilterValidGooglePayUseCase
 import com.asfoundation.wallet.onboarding.CachedTransaction
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodFee
@@ -11,29 +13,46 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetFirstPaymentMethodsUseCase @Inject constructor(private val bdsRepository: BdsRepository) {
+class GetFirstPaymentMethodsUseCase @Inject constructor(
+  private val bdsRepository: BdsRepository,
+  private val partnerAddressService: PartnerAddressService,
+  private val filterValidGooglePayUseCase: FilterValidGooglePayUseCase,
+) {
 
   companion object {
     private const val APPC_ID = "appcoins"
     private const val CREDITS_ID = "appcoins_credits"
     private const val ASK_SOMEONE_TO_PAY_ID = "ask_friend"
+    private const val CHALLENGE_REWARD_ID = "challenge_reward"
   }
 
   operator fun invoke(cachedTransaction: CachedTransaction): Single<List<PaymentMethod>> {
-    return bdsRepository.getPaymentMethods(
-      cachedTransaction.value.toString(),
-      cachedTransaction.currency,
-      packageName = cachedTransaction.packageName
+    return partnerAddressService.getAttribution(
+      packageName = cachedTransaction.packageName ?: ""
     )
-      .flatMap { paymentMethods ->
-        removeUnavailableMethods(paymentMethods)
-          .flatMap { availablePaymentMethods ->
-            Observable.fromIterable(paymentMethods)
-              .map { paymentMethod ->
-                mapPaymentMethods(paymentMethod, availablePaymentMethods)
+      .flatMap { attributionEntity ->
+        bdsRepository.getPaymentMethods(
+          cachedTransaction.value.toString(),
+          cachedTransaction.currency,
+          packageName = cachedTransaction.packageName,
+          entityOemId = attributionEntity.oemId
+        ).map { paymentMethods ->
+          bdsRepository.replaceAppcPricesToOriginalPrices(
+            paymentMethods, cachedTransaction.value.toString(),
+            cachedTransaction.currency
+          )
+        }
+          .flatMap { paymentMethods ->
+            removeUnavailableMethods(paymentMethods)
+              .flatMap { availablePaymentMethods ->
+                Observable.fromIterable(paymentMethods)
+                  .map { paymentMethod ->
+                    mapPaymentMethods(paymentMethod, availablePaymentMethods)
+                  }
+                  .toList()
               }
-              .toList()
           }
+          .map { filterValidGooglePayUseCase(it) }
       }
   }
 
@@ -48,7 +67,7 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(private val bdsRepositor
     val iterator = clonedPaymentMethod.iterator()
     while (iterator.hasNext()) {
       val method = iterator.next()
-      if (method.id == CREDITS_ID || method.id == APPC_ID || !method.isAvailable()) {
+      if (method.id == CREDITS_ID || method.id == APPC_ID || method.id == CHALLENGE_REWARD_ID || !method.isAvailable()) {
         iterator.remove()
       }
     }

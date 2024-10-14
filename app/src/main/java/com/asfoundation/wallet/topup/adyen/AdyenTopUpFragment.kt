@@ -7,7 +7,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -20,27 +22,28 @@ import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentAdyenTopUpBinding
-import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.*
+import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
-import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
-import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_SUCCESS_CODE
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.TopUpPaymentData
-import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment.Companion.BILLING_ADDRESS_MODEL
+import com.asfoundation.wallet.topup.usecases.GetPaymentInfoFilterByCardModelUseCase
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.util.*
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.util.AdyenCardView
+import com.asfoundation.wallet.util.unregisterProvider
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -81,6 +84,18 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   @Inject
   lateinit var navigator: TopUpNavigator
 
+  @Inject
+  lateinit var getPaymentInfoNewCardModelUseCase: GetPaymentInfoNewCardModelUseCase
+
+  @Inject
+  lateinit var getPaymentInfoFilterByCardModelUseCase: GetPaymentInfoFilterByCardModelUseCase
+
+  @Inject
+  lateinit var cardPaymentDataSource: CardPaymentDataSource
+
+  @Inject
+  lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
+
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectConfiguration: RedirectConfiguration
@@ -93,9 +108,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
-  private var billingAddressInput: PublishSubject<Boolean>? = null
-  private var isStored = false
-  private var billingAddressModel: BillingAddressModel? = null
+  private var askCVC = true
 
   private val binding by viewBinding(FragmentAdyenTopUpBinding::bind)
 
@@ -104,17 +117,36 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     paymentDataSubject = ReplaySubject.createWithSize(1)
     paymentDetailsSubject = PublishSubject.create()
     adyen3DSErrorSubject = PublishSubject.create()
-    billingAddressInput = PublishSubject.create()
 
     presenter =
       AdyenTopUpPresenter(
-        this, appPackage, AndroidSchedulers.mainThread(), Schedulers.io(),
-        CompositeDisposable(), RedirectComponent.getReturnUrl(requireContext()), paymentType,
-        data.transactionType, data.fiatValue, data.fiatCurrencyCode, data.appcValue,
-        data.selectedCurrencyType, navigator, inAppPurchaseInteractor.billingMessagesMapper,
-        adyenPaymentInteractor, data.bonusValue, data.fiatCurrencySymbol,
-        AdyenErrorCodeMapper(), servicesErrorMapper, data.gamificationLevel, topUpAnalytics,
-        formatter, logger
+        this,
+        appPackage,
+        AndroidSchedulers.mainThread(),
+        Schedulers.io(),
+        CompositeDisposable(),
+        RedirectComponent.getReturnUrl(requireContext()),
+        paymentType,
+        data.transactionType,
+        data.fiatValue,
+        data.fiatCurrencyCode,
+        data.appcValue,
+        data.selectedCurrencyType,
+        navigator,
+        inAppPurchaseInteractor.billingMessagesMapper,
+        adyenPaymentInteractor,
+        data.bonusValue,
+        data.fiatCurrencySymbol,
+        AdyenErrorCodeMapper(),
+        servicesErrorMapper,
+        data.gamificationLevel,
+        topUpAnalytics,
+        formatter,
+        logger,
+        getPaymentInfoNewCardModelUseCase,
+        getPaymentInfoFilterByCardModelUseCase,
+        cardPaymentDataSource,
+        getCurrentWalletUseCase
       )
   }
 
@@ -147,15 +179,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     hideKeyboard()
   }
 
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (requestCode == BILLING_ADDRESS_REQUEST_CODE && resultCode == BILLING_ADDRESS_SUCCESS_CODE) {
-      val billingAddressModel =
-        data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
-      this.billingAddressModel = billingAddressModel
-      billingAddressInput?.onNext(true)
-    }
-  }
-
   override fun setup3DSComponent() {
     activity?.application?.let {
       adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this, it, adyen3DS2Configuration)
@@ -171,15 +194,14 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   @SuppressLint("SetTextI18n")
   override fun showValues(value: String, currency: String) {
     binding.mainValue.visibility = VISIBLE
+    binding.layoutHeaderTopUp.visibility = VISIBLE
     val formattedValue = formatter.formatCurrency(data.appcValue, WalletCurrency.CREDITS)
     if (data.selectedCurrencyType == FIAT_CURRENCY) {
       binding.mainValue.setText(value)
       binding.mainCurrencyCode.text = currency
-      binding.convertedValue.text = "$formattedValue ${WalletCurrency.CREDITS.symbol}"
     } else {
       binding.mainValue.setText(formattedValue)
       binding.mainCurrencyCode.text = WalletCurrency.CREDITS.symbol
-      binding.convertedValue.text = "$value $currency"
     }
   }
 
@@ -187,6 +209,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.loading.visibility = VISIBLE
     binding.creditCardInfoContainer.visibility = INVISIBLE
     binding.button.isEnabled = false
+    binding.layoutHeaderTopUp.visibility = INVISIBLE
+    binding.button.visibility = INVISIBLE
   }
 
   override fun hideLoading() {
@@ -194,6 +218,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.loading.visibility = GONE
     binding.button.isEnabled = false
     binding.creditCardInfoContainer.visibility = VISIBLE
+    binding.layoutHeaderTopUp.visibility = VISIBLE
+    binding.button.visibility = VISIBLE
   }
 
   override fun showNetworkError() {
@@ -234,25 +260,16 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.noNetwork.root.visibility = GONE
     binding.topUpContainer.visibility = VISIBLE
     binding.mainCurrencyCode.visibility = VISIBLE
+    binding.layoutHeaderTopUp.visibility = VISIBLE
     binding.mainValue.visibility = VISIBLE
-    binding.topSeparatorTopup.visibility = VISIBLE
-    binding.convertedValue.visibility = VISIBLE
     binding.button.visibility = VISIBLE
-
-    if (isStored) {
-      binding.changeCardButton.visibility = VISIBLE
-    } else {
-      binding.changeCardButton.visibility = GONE
-    }
 
     binding.creditCardInfoContainer.visibility = VISIBLE
     binding.fragmentAdyenError.root.visibility = GONE
-
     topUpView.unlockRotation()
   }
 
   override fun showSpecificError(@StringRes stringRes: Int) {
-    topUpView.unlockRotation()
     viewModelStore.clear()
     binding.loading.visibility = GONE
     binding.topUpContainer.visibility = GONE
@@ -272,12 +289,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     topUpView.unlockRotation()
     binding.loading.visibility = GONE
     binding.button.isEnabled = false
-    if (isStored) {
-      binding.changeCardButton.visibility = VISIBLE
-    } else {
-      binding.changeCardButton.visibility = INVISIBLE
-    }
     binding.creditCardInfoContainer.visibility = VISIBLE
+    binding.layoutHeaderTopUp.visibility = VISIBLE
+    binding.button.visibility = VISIBLE
 
     adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
   }
@@ -287,35 +301,29 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun getTryAgainClicks() = RxView.clicks(binding.fragmentAdyenError.tryAgain)
 
   override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(binding.fragmentAdyenError.layoutSupportLogo), RxView.clicks(binding.fragmentAdyenError.layoutSupportIcn))
+    return Observable.merge(
+      RxView.clicks(binding.fragmentAdyenError.layoutSupportLogo),
+      RxView.clicks(binding.fragmentAdyenError.layoutSupportIcn)
+    )
   }
 
   override fun topUpButtonClicked() = RxView.clicks(binding.button)
 
+
   override fun getVerificationClicks() =
     RxView.clicks(binding.fragmentAdyenError.errorVerifyWalletButton)
 
-  override fun billingAddressInput(): Observable<Boolean> {
-    return billingAddressInput!!
-  }
-
-  override fun retrieveBillingAddressData() = billingAddressModel
-
-  override fun navigateToBillingAddress(fiatAmount: String, fiatCurrency: String) {
-    topUpView.unlockRotation()
-    topUpView.navigateToBillingAddress(
-      data, fiatAmount, fiatCurrency, this, adyenCardView.cardSave, isStored
-    )
-    // To allow back behaviour when address input is needed
-    hideLoading()
-    binding.button.isEnabled = true
-  }
-
   override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
-    this.isStored = paymentInfoModel.isStored
-    prepareCardComponent(paymentInfoModel, forget)
-    handleLayoutVisibility(isStored)
-    setStoredPaymentInformation(isStored)
+    if (forget) {
+      askCVC = true
+    }
+    setupCardConfiguration(!askCVC)
+    if (hasStoredCardForAutomaticBuy) {
+      prepareCardComponent(paymentInfoModel, forget)
+    } else {
+      handleLayoutVisibility()
+      prepareCardComponent(paymentInfoModel, forget)
+    }
   }
 
   override fun lockRotation() = topUpView.lockOrientation()
@@ -331,7 +339,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       unregisterProvider(RedirectComponent::class.java.canonicalName)
       setupRedirectComponent()
     }
-    val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
+    var cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     binding.adyenCardForm.adyenCardFormPreSelected.attach(cardComponent, this)
     cardComponent.observe(this) {
       if (it != null && it.isValid) {
@@ -348,16 +356,20 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
             )
           )
         }
+        if (hasStoredCardForAutomaticBuy && !cardPaymentDataSource.isMandatoryCvc()) {
+          lockRotation()
+          setFinishingPurchase(true)
+          presenter.makePayment()
+        }
       } else {
         binding.button.isEnabled = false
       }
     }
   }
 
-  private fun handleLayoutVisibility(isStored: Boolean) {
-    adyenCardView.showInputFields(!isStored)
-    binding.changeCardButton.visibility = if (isStored) VISIBLE else GONE
-    //change_card_button_pre_selected?.visibility = if (isStored) VISIBLE else GONE
+  private fun handleLayoutVisibility() {
+    adyenCardView.showInputFields(true)
+    binding.adyenCardForm.root.visibility = VISIBLE
   }
 
   override fun setupRedirectComponent() {
@@ -377,18 +389,19 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun showBonus(bonus: BigDecimal, currency: String) {
     buildBonusString(bonus, currency)
+    binding.headerTopUpDivider.visibility = VISIBLE
     binding.bonusLayout.root.visibility = VISIBLE
-    binding.bonusMsg.visibility = VISIBLE
   }
 
-  override fun showVerification() = topUpView.showVerification()
+  override fun showVerification(paymentType: String) =
+    if (paymentType == PaymentType.PAYPAL.name) topUpView.navigateToPayPalVerification()
+    else topUpView.showCreditCardVerification()
 
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
     val scaledBonus = bonus.max(BigDecimal("0.01"))
     val currency = "~$bonusCurrency".takeIf { bonus < BigDecimal("0.01") } ?: bonusCurrency
-    binding.bonusLayout.bonusHeader1.text = getString(R.string.topup_bonus_header_part_1)
     binding.bonusLayout.bonusValue.text = getString(
-      R.string.topup_bonus_header_part_2,
+      R.string.topup_bonus_amount_body,
       currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
     )
   }
@@ -397,11 +410,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun getPaymentDetails() = paymentDetailsSubject!!
 
-  override fun forgetCardClick(): Observable<Any> {
-    return RxView.clicks(binding.changeCardButton)
-    //return if (change_card_button != null) RxView.clicks(change_card_button)
-    //else RxView.clicks(change_card_button_pre_selected)
-  }
 
   // TODO: Refactor this to pass the whole Intent.
   // TODO: Currently this relies on the fact that Adyen 4.4.0 internally uses only Intent.getData().
@@ -415,36 +423,27 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun setFinishingPurchase(newState: Boolean) = topUpView.setFinishingPurchase(newState)
 
-  private fun setStoredPaymentInformation(isStored: Boolean) {
-    if (isStored) {
-      binding.adyenCardForm.adyenCardFormPreSelectedNumber.text = adyenCardView.cardNumber
-      binding.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = VISIBLE
-      binding.adyenCardForm.paymentMethodIc.setImageDrawable(adyenCardView.cardImage)
-      view?.let { KeyboardUtils.showKeyboard(it) }
-    } else {
-      binding.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = GONE
-      binding.adyenCardForm.paymentMethodIc.visibility = GONE
-    }
-  }
 
   override fun setupUi() {
     binding.creditCardInfoContainer.visibility = INVISIBLE
     binding.button.isEnabled = false
-
     if (paymentType == PaymentType.CARD.name) {
       binding.button.setText(getString(R.string.topup_home_button))
-      adyenCardView = AdyenCardView(binding.adyenCardForm.adyenCardFormPreSelected ?: binding.adyenCardForm.root)
-      setupCardConfiguration()
+      adyenCardView =
+        AdyenCardView(binding.adyenCardForm.adyenCardFormPreSelected)
+      setupCardConfiguration(hideCvcStoredCard = false)
     }
     setupRedirectConfiguration()
     setupAdyen3DS2ConfigurationBuilder()
     binding.mainValue.visibility = INVISIBLE
+    binding.layoutHeaderTopUp.visibility = INVISIBLE
     binding.button.visibility = VISIBLE
   }
 
-  private fun setupCardConfiguration() {
+  private fun setupCardConfiguration(hideCvcStoredCard: Boolean) {
     cardConfiguration = CardConfiguration
       .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setHideCvcStoredCard(hideCvcStoredCard)
       .setEnvironment(adyenEnvironment)
       .build()
   }
@@ -467,6 +466,18 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     view?.let { KeyboardUtils.hideKeyboard(it) }
   }
 
+  override fun shouldStoreCard(): Boolean {
+    return adyenCardView.cardSave
+  }
+
+  override fun hasStoredCardBuy(): Boolean {
+    return hasStoredCardForAutomaticBuy
+  }
+
+  override fun handleCreditCardNeedCVC(needCVC: Boolean) {
+    askCVC = needCVC
+  }
+
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
@@ -474,7 +485,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun onDestroy() {
     hideKeyboard()
-    billingAddressInput = null
     paymentDataSubject = null
     paymentDetailsSubject = null
     adyen3DSErrorSubject = null
@@ -497,6 +507,14 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     }
   }
 
+  private val hasStoredCardForAutomaticBuy: Boolean by lazy {
+    if (requireArguments().containsKey(HAS_STORED_CARD_FOR_AUTOMATIC_BUY)) {
+      requireArguments().getSerializable(HAS_STORED_CARD_FOR_AUTOMATIC_BUY) as Boolean
+    } else {
+      throw IllegalArgumentException("previous payment data not found")
+    }
+  }
+
   private val paymentType: String by lazy {
     if (requireArguments().containsKey(PAYMENT_TYPE)) {
       requireArguments().getString(PAYMENT_TYPE)!!
@@ -505,17 +523,31 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     }
   }
 
+  @SuppressLint("CommitTransaction")
+  override fun restartFragment() {
+    this.fragmentManager?.beginTransaction()?.replace(
+      R.id.fragment_container,
+      newInstance(PaymentType.CARD, data, hasStoredCardForAutomaticBuy)
+    )?.commit()
+  }
+
   companion object {
 
     private const val PAYMENT_TYPE = "paymentType"
     private const val PAYMENT_DATA = "data"
+    private const val HAS_STORED_CARD_FOR_AUTOMATIC_BUY = "has_stored_card"
 
-    fun newInstance(paymentType: PaymentType, data: TopUpPaymentData): AdyenTopUpFragment {
+    fun newInstance(
+      paymentType: PaymentType,
+      data: TopUpPaymentData,
+      hasStoredCardBuy: Boolean
+    ): AdyenTopUpFragment {
       val bundle = Bundle()
       val fragment = AdyenTopUpFragment()
       bundle.apply {
         putString(PAYMENT_TYPE, paymentType.name)
         putSerializable(PAYMENT_DATA, data)
+        putBoolean(HAS_STORED_CARD_FOR_AUTOMATIC_BUY, hasStoredCardBuy)
         fragment.arguments = this
       }
       return fragment

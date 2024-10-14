@@ -16,13 +16,24 @@ class AppStartProbe @Inject constructor(
         INTEGRATION_FLOW to startMode.integrationFlow,
         SOURCE to "",
         SKU to startMode.sku,
+        BACKUP to startMode.backup
       )
+
       is StartMode.GPInstall -> mapOf(
         PACKAGE_NAME to startMode.packageName,
         INTEGRATION_FLOW to startMode.integrationFlow,
         SOURCE to startMode.source,
         SKU to startMode.sku,
       )
+
+      is StartMode.RestoreGuestWalletFlow -> mapOf(
+        BACKUP to startMode.backup,
+        PACKAGE_NAME to startMode.packageName,
+        INTEGRATION_FLOW to startMode.integrationFlow,
+        SOURCE to "",
+        SKU to startMode.sku,
+      )
+
       else -> mapOf(PACKAGE_NAME to "", INTEGRATION_FLOW to "other", SOURCE to "", SKU to "")
     }
     analyticsManager.logEvent(
@@ -40,5 +51,6 @@ class AppStartProbe @Inject constructor(
     const val INTEGRATION_FLOW = "integration_flow"
     const val SOURCE = "source"
     const val SKU = "sku"
+    const val BACKUP = "backup"
   }
 }

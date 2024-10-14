@@ -36,8 +36,10 @@ interface TransferFragmentView {
 
   fun unlockOrientation()
 
-  data class TransferData(val walletAddress: String, val currency: Currency,
-                          val amount: BigDecimal) : Serializable
+  data class TransferData(
+    val walletAddress: String, val currency: Currency,
+    val amount: BigDecimal
+  ) : Serializable
 
   enum class Currency {
     APPC_C, APPC, ETH

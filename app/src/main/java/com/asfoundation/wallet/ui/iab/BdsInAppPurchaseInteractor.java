@@ -81,12 +81,8 @@ public class BdsInAppPurchaseInteractor {
 
   public Single<Purchase> getCompletedPurchase(String packageName, String productName,
       String purchaseUid, String type) {
-    return inAppPurchaseInteractor.
-        getCompletedPurchase(packageName, productName, purchaseUid, type);
-  }
-
-  public Single<String> getWallet(String packageName) {
-    return billing.getWallet(packageName);
+    return inAppPurchaseInteractor.getCompletedPurchase(packageName, productName, purchaseUid,
+        type);
   }
 
   public Single<List<PaymentMethodEntity>> getPaymentMethods(String value, String currency,

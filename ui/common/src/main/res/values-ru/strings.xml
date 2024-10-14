@@ -39,8 +39,9 @@
   <string name="ok">Ок</string>
   <string name="barcode_error_format">Недопустимый формат штрих-кода: %s</string>
   <string name="title_delete_account">Вы уверены, что хотите удалить этот кошелек?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Группа Telegram</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Сообщество</string>
   <string name="title_opensource">Разработка с открытым исходным кодом</string>
@@ -137,6 +138,13 @@
   <string name="intro_welcome_body_2">Бонусы можно использовать в любом приложении или игре.</string>
   <string name="intro_already_have_wallet_button">У меня уже есть кошелек</string>
   <string name="intro_get_started_button">Запустить кошелёк</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Ваш инструмент для встроенных покупок</string>
+  <string name="new_intro_1_body">Делайте покупки в любимых приложениях и играх с AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Бонус до %s%% на все покупки</string>
+  <string name="new_intro_2_body">Получайте дополнительные средства каждый раз, когда совершаете покупку в игре, совместимой с AppCoins.</string>
+  <string name="new_intro_3_header">Ваши любимые способы оплаты здесь!</string>
+  <string name="new_intro_3_body">Доступные способы оплаты</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Запускаем кошелёк&#8230;</string>
   <string name="select_method_title">Выберите способ оплаты</string>
@@ -147,6 +155,9 @@
   <string name="bonus_received_body">Вы получили бонус %s на ваш кошелёк.</string>
   <string name="back_to_the_game_button">Вернуться в игру</string>
   <string name="other_payment_methos_title">Другие способы оплаты:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">У вас уже есть</string>
+  <string name="intro_from_web_payment_to_spend_body">для покупок в ваших любимых играх.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">От</string>
@@ -229,6 +240,7 @@
   <string name="activity_iab_approving_message">Проверяем все детали: баланс, товары, сеть…</string>
   <string name="activity_iab_buying_message">Детали проверены \nПолучаем ваш товар…</string>
   <string name="activity_iab_change_card">ИЗМЕНИТЬ КАРТУ</string>
+  <string name="activity_iab_change_card_lower_case_button">Сменить карту</string>
   <string name="activity_iab_fees">Сборы</string>
   <string name="notification_ongoing_poa">Обработка вашего вознаграждения</string>
   <string name="notification_completed_poa">Награда получена! 👌 Вам нужно подождать %1$sч%2$sм, чтобы получить больше наград, пробуя приложения ⏰!</string>
@@ -249,6 +261,10 @@
   <string name="transaction_status_pending">В процессе</string>
   <string name="transaction_status_failed">Не удалось</string>
   <string name="transaction_status_reverted">Отменена</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
+  <string name="transaction_type_challenge_reward">Награда за вызов</string>
+  <string name="transaction_type_challenge_reward_rejected">Награда за вызов отклонена</string>
+  <string name="transaction_type_challenge_reward_reverted">Награда за вызов отменена</string>
   <string name="transaction_type_iab">Встроенная покупка</string>
   <string name="transaction_type_poa">Награда</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -265,6 +281,7 @@
   <string name="transaction_type_reverted_topup_body">Пополнение, которое вы сделали %s, было отменено. Свяжитесь с поддержкой, чтобы получить больше информации.</string>
   <string name="transaction_type_reverted_purchase_title">Возврат за покупку</string>
   <string name="transaction_type_reverted_purchase_body">Покупка, которую вы сделали %s, была отменена. Свяжитесь с поддержкой, чтобы получить больше информации.</string>
+  <string name="transaction_bonus_reverted_body">Этот бонус был отменен. Для получения дополнительной информации обратитесь в службу поддержки.</string>
   <string name="transaction_reverted_view_original_header">Оригинальная транзакция</string>
   <string name="transaction_onchain_completed_title">Транзакция в процессе!</string>
   <string name="transaction_onchain_completed_body">Вы можете отследить её в Etherscan.</string>
@@ -280,6 +297,8 @@
   <string name="transaction_order_reference_label">ID ордера</string>
   <string name="transaction_details_label">Детали</string>
   <string name="transaction_to_label">Кому</string>
+  <string name="transaction_invoice_label">Счёт</string>
+  <string name="iab_payment_method_vkpay_title">Кредитная/дебитовая карта (VK Pay)</string>
   <string name="dialog_credit_card_remember">Запомнить карту</string>
   <string name="notification_payment_refused">Оплата не принята</string>
   <string name="dialog_credit_card_number">Номер карты</string>
@@ -310,6 +329,8 @@
   <string name="transaction_reverted_body">Эта покупка была отменена.\nДля получения дополнительной информации обратитесь в службу поддержки.</string>
   <string name="transaction_status_rejected">Отклонено</string>
   <string name="transaction_details_header">Детали транзакции</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">Артикул</string>
   <string name="activity_airdrop_title">Подтвердите, что вы человек, чтобы получить AppCoins</string>
   <string name="activity_airdrop_details">Это просто для обеспечения безопасности.</string>
   <string name="activity_airdrop_hint">Введите слова на картинке</string>
@@ -419,6 +440,8 @@
   <string name="topup_maximum_value">Максимальный размер бонуса – %s</string>
   <string name="topup_no_method_available_title">Нет способов оплаты!</string>
   <string name="topup_no_method_available_body">В настоящее время в вашей стране нет способов пополнения счета. Следите за обновлениями!</string>
+  <string name="topup_bonus_amount_body">Получите бонус %s это пополнение</string>
+  <string name="topup_success_body">%s были зачислены на ваш счет в виде AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Общий баланс в %s</string>
@@ -447,6 +470,7 @@
   <string name="askafriend_share_note_to_friend">Эй, привет! Пожалуйста, пришли мне %1$s AppCoins Credits на покупку в %2$s. Ссылка: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Отправить средства</string>
+  <string name="p2p_receive_title">Получить</string>
   <string name="p2p_send_body">Сканируйте или введите адрес бумажника вашего друга.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s были отправлены на следующий адрес:</string>
   <string name="p2p_send_current_balance_message">Текущий баланс: %1$s %2$s</string>
@@ -455,6 +479,7 @@
   <string name="p2p_send_error_amount_zero">Должно быть больше нуля</string>
   <string name="p2p_send_confirmation_header">Детали перевода</string>
   <!--Common-->
+  <string name="oops_title">Ой</string>
   <string name="error_general">Что-то пошло неправильно</string>
   <string name="error_missing_field">Обязательное поле</string>
   <string name="cancel_button">Отменить</string>
@@ -467,8 +492,9 @@
   <string name="discover_button">Узнать</string>
   <string name="retry_button">Попробовать снова</string>
   <string name="do_it_later_button">Позже</string>
+  <string name="connection_error_title">Отсутствует сетевое подключение</string>
   <string name="connection_error_body">Кажется, вы не подключены к интернету. Проверьте ваше подключение и попробуйте снова!</string>
-  <string name="common_or">ИЛИ</string>
+  <string name="common_or">or</string>
   <string name="share_via">Поделиться через:</string>
   <string name="password">Пароль</string>
   <string name="repeat_password">Повторите пароль</string>
@@ -491,6 +517,21 @@
   <string name="play_button">Играть</string>
   <string name="manage_wallet_button">Управление кошельком</string>
   <string name="log_out_button">Выйти</string>
+  <string name="download_button">Загрузка</string>
+  <string name="done">Готово!</string>
+  <string name="see_more_button">Посмотреть больше</string>
+  <string name="monetary_amount_with_symbol">%2$s%1$s</string>
+  <string name="ending_in_title">Заканчивается через</string>
+  <string name="start_date_title">Начало:</string>
+  <string name="end_date_title">Дата окончания:</string>
+  <string name="send_button">Отправить</string>
+  <string name="resend_button">Переотправить</string>
+  <string name="continue_button">Продолжить</string>
+  <string name="card_expired_tag">Истёк</string>
+  <string name="start_again_button">Начать сначала</string>
+  <string name="max">Максимум</string>
+  <string name="amount">Сумма</string>
+  <string name="total_title">Всего</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования и политику конфиденциальности, чтобы продолжить</string>
@@ -499,6 +540,7 @@
   <string name="decline_button">Отказаться</string>
   <string name="get_started">Начать</string>
   <string name="existent_wallet">У меня уже есть кошелек</string>
+  <string name="onboarding_verification_body">Подтвердите ваш метод оплаты, чтобы завершить вашу покупку.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Сделайте покупку в любимой игре, и мы всё уладим.</string>
   <string name="home_empty_discover_apps_button">ОТКРОЙТЕ ЛУЧШИЕ ПРИЛОЖЕНИЯ</string>
@@ -539,7 +581,7 @@
   <string name="verification_settings_verified_title">Кошелёк подтвержден</string>
   <string name="verification_settings_verifying_title">Подтверждаем…</string>
   <string name="verification_verified_paypal_description">Вам вернут деньги немедленно. Ваш метод оплаты будет подтверждён в ближайшее время.</string>
-  <string name="verification_verify_paypal_description">Для подтверждения вашей учетной записи будет произведена минимальная транзакция в размере %s. Средства будут немедленно возвращены.</string>
+  <string name="verification_verify_paypal_description">Для подтверждения вашей учетной записи будет произведена транзакция в размере %s. Средства будут немедленно возвращены.</string>
   <string name="verification_verify_paypal_button">Подтвердить сейчас</string>
   <string name="verification_settings_card_verified_title">Карта подтверждена</string>
   <string name="verification_settings_no_internet">Вы должны быть подключены к интернету</string>
@@ -548,9 +590,21 @@
   <string name="verified_tag">Подтверждено</string>
   <string name="unferified_tag">Неподтвержденный бумажник</string>
   <string name="verification_wallets_verify_button">Подтвердить</string>
+  <string name="verification_verified_paypal_body">Подтверждено с Paypal.</string>
+  <string name="verification_verified_credit_debit_card_body">Подтверждено с кредитной/дебитовой картой.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Подтверждено с кредитной/дебитовой картой или PayPal.</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">Остался один шаг!</string>
+  <string name="paypal_verification_home_one_step_card_body">Введите код, отправленный на ваш адрес электронной почты, чтобы подтвердить свою учетную запись PayPal.</string>
+  <string name="paypal_verification_header">Проверка PayPal</string>
+  <string name="paypal_verification_insert_code_body">Введите ниже четырехзначный код, который мы отправили на адрес электронной почты, связанный с вашей учетной записью PayPal.</string>
+  <string name="paypal_verification_didnt_receive_title">Не получили код?</string>
+  <string name="paypal_verification_completed_body">Вам вернут деньги немедленно, и ваш аккаунт PayPal будет подтверждён в ближайшее время.</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Сумма: %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Кажется, покупка уже обрабатывается. Пожалуйста, подождите пока транзакция не завершится, или свяжитесь с командой поддержки.</string>
   <string name="purchase_more_payment_methods_button">ДРУГИЕ МЕТОДЫ ОПЛАТЫ</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Другие способы оплаты</string>
   <string name="purchase_appcoins_available_body">Вы используете небольшое количество ETH, чтобы оплатить операционные издержки.</string>
   <string name="purchase_appcoins_noavailable_body">У вас недостаточно AppCoins или эфира для совершения платежа.</string>
   <string name="purchase_no_eth_body">У вас недостаточно ETH, чтобы оплатить транзакцию.</string>
@@ -612,7 +666,37 @@
   <string name="error_blocked_wallet_title">Кошелёк заблокирован</string>
   <string name="error_blocked_wallet_body">В целях безопасности ваш кошелек заблокирован. Пожалуйста, свяжитесь с нами для получения дополнительной информации.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Возможны дополнительные комиссии.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s с комиссией и НДС.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">включены дополнительные сборы</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">дополнительные сборы не включены</string>
   <string name="purchase_error_paypal">Возникла проблема с платежом PayPal. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
+  <string name="purchase_error_google_pay">Возникла проблема с платежом Google Pay. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
+  <string name="purchase_success_bonus_received_title">Бонус в %s получен.</string>
+  <string name="purchase_making_purchase_title">Покупка&#8230;</string>
+  <string name="purchase_fee_title">Оплата %1$s %2$s</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Этот способ оплаты не поддерживает вашу валюту, поэтому взимается комиссия за обработку. Этот сбор и НДС включены в общую сумму, которую вы можете увидеть в верхней части.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">При таком способе оплаты взимается комиссия за обработку. Этот сбор и НДС включены в общую сумму, которую вы можете увидеть в верхней части.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Этот способ оплаты не поддерживает вашу валюту, поэтому может взиматься комиссия за обработку.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Используя этот способ оплаты, вы платите комиссию за обработку и НДС.</string>
+  <string name="purchase_fee_included_body">сборы включены</string>
+  <string name="purchase_error_one_wallet_generic">Возникла проблема с вашим платежом через Wallet One. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Доступно только для пополнения счета.</string>
+  <string name="purchase_payment_method_minimum_amount">Только для покупок больше %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Недоступно для этой покупки.</string>
+  <string name="purchase_error_no_method_available_body">На данный момент в вашем регионе нет доступных способов оплаты для совершения этой покупки. Следите за обновлениями!</string>
+  <string name="purchase_legal_disclaimer">Продолжая оплату, вы соглашаетесь и соглашаетесь на предоставление контента после оплаты и тем самым теряете право на отказ.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Бонус вы получаете в кредитах AppCoins.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="few">It may take up to %s days.</item>
+    <item quantity="many">It may take up to %s days.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
@@ -704,6 +788,7 @@
   <string name="import_wallet_button">Восстановить кошелёк</string>
   <string name="import_wallet_password_body">Этот кошелёк защищен паролем!</string>
   <string name="import_wallet_wrong_password_body">Ой, неверный пароль!</string>
+  <string name="import_code_here_field">Код восстановления тут&#8230;</string>
   <string name="error_invalid_private_key">Недопустимый приватный ключ</string>
   <string name="error_invalid_keystore">Недопустимое хранилище ключей</string>
   <string name="backup_title">Сделайте бэкап кошелька!</string>
@@ -716,9 +801,9 @@
   <string name="backup_ready_email_button">Отправить на email</string>
   <string name="backup_ready_device_button">Сохранить на диск</string>
   <string name="backup_confirmation_tips_title">Держите файл в безопасном месте:</string>
-  <string name="backup_confirmation_tips_1"><b>Распечатайте</b> и храните в безопасном месте.</string>
-  <string name="backup_confirmation_tips_2"><b>Сохраните</b> на диск USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Скопируйте</b> в личное безопасное облачное хранилище.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Распечатайте</b> и храните в безопасном месте.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Сохраните</b> на диск USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Скопируйте</b> в личное безопасное облачное хранилище.]]></string>
   <string name="backup_tooltip_body">Сделать резервную копию кошелька!</string>
   <string name="backup_tooltip_later_button">Может быть позже</string>
   <string name="backup_tooltip_backup_button">Бэкап</string>
@@ -729,13 +814,16 @@
   <string name="backup_additional_security_disclaimer_body">Восстановление пароля невозможно.</string>
   <string name="backup_additional_security_password_not_march">Пароли не совпадают.</string>
   <string name="import_wallet_recovering_body">Восстанавливаем кошелёк...</string>
-  <string name="backup_skip_title">Я понимаю, что могу потерять свои средства, если не сделаю резервную копию своего ключа.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Сделать бэкап кошелька</string>
   <string name="backup_success_save_on_email">Ваша резервная копия отправлена по почте.</string>
   <string name="backup_success_save_on_device">Ваша резервная копия на вашем устройстве.</string>
   <string name="backup_popup_title">Сделайте бэкап кошелька!</string>
   <string name="backup_popup_purchase_body">Всегда держите свои средства в безопасности.</string>
   <string name="backup_popup_gamification_body">Всегда держите свой уровень бонуса в безопасности.</string>
+  <string name="backup_error_body">Нам не удалось создать файл резервной копии. Попробуйте позже.</string>
+  <string name="backup_confirmation_save_device">Ваша резервная копия на вашем устройстве</string>
+  <string name="backup_confirmation_save_email">Ваша резервная копия в вашем почтовом ящике</string>
   <!--Wallets Management-->
   <string name="wallets_title">Кошельки</string>
   <string name="wallets_total_balance_title">Общий баланс в %s</string>
@@ -769,6 +857,8 @@
   <string name="remove_wallet_no_button">Нет, назад</string>
   <string name="remove_wallet_yes_button">Да, удалить кошелёк</string>
   <string name="remove_wallet_removed_body">Кошелёк удалён!</string>
+  <string name="remove_wallet_extra_confirmation_title">Вы уверены?</string>
+  <string name="remove_wallet_extra_confirmation_body">Помните, что без резервной копии вы потеряете свои средства и бонусный уровень.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Перевод</string>
   <string name="transfer_title">Перевести средства</string>
@@ -824,7 +914,7 @@
   <string name="subscriptions_cancel_title">Отменить подписку</string>
   <string name="subscriptions_cancel_body">Вы уверены, что хотите отменить подписку?</string>
   <string name="subscriptions_cancel_no_button">Нет, назад</string>
-  <string name="subscriptions_cancel_yes_button">Да, отменить подписку</string>
+  <string name="subscriptions_cancel_yes_button">Да, отменить</string>
   <string name="subscriptions_cancel_confirmation_title">Подписка отменена!</string>
   <string name="subscriptions_cancel_confirmation_body">С вас больше не будут списываться средства за эту подписку, и вы ещё можете использовать её до %s.</string>
   <string name="subscriptions_category_title">Подписка</string>
@@ -887,6 +977,7 @@
   <string name="gamif_placeholder_unknown">неизветная планета</string>
   <string name="gamif_distance_unkown">Местонахождение неизвестно</string>
   <string name="gamif_placeholder_new_planet">новая планета</string>
+  <string name="gamif_header">Награды</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Оплата через провайдера связи</string>
   <string name="carrier_billing_fees_disclaimer">Возможны дополнительные комиссии</string>
@@ -909,17 +1000,29 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Добавить кредитную/дебитовую карту</string>
   <string name="manage_cards_settings_manage_title">Управление картами</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Добавить кредитную/дебитовую карту</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Использовать другую карту</string>
   <string name="manage_cards_view_title">Управление картами</string>
+  <string name="manage_cards_empty_body">У вас пока нет сохраненных карт.</string>
   <string name="manage_cards_view_manage_subtitle">Управляйте вашими платежными картами</string>
   <string name="manage_cards_add_title">Добавить новую карту</string>
+  <string name="manage_cards_add_button">Добавить карту</string>
   <string name="manage_cards_remove_confirmation">Вы уверены, что хотите удалить эту карту?</string>
-  <string name="manage_cards_remove_no">НЕТ, ОТМЕНИТЬ</string>
-  <string name="manage_cards_remove_yes">ДА, УДАЛИТЬ</string>
+  <string name="manage_cards_remove_no">Нет, отменить</string>
+  <string name="manage_cards_remove_yes">Да, удалить</string>
   <string name="manage_cards_card_ending_body">Карта заканчивается на %s</string>
   <string name="manage_cards_error_details">Вы уверены, что детали карты введены правильно? Пожалуйста, попробуйте снова!</string>
   <string name="manage_cards_error_card_problem">Кажется, с вашей картой возникла проблема. Пожалуйста, попробуйте другую карту.</string>
   <string name="manage_cards_select_title">Выберите карту для платежа</string>
   <string name="manage_cards_remember">Запомнить карту</string>
+  <string name="add_new_card_button">Добавить новую карту</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Управлять платежными картами</string>
+  <string name="card_added_title">Карта добавлена</string>
+  <string name="card_removed">Карта удалена</string>
+  <string name="choose_card_title">Выберите карту</string>
+  <string name="manage_cards_update_disclaimer_1">Чтобы обновить или удалить карты, перейдите сюда:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Заработай бонус до %s%% за каждую покупку</string>
   <string name="perks_gamif_subtitle">Чем больше вы тратите в ваших любимых приложениях – тем больше бонус!</string>
@@ -977,7 +1080,7 @@
   <string name="perks_empty_state_first_purchase_body">Сделайте свою первую покупку в приложении, совместимом с AppCoins, и откройте специальные акции, которые мы приготовили для вас!</string>
   <string name="perks_empty_body">На данный момент акций нет.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Открывать отпечатком</string>
+  <string name="fingerprint_settings">Открывать биометрией</string>
   <string name="fingerprint_failed_title">Аутентификация не удалась!</string>
   <string name="fingerprint_failed_body">Пожалуйста, попробуйте снова через %s секунд.</string>
   <string name="fingerprint_authentication_required_title">Необходима аутентификация!</string>
@@ -1032,8 +1135,6 @@
   <string name="card_verification_no_attempts_title">К сожалению, вы слишком много раз ввели неправильный код, поэтому на вашу карту будет возвращено %1$s.</string>
   <string name="card_verification_no_attempts_body">Пожалуйста, начните процесс проверки еще раз.</string>
   <string name="wallet_verify_header">Подтвердите хотя бы один способ оплаты</string>
-  <string name="verify_card_title">Подтвердить карту</string>
-  <string name="verify_card_button">Подтвердить барковскую карту</string>
   <string name="verify_paypal_button">Подтвердить учетную запись PayPal</string>
   <string name="card_verification_body_new">%s будет списан с вашей карты и немедленно возвращен. Проверьте выписку по карте на наличие кода подтверждения и вставьте его сюда.</string>
   <string name="card_verification_disclaimer_body">Обратите внимание, что код подтверждения может появиться в уведомлении о возврате.</string>
@@ -1114,28 +1215,8 @@
   <string name="appcoins_info_explorer_title">Проводник</string>
   <string name="appcoins_info_market_cap_title">Объём рынка</string>
   <string name="appcoins_info_volume_title">Сумма сделок (24 часа)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT</string>
-  <string name="nfts_no_nfts">У вас еще нет NFT в этом кошельке!</string>
-  <string name="nfts_transact_button">Отправить NFT</string>
-  <string name="nfts_transact_button_send">Отправить</string>
-  <string name="nfts_transact_button_next">Дальше</string>
-  <string name="nfts_transact_button_done">Готово</string>
-  <string name="nfts_transact_button_success">Ясно</string>
-  <string name="nfts_transact_tip">Введите адрес бумажника вашего друга</string>
-  <string name="nfts_transact_input_tip">Адрес кошелька здесь...</string>
-  <string name="nfts_transact_done_mensage">%s успешно отправлен!</string>
-  <string name="nfts_generic_error">Ой, что-то пошло не так!</string>
-  <string name="nfts_transact_gas_title">Вы торопитесь?</string>
-  <string name="nfts_transact_gas_description">Выберите, сколько комиссионных вы готовы платить. Чем выше комиссия, тем быстрее транзакция.</string>
-  <string name="nfts_transact_gas_price">Цена топлива</string>
-  <string name="nfts_transact_gas_limit">Лимит топлива</string>
-  <string name="nfts_transact_gas_fee_message">Комиссия за транзакцию</string>
-  <string name="nfts_transact_error_no_funds">Недостаточно средств! У вас недостаточно ETH, чтобы оплатить транзакцию.</string>
-  <string name="nfts_transact_error_low_gas">Оплата за топливо слишком низкая! Увеличьте цену топлива, чтобы сеть приняла вашу транзакцию.</string>
-  <string name="nfts_transact_error_already_in_progress">Этот NFT уже отправляется! В настоящее время уже выполняется предыдущая транзакция.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Погасите ваш подарочный код</string>
+  <string name="gift_card_title">Погасите ваш подарочный код.</string>
   <string name="gift_card_field">Подарочный код здесь...</string>
   <string name="gift_card_done_title">Код погашен!</string>
   <string name="gift_card_done_body">Проверьте ваш список транзакций.</string>
@@ -1182,11 +1263,13 @@
   <string name="vip_program_promotions_list_title">Специальные акции для вас</string>
   <string name="vip_program_promo_code_tag">Промо-код</string>
   <string name="vip_program_referral_page_title">Реферальная программа VIP</string>
-  <string name="vip_program_referral_page_body">Поделитесь этим промо-кодом со своим сообществом и друзьями, чтобы каждый мог зарабатывать, играя. За каждую совершенную ими покупку в приложении <b>вы и ваши друзья будете получать бонус %s%%</b> в дополнение к другим активным акциям в течение всего месяца!</string>
+  <string name="vip_program_referral_page_body">Поделитесь этим промо-кодом со своим сообществом и друзьями, чтобы каждый мог зарабатывать, играя. За каждую совершенную ими покупку в приложении <b>вы и ваши друзья будете получать бонус %1$s%%</b> в дополнение к другим активным акциям. <b>Действует до %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Поделитесь этим кодом с друзьями</string>
+  <string name="vip_program_referral_page_only_app_title">Только для покупок в</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s заработано от %3$s рефералов</string>
   <string name="vip_program_gamification_title">Какой у меня уровень бонуса?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Бонус, полученный от ваших покупок.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Бонус, полученный от ваших покупок</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Бонус, полученный от ваших рефералов</string>
   <string name="vip_program_max_bonus_title">Наслаждайтесь бонусом %s%% при каждой покупке</string>
   <string name="vip_program_max_bonus_body">Вы достигли пределов Солнечной системы.</string>
@@ -1194,6 +1277,7 @@
   <string name="vip_program_referral_notification_title">Доступен реферальный VIP-код!</string>
   <string name="vip_program_referral_notification_body">Поделитесь своим кодом со своим сообществом, чтобы вы все зарабатывали, играя!</string>
   <string name="vip_program_title_vip_offer">VIP-предложение</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Добро пожаловать в AppCoins Wallet</string>
   <string name="intro_welcome_body">Пополните свой кошелек или совершите покупку в любом приложении или игре, совместимом с AppCoins.</string>
@@ -1202,51 +1286,94 @@
   <string name="topup_home_button">Пополнить</string>
   <string name="intro_home_button">Главная</string>
   <string name="intro_rewards_button">Награды</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">ДЕНЬ</item>
     <item quantity="few">ДНЯ</item>
-    <item quantity="many">ДНЕЙ</item>
+    <item quantity="many">ДНЯ</item>
     <item quantity="other">ДНЕЙ</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">ЧАС</item>
     <item quantity="few">ЧАСА</item>
-    <item quantity="many">ЧАСОВ</item>
+    <item quantity="many">ЧАСА</item>
     <item quantity="other">ЧАСОВ</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">МИНУТА</item>
     <item quantity="few">МИНУТЫ</item>
-    <item quantity="many">МИНУТ</item>
+    <item quantity="many">МИНУТЫ</item>
     <item quantity="other">МИНУТ</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">СЕКУНДА</item>
     <item quantity="few">СЕКУНДЫ</item>
-    <item quantity="many">СЕКУНД</item>
+    <item quantity="many">СЕКУНДЫ</item>
     <item quantity="other">СЕКУНД</item>
   </plurals>
   <string name="intro_transactions_header">Транзакции</string>
   <string name="intro_backup_card_title">Не потеряйте свои средства!</string>
   <string name="intro_backup_card_body">Сделайте бэкап кошелька и всегда держите его в безопасности.</string>
-  <string name="rewards_spend_to_next_level_body">Потратьте ещё %1$s%2$s, чтобы достичь следующего уровня!</string>
+  <string name="rewards_spend_to_next_level_body">Потратьте %1$s%2$s, чтобы достичь следующего уровня!</string>
   <string name="rewards_current_bonus_title">бонус %s%% за каждую покупку</string>
-  <string name="rewards_eskills_card_title">Зарабатывайте деньги!</string>
-  <string name="rewards_eskills_card_body">Победите других игроков с e-Skills</string>
-  <string name="rewards_promo_code_card_title">Промо-коды</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Выведите свои доходы от e-Skills.</string>
+  <string name="rewards_promo_code_card_title">Промо-код</string>
   <string name="rewards_promo_code_card_body">Введите промо-код, чтобы получить особые условия!</string>
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активен</string>
   <string name="rewards_promo_code_status_expired">Истёк</string>
-  <string name="home_nft_title">Кошелек AppCoins теперь поддерживает NFT</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">Игры, совместимые с AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Совершите свою первую покупку в игре, совместимой с AppCoins, и разблокируйте бонус за каждую покупку.</string>
-  <string name="rewards_bonus_every_purchase_title">Наслаждайтесь бонусом в %s%% при каждой покупке</string>
+  <string name="rewards_bonus_every_purchase_title">Бонус %s%% за каждую покупку</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Управление кошельками</string>
+  <string name="manage_wallet_view_title">Управление кошельками</string>
   <string name="manage_wallet_wallet_changed_title">Кошелёк изменён</string>
   <string name="manage_wallet_change_active_wallet_title">Вы уверены, что хотите выбрать этот кошелек?</string>
   <string name="manage_wallet_change_wallet_name_title">Изменить название кошелька</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_set_a_name_button">Задайте имя для своего кошелька</string>
+  <string name="manage_wallet_my_wallet_address_title">Адрес моего кошелька</string>
+  <string name="manage_wallet_verify_title">Подтвердить способ оплаты</string>
+  <string name="manage_wallet_verify_body">Не допустите блокировки, подтвердив способ оплаты.</string>
+  <string name="manage_wallet_currency_disclaimer">Для простоты ваш баланс отображается в вашей местной валюте, но он привязан к доллару США, поэтому изменения в стоимости доллара США могут повлиять на ваш баланс.</string>
+  <!-- Refactor Verify Payment Method -->
+  <string name="verify_card_title">Подтвердить способ оплаты</string>
+  <string name="verify_card_body">Не допустите блокировки, подтвердив способ оплаты.</string>
+  <string name="verify_card_one_more_step_title">Последний шаг для подтверждения</string>
+  <string name="verify_card_one_more_step_body">Вставьте код, который появляется в деталях транзакции</string>
+  <string name="verify_card_one_more_step_button">Вставьте код</string>
+  <string name="verify_card_verified">Способ оплаты подтвержден!</string>
+  <string name="verify_card_button">Подтвердить кредитную/дебитовую карту</string>
+  <string name="verify_card_view_title">Подтвердить карту</string>
+  <string name="verify_card_view_disclaimer">Мы спишем %s с вашей карты, и они вернутся, как только вы подтвердите код.</string>
+  <string name="verify_card_view_title_2">Введите детали вашей банковской карты</string>
+  <string name="verify_card_get_a_code_button">Получить код</string>
+  <string name="verify_card_code_title">Найдите ваш код в деталях транзакции</string>
+  <string name="verify_card_code_body">Уникальный код появится в сводке транзакции, предоставленной эмитентом вашей карты.</string>
+  <string name="verify_card_code_example_title">Пример сводки транзакции</string>
+  <string name="verify_card_code_example_date">Дата транзакции</string>
+  <string name="verify_card_code_example_description">Описание</string>
+  <string name="verify_card_code_example_amount">Сумма</string>
+  <string name="verify_card_code_enter_title">Введите четырехзначный код</string>
+  <string name="verify_card_code_refund_body">%s будет возвращено в течение 24 часов после подтверждения кода.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Награда за вызов</string>
+  <string name="challenge_reward_card_body">Завершите вызов и получите AppCoins Credits.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Получите %s в кредитах AppCoins на ваш кошелек</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">Следите за обновлениями!</string>
+  <string name="mail_list_card_body">Подпишитесь на нашу рассылку, чтобы получать эксклюзивные обновления и шанс выиграть подарочную карту.</string>
+  <string name="mail_list_card_confirmation_title">Подтвердите ваш e-mail</string>
+  <string name="mail_list_card_confirmation_body">Мы отправили письмо %s</string>
+  <string name="mail_list_backup">Подпишитесь на нашу рассылку, чтобы получать эксклюзивные обновления и шанс выиграть подарочную карту.</string>
+  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
+  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
+  <string name="mail_list_confirmation_email_button">Confirm email</string>
+  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>

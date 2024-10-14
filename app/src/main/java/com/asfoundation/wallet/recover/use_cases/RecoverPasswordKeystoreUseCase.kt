@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.recover.use_cases
 
+import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
+import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.recover.result.RecoverPasswordResult
 import com.asfoundation.wallet.recover.result.RecoverPasswordResultMapper
-import com.asfoundation.wallet.repository.PasswordStore
-import com.asfoundation.wallet.repository.WalletRepositoryType
 import io.reactivex.Single
 import javax.inject.Inject
 

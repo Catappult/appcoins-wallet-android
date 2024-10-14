@@ -8,7 +8,9 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -18,19 +20,19 @@ import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asf.wallet.databinding.MergedAppcoinsLayoutBinding
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.asf.wallet.databinding.MergedAppcoinsLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -273,17 +275,17 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     setHeaderInformation()
     setButtonsText()
     setBonus()
-    iabView.disableBack()
+    iabView.setBackEnable(false)
     mergedAppcoinsPresenter.present(savedInstanceState)
   }
 
   override fun showLoading() {
     binding.paymentMethods.visibility = INVISIBLE
-    binding.loadingView.visibility = VISIBLE
+    binding.loadingAnimation.visibility = VISIBLE
   }
 
   override fun hideLoading() {
-    binding.loadingView.visibility = GONE
+    binding.loadingAnimation.visibility = GONE
     binding.paymentMethods.visibility = VISIBLE
   }
 
@@ -546,7 +548,19 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     binding.mergedErrorLayout.root.visibility = VISIBLE
   }
 
+  override fun showNoNetworkError() {
+    binding.paymentMethodMainView.visibility = GONE
+    binding.mergedErrorLayout.errorDismiss.setText(getString(R.string.ok))
+    binding.mergedErrorLayout.root.visibility = VISIBLE
+    binding.mergedErrorLayout.genericErrorLayout.root.visibility = GONE
+    binding.mergedErrorLayout.noNetworkErrorLayout.root.visibility = VISIBLE
+    binding.mergedErrorLayout.errorDismiss.visibility = GONE
+    binding.mergedErrorLayout.retryButton.visibility = VISIBLE
+  }
+
   override fun errorDismisses() = RxView.clicks(binding.mergedErrorLayout.errorDismiss)
+
+  override fun errorTryAgain() = RxView.clicks(binding.mergedErrorLayout.retryButton)
 
   override fun getSupportLogoClicks() =
     RxView.clicks(binding.mergedErrorLayout.genericErrorLayout.layoutSupportLogo)
@@ -603,7 +617,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   override fun onDestroyView() {
     mergedAppcoinsPresenter.handleStop()
-    iabView.enableBack()
+    iabView.setBackEnable(true)
     binding.appcoinsRadio.appcoinsRadioButton.setOnCheckedChangeListener(null)
     binding.appcoinsRadio.root.setOnClickListener(null)
     binding.creditsRadio.creditsRadioButton.setOnCheckedChangeListener(null)
@@ -640,22 +654,17 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
 
   private fun setPriceInformation() {
-    var appcText = formatter.formatPaymentCurrency(appcAmount, WalletCurrency.APPCOINS)
-      .plus(" " + WalletCurrency.APPCOINS.symbol)
     var fiatText =
       formatter.formatPaymentCurrency(fiatAmount, WalletCurrency.FIAT).plus(" $currency")
     if (isSubscription) {
       val period = Period.parse(frequency!!)
       period?.mapToSubsFrequency(requireContext(), fiatText)
         ?.let { fiatText = it }
-      appcText = "~$appcText"
     }
     binding.paymentMethodsHeader.fiatPrice.text = fiatText
-    binding.paymentMethodsHeader.appcPrice.text = appcText
     binding.paymentMethodsHeader.fiatPriceSkeleton.root.visibility = GONE
     binding.paymentMethodsHeader.appcPriceSkeleton.root.visibility = GONE
     binding.paymentMethodsHeader.fiatPrice.visibility = VISIBLE
-    binding.paymentMethodsHeader.appcPrice.visibility = VISIBLE
   }
 
   private fun setButtonsText() {

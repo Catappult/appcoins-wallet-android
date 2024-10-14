@@ -7,9 +7,11 @@ import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers;
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
@@ -17,7 +19,6 @@ import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionNotFoundException;
 import com.asfoundation.wallet.util.TransferParser;
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -92,7 +93,7 @@ public class AsfInAppPurchaseInteractor {
         paymentTransaction.getTransactionBuilder()
             .getType());
     return billing.getSkuTransaction(packageName, paymentTransaction.getTransactionBuilder()
-        .getSkuId(), rxSchedulers.getIo(), billingType)
+            .getSkuId(), rxSchedulers.getIo(), billingType)
         .flatMapCompletable(
             transaction -> resumePayment(approveKey, paymentTransaction, transaction));
   }
@@ -200,9 +201,8 @@ public class AsfInAppPurchaseInteractor {
             (transaction, wallet) -> transaction.fromAddress(wallet.getAddress()))
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> {
-              transactionBuilder.gasSettings(new GasSettings(
-                  gasSettings.gasPrice,
-                  paymentGasLimit));
+              transactionBuilder.gasSettings(
+                  new GasSettings(gasSettings.gasPrice, paymentGasLimit));
               return transactionBuilder.amount(amount);
             }))
         .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder, packageName,
@@ -254,8 +254,7 @@ public class AsfInAppPurchaseInteractor {
   Single<Boolean> isAppcoinsPaymentReady(TransactionBuilder transactionBuilder) {
     return gasSettingsInteract.fetch(true)
         .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
-            new GasSettings(gasSettings.gasPrice,
-                paymentGasLimit)))
+            new GasSettings(gasSettings.gasPrice, paymentGasLimit)))
         .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
   }
 
@@ -263,8 +262,7 @@ public class AsfInAppPurchaseInteractor {
       TransactionBuilder transactionBuilder) {
     return gasSettingsInteract.fetch(true)
         .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
-            new GasSettings(gasSettings.gasPrice,
-                paymentGasLimit)))
+            new GasSettings(gasSettings.gasPrice, paymentGasLimit)))
         .flatMap(__ -> inAppPurchaseService.getBalanceState(transactionBuilder));
   }
 
@@ -289,6 +287,8 @@ public class AsfInAppPurchaseInteractor {
             return CurrentPaymentStep.PAUSED_LOCAL_PAYMENT;
           case appcoins_credits:
             return CurrentPaymentStep.PAUSED_CREDITS;
+          case challenge_reward:
+            return CurrentPaymentStep.READY;
           default:
           case unknown:
             throw new UnknownServiceException("Unknown gateway");

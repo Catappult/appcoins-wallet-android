@@ -10,36 +10,46 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 
-class CarrierVerifyNavigator @Inject constructor(private val fragmentManager: FragmentManager,
-                             fragment: Fragment) {
+class CarrierVerifyNavigator @Inject constructor(
+  private val fragmentManager: FragmentManager,
+  fragment: Fragment
+) {
 
   private val iabActivity = fragment.activity as IabActivity
 
   fun navigateBack() = fragmentManager.popBackStack()
 
-  fun navigateToFee(uid: String, domain: String, transactionData: String,
-                    transactionType: String, paymentUrl: String, currency: String,
-                    amount: BigDecimal, appcAmount: BigDecimal, bonus: BigDecimal?,
-                    skuDescription: String, skuId: String?, feeFiatAmount: BigDecimal,
-                    carrierName: String, carrierImage: String, phoneNumber: String) {
+  fun navigateToFee(
+    uid: String, domain: String, transactionData: String,
+    transactionType: String, paymentUrl: String, currency: String,
+    amount: BigDecimal, appcAmount: BigDecimal, bonus: BigDecimal?,
+    skuDescription: String, skuId: String?, feeFiatAmount: BigDecimal,
+    carrierName: String, carrierImage: String, phoneNumber: String
+  ) {
     fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            CarrierFeeFragment.newInstance(uid, domain, transactionData, transactionType,
-                paymentUrl, currency, amount, appcAmount, bonus, skuDescription, skuId,
-                feeFiatAmount, carrierName, carrierImage, phoneNumber))
-        .addToBackStack(null)
-        .commit()
+      .replace(
+        R.id.fragment_container,
+        CarrierFeeFragment.newInstance(
+          uid, domain, transactionData, transactionType,
+          paymentUrl, currency, amount, appcAmount, bonus, skuDescription, skuId,
+          feeFiatAmount, carrierName, carrierImage, phoneNumber
+        )
+      )
+      .addToBackStack(null)
+      .commit()
   }
 
   fun navigateToError(message: String) {
     fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            IabErrorFragment.newInstance(message, CarrierVerifyFragment.BACKSTACK_NAME))
-        .addToBackStack(null)
-        .commit()
+      .replace(
+        R.id.fragment_container,
+        IabErrorFragment.newInstance(message, CarrierVerifyFragment.BACKSTACK_NAME)
+      )
+      .addToBackStack(null)
+      .commit()
   }
 
   fun finishActivityWithError() = iabActivity.finishWithError()
 
-  fun navigateToVerification() = iabActivity.showVerification(false)
+  fun navigateToCreditCardVerification() = iabActivity.showCreditCardVerification(false)
 }

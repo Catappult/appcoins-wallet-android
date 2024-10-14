@@ -2,17 +2,18 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import android.util.Pair
-import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
-import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.asf.wallet.R
+import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
+import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -52,6 +53,7 @@ class MergedAppcoinsPresenter(
     handleBackClick()
     handleSupportClicks()
     handleErrorDismiss()
+    handleErrorTryAgain()
     handleAuthenticationResult()
     if (isSubscription) view.showVolatilityInfo()
   }
@@ -65,7 +67,7 @@ class MergedAppcoinsPresenter(
   fun handlePause() = resumeDisposables.clear()
 
   private fun fetchBalance() {
-    resumeDisposables.add(getWalletInfoUseCase(null, cached = true, updateFiat = false)
+    resumeDisposables.add(getWalletInfoUseCase(null, cached = true)
       .map { walletInfo ->
         val appcFiatBalance = walletInfo.walletBalance.appcBalance.fiat
         val ethFiatBalance = walletInfo.walletBalance.ethBalance.fiat
@@ -129,7 +131,7 @@ class MergedAppcoinsPresenter(
         analytics.sendPaymentConfirmationEvent(
           paymentMethod.packageName,
           paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,
-          paymentMethod.transactionType, "cancel"
+          paymentMethod.transactionType, BillingAnalytics.ACTION_CANCEL
         )
       }
       .observeOn(viewScheduler)
@@ -157,9 +159,11 @@ class MergedAppcoinsPresenter(
       PaymentMethodsView.SelectedPaymentMethod.APPC -> view.navigateToAppcPayment(
         transactionBuilder
       )
+
       PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> view.navigateToCreditsPayment(
         transactionBuilder
       )
+
       else -> {
         view.showError(R.string.unknown_error)
         logger.log(TAG, "Wrong payment method after authentication.")
@@ -174,7 +178,7 @@ class MergedAppcoinsPresenter(
         analytics.sendPaymentConfirmationEvent(
           paymentMethod.packageName,
           paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,
-          paymentMethod.transactionType, "buy"
+          paymentMethod.transactionType, BillingAnalytics.ACTION_BUY
         )
       }
       .observeOn(viewScheduler)
@@ -224,6 +228,17 @@ class MergedAppcoinsPresenter(
     )
   }
 
+  private fun handleErrorTryAgain() {
+    disposables.add(view.errorTryAgain()
+      .observeOn(viewScheduler)
+      .doOnNext { navigator.popViewWithError() }
+      .subscribe({}, {
+        it.printStackTrace()
+        navigator.popViewWithError()
+      })
+    )
+  }
+
   private fun handlePaymentSelectionChange() {
     disposables.add(view.getPaymentSelection()
       .doOnNext { handleSelection(it) }
@@ -234,7 +249,7 @@ class MergedAppcoinsPresenter(
   private fun showError(t: Throwable) {
     logger.log(TAG, t)
     if (t.isNoNetworkException()) {
-      view.showError(R.string.notification_no_network_poa)
+      view.showNoNetworkError()
     } else {
       view.showError(R.string.activity_iab_error_message)
     }
@@ -255,12 +270,14 @@ class MergedAppcoinsPresenter(
         view.showBonus(R.string.subscriptions_bonus_body.takeIf { isSubscription }
           ?: R.string.gamification_purchase_body)
       }
+
       CREDITS -> {
         view.hideBonus()
         if (isSubscription) {
           view.showVolatilityInfo()
         }
       }
+
       else -> Log.w(TAG, "Error creating PublishSubject")
     }
   }

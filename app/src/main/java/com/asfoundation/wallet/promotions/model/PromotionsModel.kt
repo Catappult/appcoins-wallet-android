@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.promotions.model
 
-import com.asfoundation.wallet.entity.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 
 data class PromotionsModel(
   val promotions: List<Promotion>,
-  val vouchers: List<VoucherItem>,
   val perks: List<PerkPromotion>,
+  val partnerPerk: PartnerPerk?,
   val maxBonus: Double,
   val wallet: Wallet,
   val walletOrigin: WalletOrigin,

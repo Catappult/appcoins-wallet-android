@@ -3,19 +3,10 @@
   <item
       android:id="@+id/home_graph"
       android:icon="@drawable/ic_home"
-      android:title="Home" />
+      android:title="@string/intro_home_button" />
   <item
-      android:id="@+id/promotions_graph"
-      android:icon="@drawable/ic_promotions_v2"
-      android:title="@string/bottom_navigation_promotions" />
-  <item
-      android:id="@+id/my_wallets_graph"
-      android:icon="@drawable/ic_balance"
-      android:title="@string/bottom_navigation_my_wallets" />
-  <item
-      android:id="@+id/top_up_activity"
-      android:icon="@drawable/ic_topup"
-      android:title="@string/topup_title"
-      android:actionLayout="@layout/bottom_nav_top_up_item"/>
+      android:id="@+id/reward_graph"
+      android:icon="@drawable/ic_rewards"
+      android:title="@string/intro_rewards_button" />
 </menu>
 

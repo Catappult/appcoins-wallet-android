@@ -4,8 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityIabWalletCreationBinding
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -15,6 +16,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.TransferParser
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -39,6 +41,10 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
+  @Inject
+  lateinit var partnerAddressService: PartnerAddressService
+
   private lateinit var presenter: Erc681ReceiverPresenter
 
   private val binding by viewBinding(ActivityIabWalletCreationBinding::bind)
@@ -61,7 +67,8 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         intent.dataString!!,
         AndroidSchedulers.mainThread(),
         CompositeDisposable(),
-        productName
+        productName,
+        partnerAddressService
       )
     presenter.present(savedInstanceState)
   }

@@ -24,13 +24,12 @@
       <ImageView
           android:id="@+id/onboarding_wallet_icon"
           android:layout_width="@dimen/onboarding_icon_size"
-          android:layout_height="@dimen/onboarding_icon_size"
-          android:layout_marginTop="72dp"
-          android:src="@drawable/ic_wallet_black"
+          android:layout_height="136dp"
+          android:layout_marginTop="20dp"
+          android:src="@drawable/recovery_entry"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:tint="@color/styleguide_white"
           />
 
       <TextView
@@ -38,7 +37,7 @@
           style="@style/OnboardingWelcomeTitleTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="45dp"
+          android:layout_marginTop="16dp"
           android:text="@string/my_wallets_action_recover_wallet"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +93,7 @@
       >
     <com.appcoins.wallet.ui.widgets.WalletButtonView
         android:id="@+id/recover_wallet_button"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/onboarding_button_height"
         android:layout_marginTop="@dimen/onboarding_button_existent_margin_top"
         android:layout_marginBottom="30dp"
@@ -102,33 +101,8 @@
         app:buttonType="filled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recover_wallet_back_button"
         />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/recover_wallet_back_button"
-        android:layout_width="48dp"
-        android:layout_height="@dimen/onboarding_button_height"
-        android:layout_marginEnd="27dp"
-        android:background="@color/transparent"
-        android:visibility="visible"
-        app:cardBackgroundColor="@color/transparent"
-        app:cardElevation="0dp"
-        app:layout_constraintEnd_toStartOf="@+id/recover_wallet_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recover_wallet_button"
-        app:rippleColor="@color/styleguide_white"
-        app:shapeAppearance="@style/Home.PillShape"
-        app:strokeColor="@color/styleguide_white"
-        app:strokeWidth="1dp"
-        >
-      <ImageView
-          android:layout_width="48dp"
-          android:layout_height="48dp"
-          android:layout_gravity="center"
-          android:src="@drawable/ic_back_button"
-          />
-    </com.google.android.material.card.MaterialCardView>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

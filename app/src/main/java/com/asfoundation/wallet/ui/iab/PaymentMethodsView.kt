@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import androidx.annotation.StringRes
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
@@ -11,17 +12,19 @@ interface PaymentMethodsView {
   fun showPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>,
     currency: String, paymentMethodId: String, fiatAmount: String,
-    appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean,
-    frequency: String?, isSubscription: Boolean, showLogoutPaypal: Boolean
+    appcEnabled: Boolean, creditsEnabled: Boolean,
+    frequency: String?, isSubscription: Boolean
   )
 
   fun showPreSelectedPaymentMethod(
     paymentMethod: PaymentMethod, currency: String,
-    fiatAmount: String, appcAmount: String, isBonusActive: Boolean,
+    fiatAmount: String, isBonusActive: Boolean,
     frequency: String?, isSubscription: Boolean
   )
 
   fun showError(message: Int)
+
+  fun showNoNetworkError()
 
   fun showItemAlreadyOwnedError()
 
@@ -41,6 +44,8 @@ interface PaymentMethodsView {
 
   fun errorDismisses(): Observable<Any>
 
+  fun errorTryAgain(): Observable<Any>
+
   fun setupUiCompleted(): Observable<Boolean>
 
   fun showProcessingLoadingDialog()
@@ -59,8 +64,10 @@ interface PaymentMethodsView {
     isSubscription: Boolean
   )
 
-  fun showGiroPay(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
-                  isSubscription: Boolean)
+  fun showVkPay(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
 
   fun showAdyen(
     fiatAmount: BigDecimal,
@@ -81,7 +88,7 @@ interface PaymentMethodsView {
 
   fun showShareLink(selectedPaymentMethod: String)
 
-  fun getPaymentSelection(): Observable<String>
+  fun getPaymentSelection(): Observable<PaymentMethod>
 
   fun getMorePaymentMethodsClicks(): Observable<Any>
 
@@ -90,6 +97,18 @@ interface PaymentMethodsView {
     async: Boolean, fiatAmount: String, fiatCurrency: String,
     gamificationLevel: Int
   )
+
+  fun showSandbox(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
+
+  fun showGooglePayWeb(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
+
+  fun showMiPayWeb(fiatValue: FiatValue)
 
   fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
 
@@ -135,20 +154,30 @@ interface PaymentMethodsView {
 
   fun showTopupFlow()
 
+  fun showChallengeReward()
+
+  fun showFee(hasFee: Boolean)
+
+  fun updatePriceAndCurrency(currency: String, amount: BigDecimal)
+
   enum class SelectedPaymentMethod {
-    PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
-    CARRIER_BILLING, ERROR, GIROPAY
+    PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS,
+    EARN_APPC, CARRIER_BILLING, ERROR, SANDBOX, CHALLENGE_REWARD, VKPAY, GOOGLEPAY_WEB, MI_PAY
   }
 
   enum class PaymentMethodId(val id: String) {
     PAYPAL("paypal"),
     PAYPAL_V2("paypal_v2"),
-    GIROPAY("giropay"),
     APPC("appcoins"),
     APPC_CREDITS("appcoins_credits"),
     MERGED_APPC("merged_appcoins"),
     CREDIT_CARD("credit_card"),
     CARRIER_BILLING("onebip"),
-    ASK_FRIEND("ask_friend")
+    SANDBOX("sandbox"),
+    ASK_FRIEND("ask_friend"),
+    CHALLENGE_REWARD("challenge_reward"),
+    VKPAY("vk_pay"),
+    GOOGLEPAY_WEB("googlepay"),
+    MI_PAY("mipay"),
   }
 }

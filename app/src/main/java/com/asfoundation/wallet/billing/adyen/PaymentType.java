@@ -6,11 +6,26 @@ import java.util.List;
 
 public enum PaymentType {
   CARD(Arrays.asList("visa", "mastercard", "card", "credit_card")),
+
   PAYPAL(Collections.singletonList("paypal")),
+
   PAYPALV2(Collections.singletonList("paypal_v2")),
-  GIROPAY(Collections.singletonList("giropay")),
+
+  CHALLENGE_REWARD(Collections.singletonList("challenge_reward")),
+
+  VKPAY(Collections.singletonList("vk_pay")),
+
   LOCAL_PAYMENTS(Collections.singletonList("localPayments")),
-  CARRIER_BILLING(Collections.singletonList("carrier_billing"));
+
+  CARRIER_BILLING(Collections.singletonList("carrier_billing")),
+
+  SANDBOX(Collections.singletonList("sandbox")),
+
+  GOOGLEPAY_WEB(Collections.singletonList("googlepay")),
+
+  MI_PAY(Collections.singletonList("mipay")),
+
+  TRUE_LAYER(Collections.singletonList("truelayer"));
 
   private final List<String> subTypes;
 

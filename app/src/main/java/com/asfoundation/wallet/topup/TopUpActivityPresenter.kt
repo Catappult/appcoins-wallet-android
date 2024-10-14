@@ -3,8 +3,9 @@ package com.asfoundation.wallet.topup
 import android.content.Intent
 import android.os.Bundle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asf.wallet.R
-import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
@@ -19,7 +20,8 @@ class TopUpActivityPresenter(
   private val viewScheduler: Scheduler,
   private val networkScheduler: Scheduler,
   private val disposables: CompositeDisposable,
-  private val logger: Logger
+  private val logger: Logger,
+  private val displayChatUseCase: DisplayChatUseCase,
 ) {
   fun present(isCreating: Boolean) {
     if (isCreating) {
@@ -30,11 +32,12 @@ class TopUpActivityPresenter(
   }
 
   private fun handleSupportClicks() {
-    disposables.add(view.getSupportClicks()
-      .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .observeOn(viewScheduler)
-      .flatMapCompletable { topUpInteractor.showSupport() }
-      .subscribe({}, { handleError(it) })
+    disposables.add(
+      view.getSupportClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .flatMapCompletable { topUpInteractor.showSupport() }
+        .subscribe({}, { handleError(it) })
     )
   }
 
@@ -58,9 +61,11 @@ class TopUpActivityPresenter(
             view.cancelPayment()
           }
         }
+
         WebViewActivity.SUCCESS -> {
           data?.data?.let { view.acceptResult(it) } ?: view.cancelPayment()
         }
+
         WebViewActivity.USER_CANCEL -> {
           view.cancelPayment()
         }
@@ -85,10 +90,10 @@ class TopUpActivityPresenter(
   fun handlePerkNotifications(bundle: Bundle) {
     disposables.add(topUpInteractor.getWalletAddress()
       .subscribeOn(networkScheduler)
-      .flatMap { startVipReferralPollingUseCase(Wallet(it)).toSingleDefault(it) }
+      .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
       .observeOn(viewScheduler)
       .doOnSuccess {
-        view.launchPerkBonusAndGamificationService(it)
+        view.launchPerkBonusAndGamificationService(it.address)
         view.finishActivity(bundle)
       }
       .doOnError { view.finishActivity(bundle) }
@@ -111,6 +116,8 @@ class TopUpActivityPresenter(
       .subscribe({ }, { it.printStackTrace() })
     )
   }
+
+  fun displayChat() = displayChatUseCase()
 
   companion object {
     private val TAG = TopUpActivityPresenter::class.java.name

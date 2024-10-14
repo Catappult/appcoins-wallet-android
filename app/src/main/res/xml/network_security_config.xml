@@ -8,4 +8,7 @@
       <certificates src="@raw/wallet_cert" />
     </trust-anchors>
   </debug-overrides>
+  <domain-config cleartextTrafficPermitted="true">
+    <domain includeSubdomains="true">localhost</domain>
+  </domain-config>
 </network-security-config>

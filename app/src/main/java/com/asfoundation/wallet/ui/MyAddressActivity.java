@@ -12,17 +12,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Wallet;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.wallet.appcoins.core.legacy_base.BaseActivity;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 
-import static com.asfoundation.wallet.C.Key.WALLET;
+import static com.appcoins.wallet.core.utils.jvm_common.C.Key.WALLET;
 
 @AndroidEntryPoint public class MyAddressActivity extends BaseActivity
     implements View.OnClickListener {
@@ -54,6 +56,22 @@ import static com.asfoundation.wallet.C.Key.WALLET;
       onBackPressed();
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  /**
+   * function hardcoded temporarily, must be changed
+   *
+   * @return
+   */
+  protected Toolbar toolbar() {
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    toolbar.setVisibility(View.VISIBLE);
+    if (toolbar != null) {
+      setSupportActionBar(toolbar);
+      toolbar.setTitle(getTitle());
+    }
+    enableDisplayHomeAsUp();
+    return toolbar;
   }
 
   @Override protected void onResume() {

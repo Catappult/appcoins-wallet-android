@@ -1,18 +1,18 @@
 package com.asfoundation.wallet.topup
 
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import io.reactivex.Observable
 import java.math.BigDecimal
 
 interface TopUpFragmentView {
 
-  fun getChangeCurrencyClick(): Observable<Any>
   fun getEditTextChanges(): Observable<TopUpData>
-  fun getPaymentMethodClick(): Observable<String>
+  fun getPaymentMethodClick(): Observable<PaymentMethod>
   fun getNextClick(): Observable<TopUpData>
-  fun setupPaymentMethods(paymentMethods: List<PaymentMethod>, showLogoutPaypal: Boolean)
-  fun setupCurrency(localCurrency: LocalCurrency)
+  fun setupPaymentMethods(paymentMethods: List<PaymentMethod>, cardsList: List<StoredCard>)
+  fun setupCurrency(currency: LocalCurrency)
   fun setConversionValue(topUpData: TopUpData)
   fun switchCurrencyData()
   fun setNextButtonState(enabled: Boolean)
@@ -21,16 +21,17 @@ interface TopUpFragmentView {
   fun toggleSwitchCurrencyOff()
   fun hideBonus()
   fun hideBonusAndSkeletons()
+  fun showBonus()
   fun showBonus(bonus: BigDecimal, currency: String)
   fun showMaxValueWarning(value: String)
   fun showMinValueWarning(value: String)
   fun hideValueInputWarning()
   fun changeMainValueColor(isValid: Boolean)
   fun changeMainValueText(value: String)
-  fun getSelectedCurrency(): String
+  fun getSelectedCurrencyType(): String
+  fun getSelectedCurrency(): LocalCurrency
   fun paymentMethodsFocusRequest()
-  fun disableSwapCurrencyButton()
-  fun enableSwapCurrencyButton()
+  fun getCurrentPaymentMethod(): String?
   fun showNoNetworkError()
   fun showRetryAnimation()
   fun retryClick(): Observable<Any>
@@ -48,5 +49,12 @@ interface TopUpFragmentView {
   fun showAsLoading()
   fun hideLoading()
   fun setTopupButton()
+  fun setBuyButton()
   fun setNextButton()
+  fun showValuesSkeletons()
+  fun hideValuesSkeletons()
+  fun lockRotation()
+
+  fun changeVisibilityRefundDisclaimer(visible: Boolean)
+  fun showFee(visible: Boolean)
 }

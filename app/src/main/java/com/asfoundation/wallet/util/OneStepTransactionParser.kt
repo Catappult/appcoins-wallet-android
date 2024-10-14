@@ -3,14 +3,16 @@ package com.asfoundation.wallet.util
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
 import com.appcoins.wallet.core.utils.jvm_common.Repository
-import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.Token
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
+import com.asfoundation.wallet.onboarding.CachedTransaction
+import com.asfoundation.wallet.onboarding.CachedTransactionRepository.Companion.PAYMENT_TYPE_SDK
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
@@ -59,7 +61,50 @@ class OneStepTransactionParser @Inject constructor(
             getOriginCurrency(completedOneStepUri),
             referrerUrl,
             ""
-          ).shouldSendToken(true)
+          )
+            .shouldSendToken(true)
+        })
+        .doOnSuccess { transactionBuilder ->
+          cache.saveSync(completedOneStepUri.toString(), transactionBuilder)
+        }
+        .subscribeOn(Schedulers.io())
+    }
+  }
+
+  fun buildTransaction(oneStepUri: OneStepUri, cachedTransaction: CachedTransaction): Single<TransactionBuilder> {
+    return if (cache.getSync(oneStepUri.toString()) != null) {
+      Single.just(cache.getSync(oneStepUri.toString()))
+    } else {
+      val completedOneStepUri = completeUri(oneStepUri)
+      Single.zip(getToken(), getWallet(oneStepUri),
+        BiFunction { token: Token, walletAddress: String ->
+          val paymentType = if (isSkills(oneStepUri)) {
+            Parameters.ESKILLS
+          } else cachedTransaction.type
+          TransactionBuilder(
+            token.tokenInfo.symbol,
+            "",
+            getChainId(completedOneStepUri),
+            walletAddress,
+            getAppcAmount(completedOneStepUri),
+            getSkuId(completedOneStepUri),
+            token.tokenInfo.decimals,
+            "",
+            paymentType,
+            null,
+            getDomain(completedOneStepUri),
+            getPayload(completedOneStepUri) ?: cachedTransaction.metadata,
+            getCallback(completedOneStepUri),
+            getOrderReference(completedOneStepUri) ?: cachedTransaction.orderReference,
+            getProductToken(completedOneStepUri),
+            getOriginAmount(completedOneStepUri),
+            getOriginCurrency(completedOneStepUri),
+            if (cachedTransaction.type != PAYMENT_TYPE_SDK) cachedTransaction.referrerUrl else null,
+            ""
+          )
+            .shouldSendToken(true)
+            .addSdkVersion(cachedTransaction.sdkVersion)
+            .addWsPort(cachedTransaction.wsPort)
         })
         .doOnSuccess { transactionBuilder ->
           cache.saveSync(completedOneStepUri.toString(), transactionBuilder)
@@ -79,7 +124,7 @@ class OneStepTransactionParser @Inject constructor(
     }
   }
 
-  private fun getOriginCurrency(uri: OneStepUri): String? {
+  private fun getOriginCurrency(uri: OneStepUri): String {
     var currency = uri.parameters[Parameters.CURRENCY]
     return when (currency) {
       null -> "APPC"
@@ -94,6 +139,7 @@ class OneStepTransactionParser @Inject constructor(
     return when {
       (getCurrency(uri) == null || getCurrency(uri).equals("APPC", true)) ->
         BigDecimal(uri.parameters[Parameters.VALUE]).setScale(18)
+
       else -> BigDecimal.ZERO
     }
   }
@@ -146,15 +192,7 @@ class OneStepTransactionParser @Inject constructor(
     if (domain == null && toAddressWallet == null) {
       return Single.error(MissingWalletException())
     }
-
-    return if (domain != null) {
-      billing.getWallet(domain)
-        .onErrorReturn {
-          toAddressWallet
-        }
-    } else {
-      Single.just(toAddressWallet)
-    }
+    return Single.just(toAddressWallet ?: "")
   }
 
   private fun getCallback(uri: OneStepUri): String? {

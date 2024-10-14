@@ -11,17 +11,17 @@ import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
-import com.asf.wallet.BuildConfig
-import com.asf.wallet.R
-import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
-import com.asfoundation.wallet.util.AdyenCardView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.BuildConfig
+import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentVerificationIntroBinding
+import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
+import com.asfoundation.wallet.util.AdyenCardView
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -99,8 +99,8 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
       verificationIntroModel.verificationInfoModel.value,
       WalletCurrency.FIAT
     )
-    views.title.text = getString(
-      R.string.card_verification_body_new,
+    views.infoDescription.text = getString(
+      R.string.verify_card_view_disclaimer,
       "${verificationIntroModel.verificationInfoModel.symbol}$amount"
     )
   }
@@ -172,7 +172,10 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   override fun retryClick() = RxView.clicks(views.noNetwork.retryButton)
 
   override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(views.fragmentAdyenError.layoutSupportLogo), RxView.clicks(views.fragmentAdyenError.layoutSupportIcn))
+    return Observable.merge(
+      RxView.clicks(views.fragmentAdyenError.layoutSupportLogo),
+      RxView.clicks(views.fragmentAdyenError.layoutSupportIcn)
+    )
   }
 
   override fun showLoading() {
@@ -199,14 +202,12 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   override fun showGenericError() = showSpecificError(R.string.unknown_error)
 
   override fun showNetworkError() {
-    unlockRotation()
     views.progressBar.visibility = View.GONE
     views.contentContainer.visibility = View.GONE
     views.noNetwork.root.visibility = View.VISIBLE
   }
 
   override fun showSpecificError(stringRes: Int) {
-    unlockRotation()
     views.progressBar.visibility = View.GONE
     views.contentContainer.visibility = View.GONE
 
@@ -216,7 +217,6 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   }
 
   override fun showCvvError() {
-    unlockRotation()
     views.progressBar.visibility = View.GONE
     views.submit.isEnabled = false
     if (isStored) {

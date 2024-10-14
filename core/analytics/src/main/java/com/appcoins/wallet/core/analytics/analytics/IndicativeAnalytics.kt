@@ -2,17 +2,16 @@ package com.appcoins.wallet.core.analytics.analytics
 
 import android.content.Context
 import android.content.res.Configuration
-import com.appcoins.wallet.core.analytics.BuildConfig
+import com.indicative.client.android.Indicative
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
-import org.json.JSONObject
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @BoundTo(supertype = AnalyticsSetup::class)
 @Singleton
 class IndicativeAnalytics @Inject constructor(
-  @ApplicationContext private val context: Context
+  @ApplicationContext private val context: Context,
 ) : AnalyticsSetup {
 
   var usrId: String = ""  // wallet address
@@ -22,6 +21,8 @@ class IndicativeAnalytics @Inject constructor(
     const val ORIENTATION_PORTRAIT = "portrait"
     const val ORIENTATION_LANDSCAPE = "landscape"
     const val ORIENTATION_OTHER = "other"
+    const val FIRST_PAYMENT = "first_payment"
+    const val REGULAR_PAYMENT = "regular"
   }
 
   override fun setUserId(walletAddress: String) {
@@ -37,14 +38,8 @@ class IndicativeAnalytics @Inject constructor(
   }
 
   override fun setPromoCode(code: String?, bonus: Double?, validity: Int?, appName: String?) {
-    val promoCode = JSONObject()
-    promoCode.put("code", code)
-    promoCode.put("bonus", bonus)
-    promoCode.put("validity", validity)
-    promoCode.put("appName", appName)
-    superProperties.put(AnalyticsLabels.PROMO_CODE, promoCode)
+    superProperties.put(AnalyticsLabels.PROMO_CODE, code ?: "")
   }
-
 
   fun setIndicativeSuperProperties(
     installerPackage: String,
@@ -56,7 +51,11 @@ class IndicativeAnalytics @Inject constructor(
     brand: String,
     model: String,
     language: String,
-    isEmulator: Boolean
+    isEmulator: Boolean,
+    ghOemId: String,
+    promoCode: String,
+    flavor: String,
+    theme: String
   ) {
 
     val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
@@ -79,9 +78,12 @@ class IndicativeAnalytics @Inject constructor(
     superProperties.put(AnalyticsLabels.MODEL, model)
     superProperties.put(AnalyticsLabels.LANGUAGE, language)
     superProperties.put(AnalyticsLabels.IS_EMULATOR, isEmulator)
+    superProperties.put(AnalyticsLabels.GAMES_HUB_OEMID, ghOemId)
+    superProperties.put(AnalyticsLabels.PROMO_CODE, promoCode)  // should this be a user property?
+    superProperties.put(AnalyticsLabels.FLAVOR, flavor)
+    superProperties.put(AnalyticsLabels.THEME, theme)
 
     if (userId.isNotEmpty()) this.usrId = userId
-
 
   }
 

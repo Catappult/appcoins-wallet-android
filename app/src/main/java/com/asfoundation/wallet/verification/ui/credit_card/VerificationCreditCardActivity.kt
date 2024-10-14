@@ -6,13 +6,15 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
+import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityWalletVerificationBinding
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
-import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
-import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -26,10 +28,13 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
 
     @JvmStatic
     fun newIntent(context: Context, isWalletVerified: Boolean = false) =
-        Intent(context, VerificationCreditCardActivity::class.java).apply {
-          putExtra(IS_WALLET_VERIFIED, isWalletVerified)
-        }
+      Intent(context, VerificationCreditCardActivity::class.java).apply {
+        putExtra(IS_WALLET_VERIFIED, isWalletVerified)
+      }
   }
+
+  @Inject
+  lateinit var displayChat: DisplayChatUseCase
 
   @Inject
   lateinit var presenter: VerificationCreditCardActivityPresenter
@@ -38,32 +43,43 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
 
   private val views by viewBinding(ActivityWalletVerificationBinding::bind)
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_wallet_verification)
     val isWalletVerified = intent.getBooleanExtra(IS_WALLET_VERIFIED, false)
     val title =
-        if (isWalletVerified) R.string.verify_card_title else R.string.verification_settings_unverified_title
-    setTitle(title)
+      if (isWalletVerified) R.string.verify_card_title else R.string.verification_settings_unverified_title
+    setTitle("")
     toolbar()
     presenter.present(savedInstanceState)
   }
 
-  override fun onBackPressed() {
-    val fragmentName =
-        supportFragmentManager.findFragmentById(R.id.fragment_container)?.javaClass?.name ?: ""
-    if (fragmentName == VerificationErrorFragment::class.java.name ||
-        fragmentName == VerificationCodeFragment::class.java.name) {
-      toolbarBackPressSubject.onNext(fragmentName)
-    } else {
-      super.onBackPressed()
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+  fun toolbar() {
+    findViewById<ComposeView>(R.id.app_bar_verify).apply {
+      setContent {
+        TopBar(
+          isMainBar = false,
+          onClickSupport = { displayChat() },
+          onClickBack = { onBackPressed() },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics)
+      }
     }
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
       toolbarBackPressSubject.onNext(
-          supportFragmentManager.findFragmentById(R.id.fragment_container)?.javaClass?.name ?: "")
+        supportFragmentManager.findFragmentById(R.id.fragment_container)?.javaClass?.name ?: ""
+      )
       return true
     }
     return super.onOptionsItemSelected(item)

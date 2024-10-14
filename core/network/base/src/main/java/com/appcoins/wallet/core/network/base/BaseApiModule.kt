@@ -1,19 +1,17 @@
 package com.appcoins.wallet.core.network.base
 
 import android.content.Context
-import com.appcoins.wallet.core.network.base.annotations.BaseHttpClient
-import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
-import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
-import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
+import com.appcoins.wallet.core.network.base.annotations.*
+import com.appcoins.wallet.core.network.base.call_adapter.ApiResultCallAdapterFactory
+import com.appcoins.wallet.core.network.base.interceptors.LogInterceptor
+import com.appcoins.wallet.core.network.base.interceptors.MagnesHeaderInterceptor
+import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import com.appcoins.wallet.core.network.base.interceptors.LogInterceptor
-import com.appcoins.wallet.core.network.base.interceptors.MagnesHeaderInterceptor
-import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
-import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -68,5 +66,11 @@ class BaseApiModule {
       .readTimeout(20, TimeUnit.SECONDS)
       .writeTimeout(20, TimeUnit.SECONDS)
       .build()
+  }
+
+  @Provides
+  @Singleton
+  fun provideApiResultCallAdapterFactory(): ApiResultCallAdapterFactory {
+    return ApiResultCallAdapterFactory()
   }
 }

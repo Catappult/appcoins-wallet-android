@@ -20,18 +20,24 @@ import java.util.*
 class BillingIntentBuilder(val context: Context) {
 
   @Throws(Exception::class)
-  fun buildBuyIntentBundle(type: String, tokenContractAddress: String,
-                           iabContractAddress: String,
-                           payload: String?, bdsIap: Boolean,
-                           packageName: String,
-                           developerAddress: String?, skuId: String,
-                           appcAmount: BigDecimal,
-                           skuTitle: String,
-                           subscriptionPeriod: String?,
-                           trialPeriod: String?): Bundle {
-    val intent = buildPaymentIntent(type, appcAmount, tokenContractAddress, iabContractAddress,
-        developerAddress, skuId, packageName, payload, skuTitle, bdsIap, subscriptionPeriod,
-        trialPeriod)
+  fun buildBuyIntentBundle(
+    type: String, tokenContractAddress: String,
+    iabContractAddress: String,
+    payload: String?, bdsIap: Boolean,
+    packageName: String,
+    skuId: String,
+    appcAmount: BigDecimal,
+    skuTitle: String,
+    subscriptionPeriod: String?,
+    trialPeriod: String?,
+    oemid: String?,
+    guestWalletId: String?,
+  ): Bundle {
+    val intent = buildPaymentIntent(
+      type, appcAmount, tokenContractAddress, iabContractAddress,
+      skuId, packageName, payload, skuTitle, bdsIap, subscriptionPeriod,
+      trialPeriod, oemid, guestWalletId
+    )
     return Bundle().apply {
       val pendingIntent = buildPaymentPendingIntent(intent)
 
@@ -53,20 +59,27 @@ class BillingIntentBuilder(val context: Context) {
     )
   }
 
-  private fun buildPaymentIntent(type: String, amount: BigDecimal,
-                                 tokenContractAddress: String,
-                                 iabContractAddress: String,
-                                 developerAddress: String?,
-                                 skuId: String, packageName: String,
-                                 payload: String?, skuTitle: String,
-                                 bdsIap: Boolean,
-                                 subscriptionPeriod: String?,
-                                 trialPeriod: String?): Intent {
+  private fun buildPaymentIntent(
+    type: String, amount: BigDecimal,
+    tokenContractAddress: String,
+    iabContractAddress: String,
+    skuId: String, packageName: String,
+    payload: String?, skuTitle: String,
+    bdsIap: Boolean,
+    subscriptionPeriod: String?,
+    trialPeriod: String?,
+    oemid: String?,
+    guestWalletId: String?,
+  ): Intent {
     val value = amount.multiply(BigDecimal.TEN.pow(18))
-    val uri = Uri.parse(buildUriString(type, tokenContractAddress, iabContractAddress, value,
-        developerAddress, skuId, MiscProperties.NETWORK_ID, packageName,
+    val uri = Uri.parse(
+      buildUriString(
+        type, tokenContractAddress, iabContractAddress, value,
+        skuId, MiscProperties.NETWORK_ID, packageName,
         PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload),
-        PayloadHelper.getOrigin(payload), subscriptionPeriod, trialPeriod))
+        PayloadHelper.getOrigin(payload), subscriptionPeriod, trialPeriod, oemid, guestWalletId
+      )
+    )
 
 
     return Intent(Intent.ACTION_VIEW).apply {
@@ -78,22 +91,30 @@ class BillingIntentBuilder(val context: Context) {
     }
   }
 
-  private fun buildUriString(type: String, tokenContractAddress: String,
-                             iabContractAddress: String,
-                             amount: BigDecimal, developerAddress: String?,
-                             skuId: String,
-                             networkId: Int, packageName: String,
-                             developerPayload: String?,
-                             orderReference: String?, origin: String?,
-                             subscriptionPeriod: String?, trialPeriod: String?): String {
+  private fun buildUriString(
+    type: String, tokenContractAddress: String,
+    iabContractAddress: String,
+    amount: BigDecimal,
+    skuId: String,
+    networkId: Int, packageName: String,
+    developerPayload: String?,
+    orderReference: String?, origin: String?,
+    subscriptionPeriod: String?, trialPeriod: String?,
+    oemid: String?,
+    guestWalletId: String?,
+  ): String {
     val stringBuilder = StringBuilder(4)
     try {
       Formatter(stringBuilder).use { formatter ->
-        formatter.format("ethereum:%s@%d/buy?uint256=%s&address=%s&data=%s&iabContractAddress=%s",
-            tokenContractAddress, networkId, amount.toString(), developerAddress ?: "",
-            buildUriData(type, skuId, packageName, developerPayload, orderReference, origin,
-                subscriptionPeriod, trialPeriod),
-            iabContractAddress)
+        formatter.format(
+          "ethereum:%s@%d/buy?uint256=%s&address=%s&data=%s&iabContractAddress=%s",
+          tokenContractAddress, networkId, amount.toString(), "",
+          buildUriData(
+            type, skuId, packageName, developerPayload, orderReference, origin,
+            subscriptionPeriod, trialPeriod, oemid, guestWalletId
+          ),
+          iabContractAddress
+        )
       }
     } catch (e: UnsupportedEncodingException) {
       throw RuntimeException("UTF-8 not supported!", e)
@@ -101,14 +122,23 @@ class BillingIntentBuilder(val context: Context) {
     return stringBuilder.toString()
   }
 
-  private fun buildUriData(type: String, skuId: String, packageName: String,
-                           developerPayload: String?, orderReference: String?,
-                           origin: String?,
-                           subscriptionPeriod: String?,
-                           trialPeriod: String?): String {
-    return "0x" + Hex.toHexString(Gson().toJson(
-        TransactionData(type.toUpperCase(Locale.ROOT), packageName, skuId, developerPayload,
-            orderReference, origin, subscriptionPeriod, trialPeriod))
-        .toByteArray(charset("UTF-8")))
+  private fun buildUriData(
+    type: String, skuId: String, packageName: String,
+    developerPayload: String?, orderReference: String?,
+    origin: String?,
+    subscriptionPeriod: String?,
+    trialPeriod: String?,
+    oemid: String?,
+    guestWalletId: String?,
+  ): String {
+    return "0x" + Hex.toHexString(
+      Gson().toJson(
+        TransactionData(
+          type.toUpperCase(Locale.ROOT), packageName, skuId, developerPayload,
+          orderReference, origin, subscriptionPeriod, trialPeriod, oemid, guestWalletId
+        )
+      )
+        .toByteArray(charset("UTF-8"))
+    )
   }
 }

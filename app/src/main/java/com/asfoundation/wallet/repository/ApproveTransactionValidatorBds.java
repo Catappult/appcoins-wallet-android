@@ -2,9 +2,9 @@ package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.bdsbilling.AuthorizationProof;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService;
+import com.appcoins.wallet.core.analytics.analytics.partners.AttributionEntity;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
-import com.asfoundation.wallet.billing.partners.AddressService;
-import com.asfoundation.wallet.billing.partners.AttributionEntity;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Single;
 import java.math.BigDecimal;
@@ -34,18 +34,17 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
         .amount();
     Single<String> getTransactionHash = sendTransactionInteract.computeApproveTransactionHash(
         paymentTransaction.getTransactionBuilder());
-    Single<AttributionEntity> attributionEntity =
-        partnerAddressService.getAttributionEntity(packageName);
+    Single<AttributionEntity> attributionEntity = partnerAddressService.getAttribution(packageName);
 
     return Single.zip(getTransactionHash, attributionEntity,
-        (hash, attrEntity) -> new AuthorizationProof("appcoins", hash, productName, packageName,
-            priceValue, attrEntity.getOemId(), attrEntity.getDomain(), developerAddress, type,
-            paymentTransaction.getTransactionBuilder()
-                .getOrigin() == null ? "BDS" : paymentTransaction.getTransactionBuilder()
-                .getOrigin(), paymentTransaction.getDeveloperPayload(),
-            paymentTransaction.getCallbackUrl(), paymentTransaction.getTransactionBuilder()
-            .getOrderReference(), paymentTransaction.getTransactionBuilder()
-            .getReferrerUrl()))
+            (hash, attrEntity) -> new AuthorizationProof("appcoins", hash, productName, packageName,
+                priceValue, attrEntity.getOemId(), attrEntity.getDomain(), developerAddress, type,
+                paymentTransaction.getTransactionBuilder()
+                    .getOrigin() == null ? "BDS" : paymentTransaction.getTransactionBuilder()
+                    .getOrigin(), paymentTransaction.getDeveloperPayload(),
+                paymentTransaction.getCallbackUrl(), paymentTransaction.getTransactionBuilder()
+                .getOrderReference(), paymentTransaction.getTransactionBuilder()
+                .getReferrerUrl(), paymentTransaction.getTransactionBuilder().getGuestId()))
         .flatMap(billingPaymentProofSubmission::processAuthorizationProof);
   }
 }

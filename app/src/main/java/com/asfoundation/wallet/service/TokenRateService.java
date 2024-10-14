@@ -2,7 +2,7 @@ package com.asfoundation.wallet.service;
 
 import com.appcoins.wallet.core.network.backend.api.TokenToFiatApi;
 import com.appcoins.wallet.core.network.backend.model.AppcToFiatResponseBody;
-import com.asfoundation.wallet.ui.iab.FiatValue;
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;

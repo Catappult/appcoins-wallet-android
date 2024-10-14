@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
-import java.util.*
+import java.util.Collections
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -63,9 +63,9 @@ class LiveEvent<T> : MediatorLiveData<T>() {
 
     private val pending = AtomicBoolean(false)
 
-    override fun onChanged(t: T?) {
+    override fun onChanged(value: T) {
       if (pending.compareAndSet(true, false)) {
-        observer.onChanged(t)
+        observer.onChanged(value)
       }
     }
 

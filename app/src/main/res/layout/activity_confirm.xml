@@ -3,48 +3,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/styleguide_blue"
     android:orientation="vertical"
     >
 
-  <include layout="@layout/layout_app_bar"/>
+  <include layout="@layout/layout_app_bar" />
 
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@drawable/background_fragment"
+      android:background="@color/styleguide_blue"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:paddingBottom="35dp"
         >
 
       <TextView
           android:id="@+id/text_value"
+          style="@style/TransactionDetailsTextStyle.Heading"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="35dp"
           android:text="@string/dummy_transaction_value"
           android:textAppearance="?android:textAppearanceLarge"
+          android:textColor="@color/styleguide_light_grey"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          style="@style/TransactionDetailsTextStyle.Heading"
           />
 
       <TextView
           android:id="@+id/confirmation_header"
+          style="@style/DialogTitleStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="9dp"
           android:text="@string/p2p_send_confirmation_header"
+          android:textColor="@color/styleguide_light_grey"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_value"
-          style="@style/DialogTitleStyle"
           />
 
       <View
@@ -52,7 +55,7 @@
           android:layout_width="0dp"
           android:layout_height="1dp"
           android:layout_marginTop="25dp"
-          android:background="#e6e6e6"
+          android:background="@color/styleguide_light_grey"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/confirmation_header"
@@ -60,121 +63,131 @@
 
       <TextView
           android:id="@+id/from_textview"
+          style="@style/TopUpTextStyle.ConvertedValue"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="27dp"
           android:text="@string/label_from"
+          android:textColor="@color/styleguide_light_grey"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="@id/divider1"
-          style="@style/TopUpTextStyle.ConvertedValue"
           />
 
       <TextView
           android:id="@+id/text_from"
+          style="@style/TransferAddressTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="27dp"
           android:text="@string/dummy"
           android:textAppearance="?attr/textAppearanceListItemSmall"
+          android:textColor="@color/styleguide_light_grey"
           android:textIsSelectable="true"
           app:layout_constraintBottom_toBottomOf="@id/from_textview"
           app:layout_constraintEnd_toEndOf="parent"
-          style="@style/TransferAddressTextStyle"
           />
 
       <TextView
           android:id="@+id/to_textview"
+          style="@style/TopUpTextStyle.ConvertedValue"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/label_to"
+          android:textColor="@color/styleguide_light_grey"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/text_from"
-          style="@style/TopUpTextStyle.ConvertedValue"
           />
 
       <TextView
           android:id="@+id/text_to"
+          style="@style/TransferAddressTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/dummy"
           android:textAppearance="?attr/textAppearanceListItemSmall"
+          android:textColor="@color/styleguide_light_grey"
           android:textIsSelectable="true"
           app:layout_constraintBottom_toBottomOf="@id/to_textview"
           app:layout_constraintEnd_toEndOf="parent"
-          style="@style/TransferAddressTextStyle"
           />
 
       <TextView
+          style="@style/TopUpTextStyle.ConvertedValue"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/label_gas_price"
+          android:textColor="@color/styleguide_light_grey"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_to"
-          style="@style/TopUpTextStyle.ConvertedValue"
           />
 
       <TextView
           android:id="@+id/text_gas_price"
+          style="@style/TransactionDetailsTextStyle.Dark"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/dummy"
           android:textAppearance="?attr/textAppearanceListItemSmall"
+          android:textColor="@color/styleguide_light_grey"
           android:textIsSelectable="true"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_to"
-          style="@style/TransactionDetailsTextStyle.Dark"
           />
 
       <TextView
+          style="@style/TopUpTextStyle.ConvertedValue"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/label_gas_limit"
+          android:textColor="@color/styleguide_light_grey"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_gas_price"
-          style="@style/TopUpTextStyle.ConvertedValue"
           />
 
       <TextView
           android:id="@+id/text_gas_limit"
+          style="@style/TransactionDetailsTextStyle.Dark"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/dummy"
           android:textAppearance="?attr/textAppearanceListItemSmall"
+          android:textColor="@color/styleguide_light_grey"
           android:textIsSelectable="true"
           android:textSize="12sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_gas_price"
-          style="@style/TransactionDetailsTextStyle.Dark"
           />
 
       <TextView
+          style="@style/TopUpTextStyle.ConvertedValue"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/label_network_fee"
+          android:textColor="@color/styleguide_light_grey"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_gas_limit"
-          style="@style/TopUpTextStyle.ConvertedValue"
           />
 
       <TextView
           android:id="@+id/text_network_fee"
+          style="@style/TransactionDetailsTextStyle.Dark"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/dummy"
           android:textAppearance="?attr/textAppearanceListItemSmall"
+          android:textColor="@color/styleguide_light_grey"
           android:textIsSelectable="true"
           android:textSize="12sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_gas_limit"
-          style="@style/TransactionDetailsTextStyle.Dark"
           />
 
       <View
@@ -182,7 +195,7 @@
           android:layout_width="0dp"
           android:layout_height="1dp"
           android:layout_marginTop="25dp"
-          android:background="#e6e6e6"
+          android:background="@color/styleguide_light_grey"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_network_fee"
@@ -195,12 +208,12 @@
           android:layout_alignParentBottom="true"
           android:layout_marginTop="48dp"
           android:layout_marginBottom="16dp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/divider2"
           app:buttonText="@string/action_send"
           app:buttonType="filled"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/divider2"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

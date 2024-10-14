@@ -12,20 +12,20 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.ui.iab.IabView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.getStringSpanned
 import com.appcoins.wallet.ui.common.withNoLayoutTransition
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentCarrierConfirmBinding
+import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.ui.iab.IabView
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import com.asf.wallet.databinding.FragmentCarrierConfirmBinding
 import java.math.BigDecimal
-import java.util.*
+import java.util.Currency
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -52,7 +52,7 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   }
 
   override fun onDestroyView() {
-    iabView.enableBack()
+    iabView.setBackEnable(true)
     presenter.stop()
     super.onDestroyView()
   }
@@ -64,9 +64,10 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   }
 
   private fun setupUi() {
-    iabView.disableBack()
+    iabView.setBackEnable(false)
 
-    (views.dialogBuyButtonsPaymentMethods?.cancelButton ?: views.dialogBuyButtons?.cancelButton)?.run {
+    (views.dialogBuyButtonsPaymentMethods?.cancelButton
+      ?: views.dialogBuyButtons?.cancelButton)?.run {
       setText(getString(R.string.back_button))
       visibility = View.VISIBLE
     }
@@ -85,7 +86,8 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
     bonusAmount: BigDecimal?, carrierName: String,
     carrierImage: String, carrierFeeFiat: BigDecimal
   ) {
-    (views.dialogBuyButtonsPaymentMethods?.buyButton ?: views.dialogBuyButtons?.buyButton!!).isEnabled = true
+    (views.dialogBuyButtonsPaymentMethods?.buyButton
+      ?: views.dialogBuyButtons?.buyButton!!).isEnabled = true
     views.paymentMethodsHeader.setDescription(skuDescription)
     views.paymentMethodsHeader.hidePrice(
       resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
@@ -120,7 +122,10 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
     views.purchaseBonus.withNoLayoutTransition {
       if (bonusAmount != null) {
         views.purchaseBonus.visibility = View.VISIBLE
-        views.purchaseBonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
+        views.purchaseBonus.setPurchaseBonusHeaderValue(
+          bonusAmount,
+          mapCurrencyCodeToSymbol(currency)
+        )
         views.purchaseBonus.hideSkeleton()
       } else {
         views.purchaseBonus.visibility = View.GONE
@@ -142,7 +147,9 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   }
 
   override fun cancelButtonEvent(): Observable<Any> {
-    return RxView.clicks((views.dialogBuyButtonsPaymentMethods?.cancelButton ?: views.dialogBuyButtons?.cancelButton!!))
+    return RxView.clicks(
+      (views.dialogBuyButtonsPaymentMethods?.cancelButton ?: views.dialogBuyButtons?.cancelButton!!)
+    )
   }
 
   override fun systemBackEvent(): Observable<Any> {
@@ -150,7 +157,9 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   }
 
 
-  override fun nextClickEvent(): Observable<Any> = RxView.clicks((views.dialogBuyButtonsPaymentMethods?.buyButton ?: views.dialogBuyButtons?.buyButton!!))
+  override fun nextClickEvent(): Observable<Any> = RxView.clicks(
+    (views.dialogBuyButtonsPaymentMethods?.buyButton ?: views.dialogBuyButtons?.buyButton!!)
+  )
 
   companion object {
 

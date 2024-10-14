@@ -3,23 +3,27 @@ package com.asfoundation.wallet.topup
 import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
+import androidx.compose.ui.platform.ComposeView
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Observable
 
 interface TopUpActivityView {
   fun showTopUpScreen()
 
-  fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData)
+  fun navigateToAdyenPayment(
+    paymentType: PaymentType,
+    data: TopUpPaymentData,
+    buyWithStoredCard: Boolean
+  )
 
   fun navigateToPaypalV2(paymentType: PaymentType, data: TopUpPaymentData)
 
-  fun navigateToLocalPayment(paymentId: String, icon: String, label: String, async: Boolean,
-                             topUpData: TopUpPaymentData)
+  fun navigateToLocalPayment(
+    paymentId: String, icon: String, label: String, async: Boolean,
+    topUpData: TopUpPaymentData
+  )
 
-  fun navigateToBillingAddress(topUpData: TopUpPaymentData, fiatAmount: String,
-                               fiatCurrency: String, targetFragment: Fragment,
-                               shouldStoreCard: Boolean, preSelected: Boolean)
+  fun navigateToPayPalVerification()
 
   fun finish(data: Bundle)
 
@@ -43,11 +47,25 @@ interface TopUpActivityView {
 
   fun getSupportClicks(): Observable<Any>
 
-  fun showVerification()
+  fun showCreditCardVerification()
 
   fun getTryAgainClicks(): Observable<Any>
 
   fun popBackStack()
 
   fun launchPerkBonusAndGamificationService(address: String)
+
+  fun createChallengeReward(walletAddress: String)
+
+  fun navigateToChallengeReward()
+
+  fun navigateToVkPayPayment(topUpData: TopUpPaymentData)
+
+  fun navigateToGooglePay(paymentType: PaymentType, data: TopUpPaymentData)
+
+  fun navigateToTrueLayer(paymentType: PaymentType, data: TopUpPaymentData)
+
+  fun isActivityActive(): Boolean
+
+  fun getFullscreenComposeView(): ComposeView
 }

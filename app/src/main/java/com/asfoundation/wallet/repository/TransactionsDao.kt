@@ -14,29 +14,34 @@ import io.reactivex.Single
 interface TransactionsDao {
 
   @Query(
-      "select * from TransactionEntity where relatedWallet like :relatedWallet order by timeStamp")
+    "select * from TransactionEntity where relatedWallet like :relatedWallet order by timeStamp"
+  )
   fun getAllAsFlowable(relatedWallet: String): Flowable<List<TransactionEntity>>
 
   @Query(
-      "select * from LastUpdatedWalletEntity where wallet like :wallet")
+    "select * from LastUpdatedWalletEntity where wallet like :wallet"
+  )
   fun getLastUpdatedWallet(wallet: String): Flowable<LastUpdatedWalletEntity>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insertAll(roomTransactions: List<TransactionEntity>)
 
   @Query(
-      "select * from TransactionEntity where relatedWallet like :relatedWallet order by processedTime desc limit 1")
+    "select * from TransactionEntity where relatedWallet like :relatedWallet order by processedTime desc limit 1"
+  )
   fun getNewestTransaction(relatedWallet: String): Maybe<TransactionEntity>
 
   @Query(
-      "select * from TransactionEntity where relatedWallet like :relatedWallet order by processedTime asc limit 1")
+    "select * from TransactionEntity where relatedWallet like :relatedWallet order by processedTime asc limit 1"
+  )
   fun getOlderTransaction(relatedWallet: String): Maybe<TransactionEntity>
 
   @Query("DELETE FROM TransactionEntity")
   fun deleteAllTransactions()
 
   @Query(
-      "select * from TransactionEntity where relatedWallet like :relatedWallet and transactionId = :txId limit 1")
+    "select * from TransactionEntity where relatedWallet like :relatedWallet and transactionId = :txId limit 1"
+  )
   fun getById(relatedWallet: String, txId: String): Single<TransactionEntity>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)

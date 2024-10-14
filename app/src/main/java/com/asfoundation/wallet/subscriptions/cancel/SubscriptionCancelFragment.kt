@@ -7,26 +7,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentSubscriptionCancelBinding
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.asf.wallet.databinding.FragmentSubscriptionCancelBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelView {
+class SubscriptionCancelFragment : BottomSheetDialogFragment(), SubscriptionCancelView {
 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
@@ -41,12 +42,24 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
     activity?.title = getString(R.string.subscriptions_title)
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentSubscriptionCancelBinding.inflate(inflater).root
+  override fun onStart() {
+    val behavior = BottomSheetBehavior.from(requireView().parent as View)
+    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    super.onStart()
+  }
+
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentSubscriptionCancelBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
+  }
+
+  override fun getTheme(): Int {
+    return R.style.AppBottomSheetDialogThemeDraggable
   }
 
   override fun getBackClicks() = RxView.clicks(binding.backButton)
@@ -56,7 +69,7 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
   override fun showLoading() {
     binding.error.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
-    binding.layoutContent.visibility = View.GONE
+    binding.buttons.visibility = View.INVISIBLE
     binding.loadingAnimation.visibility = View.VISIBLE
   }
 
@@ -74,15 +87,6 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
     binding.layoutContent.visibility = View.VISIBLE
 
     loadImage(subscriptionItem.appIcon)
-
-    binding.layoutSubscriptionInfo.appName.text = subscriptionItem.appName
-    binding.layoutSubscriptionInfo.skuName.text = subscriptionItem.itemName
-
-    val formattedAmount = currencyFormatUtils.formatCurrency(subscriptionItem.fiatAmount)
-    binding.layoutSubscriptionInfo.totalValue.text = subscriptionItem.period?.mapToSubsFrequency(requireContext(),
-        getString(R.string.value_fiat, subscriptionItem.fiatSymbol, formattedAmount))
-    binding.layoutSubscriptionInfo.totalValueAppc.text = String.format("~%s / APPC",
-        currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS))
   }
 
   private fun loadImage(appIcon: String) {
@@ -121,15 +125,17 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
 
     context?.let {
       GlideApp.with(it)
-          .asBitmap()
-          .load(appIcon)
-          .apply { RequestOptions().dontTransform() }
-          .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-          .into(target)
+        .asBitmap()
+        .load(appIcon)
+        .apply { RequestOptions().dontTransform() }
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        .into(target)
     }
   }
 
   override fun showNoNetworkError() {
+    binding.noNetworkRetryOnlyLayout.noNetworkBase.noNetworkMessage
+      .setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
     binding.layoutContent.visibility = View.GONE
     binding.error.visibility = View.GONE
@@ -159,15 +165,17 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
     const val SUBSCRIPTION_ITEM_KEY = "subscription_item"
     const val TRANSITION_NAME_KEY = "transition_name"
 
-    fun newInstance(subscriptionItem: SubscriptionItem,
-                    transitionName: String): SubscriptionCancelFragment {
+    fun newInstance(
+      subscriptionItem: SubscriptionItem,
+      transitionName: String
+    ): SubscriptionCancelFragment {
       return SubscriptionCancelFragment()
-          .apply {
-            arguments = Bundle().apply {
-              putSerializable(SUBSCRIPTION_ITEM_KEY, subscriptionItem)
-              putString(TRANSITION_NAME_KEY, transitionName)
-            }
+        .apply {
+          arguments = Bundle().apply {
+            putSerializable(SUBSCRIPTION_ITEM_KEY, subscriptionItem)
+            putString(TRANSITION_NAME_KEY, transitionName)
           }
+        }
     }
   }
 }

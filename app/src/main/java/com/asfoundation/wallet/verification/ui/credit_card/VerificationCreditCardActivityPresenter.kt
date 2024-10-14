@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
-import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
 import io.reactivex.disposables.CompositeDisposable
 
 class VerificationCreditCardActivityPresenter(
@@ -23,16 +22,17 @@ class VerificationCreditCardActivityPresenter(
 
   private fun handleToolbarBackPressEvents() {
     disposable.add(
-        view.getToolbarBackPressEvents()
-            .doOnNext { fragmentName ->
-              if (fragmentName == VerificationErrorFragment::class.java.name ||
-                  fragmentName == VerificationCodeFragment::class.java.name) {
-                navigator.navigateToWalletVerificationIntroNoStack()
-              } else {
-                navigator.backPress()
-              }
-            }
-            .subscribe({}, { it.printStackTrace() })
+      view.getToolbarBackPressEvents()
+        .doOnNext { fragmentName ->
+          if (fragmentName == VerificationErrorFragment::class.java.name ||
+            fragmentName == VerificationCodeFragment::class.java.name
+          ) {
+            navigator.navigateToWalletVerificationIntroNoStack()
+          } else {
+            navigator.backPress()
+          }
+        }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -46,16 +46,18 @@ class VerificationCreditCardActivityPresenter(
     )
   }
 
-  private fun onVerificationStatusSuccess(verificationStatus: VerificationStatus) {
+  private fun onVerificationStatusSuccess(verificationStatus: com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus) {
     when (verificationStatus) {
-      VerificationStatus.UNVERIFIED -> {
+      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.UNVERIFIED -> {
         analytics.sendStartEvent("verify")
         navigator.navigateToWalletVerificationIntro()
       }
-      VerificationStatus.CODE_REQUESTED -> {
+
+      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.CODE_REQUESTED -> {
         analytics.sendStartEvent("insert_code")
         navigator.navigateToWalletVerificationCode()
       }
+
       else -> navigator.finish()
     }
   }

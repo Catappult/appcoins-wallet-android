@@ -3,21 +3,32 @@ package com.appcoins.wallet.core.network.microservices.model
 import com.google.gson.annotations.SerializedName
 
 
-data class Transaction(val uid: String,
-                       val status: Status,
-                       val gateway: Gateway?,
-                       var hash: String?,
-                       val metadata: Metadata?,
-                       val orderReference: String?,
-                       val price: Price?,
-                       val type: String,
-                       val wallets: WalletsResponse?,
-                       val url: String? = null) {
+data class MiPayTransaction(
+  val uid: String,
+  val reference: String?,
+  val status: String,
+  @SerializedName("redirect_url") val redirectUrl: String
+)
+
+data class Transaction(
+  val uid: String,
+  val status: Status,
+  val gateway: Gateway?,
+  var hash: String?,
+  val metadata: Metadata?,
+  val orderReference: String?,
+  val price: Price?,
+  val type: String,
+  val wallets: WalletsResponse?,
+  val url: String? = null
+) {
 
   companion object {
     fun notFound(): Transaction {
-      return Transaction("", Status.INVALID_TRANSACTION, Gateway.unknown(), null, null, null, null,
-          "", null, null)
+      return Transaction(
+        "", Status.INVALID_TRANSACTION, Gateway.unknown(), null, null, null, null,
+        "", null, null
+      )
     }
 
   }
@@ -31,7 +42,9 @@ data class Transaction(val uid: String,
 
 data class Metadata(@SerializedName("purchase_uid") val purchaseUid: String)
 
-data class WalletsResponse(val developer: String?, val store: String?, val oem: String?,
-                           val user: String?)
+data class WalletsResponse(
+  val developer: String?, val store: String?, val oem: String?,
+  val user: String?
+)
 
 data class Price(val currency: String, val value: String, val appc: String)

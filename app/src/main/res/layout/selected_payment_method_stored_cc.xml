@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_corner_white"
+    android:paddingHorizontal="8dp"
+    android:paddingVertical="8dp"
+    >
+
+  <ImageView
+      android:id="@+id/img_card_brand"
+      android:layout_width="38dp"
+      android:layout_height="38dp"
+      android:contentDescription="@null"
+      android:scaleType="fitCenter"
+      android:src="@drawable/ic_credit_card"
+      android:layout_marginStart="8dp"
+      app:layout_constraintBottom_toBottomOf="@id/stored_card_open_close_card_list"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/stored_card_open_close_card_list"
+      />
+
+  <TextView
+      android:id="@+id/txt_saved_card_number"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Bold"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="8dp"
+      android:textColor="@color/black"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="@id/stored_card_open_close_card_list"
+      app:layout_constraintEnd_toStartOf="@id/stored_card_open_close_card_list"
+      app:layout_constraintStart_toEndOf="@id/img_card_brand"
+      app:layout_constraintTop_toTopOf="@+id/stored_card_open_close_card_list"
+      tools:text="**** 7365"
+      />
+
+  <TextView
+      android:id="@+id/txt_select_payment_card"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Bold"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="8dp"
+      android:textColor="@color/black"
+      android:text="@string/manage_cards_select_title"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="@id/stored_card_open_close_card_list"
+      app:layout_constraintEnd_toStartOf="@id/stored_card_open_close_card_list"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/stored_card_open_close_card_list"
+      android:visibility="gone"
+      />
+  <ImageView
+      android:id="@+id/stored_card_open_close_card_list"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
+      android:layout_marginEnd="8dp"
+      android:contentDescription="@null"
+      android:scaleType="fitCenter"
+      android:src="@drawable/ic_arrow_head_down"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:clickable="true"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

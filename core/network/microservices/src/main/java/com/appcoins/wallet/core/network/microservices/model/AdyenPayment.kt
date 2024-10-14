@@ -9,7 +9,10 @@ data class AdyenPayment(
   @SerializedName("payment.data") val data: String?
 )
 
-data class DisableWallet(@SerializedName("wallet.address") val walletAddress: String)
+data class DisableWallet(
+  @SerializedName("wallet.address") val walletAddress: String,
+  @SerializedName("recurring_reference") val recurringReference: String?
+)
 
 
 data class PaymentDetails(
@@ -17,8 +20,6 @@ data class PaymentDetails(
   @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
   @SerializedName("payment.return_url") val returnUrl: String,
   @SerializedName("payment.shopper_interaction") val shopperInteraction: String?,
-  @SerializedName("payment.billing_address")
-  val billingAddress: AdyenBillingAddress?,
   @SerializedName("callback_url") val callbackUrl: String?,
   @SerializedName("domain") val domain: String?,
   @SerializedName("metadata") val metadata: String?,
@@ -29,10 +30,10 @@ data class PaymentDetails(
   @SerializedName("type") val type: String?,
   @SerializedName("price.currency") val currency: String?,
   @SerializedName("price.value") val value: String?,
-  @SerializedName("wallets.developer") val developer: String?,
   @SerializedName("entity.oemid") val entityOemId: String?,
   @SerializedName("entity.domain") val entityDomain: String?,
   @SerializedName("entity.promo_code") val entityPromoCode: String?,
   @SerializedName("wallets.user") val user: String?,
-  @SerializedName("referrer_url") val referrerUrl: String?
+  @SerializedName("referrer_url") val referrerUrl: String?,
+  @SerializedName("entity.guest_id") val guestWalletId: String?
 )

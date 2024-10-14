@@ -17,6 +17,7 @@ import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_KEY
 import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_ID
 import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_NAME
 import com.asfoundation.wallet.support.SupportNotificationProperties.NOTIFICATION_SERVICE_ID
+
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -25,7 +26,7 @@ import javax.inject.Inject
 class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
 
   @Inject
-  lateinit var supportInteractor: SupportInteractor
+  lateinit var supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor
 
   lateinit var notificationManager: NotificationManager
 
@@ -63,7 +64,6 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
       context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     if (supportInteractor.hasNewUnreadConversations()) {
-      supportInteractor.updateUnreadConversations()
       notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(context).build())
     }
   }

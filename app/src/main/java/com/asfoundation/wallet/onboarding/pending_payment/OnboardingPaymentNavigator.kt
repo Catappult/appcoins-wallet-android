@@ -1,11 +1,15 @@
 package com.asfoundation.wallet.onboarding.pending_payment
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.data.Navigator
 import com.asfoundation.wallet.entity.TransactionBuilder
 import javax.inject.Inject
 
@@ -29,5 +33,18 @@ class OnboardingPaymentNavigator @Inject constructor(private val fragment: Fragm
       putSerializable("forecast_bonus", forecastBonus)
     }
     navController.setGraph(R.navigation.inner_payment_graph, bundle)
+  }
+
+  fun navigateToBrowser(uri: Uri) {
+    try {
+      val launchBrowser = Intent(Intent.ACTION_VIEW, uri)
+      launchBrowser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      fragment.requireContext()
+        .startActivity(launchBrowser)
+    } catch (exception: ActivityNotFoundException) {
+      exception.printStackTrace()
+      Toast.makeText(fragment.requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT)
+        .show()
+    }
   }
 }

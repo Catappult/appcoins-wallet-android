@@ -9,18 +9,14 @@
       android:id="@+id/home_graph"
       app:graph="@navigation/home_graph" />
   <include
-      android:id="@+id/promotions_graph"
-      app:graph="@navigation/promotions_graph" />
-  <include
-      android:id="@+id/my_wallets_graph"
-      app:graph="@navigation/my_wallets_graph" />
+      android:id="@+id/reward_graph"
+      app:graph="@navigation/reward_graph" />
 
   <!-- TopUpActivity needs to be refactor with its own graph and fragment -->
   <activity
       android:id="@+id/top_up_activity"
       android:name="com.asfoundation.wallet.topup.TopUpActivity"
-      tools:layout="@layout/top_up_activity_layout"
-      />
+      tools:layout="@layout/top_up_activity_layout" />
 
   <action
       android:id="@+id/action_navigate_to_gp_install_fragment"
@@ -30,15 +26,27 @@
       android:id="@+id/action_navigate_to_first_payment_fragment"
       app:destination="@id/onboarding_payment_fragment" />
 
+  <action
+      android:id="@+id/action_navigate_to_recover_guest_wallet"
+      app:destination="@id/onboarding_graph"
+      app:popUpTo="@+id/splash_extender_fragment"
+      app:popUpToInclusive="true" />
+
   <fragment
       android:id="@+id/onboarding_gp_install_fragment"
       android:name="com.asfoundation.wallet.onboarding.gp_install.OnboardingGPInstallFragment"
-      tools:layout="@layout/onboarding_gp_install_fragment">
-  </fragment>
+      tools:layout="@layout/onboarding_gp_install_fragment" />
 
   <fragment
       android:id="@+id/onboarding_payment_fragment"
       android:name="com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment"
-      tools:layout="@layout/fragment_onboarding_payment">
-  </fragment>
+      tools:layout="@layout/fragment_onboarding_payment" />
+
+  <action
+      android:id="@+id/action_navigate_to_verify_paypal"
+      app:destination="@id/verify_paypal_wallet_fragment" />
+
+  <fragment
+      android:id="@+id/verify_paypal_wallet_fragment"
+      android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalFragment" />
 </navigation>

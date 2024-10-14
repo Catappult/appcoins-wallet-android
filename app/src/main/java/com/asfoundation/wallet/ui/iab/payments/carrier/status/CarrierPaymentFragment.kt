@@ -7,15 +7,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
-import com.asf.wallet.R
-import com.asfoundation.wallet.ui.iab.IabView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCarrierPaymentStatusBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.ui.iab.IabView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -32,8 +31,10 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
 
   private val views by lazy { FragmentCarrierPaymentStatusBinding.bind(requireView()) }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentCarrierPaymentStatusBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentCarrierPaymentStatusBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -42,7 +43,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   }
 
   private fun setupUi() {
-    iabView.disableBack()
+    iabView.setBackEnable(false)
     lockRotation()
 
   }
@@ -50,16 +51,19 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   override fun initializeView(bonusValue: BigDecimal?, currency: String) {
     if (bonusValue != null) {
       views.completePaymentView.lottieTransactionSuccess.setAnimation(
-          R.raw.transaction_complete_bonus_animation)
+        R.raw.transaction_complete_bonus_animation_new
+      )
       val textDelegate = TextDelegate(views.completePaymentView.lottieTransactionSuccess)
       textDelegate.setText("bonus_value", getBonusMessage(bonusValue, currency))
-      textDelegate.setText("bonus_received",
-          resources.getString(R.string.gamification_purchase_completed_bonus_received))
+      textDelegate.setText(
+        "bonus_received",
+        resources.getString(R.string.gamification_purchase_completed_bonus_received)
+      )
       views.completePaymentView.lottieTransactionSuccess.setTextDelegate(textDelegate)
       views.completePaymentView.lottieTransactionSuccess.setFontAssetDelegate(object :
-          FontAssetDelegate() {
+        FontAssetDelegate() {
         override fun fetchFont(fontFamily: String?) =
-            Typeface.create("sans-serif-medium", Typeface.BOLD)
+          Typeface.create("sans-serif-medium", Typeface.BOLD)
       })
     } else {
       views.completePaymentView.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
@@ -68,7 +72,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
 
   private fun getBonusMessage(bonusValue: BigDecimal, currency: String): String {
     var scaledBonus = bonusValue.stripTrailingZeros()
-        .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
+      .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
     var newCurrencyString = currency
     if (scaledBonus < BigDecimal("0.01")) {
       newCurrencyString = "~$currency"
@@ -79,7 +83,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   }
 
   override fun onDestroyView() {
-    iabView.enableBack()
+    iabView.setBackEnable(true)
     unlockRotation()
     presenter.stop()
     super.onDestroyView()
@@ -110,7 +114,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   }
 
   override fun getFinishedDuration(): Long =
-      views.completePaymentView.lottieTransactionSuccess.duration
+    views.completePaymentView.lottieTransactionSuccess.duration
 
   companion object {
     val TAG = CarrierPaymentFragment::class.java.simpleName
@@ -126,10 +130,12 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
     internal const val PHONE_NUMBER_KEY = "phone_number"
 
     @JvmStatic
-    fun newInstance(domain: String, transactionData: String,
-                    transactionType: String, skuId: String?, paymentUrl: String,
-                    appcAmount: BigDecimal, currency: String, bonus: BigDecimal?,
-                    phoneNumber: String): CarrierPaymentFragment {
+    fun newInstance(
+      domain: String, transactionData: String,
+      transactionType: String, skuId: String?, paymentUrl: String,
+      appcAmount: BigDecimal, currency: String, bonus: BigDecimal?,
+      phoneNumber: String
+    ): CarrierPaymentFragment {
       val fragment = CarrierPaymentFragment()
       fragment.arguments = Bundle().apply {
         putString(DOMAIN_KEY, domain)

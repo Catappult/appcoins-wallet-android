@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.rating.entry.RatingEntryFragment
 import com.asfoundation.wallet.rating.positive.RatingPositiveFragment
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
@@ -26,12 +26,12 @@ class RatingActivity : BaseActivity() {
     if (savedInstanceState == null) {
       if (ratingInteractor.isNotFirstTime()) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, RatingPositiveFragment.newInstance())
-            .commit()
+          .replace(R.id.fragment_container, RatingPositiveFragment.newInstance())
+          .commit()
       } else {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, RatingEntryFragment.newInstance())
-            .commit()
+          .replace(R.id.fragment_container, RatingEntryFragment.newInstance())
+          .commit()
       }
     }
   }

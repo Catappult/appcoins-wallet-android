@@ -2,14 +2,15 @@ package com.asfoundation.wallet.di.temp_gradle_modules
 
 import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import dagger.Module
 import dagger.Provides
@@ -28,25 +29,29 @@ class BdsBillingModule {
     inappApi: InappBillingApi,
     walletService: WalletService,
     subscriptionBillingApi: SubscriptionBillingApi,
-    bdsApi: BdsApiSecondary,
     ewtObtainer: EwtAuthenticatorService,
-    rxSchedulers: RxSchedulers
+    rxSchedulers: RxSchedulers,
+    fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
   ): BillingPaymentProofSubmission =
     BillingPaymentProofSubmissionImpl.Builder()
       .setBrokerBdsApi(brokerBdsApi)
       .setInappApi(inappApi)
-      .setBdsApiSecondary(bdsApi)
       .setWalletService(walletService)
       .setSubscriptionBillingService(subscriptionBillingApi)
       .setEwtObtainer(ewtObtainer)
       .setRxSchedulers(rxSchedulers)
+      .setFiatCurrenciesPreferencesDataSource(fiatCurrenciesPreferencesDataSource)
       .build()
 
 
   @Singleton
   @Provides
-  fun provideBillingFactory(walletService: WalletService, bdsRepository: BdsRepository): Billing =
-    BdsBilling(bdsRepository, walletService, BillingThrowableCodeMapper())
+  fun provideBillingFactory(
+    walletService: WalletService,
+    bdsRepository: BdsRepository,
+    partnerAddressService: PartnerAddressService
+  ): Billing =
+    BdsBilling(bdsRepository, walletService, BillingThrowableCodeMapper(), partnerAddressService)
 
   @Singleton
   @Provides
@@ -54,18 +59,18 @@ class BdsBillingModule {
     subscriptionBillingApi: SubscriptionBillingApi,
     brokerBdsApi: BrokerBdsApi,
     inappApi: InappBillingApi,
-    api: BdsApiSecondary,
     ewtObtainer: EwtAuthenticatorService,
-    rxSchedulers: RxSchedulers
+    rxSchedulers: RxSchedulers,
+    fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
   ): RemoteRepository =
     RemoteRepository(
       brokerBdsApi,
       inappApi,
       BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-      api,
       subscriptionBillingApi,
       ewtObtainer,
-      rxSchedulers
+      rxSchedulers,
+      fiatCurrenciesPreferencesDataSource
     )
 
   @Singleton

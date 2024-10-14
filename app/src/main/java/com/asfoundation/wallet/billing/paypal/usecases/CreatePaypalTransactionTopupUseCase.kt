@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.billing.paypal.usecases
 
+import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
-import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -29,12 +29,12 @@ class CreatePaypalTransactionTopupUseCase @Inject constructor(
           sku = null,
           callbackUrl = null,
           transactionType = TOP_UP_TRANSACTION_TYPE,
-          developerWallet = null,
           entityOemId = null,
           entityDomain = null,
           entityPromoCode = null,
           userWallet = null,
-          referrerUrl = null
+          referrerUrl = null,
+          guestWalletId = null,
         )
       }
   }

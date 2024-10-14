@@ -10,10 +10,10 @@
       android:id="@+id/app_icon"
       android:layout_width="42dp"
       android:layout_height="42dp"
-      android:src="@drawable/ic_appc"
-      app:layout_constraintBottom_toTopOf="@id/app_separator"
+      android:src="@drawable/ic_app_logo_icon"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      android:importantForAccessibility="no"
       />
 
   <TextView
@@ -25,8 +25,9 @@
       android:layout_toEndOf="@id/app_icon"
       android:ellipsize="end"
       android:maxLines="1"
-      android:textColor="@color/styleguide_black_transparent_80"
+      android:textColor="@color/styleguide_payments_main_text"
       android:textSize="16sp"
+      android:textStyle="bold"
       app:layout_constrainedWidth="true"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0"
@@ -43,7 +44,7 @@
       android:layout_toEndOf="@id/app_icon"
       android:ellipsize="end"
       android:maxLines="1"
-      android:textColor="@color/styleguide_black_transparent_80"
+      android:textColor="@color/styleguide_dark_grey"
       android:textSize="12sp"
       app:layout_constrainedWidth="true"
       app:layout_constraintEnd_toEndOf="parent"
@@ -53,44 +54,68 @@
       tools:text="Item Name"
       />
 
-  <View
-      android:id="@+id/app_separator"
-      android:layout_width="0dp"
-      android:layout_height="1dp"
-      android:layout_marginTop="14dp"
-      android:background="@color/styleguide_light_grey"
-      app:layout_constraintEnd_toEndOf="parent"
+  <TextView
+      android:id="@+id/fiat_total_price_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:fontFamily="sans-serif-medium"
+      android:textColor="@color/styleguide_payments_main_text"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Bold"
+      android:textSize="16sp"
+      android:visibility="gone"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintHorizontal_bias="1"
       app:layout_constraintTop_toBottomOf="@id/app_icon"
+      android:text="@string/total_title"
+      tools:visibility="visible"
       />
 
   <TextView
       android:id="@+id/fiat_price"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="11dp"
+      android:layout_marginTop="16dp"
       android:fontFamily="sans-serif-medium"
-      android:textColor="@color/styleguide_black"
-      android:textSize="15sp"
+      android:textColor="@color/styleguide_payments_main_text"
+      android:textSize="16sp"
       android:visibility="invisible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintTop_toBottomOf="@id/app_separator"
+      app:layout_constraintTop_toBottomOf="@id/app_icon"
       tools:text="0,99 EUR"
       />
 
+  <ImageView
+      android:id="@+id/ic_info_fees"
+      android:layout_width="16dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="4dp"
+      android:importantForAccessibility="no"
+      android:src="@drawable/ic_info_message"
+      android:tooltipText="@string/purchase_fee_supported_currency_unknown_disclaimer"
+      app:layout_constraintBottom_toBottomOf="@id/info_fees"
+      app:layout_constraintEnd_toStartOf="@id/info_fees"
+      app:layout_constraintTop_toTopOf="@id/info_fees"
+      tools:ignore="UnusedAttribute"
+      />
+
   <TextView
-      android:id="@+id/appc_price"
+      android:id="@+id/info_fees"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="4dp"
+      android:layout_marginTop="4dp"
+      android:maxWidth="80dp"
+      android:text="@string/purchase_extra_charges_included_disclaimer_body"
       android:textColor="@color/styleguide_dark_grey"
-      android:textSize="12sp"
+      android:textSize="11sp"
+      android:textStyle="bold"
       android:visibility="invisible"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintTop_toBottomOf="@+id/fiat_price"
-      tools:text="0,09 APPC"
+      tools:visibility="visible"
       />
 
   <include
@@ -107,13 +132,36 @@
   <include
       android:id="@+id/appc_price_skeleton"
       layout="@layout/skeleton_rounded_rectangle"
-      android:layout_width="60dp"
+      android:layout_width="0dp"
       android:layout_height="0dp"
-      android:layout_marginTop="4dp"
-      app:layout_constraintBottom_toBottomOf="@id/appc_price"
-      app:layout_constraintEnd_toEndOf="@id/appc_price"
-      app:layout_constraintTop_toTopOf="@id/appc_price"
-      tools:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="@id/info_fees"
+      app:layout_constraintEnd_toEndOf="@id/info_fees"
+      app:layout_constraintStart_toStartOf="@id/ic_info_fees"
+      app:layout_constraintTop_toTopOf="@id/info_fees"
+      tools:visibility="visible"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/price_transition_animation"
+      android:layout_width="72dp"
+      android:layout_height="32dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/fiat_price"
+      app:layout_constraintEnd_toEndOf="@id/fiat_price"
+      app:layout_constraintTop_toTopOf="@id/fiat_price"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/dots_transition_animation"
+      tools:visibility="visible"
+      />
+
+  <androidx.constraintlayout.widget.Group
+      android:id="@+id/info_fees_group"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="invisible"
+      app:constraint_referenced_ids="info_fees, ic_info_fees"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

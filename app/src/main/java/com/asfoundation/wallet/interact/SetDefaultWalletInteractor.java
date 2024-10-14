@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.interact;
 
-import com.asfoundation.wallet.repository.WalletRepositoryType;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType;
 import io.reactivex.Completable;
 import javax.inject.Inject;
 

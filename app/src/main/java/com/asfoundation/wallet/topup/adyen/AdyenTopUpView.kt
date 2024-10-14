@@ -3,7 +3,6 @@ package com.asfoundation.wallet.topup.adyen
 import android.net.Uri
 import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
-import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenComponentResponseModel
 import io.reactivex.Observable
@@ -39,8 +38,6 @@ interface AdyenTopUpView {
 
   fun setupRedirectComponent()
 
-  fun forgetCardClick(): Observable<Any>
-
   fun submitUriResult(uri: Uri)
 
   fun getPaymentDetails(): Observable<AdyenComponentResponseModel>
@@ -53,11 +50,7 @@ interface AdyenTopUpView {
 
   fun topUpButtonClicked(): Observable<Any>
 
-  fun billingAddressInput(): Observable<Boolean>
-
   fun retrievePaymentData(): Observable<AdyenCardWrapper>
-
-  fun retrieveBillingAddressData(): BillingAddressModel?
 
   fun hideKeyboard()
 
@@ -66,6 +59,8 @@ interface AdyenTopUpView {
   fun getSupportClicks(): Observable<Any>
 
   fun getVerificationClicks(): Observable<Any>
+
+  fun handleCreditCardNeedCVC(needCVC: Boolean)
 
   fun lockRotation()
 
@@ -79,7 +74,7 @@ interface AdyenTopUpView {
 
   fun showBonus(bonus: BigDecimal, currency: String)
 
-  fun showVerification()
+  fun showVerification(paymentType: String)
 
   fun handle3DSAction(action: Action)
 
@@ -87,5 +82,10 @@ interface AdyenTopUpView {
 
   fun setup3DSComponent()
 
-  fun navigateToBillingAddress(fiatAmount: String, fiatCurrency: String)
+  fun shouldStoreCard(): Boolean
+
+  fun restartFragment()
+
+  fun hasStoredCardBuy(): Boolean
+
 }

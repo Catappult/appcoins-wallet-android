@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.util;
 
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 import java.math.BigDecimal;
@@ -29,10 +29,10 @@ public class TransferParserTest {
     TransferParser transferParser =
         new TransferParser(eipTransactionParser, oneStepTransactionParser);
     TestObserver<TransactionBuilder> test = transferParser.parse("ethereum:"
-        + contractAddress
-        + "@3"
-        + "/transfer?address=0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be&uint256"
-        + "=1000000000000000000")
+            + contractAddress
+            + "@3"
+            + "/transfer?address=0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be&uint256"
+            + "=1000000000000000000")
         .test();
     test.assertValue(transactionBuilder -> transactionBuilder.amount()
         .equals(new BigDecimal(1).setScale(18)));
@@ -57,11 +57,11 @@ public class TransferParserTest {
     TransferParser transferParser =
         new TransferParser(eipTransactionParser, oneStepTransactionParser);
     TestObserver<TransactionBuilder> test = transferParser.parse("ethereum:"
-        + contractAddress
-        + "@3"
-        + "/buy?address=0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be&uint256"
-        + "=1000000000000000000&data=0x636f6d2e63656e61732e70726f64756374&iabContractAddress"
-        + "=0xb015D9bBabc472BBfC990ED6A0C961a90a482C57")
+            + contractAddress
+            + "@3"
+            + "/buy?address=0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be&uint256"
+            + "=1000000000000000000&data=0x636f6d2e63656e61732e70726f64756374&iabContractAddress"
+            + "=0xb015D9bBabc472BBfC990ED6A0C961a90a482C57")
         .test();
 
     test.assertValue(transactionBuilder -> transactionBuilder.amount()
@@ -90,11 +90,11 @@ public class TransferParserTest {
         new TransferParser(eipTransactionParser, oneStepTransactionParser);
     String toAddress = "0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be";
     TestObserver<TransactionBuilder> test = transferParser.parse("ethereum:"
-        + contractAddress
-        + "@3"
-        + "/transfer?address="
-        + toAddress
-        + "&uint256=1000000000000000000")
+            + contractAddress
+            + "@3"
+            + "/transfer?address="
+            + toAddress
+            + "&uint256=1000000000000000000")
         .test();
 
     test.assertValue(transactionBuilder -> transactionBuilder.amount()

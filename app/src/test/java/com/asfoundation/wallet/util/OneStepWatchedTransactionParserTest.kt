@@ -2,19 +2,19 @@ package com.asfoundation.wallet.util
 
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.entity.TokenInfo
-import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.service.TokenRateService
-import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyBoolean
 import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 import java.math.BigDecimal
 import java.util.*
 
@@ -28,7 +28,6 @@ class OneStepWatchedTransactionParserTest {
   companion object {
     const val contractAddress = "contract_address"
     const val iabContractAddress = "iab_contract_address"
-    const val developerAddress = "developer_address"
     const val wrongDeveloperAddress = "wrong_developer_address"
     const val productName = "product_name"
     const val packageName = "package_name"
@@ -43,28 +42,30 @@ class OneStepWatchedTransactionParserTest {
   @Before
   fun before() {
     findDefaultWalletInteract =
-        mock<FindDefaultWalletInteract>(FindDefaultWalletInteract::class.java)
-    proxyService = mock<ProxyService>(ProxyService::class.java)
-    billing = mock<Billing>(Billing::class.java)
-    conversionService = mock<TokenRateService>(TokenRateService::class.java)
-    defaultTokenProvider = mock<DefaultTokenProvider>(DefaultTokenProvider::class.java)
+      mock(FindDefaultWalletInteract::class.java)
+    proxyService = mock(ProxyService::class.java)
+    billing = mock(Billing::class.java)
+    conversionService = mock(TokenRateService::class.java)
+    defaultTokenProvider = mock(DefaultTokenProvider::class.java)
 
-    `when`<Single<Wallet>>(findDefaultWalletInteract.find()).thenReturn(
-        Single.just(Wallet(contractAddress)))
+    `when`(findDefaultWalletInteract.find()).thenReturn(
+      Single.just(Wallet(contractAddress))
+    )
     val tokenInfo = TokenInfo(contractAddress, "AppCoins", "APPC", 18)
 
     `when`(defaultTokenProvider.defaultToken)
-        .thenReturn(Single.just(tokenInfo))
-    `when`<Single<String>>(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
-        Single.just(contractAddress))
-    `when`<Single<String>>(proxyService.getIabAddress(anyBoolean())).thenReturn(
-        Single.just(iabContractAddress))
+      .thenReturn(Single.just(tokenInfo))
+    `when`(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
+      Single.just(contractAddress)
+    )
+    `when`(proxyService.getIabAddress(anyBoolean())).thenReturn(
+      Single.just(iabContractAddress)
+    )
 
     `when`<Single<FiatValue>>(conversionService.getAppcRate(anyString())).thenReturn(
-        Single.just(FiatValue(BigDecimal("0.07"), "EUR")))
+      Single.just(FiatValue(BigDecimal("0.07"), "EUR"))
+    )
 
-    `when`<Single<String>>(billing.getWallet(anyString())).thenReturn(
-        Single.just(developerAddress))
   }
 
   @Test
@@ -72,7 +73,7 @@ class OneStepWatchedTransactionParserTest {
   fun parseTransaction() {
 
     val oneStepTransactionParser =
-        OneStepTransactionParser(proxyService, billing, defaultTokenProvider)
+      OneStepTransactionParser(proxyService, billing, defaultTokenProvider)
 
     val parameters = HashMap<String, String>()
     parameters["value"] = priceValue
@@ -82,20 +83,17 @@ class OneStepWatchedTransactionParserTest {
     parameters["callback_url"] = callback
 
     val oneStepUri =
-        OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
+      OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
     val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
-        .test()
-        .await()
+      .test()
+      .await()
 
     println(test.values())
 
     test.assertValue { transactionBuilder ->
       transactionBuilder.amount() == BigDecimal(
-          priceValue).setScale(18)
-    }
-    test.assertValue { transactionBuilder ->
-      transactionBuilder.toAddress()
-          .equals(developerAddress, ignoreCase = true)
+        priceValue
+      ).setScale(18)
     }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
     test.assertValue { transactionBuilder -> transactionBuilder.type == paymentType }
@@ -110,7 +108,7 @@ class OneStepWatchedTransactionParserTest {
   fun parseMinimumTransaction() {
 
     val oneStepTransactionParser =
-        OneStepTransactionParser(proxyService, billing, defaultTokenProvider)
+      OneStepTransactionParser(proxyService, billing, defaultTokenProvider)
 
     val parameters = HashMap<String, String>()
     parameters["value"] = priceValue
@@ -118,20 +116,17 @@ class OneStepWatchedTransactionParserTest {
     parameters["domain"] = packageName
 
     val oneStepUri =
-        OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
+      OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
     val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
-        .test()
-        .await()
+      .test()
+      .await()
 
     println(test.values())
 
     test.assertValue { transactionBuilder ->
       transactionBuilder.amount() == BigDecimal(
-          priceValue).setScale(18)
-    }
-    test.assertValue { transactionBuilder ->
-      transactionBuilder.toAddress()
-          .equals(developerAddress, ignoreCase = true)
+        priceValue
+      ).setScale(18)
     }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
   }
@@ -141,7 +136,7 @@ class OneStepWatchedTransactionParserTest {
   fun parseTransactionWithFiatValue() {
 
     val oneStepTransactionParser =
-        OneStepTransactionParser(proxyService, billing, defaultTokenProvider)
+      OneStepTransactionParser(proxyService, billing, defaultTokenProvider)
 
     val parameters = HashMap<String, String>()
     parameters["value"] = priceValue
@@ -150,17 +145,13 @@ class OneStepWatchedTransactionParserTest {
     parameters["to"] = wrongDeveloperAddress
 
     val oneStepUri =
-        OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
+      OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
     val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
-        .test()
-        .await()
+      .test()
+      .await()
 
     test.assertValue { transactionBuilder ->
       transactionBuilder.amount() == BigDecimal.ZERO
-    }
-    test.assertValue { transactionBuilder ->
-      transactionBuilder.toAddress()
-          .equals(developerAddress, ignoreCase = true)
     }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
   }

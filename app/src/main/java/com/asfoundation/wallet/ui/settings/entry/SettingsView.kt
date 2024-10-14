@@ -1,22 +1,17 @@
 package com.asfoundation.wallet.ui.settings.entry
 
 import android.content.Intent
-import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
-import com.asfoundation.wallet.promo_code.repository.PromoCode
+import androidx.activity.result.ActivityResultLauncher
+import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import io.reactivex.Observable
 
 
 interface SettingsView {
-
-  fun setRedeemCodePreference(walletAddress: String)
-
-  fun setPromoCodePreference(promoCode: PromoCode)
-
   fun showError()
 
   fun navigateToIntent(intent: Intent)
 
-  fun authenticationResult(): Observable<Boolean>
+  fun authenticationResult(): ActivityResultLauncher<Intent>
 
   fun toggleFingerprint(enabled: Boolean)
 
@@ -32,7 +27,7 @@ interface SettingsView {
 
   fun setFacebookPreference()
 
-  fun setTelegramPreference()
+  fun setDiscordPreference()
 
   fun setEmailPreference()
 
@@ -44,13 +39,19 @@ interface SettingsView {
 
   fun setVersionPreference()
 
-  fun setCurrencyPreference(selectedCurrency: FiatCurrencyEntity)
+  fun setCurrencyPreference(selectedCurrency: FiatCurrency? = null)
 
-  fun setRestorePreference()
+  fun setManageWalletPreference()
 
-  fun setBackupPreference()
+  fun setAccountPreference()
 
   fun setManageSubscriptionsPreference()
+
+  fun setManageCardsPreference()
+
+  fun setAddNewCardPreference()
+
+  fun setSkeletonCardPreference()
 
   fun removeFingerprintPreference()
 
@@ -59,8 +60,6 @@ interface SettingsView {
   fun switchPreferenceChange(): Observable<Unit>
 
   fun updateFingerPrintListener(enabled: Boolean)
-
-  fun setWithdrawPreference()
 
   fun setFaqsPreference()
 }

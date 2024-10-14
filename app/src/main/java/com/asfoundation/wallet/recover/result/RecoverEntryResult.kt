@@ -1,8 +1,11 @@
 package com.asfoundation.wallet.recover.result
 
-import com.asfoundation.wallet.entity.WalletKeyStore
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.FailedRestore
+import com.appcoins.wallet.feature.walletInfo.data.RestoreResult
+import com.appcoins.wallet.feature.walletInfo.data.SuccessfulRestore
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.asfoundation.wallet.entity.WalletKeyStore
 import io.reactivex.Single
 
 sealed class RecoverEntryResult
@@ -16,6 +19,7 @@ sealed class FailedEntryRecover : RecoverEntryResult() {
     val keyStore: WalletKeyStore,
     val address: String,
     val amount: String,
+    val name: String?,
     val symbol: String
   ) : FailedEntryRecover()
 
@@ -32,16 +36,19 @@ class RecoverEntryResultMapper(
   fun map(restoreResult: RestoreResult): Single<RecoverEntryResult> = when (restoreResult) {
     is SuccessfulRestore ->
       Single.just(SuccessfulEntryRecover(restoreResult.address, walletKeyStore.name))
+
     is FailedRestore.AlreadyAdded ->
       Single.just(FailedEntryRecover.AlreadyAdded(restoreResult.throwable))
+
     is FailedRestore.GenericError ->
       Single.just(FailedEntryRecover.GenericError(restoreResult.throwable))
+
     is FailedRestore.InvalidKeystore ->
       Single.just(FailedEntryRecover.InvalidKeystore(restoreResult.throwable))
+
     is FailedRestore.InvalidPassword -> getWalletInfoUseCase(
       address = restoreResult.address,
-      cached = false,
-      updateFiat = true
+      cached = false
     )
       .map {
         FailedEntryRecover.InvalidPassword(
@@ -49,9 +56,11 @@ class RecoverEntryResultMapper(
           keyStore = walletKeyStore,
           address = it.wallet,
           amount = currencyFormatUtils.formatCurrency(it.walletBalance.overallFiat.amount),
+          name = it.name,
           symbol = it.walletBalance.overallFiat.symbol
         )
       }
+
     is FailedRestore.InvalidPrivateKey ->
       Single.just(FailedEntryRecover.InvalidPrivateKey(restoreResult.throwable))
   }

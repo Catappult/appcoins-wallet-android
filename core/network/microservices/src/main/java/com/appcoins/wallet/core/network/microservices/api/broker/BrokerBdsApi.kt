@@ -6,7 +6,7 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 interface BrokerBdsApi {
-  @GET("8.20180518/transactions")
+  @GET("8.20240524/transactions")
   fun getSkuTransaction(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
@@ -19,7 +19,7 @@ interface BrokerBdsApi {
     @Query("domain") packageName: String
   ): Single<TransactionsResponse>
 
-  @GET("8.20180518/transactions/{uId}")
+  @GET("8.20240524/transactions/{uId}")
   fun getAppcoinsTransaction(
     @Path("uId") uId: String,
     @Query("wallet.address") walletAddress: String,
@@ -35,18 +35,26 @@ interface BrokerBdsApi {
    * if null no filter is applied by transactionType
    *
    */
-  @GET("8.20230801/methods")
+  @GET("8.20240627/methods")
   fun getPaymentMethods(
     @Query("price.value") value: String? = null,
     @Query("price.currency") currency: String? = null,
     @Query("currency.type") currencyType: String? = null,
     @Query("direct") direct: Boolean? = null,
     @Query("transaction.type") type: String?,
-    @Query("domain") packageName: String?
+    @Query("domain") packageName: String?,
+    @Query("dark_theme") darkTheme: Boolean = false,
+    @Query("oemid") entityOemId: String?,
+    @Query("wallet.address") walletAddress: String?,
+    @Query("channel") channel: String?,
+    @Header("Accept-Language") language: String,
   ): Single<GetMethodsResponse>
 
+  @GET("8.20240627/methods/googlepay/properties")
+  fun getGooglePayUrls(): Single<GetGooglePayUrlResponse>
+
   @FormUrlEncoded
-  @PATCH("8.20200810/gateways/{gateway}/transactions/{uid}")
+  @PATCH("8.20240524/gateways/{gateway}/transactions/{uid}")
   fun patchTransaction(
     @Path("gateway") gateway: String,
     @Path("uid") uid: String,
@@ -61,7 +69,7 @@ interface BrokerBdsApi {
    * @param walletAddress address of the user wallet
    * @param walletSignature signature obtained after signing the wallet
    */
-  @POST("8.20200810/gateways/{gateway}/transactions")
+  @POST("8.20240524/gateways/{gateway}/transactions")
   @Headers("Content-Type: application/json; format=product_token")
   fun createTransaction(
     @Path("gateway") gateway: String,
@@ -93,7 +101,7 @@ interface BrokerBdsApi {
    * @param walletSignature signature obtained after signing the wallet
    */
   @FormUrlEncoded
-  @POST("8.20200810/gateways/{gateway}/transactions")
+  @POST("8.20240524/gateways/{gateway}/transactions")
   fun createTransaction(
     @Path("gateway") gateway: String,
     @Field("origin") origin: String?,
@@ -103,7 +111,6 @@ interface BrokerBdsApi {
     @Field("product") product: String?,
     @Field("type") type: String,
     @Field("wallets.user") userWallet: String?,
-    @Field("wallets.developer") walletsDeveloper: String?,
     @Field("entity.oemid") entityOemId: String?,
     @Field("entity.domain") entityDomain: String?,
     @Field("entity.promo_code") entityPromoCode: String?,
@@ -112,6 +119,7 @@ interface BrokerBdsApi {
     @Field("callback_url") callback: String?,
     @Field("reference") orderReference: String?,
     @Field("referrer_url") referrerUrl: String?,
+    @Field("entity.guest_id") guestWalletId: String?,
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
   ): Single<Transaction>
@@ -138,7 +146,7 @@ interface BrokerBdsApi {
    * @param walletSignature signature obtained after signing the wallet
    */
   @FormUrlEncoded
-  @POST("8.20200810/gateways/myappcoins/transactions")
+  @POST("8.20240524/gateways/myappcoins/transactions")
   fun createTransaction(
     @Field("origin") origin: String?,
     @Field("domain") domain: String,
@@ -147,7 +155,6 @@ interface BrokerBdsApi {
     @Field("product") product: String?,
     @Field("type") type: String,
     @Field("wallets.user") userWallet: String?,
-    @Field("wallets.developer") walletsDeveloper: String?,
     @Field("entity.oemid") entityOemId: String?,
     @Field("entity.domain") entityDomain: String?,
     @Field("entity.promo_code") entityPromoCode: String?,
@@ -156,7 +163,28 @@ interface BrokerBdsApi {
     @Field("callback_url") callback: String?,
     @Field("reference") orderReference: String?,
     @Field("referrer_url") referrerUrl: String?,
+    @Field("entity.guest_id") guestWalletId: String?,
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
   ): Single<Transaction>
+
+  @FormUrlEncoded
+  @POST("8.20240524/gateways/mipay/transactions")
+  fun createMiPayTransaction(
+    @Field("domain") domain: String,
+    @Field("type") type: String,
+    @Field("product") product: String?,
+    @Field("method") method: String?,
+    @Field("referrer_url") referrerUrl: String?,
+    @Field("price.value") priceValue: String?,
+    @Field("price.currency") priceCurrency: String?,
+    @Field("callback_url") callbackUrl: String?,
+    @Field("checkout_url") checkoutUrl: String?,
+    @Field("entity.oemid") entityOemId: String?,
+    @Field("reference") orderReference: String?,
+    @Field("entity.guest_id") guestWalletId: String?,
+    @Query("wallet.address") walletAddress: String,
+    @Query("wallet.signature") walletSignature: String?,
+    @Header("authorization") authorization: String,
+  ): Single<MiPayTransaction>
 }

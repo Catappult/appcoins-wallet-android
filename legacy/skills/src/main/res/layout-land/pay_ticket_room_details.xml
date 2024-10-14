@@ -56,10 +56,10 @@
             android:scaleX="0.7"
             android:scaleY="0.7"
             android:src="@drawable/arrow_drop_down"
-            app:tint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -174,9 +174,9 @@
               android:scaleX="0.5"
               android:scaleY="1"
               android:src="@drawable/arrow_drop_down"
-              app:tint="@color/black"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintTop_toTopOf="parent"
+              app:tint="@color/black"
               />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

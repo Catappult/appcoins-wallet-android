@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletNotFoundException;
 import java.net.UnknownHostException;
 import javax.inject.Inject;
 
@@ -10,12 +11,12 @@ import javax.inject.Inject;
 
 public class BlockchainErrorMapper {
 
-  public @Inject BlockchainErrorMapper() {
-  }
-
   private static final String INSUFFICIENT_ERROR_MESSAGE =
       "insufficient funds for gas * price + value";
   private static final String NONCE_TOO_LOW_ERROR_MESSAGE = "nonce too low";
+
+  public @Inject BlockchainErrorMapper() {
+  }
 
   public BlockchainError map(Throwable throwable) {
     if (throwable instanceof UnknownHostException) {

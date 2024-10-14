@@ -105,3 +105,8 @@ msgstr ""
 #:
 msgid "New Perk Available"
 msgstr ""
+
+#. Card - Title - Enjoy
+#:
+msgid "Enjoy {0}% bonus in every purchase."
+msgstr ""

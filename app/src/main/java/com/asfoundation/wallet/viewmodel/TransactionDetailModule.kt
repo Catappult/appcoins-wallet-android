@@ -3,12 +3,12 @@ package com.asfoundation.wallet.viewmodel
 import androidx.annotation.NonNull
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionDetailRouter
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

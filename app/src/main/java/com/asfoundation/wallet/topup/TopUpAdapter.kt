@@ -6,14 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.asf.wallet.R
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.appcoins.wallet.core.utils.jvm_common.NumberFormatterUtils
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.asf.wallet.R
 import com.asf.wallet.databinding.ItemTopValueBinding
 import rx.functions.Action1
 
 
-class TopUpAdapter(private val listener: Action1<FiatValue>
+class TopUpAdapter(
+  private val listener: Action1<FiatValue>
 ) : ListAdapter<FiatValue, TopUpAdapter.TopUpViewHolder>(FiatValueCallback()) {
 
 

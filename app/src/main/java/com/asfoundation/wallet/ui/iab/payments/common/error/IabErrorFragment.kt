@@ -8,8 +8,8 @@ import androidx.annotation.StringRes
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentIabErrorBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -43,7 +43,8 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
     binding.dialogBuyButtons.cancelButton.setText(getString(R.string.button_cancel))
   }
 
-  override fun cancelClickEvent(): Observable<Any> = RxView.clicks(binding.dialogBuyButtons.cancelButton)
+  override fun cancelClickEvent(): Observable<Any> =
+    RxView.clicks(binding.dialogBuyButtons.cancelButton)
 
   override fun backClickEvent(): Observable<Any> = RxView.clicks(binding.dialogBuyButtons.buyButton)
 

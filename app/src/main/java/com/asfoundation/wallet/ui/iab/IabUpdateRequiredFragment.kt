@@ -9,18 +9,17 @@ import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.ListPopupWindow
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.asfoundation.wallet.backup.BackupActivity
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletsModelUseCase
+import com.asf.wallet.R
 import com.asf.wallet.databinding.IabUpdateRequiredLayoutBinding
-import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.asfoundation.wallet.update_required.wallets_list.WalletSelectionAdapter
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
-import com.asfoundation.wallet.wallets.usecases.GetWalletsModelUseCase
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -87,7 +86,7 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
 
   override fun navigateToBackup(walletAddress: String) {
     requireContext().startActivity(
-      BackupActivity.newIntent(
+      com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(
         context = requireContext(),
         walletAddress = walletAddress,
         isBackupTrigger = false

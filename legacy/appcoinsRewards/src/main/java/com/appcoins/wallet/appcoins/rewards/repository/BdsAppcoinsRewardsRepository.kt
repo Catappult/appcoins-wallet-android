@@ -7,25 +7,34 @@ import retrofit2.HttpException
 import java.math.BigDecimal
 
 class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepository) :
-    AppcoinsRewardsRepository {
-  override fun sendCredits(toAddress: String, walletAddress: String, signature: String,
-                           amount: BigDecimal,
-                           origin: String, type: String,
-                           packageName: String): Single<Pair<AppcoinsRewardsRepository.Status, Transaction>> {
-    return remoteRepository.sendCredits(toAddress, walletAddress, signature, amount, origin, type,
-        packageName)
+  AppcoinsRewardsRepository {
+  override fun sendCredits(
+    toAddress: String, walletAddress: String, signature: String,
+    amount: BigDecimal,
+    origin: String, type: String,
+    packageName: String,
+    guestWalletId: String?
+  ): Single<Pair<AppcoinsRewardsRepository.Status, Transaction>> {
+    return remoteRepository.sendCredits(
+      toAddress, walletAddress, signature, amount, origin, type,
+      packageName, guestWalletId
+    )
       .map { Pair(AppcoinsRewardsRepository.Status.SUCCESS, it) }
-        .onErrorReturn { Pair(map(it), Transaction.notFound()) }
+      .onErrorReturn { Pair(map(it), Transaction.notFound()) }
   }
 
-  override fun pay(walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
-                   sku: String?, type: String, developerAddress: String, entityOemId: String?,
-                   entityDomain: String?, packageName: String, payload: String?, callback: String?,
-                   orderReference: String?, referrerUrl: String?, productToken: String?)
+  override fun pay(
+    walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
+    sku: String?, type: String, entityOemId: String?,
+    entityDomain: String?, packageName: String, payload: String?, callback: String?,
+    orderReference: String?, referrerUrl: String?, productToken: String?, guestWalletId: String?
+  )
       : Single<Transaction> {
-    return remoteRepository.pay(walletAddress, signature, amount, origin, sku,
-        type, developerAddress, entityOemId, entityDomain, packageName, payload, callback,
-        orderReference, referrerUrl, productToken)
+    return remoteRepository.pay(
+      walletAddress, signature, amount, origin, sku,
+      type, entityOemId, entityDomain, packageName, payload, callback,
+      orderReference, referrerUrl, productToken, guestWalletId
+    )
   }
 
   private fun map(throwable: Throwable): AppcoinsRewardsRepository.Status {

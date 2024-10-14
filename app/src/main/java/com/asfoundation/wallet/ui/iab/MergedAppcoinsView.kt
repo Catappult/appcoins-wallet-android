@@ -8,6 +8,8 @@ interface MergedAppcoinsView {
 
   fun showError(@StringRes errorMessage: Int)
 
+  fun showNoNetworkError()
+
   fun getPaymentSelection(): Observable<String>
 
   fun hideBonus()
@@ -32,12 +34,16 @@ interface MergedAppcoinsView {
 
   fun errorDismisses(): Observable<Any>
 
+  fun errorTryAgain(): Observable<Any>
+
   fun getSupportLogoClicks(): Observable<Any>
 
   fun getSupportIconClicks(): Observable<Any>
 
-  fun setPaymentsInformation(hasCredits: Boolean, creditsDisableReason: Int?, hasAppc: Boolean,
-                             appcDisabledReason: Int?)
+  fun setPaymentsInformation(
+    hasCredits: Boolean, creditsDisableReason: Int?, hasAppc: Boolean,
+    appcDisabledReason: Int?
+  )
 
   fun toggleSkeletons(show: Boolean)
 

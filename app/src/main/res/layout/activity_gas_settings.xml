@@ -6,12 +6,12 @@
     android:orientation="vertical"
     >
 
-  <include layout="@layout/layout_app_bar"/>
+  <include layout="@layout/layout_app_bar" />
 
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@drawable/background_fragment"
+      android:background="@color/styleguide_blue"
       >
 
     <LinearLayout
@@ -27,27 +27,29 @@
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:paddingEnd="16dp"
           android:paddingStart="16dp"
+          android:paddingEnd="16dp"
           >
 
         <TextView
+            style="@style/GasSettingsTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:text="@string/label_gas_price"
             android:textAppearance="?android:textAppearanceListItem"
-            style="@style/GasSettingsTextStyle"
+            android:textColor="@color/styleguide_light_grey"
             />
 
         <TextView
             android:id="@+id/gas_price_text"
+            style="@style/DialogTitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:text="--"
+            android:textColor="@color/styleguide_light_grey"
             tools:text="30 (Gwei)"
-            style="@style/DialogTitleStyle"
             />
 
       </RelativeLayout>
@@ -56,9 +58,9 @@
           android:id="@+id/gas_price_slider"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
           android:layout_marginStart="16dp"
           android:layout_marginTop="26dp"
+          android:layout_marginEnd="16dp"
           android:progressBackgroundTint="@color/styleguide_pink"
           android:secondaryProgressTint="@color/styleguide_pink"
           android:thumbTint="@color/styleguide_pink"
@@ -66,41 +68,44 @@
 
       <TextView
           android:id="@+id/gas_price_info_text"
+          style="@style/GasSettingsTextStyle.Body"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
           android:layout_marginStart="16dp"
           android:layout_marginTop="18dp"
+          android:layout_marginEnd="16dp"
           android:text="@string/info_gas_price"
           android:textAppearance="?android:textAppearanceSmall"
-          style="@style/GasSettingsTextStyle.Body"
+          android:textColor="@color/styleguide_dark_grey"
           />
 
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:paddingEnd="16dp"
           android:paddingStart="16dp"
           android:paddingTop="32dp"
+          android:paddingEnd="16dp"
           >
 
         <TextView
+            style="@style/GasSettingsTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:text="@string/label_gas_limit"
             android:textAppearance="?android:textAppearanceListItem"
-            style="@style/GasSettingsTextStyle"
+            android:textColor="@color/styleguide_light_grey"
             />
 
         <TextView
             android:id="@+id/gas_limit_text"
+            style="@style/DialogTitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:text="--"
+            android:textColor="@color/styleguide_light_grey"
             tools:text="90000"
-            style="@style/DialogTitleStyle"
             />
       </RelativeLayout>
 
@@ -108,9 +113,9 @@
           android:id="@+id/gas_limit_slider"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
           android:layout_marginStart="16dp"
           android:layout_marginTop="26dp"
+          android:layout_marginEnd="16dp"
           android:progressBackgroundTint="@color/styleguide_pink"
           android:secondaryProgressTint="@color/styleguide_pink"
           android:thumbTint="@color/styleguide_pink"
@@ -118,42 +123,45 @@
 
       <TextView
           android:id="@+id/gas_limit_info_text"
+          style="@style/GasSettingsTextStyle.Body"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
           android:layout_marginStart="16dp"
           android:layout_marginTop="18dp"
+          android:layout_marginEnd="16dp"
           android:text="@string/info_gas_limit"
           android:textAppearance="?android:textAppearanceSmall"
-          style="@style/GasSettingsTextStyle.Body"
+          android:textColor="@color/styleguide_dark_grey"
           />
 
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:paddingBottom="50dp"
-          android:paddingEnd="16dp"
           android:paddingStart="16dp"
           android:paddingTop="32dp"
+          android:paddingEnd="16dp"
+          android:paddingBottom="50dp"
           >
 
         <TextView
+            style="@style/GasSettingsTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:text="@string/label_network_fee"
             android:textAppearance="?android:textAppearanceListItem"
-            style="@style/GasSettingsTextStyle"
+            android:textColor="@color/styleguide_light_grey"
             />
 
         <TextView
             android:id="@+id/text_network_fee"
+            style="@style/DialogTitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:text="--"
+            android:textColor="@color/styleguide_light_grey"
             tools:text="0.0027 ETH"
-            style="@style/DialogTitleStyle"
             />
       </RelativeLayout>
     </LinearLayout>

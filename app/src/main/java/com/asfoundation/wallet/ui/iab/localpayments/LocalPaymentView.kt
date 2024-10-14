@@ -10,8 +10,10 @@ interface LocalPaymentView {
 
   fun hideLoading()
 
-  fun showPendingUserPayment(paymentMethodLabel: String?, paymentMethodIcon: Bitmap,
-                             applicationIcon: Bitmap)
+  fun showPendingUserPayment(
+    paymentMethodLabel: String?, paymentMethodIcon: Bitmap,
+    applicationIcon: Bitmap
+  )
 
   fun showCompletedPayment()
 
@@ -35,7 +37,7 @@ interface LocalPaymentView {
 
   fun getSupportIconClicks(): Observable<Any>
 
-  fun showVerification()
+  fun showCreditCardVerification()
 
   fun setupUi(bonus: String?)
 

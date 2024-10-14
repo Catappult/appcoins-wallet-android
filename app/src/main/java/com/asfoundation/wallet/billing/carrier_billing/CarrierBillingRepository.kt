@@ -4,8 +4,8 @@ import com.appcoins.wallet.billing.carrierbilling.AvailableCountryListModel
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.network.microservices.model.CarrierTransactionBody
 import com.appcoins.wallet.core.network.microservices.api.broker.CarrierBillingApi
+import com.appcoins.wallet.core.network.microservices.model.CarrierTransactionBody
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.BuildConfig
@@ -32,10 +32,10 @@ class CarrierBillingRepository @Inject constructor(
     walletAddress: String,
     phoneNumber: String, packageName: String, origin: String?, sku: String?,
     reference: String?, transactionType: String, currency: String,
-    value: String, developerWallet: String?, entityOemId: String?,
+    value: String, entityOemId: String?,
     entityDomain: String?, entityPromoCode: String?,
     userWallet: String?, referrerUrl: String?, developerPayload: String?,
-    callbackUrl: String?
+    callbackUrl: String?, guestWalletId: String?
   ): Single<CarrierPaymentModel> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -53,14 +53,14 @@ class CarrierBillingRepository @Inject constructor(
             type = transactionType,
             currency = currency,
             value = value,
-            developer = developerWallet,
             entityOemId = entityOemId,
             entityDomain = entityDomain,
             entityPromoCode = entityPromoCode,
             user = userWallet,
             referrerUrl = referrerUrl,
             developerPayload = developerPayload,
-            callbackUrl = callbackUrl
+            callbackUrl = callbackUrl,
+            guestWalletId = guestWalletId,
           )
         )
           .map { response -> mapper.mapPayment(response) }

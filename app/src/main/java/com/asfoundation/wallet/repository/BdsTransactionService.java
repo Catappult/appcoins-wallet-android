@@ -33,7 +33,7 @@ public class BdsTransactionService {
         .filter(bdsTransaction -> bdsTransaction.getStatus()
             .equals(BdsTransaction.Status.WAITING))
         .flatMapCompletable(bdsTransaction -> cache.save(bdsTransaction.getKey(),
-            new BdsTransaction(bdsTransaction, BdsTransaction.Status.PROCESSING))
+                new BdsTransaction(bdsTransaction, BdsTransaction.Status.PROCESSING))
             .andThen(
                 transactionService.checkTransactionStateFromTransactionId(bdsTransaction.getUid())
                     .flatMapCompletable(pendingTransaction -> cache.save(bdsTransaction.getKey(),
@@ -99,9 +99,7 @@ public class BdsTransactionService {
 
     @Override public boolean equals(Object o) {
       if (this == o) return true;
-      if (!(o instanceof BdsTransaction)) return false;
-
-      BdsTransaction that = (BdsTransaction) o;
+      if (!(o instanceof BdsTransaction that)) return false;
 
       if (!key.equals(that.key)) return false;
       if (!skuId.equals(that.skuId)) return false;

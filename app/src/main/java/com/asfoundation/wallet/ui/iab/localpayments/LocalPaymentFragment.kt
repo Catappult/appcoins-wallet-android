@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
@@ -16,9 +15,13 @@ import com.asf.wallet.databinding.LocalPaymentLayoutBinding
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState
-import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState.*
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState.COMPLETED
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState.ERROR
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState.LOADING
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState.NONE
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState.PENDING_USER_PAYMENT
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -66,13 +69,14 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
   override fun setupUi(bonus: String?) {
     if (bonus?.isNotBlank() == true) {
       binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setAnimation(
-          R.raw.top_up_bonus_success_animation)
+        R.raw.top_up_bonus_success_animation
+      )
       setAnimationText(bonus)
     } else {
       binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setAnimation(R.raw.top_up_success_animation)
     }
 
-    iabView.disableBack()
+    iabView.setBackEnable(false)
   }
 
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -93,15 +97,18 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
   }
 
   private fun setAnimationText(bonus: String?) {
-    val textDelegate = TextDelegate(binding.fragmentIabTransactionCompleted.lottieTransactionSuccess)
+    val textDelegate =
+      TextDelegate(binding.fragmentIabTransactionCompleted.lottieTransactionSuccess)
     textDelegate.setText("bonus_value", bonus)
-    textDelegate.setText("bonus_received",
-        resources.getString(R.string.gamification_purchase_completed_bonus_received))
+    textDelegate.setText(
+      "bonus_received",
+      resources.getString(R.string.gamification_purchase_completed_bonus_received)
+    )
     binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setTextDelegate(textDelegate)
     binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setFontAssetDelegate(object :
-        FontAssetDelegate() {
+      FontAssetDelegate() {
       override fun fetchFont(fontFamily: String?) =
-          Typeface.create("sans-serif-medium", Typeface.BOLD)
+        Typeface.create("sans-serif-medium", Typeface.BOLD)
     })
   }
 
@@ -110,18 +117,22 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
     super.onDestroyView()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = LocalPaymentLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = LocalPaymentLayoutBinding.inflate(inflater).root
 
   override fun getErrorDismissClick() = RxView.clicks(binding.errorView.errorDismiss)
 
-  override fun getSupportLogoClicks() = RxView.clicks(binding.errorView.genericErrorLayout.layoutSupportLogo)
+  override fun getSupportLogoClicks() =
+    RxView.clicks(binding.errorView.genericErrorLayout.layoutSupportLogo)
 
-  override fun getSupportIconClicks() = RxView.clicks(binding.errorView.genericErrorLayout.layoutSupportIcn)
+  override fun getSupportIconClicks() =
+    RxView.clicks(binding.errorView.genericErrorLayout.layoutSupportIcn)
 
   override fun getGotItClick() = RxView.clicks(binding.pendingUserPaymentView.gotItButton)
 
-  override fun showVerification() = iabView.showVerification(false)
+  override fun showCreditCardVerification() = iabView.showCreditCardVerification(false)
 
   override fun showProcessingLoading() {
     status = LOADING
@@ -147,13 +158,16 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
     binding.errorView.root.visibility = View.GONE
     binding.pendingUserPaymentView.root.visibility = View.GONE
     binding.completePaymentView.visibility = View.VISIBLE
-    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.VISIBLE
+    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility =
+      View.VISIBLE
     binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
     binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
   }
 
-  override fun showPendingUserPayment(paymentMethodLabel: String?, paymentMethodIcon: Bitmap,
-                                      applicationIcon: Bitmap) {
+  override fun showPendingUserPayment(
+    paymentMethodLabel: String?, paymentMethodIcon: Bitmap,
+    applicationIcon: Bitmap
+  ) {
     status = PENDING_USER_PAYMENT
     binding.errorView.root.visibility = View.GONE
     binding.completePaymentView.visibility = View.GONE
@@ -201,7 +215,8 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
     iabView.close(Bundle())
   }
 
-  override fun getAnimationDuration() = binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.duration
+  override fun getAnimationDuration() =
+    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.duration
 
   override fun popView(bundle: Bundle, paymentId: String) {
     bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY, paymentId)
@@ -215,7 +230,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
   private fun playAnimation() {
     binding.pendingUserPaymentView.inProgressAnimation.setMinAndMaxFrame(minFrame, maxFrame)
     binding.pendingUserPaymentView.inProgressAnimation.addAnimatorListener(object :
-        Animator.AnimatorListener {
+      Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator) = Unit
       override fun onAnimationEnd(animation: Animator) {
         if (maxFrame == LAST_ANIMATION_FRAME) {
@@ -233,6 +248,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
           binding.pendingUserPaymentView.inProgressAnimation.playAnimation()
         }
       }
+
       override fun onAnimationCancel(animation: Animator) = Unit
       override fun onAnimationStart(animation: Animator) {
         when (minFrame) {
@@ -240,10 +256,12 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
             animateShow(binding.pendingUserPaymentView.stepOne)
             animateShow(binding.pendingUserPaymentView.stepOneDesc)
           }
+
           ANIMATION_STEP_TWO_START_FRAME -> {
             animateShow(binding.pendingUserPaymentView.stepTwo)
             animateShow(binding.pendingUserPaymentView.stepTwoDesc)
           }
+
           BUTTON_ANIMATION_START_FRAME -> animateButton(binding.pendingUserPaymentView.gotItButton)
           else -> return
         }
@@ -259,10 +277,10 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
       lockRotation()
 
       animate()
-          .alpha(1f)
-          .withEndAction { this.visibility = View.VISIBLE }
-          .setDuration(TimeUnit.SECONDS.toMillis(1))
-          .setListener(null)
+        .alpha(1f)
+        .withEndAction { this.visibility = View.VISIBLE }
+        .setDuration(TimeUnit.SECONDS.toMillis(1))
+        .setListener(null)
     }
   }
 
@@ -271,13 +289,13 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
       alpha = 0.2f
 
       animate()
-          .alpha(1f)
-          .withEndAction {
-            this.isClickable = true
-            iabView.enableBack()
-          }
-          .setDuration(TimeUnit.SECONDS.toMillis(1))
-          .setListener(null)
+        .alpha(1f)
+        .withEndAction {
+          this.isClickable = true
+          iabView.setBackEnable(true)
+        }
+        .setDuration(TimeUnit.SECONDS.toMillis(1))
+        .setListener(null)
     }
   }
 
@@ -303,6 +321,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
     const val ASYNC = "async"
     const val REFERRER_URL = "referrer_url"
     const val GAMIFICATION_LEVEL = "gamification_level"
+    const val GUEST_WALLET_ID = "guest_wallet_id"
     private const val ANIMATION_STEP_ONE_START_FRAME = 0
     private const val ANIMATION_STEP_TWO_START_FRAME = 80
     private const val MID_ANIMATION_FRAME_INCREMENT = 40
@@ -311,35 +330,38 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
     private const val LAST_ANIMATION_FRAME = 150
 
     @JvmStatic
-    fun newInstance(domain: String, skudId: String?, originalAmount: String?, currency: String?,
-                    bonus: String?, selectedPaymentMethod: String, developerAddress: String,
-                    type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
-                    payload: String?, origin: String?, paymentMethodIconUrl: String,
-                    paymentMethodLabel: String, async: Boolean, referralUrl: String?,
-                    gamificationLevel: Int): LocalPaymentFragment {
+    fun newInstance(
+      domain: String, skudId: String?, originalAmount: String?, currency: String?,
+      bonus: String?, selectedPaymentMethod: String, developerAddress: String,
+      type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
+      payload: String?, origin: String?, paymentMethodIconUrl: String,
+      paymentMethodLabel: String, async: Boolean, referralUrl: String?,
+      gamificationLevel: Int, guestWalletId: String?
+    ): LocalPaymentFragment {
       return LocalPaymentFragment()
-          .apply {
-            arguments = Bundle().apply {
-              putString(DOMAIN_KEY, domain)
-              putString(SKU_ID_KEY, skudId)
-              putString(ORIGINAL_AMOUNT_KEY, originalAmount)
-              putString(CURRENCY_KEY, currency)
-              putString(BONUS_KEY, bonus)
-              putString(PAYMENT_KEY, selectedPaymentMethod)
-              putString(DEV_ADDRESS_KEY, developerAddress)
-              putString(TYPE_KEY, type)
-              putSerializable(AMOUNT_KEY, amount)
-              putString(CALLBACK_URL, callbackUrl)
-              putString(ORDER_REFERENCE, orderReference)
-              putString(PAYLOAD, payload)
-              putString(ORIGIN, origin)
-              putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
-              putString(PAYMENT_METHOD_LABEL, paymentMethodLabel)
-              putBoolean(ASYNC, async)
-              putString(REFERRER_URL, referralUrl)
-              putInt(GAMIFICATION_LEVEL, gamificationLevel)
-            }
+        .apply {
+          arguments = Bundle().apply {
+            putString(DOMAIN_KEY, domain)
+            putString(SKU_ID_KEY, skudId)
+            putString(ORIGINAL_AMOUNT_KEY, originalAmount)
+            putString(CURRENCY_KEY, currency)
+            putString(BONUS_KEY, bonus)
+            putString(PAYMENT_KEY, selectedPaymentMethod)
+            putString(DEV_ADDRESS_KEY, developerAddress)
+            putString(TYPE_KEY, type)
+            putSerializable(AMOUNT_KEY, amount)
+            putString(CALLBACK_URL, callbackUrl)
+            putString(ORDER_REFERENCE, orderReference)
+            putString(PAYLOAD, payload)
+            putString(ORIGIN, origin)
+            putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
+            putString(PAYMENT_METHOD_LABEL, paymentMethodLabel)
+            putBoolean(ASYNC, async)
+            putString(REFERRER_URL, referralUrl)
+            putInt(GAMIFICATION_LEVEL, gamificationLevel)
+            putString(GUEST_WALLET_ID, guestWalletId)
           }
+        }
     }
   }
 }

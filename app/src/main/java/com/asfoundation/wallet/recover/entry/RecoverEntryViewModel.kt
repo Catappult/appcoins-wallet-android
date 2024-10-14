@@ -1,19 +1,28 @@
 package com.asfoundation.wallet.recover.entry
 
 import android.net.Uri
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.appcoins.wallet.ui.arch.*
-import com.appcoins.wallet.ui.arch.data.Async
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
+import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
-import com.asfoundation.wallet.recover.use_cases.*
-import com.asfoundation.wallet.wallets.usecases.UpdateWalletInfoUseCase
-import com.asfoundation.wallet.wallets.usecases.UpdateWalletNameUseCase
+import com.asfoundation.wallet.recover.use_cases.GetFilePathUseCase
+import com.asfoundation.wallet.recover.use_cases.IsKeystoreUseCase
+import com.asfoundation.wallet.recover.use_cases.ReadFileUseCase
+import com.asfoundation.wallet.recover.use_cases.RecoverEntryKeystoreUseCase
+import com.asfoundation.wallet.recover.use_cases.RecoverEntryPrivateKeyUseCase
+import com.asfoundation.wallet.recover.use_cases.SetDefaultWalletUseCase
+import com.asfoundation.wallet.recover.use_cases.UpdateBackupStateFromRecoverUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -37,6 +46,7 @@ class RecoverEntryViewModel @Inject constructor(
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
   private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+  private val setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers
 ) : BaseViewModel<RecoverEntryState, RecoverEntrySideEffect>(initialState()) {
@@ -69,7 +79,7 @@ class RecoverEntryViewModel @Inject constructor(
     when (recoverResult) {
       is FailedEntryRecover -> Single.just(recoverResult)
       is SuccessfulEntryRecover -> setDefaultWalletUseCase(recoverResult.address)
-        .mergeWith(updateWalletInfoUseCase(recoverResult.address, updateFiat = true))
+        .mergeWith(updateWalletInfoUseCase(recoverResult.address))
         .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
         .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
         .toSingleDefault(recoverResult)
@@ -97,10 +107,13 @@ class RecoverEntryViewModel @Inject constructor(
           WalletsAnalytics.ACTION_IMPORT,
           WalletsAnalytics.STATUS_SUCCESS
         )
+        setIsFirstPaymentUseCase(false)
       }
+
       is FailedEntryRecover.InvalidPassword -> {
         setState { copy(recoverResultAsync = Async.Uninitialized) }
       }
+
       else -> {
         walletsEventSender.sendWalletRestoreEvent(
           WalletsAnalytics.ACTION_IMPORT,

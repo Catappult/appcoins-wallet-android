@@ -1,6 +1,12 @@
 package cm.aptoide.skills.repository
 
-import cm.aptoide.skills.model.*
+import cm.aptoide.skills.model.CreatedTicket
+import cm.aptoide.skills.model.ErrorStatus
+import cm.aptoide.skills.model.FailedTicket
+import cm.aptoide.skills.model.ProcessingStatus
+import cm.aptoide.skills.model.PurchasedTicket
+import cm.aptoide.skills.model.Ticket
+import cm.aptoide.skills.model.WalletAddress
 import cm.aptoide.skills.util.getMessage
 import cm.aptoide.skills.util.isNoNetworkException
 import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
@@ -22,6 +28,7 @@ class TicketApiMapper @Inject constructor(private val jsonMapper: Gson) {
         WalletAddress.fromValue(ticketResponse.walletAddress), ticketResponse.userId,
         ticketResponse.roomId!!, queueId ?: QueueIdentifier(ticketResponse.queueId, false)
       )
+
       else -> CreatedTicket(
         ticketResponse.ticketId,
         ProcessingStatus.fromTicketStatus(ticketResponse.ticketStatus),
@@ -47,6 +54,8 @@ class TicketApiMapper @Inject constructor(private val jsonMapper: Gson) {
         ErrorCode.VPN_NOT_SUPPORTED -> FailedTicket(ErrorStatus.VPN_NOT_SUPPORTED)
         ErrorCode.REGION_NOT_SUPPORTED -> FailedTicket(ErrorStatus.REGION_NOT_SUPPORTED)
         ErrorCode.WALLET_VERSION_NOT_SUPPORTED -> FailedTicket(ErrorStatus.WALLET_VERSION_NOT_SUPPORTED)
+        ErrorCode.PACKAGE_VERSION_NOT_SUPPORTED -> FailedTicket(ErrorStatus.PACKAGE_VERSION_NOT_SUPPORTED)
+        ErrorCode.PACKAGE_NAME_NOT_SUPPORTED -> FailedTicket(ErrorStatus.PACKAGE_NAME_NOT_SUPPORTED)
         ErrorCode.NOT_AUTHENTICATED -> FailedTicket(ErrorStatus.GENERIC)
       }
     } else {
@@ -60,5 +69,10 @@ data class Response(val detail: ErrorDetail)
 data class ErrorDetail(val code: ErrorCode, val message: String)
 
 enum class ErrorCode {
-  VPN_NOT_SUPPORTED, REGION_NOT_SUPPORTED, NOT_AUTHENTICATED, WALLET_VERSION_NOT_SUPPORTED
+  VPN_NOT_SUPPORTED,
+  REGION_NOT_SUPPORTED,
+  NOT_AUTHENTICATED,
+  WALLET_VERSION_NOT_SUPPORTED,
+  PACKAGE_VERSION_NOT_SUPPORTED,
+  PACKAGE_NAME_NOT_SUPPORTED,
 }

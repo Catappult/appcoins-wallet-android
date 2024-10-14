@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.util.TypedValue
 import com.appcoins.wallet.appcoins.rewards.ErrorInfo.ErrorType
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
-import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -38,6 +38,8 @@ class LocalPaymentPresenter(
 
   private var waitingResult: Boolean = false
 
+  private var uid: String? = null
+
   fun present(savedInstance: Bundle?) {
     view.setupUi(data.bonus)
     savedInstance?.let {
@@ -47,7 +49,7 @@ class LocalPaymentPresenter(
     handlePaymentRedirect()
     handleOkErrorButtonClick()
     handleOkBuyButtonClick()
-    handleSupportClicks()
+    handleSupportClicks(uid)
   }
 
   fun handleStop() {
@@ -92,10 +94,18 @@ class LocalPaymentPresenter(
   private fun onViewCreatedRequestLink() {
     disposables.add(
       localPaymentInteractor.getPaymentLink(
-        data.paymentId,data.packageName, data.fiatAmount,
-        data.currency, data.skuId, data.type, data.origin,
-        data.developerAddress, data.payload, data.callbackUrl, data.orderReference,
-        data.referrerUrl
+        paymentMethod = data.paymentId,
+        packageName = data.packageName,
+        fiatAmount = data.fiatAmount,
+        fiatCurrency = data.currency,
+        productName = data.skuId,
+        type = data.type,
+        origin = data.origin,
+        developerPayload = data.payload,
+        callbackUrl = data.callbackUrl,
+        orderReference = data.orderReference,
+        referrerUrl = data.referrerUrl,
+        guestWalletId = data.guestWalletId
       )
         .filter { !waitingResult }
         .observeOn(viewScheduler)
@@ -122,7 +132,10 @@ class LocalPaymentPresenter(
           .subscribeOn(networkScheduler)
       }
       .observeOn(viewScheduler)
-      .flatMapCompletable { handleTransactionStatus(it) }
+      .flatMapCompletable {
+        uid = it.uid
+        handleTransactionStatus(it)
+      }
       .subscribe({}, { showError(it) })
     )
   }
@@ -154,7 +167,7 @@ class LocalPaymentPresenter(
                 logger.log(TAG, Exception("FraudFlow blocked"))
                 view.showError(R.string.purchase_error_wallet_block_code_403)
               } else {
-                view.showVerification()
+                view.showCreditCardVerification()
               }
             }
         } else {
@@ -182,6 +195,7 @@ class LocalPaymentPresenter(
         view.showError()
       }
         .subscribeOn(viewScheduler)
+
       data.async ->
         //Although this should no longer happen at the moment in Iab, since it doesn't consume much process time
         //I decided to leave this here in case the API wants to change the logic and return them to Iab in the future.
@@ -191,6 +205,7 @@ class LocalPaymentPresenter(
             localPaymentInteractor.saveAsyncLocalPayment(data.paymentId)
             preparePendingUserPayment()
           })
+
       transaction.status == Status.COMPLETED -> handleSyncCompletedStatus(transaction)
       else -> Completable.complete()
     }
@@ -223,7 +238,13 @@ class LocalPaymentPresenter(
       .observeOn(viewScheduler)
       .flatMapCompletable {
         Completable.fromAction { view.showCompletedPayment() }
-          .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
+          .andThen(
+            Completable.timer(
+              view.getAnimationDuration(),
+              TimeUnit.MILLISECONDS,
+              viewScheduler
+            )
+          )
           .andThen(Completable.fromAction { view.popView(it.bundle, data.paymentId) })
       }
   }
@@ -249,6 +270,7 @@ class LocalPaymentPresenter(
           )
         }
       }
+
       Status.COMPLETED -> {
         Completable.fromAction {
           analytics.sendPaymentConclusionEvents(
@@ -263,14 +285,15 @@ class LocalPaymentPresenter(
           handleRevenueEvent()
         }
       }
+
       else -> Completable.complete()
     }
   }
 
-  private fun handleSupportClicks() {
+  private fun handleSupportClicks(uid: String?) {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
       .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .flatMapCompletable { localPaymentInteractor.showSupport(data.gamificationLevel) }
+      .flatMapCompletable { localPaymentInteractor.showSupport(data.gamificationLevel, uid) }
       .subscribe({}, { it.printStackTrace() })
     )
   }

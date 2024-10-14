@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:gravity="end"
+    android:orientation="horizontal"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="8dp"
+    >
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/error_cancel"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_gravity="center"
+      android:layout_marginEnd="8dp"
+      android:visibility="gone"
+      app:buttonColor="@color/styleguide_dark_grey"
+      app:buttonText="@string/cancel"
+      app:buttonType="text"
+      />
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/error_back"
+      android:layout_width="wrap_content"
+      android:layout_height="40dp"
+      android:layout_gravity="center"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:visibility="gone"
+      app:buttonColor="@color/styleguide_dark_grey"
+      app:buttonText="@string/back_button"
+      app:buttonType="text"
+      />
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/error_try_again"
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:layout_gravity="center_vertical"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
+      />
+
+</LinearLayout>

@@ -13,7 +13,7 @@ import com.appcoins.wallet.gamification.repository.entity.WalletOriginEntity
 
 @Database(
   entities = [PromotionEntity::class, LevelsEntity::class, LevelEntity::class, WalletOriginEntity::class],
-  version = 9
+  version = 10
 )
 @TypeConverters(PromotionConverter::class)
 abstract class PromotionDatabase : RoomDatabase() {
@@ -103,6 +103,14 @@ abstract class PromotionDatabase : RoomDatabase() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
           database.execSQL("ALTER TABLE PromotionEntity RENAME COLUMN gamification_status to gamification_type")
         }
+      }
+    }
+
+    //Adds the action url and package Name field to the promotions entity object
+    val MIGRATION_9_10: Migration = object : Migration(9, 10) {
+      override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE PromotionEntity ADD COLUMN action_url TEXT")
+        database.execSQL("ALTER TABLE PromotionEntity ADD COLUMN package_name TEXT")
       }
     }
   }

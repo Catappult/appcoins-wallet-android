@@ -1,12 +1,11 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.PaymentMethodsApiResponse
+import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.common.BillingErrorMapper
-import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
-import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
 import com.appcoins.wallet.billing.util.getMessage
@@ -14,6 +13,8 @@ import com.appcoins.wallet.billing.util.isNoNetworkException
 import com.appcoins.wallet.core.network.microservices.model.AdyenTransactionResponse
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodsResponse
 import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import retrofit2.HttpException
@@ -43,6 +44,34 @@ open class AdyenResponseMapper @Inject constructor(
       ?: PaymentInfoModel(Error(true))
   }
 
+  open fun mapWithFilterByCard(
+    response: PaymentMethodsResponse,
+    method: AdyenPaymentRepository.Methods,
+    cardId: String
+  ): PaymentInfoModel {
+    val adyenResponse: PaymentMethodsApiResponse =
+      adyenSerializer.deserializePaymentMethods(response)
+    return adyenResponse.storedPaymentMethods
+      ?.find { it.type == method.adyenType && it.id == cardId }
+      ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
+      ?: adyenResponse.paymentMethods
+        ?.find { it.type == method.adyenType }
+        ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
+      ?: PaymentInfoModel(Error(true))
+  }
+
+  open fun mapWithoutStoredCard(
+    response: PaymentMethodsResponse,
+    method: AdyenPaymentRepository.Methods
+  ): PaymentInfoModel {
+    val adyenResponse: PaymentMethodsApiResponse =
+      adyenSerializer.deserializePaymentMethods(response)
+    return adyenResponse.paymentMethods
+      ?.find { it.type == method.adyenType }
+      ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
+      ?: PaymentInfoModel(Error(true))
+  }
+
   open fun map(response: AdyenTransactionResponse): PaymentModel {
     val adyenResponse = response.payment
     var actionType: String? = null
@@ -67,6 +96,7 @@ open class AdyenResponseMapper @Inject constructor(
           action = adyenSerializer.deserializeRedirectAction(jsonAction)
           redirectUrl = action.url
         }
+
         THREEDS2 -> action = adyenSerializer.deserialize3DS(jsonAction)
         THREEDS2FINGERPRINT -> action = adyenSerializer.deserialize3DSFingerprint(jsonAction)
         THREEDS2CHALLENGE -> action = adyenSerializer.deserialize3DSChallenge(jsonAction)
@@ -75,7 +105,7 @@ open class AdyenResponseMapper @Inject constructor(
     return PaymentModel(
       adyenResponse?.resultCode, adyenResponse?.refusalReason,
       adyenResponse?.refusalReasonCode?.toInt(), action, redirectUrl, action?.paymentData,
-      response.uid, null, response.hash, response.orderReference, fraudResultsId,
+      response.uid, response.metadata?.purchaseUid, response.hash, response.orderReference, fraudResultsId,
       map(response.status), response.metadata?.errorMessage, response.metadata?.errorCode
     )
   }
@@ -203,6 +233,17 @@ open class AdyenResponseMapper @Inject constructor(
         errorInfo = ErrorInfo(text = throwable.message)
       )
     )
+  }
+
+  open fun mapToStoredCards(
+    response: PaymentMethodsResponse
+  ): List<StoredPaymentMethod> {
+    val adyenResponse: PaymentMethodsApiResponse =
+      adyenSerializer.deserializePaymentMethods(response)
+    val cardsList = adyenResponse.storedPaymentMethods?.filter {
+      it.type == AdyenPaymentRepository.Methods.CREDIT_CARD.adyenType
+    }
+    return cardsList ?: listOf<StoredPaymentMethod>()
   }
 
   companion object {

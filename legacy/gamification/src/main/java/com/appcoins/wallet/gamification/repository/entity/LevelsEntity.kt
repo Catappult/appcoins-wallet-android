@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.appcoins.wallet.core.network.backend.model.LevelsResponse
-import java.util.*
+import java.util.Date
 
 @Entity
 data class LevelsEntity(

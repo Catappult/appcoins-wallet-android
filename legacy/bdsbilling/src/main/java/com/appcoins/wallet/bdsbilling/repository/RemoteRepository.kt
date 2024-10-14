@@ -1,37 +1,52 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.repository.entity.*
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
-import com.appcoins.wallet.core.network.bds.model.GetWalletResponse
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
-import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.network.microservices.model.CreditsPurchaseBody
+import com.appcoins.wallet.core.network.microservices.model.DetailsResponseBody
+import com.appcoins.wallet.core.network.microservices.model.GetPurchasesResponse
+import com.appcoins.wallet.core.network.microservices.model.MiPayTransaction
+import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
+import com.appcoins.wallet.core.network.microservices.model.SubscriptionsResponse
+import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.network.microservices.model.TransactionsResponse
+import com.appcoins.wallet.core.network.microservices.model.merge
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
-import retrofit2.http.*
 import java.math.BigDecimal
-import java.util.*
+import java.util.Locale
+import java.util.concurrent.atomic.AtomicBoolean
 
 class RemoteRepository(
   private val brokerBdsApi: BrokerBdsApi,
   private val inappApi: InappBillingApi,
   private val responseMapper: BdsApiResponseMapper,
-  private val bdsApiSecondary: BdsApiSecondary,
   private val subsApi: SubscriptionBillingApi,
   private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
+  private val fiatCurrenciesPreferences: FiatCurrenciesPreferencesDataSource,
 ) {
   companion object {
     private const val SKUS_DETAILS_REQUEST_LIMIT = 50
     private const val ESKILLS = "ESKILLS"
     private const val SKUS_SUBS_DETAILS_REQUEST_LIMIT = 100
+    private const val TOP_UP_TYPE = "TOPUP"
+    private const val ANDROID_CHANNEL = "ANDROID"
+
+    class DuplicateException : Exception()
+
+    var executingAppcTransaction = AtomicBoolean(false)
   }
 
   internal fun isBillingSupported(packageName: String): Single<Boolean> =
@@ -48,12 +63,17 @@ class RemoteRepository(
     skus: List<String>
   ): Single<DetailsResponseBody> =
     if (skus.size <= SKUS_DETAILS_REQUEST_LIMIT) {
-      inappApi.getConsumables(packageName, skus.joinToString(separator = ","))
+      inappApi.getConsumables(
+        packageName = packageName,
+        names = skus.joinToString(separator = ","),
+        currency = fiatCurrenciesPreferences.getCachedSelectedCurrency(),
+      )
     } else {
       Single.zip(
         inappApi.getConsumables(
           packageName = packageName,
-          names = skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ",")
+          names = skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ","),
+          currency = fiatCurrenciesPreferences.getCachedSelectedCurrency(),
         ), requestSkusDetails(packageName, skus.drop(SKUS_DETAILS_REQUEST_LIMIT))
       ) { firstResponse, secondResponse -> firstResponse.merge(secondResponse) }
     }
@@ -83,7 +103,7 @@ class RemoteRepository(
         inappApi.getPurchases(
           packageName = packageName,
           authorization = ewt,
-          type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT),
+          type = BillingSupportedType.INAPP.name.lowercase(Locale.ROOT),
           sku = skuId
         )
           .map {
@@ -91,7 +111,7 @@ class RemoteRepository(
               throw HttpException(
                 Response.error<GetPurchasesResponse>(
                   404,
-                  ResponseBody.create("application/json".toMediaType(), "{}")
+                  "{}".toResponseBody("application/json".toMediaType())
                 )
               )
             }
@@ -140,7 +160,7 @@ class RemoteRepository(
         inappApi.getPurchases(
           packageName = packageName,
           authorization = ewt,
-          type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT)
+          type = BillingSupportedType.INAPP.name.lowercase(Locale.ROOT)
         )
           .map { responseMapper.map(packageName, it) }
       }
@@ -210,16 +230,15 @@ class RemoteRepository(
     productName: String?,
     packageName: String,
     priceValue: BigDecimal,
-    developerWallet: String,
     developerPayload: String?,
     callback: String?,
     orderReference: String?,
     referrerUrl: String?,
-    productToken: String?
+    productToken: String?,
+    guestWalletId: String?
   ): Single<Transaction> =
     createTransaction(
       userWallet = null,
-      developerWallet = developerWallet,
       entityOemId = entityOemId,
       entityDomain = entityDomainId,
       token = id,
@@ -235,7 +254,8 @@ class RemoteRepository(
       packageName = packageName,
       amount = priceValue.toPlainString(),
       currency = "APPC",
-      productName = productName
+      productName = productName,
+      guestWalletId = guestWalletId,
     )
 
   fun registerPaymentProof(
@@ -261,7 +281,9 @@ class RemoteRepository(
     currencyType: String?,
     direct: Boolean? = null,
     transactionType: String?,
-    packageName: String?
+    packageName: String?,
+    entityOemId: String?,
+    address: String?,
   ): Single<List<PaymentMethodEntity>> =
     brokerBdsApi.getPaymentMethods(
       value = value,
@@ -269,7 +291,12 @@ class RemoteRepository(
       currencyType = currencyType,
       direct = direct,
       type = transactionType,
-      packageName = packageName
+      packageName = packageName,
+      darkTheme = transactionType == TOP_UP_TYPE,
+      entityOemId = entityOemId,
+      walletAddress = address,
+      language = Locale.getDefault().language,
+      channel = ANDROID_CHANNEL
     )
       .map { responseMapper.map(it) }
 
@@ -284,19 +311,6 @@ class RemoteRepository(
       walletSignature = signedContent
     )
 
-  var ownerWalletCached: GetWalletResponse? = null
-  var packageNameCached: String? = null
-  fun getWallet(packageName: String, fromCache: Boolean = true): Single<GetWalletResponse> {
-    return if (fromCache && ownerWalletCached != null && packageNameCached == packageName)
-      Single.just(ownerWalletCached)
-    else
-      bdsApiSecondary.getWallet(packageName)
-        .doOnSuccess {
-          ownerWalletCached = it
-          packageNameCached = packageName
-        }
-  }
-
   fun transferCredits(
     toWallet: String,
     origin: String,
@@ -305,11 +319,11 @@ class RemoteRepository(
     walletAddress: String,
     signature: String,
     packageName: String,
-    amount: BigDecimal
+    amount: BigDecimal,
+    guestWalletId: String?
   ): Single<Transaction> =
     createTransaction(
       userWallet = toWallet,
-      developerWallet = null,
       entityOemId = null,
       entityDomain = null,
       token = null,
@@ -325,7 +339,8 @@ class RemoteRepository(
       packageName = packageName,
       amount = amount.toPlainString(),
       currency = "APPC",
-      productName = null
+      productName = null,
+      guestWalletId = guestWalletId,
     )
 
   fun createLocalPaymentTransaction(
@@ -336,7 +351,6 @@ class RemoteRepository(
     productName: String?,
     type: String,
     origin: String?,
-    walletsDeveloper: String?,
     entityOemId: String?,
     entityDomain: String?,
     entityPromoCode: String?,
@@ -344,7 +358,8 @@ class RemoteRepository(
     callback: String?,
     orderReference: String?,
     referrerUrl: String?,
-    walletAddress: String
+    walletAddress: String,
+    guestWalletId: String?
   ): Single<Transaction> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -356,7 +371,6 @@ class RemoteRepository(
           product = productName,
           type = type,
           userWallet = walletAddress,
-          walletsDeveloper = walletsDeveloper,
           entityOemId = entityOemId,
           entityDomain = entityDomain,
           entityPromoCode = entityPromoCode,
@@ -366,7 +380,45 @@ class RemoteRepository(
           orderReference = orderReference,
           referrerUrl = referrerUrl,
           walletAddress = walletAddress,
-          authorization = ewt
+          authorization = ewt,
+          guestWalletId = guestWalletId
+        )
+      }
+
+  fun createMiPayTransaction(
+    paymentId: String,
+    packageName: String,
+    price: String?,
+    currency: String?,
+    productName: String?,
+    type: String,
+    callback: String?,
+    referrerUrl: String?,
+    walletAddress: String,
+    entityOemId: String?,
+    returnUrl: String?,
+    walletSignature: String?,
+    orderReference: String?,
+    guestWalletId: String?
+  ): Single<MiPayTransaction> =
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        brokerBdsApi.createMiPayTransaction(
+          domain = packageName,
+          priceValue = price,
+          priceCurrency = currency,
+          product = productName,
+          type = type,
+          entityOemId = entityOemId,
+          method = paymentId,
+          callbackUrl = callback,
+          referrerUrl = referrerUrl,
+          walletAddress = walletAddress,
+          authorization = ewt,
+          walletSignature = walletSignature,
+          checkoutUrl = returnUrl,
+          orderReference = orderReference,
+          guestWalletId = guestWalletId
         )
       }
 
@@ -398,7 +450,6 @@ class RemoteRepository(
 
   private fun createTransaction(
     userWallet: String?,
-    developerWallet: String?,
     entityOemId: String?,
     entityDomain: String?,
     token: String?,
@@ -414,7 +465,8 @@ class RemoteRepository(
     packageName: String,
     amount: String?,
     @Suppress("SameParameterValue") currency: String,
-    productName: String?
+    productName: String?,
+    guestWalletId: String?
   ): Single<Transaction> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -423,30 +475,36 @@ class RemoteRepository(
             gateway = gateway,
             walletAddress = walletAddress,
             authorization = ewt,
-            creditsPurchaseBody = CreditsPurchaseBody(callback, productToken)
+            creditsPurchaseBody = CreditsPurchaseBody(callback, productToken, entityOemId)
           )
         } else {
-          brokerBdsApi.createTransaction(
-            gateway = gateway,
-            origin = origin,
-            domain = packageName,
-            priceValue = amount,
-            priceCurrency = currency,
-            product = productName,
-            type = type,
-            userWallet = userWallet,
-            walletsDeveloper = developerWallet,
-            entityOemId = entityOemId,
-            entityDomain = entityDomain,
-            entityPromoCode = null,
-            token = token,
-            developerPayload = developerPayload,
-            callback = callback,
-            orderReference = orderReference,
-            referrerUrl = referrerUrl,
-            walletAddress = walletAddress,
-            authorization = ewt
-          )
+          if (executingAppcTransaction.compareAndSet(false, true)) {
+            brokerBdsApi.createTransaction(
+              gateway = gateway,
+              origin = origin,
+              domain = packageName,
+              priceValue = amount,
+              priceCurrency = currency,
+              product = productName,
+              type = type,
+              userWallet = userWallet,
+              entityOemId = entityOemId,
+              entityDomain = entityDomain,
+              entityPromoCode = null,
+              token = token,
+              developerPayload = developerPayload,
+              callback = callback,
+              orderReference = orderReference,
+              referrerUrl = referrerUrl,
+              guestWalletId = guestWalletId,
+              walletAddress = walletAddress,
+              authorization = ewt
+            )
+          } else {
+            Single.error(DuplicateException())
+          }
         }
       }
+      .doOnSuccess { executingAppcTransaction.set(false) }
+      .doOnError { executingAppcTransaction.set(false) }
 }

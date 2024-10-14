@@ -5,16 +5,23 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.asf.wallet.R
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
-import com.asfoundation.wallet.billing.paypal.usecases.*
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
+import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.paypal.usecases.CancelPaypalTokenUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalAgreementUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalTokenUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalTransactionUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.WaitForSuccessPaypalUseCase
+import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -31,6 +38,7 @@ class PayPalIABViewModel @Inject constructor(
   private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val supportInteractor: SupportInteractor,
+  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   rxSchedulers: RxSchedulers,
   private val analytics: BillingAnalytics,
   private val paymentAnalytics: PaymentMethodsAnalytics
@@ -51,8 +59,24 @@ class PayPalIABViewModel @Inject constructor(
 
   private var authenticatedToken: String? = null
 
+  private var uid: String? = null
+
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
+
+  fun startPayment(
+    createTokenIfNeeded: Boolean = true, amount: BigDecimal, currency: String,
+    transactionBuilder: TransactionBuilder, origin: String?
+  ) {
+    sendPaymentConfirmationEvent(transactionBuilder)
+    attemptTransaction(
+      createTokenIfNeeded = createTokenIfNeeded,
+      amount = amount,
+      currency = currency,
+      transactionBuilder = transactionBuilder,
+      origin = origin
+    )
+  }
 
   fun attemptTransaction(
     createTokenIfNeeded: Boolean = true, amount: BigDecimal, currency: String,
@@ -69,16 +93,18 @@ class PayPalIABViewModel @Inject constructor(
         sku = transactionBuilder.skuId,
         callbackUrl = transactionBuilder.callbackUrl,
         transactionType = transactionBuilder.type,
-        developerWallet = transactionBuilder.toAddress(),
-        referrerUrl = transactionBuilder.referrerUrl
+        referrerUrl = transactionBuilder.referrerUrl,
+        guestWalletId = transactionBuilder.guestWalletId
       )
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
           when (it?.validity) {
             PaypalTransaction.PaypalValidityState.COMPLETED -> {
+              uid = it.uid
               getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
             }
+
             PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT -> {
               Log.d(TAG, "No billing agreement. Create new token? $createTokenIfNeeded ")
               if (createTokenIfNeeded) {
@@ -89,9 +115,11 @@ class PayPalIABViewModel @Inject constructor(
                 _state.postValue(State.Error(R.string.purchase_error_paypal))
               }
             }
+
             PaypalTransaction.PaypalValidityState.PENDING -> {
               waitForSuccess(it.hash, it.uid, transactionBuilder)
             }
+
             PaypalTransaction.PaypalValidityState.ERROR -> {
               Log.d(TAG, "Paypal transaction error")
               sendPaymentErrorEvent(
@@ -100,6 +128,7 @@ class PayPalIABViewModel @Inject constructor(
               )
               _state.postValue(State.Error(R.string.purchase_error_paypal))
             }
+
             null -> {
               Log.d(TAG, "Paypal transaction error")
               sendPaymentErrorEvent(
@@ -194,6 +223,7 @@ class PayPalIABViewModel @Inject constructor(
               PaymentModel.Status.COMPLETED -> {
                 getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
               }
+
               PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
               PaymentModel.Status.INVALID_TRANSACTION -> {
                 Log.d(TAG, "Error on transaction on Settled transaction polling")
@@ -203,6 +233,7 @@ class PayPalIABViewModel @Inject constructor(
                 )
                 _state.postValue(State.Error(R.string.unknown_error))
               }
+
               else -> { /* pending */
               }
             }
@@ -223,6 +254,9 @@ class PayPalIABViewModel @Inject constructor(
     purchaseUid: String?,
     transactionBuilder: TransactionBuilder
   ) {
+    inAppPurchaseInteractor.savePreSelectedPaymentMethod(
+      PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id
+    )
     sendPaymentSuccessEvent(transactionBuilder, purchaseUid ?: "")
     createSuccessBundleUseCase(
       transactionBuilder.type,
@@ -241,10 +275,26 @@ class PayPalIABViewModel @Inject constructor(
       .subscribeOn(viewScheduler)
       .observeOn(viewScheduler)
       .doOnError {
-        // TODO event
         _state.postValue(State.Error(R.string.unknown_error))
       }
       .subscribe()
+  }
+
+  private fun sendPaymentConfirmationEvent(transactionBuilder: TransactionBuilder) {
+    compositeDisposable.add(Single.just(transactionBuilder)
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .subscribe { it ->
+        analytics.sendPaymentConfirmationEvent(
+          it.domain,
+          it.skuId,
+          it.amount().toString(),
+          BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
+          it.type,
+          BillingAnalytics.ACTION_BUY
+        )
+      }
+    )
   }
 
   private fun sendPaymentEvent(transactionBuilder: TransactionBuilder) {
@@ -337,7 +387,7 @@ class PayPalIABViewModel @Inject constructor(
 
   fun showSupport(gamificationLevel: Int) {
     compositeDisposable.add(
-      supportInteractor.showSupport(gamificationLevel).subscribe({}, { it.printStackTrace() })
+      supportInteractor.showSupport(gamificationLevel, uid).subscribe({}, { it.printStackTrace() })
     )
   }
 

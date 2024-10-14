@@ -1,31 +1,31 @@
 package com.asfoundation.wallet.transactions
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Transaction(
-    val transactionId: String,
-    val type: TransactionType,
-    val subType: SubType?,
-    val method: Method,
-    val title: String?,
-    val description: String?,
-    val perk: Perk?,
-    val approveTransactionId: String?,
-    val timeStamp: Long,
-    val processedTime: Long,
-    val status: TransactionStatus,
-    val value: String,
-    val from: String,
-    val to: String,
-    val details: TransactionDetails?,
-    val currency: String?,
-    val operations: List<Operation>?,
-    val linkedTx: List<Transaction>?,
-    val paidAmount: String?,
-    val paidCurrency: String?,
-    val orderReference: String?
+  val transactionId: String,
+  val type: TransactionType,
+  val subType: SubType?,
+  val method: Method,
+  val title: String?,
+  val description: String?,
+  val perk: Perk?,
+  val approveTransactionId: String?,
+  val timeStamp: Long,
+  val processedTime: Long,
+  val status: TransactionStatus,
+  val value: String,
+  val from: String,
+  val to: String,
+  val details: TransactionDetails?,
+  val currency: String?,
+  val operations: List<Operation>?,
+  val linkedTx: List<Transaction>?,
+  val paidAmount: String?,
+  val paidCurrency: String?,
+  val orderReference: String?
 ) : Parcelable {
 
   @Parcelize

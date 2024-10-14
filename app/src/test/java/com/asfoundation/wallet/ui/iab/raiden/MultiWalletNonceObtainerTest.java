@@ -12,7 +12,7 @@ public class MultiWalletNonceObtainerTest {
   public static final String ADDRESS_2 = "0x4FBcc5cE88493C3D9903701C143aF65F54481112";
   public static final int CHAIN_ID_1 = 1;
   public static final int CHAIN_ID_2 = 2;
-  private static int nonce = 0;
+  private static final int nonce = 0;
   private MultiWalletNonceObtainer nonceObtainer;
 
   @Before public void setUp() {

@@ -15,6 +15,6 @@ class ReferralShareTextBuilderUseCase @Inject constructor(
   ): Single<AppData> {
     return appMetaDataRepository.getMeta(packageName)
       .subscribeOn(Schedulers.io())
-      .map{it.data}
+      .map { it.data }
   }
 }

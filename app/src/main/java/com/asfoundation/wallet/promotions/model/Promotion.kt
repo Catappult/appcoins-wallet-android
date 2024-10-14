@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.promotions.model
 
 import android.graphics.drawable.Drawable
-import androidx.annotation.StringRes
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import java.math.BigDecimal
 
@@ -15,14 +14,6 @@ sealed class PerkPromotion(
   open val detailsLink: String?
 ) : Promotion(id)
 
-data class TitleItem(
-  @StringRes val title: Int,
-  @StringRes val subtitle: Int,
-  val isGamificationTitle: Boolean,
-  val bonus: String = "0.0",
-  override val id: String = ""
-) : Promotion(id)
-
 data class DefaultItem(
   override val id: String,
   override val gamificationStatus: GamificationStatus?,
@@ -31,7 +22,9 @@ data class DefaultItem(
   val appName: String?,
   override val startDate: Long?,
   override val endDate: Long,
-  override val detailsLink: String?
+  override val detailsLink: String?,
+  val actionUrl: String?,
+  val packageName: String?
 ) : PerkPromotion(id, gamificationStatus, startDate, endDate, detailsLink)
 
 data class FutureItem(
@@ -42,7 +35,9 @@ data class FutureItem(
   val appName: String?,
   override val startDate: Long?,
   override val endDate: Long,
-  override val detailsLink: String?
+  override val detailsLink: String?,
+  val actionUrl: String?,
+  val packageName: String?
 ) : PerkPromotion(id, gamificationStatus, startDate, endDate, detailsLink)
 
 data class ProgressItem(
@@ -86,15 +81,6 @@ data class GamificationLinkItem(
   override val endDate: Long
 ) : PerkPromotion(id, gamificationStatus, startDate, endDate, null)
 
-data class VoucherItem(
-  override val id: String,
-  val packageName: String,
-  val title: String,
-  val icon: String,
-  val hasAppcoins: Boolean,
-  val maxBonus: Double
-) : Promotion(id)
-
 data class PromoCodeItem(
   override val id: String,
   override val gamificationStatus: GamificationStatus?,
@@ -102,5 +88,7 @@ data class PromoCodeItem(
   val appName: String?,
   val icon: String?,
   override val startDate: Long?,
-  override val endDate: Long
+  override val endDate: Long,
+  val actionUrl: String?,
+  val packageName: String?
 ) : PerkPromotion(id, gamificationStatus, startDate, endDate, null)

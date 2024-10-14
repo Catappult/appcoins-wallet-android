@@ -1,24 +1,30 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
-import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
-import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CANCELLED_DUE_TO_FRAUD
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.ISSUER_SUSPECTED_FRAUD
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.adyen.PaymentType.CARD
+import com.asfoundation.wallet.billing.adyen.PaymentType.PAYPAL
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
+import com.asfoundation.wallet.onboarding.use_cases.GetResponseCodeWebSocketUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
+import com.asfoundation.wallet.onboarding.use_cases.SetResponseCodeWebSocketUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents.Companion.BACK_TO_THE_GAME
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents.Companion.EXPLORE_WALLET
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
-import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import javax.inject.Inject
@@ -27,7 +33,8 @@ sealed class OnboardingPaymentResultSideEffect : SideEffect {
   data class ShowPaymentError(
     val error: Error? = null,
     val refusalCode: Int? = null,
-    val isWalletVerified: Boolean? = null
+    val isWalletVerified: Boolean? = null,
+    val paymentType: PaymentType
   ) : OnboardingPaymentResultSideEffect()
 
   data class ShowPaymentSuccess(val purchaseBundleModel: PurchaseBundleModel) :
@@ -47,6 +54,8 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val supportInteractor: SupportInteractor,
   private val rxSchedulers: RxSchedulers,
+  private val setResponseCodeWebSocketUseCase: SetResponseCodeWebSocketUseCase,
+  private val getResponseCodeWebSocketUseCase: GetResponseCodeWebSocketUseCase,
   savedStateHandle: SavedStateHandle
 ) :
   BaseViewModel<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect>(
@@ -55,6 +64,8 @@ class OnboardingPaymentResultViewModel @Inject constructor(
 
   private var args: OnboardingPaymentResultFragmentArgs =
     OnboardingPaymentResultFragmentArgs.fromSavedStateHandle(savedStateHandle)
+
+  private var uid: String? = null
 
   init {
     handlePaymentResult()
@@ -65,25 +76,32 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       args.paymentModel.resultCode.equals("AUTHORISED", true) -> {
         handleAuthorisedPayment()
       }
+
       args.paymentModel.refusalCode != null -> {
         handlePaymentRefusal()
       }
+
       args.paymentModel.error.hasError -> {
-        when (args.paymentModel.error.errorInfo?.errorType) {
-          ErrorInfo.ErrorType.BILLING_ADDRESS -> {
-            //TODO handle billing address error
-          }
-          else -> {
-            events.sendPaymentErrorEvent(args.transactionBuilder, args.paymentType)
-            sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
-          }
+        events.sendPaymentErrorEvent(args.transactionBuilder, args.paymentType)
+        sendSideEffect {
+          OnboardingPaymentResultSideEffect.ShowPaymentError(
+            args.paymentModel.error,
+            paymentType = args.paymentType
+          )
         }
       }
+
       args.paymentModel.status == PaymentModel.Status.CANCELED -> {
         sendSideEffect { OnboardingPaymentResultSideEffect.NavigateBackToPaymentMethods }
       }
+
       else -> {
-        sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
+        sendSideEffect {
+          OnboardingPaymentResultSideEffect.ShowPaymentError(
+            args.paymentModel.error,
+            paymentType = args.paymentType
+          )
+        }
       }
     }
   }
@@ -91,9 +109,16 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   private fun handleAuthorisedPayment() {
     adyenPaymentInteractor.getAuthorisedTransaction(args.paymentModel.uid)
       .doOnNext { authorisedPaymentModel ->
-        when {
-          authorisedPaymentModel.status == PaymentModel.Status.COMPLETED -> {
-            events.sendPaymentSuccessEvent(args.transactionBuilder, args.paymentType, authorisedPaymentModel.uid)
+        when (authorisedPaymentModel.status) {
+          PaymentModel.Status.COMPLETED -> {
+            args.paymentModel.purchaseUid = authorisedPaymentModel.purchaseUid
+            uid = authorisedPaymentModel.uid
+            args.paymentModel.hash = authorisedPaymentModel.hash
+            events.sendPaymentSuccessEvent(
+              args.transactionBuilder,
+              args.paymentType,
+              authorisedPaymentModel.uid
+            )
             createBundle(
               authorisedPaymentModel.hash,
               authorisedPaymentModel.orderReference,
@@ -108,22 +133,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
               }
             }.subscribe()
           }
-          isPaymentFailed(authorisedPaymentModel.status) -> {
-            events.sendPaymentErrorEvent(
-              args.transactionBuilder,
-              args.paymentType,
-              authorisedPaymentModel.error.errorInfo?.httpCode,
-              buildRefusalReason(
-                authorisedPaymentModel.status,
-                authorisedPaymentModel.error.errorInfo?.text
-              )
-            )
-            sendSideEffect {
-              OnboardingPaymentResultSideEffect.ShowPaymentError(
-                authorisedPaymentModel.error
-              )
-            }
-          }
+
           else -> {
             events.sendPaymentErrorEvent(
               args.transactionBuilder,
@@ -136,7 +146,8 @@ class OnboardingPaymentResultViewModel @Inject constructor(
             )
             sendSideEffect {
               OnboardingPaymentResultSideEffect.ShowPaymentError(
-                authorisedPaymentModel.error
+                authorisedPaymentModel.error,
+                paymentType = args.paymentType
               )
             }
           }
@@ -148,14 +159,16 @@ class OnboardingPaymentResultViewModel @Inject constructor(
     var riskRules: String? = null
     args.paymentModel.refusalCode?.let { code ->
       when (code) {
-        AdyenErrorCodeMapper.FRAUD -> {
+        FRAUD, ISSUER_SUSPECTED_FRAUD, CANCELLED_DUE_TO_FRAUD -> {
           handleFraudFlow(args.paymentModel.error, code)
           riskRules = args.paymentModel.fraudResultIds.sorted().joinToString(separator = "-")
         }
+
         else -> sendSideEffect {
           OnboardingPaymentResultSideEffect.ShowPaymentError(
             args.paymentModel.error,
-            code
+            code,
+            paymentType = args.paymentType
           )
         }
       }
@@ -169,22 +182,32 @@ class OnboardingPaymentResultViewModel @Inject constructor(
     )
   }
 
-  private fun handleFraudFlow(error: Error, refusalCode: Int) {
-    adyenPaymentInteractor.isWalletVerified()
+  fun handleFraudFlow(error: Error, refusalCode: Int) {
+    val verificationType = if (args.paymentType == CARD) {
+      VerificationType.CREDIT_CARD
+    } else {
+      VerificationType.PAYPAL
+    }
+    adyenPaymentInteractor.isWalletVerified(verificationType)
       .doOnSuccess { verified ->
         sendSideEffect {
-          OnboardingPaymentResultSideEffect.ShowPaymentError(error, refusalCode, verified)
+          OnboardingPaymentResultSideEffect.ShowPaymentError(
+            refusalCode = refusalCode,
+            isWalletVerified = verified,
+            paymentType = args.paymentType
+          )
         }
 
       }.doOnError {
         sendSideEffect {
-          OnboardingPaymentResultSideEffect.ShowPaymentError(error, refusalCode)
+          OnboardingPaymentResultSideEffect.ShowPaymentError(
+            error,
+            refusalCode,
+            paymentType = args.paymentType
+          )
         }
       }.scopedSubscribe()
   }
-
-  private fun isPaymentFailed(status: PaymentModel.Status): Boolean =
-    status == PaymentModel.Status.FAILED || status == PaymentModel.Status.CANCELED || status == PaymentModel.Status.INVALID_TRANSACTION || status == PaymentModel.Status.FRAUD
 
   private fun buildRefusalReason(status: PaymentModel.Status, message: String?): String =
     message?.let { "$status : $it" } ?: status.toString()
@@ -211,12 +234,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
 
   private fun mapPaymentMethodId(purchaseBundleModel: PurchaseBundleModel): PurchaseBundleModel {
     val bundle = purchaseBundleModel.bundle
-    if (args.paymentType == PaymentType.CARD) {
-      bundle.putString(
-        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
-        args.paymentType.mapToService().transactionType
-      )
-    } else if (args.paymentType == PaymentType.PAYPAL) {
+    if (args.paymentType == CARD || args.paymentType == PAYPAL) {
       bundle.putString(
         InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         args.paymentType.mapToService().transactionType
@@ -236,7 +254,13 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   }
 
   fun showSupport(gamificationLevel: Int) {
-    supportInteractor.showSupport(gamificationLevel)
+    supportInteractor.showSupport(gamificationLevel, uid)
       .scopedSubscribe()
   }
+
+  fun setResponseCodeWebSocket(responseCode: Int) = setResponseCodeWebSocketUseCase(responseCode)
+
+
+  fun getResponseCodeWebSocket() = getResponseCodeWebSocketUseCase()
+
 }

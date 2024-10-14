@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.permissions.request.view
 
-import com.asfoundation.wallet.wallets.WalletCreatorInteract
+
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletCreatorInteract
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit

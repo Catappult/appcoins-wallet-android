@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asf.wallet.R
 import com.asf.wallet.databinding.EarnAppcoinsLayoutBinding
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -49,7 +49,7 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.dialogBuyButtonsPaymentMethods.buyButton.setText(getString(R.string.discover_button))
     binding.dialogBuyButtonsPaymentMethods.cancelButton.setText(getString(R.string.back_button))
-    iabView.disableBack()
+    iabView.setBackEnable(false)
     presenter.present()
     super.onViewCreated(view, savedInstanceState)
   }
@@ -74,7 +74,7 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   override fun backPressed() = iabView.backButtonPress()
 
   override fun onDestroyView() {
-    iabView.enableBack()
+    iabView.setBackEnable(true)
     presenter.destroy()
     super.onDestroyView()
   }

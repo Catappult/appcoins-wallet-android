@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.billing.paypal.usecases
 
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
@@ -21,9 +21,11 @@ class WaitForSuccessPaypalUseCase @Inject constructor(
         Observable.interval(0, 5, TimeUnit.SECONDS, rxSchedulers.io)
           .timeInterval()
           .switchMap {
-            if(!isEndingState(lastPaymentCheck?.status))
-              payPalV2Repository.getTransaction(uid, walletAddressModel.address,
-                walletAddressModel.signedAddress)
+            if (!isEndingState(lastPaymentCheck?.status))
+              payPalV2Repository.getTransaction(
+                uid, walletAddressModel.address,
+                walletAddressModel.signedAddress
+              )
                 .doOnSuccess { lastPaymentCheck = it }
                 .toObservable()
             else
@@ -54,7 +56,7 @@ class WaitForSuccessPaypalUseCase @Inject constructor(
     return (status == PaymentModel.Status.FAILED
         || status == PaymentModel.Status.CANCELED
         || status == PaymentModel.Status.INVALID_TRANSACTION
-        || status == PaymentModel.Status.FRAUD )
+        || status == PaymentModel.Status.FRAUD)
   }
 
 }

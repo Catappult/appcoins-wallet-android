@@ -4,18 +4,23 @@ plugins {
 
 android {
   namespace = "com.appcoins.wallet.billing"
+
+  buildFeatures {
+    aidl = true
+  }
 }
 
 dependencies {
-  implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
   api(project(":legacy:bdsbilling"))
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:utils:properties"))
   implementation(project(":core:network:microservices"))
-  implementation(project(":core:network:base"))
   implementation(project(":core:network:bds"))
   implementation(project(":core:walletServices"))
+  implementation(project(":core:network:base"))
+  implementation(project(":core:analytics"))
+  implementation(project(":core:shared-preferences"))
 
   implementation(libs.bundles.rx)
   implementation(libs.bundles.network)

@@ -5,14 +5,15 @@ import java.math.BigDecimal
 
 data class SubscriptionsResponse(val items: List<SubscriptionResponse>)
 
-data class SubscriptionResponse(val sku: String,
-                                val period: String,
-                                @SerializedName("trial_period")
-                                val trialPeriod: String?,
-                                val title: String,
-                                val description: String,
-                                @SerializedName("price")
-                                val subscriptionPrice: SubscriptionPrice
+data class SubscriptionResponse(
+  val sku: String,
+  val period: String,
+  @SerializedName("trial_period")
+  val trialPeriod: String?,
+  val title: String,
+  val description: String,
+  @SerializedName("price")
+  val subscriptionPrice: SubscriptionPrice
 )
 
 data class SubscriptionPrice(
@@ -30,17 +31,19 @@ data class SubscriptionPurchaseListResponse(val items: List<SubscriptionPurchase
 If null, then no renewal has been set yet (when state is PENDING).
  * @param verification The subscription purchase verification object, to be used by the in-app seller to cryptographically verify the subscription purchase, in order to acknowledge and activate it.
  */
-data class SubscriptionPurchaseResponse(val uid: String,
-                                        val sku: String,
-                                        val state: PurchaseState,
-                                        @SerializedName("order_uid")
-                                        val orderUid: String,
-                                        @SerializedName("auto_renewing")
-                                        val autoRenewing: Boolean,
-                                        val payload: String?,
-                                        val created: String,
-                                        val renewal: String?,
-                                        val verification: Verification)
+data class SubscriptionPurchaseResponse(
+  val uid: String,
+  val sku: String,
+  val state: PurchaseState,
+  @SerializedName("order_uid")
+  val orderUid: String,
+  @SerializedName("auto_renewing")
+  val autoRenewing: Boolean,
+  val payload: String?,
+  val created: String,
+  val renewal: String?,
+  val verification: Verification
+)
 
 fun SubscriptionsResponse.merge(other: SubscriptionsResponse): SubscriptionsResponse {
   (items as ArrayList).addAll(other.items)
