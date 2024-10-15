@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.di
 
 import android.content.Context
+import androidx.work.Configuration
 import androidx.work.DelegatingWorkerFactory
 import androidx.work.WorkManager
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.asfoundation.wallet.promotions.worker.GetVipReferralWorkerFactory
 import dagger.Module
 import dagger.Provides
@@ -35,5 +37,15 @@ class WorkerModule {
   fun providesDelegatingWorkerFactory(): DelegatingWorkerFactory {
     return DelegatingWorkerFactory()
   }
+
+  @Singleton
+  @Provides
+  fun providesWorkManagerConfiguration(
+    getVipReferralWorkerFactory: GetVipReferralWorkerFactory
+  ): Configuration =
+    Configuration.Builder()
+      .setWorkerFactory(getVipReferralWorkerFactory)
+      .setMinimumLoggingLevel(Log.DEBUG)
+      .build()
 
 }

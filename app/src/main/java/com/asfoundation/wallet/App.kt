@@ -123,7 +123,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
 
   @Inject
-  lateinit var getVipReferralWorkerFactory: GetVipReferralWorkerFactory
+  lateinit var config: Configuration
 
   companion object {
     private val TAG = App::class.java.name
@@ -182,10 +182,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   }
 
   private fun initializeWorkerManager() {
-    val config = Configuration.Builder()
-      .setWorkerFactory(getVipReferralWorkerFactory)
-      .setMinimumLoggingLevel(Log.DEBUG)
-      .build()
     WorkManager.initialize(this, config)
   }
 
