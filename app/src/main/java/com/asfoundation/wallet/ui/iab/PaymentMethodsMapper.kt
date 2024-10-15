@@ -25,6 +25,7 @@ class PaymentMethodsMapper @Inject constructor(
       "challenge_reward" -> SelectedPaymentMethod.CHALLENGE_REWARD
       "vk_pay" -> SelectedPaymentMethod.VKPAY
       "googlepay" -> SelectedPaymentMethod.GOOGLEPAY_WEB
+      "credit_card_wallet_one" -> SelectedPaymentMethod.WALLET_ONE
       "mipay" -> SelectedPaymentMethod.MI_PAY
       "" -> SelectedPaymentMethod.ERROR
       else -> SelectedPaymentMethod.LOCAL_PAYMENTS
@@ -47,6 +48,7 @@ class PaymentMethodsMapper @Inject constructor(
       SelectedPaymentMethod.CHALLENGE_REWARD -> "challenge_reward"
       SelectedPaymentMethod.VKPAY -> "vk_pay"
       SelectedPaymentMethod.GOOGLEPAY_WEB -> "googlepay"
+      SelectedPaymentMethod.WALLET_ONE -> "credit_card_wallet_one"
       SelectedPaymentMethod.MI_PAY -> "mipay"
       SelectedPaymentMethod.ERROR -> ""
     }
