@@ -15,6 +15,7 @@ class CreateAmazonPayTransactionTopUpUseCase @Inject constructor(
 
   operator fun invoke(
     price: AmazonPrice,
+    chargePermissionId: String?
   ): Single<AmazonPayTransaction> {
     return walletService.getWalletAddress()
       .flatMap { address ->
@@ -27,6 +28,7 @@ class CreateAmazonPayTransactionTopUpUseCase @Inject constructor(
           transactionType = TOP_UP_TRANSACTION_TYPE,
           method = METHOD_AMAZONPAY,
           referrerUrl = null,
+          chargePermissionId = chargePermissionId
         )
       }
   }

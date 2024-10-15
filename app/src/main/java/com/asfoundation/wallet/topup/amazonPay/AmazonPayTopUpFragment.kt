@@ -4,19 +4,21 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -29,10 +31,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
+import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
@@ -40,6 +45,7 @@ import com.appcoins.wallet.ui.widgets.GenericError
 import com.appcoins.wallet.ui.widgets.component.Animation
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.APP_LINK_HOST
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.APP_LINK_PATH
@@ -47,8 +53,13 @@ import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.C
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
+import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.BONUS
+import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.TOP_UP_AMOUNT
+import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.TOP_UP_CURRENCY
+import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.TOP_UP_CURRENCY_SYMBOL
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import org.slf4j.MDC.put
 import javax.inject.Inject
 
 
@@ -88,7 +99,8 @@ class AmazonPayTopUpFragment : BasePageViewFragment(){
     ) { _ ->
       when (viewModel.uiState.collectAsState().value) {
         is UiState.Success -> {
-          SuccessScreen()
+          //SuccessScreen()
+          handleCompletePurchase()
         }
         UiState.Idle,
         UiState.Loading -> {
@@ -101,7 +113,6 @@ class AmazonPayTopUpFragment : BasePageViewFragment(){
           }
         }
         is UiState.Error -> {
-          Log.d("amazonpaytransaction", "fragment: UiState.Error")
           analytics.sendErrorEvent(
             value = viewModel.paymentData.appcValue.toDouble(),
             paymentMethod = "amazon_pay",
@@ -134,69 +145,37 @@ class AmazonPayTopUpFragment : BasePageViewFragment(){
     }
   }
 
-  @Composable
-  fun SuccessScreen() {
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier
-        .fillMaxSize()
-        .verticalScroll(rememberScrollState())
-        .padding(24.dp)
-    ) {
-      Spacer(modifier = Modifier.weight(72f))
-      Animation(
-        modifier = Modifier.size(104.dp),
-        animationRes = R.raw.success_animation,
-        iterations = 1
-      )
-      Text(
-        text = stringResource(id = R.string.activity_iab_transaction_completed_title),
-        color = WalletColors.styleguide_light_grey,
-        modifier = Modifier.padding(top = 28.dp),
-        style = MaterialTheme.typography.titleLarge,
-        fontWeight = FontWeight.Bold
-      )
-      Spacer(modifier = Modifier.weight(304f))
-      ButtonWithText(
-        modifier = Modifier
-          .padding(top = 40.dp)
-          .widthIn(max = 360.dp),
-        label = stringResource(id = R.string.got_it_button),
-        onClick = {
-          //analytics.sendSuccessScreenEvent(action = GOT_IT)
-          navigator.navigateBack()
-        },
-        labelColor = WalletColors.styleguide_white,
-        backgroundColor = WalletColors.styleguide_pink,
-        buttonType = ButtonType.LARGE,
-        fragmentName = fragmentName,
-        buttonsAnalytics = buttonsAnalytics
-      )
-    }
-  }
-
   private fun createAmazonPayLink() {
      val params = mapOf(
-      //Comes from MS
-      "merchantId" to viewModel.amazonTransaction?.merchantId,
-      //Currency comes from MS
-      "ledgerCurrency" to "EUR",
-      //Region comes from MS
-      "checkoutLanguage" to CHECKOUT_LANGUAGE.getValue("UK"),
-      //productType Comes FROM MS
-      "productType" to "PayOnly",
-      //Only needs in DEV
-      "environment" to "SANDBOX",
-    "amazonCheckoutSessionId" to viewModel.amazonTransaction?.checkoutSessionId,
-    "integrationType" to "NativeMobile",
-    "payloadJSON" to viewModel.amazonTransaction?.payload
-    )
+       "merchantId" to viewModel.amazonTransaction?.merchantId,
+       "ledgerCurrency" to "EUR",
+       "checkoutLanguage" to CHECKOUT_LANGUAGE.getValue("UK"),
+       "productType" to "PayOnly",
+       "amazonCheckoutSessionId" to viewModel.amazonTransaction?.checkoutSessionId,
+       "integrationType" to "NativeMobile",
+       "payloadJSON" to viewModel.amazonTransaction?.payload
+     ).apply {
+       if (BuildConfig.DEBUG) {
+         put("environment", "SANDBOX")
+       }
+     }
     buildURL(params, "DE")
   }
 
   override fun onResume() {
     super.onResume()
-    viewModel.startTransactionStatusTimer()
+    viewModel.getAmazonCheckoutSessionId()
+  }
+
+  private fun handleCompletePurchase() {
+    val bundle = Bundle().apply {
+      putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+      putString(TOP_UP_AMOUNT, viewModel.paymentData.fiatValue)
+      putString(TOP_UP_CURRENCY, viewModel.paymentData.fiatCurrencyCode)
+      putString(BONUS, viewModel.paymentData.bonusValue.toString())
+      putString(TOP_UP_CURRENCY_SYMBOL, viewModel.paymentData.fiatCurrencySymbol)
+    }
+    navigator.popView(bundle)
   }
 
 
@@ -213,24 +192,22 @@ class AmazonPayTopUpFragment : BasePageViewFragment(){
 
   private fun redirectUsingUniversalLink(url: String) {
     viewModel.runningCustomTab = true
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-    // Opens url in Amazon Shopping App, if App is installed else open in CCT
-    startActivity(intent)
-    Log.d("amazonpaytransaction", "redirectUsingUniversalLink: runningCustomTab")
     val customTabsBuilder = CustomTabsIntent.Builder().build()
-    //customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)
-    //customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    //customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
+    customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)
+    customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
+  }
+
+  @Preview
+  @Composable
+  fun PreviewLoading() {
+    MainContent()
   }
 
 
 
   companion object {
     const val PAYMENT_DATA = "data"
-    internal const val TOP_UP_AMOUNT = "top_up_amount"
-    internal const val TOP_UP_CURRENCY = "currency"
-    internal const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
-    internal const val BONUS = "bonus"
     const val CHROME_PACKAGE_NAME = "com.android.chrome"
   }
 }
