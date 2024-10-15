@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
@@ -125,6 +125,10 @@
 
   <style name="ToolbarTextAppearance.Title">
     <item name="android:textSize">20sp</item>
+  </style>
+
+  <style name="ToolbarTextAppearance.Title24">
+    <item name="android:textSize">24sp</item>
   </style>
 
   <style name="ToolbarTextAppearance.Title.Expanded">
@@ -347,6 +351,18 @@
   <style name="ShareLinkTextStyle.Title.Landscape">
     <item name="android:textSize">16sp</item>
     <item name="android:textColor">@color/styleguide_payments_main_text</item>
+  </style>
+
+  <style name="PaymentMethodsStyle">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="PaymentMethodsStyle.Description">
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
+    <item name="android:textSize">12sp</item>
   </style>
 
   <style name="TopUpTextStyle">
@@ -634,6 +650,13 @@
 
   <style name="SettingsTextStyle.Category">
     <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="SettingsTextStyle.TextBody" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:letterSpacing">.02</item>
+    <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="WalletBackupTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">

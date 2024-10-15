@@ -119,7 +119,9 @@ class BdsBilling(
             packageName = packageName,
             entityOemId = attributionEntity.oemId,
             address = address
-          )
+          ).map { paymentMethods ->
+            repository.replaceAppcPricesToOriginalPrices(paymentMethods, value, currency)
+          }
         }
     }
   }

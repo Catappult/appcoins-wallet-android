@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
-import com.appcoins.wallet.core.arch.data.navigate
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment
@@ -25,20 +24,6 @@ import javax.inject.Inject
 class MyWalletsNavigator
 @Inject
 constructor(private val fragment: Fragment, private val navController: NavController) : Navigator {
-  fun navigateToMore(
-    walletAddress: String,
-    totalFiatBalance: String,
-    appcoinsBalance: String,
-    creditsBalance: String,
-    ethereumBalance: String
-  ) {
-    navigate(
-      navController,
-      MyWalletsFragmentDirections.actionNavigateToMore(
-        walletAddress, totalFiatBalance, appcoinsBalance, creditsBalance, ethereumBalance
-      )
-    )
-  }
 
   fun navigateToManageWalletNameBottomSheet(walletAddress: String, walletName: String) {
     val bundle = Bundle()
@@ -83,29 +68,6 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
 
-  fun navigateToName(
-    walletAddress: String,
-    walletName: String,
-  ) {
-    navigate(
-      navController, MyWalletsFragmentDirections.actionNavigateToName(walletAddress, walletName)
-    )
-  }
-
-  fun navigateToBalanceDetails(
-    totalFiatBalance: String,
-    appcoinsBalance: String,
-    creditsBalance: String,
-    ethereumBalance: String
-  ) {
-    navigate(
-      navController,
-      MyWalletsFragmentDirections.actionNavigateToBalanceDetails(
-        totalFiatBalance, appcoinsBalance, creditsBalance, ethereumBalance
-      )
-    )
-  }
-
   fun navigateToReceive(navController: NavController, transferDestinations: TransferDestinations) {
     val bundle = Bundle()
     bundle.putInt(TransferFundsFragment.TRANSFER_KEY, transferDestinations.ordinal)
@@ -113,11 +75,15 @@ constructor(private val fragment: Fragment, private val navController: NavContro
   }
 
   fun navigateToVerifyPicker() {
-    navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerifyPicker())
+    navController.navigate(R.id.action_navigate_to_verify_picker)
   }
 
-  fun navigateToVerifyCreditCard() {
-    navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerifyCreditCard(false))
+  fun navigateToCCVerification() {
+    navController.navigate(R.id.action_navigate_to_verify_cc)
+  }
+
+  fun navigateToPPVerification() {
+    navController.navigate(R.id.action_navigate_to_verify_pp)
   }
 
   fun navigateToBackup(walletAddress: String, walletName: String) {

@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2023-03-29 11:53\n"
+"PO-Revision-Date: 2024-09-24 14:04\n"
 
 #. Card Title
 #:
@@ -116,4 +116,9 @@ msgstr "AppCoins 크레디트를 제외한, 모든 구매에서 {0}% 보너스�
 #:
 msgid "New Perk Available"
 msgstr "새로운 혜택을 사용할 수 있습니다"
+
+#. Card - Title - Enjoy
+#:
+msgid "Enjoy {0}% bonus in every purchase."
+msgstr "모든 구매에서 {0}% 보너스를 받으세요."
 

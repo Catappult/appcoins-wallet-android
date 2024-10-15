@@ -19,6 +19,9 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
@@ -27,9 +30,11 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.HIGH_AMOUNT_CHECK_ID
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.PAYMENT_METHOD_CHECK_ID
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
+import com.asfoundation.wallet.topup.usecases.GetPaymentInfoFilterByCardModelUseCase
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.google.gson.JsonObject
 import io.reactivex.Completable
@@ -63,7 +68,11 @@ class AdyenTopUpPresenter(
   private val gamificationLevel: Int,
   private val topUpAnalytics: TopUpAnalytics,
   private val formatter: CurrencyFormatUtils,
-  private val logger: Logger
+  private val logger: Logger,
+  private val getPaymentInfoNewCardModelUseCase: GetPaymentInfoNewCardModelUseCase,
+  private val getPaymentInfoFilterByCardModelUseCase: GetPaymentInfoFilterByCardModelUseCase,
+  private val cardPaymentDataSource: CardPaymentDataSource,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase
 ) {
 
   private var waitingResult = false
@@ -73,6 +82,8 @@ class AdyenTopUpPresenter(
   private var retrievedAmount = amount
   private var retrievedCurrency = currency
   private var action3ds: String? = null
+  private var storedCardID: String? = null
+  private var initialLoading: Boolean = false
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
@@ -82,8 +93,6 @@ class AdyenTopUpPresenter(
     view.setup3DSComponent()
     view.setupRedirectComponent()
     handleViewState()
-    handleForgetCardClick()
-    handleForgetStoredCardClick()
     handleRetryClick()
     handleRedirectResponse()
     handleSupportClicks()
@@ -96,10 +105,10 @@ class AdyenTopUpPresenter(
   private fun handleViewState() {
     if (currentError != 0) {
       view.showSpecificError(currentError)
-      if (paymentType == PaymentType.CARD.name) loadPaymentMethodInfo()
+      if (paymentType == PaymentType.CARD.name) getCardIdSharedPreferences()
     } else {
       if (waitingResult) view.showLoading()
-      else loadPaymentMethodInfo()
+      else getCardIdSharedPreferences()
     }
   }
 
@@ -129,7 +138,7 @@ class AdyenTopUpPresenter(
     disposables.add(view.getSupportClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
+      .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel, cachedUid) }
       .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -138,55 +147,99 @@ class AdyenTopUpPresenter(
     disposables.add(view.getTryAgainClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .doOnNext {
-        if (paymentType == PaymentType.CARD.name) hideSpecificError()
-        else navigator.navigateBack()
-      }
       .subscribeOn(viewScheduler)
-      .subscribe({}, { it.printStackTrace() })
+      .subscribe(
+        {
+          // code commented to fix an issue of the top up button not working on trying to buy without network. the top up button click chain gets disposed for some reason
+          /*
+          if (paymentType == PaymentType.CARD.name && storedCardID == "" && initialLoading)
+            hideSpecificError()
+          else*/
+            navigator.navigateBack()
+        },
+        { it.printStackTrace() }
+      )
     )
   }
 
-  private fun loadPaymentMethodInfo(fromError: Boolean = false) {
-    disposables.add(convertAmount()
-      .flatMap {
-        adyenPaymentInteractor.loadPaymentInfo(
-          mapPaymentToService(paymentType), it.toString(),
-          currency
+  private fun getCardIdSharedPreferences() {
+    disposables.add(
+      getCurrentWalletUseCase()
+        .subscribeOn(networkScheduler)
+        .subscribe(
+          {
+            storedCardID = cardPaymentDataSource.getPreferredCardId(it.address)
+            loadPaymentMethodInfo()
+          },
+          { }
         )
-      }
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnSuccess {
-        view.hideLoading()
-        if (fromError) view.hideErrorViews()
-        if (it.error.hasError) {
-          if (it.error.isNetworkError) view.showNetworkError()
-          else handleSpecificError(
-            R.string.unknown_error,
-            it.error.errorInfo?.run {
-              Exception("PaymentMethodInfo type=$errorType code=$httpCode mCode=$messageCode")
-            } ?: Exception("PaymentMethodInfo")
-          )
-        } else {
-          val priceAmount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
-          view.showValues(priceAmount, it.priceCurrency)
-          retrievedAmount = it.priceAmount.toString()
-          retrievedCurrency = it.priceCurrency
-          when (paymentType) {
-            PaymentType.CARD.name -> {
-              view.finishCardConfiguration(it, false)
-              handleTopUpClick()
-            }
+    )
+  }
 
-            PaymentType.PAYPAL.name -> {
-              launchPaypal(it.paymentMethod!!)
+  private fun hideSpecificError() {
+    currentError = 0
+    view.hideErrorViews()
+  }
+
+  private fun loadPaymentMethodInfo(fromError: Boolean = false) {
+    disposables.add(
+      convertAmount()
+        .flatMap {
+          if (mapPaymentToService(paymentType) == AdyenPaymentRepository.Methods.CREDIT_CARD) {
+            if (view.hasStoredCardBuy()) {
+              storedCardID?.let { storedCardId ->
+                getPaymentInfoFilterByCardModelUseCase(
+                  it.toString(),
+                  currency,
+                  storedCardId
+                )
+              }
+            } else {
+              getPaymentInfoNewCardModelUseCase(it.toString(), currency)
             }
+          } else {
+            adyenPaymentInteractor.loadPaymentInfo(
+              mapPaymentToService(paymentType), it.toString(),
+              currency
+            )
           }
-          loadBonusIntoView()
         }
-      }
-      .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (!view.hasStoredCardBuy() || cardPaymentDataSource.isMandatoryCvc()) view.hideLoading()
+          if (fromError) view.hideErrorViews()
+          if (it.error.hasError) {
+            if (it.error.isNetworkError) view.showNetworkError()
+            else handleSpecificError(
+              R.string.unknown_error,
+              it.error.errorInfo?.run {
+                Exception("PaymentMethodInfo type=$errorType code=$httpCode mCode=$messageCode")
+              } ?: Exception("PaymentMethodInfo")
+            )
+          } else {
+            initialLoading = true
+            val priceAmount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
+            if (!view.hasStoredCardBuy() || cardPaymentDataSource.isMandatoryCvc()) view.showValues(
+              priceAmount,
+              it.priceCurrency
+            )
+            retrievedAmount = it.priceAmount.toString()
+            retrievedCurrency = it.priceCurrency
+            when (paymentType) {
+              PaymentType.CARD.name -> {
+                handleTopUpClick()
+                view.finishCardConfiguration(it, false)
+              }
+
+              PaymentType.PAYPAL.name -> {
+                launchPaypal(it.paymentMethod!!)
+              }
+            }
+            loadBonusIntoView()
+          }
+        }
+        .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
   }
 
@@ -236,6 +289,7 @@ class AdyenTopUpPresenter(
       }
       .observeOn(viewScheduler)
       .flatMapCompletable {
+        cachedUid = it.uid
         if (it.action != null) {
           Completable.fromAction { handlePaymentModel(it) }
         } else {
@@ -249,82 +303,56 @@ class AdyenTopUpPresenter(
     )
   }
 
-  private fun handleForgetCardClick() {
-    disposables.add(view.forgetCardClick()
-      .observeOn(viewScheduler)
-      .doOnNext { view.showLoading() }
+  fun makePayment() {
+    disposables.add(view.retrievePaymentData()
+      .firstOrError()
       .observeOn(networkScheduler)
-      .flatMapSingle { adyenPaymentInteractor.disablePayments() }
-      .observeOn(viewScheduler)
-      .doOnNext { success ->
-        if (!success) {
-          handleSpecificError(R.string.unknown_error, logMessage = "Unable to forget card")
-        }
-      }
-      .filter { it }
-      .observeOn(networkScheduler)
-      .flatMapSingle {
-        adyenPaymentInteractor.loadPaymentInfo(
-          mapPaymentToService(paymentType),
-          amount, currency
+      .flatMap {
+        val shouldStore = view.shouldStoreCard()
+        topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
+        adyenPaymentInteractor.makeTopUpPayment(
+          adyenPaymentMethod = it.cardPaymentMethod,
+          shouldStoreMethod = shouldStore,
+          hasCvc = it.hasCvc,
+          supportedShopperInteraction = it.supportedShopperInteractions,
+          returnUrl = returnUrl,
+          value = retrievedAmount,
+          currency = retrievedCurrency,
+          paymentType = mapPaymentToService(paymentType).transactionType,
+          transactionType = transactionType,
+          packageName = appPackage
         )
-          .observeOn(viewScheduler)
-          .doOnSuccess {
-            view.hideLoading()
-            if (it.error.hasError) {
-              if (it.error.isNetworkError) view.showNetworkError()
-              else {
-                handleSpecificError(
-                  R.string.unknown_error,
-                  logMessage = "Message: ${it.error.errorInfo?.text}, code: ${it.error.errorInfo?.httpCode}"
-                )
-              }
-            } else {
-              view.finishCardConfiguration(it, true)
-            }
-          }
       }
-      .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
-    )
-  }
-
-  /**
-   * A function needs to be created due to a problem with adyen not enabling
-   *  the CVC in the same fragment as it was disabled
-   *  so we need to disable the payment and recreate the fragment
-   */
-  private fun handleForgetStoredCardClick() {
-    disposables.add(view.forgetStoredCardClick()
       .observeOn(viewScheduler)
-      .doOnNext { view.showLoading() }
-      .observeOn(networkScheduler)
-      .flatMapSingle { adyenPaymentInteractor.disablePayments() }
-      .observeOn(viewScheduler)
-      .doOnNext { success ->
-        if (!success) {
-          handleSpecificError(R.string.unknown_error, logMessage = "Unable to forget card")
+      .flatMapCompletable {
+        if (it.action != null) {
+          Completable.fromAction { handlePaymentModel(it) }
         } else {
-          view.restartFragment()
+          handlePaymentResult(it)
         }
       }
-      .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
+      .subscribe({}, {
+        view.showSpecificError(R.string.unknown_error)
+        logger.log(TAG, it)
+      })
     )
   }
 
   private fun handleRedirectResponse() {
-    disposables.add(navigator.uriResults()
-      .doOnNext {
-        topUpAnalytics.sendPaypalUrlEvent(
-          value = appcValue.toDouble(),
-          paymentMethod = paymentType,
-          type = it.getQueryParameter("type"),
-          resultCode = it.getQueryParameter("resultCode"),
-          url = it.toString()
-        )
-      }
-      .observeOn(viewScheduler)
-      .doOnNext { view.submitUriResult(it) }
-      .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
+    disposables.add(
+      navigator.uriResults()
+        .doOnNext {
+          topUpAnalytics.sendPaypalUrlEvent(
+            value = appcValue.toDouble(),
+            paymentMethod = paymentType,
+            type = it.getQueryParameter("type"),
+            resultCode = it.getQueryParameter("resultCode"),
+            url = it.toString()
+          )
+        }
+        .observeOn(viewScheduler)
+        .doOnNext { view.submitUriResult(it) }
+        .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
   }
 
@@ -346,7 +374,10 @@ class AdyenTopUpPresenter(
         )
       }
       .observeOn(viewScheduler)
-      .flatMapCompletable { handlePaymentResult(it) }
+      .flatMapCompletable {
+        cachedUid = it.uid
+        handlePaymentResult(it)
+      }
       .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
   }
@@ -485,31 +516,37 @@ class AdyenTopUpPresenter(
   }
 
   private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
-    disposables.add(adyenPaymentInteractor.isWalletVerified()
-      .observeOn(viewScheduler)
-      .doOnSuccess { verified ->
-        if (verified) {
-          val paymentMethodRuleBroken = fraudCheckIds.contains(PAYMENT_METHOD_CHECK_ID)
-          val amountRuleBroken = fraudCheckIds.contains(HIGH_AMOUNT_CHECK_ID)
-          val fraudError = when {
-            paymentMethodRuleBroken && amountRuleBroken -> {
-              R.string.purchase_error_try_other_amount_or_method
-            }
+    val verificationType = if (paymentType == PaymentType.CARD.name) {
+      VerificationType.CREDIT_CARD
+    } else {
+      VerificationType.PAYPAL
+    }
+    disposables.add(
+      adyenPaymentInteractor.isWalletVerified(verificationType)
+        .observeOn(viewScheduler)
+        .doOnSuccess { verified ->
+          if (verified) {
+            val paymentMethodRuleBroken = fraudCheckIds.contains(PAYMENT_METHOD_CHECK_ID)
+            val amountRuleBroken = fraudCheckIds.contains(HIGH_AMOUNT_CHECK_ID)
+            val fraudError = when {
+              paymentMethodRuleBroken && amountRuleBroken -> {
+                R.string.purchase_error_try_other_amount_or_method
+              }
 
-            paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
-            amountRuleBroken -> R.string.purchase_error_try_other_amount
-            else -> error
+              paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
+              amountRuleBroken -> R.string.purchase_error_try_other_amount
+              else -> error
+            }
+            handleSpecificError(
+              fraudError,
+              Exception("FraudFlow paymentMethod=$paymentMethodRuleBroken amount=$amountRuleBroken")
+            )
+          } else {
+            logger.log(TAG, Exception("FraudFlow unverified"))
+            view.showVerificationError()
           }
-          handleSpecificError(
-            fraudError,
-            Exception("FraudFlow paymentMethod=$paymentMethodRuleBroken amount=$amountRuleBroken")
-          )
-        } else {
-          logger.log(TAG, Exception("FraudFlow unverified"))
-          view.showVerificationError()
         }
-      }
-      .subscribe({}, { handleSpecificError(error, it) })
+        .subscribe({}, { handleSpecificError(error, it) })
     )
   }
 
@@ -625,14 +662,9 @@ class AdyenTopUpPresenter(
     disposables.add(view.getVerificationClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .doOnNext { view.showVerification() }
+      .doOnNext { view.showVerification(paymentType) }
       .subscribe({}, { it.printStackTrace() })
     )
-  }
-
-  private fun hideSpecificError() {
-    currentError = 0
-    view.hideErrorViews()
   }
 
   private fun handleAdyenAction(paymentModel: PaymentModel) {
@@ -748,6 +780,15 @@ class AdyenTopUpPresenter(
           Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
         )
         view.showSpecificError(R.string.purchase_card_error_no_funds)
+      }
+
+      paymentModel.error.errorInfo?.errorType == ErrorType.CVC_REQUIRED -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        adyenPaymentInteractor.setMandatoryCVC(true)
+        view.restartFragment()
       }
 
       paymentModel.error.errorInfo?.httpCode != null -> {

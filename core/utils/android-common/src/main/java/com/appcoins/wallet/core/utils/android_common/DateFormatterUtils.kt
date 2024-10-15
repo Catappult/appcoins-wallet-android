@@ -29,6 +29,6 @@ object DateFormatterUtils {
       .atZone(ZoneOffset.UTC)
       .format(formatter(toPattern))
 
-  fun transformDateToTimestamp(date: String, fromPattern: String): Long =
+  fun transformDateToTimestampSeconds(date: String, fromPattern: String): Long =
     LocalDateTime.parse(date, formatter(fromPattern)).atZone(ZoneOffset.UTC).toEpochSecond()
 }

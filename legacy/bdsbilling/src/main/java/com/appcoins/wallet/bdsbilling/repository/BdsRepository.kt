@@ -27,7 +27,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     developerPayload: String?,
     callback: String?,
     orderReference: String?,
-    referrerUrl: String?
+    referrerUrl: String?,
+    guestWalletId: String?
   ): Single<Transaction> = remoteRepository.registerAuthorizationProof(
     origin,
     type,
@@ -43,7 +44,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     callback,
     orderReference,
     referrerUrl,
-    null
+    null,
+    guestWalletId
   )
 
   override fun registerPaymentProof(

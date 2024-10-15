@@ -58,13 +58,17 @@ class FiatCurrenciesRepository @Inject constructor(
       fiatCurrenciesPreferencesDataSource.setSelectFirstTime()
       fiatValue.currency.toDataResult()
     } else {
-      getCachedSelectedCurrency()
+      getCachedResultSelectedCurrency()
     }
   }
 
-  fun getCachedSelectedCurrency(): DataResult<String> {
+  fun getCachedResultSelectedCurrency(): DataResult<String> {
     return fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency().toDataResult()
   }
+
+  fun getCachedSelectedCurrency(): String? =
+    fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
+
 
   suspend fun setSelectedCurrency(currency: String) {
     withContext(dispatchers.io) {

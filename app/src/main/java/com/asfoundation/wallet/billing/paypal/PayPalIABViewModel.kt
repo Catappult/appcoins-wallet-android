@@ -59,6 +59,8 @@ class PayPalIABViewModel @Inject constructor(
 
   private var authenticatedToken: String? = null
 
+  private var uid: String? = null
+
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
 
@@ -91,13 +93,15 @@ class PayPalIABViewModel @Inject constructor(
         sku = transactionBuilder.skuId,
         callbackUrl = transactionBuilder.callbackUrl,
         transactionType = transactionBuilder.type,
-        referrerUrl = transactionBuilder.referrerUrl
+        referrerUrl = transactionBuilder.referrerUrl,
+        guestWalletId = transactionBuilder.guestWalletId
       )
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
           when (it?.validity) {
             PaypalTransaction.PaypalValidityState.COMPLETED -> {
+              uid = it.uid
               getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
             }
 
@@ -383,7 +387,7 @@ class PayPalIABViewModel @Inject constructor(
 
   fun showSupport(gamificationLevel: Int) {
     compositeDisposable.add(
-      supportInteractor.showSupport(gamificationLevel).subscribe({}, { it.printStackTrace() })
+      supportInteractor.showSupport(gamificationLevel, uid).subscribe({}, { it.printStackTrace() })
     )
   }
 

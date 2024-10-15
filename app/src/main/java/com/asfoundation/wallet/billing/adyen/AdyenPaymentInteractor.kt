@@ -14,6 +14,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -43,14 +44,20 @@ class AdyenPaymentInteractor @Inject constructor(
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
-  fun isWalletVerified() =
+  fun isWalletVerified(verificationType: VerificationType) =
     walletService.getAndSignCurrentWalletAddress()
-      .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
+      .flatMap {
+        walletVerificationInteractor.isVerified(
+          it.address,
+          it.signedAddress,
+          verificationType
+        )
+      }
       .onErrorReturn { true }
 
 
-  fun showSupport(gamificationLevel: Int): Completable {
-    return supportInteractor.showSupport(gamificationLevel)
+  fun showSupport(gamificationLevel: Int, uid: String): Completable {
+    return supportInteractor.showSupport(gamificationLevel, uid)
   }
 
   fun loadPaymentInfo(
@@ -84,7 +91,7 @@ class AdyenPaymentInteractor @Inject constructor(
     returnUrl: String, value: String, currency: String, reference: String?,
     paymentType: String, origin: String?, packageName: String, metadata: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
-    referrerUrl: String?
+    referrerUrl: String?, guestWalletId: String?,
   ): Single<PaymentModel> {
     return Single.zip(walletService.getAndSignCurrentWalletAddress(),
       partnerAddressService.getAttribution(packageName),
@@ -115,10 +122,46 @@ class AdyenPaymentInteractor @Inject constructor(
             entityPromoCode = promoCode.code,
             userWallet = addressModel.address,
             walletSignature = addressModel.signedAddress,
-            referrerUrl = referrerUrl
+            referrerUrl = referrerUrl,
+            guestWalletId = guestWalletId,
           )
         }
       }
+  }
+
+  fun addCard(
+    adyenPaymentMethod: ModelObject, hasCvc: Boolean,
+    supportedShopperInteraction: List<String>,
+    returnUrl: String, value: String, currency: String
+  ): Single<PaymentModel> {
+    return walletService.getAndSignCurrentWalletAddress().flatMap {
+      val addressModel = it
+      adyenPaymentRepository.makePayment(
+        adyenPaymentMethod = adyenPaymentMethod,
+        shouldStoreMethod = true,
+        hasCvc = hasCvc,
+        supportedShopperInteractions = supportedShopperInteraction,
+        returnUrl = returnUrl,
+        value = value,
+        currency = currency,
+        reference = null,
+        paymentType = "credit_card",
+        walletAddress = addressModel.address,
+        origin = null,
+        packageName = "com.appcoins.wallet",  // necessary for the verification request
+        metadata = null,
+        sku = null,
+        callbackUrl = null,
+        transactionType = "VERIFICATION",
+        entityOemId = null,
+        entityDomain = null,
+        entityPromoCode = null,
+        userWallet = null,
+        walletSignature = addressModel.signedAddress,
+        referrerUrl = null,
+        guestWalletId = null
+      )
+    }
   }
 
   fun makeTopUpPayment(
@@ -151,7 +194,8 @@ class AdyenPaymentInteractor @Inject constructor(
           entityPromoCode = null,
           userWallet = null,
           walletSignature = it.signedAddress,
-          referrerUrl = null
+          referrerUrl = null,
+          guestWalletId = null
         )
       }
   }
@@ -171,7 +215,10 @@ class AdyenPaymentInteractor @Inject constructor(
 
   fun disablePayments(): Single<Boolean> {
     return walletService.getWalletAddress()
-      .flatMap { adyenPaymentRepository.disablePayments(it) }
+      .flatMap {
+        adyenPaymentRepository.setMandatoryCVC(false)
+        adyenPaymentRepository.disablePayments(it)
+      }
   }
 
   fun convertToFiat(amount: Double, currency: String): Single<FiatValue> {
@@ -248,6 +295,10 @@ class AdyenPaymentInteractor @Inject constructor(
 
   fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse> {
     return adyenPaymentRepository.getCreditCardNeedCVC().subscribeOn(rxSchedulers.io)
+  }
+
+  fun setMandatoryCVC(mandatoryCvc: Boolean) {
+    adyenPaymentRepository.setMandatoryCVC(mandatoryCvc)
   }
 
   companion object {

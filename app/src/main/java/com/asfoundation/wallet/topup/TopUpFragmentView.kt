@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import io.reactivex.Observable
 import java.math.BigDecimal
@@ -8,10 +9,10 @@ import java.math.BigDecimal
 interface TopUpFragmentView {
 
   fun getEditTextChanges(): Observable<TopUpData>
-  fun getPaymentMethodClick(): Observable<String>
+  fun getPaymentMethodClick(): Observable<PaymentMethod>
   fun getNextClick(): Observable<TopUpData>
-  fun setupPaymentMethods(paymentMethods: List<PaymentMethod>)
-  fun setupCurrency(localCurrency: LocalCurrency)
+  fun setupPaymentMethods(paymentMethods: List<PaymentMethod>, cardsList: List<StoredCard>)
+  fun setupCurrency(currency: LocalCurrency)
   fun setConversionValue(topUpData: TopUpData)
   fun switchCurrencyData()
   fun setNextButtonState(enabled: Boolean)
@@ -27,9 +28,10 @@ interface TopUpFragmentView {
   fun hideValueInputWarning()
   fun changeMainValueColor(isValid: Boolean)
   fun changeMainValueText(value: String)
-  fun getSelectedCurrency(): String
+  fun getSelectedCurrencyType(): String
+  fun getSelectedCurrency(): LocalCurrency
   fun paymentMethodsFocusRequest()
-  fun getCurrentPaymentMethod(): String?
+  fun getCurrentPaymentMethod(): PaymentMethod?
   fun showNoNetworkError()
   fun showRetryAnimation()
   fun retryClick(): Observable<Any>
@@ -47,5 +49,12 @@ interface TopUpFragmentView {
   fun showAsLoading()
   fun hideLoading()
   fun setTopupButton()
+  fun setBuyButton()
   fun setNextButton()
+  fun showValuesSkeletons()
+  fun hideValuesSkeletons()
+  fun lockRotation()
+
+  fun changeVisibilityRefundDisclaimer(visible: Boolean)
+  fun showFee(visible: Boolean)
 }

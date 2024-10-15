@@ -36,7 +36,12 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(
           cachedTransaction.currency,
           packageName = cachedTransaction.packageName,
           entityOemId = attributionEntity.oemId
-        )
+        ).map { paymentMethods ->
+          bdsRepository.replaceAppcPricesToOriginalPrices(
+            paymentMethods, cachedTransaction.value.toString(),
+            cachedTransaction.currency
+          )
+        }
           .flatMap { paymentMethods ->
             removeUnavailableMethods(paymentMethods)
               .flatMap { availablePaymentMethods ->

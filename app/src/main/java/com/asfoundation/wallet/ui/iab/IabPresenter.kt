@@ -4,8 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
+import com.appcoins.wallet.core.network.backend.model.enums.RefundDisclaimerEnum
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetShowRefundDisclaimerCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetCachedShowRefundDisclaimerUseCase
+import com.asfoundation.wallet.di.NetworkDispatcher
+import com.asfoundation.wallet.di.ViewDispatcher
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
@@ -16,28 +22,38 @@ import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class IabPresenter(
-  private val view: IabView,
-  private val networkScheduler: Scheduler,
-  private val viewScheduler: Scheduler,
+class IabPresenter @Inject constructor(
+  @NetworkDispatcher private val networkScheduler: Scheduler,
+  @ViewDispatcher private val viewScheduler: Scheduler,
   private val disposable: CompositeDisposable,
   private val billingAnalytics: BillingAnalytics,
   private val iabInteract: IabInteract,
+  private val addressService: AddressService,
   private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
   private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
   private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
+  private val getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase,
+  private val setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase,
   private val logger: Logger,
-  private val transaction: TransactionBuilder?,
-  private val errorFromReceiver: String? = null
 ) {
 
+  private lateinit var view: IabView
+  private var transaction: TransactionBuilder? = null
+  private var errorFromReceiver: String? = null
+
   private var firstImpression = true
-  var webViewResultCode: String? = null
 
   companion object {
     private val TAG = IabActivity::class.java.name
     private const val FIRST_IMPRESSION = "first_impression"
+  }
+
+  fun init(view: IabView, transaction: TransactionBuilder?, errorFromReceiver: String?) {
+    this.view = view
+    this.transaction = transaction
+    this.errorFromReceiver = errorFromReceiver
   }
 
   fun present(savedInstanceState: Bundle?) {
@@ -60,6 +76,7 @@ class IabPresenter(
     handleSupportClicks()
     handleErrorDismisses()
     handleTryAgain()
+    updateRefundDisclaimerValue()
   }
 
   private fun handleErrorDismisses() {
@@ -85,20 +102,13 @@ class IabPresenter(
     )
   }
 
-  private fun handleError(throwable: Throwable) {
-    logger.log(TAG, throwable)
-    view.finishWithError()
-  }
-
   fun handlePerkNotifications(bundle: Bundle) {
     disposable.add(iabInteract.getWalletAddress()
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
-      .flatMap {
-        startVipReferralPollingUseCase(Wallet(it)).toSingleDefault(it)
-      }
+      .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
       .doOnSuccess {
-        view.launchPerkBonusAndGamificationService(it)
+        view.launchPerkBonusAndGamificationService(it.address)
         view.finishActivity(bundle)
       }
       .doOnError { view.finishActivity(bundle) }
@@ -122,25 +132,34 @@ class IabPresenter(
   }
 
   private fun handlePurchaseStartAnalytics(transaction: TransactionBuilder?) {
-    disposable.add(Completable.fromAction {
-      if (firstImpression) {
-        if (iabInteract.hasPreSelectedPaymentMethod()) {
-          billingAnalytics.sendPurchaseStartEvent(
-            transaction?.domain, transaction?.skuId,
-            transaction?.amount()
-              .toString(), iabInteract.getPreSelectedPaymentMethod(),
-            transaction?.type, BillingAnalytics.WALLET_PRESELECTED_PAYMENT_METHOD
-          )
-        } else {
-          billingAnalytics.sendPurchaseStartWithoutDetailsEvent(
-            transaction?.domain,
-            transaction?.skuId, transaction?.amount()
-              .toString(), transaction?.type,
-            BillingAnalytics.WALLET_PAYMENT_METHOD
-          )
+    disposable.add(
+      addressService.getAttribution(transaction?.domain ?: "")
+        .flatMapCompletable { attribution ->
+          Completable.fromAction {
+            if (firstImpression) {
+              if (iabInteract.hasPreSelectedPaymentMethod()) {
+                billingAnalytics.sendPurchaseStartEvent(
+                  packageName = transaction?.domain,
+                  skuDetails = transaction?.skuId,
+                  value = transaction?.amount().toString(),
+                  purchaseDetails = iabInteract.getPreSelectedPaymentMethod(),
+                  transactionType = transaction?.type,
+                  context = BillingAnalytics.WALLET_PRESELECTED_PAYMENT_METHOD,
+                  oemId = attribution.oemId,
+                )
+              } else {
+                billingAnalytics.sendPurchaseStartEvent(
+                  packageName = transaction?.domain,
+                  skuDetails = transaction?.skuId,
+                  value = transaction?.amount().toString(),
+                  transactionType = transaction?.type,
+                  context = BillingAnalytics.WALLET_PAYMENT_METHOD,
+                  oemId = attribution.oemId,
+                )
+              }
+              firstImpression = false
+            }
         }
-        firstImpression = false
-      }
     }
       .subscribeOn(networkScheduler)
       .subscribe({}, { it.printStackTrace() }))
@@ -155,6 +174,21 @@ class IabPresenter(
       }
       .doOnSuccess { view.showUpdateRequiredView() }
       .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
+  private fun updateRefundDisclaimerValue() {
+    disposable.add(
+      getShowRefundDisclaimerCodeUseCase().subscribeOn(networkScheduler).observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it.showRefundDisclaimer == RefundDisclaimerEnum.SHOW_REFUND_DISCLAIMER.state) {
+            setCachedShowRefundDisclaimerUseCase(true)
+          } else {
+            setCachedShowRefundDisclaimerUseCase(false)
+          }
+        }.subscribe({}, {
+          it.printStackTrace()
+        })
     )
   }
 

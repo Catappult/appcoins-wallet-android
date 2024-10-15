@@ -34,9 +34,7 @@ public class AppcoinsApplication {
 
   @Override public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof AppcoinsApplication)) return false;
-
-    AppcoinsApplication that = (AppcoinsApplication) o;
+    if (!(o instanceof AppcoinsApplication that)) return false;
 
     if (Double.compare(that.rating, rating) != 0) return false;
     if (!Objects.equals(name, that.name)) return false;

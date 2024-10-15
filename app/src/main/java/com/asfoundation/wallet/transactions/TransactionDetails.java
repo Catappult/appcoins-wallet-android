@@ -46,9 +46,7 @@ public class TransactionDetails implements Parcelable {
 
   @Override public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof TransactionDetails)) return false;
-
-    TransactionDetails that = (TransactionDetails) o;
+    if (!(o instanceof TransactionDetails that)) return false;
 
     if (!Objects.equals(sourceName, that.sourceName)) {
       return false;
@@ -119,9 +117,7 @@ public class TransactionDetails implements Parcelable {
 
     @Override public boolean equals(Object o) {
       if (this == o) return true;
-      if (!(o instanceof Icon)) return false;
-
-      Icon icon = (Icon) o;
+      if (!(o instanceof Icon icon)) return false;
 
       if (type != icon.type) return false;
       return uri.equals(icon.uri);

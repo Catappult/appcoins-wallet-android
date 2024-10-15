@@ -14,9 +14,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ItemTopupPaymentMethodBinding
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.manage_cards.models.StoredCard
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
@@ -32,17 +34,25 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     onClickPaypalLogout: () -> Unit,
     disposables: CompositeDisposable,
     showPayPalLogout: Subject<Boolean>,
+    cardData: StoredCard?,
+    onChangeCardCallback: () -> Unit,
   ) {
+    val imageUrl = if (data.id == "credit_card" && cardData != null)
+      cardData.cardIcon
+    else
+      data.iconUrl
+
     GlideApp.with(itemView.context)
-      .load(data.iconUrl)
+      .load(imageUrl)
       .into(binding.paymentMethodIc)
 
     val selected = data.isEnabled && checked
     binding.radioButton.isChecked = selected
     binding.radioButton.isEnabled = data.isEnabled
 
-    handleDescription(data, selected, data.isEnabled)
-    handleFee(data.fee, data.isEnabled)
+    handleDescription(data, selected, data.isEnabled, cardData, onChangeCardCallback)
+    handleFee(data.fee, data.price)
+    handleMessage(data.message)
 
     binding.selectedBackground.visibility = View.VISIBLE
 
@@ -76,7 +86,7 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
       )
 
       binding.paymentMoreLogout.setOnClickListener {
-        var wrapper: Context =
+        val wrapper: Context =
           ContextThemeWrapper(itemView.context.applicationContext, R.style.CustomLogoutPopUpStyle)
         val popup = PopupMenu(wrapper, it)
         popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
@@ -92,8 +102,22 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     }
   }
 
-  private fun handleDescription(data: PaymentMethod, selected: Boolean, isEnabled: Boolean) {
-    binding.paymentMethodDescription.text = data.label
+  private fun handleDescription(
+    data: PaymentMethod,
+    selected: Boolean,
+    isEnabled: Boolean,
+    cardData: StoredCard?,
+    onChangeCardCallback: () -> Unit,
+  ) {
+    if (cardData != null && data.id == "credit_card") {
+      binding.paymentMethodDescription.text = "**** ".plus(cardData.cardLastNumbers)
+      binding.changeCardButton.visibility = if (selected) View.VISIBLE else View.GONE
+      binding.changeCardButton.setOnClickListener {
+        onChangeCardCallback()
+      }
+    } else {
+      binding.paymentMethodDescription.text = data.label
+    }
     if (selected) {
       binding.paymentMethodDescription.setTextColor(
         ContextCompat.getColor(itemView.context, R.color.styleguide_light_grey)
@@ -114,14 +138,28 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     }
   }
 
-  private fun handleFee(fee: PaymentMethodFee?, enabled: Boolean) {
+  private fun handleFee(fee: PaymentMethodFee?, price: FiatValue) {
     if (fee?.isValidFee() == true) {
       binding.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils()
-        .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
+        .formatPaymentCurrency(fee.amount!! + price.amount, WalletCurrency.FIAT)
       binding.paymentMethodFee.text =
-        itemView.context.getString(R.string.purchase_fee_title, formattedValue, fee.currency)
+        itemView.context.getString(
+          R.string.purchase_fees_and_taxes_known_disclaimer_body,
+          formattedValue,
+          fee.currency
+        )
     } else {
+      binding.paymentMethodFee.visibility = View.GONE
+    }
+  }
+
+  private fun handleMessage(message: String?) {
+    if (message.isNullOrEmpty()) {
+      binding.paymentMethodMessage.visibility = View.GONE
+    } else {
+      binding.paymentMethodMessage.visibility = View.VISIBLE
+      binding.paymentMethodMessage.text = message
       binding.paymentMethodFee.visibility = View.GONE
     }
   }

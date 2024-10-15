@@ -67,7 +67,8 @@ class AppcoinsRewardsBuyPresenter(
         transactionBuilder.callbackUrl,
         transactionBuilder.orderReference,
         transactionBuilder.referrerUrl,
-        transactionBuilder.productToken
+        transactionBuilder.productToken,
+        transactionBuilder.guestWalletId
       )
       .andThen(
         rewardsManager.getPaymentStatus(
@@ -190,12 +191,12 @@ class AppcoinsRewardsBuyPresenter(
             appcoinsRewardsBuyInteract
               .isWalletVerified()
               .observeOn(viewScheduler)
-              .doOnSuccess {
-                if (it) {
+              .doOnSuccess { walletVerified ->
+                if (walletVerified) {
                   logger.log(TAG, Exception("FraudFlow blocked"))
                   view.showError(R.string.purchase_error_wallet_block_code_403)
                 } else {
-                  view.showVerification()
+                  view.showCreditCardVerification()
                 }
               }
           } else {

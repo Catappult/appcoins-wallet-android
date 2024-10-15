@@ -2,7 +2,6 @@ package com.asfoundation.wallet.promotions
 
 import com.appcoins.wallet.core.network.backend.model.GamificationResponse
 import com.appcoins.wallet.core.network.backend.model.GenericResponse
-import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.gamification.GamificationContext
@@ -11,12 +10,9 @@ import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.referrals.CardNotification
-import com.asfoundation.wallet.referrals.ReferralInteractorContract
-import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import io.reactivex.Single
-import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -24,7 +20,6 @@ import javax.inject.Inject
 class PromotionsInteractor
 @Inject
 constructor(
-  private val referralInteractor: ReferralInteractorContract,
   private val gamificationInteractor: GamificationInteractor,
   private val promotionsRepo: PromotionsRepository,
   private val findWalletUseCase: FindDefaultWalletUseCase,
@@ -34,9 +29,6 @@ constructor(
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
-    const val GAMIFICATION_INFO = "GAMIFICATION_INFO"
-    const val REFERRAL_ID = "REFERRAL"
-    const val VOUCHER_ID = "VOUCHER"
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
     const val PROMO_CODE_PERK = "PROMO_CODE_PERK"
   }
@@ -52,26 +44,18 @@ constructor(
               it.promotions.firstOrNull { promotionsResponse ->
                 promotionsResponse is GamificationResponse
               } as GamificationResponse?
-            val referral =
-              it.promotions.firstOrNull { referralResponse ->
-                referralResponse is ReferralResponse
-              } as ReferralResponse?
             val generic = it.promotions.filterIsInstance<GenericResponse>()
             Single.zip(
-              referralInteractor.hasReferralUpdate(
-                wallet.address, referral, ReferralsScreen.PROMOTIONS
-              ),
               gamificationInteractor.hasNewLevel(
                 wallet.address, gamification, GamificationContext.SCREEN_PROMOTIONS
               ),
               hasGenericUpdate(generic, promotionUpdateScreen),
-              hasNewWalletOrigin(wallet.address, it.walletOrigin),
-              Function4 { hasReferralUpdate: Boolean,
-                          hasNewLevel: Boolean,
-                          hasGenericUpdate: Boolean,
-                          hasNewWalletOrigin: Boolean ->
-                hasReferralUpdate || hasNewLevel || hasGenericUpdate || hasNewWalletOrigin
-              })
+              hasNewWalletOrigin(wallet.address, it.walletOrigin)
+            ) { hasNewLevel: Boolean,
+                hasGenericUpdate: Boolean,
+                hasNewWalletOrigin: Boolean ->
+              hasNewLevel || hasGenericUpdate || hasNewWalletOrigin
+            }
           }
           .subscribeOn(Schedulers.io())
       }
@@ -139,7 +123,7 @@ constructor(
 
   private fun isFuturePromotion(genericResponse: GenericResponse): Boolean {
     val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-    return genericResponse.startDate ?: 0 > currentTime
+    return (genericResponse.startDate ?: 0) > currentTime
   }
 
   private fun hasNewWalletOrigin(address: String, walletOrigin: WalletOrigin): Single<Boolean> {

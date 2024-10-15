@@ -113,6 +113,8 @@ interface PaymentMethodsView {
     isSubscription: Boolean
   )
 
+  fun showMiPayWeb(fiatValue: FiatValue)
+
   fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
 
   fun onBackPressed(): Observable<Any>
@@ -159,11 +161,14 @@ interface PaymentMethodsView {
 
   fun showChallengeReward()
 
-  fun showFee(hasFee: Boolean, fiatValue: FiatValue?, fee: BigDecimal)
+  fun showFee(hasFee: Boolean)
+
+  fun updatePriceAndCurrency(currency: String, amount: BigDecimal)
 
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS,
-    EARN_APPC, CARRIER_BILLING, ERROR, SANDBOX, CHALLENGE_REWARD, VKPAY, GOOGLEPAY_WEB, WALLET_ONE
+    EARN_APPC, CARRIER_BILLING, ERROR, SANDBOX, CHALLENGE_REWARD, VKPAY, GOOGLEPAY_WEB,
+    WALLET_ONE, MI_PAY
   }
 
   enum class PaymentMethodId(val id: String) {
@@ -180,5 +185,6 @@ interface PaymentMethodsView {
     VKPAY("vk_pay"),
     GOOGLEPAY_WEB("googlepay"),
     WALLET_ONE("credit_card_wallet_one"),
+    MI_PAY("mipay"),
   }
 }

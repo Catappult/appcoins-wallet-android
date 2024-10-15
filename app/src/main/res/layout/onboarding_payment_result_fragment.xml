@@ -8,20 +8,6 @@
     android:background="@drawable/background_card_blue"
     >
 
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/loading_animation"
-      android:layout_width="70dp"
-      android:layout_height="70dp"
-      android:layout_gravity="center"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/loading_dark_animation"
-      />
   <ScrollView
       android:id="@+id/scroll_view"
       android:layout_width="match_parent"
@@ -37,6 +23,21 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_card_blue"
         >
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/loading_animation"
+          android:layout_width="70dp"
+          android:layout_height="70dp"
+          android:layout_gravity="center"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:lottie_autoPlay="true"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/loading_dark_animation"
+          />
+
       <include
           android:id="@+id/no_network_error_layout"
           layout="@layout/no_network_retry_only_layout"

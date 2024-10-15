@@ -157,9 +157,7 @@ public class PaymentTransaction {
 
   @Override public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof PaymentTransaction)) return false;
-
-    PaymentTransaction that = (PaymentTransaction) o;
+    if (!(o instanceof PaymentTransaction that)) return false;
 
     if (!uri.equals(that.uri)) return false;
     if (!Objects.equals(approveHash, that.approveHash)) {

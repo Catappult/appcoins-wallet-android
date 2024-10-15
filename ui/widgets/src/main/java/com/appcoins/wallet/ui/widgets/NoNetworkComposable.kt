@@ -31,11 +31,17 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
-fun NoNetworkScreen(tryAgain: Boolean = false, onTryAgain: () -> Unit = {}) {
+fun NoNetworkScreen(
+  tryAgain: Boolean = false,
+  onTryAgain: () -> Unit = {},
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
+) {
   val composition by
   rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.no_network_animation))
   val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
@@ -69,10 +75,12 @@ fun NoNetworkScreen(tryAgain: Boolean = false, onTryAgain: () -> Unit = {}) {
     )
     if (tryAgain) {
       ButtonWithText(
-        stringResource(R.string.try_again),
+        label = stringResource(R.string.try_again),
         onClick = onTryAgain,
         labelColor = WalletColors.styleguide_white,
         outlineColor = WalletColors.styleguide_white,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }
@@ -126,7 +134,7 @@ fun NoNetworkMessage(mainColor: Color = WalletColors.styleguide_blue) {
 @Preview
 @Composable
 fun PreviewNoNetworkScreen() {
-  NoNetworkScreen(true, {})
+  NoNetworkScreen(true, {}, "HomeFragment", null)
 }
 
 @Preview

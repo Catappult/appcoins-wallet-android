@@ -35,7 +35,7 @@ class CarrierBillingRepository @Inject constructor(
     value: String, entityOemId: String?,
     entityDomain: String?, entityPromoCode: String?,
     userWallet: String?, referrerUrl: String?, developerPayload: String?,
-    callbackUrl: String?
+    callbackUrl: String?, guestWalletId: String?
   ): Single<CarrierPaymentModel> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -59,7 +59,8 @@ class CarrierBillingRepository @Inject constructor(
             user = userWallet,
             referrerUrl = referrerUrl,
             developerPayload = developerPayload,
-            callbackUrl = callbackUrl
+            callbackUrl = callbackUrl,
+            guestWalletId = guestWalletId,
           )
         )
           .map { response -> mapper.mapPayment(response) }

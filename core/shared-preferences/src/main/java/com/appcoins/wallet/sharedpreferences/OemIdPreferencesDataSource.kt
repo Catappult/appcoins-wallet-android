@@ -26,6 +26,11 @@ class OemIdPreferencesDataSource @Inject constructor(
       .putString(GAMES_HUB_INSTALLED_OEMID, value)
       .apply()
 
+  fun hasGamesHubOemId() =
+    getGamesHubOemIdIndicative().isNotEmpty() &&
+        getGamesHubOemIdIndicative() != GH_INSTALLED_WITHOUT_OEMID &&
+        getGamesHubOemIdIndicative() != GH_NOT_INSTALLED
+
   fun getCurrentOemId() = sharedPreferences.getString(CURRENT_OEMID, "") ?: ""
   fun setIsGameFromGameshub(value: Boolean) =
     sharedPreferences.edit()
@@ -58,6 +63,13 @@ class OemIdPreferencesDataSource @Inject constructor(
   fun getLastTimePackagesForCaching() =
     sharedPreferences.getLong(LAST_TIMESTAMP_PACKAGES, 0L)
 
+  fun setOemIdFromSdk(oemId: String?) =
+    sharedPreferences.edit()
+      .putString(OEM_ID_FROM_SDK, oemId ?: "")
+      .apply()
+
+  fun getOemIdFromSdk() = sharedPreferences.getString(OEM_ID_FROM_SDK, "") ?: ""
+
   companion object {
     private const val CURRENT_OEMID = "current_oemid"
     private const val IS_GAME_FROM_GAMESHUB_KEY = "game_from_gameshub"
@@ -65,5 +77,8 @@ class OemIdPreferencesDataSource @Inject constructor(
     private const val PACKAGES_CLIENT_SIDE = "packages_client_side"
     private const val LAST_TIMESTAMP_PACKAGES = "last_timestamp_packages"
     private const val GAMES_HUB_INSTALLED_OEMID = "games_hub"
+    const val GH_INSTALLED_WITHOUT_OEMID = "gh_installed_without_oemid"
+    const val GH_NOT_INSTALLED = "gh_not_installed"
+    private const val OEM_ID_FROM_SDK = "oem_id_from_sdk"
   }
 }

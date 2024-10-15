@@ -1,8 +1,12 @@
 package com.asfoundation.wallet.onboarding_new_payment.google_pay
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +17,17 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingGooglePayLayoutBinding
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_FATAL_ERROR
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_SUCCESS
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_USER_CANCEL
+import com.asfoundation.wallet.onboarding_new_payment.utils.OnboardingUtils
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -27,6 +39,7 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
   private var binding: OnboardingGooglePayLayoutBinding? = null
   private val views get() = binding!!
   lateinit var args: OnboardingGooglePayFragmentArgs
+  private val clientWebSocket = OkHttpClient()
 
   private lateinit var compositeDisposable: CompositeDisposable
 
@@ -71,10 +84,14 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
         }
 
         is OnboardingGooglePayViewModel.State.Error -> {
+          viewModel.setResponseCodeWebSocket(SDK_STATUS_FATAL_ERROR)
+          createWebSocketSdk()
           showError(getString(state.stringRes))
         }
 
         is OnboardingGooglePayViewModel.State.SuccessPurchase -> {
+          viewModel.setResponseCodeWebSocket(SDK_STATUS_SUCCESS)
+          createWebSocketSdk()
           handleSuccess()
         }
 
@@ -83,6 +100,8 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
         }
 
         OnboardingGooglePayViewModel.State.GooglePayBack -> {
+          viewModel.setResponseCodeWebSocket(SDK_STATUS_USER_CANCEL)
+          createWebSocketSdk()
           findNavController().popBackStack(
             R.id.onboarding_payment_methods_fragment,
             inclusive = false
@@ -101,6 +120,9 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
   }
 
   private fun startPayment() {
+    if (args.transactionBuilder.type == "INAPP") {
+      args.transactionBuilder.referrerUrl = null
+    }
     viewModel.startPayment(
       amount = BigDecimal(args.amount),
       currency = args.currency,
@@ -151,6 +173,51 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
       View.VISIBLE
     views.fragmentFirstIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
     views.onboardingSuccessGooglePayButtons.root.visibility = View.VISIBLE
+  }
+
+  private fun createWebSocketSdk() {
+    if (args.transactionBuilder.type == "INAPP") {
+      if (args.transactionBuilder.wspPort == null &&
+        OnboardingUtils.isSdkVersionAtLeast2(args.transactionBuilder.sdkVersion)
+      ) {
+        val responseCode = viewModel.getResponseCodeWebSocket()
+        val productToken = viewModel.purchaseUid
+        val purchaseResultJson = JSONObject().apply {
+          put("responseCode", responseCode)
+          put("purchaseToken", productToken)
+        }.toString()
+
+        val encodedPurchaseResult = Uri.encode(purchaseResultJson)
+
+        val deepLinkUri = Uri.Builder()
+          .scheme("web-iap-result")
+          .authority(args.transactionBuilder.domain)
+          .appendQueryParameter("purchaseResult", encodedPurchaseResult)
+          .build()
+
+        val deepLinkIntent = Intent(Intent.ACTION_VIEW, deepLinkUri)
+
+        deepLinkIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        Handler(Looper.getMainLooper()).postDelayed({
+          startActivity(deepLinkIntent)
+        }, 2000)
+
+      } else {
+        val request = try {
+          Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
+        } catch (e: IllegalArgumentException) {
+          null
+        }
+        val listener = SdkPaymentWebSocketListener(
+          viewModel.purchaseUid,
+          viewModel.uid,
+          viewModel.getResponseCodeWebSocket()
+        )
+        request?.let {
+          clientWebSocket.newWebSocket(request, listener)
+        }
+      }
+    }
   }
 
   fun lockRotation() {

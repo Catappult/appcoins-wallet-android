@@ -42,12 +42,13 @@ import androidx.compose.ui.unit.sp
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.viewModels
 import coil.compose.SubcomposeAsyncImage
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.TopBar
-import com.appcoins.wallet.ui.widgets.VipReferralEndCountDownTimer
+import com.appcoins.wallet.ui.widgets.VipReferralCountDownTimer
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralViewModel.UiState
@@ -65,6 +66,10 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
+  
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   private lateinit var promoReferral: String
   private lateinit var earnedValue: String
@@ -91,7 +96,7 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
   @Composable
   fun VipReferralProgramScreen() {
     Scaffold(
-      topBar = { Surface { TopBar(onClickSupport = { viewModel.displayChat() }) } },
+      topBar = { Surface { TopBar(onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) } },
       containerColor = WalletColors.styleguide_blue,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
@@ -196,14 +201,19 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
       colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
     ) {
       Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
-        VipReferralEndCountDownTimer(
-          endDateTime = endDate,
+        VipReferralCountDownTimer(
+          dateTime = endDate,
           modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 4.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
+          true
         )
         ShareCodeCard(referralCode, appName, appIconUrl)
-        EarnedCreditsInfo(symbol = symbol, fiatAmount = fiatAmount, earnedTotal = earnedTotal)
+        EarnedCreditsInfo(
+          symbol = symbol,
+          fiatAmount = fiatAmount,
+          earnedTotal = earnedTotal
+        )
       }
     }
   }
@@ -298,6 +308,8 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
           onClick = onClick,
           labelColor = WalletColors.styleguide_blue,
           backgroundColor = WalletColors.styleguide_vip_yellow,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
         )
       }
     }

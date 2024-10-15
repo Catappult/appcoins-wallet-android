@@ -50,4 +50,30 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
         .show()
     }
   }
+
+  fun navigateToVerify(flow: String) {
+    when (flow) {
+      OnboardingFlow.VERIFY_PAYPAL.name -> {
+        navigate(
+          fragment.findNavController(),
+          OnboardingFragmentDirections.actionNavigateToVerifyPaypal()
+        )
+      }
+
+      OnboardingFlow.VERIFY_CREDIT_CARD.name -> {
+        navigate(
+          fragment.findNavController(),
+          OnboardingFragmentDirections.actionNavigateToVerifyCreditCard()
+        )
+        fragment.requireActivity().finish()
+      }
+    }
+  }
+
+  fun navigateToOnboardingPayment() {
+    navigate(
+      fragment.findNavController(),
+      OnboardingFragmentDirections.actionNavigateToFirstPaymentFragment()
+    )
+  }
 }

@@ -16,7 +16,6 @@ import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
-import cm.aptoide.skills.games.BackgroundGameService
 import cm.aptoide.skills.interfaces.PaymentView
 import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.ErrorStatus
@@ -719,9 +718,6 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun postbackUserData(resultCode: Int, userData: UserData) {
-    if (resultCode == SkillsViewModel.RESULT_OK) {
-      startBackgroundGameService(userData)
-    }
     requireActivity().setResult(resultCode, buildDataIntent(userData))
     requireActivity().finish()
   }
@@ -735,11 +731,6 @@ class SkillsFragment : Fragment(), PaymentView {
     intent.putExtra(WALLET_ADDRESS, userData.walletAddress?.address)
 
     return intent
-  }
-
-  private fun startBackgroundGameService(userData: UserData) {
-    val intent = BackgroundGameService.newIntent(requireContext(), userData.session)
-    context?.startService(intent)
   }
 
   override fun showLoading() {

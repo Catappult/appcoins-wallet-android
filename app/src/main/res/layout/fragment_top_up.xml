@@ -27,6 +27,7 @@
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="16dp"
           android:layout_marginTop="16dp"
+          android:animateLayoutChanges="true"
           android:background="@drawable/rectangle_blue_secondary_radius_16dp"
           android:visibility="visible"
           app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:minWidth="48dp"
             android:text="--"
             android:textColor="@color/styleguide_light_grey"
             android:textSize="18sp"
@@ -50,6 +52,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/main_value"
             tools:text="EUR"
+            />
+
+        <include
+            android:id="@+id/main_currency_skeleton"
+            layout="@layout/skeleton_rounded_rectangle_dark"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/main_currency_code"
+            app:layout_constraintEnd_toEndOf="@id/main_currency_code"
+            app:layout_constraintStart_toStartOf="@id/main_currency_code"
+            app:layout_constraintTop_toTopOf="@id/main_currency_code"
             />
 
         <com.asfoundation.wallet.ui.widget.AutoFitEditText
@@ -79,14 +92,57 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="123.75"
             />
+
+        <ImageView
+            android:id="@+id/ic_info_fees"
+            android:layout_width="16dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_info_message"
+            android:tooltipText="@string/purchase_fee_supported_currency_unknown_disclaimer"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/info_fees"
+            app:layout_constraintEnd_toStartOf="@id/info_fees"
+            app:layout_constraintTop_toTopOf="@id/info_fees"
+            tools:ignore="UnusedAttribute"
+            />
+
+        <TextView
+            android:id="@+id/info_fees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="80dp"
+            android:text="@string/purchase_paypal_additional_fees_disclaimer_body"
+            android:textColor="@color/styleguide_dark_grey"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/main_value"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintTop_toBottomOf="@id/main_value"
+            />
+
+        <include
+            android:id="@+id/main_value_skeleton"
+            layout="@layout/skeleton_rounded_rectangle_dark"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/main_value"
+            app:layout_constraintEnd_toEndOf="@id/main_value"
+            app:layout_constraintStart_toStartOf="@id/main_value"
+            app:layout_constraintTop_toTopOf="@id/main_value"
+            />
+
         <View
             android:id="@+id/header_top_up_divider"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:alpha="0.3"
             android:background="@color/styleguide_dark_grey"
-            app:layout_constraintTop_toBottomOf="@id/main_value"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/info_fees"
             />
 
         <TextView
@@ -102,41 +158,13 @@
             app:layout_constraintTop_toBottomOf="@id/main_value"
             />
 
-        <ImageButton
-            android:id="@+id/swap_value_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:enabled="false"
-            android:src="@drawable/ic_swap"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/main_value"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toStartOf="@id/main_value"
-            app:layout_constraintTop_toTopOf="@id/main_value"
-            />
-
-        <TextView
-            android:id="@+id/swap_value_label"
-            style="@style/TopUpTextStyle.SwapCurrency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="--"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/swap_value_button"
-            app:layout_constraintStart_toStartOf="@id/swap_value_button"
-            app:layout_constraintTop_toBottomOf="@id/swap_value_button"
-            />
-
         <ImageView
             android:id="@+id/value_warning_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="16dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_topup_error"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/main_value"
@@ -155,7 +183,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/big_margin"
             android:layout_marginBottom="8dp"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -183,7 +211,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/topup_minimum_value"
-          android:visibility="invisible"
+          android:visibility="gone"
           app:layout_constraintBottom_toTopOf="@id/payment_container"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -193,23 +221,27 @@
       <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/payment_container"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="32dp"
+          android:layout_height="0dp"
+          android:layout_marginTop="24dp"
           android:paddingStart="16dp"
           android:paddingEnd="16dp"
+          app:layout_constraintBottom_toTopOf="@id/tv_refund_disclaimer"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/layout_header_top_up"
           >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/payment_methods"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:clipToPadding="false"
             android:focusable="true"
             android:overScrollMode="never"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -217,7 +249,7 @@
         <LinearLayout
             android:id="@+id/payments_skeleton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
@@ -239,20 +271,35 @@
               android:layout_height="64dp"
               android:layout_marginTop="8dp"
               />
+          <include
+              layout="@layout/skeleton_payments_dark"
+              android:layout_width="match_parent"
+              android:layout_height="64dp"
+              android:layout_marginTop="8dp"
+              />
         </LinearLayout>
       </androidx.constraintlayout.widget.ConstraintLayout>
 
-      <View
-          android:id="@+id/bot_separator"
+      <TextView
+          android:id="@+id/tv_refund_disclaimer"
           android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginStart="32dp"
-          android:layout_marginEnd="32dp"
-          android:background="@color/styleguide_blue"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="4dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:text="@string/purchase_legal_disclaimer"
+          android:textColor="@color/styleguide_dark_grey"
+          android:textSize="@dimen/small_text"
+          android:textStyle="bold"
+          android:visibility="gone"
+          app:layout_constraintBottom_toTopOf="@id/button"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/payment_container"
+          tools:visibility="visible"
           />
+
 
       <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/button"
@@ -262,12 +309,12 @@
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="16dp"
           android:layout_marginEnd="@dimen/big_margin"
-          android:layout_marginBottom="40dp"
+          android:layout_marginBottom="24dp"
           android:enabled="false"
           app:buttonText="@string/action_next"
           app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/bot_separator"
+          app:layout_constraintTop_toBottomOf="@id/tv_refund_disclaimer"
           app:layout_constraintVertical_bias="1.0"
           />
 
@@ -309,6 +356,12 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       tools:visibility="visible"
+      />
+
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/composeView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       />
 
   <androidx.recyclerview.widget.RecyclerView

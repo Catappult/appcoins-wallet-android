@@ -15,9 +15,7 @@ import java.math.BigDecimal
 
 interface IabView {
 
-  fun disableBack()
-
-  fun enableBack()
+  fun setBackEnable(enable: Boolean)
 
   fun finish(bundle: Bundle)
 
@@ -101,6 +99,13 @@ interface IabView {
     frequency: String?
   )
 
+  fun showMiPayWeb(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    bonus: String?,
+  )
+
   fun showWalletOne(
     amount: BigDecimal,
     currency: String?,
@@ -146,7 +151,8 @@ interface IabView {
     paymentMethodLabel: String,
     async: Boolean,
     referralUrl: String?,
-    gamificationLevel: Int
+    gamificationLevel: Int,
+    guestWalletId: String?,
   )
 
   fun createChallengeReward(walletAddress: String)
@@ -191,7 +197,9 @@ interface IabView {
 
   fun showBackupNotification(walletAddress: String)
 
-  fun showVerification(isWalletVerified: Boolean)
+  fun showCreditCardVerification(isWalletVerified: Boolean)
+
+  fun showPayPalVerification()
 
   fun showError(@StringRes error: Int)
 

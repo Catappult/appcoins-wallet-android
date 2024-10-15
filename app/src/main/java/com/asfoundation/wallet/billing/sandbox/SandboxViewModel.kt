@@ -46,7 +46,7 @@ class SandboxViewModel @Inject constructor(
 
   private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-  private var authenticatedToken: String? = null
+  private var uid: String? = null
 
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
@@ -68,13 +68,15 @@ class SandboxViewModel @Inject constructor(
         callbackUrl = transactionBuilder.callbackUrl,
         transactionType = transactionBuilder.type,
         developerWallet = transactionBuilder.toAddress(),
-        referrerUrl = transactionBuilder.referrerUrl
+        referrerUrl = transactionBuilder.referrerUrl,
+        guestWalletId = transactionBuilder.guestWalletId
       )
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
           when (it?.validity) {
             SandboxTransaction.SandboxValidityState.COMPLETED -> {
+              uid = it.uid
               getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
             }
 
@@ -263,7 +265,7 @@ class SandboxViewModel @Inject constructor(
 
   fun showSupport(gamificationLevel: Int) {
     compositeDisposable.add(
-      supportInteractor.showSupport(gamificationLevel).subscribe({}, { it.printStackTrace() })
+      supportInteractor.showSupport(gamificationLevel, uid).subscribe({}, { it.printStackTrace() })
     )
   }
 

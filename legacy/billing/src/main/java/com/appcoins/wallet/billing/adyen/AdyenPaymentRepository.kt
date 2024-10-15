@@ -1,5 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
+import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
@@ -13,6 +14,7 @@ import com.appcoins.wallet.core.network.microservices.model.PaymentDetails
 import com.appcoins.wallet.core.network.microservices.model.TokenPayment
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.google.gson.JsonObject
 import io.reactivex.Single
 import javax.inject.Inject
@@ -22,6 +24,7 @@ class AdyenPaymentRepository @Inject constructor(
   private val brokerBdsApi: BrokerBdsApi,
   private val subscriptionsApi: SubscriptionBillingApi,
   private val adyenResponseMapper: AdyenResponseMapper,
+  private val cardPaymentDataSource: CardPaymentDataSource,
   private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
   private val logger: Logger
@@ -50,6 +53,29 @@ class AdyenPaymentRepository @Inject constructor(
       }
   }
 
+  fun getStoredCards(
+    methods: Methods,
+    value: String,
+    currency: String?,
+    walletAddress: String,
+    ewt: String
+  ): Single<List<StoredPaymentMethod>> {
+    return adyenApi.loadPaymentInfo(
+      walletAddress,
+      ewt,
+      value,
+      currency ?: "USD",
+      methods.transactionType
+    )
+      .map {
+        adyenResponseMapper.mapToStoredCards(it)
+      }
+      .onErrorReturn {
+        logger.log("AdyenPaymentRepository", it)
+        listOf<StoredPaymentMethod>()
+      }
+  }
+
   fun makePayment(
     adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
     supportedShopperInteractions: List<String>, returnUrl: String, value: String,
@@ -59,7 +85,8 @@ class AdyenPaymentRepository @Inject constructor(
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
     userWallet: String?,
     walletSignature: String,
-    referrerUrl: String?
+    referrerUrl: String?,
+    guestWalletId: String?,
   ): Single<PaymentModel> {
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
@@ -87,6 +114,7 @@ class AdyenPaymentRepository @Inject constructor(
                 entityPromoCode = entityPromoCode,
                 user = userWallet,
                 referrerUrl = referrerUrl,
+                guestWalletId = guestWalletId,
                 token = it
               )
             }
@@ -127,7 +155,8 @@ class AdyenPaymentRepository @Inject constructor(
               entityDomain = entityDomain,
               entityPromoCode = entityPromoCode,
               user = userWallet,
-              referrerUrl = referrerUrl
+              referrerUrl = referrerUrl,
+              guestWalletId = guestWalletId,
             )
           )
             .map { adyenResponseMapper.map(it) }
@@ -158,7 +187,16 @@ class AdyenPaymentRepository @Inject constructor(
   }
 
   fun disablePayments(walletAddress: String): Single<Boolean> {
-    return adyenApi.disablePayments(DisableWallet(walletAddress))
+    return adyenApi.disablePayments(DisableWallet(walletAddress, null))
+      .toSingleDefault(true)
+      .doOnError { it.printStackTrace() }
+      .onErrorReturn {
+        false
+      }
+  }
+
+  fun removeSavedCard(walletAddress: String, recurringReference: String?): Single<Boolean> {
+    return adyenApi.disablePayments(DisableWallet(walletAddress, recurringReference))
       .toSingleDefault(true)
       .doOnError { it.printStackTrace() }
       .onErrorReturn {
@@ -183,11 +221,21 @@ class AdyenPaymentRepository @Inject constructor(
   }
 
   fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse> {
-    return adyenApi.getCreditCardNeedCVC().map { it }
+    return adyenApi.getCreditCardNeedCVC()
+      .map {
+        if (!cardPaymentDataSource.isMandatoryCvc())
+          it
+        else
+          CreditCardCVCResponse(needAskCvc = true)
+      }
       .doOnError { it.printStackTrace() }
       .onErrorReturn {
         CreditCardCVCResponse(needAskCvc = true)
       }
+  }
+
+  fun setMandatoryCVC(mandatoryCvc: Boolean) {
+    cardPaymentDataSource.setMandatoryCvc(mandatoryCvc)
   }
 
   enum class Methods(val adyenType: String, val transactionType: String) {

@@ -64,7 +64,6 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
       context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     if (supportInteractor.hasNewUnreadConversations()) {
-      supportInteractor.updateUnreadConversations()
       notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(context).build())
     }
   }

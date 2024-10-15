@@ -8,6 +8,7 @@ import com.appcoins.wallet.convention.extensions.buildConfigFields
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import kotlin.collections.set
@@ -23,11 +24,17 @@ class AndroidAppPlugin : Plugin<Project> {
         apply<JacocoApplicationPlugin>()
       }
 
+      extensions.configure(JavaPluginExtension::class.java) {
+        sourceCompatibility = Config.jvm.javaVersion
+        targetCompatibility = Config.jvm.javaVersion
+      }
+
       extensions.configure<BaseAppModuleExtension> {
         configureAndroidAndKotlin(this)
-        buildToolsVersion = Config.android.buildToolsVersion
         ndkVersion = Config.android.ndkVersion
         defaultConfig {
+          val giftCardHost = "giftcard"
+          val promoCodeHost = "promocode"
           targetSdk = Config.android.targetSdk
           multiDexEnabled = true
           lint {
@@ -41,6 +48,11 @@ class AndroidAppPlugin : Plugin<Project> {
             }
           }
 
+          buildConfigField("String", "PROMO_CODE_HOST", "\"$promoCodeHost\"")
+          manifestPlaceholders["promoCodeHost"] = promoCodeHost
+
+          buildConfigField("String", "GIFT_CARD_HOST", "\"$giftCardHost\"")
+          manifestPlaceholders["giftCardHost"] = giftCardHost
           manifestPlaceholders["VkExternalAuthRedirectHost"] =
             project.property("VK_EXTERNAL_AUTH_REDIRECT_HOST").toString()
         }
@@ -126,9 +138,10 @@ class AndroidAppPlugin : Plugin<Project> {
             enable = true
           }
           composeOptions {
-            kotlinCompilerExtensionVersion = "1.4.3"
+            kotlinCompilerExtensionVersion = "1.5.13"
           }
           compose = true
+          aidl = true
         }
 
         flavorDimensions.add(Config.distributionFlavorDimension)

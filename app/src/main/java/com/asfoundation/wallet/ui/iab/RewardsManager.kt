@@ -23,13 +23,24 @@ class RewardsManager @Inject constructor(
   fun pay(
     sku: String?, amount: BigDecimal, packageName: String,
     origin: String?, type: String, payload: String?, callbackUrl: String?,
-    orderReference: String?, referrerUrl: String?, productToken: String?
+    orderReference: String?, referrerUrl: String?, productToken: String?, guestWalletId: String?
   ): Completable {
     return partnerAddressService.getAttribution(packageName)
       .flatMapCompletable { attrEntity ->
         appcoinsRewards.pay(
-          amount, origin, sku, type, attrEntity.oemId, attrEntity.domain,
-          packageName, payload, callbackUrl, orderReference, referrerUrl, productToken
+          amount = amount,
+          origin = origin,
+          sku = sku,
+          type = type,
+          entityOemId = attrEntity.oemId,
+          entityDomainId = attrEntity.domain,
+          packageName = packageName,
+          payload = payload,
+          callbackUrl = callbackUrl,
+          orderReference = orderReference,
+          referrerUrl = referrerUrl,
+          productToken = productToken,
+          guestWalletId = guestWalletId,
         )
       }
   }
@@ -93,8 +104,8 @@ class RewardsManager @Inject constructor(
 
   fun sendCredits(
     toWallet: String, amount: BigDecimal,
-    packageName: String
+    packageName: String, guestWalletId: String?
   ): Single<AppcoinsRewardsRepository.Status> {
-    return appcoinsRewards.sendCredits(toWallet, amount, packageName)
+    return appcoinsRewards.sendCredits(toWallet, amount, packageName, guestWalletId)
   }
 }

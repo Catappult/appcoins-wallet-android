@@ -7,29 +7,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
-import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.feature.vkpay.VkPayManager
 import com.appcoins.wallet.sharedpreferences.VkDataPreferencesDataSource
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.VkPaymentIabLayoutBinding
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.vk.auth.api.models.AuthResult
 import com.vk.auth.main.VkClientAuthCallback
 import com.vk.auth.main.VkClientAuthLib
+import com.vk.auth.oauth.VkOAuthConnectionResult
 import com.vk.superapp.SuperappKit
+import com.vk.superapp.vkpay.checkout.VkCheckoutFailed
 import com.vk.superapp.vkpay.checkout.VkCheckoutResult
 import com.vk.superapp.vkpay.checkout.VkCheckoutSuccess
 import com.vk.superapp.vkpay.checkout.VkPayCheckout
@@ -77,6 +79,18 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       super.onCancel()
       showError()
     }
+
+    override fun onOAuthConnectResult(result: VkOAuthConnectionResult) {
+      super.onOAuthConnectResult(result)
+      when (result) {
+        is VkOAuthConnectionResult.Error ->  {
+          iabView.navigateBack()
+        }
+        else -> {
+          //Do nothing
+        }
+      }
+    }
   }
 
   override fun onAttach(context: Context) {
@@ -88,8 +102,8 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     //Build Vk Pay SuperApp Kit
     vkPayManager.initSuperAppKit(
@@ -105,10 +119,12 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     return VkPaymentIabLayoutBinding.inflate(inflater).root
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    clearVkPayCheckout()
     setupTransactionCompleteAnimation()
+    binding.loading.visibility = View.VISIBLE
     lifecycleScope.launch {
       delay(500)  // necessary delay to ensure the superappKit is actually ready.
       if (SuperappKit.isInitialized()) {
@@ -132,14 +148,14 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       requireArguments().containsKey(ORIGIN_KEY)
     ) {
       viewModel.getPaymentLink(
-        requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
-        (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
+        getParcelableExtra<TransactionBuilder>(TRANSACTION_DATA_KEY)!!,
+        getSerializableExtra<BigDecimal>(AMOUNT_KEY).toString(),
         requireArguments().getString(CURRENCY_KEY)!!,
         requireArguments().getString(ORIGIN_KEY)!!,
         email,
         phone
       )
-      viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
+      viewModel.sendPaymentStartEvent(getParcelableExtra(TRANSACTION_DATA_KEY))
     } else {
       showError()
     }
@@ -171,9 +187,12 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   private fun handleCheckoutResult(vkCheckoutResult: VkCheckoutResult) {
     when (vkCheckoutResult) {
-      is VkCheckoutSuccess -> {}
-      else -> {
-        showError()
+      is VkCheckoutSuccess -> {
+        viewModel.startTransactionStatusTimer()
+      }
+
+      is VkCheckoutFailed -> {
+        iabView.navigateBack()
       }
     }
   }
@@ -193,16 +212,13 @@ class VkPaymentIABFragment : BasePageViewFragment(),
         amount,
         merchantId.toInt(),
         BuildConfig.VK_SDK_APP_ID.toInt(),
-        requireFragmentManager()
+        requireActivity().supportFragmentManager
       )
       viewModel.hasVkPayAlreadyOpened = true
     } else {
       showError()
     }
-    // this callback from VK Pay sdk stopped working:
     VkPayCheckout.observeCheckoutResult { result -> handleCheckoutResult(result) }
-    // so we are forcing the transaction status check even before completing the payment:
-    viewModel.startTransactionStatusTimer()
   }
 
 
@@ -218,9 +234,9 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   fun showError() {
     viewModel.sendPaymentErrorEvent(
-      "",
-      "",
-      requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!
+      errorCode = "",
+      errorMessage = "",
+      transactionBuilder = getParcelableExtra<TransactionBuilder>(TRANSACTION_DATA_KEY)!!
     )
     binding.loading.visibility = View.GONE
     binding.loadingHintTextView.visibility = View.GONE
@@ -235,7 +251,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       iabView.navigateBack()
     }
     binding.errorCancelVk.setOnClickListener {
-      iabView.close(bundle = null)
+      iabView.close(bundle = Bundle())
     }
   }
 
@@ -245,7 +261,10 @@ class VkPaymentIABFragment : BasePageViewFragment(),
         showError()
       }
 
-      VkPaymentIABSideEffect.ShowLoading -> {}
+      VkPaymentIABSideEffect.ShowLoading -> {
+        binding.loading.visibility = View.VISIBLE
+      }
+
       VkPaymentIABSideEffect.ShowSuccess -> {
         showSuccessAnimation()
       }
@@ -253,6 +272,13 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       VkPaymentIABSideEffect.PaymentLinkSuccess -> {
         viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
         startVkCheckoutPay()
+      }
+
+      is VkPaymentIABSideEffect.SendSuccessBundle -> {
+        viewLifecycleOwner.lifecycleScope.launch {
+          delay(1500L)
+          navigatorIAB?.popView(sideEffect.bundle)
+        }
       }
     }
   }
@@ -265,8 +291,8 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   private fun showSuccessAnimation() {
     viewModel.sendPaymentSuccessEvent(
-      requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
-      viewModel.transactionUid!!
+      transactionBuilder = getParcelableExtra<TransactionBuilder>(TRANSACTION_DATA_KEY)!!,
+      txId = viewModel.transactionUid!!
     )
     val bonus = requireArguments().getString(BONUS_KEY)
     if (!bonus.isNullOrEmpty()) {
@@ -282,23 +308,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   }
 
   private fun handleCompletePurchase() {
-    val bundle = Bundle().apply {
-      putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-      putString(
-        VkPaymentTopUpFragment.TOP_UP_AMOUNT,
-        (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString()
-      )
-      putString(VkPaymentTopUpFragment.TOP_UP_CURRENCY, requireArguments().getString(CURRENCY_KEY))
-      putString(VkPaymentTopUpFragment.BONUS, requireArguments().getString(BONUS_KEY))
-      putString(
-        VkPaymentTopUpFragment.TOP_UP_CURRENCY_SYMBOL,
-        requireArguments().getString(CURRENCY_KEY)
-      )
-    }
-    viewLifecycleOwner.lifecycleScope.launch {
-      delay(1500L)
-      navigatorIAB?.popView(bundle)
-    }
+    viewModel.getSuccessBundle(getParcelableExtra(TRANSACTION_DATA_KEY))
   }
 
   companion object {

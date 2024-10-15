@@ -13,7 +13,8 @@ enum class ValidityState(val value: Int) {
   ACTIVE(0),
   EXPIRED(1),
   ERROR(2),
-  NOT_ADDED(3);
+  NOT_ADDED(3),
+  USER_OWN_PROMO_CODE(4);
 
   companion object {
     fun toEnum(value: Int) = ValidityState.values().firstOrNull { it.value == value }

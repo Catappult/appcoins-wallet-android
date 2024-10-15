@@ -42,7 +42,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDayAndHour
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.widgets.TopBar
@@ -54,10 +56,15 @@ import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.InvoiceS
 import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.UiState
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TransactionDetailsFragment : BasePageViewFragment() {
   private val viewModel: TransactionDetailsViewModel by viewModels()
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -75,20 +82,14 @@ class TransactionDetailsFragment : BasePageViewFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    requireArguments().run {
-      viewModel.updateTransaction(
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-          getParcelable(TRANSACTION_KEY, TransactionModel::class.java)
-        else getParcelable(TRANSACTION_KEY)
-      )
-    }
+    viewModel.updateTransaction(getParcelableExtra<TransactionModel>(TRANSACTION_KEY))
   }
 
   @Composable
   fun TransactionDetailView(uiState: UiState, invoiceState: InvoiceState) {
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) }
       },
       containerColor = WalletColors.styleguide_blue
     ) { padding ->

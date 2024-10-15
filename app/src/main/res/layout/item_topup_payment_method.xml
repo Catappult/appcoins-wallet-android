@@ -52,6 +52,7 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="10dp"
       android:scaleType="centerInside"
+      android:importantForAccessibility="no"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toEndOf="@id/radio_button"
       app:layout_constraintTop_toTopOf="parent"
@@ -100,7 +101,7 @@
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/normal_margin"
       android:background="?attr/selectableItemBackgroundBorderless"
-      android:contentDescription="Logout"
+      android:contentDescription="@string/log_out_button"
       android:foregroundTint="@color/styleguide_light_grey"
       android:src="@drawable/ic_more"
       android:visibility="gone"
@@ -110,19 +111,50 @@
       app:tint="@color/styleguide_light_grey"
       />
 
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/change_card_button"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:layout_marginVertical="4dp"
+      android:visibility="gone"
+      app:buttonColor="@color/styleguide_pink"
+      app:buttonText="@string/change_button"
+      app:buttonType="text"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:visibility="visible"
+      />
+
   <TextView
       android:id="@+id/payment_method_fee"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="start"
-      android:text="@string/purchase_fee_title"
+      android:text="@string/purchase_fees_and_taxes_known_disclaimer_body"
       android:textColor="@color/styleguide_dark_grey"
-      android:textSize="12sp"
+      android:textSize="11sp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/payment_method_message"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toStartOf="@id/payment_method_description"
+      app:layout_constraintTop_toBottomOf="@id/payment_method_reason"
+      tools:visibility="visible"
+      />
+
+  <TextView
+      android:id="@+id/payment_method_message"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="start"
+      tools:text="@plurals/purchase_bank_transfer_time_disclaimer"
+      android:textColor="@color/styleguide_dark_grey"
+      android:textSize="11sp"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="@id/payment_method_description"
-      app:layout_constraintTop_toBottomOf="@id/payment_method_reason"
+      app:layout_constraintTop_toBottomOf="@id/payment_method_fee"
       tools:visibility="visible"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

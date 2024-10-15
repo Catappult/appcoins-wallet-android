@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.widgets.WalletTextFieldView
@@ -24,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
+class ManageWalletNameBottomSheetFragment : BottomSheetDialogFragment(),
   SingleStateFragment<ManageWalletNameBottomSheetState, ManageWalletNameBottomSheetSideEffect> {
 
 
@@ -35,6 +36,10 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
   private val views by viewBinding(ManageWalletNameBottomSheetLayoutBinding::bind)
 
   private val manageWalletSharedViewModel: ManageWalletSharedViewModel by activityViewModels()
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   companion object {
     const val WALLET_NAME = "wallet_name"
@@ -92,6 +97,7 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
           views.textWalletNameBottomSheetString.getText().trim()
         )
       }
+      buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.carrier_billing_submit_button))
     }
 
     views.textWalletNameBottomSheetString.addTextChangedListener(object : TextWatcher {

@@ -16,6 +16,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,10 +30,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.R
 import com.appcoins.wallet.ui.widgets.component.ButtonType.DEFAULT
 import com.appcoins.wallet.ui.widgets.component.ButtonType.LARGE
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun ButtonWithIcon(
@@ -41,11 +47,26 @@ fun ButtonWithIcon(
   labelColor: Color,
   iconColor: Color = Color.Unspecified,
   iconSize: Dp = 12.dp,
-  buttonType: ButtonType = DEFAULT
+  buttonType: ButtonType = DEFAULT,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
+  val isButtonEnabled = remember { mutableStateOf(true) }
+  val scope = rememberCoroutineScope()
   val modifier = if (buttonType == LARGE) Modifier.fillMaxWidth() else Modifier
+  val buttonString = stringResource(label)
   Button(
-    onClick = onClick,
+    onClick = {
+      if (isButtonEnabled.value) {
+        isButtonEnabled.value = false
+        scope.launch {
+          delay(2000)
+          isButtonEnabled.value = true
+        }
+        buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, buttonString)
+        onClick.invoke()
+      }
+    },
     shape = CircleShape,
     colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
     elevation = null,
@@ -60,7 +81,7 @@ fun ButtonWithIcon(
       )
       Spacer(modifier = Modifier.width(8.dp))
       Text(
-        text = stringResource(label),
+        text = buttonString,
         style = MaterialTheme.typography.bodyMedium,
         color = labelColor,
         fontWeight = FontWeight.Bold
@@ -71,30 +92,43 @@ fun ButtonWithIcon(
 
 @Composable
 fun ButtonWithText(
+  modifier: Modifier = Modifier,
   label: String,
   onClick: () -> Unit,
   backgroundColor: Color = Color.Transparent,
   labelColor: Color,
   outlineColor: Color? = null,
   buttonType: ButtonType = DEFAULT,
-  textStyle: TextStyle = MaterialTheme.typography.bodyMedium
+  textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+  enabled: Boolean = true,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
-  val modifier = if (buttonType == LARGE) Modifier
+  val isButtonEnabled = remember { mutableStateOf(true) }
+  val scope = rememberCoroutineScope()
+  val buttonModifier = if (buttonType == LARGE) modifier
     .fillMaxWidth()
-    .height(48.dp) else Modifier
+    .height(48.dp) else modifier
   Button(
-    onClick = { onClick.invoke() },
-    modifier = modifier.defaultMinSize(minHeight = 40.dp),
+    onClick = {
+      if (enabled) {
+        if (isButtonEnabled.value) {
+          isButtonEnabled.value = false
+          scope.launch {
+            delay(2000)
+            isButtonEnabled.value = true
+          }
+          buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, label)
+          onClick.invoke()
+        }
+      }
+    },
+    modifier = buttonModifier.defaultMinSize(minHeight = 40.dp),
     shape = CircleShape,
-    colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
+    colors = ButtonDefaults.buttonColors(containerColor = if (enabled) backgroundColor else WalletColors.styleguide_medium_grey),
     border = BorderStroke(width = 1.dp, color = outlineColor ?: Color.Transparent)
   ) {
-    Text(
-      text = label,
-      style = textStyle,
-      color = labelColor,
-      fontWeight = FontWeight.Bold
-    )
+    Text(text = label, style = textStyle, color = labelColor, fontWeight = FontWeight.Bold)
   }
 }
 
@@ -104,10 +138,17 @@ fun BottomSheetButton(
   label: Int,
   onClick: () -> Unit,
   labelColor: Color = WalletColors.styleguide_white,
-  iconColor: Color = WalletColors.styleguide_pink
+  iconColor: Color = WalletColors.styleguide_pink,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
+  val buttonString = stringResource(id = label)
   Button(
-    onClick = onClick, shape = RectangleShape,
+    onClick = {
+      buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, buttonString)
+      onClick.invoke()
+    },
+    shape = RectangleShape,
     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
     modifier = Modifier
       .defaultMinSize(minHeight = 64.dp)
@@ -131,7 +172,6 @@ fun BottomSheetButton(
   }
 }
 
-
 @Preview
 @Composable
 fun PreviewButtonWithIcon() {
@@ -141,7 +181,9 @@ fun PreviewButtonWithIcon() {
     onClick = {},
     backgroundColor = WalletColors.styleguide_pink,
     labelColor = WalletColors.styleguide_white,
-    iconColor = WalletColors.styleguide_white
+    iconColor = WalletColors.styleguide_white,
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }
 
@@ -156,7 +198,9 @@ fun PreviewLargeButtonWithIcon() {
     labelColor = WalletColors.styleguide_white,
     iconColor = WalletColors.styleguide_white,
     buttonType = LARGE,
-    iconSize = 16.dp
+    iconSize = 16.dp,
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }
 
@@ -167,7 +211,10 @@ fun PreviewButtonWithText() {
     backgroundColor = WalletColors.styleguide_pink,
     labelColor = WalletColors.styleguide_white,
     label = stringResource(R.string.action_add_wallet),
-    onClick = {})
+    onClick = {},
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
+  )
 }
 
 @Preview
@@ -178,7 +225,9 @@ fun PreviewLargeButtonWithText() {
     labelColor = WalletColors.styleguide_white,
     label = stringResource(R.string.action_add_wallet),
     onClick = {},
-    buttonType = LARGE
+    buttonType = LARGE,
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }
 
@@ -189,7 +238,9 @@ fun PreviewBottomSheetButton() {
     icon = R.drawable.ic_home,
     label = R.string.action_add_wallet,
     onClick = {},
-    labelColor = WalletColors.styleguide_white
+    labelColor = WalletColors.styleguide_white,
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null
   )
 }
 

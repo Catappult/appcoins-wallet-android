@@ -32,51 +32,51 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
 
   private fun getErrorType(
     httpCode: Int?, messageCode: String?,
-    data: Any?
+    data: String?
   ): ErrorInfo.ErrorType {
     return when {
       messageCode == NOT_ALLOWED_CODE -> ErrorInfo.ErrorType.SUB_ALREADY_OWNED
       messageCode == FORBIDDEN_CODE -> ErrorInfo.ErrorType.BLOCKED
       httpCode == CONFLICT_HTTP_CODE -> ErrorInfo.ErrorType.CONFLICT
-      messageCode == ADYEN_V2_ERROR && (data is Number) -> {
-        when (data.toInt()) {
-          101 -> {
-            ErrorInfo.ErrorType.INVALID_CARD
+      messageCode == ADYEN_V2_ERROR && (data != null) -> {
+        when (data.toString()) {
+          "14_029" -> {
+            ErrorInfo.ErrorType.CVC_REQUIRED
           }
 
-          103 -> {
+          "103" -> {
             ErrorInfo.ErrorType.CVC_LENGTH
           }
 
-          105 -> {
+          "105" -> {
             ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION
           }
 
-          138 -> {
+          "138" -> {
             ErrorInfo.ErrorType.CURRENCY_NOT_SUPPORTED
           }
 
-          200 -> {
+          "200" -> {
             ErrorInfo.ErrorType.INVALID_COUNTRY_CODE
           }
 
-          172, 174, 422, 800 -> {
+          "172", "174", "422", "800", "803" -> {
             ErrorInfo.ErrorType.OUTDATED_CARD
           }
 
-          704 -> {
+          "704" -> {
             ErrorInfo.ErrorType.ALREADY_PROCESSED
           }
 
-          905 -> {
+          "905", "905_1", "905_2", "905_3", "905_4", "905_5", "905_6" -> {
             ErrorInfo.ErrorType.PAYMENT_ERROR
           }
 
-          907 -> {
+          "907" -> {
             ErrorInfo.ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY
           }
 
-          916 -> {
+          "916" -> {
             ErrorInfo.ErrorType.TRANSACTION_AMOUNT_EXCEEDED
           }
 

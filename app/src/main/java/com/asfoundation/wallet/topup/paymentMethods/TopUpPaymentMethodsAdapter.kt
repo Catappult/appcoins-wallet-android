@@ -4,26 +4,31 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
+import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.TopupPaymentMethodsViewHolder
-import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 
 
 class TopUpPaymentMethodsAdapter(
   private var paymentMethods: List<PaymentMethod>,
-  private var paymentMethodClick: PublishRelay<String>,
+  private var paymentMethodClick: PublishSubject<PaymentMethod>,
   private val logoutCallback: () -> Unit,
   private val disposables: CompositeDisposable,
-  private val showPayPalLogout: Subject<Boolean>
+  private val showPayPalLogout: Subject<Boolean>,
+  private val cardsList: List<StoredCard>,
+  private val onChangeCardCallback: () -> Unit,
 ) :
   RecyclerView.Adapter<TopupPaymentMethodsViewHolder>() {
   private var selectedItem = 0
 
   fun setSelectedItem(position: Int) {
+    val tempItem = selectedItem
     selectedItem = position
-    notifyDataSetChanged()
+    notifyItemChanged(tempItem)
+    notifyItemChanged(selectedItem)
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopupPaymentMethodsViewHolder {
@@ -40,13 +45,14 @@ class TopUpPaymentMethodsAdapter(
       data = paymentMethods[position],
       checked = selectedItem == position,
       listener = {
-        selectedItem = position
-        paymentMethodClick.accept(paymentMethods[position].id)
-        notifyDataSetChanged()
+        setSelectedItem(holder.absoluteAdapterPosition)
+        paymentMethodClick.onNext(paymentMethods[position])
       },
       onClickPaypalLogout = logoutCallback,
       disposables = disposables,
-      showPayPalLogout = showPayPalLogout
+      showPayPalLogout = showPayPalLogout,
+      cardData = cardsList.find { it.isSelectedCard } ?: cardsList.firstOrNull(),
+      onChangeCardCallback = onChangeCardCallback
     )
   }
 

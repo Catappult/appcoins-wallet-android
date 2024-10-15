@@ -51,6 +51,10 @@ public class TransactionBuilder implements Parcelable {
   //Subs
   @Nullable private String subscriptionPeriod;
   @Nullable private String trialPeriod;
+  @Nullable private String wspPort;
+  @Nullable private String sdkVersion;
+  @Nullable private String oemIdSdk;
+  @Nullable private String guestWalletId;
 
   public TransactionBuilder(TransactionBuilder transactionBuilder) {
     this.contractAddress = transactionBuilder.contractAddress;
@@ -79,6 +83,10 @@ public class TransactionBuilder implements Parcelable {
     this.productToken = transactionBuilder.productToken;
     this.subscriptionPeriod = transactionBuilder.subscriptionPeriod;
     this.trialPeriod = transactionBuilder.trialPeriod;
+    this.wspPort = transactionBuilder.wspPort;
+    this.sdkVersion = transactionBuilder.sdkVersion;
+    this.oemIdSdk = transactionBuilder.oemIdSdk;
+    this.guestWalletId = transactionBuilder.guestWalletId;
   }
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
@@ -118,6 +126,10 @@ public class TransactionBuilder implements Parcelable {
     productToken = in.readString();
     subscriptionPeriod = in.readString();
     trialPeriod = in.readString();
+    wspPort = in.readString();
+    sdkVersion = in.readString();
+    oemIdSdk = in.readString();
+    guestWalletId = in.readString();
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
@@ -169,12 +181,15 @@ public class TransactionBuilder implements Parcelable {
       String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
       String iabContract, String type, String origin, String domain, String payload,
       String callbackUrl, String orderReference, String referrerUrl, String productName,
-      @Nullable String subscriptionPeriod, @Nullable String trialPeriod) {
+      @Nullable String subscriptionPeriod, @Nullable String trialPeriod, @Nullable String oemId,
+      @Nullable String guestWalletId) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
         type, origin, domain, payload, callbackUrl, orderReference, referrerUrl, productName);
     this.iabContract = iabContract;
     this.subscriptionPeriod = subscriptionPeriod;
     this.trialPeriod = trialPeriod;
+    this.oemIdSdk = oemId;
+    this.guestWalletId = guestWalletId;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
@@ -224,6 +239,16 @@ public class TransactionBuilder implements Parcelable {
 
   public TransactionBuilder shouldSendToken(boolean shouldSendToken) {
     this.shouldSendToken = shouldSendToken;
+    return this;
+  }
+
+  public TransactionBuilder addSdkVersion(String sdkVersion) {
+    this.sdkVersion = sdkVersion;
+    return this;
+  }
+
+  public TransactionBuilder addWsPort(String wspPort) {
+    this.wspPort = wspPort;
     return this;
   }
 
@@ -311,6 +336,26 @@ public class TransactionBuilder implements Parcelable {
 
   public String getOrigin() {
     return origin;
+  }
+
+  public void setOrigin(String origin) {
+    this.origin = origin;
+  }
+
+  public String getWspPort() {
+    return wspPort;
+  }
+
+  public String getSdkVersion() {
+    return sdkVersion;
+  }
+
+  public void setWspPort(String wspPort) {
+    this.wspPort = wspPort;
+  }
+
+  public void setSdkVersion(String sdkVersion) {
+    this.sdkVersion = sdkVersion;
   }
 
   public String getDomain() {
@@ -404,6 +449,10 @@ public class TransactionBuilder implements Parcelable {
     return referrerUrl;
   }
 
+  public String getGuestId() {
+    return guestWalletId;
+  }
+
   public void setReferrerUrl(String referrerUrl) {
     this.referrerUrl = referrerUrl;
   }
@@ -461,6 +510,10 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(productToken);
     dest.writeString(subscriptionPeriod);
     dest.writeString(trialPeriod);
+    dest.writeString(wspPort);
+    dest.writeString(sdkVersion);
+    dest.writeString(oemIdSdk);
+    dest.writeString(guestWalletId);
   }
 
   public byte[] approveData() {
@@ -486,6 +539,22 @@ public class TransactionBuilder implements Parcelable {
 
   public void setTrialPeriod(String trialPeriod) {
     this.trialPeriod = trialPeriod;
+  }
+
+  public String getOemIdSdk() {
+    return oemIdSdk;
+  }
+
+  public void setOemIdSdk(String oemIdSdk) {
+    this.oemIdSdk = oemIdSdk;
+  }
+
+  public String getGuestWalletId() {
+    return guestWalletId;
+  }
+
+  public void setGuestWalletId(String guestWalletId) {
+    this.guestWalletId = guestWalletId;
   }
 
   public BigDecimal getAmountUsd() {

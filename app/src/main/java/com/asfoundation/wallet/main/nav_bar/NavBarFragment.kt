@@ -1,19 +1,23 @@
 package com.asfoundation.wallet.main.nav_bar
 
+import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
@@ -22,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.activityViewModels
@@ -30,10 +35,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
@@ -47,8 +52,14 @@ import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, NavBarSideEffect> {
+
+  companion object {
+    const val EXTRA_GIFT_CARD = "giftCard"
+    const val EXTRA_PROMO_CODE = "promoCode"
+  }
 
   private lateinit var navHostFragment: NavHostFragment
   private lateinit var fullHostFragment: NavHostFragment
@@ -56,6 +67,11 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   private val views by viewBinding(NavBarFragmentBinding::bind)
   private val viewModel: NavBarViewModel by activityViewModels()
+
+  private val pushNotificationPermissionLauncher =
+    registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
+
+  private var keyboardListener: OnGlobalLayoutListener? = null
 
   @Inject
   lateinit var navigator: NavBarFragmentNavigator
@@ -65,6 +81,10 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   @Inject
   lateinit var networkMonitor: NetworkMonitor
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -77,8 +97,25 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     initHostFragments()
     views.bottomNav.setupWithNavController(navHostFragment.navController)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    adjustBottomNavigationViewOnKeyboardVisibility()
     setBottomNavListener()
     views.composeView.setContent { BottomNavigationHome() }
+    arguments?.getString(EXTRA_GIFT_CARD)?.let {
+      handleGiftCard(it)
+    }
+    arguments?.getString(EXTRA_PROMO_CODE)?.let {
+      handlePromoCode(it)
+    }
+  }
+
+  fun handleGiftCard(giftCard: String) {
+    viewModel.clickedItem.value = 1
+    navigator.navigateToRewards(navHostFragment.navController, giftCard)
+  }
+
+  fun handlePromoCode(promoCode: String) {
+    viewModel.clickedItem.value = 1
+    navigator.navigateToRewards(navHostFragment.navController, promoCode = promoCode)
   }
 
   @Composable
@@ -105,17 +142,21 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
       } else {
         Column(modifier = Modifier.fillMaxWidth()) {
           ConnectionAlert(isConnected = connectionObserver)
-          BottomAppBar(
-            containerColor = styleguide_blue_secondary,
-            modifier = Modifier.height(64.dp),
-            content = {
-              Row(
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth()
-              ) {
-                NavigationItems(styleguide_blue_secondary)
-              }
-            })
+          Column(
+            modifier = Modifier
+              .fillMaxWidth()
+              .height(64.dp)
+              .background(styleguide_blue, RectangleShape)
+          ) {
+            Row(
+              horizontalArrangement = Arrangement.SpaceEvenly,
+              verticalAlignment = Alignment.CenterVertically,
+              modifier = Modifier
+                .fillMaxSize()
+            ) {
+              NavigationItems(styleguide_blue)
+            }
+          }
         }
       }
     }
@@ -135,7 +176,10 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
         onClick = {
           viewModel.clickedItem.value = item.destination.ordinal
           navigateToDestination(item.destination)
-        })
+        },
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
+      )
     }
   }
 
@@ -152,8 +196,8 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   private fun navigateToDestination(destinations: Destinations) {
     when (destinations) {
-      Destinations.HOME -> navigator.navigateToHome()
-      Destinations.REWARDS -> navigator.navigateToRewards()
+      Destinations.HOME -> navigator.navigateToHome(navHostFragment.navController)
+      Destinations.REWARDS -> navigator.navigateToRewards(navHostFragment.navController)
     }
   }
 
@@ -176,7 +220,18 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
       NavBarSideEffect.ShowOnboardingGPInstall -> showOnboardingIap()
       NavBarSideEffect.ShowOnboardingPendingPayment -> showOnboardingPayment()
       is NavBarSideEffect.ShowOnboardingRecoverGuestWallet ->
-        showOnboardingRecoverGuestWallet(sideEffect.backup)
+        showOnboardingRecoverGuestWallet()
+
+      NavBarSideEffect.ShowAskNotificationPermission -> askNotificationsPermission()
+    }
+  }
+
+  private fun askNotificationsPermission() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      // Android OS manages when to ask for permission. After android 11, the default behavior is
+      // to only prompt for permission if needed, and if the user didn't deny it twice before. If
+      // the user just dismissed it without denying, then it'll prompt again next time.
+      pushNotificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
     }
   }
 
@@ -203,8 +258,27 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     navigator.showOnboardingPaymentScreen(fullHostFragment.navController)
   }
 
-  private fun showOnboardingRecoverGuestWallet(backup: String) {
+  private fun showOnboardingRecoverGuestWallet() {
     views.fullHostContainer.visibility = View.VISIBLE
-    navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController, backup)
+    navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController)
   }
+
+  private fun adjustBottomNavigationViewOnKeyboardVisibility() {
+    keyboardListener = OnGlobalLayoutListener {
+      try {
+        val rect = Rect()
+        views.root.getWindowVisibleDisplayFrame(rect)
+        val screenHeight = views.root.height
+        val keypadHeight = screenHeight - rect.bottom
+        if (keypadHeight > screenHeight * 0.15) {
+          views.composeView.visibility = View.GONE
+        } else {
+          views.composeView.visibility = View.VISIBLE
+        }
+      } catch (e: Exception) {
+      }
+    }
+    views.root.viewTreeObserver?.addOnGlobalLayoutListener(keyboardListener)
+  }
+
 }

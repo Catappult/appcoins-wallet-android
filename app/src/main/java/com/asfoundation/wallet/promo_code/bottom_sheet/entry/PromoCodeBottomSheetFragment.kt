@@ -11,8 +11,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.feature.promocode.data.FailedPromoCode
 import com.appcoins.wallet.feature.promocode.data.PromoCodeResult
 import com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode
@@ -26,7 +28,6 @@ import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.intercom.android.sdk.utilities.KeyboardUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,7 +43,12 @@ class PromoCodeBottomSheetFragment :
 
   private val rewardSharedViewModel: RewardSharedViewModel by activityViewModels()
 
+  @Inject
+  lateinit var rewardsAnalytics: RewardsAnalytics
+
   companion object {
+    private const val EXTRA_PROMO_CODE = "promoCode"
+
     @JvmStatic
     fun newInstance(): PromoCodeBottomSheetFragment {
       return PromoCodeBottomSheetFragment()
@@ -53,13 +59,17 @@ class PromoCodeBottomSheetFragment :
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View = SettingsPromoCodeBottomSheetLayoutBinding.inflate(inflater).root
+  ): View {
+    rewardsAnalytics.newPromoCodeImpressionEvent()
+    return SettingsPromoCodeBottomSheetLayoutBinding.inflate(inflater).root
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     setListeners()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    viewModel.initialize(arguments?.getString(EXTRA_PROMO_CODE))
   }
 
   override fun onStart() {
@@ -74,9 +84,15 @@ class PromoCodeBottomSheetFragment :
 
   private fun setListeners() {
     views.promoCodeBottomSheetSubmitButton.setOnClickListener {
-      viewModel.submitClick(views.promoCodeBottomSheetString.getText().trim())
+      val promoCode = views.promoCodeBottomSheetString.getText().trim()
+      rewardsAnalytics.submitNewPromoCodeClickEvent(promoCode)
+      viewModel.submitClick(promoCode)
     }
-    views.promoCodeBottomSheetReplaceButton.setOnClickListener { viewModel.replaceClick() }
+    views.promoCodeBottomSheetReplaceButton.setOnClickListener {
+      rewardsAnalytics.replacePromoCodeImpressionEvent("")
+      viewModel.replaceClick()
+      views.promoCodeBottomSheetString.setText("")
+    }
     views.promoCodeBottomSheetDeleteButton.setOnClickListener { viewModel.deleteClick() }
 
     views.promoCodeBottomSheetString.addTextChangedListener(
@@ -95,7 +111,11 @@ class PromoCodeBottomSheetFragment :
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
     when (val clickAsync = state.submitPromoCodeAsync) {
       is Async.Uninitialized ->
-        initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
+        initializePromoCode(
+          state.deeplinkPromoCode,
+          state.storedPromoCodeAsync,
+          state.shouldShowDefault
+        )
 
       is Async.Loading -> {
         if (clickAsync.value == null) {
@@ -104,6 +124,9 @@ class PromoCodeBottomSheetFragment :
       }
 
       is Async.Fail -> {
+        rewardsAnalytics.promoCodeErrorImpressionEvent(
+          views.promoCodeBottomSheetString.getText().trim()
+        )
         handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
 
@@ -123,10 +146,13 @@ class PromoCodeBottomSheetFragment :
   }
 
   fun initializePromoCode(
+    deeplinkPromoCode: Async<String>,
     storedPromoCodeAsync: Async<PromoCode>,
     shouldShowDefault: Boolean
   ) {
-    when (storedPromoCodeAsync) {
+    deeplinkPromoCode.value?.let {
+      views.promoCodeBottomSheetString.setText(it)
+    } ?: when (storedPromoCodeAsync) {
       is Async.Uninitialized,
       is Async.Loading -> {
         showDefaultScreen()
@@ -134,6 +160,9 @@ class PromoCodeBottomSheetFragment :
 
       is Async.Fail -> {
         if (storedPromoCodeAsync.value != null) {
+          rewardsAnalytics.promoCodeErrorImpressionEvent(
+            views.promoCodeBottomSheetString.getText().trim()
+          )
           handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
         }
       }
@@ -179,7 +208,6 @@ class PromoCodeBottomSheetFragment :
 
   private fun handleErrorState(promoCodeResult: PromoCodeResult?) {
     showDefaultScreen()
-    views.promoCodeBottomSheetSubmitButton.isEnabled = false
     when (promoCodeResult) {
       is FailedPromoCode.InvalidCode -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_view_error))
@@ -189,6 +217,10 @@ class PromoCodeBottomSheetFragment :
         views.promoCodeBottomSheetString.setError(
           getString(R.string.promo_code_error_not_available)
         )
+      }
+
+      is FailedPromoCode.UserOwnPromoCode -> {
+        views.promoCodeBottomSheetString.setError(getString(R.string.vip_program_code_error_body))
       }
 
       is FailedPromoCode.GenericError -> {
@@ -221,7 +253,8 @@ class PromoCodeBottomSheetFragment :
     views.promoCodeBottomSheetSubmitButton.visibility = View.VISIBLE
     views.promoCodeBottomSheetDeleteButton.visibility = View.GONE
     views.promoCodeBottomSheetReplaceButton.visibility = View.GONE
-    views.promoCodeBottomSheetSubmitButton.isEnabled = false
+    views.promoCodeBottomSheetSubmitButton.isEnabled =
+      views.promoCodeBottomSheetString.getText().isNotEmpty()
   }
 
   private fun showCurrentCodeScreen(promoCodeString: String) {

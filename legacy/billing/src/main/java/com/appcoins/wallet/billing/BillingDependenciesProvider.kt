@@ -8,6 +8,7 @@ import com.appcoins.wallet.core.network.microservices.api.product.InappBillingAp
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 
 interface BillingDependenciesProvider {
   fun supportedVersion(): Int
@@ -30,4 +31,5 @@ interface BillingDependenciesProvider {
 
   fun partnerAddressService(): PartnerAddressService
 
+  fun fiatCurrenciesPreferencesDataSource(): FiatCurrenciesPreferencesDataSource
 }

@@ -17,4 +17,9 @@ object AnalyticsLabels {
   const val DEVICE_ORIENTATION = "device_orientation"
   const val GAMES_HUB_OEMID = "gh_oemid"
   const val PAYMENT_FUNNEL = "payment_funnel"
+  const val FLAVOR = "flavor"
+  const val THEME = "display_theme"
+
+  //Events Defaults Keys
+  const val EVENT_STATUS = "status"
 }

@@ -11,6 +11,6 @@ sealed class PaymentMethodClick {
   object VkPayPaymentClick : PaymentMethodClick()
   object GooglePayClick : PaymentMethodClick()
   object WalletOneClick : PaymentMethodClick()
-
+  data class MiPayPayClick(val idItem: String) : PaymentMethodClick()
   object OtherPaymentMethods : PaymentMethodClick()
 }

@@ -29,7 +29,7 @@ interface GamificationApi {  //
   @GET("gamification/referral_info")
   fun getReferralInfo(): Single<ReferralResponse>
 
-  @GET("gamification/perks/promo_code/")
+  @GET("gamification/1.20240305/perks/promo_code/")
   fun getVipReferral(
     @Query("wallet") wallet: String
   ): Single<VipReferralResponse>

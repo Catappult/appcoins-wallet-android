@@ -6,11 +6,13 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.github.michaelbull.result.get
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.rx2.rxSingle
 
 class SettingsPresenter(
@@ -24,7 +26,9 @@ class SettingsPresenter(
   private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
   private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
-) {
+  private val getStoredCardsUseCase: GetStoredCardsUseCase,
+
+  ) {
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
@@ -44,7 +48,7 @@ class SettingsPresenter(
     view.setSourceCodePreference()
     view.setIssueReportPreference()
     view.setTwitterPreference()
-    view.setTelegramPreference()
+    view.setDiscordPreference()
     view.setFacebookPreference()
     view.setEmailPreference()
     view.setPrivacyPolicyPreference()
@@ -56,6 +60,7 @@ class SettingsPresenter(
     view.setManageSubscriptionsPreference()
     view.setFaqsPreference()
     setCurrencyPreference()
+    getCards()
   }
 
   fun setFingerPrintPreference() {
@@ -73,6 +78,26 @@ class SettingsPresenter(
         view.setDisabledFingerPrintPreference()
       }
     }
+  }
+
+  private fun getCards() {
+    getStoredCardsUseCase()
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSubscribe {
+        view.setSkeletonCardPreference()
+      }
+      .doOnSuccess { cards ->
+        if (cards.isNullOrEmpty()) {
+          view.setAddNewCardPreference()
+        } else {
+          view.setManageCardsPreference()
+        }
+      }
+      .doOnError {
+        view.setAddNewCardPreference()
+      }
+      .subscribe()
   }
 
   private fun updateFingerPrintPreference(previousAvailability: Int) {
@@ -111,6 +136,14 @@ class SettingsPresenter(
     navigator.navigateToManageWallet(navController)
   }
 
+  fun onManageCardsPreferenceClick(navController: NavController) {
+    navigator.navigateToManageCards(navController)
+  }
+
+  fun onAddCardsPreferenceClick(navController: NavController) {
+    navigator.navigateToAddCards(navController)
+  }
+
   fun onChangeCurrencyPreferenceClick(navController: NavController) {
     navigator.navigateToChangeCurrency(navController)
   }
@@ -142,24 +175,25 @@ class SettingsPresenter(
   fun changeAuthorizationPermission() =
     settingsInteractor.changeAuthorizationPermission(!hasAuthenticationPermission())
 
+
+  var currencyDisposable: Disposable? = null
   private fun setCurrencyPreference() {
-    disposables.add(
-      rxSingle { getChangeFiatCurrencyModelUseCase() }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .subscribe(
-          { result ->
-            val selectedFiatCurrency = result.get()?.let { model ->
-              model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
-            }
-            view.setCurrencyPreference(selectedFiatCurrency)
-          },
-          { throwable ->
-            view.setCurrencyPreference(null)
-            handleError(throwable)
+    currencyDisposable?.dispose()
+    currencyDisposable = rxSingle { getChangeFiatCurrencyModelUseCase() }
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .subscribe(
+        { result ->
+          val selectedFiatCurrency = result.get()?.let { model ->
+            model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
           }
-        )
-    )
+          view.setCurrencyPreference(selectedFiatCurrency)
+        },
+        { throwable ->
+          view.setCurrencyPreference(null)
+          handleError(throwable)
+        }
+      )
   }
 
   fun displayChat() = displayChatUseCase()

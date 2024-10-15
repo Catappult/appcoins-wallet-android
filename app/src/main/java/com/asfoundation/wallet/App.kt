@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.multidex.MultiDexApplication
+import androidx.work.Configuration
+import androidx.work.WorkManager
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.ProxyService
@@ -18,11 +20,13 @@ import com.appcoins.wallet.core.network.base.MagnesUtils
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.InitilizeDataAnalytics
 import com.asfoundation.wallet.app_start.AppStartProbe
@@ -30,6 +34,7 @@ import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
+import com.asfoundation.wallet.promotions.worker.GetVipReferralWorkerFactory
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -114,6 +119,12 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   @Inject
   lateinit var partnerAddressService: PartnerAddressService
 
+  @Inject
+  lateinit var fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
+
+  @Inject
+  lateinit var config: Configuration
+
   companion object {
     private val TAG = App::class.java.name
   }
@@ -127,6 +138,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     inAppPurchaseInteractor.start()
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
+    initializeWorkerManager()
     initializeIndicative()
     initiateIntercom()
     initializeSentry()
@@ -167,6 +179,10 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   private fun initializeSentry() {
     initilizeDataAnalytics.initializeSentry().subscribe()
+  }
+
+  private fun initializeWorkerManager() {
+    WorkManager.initialize(this, config)
   }
 
   private fun setupRxJava() {
@@ -252,5 +268,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   override fun ewtObtainer() = ewtObtainer
 
   override fun partnerAddressService() = partnerAddressService
+
+  override fun fiatCurrenciesPreferencesDataSource() = fiatCurrenciesPreferencesDataSource
 
 }

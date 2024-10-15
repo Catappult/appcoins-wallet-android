@@ -14,6 +14,7 @@ import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
@@ -110,12 +111,13 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(
       walletVerificationInteractor.isVerified(
         TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE
+        TEST_WALLET_SIGNATURE,
+        VerificationType.CREDIT_CARD
       )
     )
       .thenReturn(Single.just(false))
 
-    interactor.isWalletVerified()
+    interactor.isWalletVerified(VerificationType.CREDIT_CARD)
       .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -128,11 +130,15 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
       .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(
-      walletVerificationInteractor.isVerified(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)
+      walletVerificationInteractor.isVerified(
+        TEST_WALLET_ADDRESS,
+        TEST_WALLET_SIGNATURE,
+        VerificationType.CREDIT_CARD
+      )
     )
       .thenReturn(Single.error(Throwable("Error")))
 
-    interactor.isWalletVerified()
+    interactor.isWalletVerified(VerificationType.CREDIT_CARD)
       .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -142,10 +148,10 @@ class AdyenPaymentInteractorTest {
   @Test
   fun showSupportTest() {
     val testObserver = TestObserver<Any>()
-    Mockito.`when`(supportInteractor.showSupport(1))
+    Mockito.`when`(supportInteractor.showSupport(1, ""))
       .thenReturn(Completable.complete())
 
-    interactor.showSupport(1)
+    interactor.showSupport(1, "")
       .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -195,7 +201,7 @@ class AdyenPaymentInteractorTest {
         payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, "", "package", null, "sku", null,
         "INAPP", "store_address", "oem_address", null, TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE, null
+        TEST_WALLET_SIGNATURE, null, null
       )
     )
       .thenReturn(Single.just(expectedModel))
@@ -216,7 +222,8 @@ class AdyenPaymentInteractorTest {
       sku = "sku",
       callbackUrl = null,
       transactionType = "INAPP",
-      referrerUrl = null
+      referrerUrl = null,
+      guestWalletId = null
     )
       .subscribe(testObserver)
 
@@ -239,7 +246,7 @@ class AdyenPaymentInteractorTest {
       repository.makePayment(
         payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, null, "wallet", null, null, null,
-        "TOPUP", null, null, null, null, TEST_WALLET_SIGNATURE, null
+        "TOPUP", null, null, null, null, TEST_WALLET_SIGNATURE, null, null
       )
     )
       .thenReturn(Single.just(expectedModel))

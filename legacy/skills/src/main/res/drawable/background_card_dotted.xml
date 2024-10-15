@@ -7,7 +7,7 @@
       android:topLeftRadius="16dp"
       android:topRightRadius="16dp" />
   <stroke
-      android:width="5dp"
+      android:width="2dp"
       android:color="@color/styleguide_blue"
       android:dashWidth="5dp"
       android:dashGap="5dp" />

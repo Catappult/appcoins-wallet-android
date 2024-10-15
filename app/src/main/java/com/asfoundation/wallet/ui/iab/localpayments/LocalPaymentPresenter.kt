@@ -38,6 +38,8 @@ class LocalPaymentPresenter(
 
   private var waitingResult: Boolean = false
 
+  private var uid: String? = null
+
   fun present(savedInstance: Bundle?) {
     view.setupUi(data.bonus)
     savedInstance?.let {
@@ -47,7 +49,7 @@ class LocalPaymentPresenter(
     handlePaymentRedirect()
     handleOkErrorButtonClick()
     handleOkBuyButtonClick()
-    handleSupportClicks()
+    handleSupportClicks(uid)
   }
 
   fun handleStop() {
@@ -102,7 +104,8 @@ class LocalPaymentPresenter(
         developerPayload = data.payload,
         callbackUrl = data.callbackUrl,
         orderReference = data.orderReference,
-        referrerUrl = data.referrerUrl
+        referrerUrl = data.referrerUrl,
+        guestWalletId = data.guestWalletId
       )
         .filter { !waitingResult }
         .observeOn(viewScheduler)
@@ -129,7 +132,10 @@ class LocalPaymentPresenter(
           .subscribeOn(networkScheduler)
       }
       .observeOn(viewScheduler)
-      .flatMapCompletable { handleTransactionStatus(it) }
+      .flatMapCompletable {
+        uid = it.uid
+        handleTransactionStatus(it)
+      }
       .subscribe({}, { showError(it) })
     )
   }
@@ -161,7 +167,7 @@ class LocalPaymentPresenter(
                 logger.log(TAG, Exception("FraudFlow blocked"))
                 view.showError(R.string.purchase_error_wallet_block_code_403)
               } else {
-                view.showVerification()
+                view.showCreditCardVerification()
               }
             }
         } else {
@@ -284,10 +290,10 @@ class LocalPaymentPresenter(
     }
   }
 
-  private fun handleSupportClicks() {
+  private fun handleSupportClicks(uid: String?) {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
       .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .flatMapCompletable { localPaymentInteractor.showSupport(data.gamificationLevel) }
+      .flatMapCompletable { localPaymentInteractor.showSupport(data.gamificationLevel, uid) }
       .subscribe({}, { it.printStackTrace() })
     )
   }

@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsPromoCodeSuccessBottomSheetLayoutBinding
@@ -33,6 +35,9 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
   private val rewardSharedViewModel: RewardSharedViewModel by activityViewModels()
 
+  @Inject
+  lateinit var rewardsAnalytics: RewardsAnalytics
+
   companion object {
 
     private const val PROMO_CODE = "promo_code"
@@ -51,13 +56,21 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View = SettingsPromoCodeSuccessBottomSheetLayoutBinding.inflate(inflater).root
+  ): View {
+    rewardsAnalytics.promoCodeSuccessImpressionEvent(
+      getSerializableExtra<PromoCode>(PROMO_CODE)?.code ?: ""
+    )
+    return SettingsPromoCodeSuccessBottomSheetLayoutBinding.inflate(inflater).root
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    showSuccess(requireArguments().getSerializable(PROMO_CODE) as PromoCode)
+    showSuccess(getSerializableExtra<PromoCode>(PROMO_CODE)!!)
     views.promoCodeBottomSheetSuccessGotItButton.setOnClickListener {
+      rewardsAnalytics.promoCodeSuccessGotItClickEvent(
+        getSerializableExtra<PromoCode>(PROMO_CODE)?.code ?: ""
+      )
       rewardSharedViewModel.onBottomSheetDismissed()
       navigator.navigateBack()
     }

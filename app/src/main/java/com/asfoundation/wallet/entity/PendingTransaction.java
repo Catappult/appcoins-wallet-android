@@ -24,9 +24,7 @@ public class PendingTransaction {
 
   @Override public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof PendingTransaction)) return false;
-
-    PendingTransaction that = (PendingTransaction) o;
+    if (!(o instanceof PendingTransaction that)) return false;
 
     if (!Objects.equals(hash, that.hash)) return false;
     return Objects.equals(pending, that.pending);

@@ -24,17 +24,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
 
 @Preview
 @Composable
 private fun CardActivePromoCodeExample() {
-  ActivePromoCodeComposable(cardItem = promoCodeItem)
+  ActivePromoCodeComposable(
+    cardItem = promoCodeItem,
+    fragmentName = "RewardFragment",
+    buttonsAnalytics = null
+  )
 }
 
 @Composable
-fun ActivePromoCodeComposable(cardItem: ActiveCardPromoCodeItem) {
+fun ActivePromoCodeComposable(
+  cardItem: ActiveCardPromoCodeItem,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
+) {
   Column(
     modifier = Modifier
       .padding(
@@ -118,7 +127,12 @@ fun ActivePromoCodeComposable(cardItem: ActiveCardPromoCodeItem) {
                 fontSize = 14.sp
               )
             }
-            GetText(cardItem.action, cardItem.packageName)
+            GetText(
+              action = cardItem.action,
+              packageName = cardItem.packageName,
+              fragmentName = fragmentName,
+              buttonsAnalytics = buttonsAnalytics
+            )
           }
         }
       }

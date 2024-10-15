@@ -23,6 +23,7 @@ class BillingMessagesMapper @Inject constructor() {
     internal const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
     internal const val BONUS = "bonus"
     internal const val VALID_BONUS = "valid_bonus"
+    const val PENDING_FINAL_CONFIRMATION = "pending_final_confirmation"
   }
 
 

@@ -10,6 +10,7 @@ import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
@@ -31,6 +32,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.E
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.MI_PAY
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.PAYPAL
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.PAYPAL_V2
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SANDBOX
@@ -88,9 +90,9 @@ class PaymentMethodsPresenter(
     savedInstanceState?.let {
       cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
       hasStartedAuth = savedInstanceState.getBoolean(HAS_STARTED_AUTH)
-      cachedFiatValue = savedInstanceState.getSerializable(FIAT_VALUE) as FiatValue?
+      cachedFiatValue = savedInstanceState.getSerializableExtra<FiatValue>(FIAT_VALUE)
       cachedPaymentNavigationData =
-        savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
+        savedInstanceState.getSerializableExtra<PaymentNavigationData>(PAYMENT_NAVIGATION_DATA)
     }
     handleOnGoingPurchases()
     handleCancelClick()
@@ -121,13 +123,17 @@ class PaymentMethodsPresenter(
     disposables.add(view.getPaymentSelection()
       .observeOn(viewScheduler)
       .doOnNext { selectedPaymentMethod ->
-        if (interactor.isBonusActiveAndValid()) {
-          handleBonusVisibility(selectedPaymentMethod.id)
-        } else {
-          view.removeBonus()
+        with(selectedPaymentMethod) {
+          if (interactor.isBonusActiveAndValid()) {
+            handleBonusVisibility(id)
+          } else {
+            view.removeBonus()
+          }
+          handlePositiveButtonText(id)
+          handleFeeVisibility(fee)
+          updatePriceAndCurrency(price, fee)
         }
-        handlePositiveButtonText(selectedPaymentMethod.id)
-        handleFeeVisibility(selectedPaymentMethod.fee)
+
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -222,6 +228,8 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+
+              MI_PAY -> view.showMiPayWeb(cachedFiatValue!!)
 
               else -> return@doOnNext
             }
@@ -373,6 +381,8 @@ class PaymentMethodsPresenter(
         paymentMethodsData.frequency,
         paymentMethodsData.subscription
       )
+
+      MI_PAY -> view.showMiPayWeb(cachedFiatValue!!)
 
       else -> {
         showError(R.string.unknown_error)
@@ -746,17 +756,21 @@ class PaymentMethodsPresenter(
         .toMutableList()
     }
     setLoadedPayment("")
-    view.showPaymentMethods(
-      paymentList,
-      symbol,
-      paymentMethodId,
-      fiatAmount,
-      appcEnabled,
-      creditsEnabled,
-      frequency,
-      paymentMethodsData.subscription
-    )
-    sendPaymentMethodsEvents()
+    if (paymentList.isEmpty()) {
+      showError(R.string.purchase_error_no_method_available_body)
+    } else {
+      view.showPaymentMethods(
+        paymentList,
+        symbol,
+        paymentMethodId,
+        fiatAmount,
+        appcEnabled,
+        creditsEnabled,
+        frequency,
+        paymentMethodsData.subscription
+      )
+      sendPaymentMethodsEvents()
+    }
   }
 
   private fun showPreSelectedPaymentMethod(
@@ -1008,12 +1022,20 @@ class PaymentMethodsPresenter(
     }
 
   private fun handleFeeVisibility(fee: PaymentMethodFee?) {
-    view.showFee(
-      hasFee = fee != null && fee.isValidFee(),
-      fiatValue = cachedFiatValue,
-      fee = fee?.amount ?: BigDecimal.ZERO
+    view.showFee(fee != null && fee.isValidFee())
+  }
+
+  private fun updatePriceAndCurrency(price: FiatValue, fee: PaymentMethodFee?) {
+    cachedFiatValue = price
+
+    view.updatePriceAndCurrency(
+      currency = price.currency,
+      amount = sumPriceAndFee(price.amount, fee)
     )
   }
+
+  private fun sumPriceAndFee(price: BigDecimal, fee: PaymentMethodFee?) =
+    if (fee != null && fee.isValidFee()) price.add(fee.amount) else price
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =
@@ -1179,6 +1201,7 @@ class PaymentMethodsPresenter(
       PaymentMethodId.SANDBOX.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_SANDBOX
       PaymentMethodId.GOOGLEPAY_WEB.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
       PaymentMethodId.WALLET_ONE.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_WALLET_ONE
+      PaymentMethodId.MI_PAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_MI_PAY
       else -> PaymentMethodsAnalytics.PAYMENT_METHOD_SELECTION
     }
   }

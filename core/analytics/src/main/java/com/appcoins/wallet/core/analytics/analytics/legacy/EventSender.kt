@@ -37,7 +37,10 @@ interface EventSender {
     isOnboardingPayment: Boolean = false
   )
 
-  fun sendRevenueEvent(value: String, isOnboardingPayment: Boolean = false)
+  fun sendRevenueEvent(
+    value: String,
+    isOnboardingPayment: Boolean = false
+  )
 
   fun sendPreSelectedPaymentMethodEvent(
     packageName: String,
@@ -110,7 +113,9 @@ interface EventSender {
     transactionType: String,
     isOnboardingPayment: Boolean = false,
     txId: String,
-    valueUsd: String
+    valueUsd: String,
+    isStoredCard: Boolean? = null,
+    wasCvcRequired: Boolean? = null,
   )
 
   fun sendPaymentPendingEvent(
@@ -126,18 +131,10 @@ interface EventSender {
     packageName: String?,
     skuDetails: String?,
     value: String,
-    purchaseDetails: String,
     transactionType: String?,
     context: String,
-    isOnboardingPayment: Boolean = false
-  )
-
-  fun sendPurchaseStartWithoutDetailsEvent(
-    packageName: String?,
-    skuDetails: String?,
-    value: String,
-    transactionType: String?,
-    context: String,
+    oemId: String?,
+    purchaseDetails: String? = null,
     isOnboardingPayment: Boolean = false
   )
 

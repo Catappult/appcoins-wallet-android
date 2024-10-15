@@ -46,22 +46,7 @@
       android:layout_marginEnd="32dp"
       android:layout_marginBottom="76dp"
       android:visibility="gone"
-      app:buttonText="@string/referral_view_verify_button"
-      app:buttonType="outlined"
-      app:layout_constraintTop_toBottomOf="@id/error_message"
-      app:layout_constraintVertical_bias="1"
-      />
-
-  <com.appcoins.wallet.ui.widgets.WalletButtonView
-      android:id="@+id/error_verify_card_button"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/small_button_height"
-      android:layout_alignParentBottom="true"
-      android:layout_marginStart="32dp"
-      android:layout_marginTop="42dp"
-      android:layout_marginEnd="32dp"
-      android:layout_marginBottom="76dp"
-      android:visibility="gone"
+      app:buttonColor="@color/styleguide_light_grey"
       app:buttonText="@string/referral_view_verify_button"
       app:buttonType="outlined"
       app:layout_constraintTop_toBottomOf="@id/error_message"
@@ -89,15 +74,17 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       app:barrierDirection="bottom"
-      app:constraint_referenced_ids="error_verify_wallet_button,error_verify_card_button"
+      app:constraint_referenced_ids="error_verify_wallet_button"
       />
 
-  <ImageView
+  <ImageButton
       android:id="@+id/layout_support_logo"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="18dp"
       android:layout_marginEnd="@dimen/small_margin"
+      android:background="@color/transparent"
+      android:contentDescription="@string/title_support"
       android:src="@drawable/ic_logo_appc_support_light"
       app:layout_constraintEnd_toStartOf="@id/layout_support_icn"
       app:layout_constraintHorizontal_chainStyle="packed"
@@ -105,12 +92,14 @@
       app:layout_constraintTop_toBottomOf="@+id/contact_us"
       />
 
-  <ImageView
+  <ImageButton
       android:id="@+id/layout_support_icn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/small_margin"
+      android:background="@color/transparent"
       android:src="@drawable/ic_open_in_24"
+      android:contentDescription="@string/title_support"
       app:layout_constraintBottom_toBottomOf="@id/layout_support_logo"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/layout_support_logo"

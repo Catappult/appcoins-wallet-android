@@ -11,7 +11,7 @@ import java.math.BigDecimal
 
 data class PaymentInfoModel(
   val paymentMethod: ModelObject?,
-  val isStored: Boolean = false,
+  var isStored: Boolean = false,
   val priceAmount: BigDecimal,
   val priceCurrency: String,
   var cardComponent: ((Fragment, CardConfiguration) -> CardComponent)? = null,

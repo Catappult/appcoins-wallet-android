@@ -41,6 +41,7 @@
   <string name="title_delete_account">Biztos vagy benne, hogy eltávolítod a tárcát?</string>
   <string name="twitter">X</string>
   <string name="telegram">Telegram csoport</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Közösség</string>
   <string name="title_opensource">Nyílt forráskódú fejlesztés</string>
@@ -155,8 +156,8 @@
   <string name="back_to_the_game_button">Vissza a játékhoz</string>
   <string name="other_payment_methos_title">Egyéb fizetési módok:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">Az egyenleged:</string>
+  <string name="intro_from_web_payment_to_spend_body">amit a kedvenc játékodban használhatsz fel.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Feladó</string>
@@ -440,6 +441,7 @@
   <string name="topup_no_method_available_title">Hiányzik fizetési mód!</string>
   <string name="topup_no_method_available_body">Az országodban jelenleg nincs a befizetésre alkalmas fizetési mód. Ez viszont még változhat!</string>
   <string name="topup_bonus_amount_body">%s Bónuszt kaphatsz ezzel a feltöltéssel</string>
+  <string name="topup_success_body">%s került a fiókodba AppCoins kreditek formájában.</string>
   <!--Balance-->
   <string name="balance_title">Egyenleg</string>
   <string name="balance_total_body">Teljes egyenleg %s-ban</string>
@@ -451,7 +453,7 @@
   <string name="my_wallets_action_recover_wallet">Tárca visszaállítása</string>
   <string name="my_wallets_action_backup_wallet">Tárca biztonsági mentése</string>
   <string name="my_wallets_action_verify_new_card">Új kártya hitelesítése</string>
-  <string name="my_wallets_action_delete_wallet">Tárca törlése</string>
+  <string name="my_wallets_action_delete_wallet">Wallet eltávolítása</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Kérj meg valakit, hogy fizesse ki</string>
   <string name="askafriend_generating_link_message">Készül a fizetési link&#8230;</string>
@@ -468,6 +470,7 @@
   <string name="askafriend_share_note_to_friend">Szia! Kérlek, küldj nekem %1$s AppCoins kreditet, hogy megvehessek egy %2$s elemet. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Pénzküldés</string>
+  <string name="p2p_receive_title">Fogadás</string>
   <string name="p2p_send_body">Olvasd be vagy írd be barátod tárcacímét.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s lett elküldve az alábbi címre:</string>
   <string name="p2p_send_current_balance_message">Aktuális egyenleg: %1$s %2$s</string>
@@ -476,7 +479,7 @@
   <string name="p2p_send_error_amount_zero">Az érték nem lehet nulla</string>
   <string name="p2p_send_confirmation_header">Utalás részletei</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">Hoppá</string>
   <string name="error_general">Valami hiba történt</string>
   <string name="error_missing_field">Kötelező mező</string>
   <string name="cancel_button">Mégse</string>
@@ -489,9 +492,9 @@
   <string name="discover_button">Felfedezés</string>
   <string name="retry_button">Újrapróbálkozás</string>
   <string name="do_it_later_button">Majd később</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">Nincs internetkapcsolat</string>
   <string name="connection_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
-  <string name="common_or">VAGY</string>
+  <string name="common_or">or</string>
   <string name="share_via">Megosztás ezen keresztül:</string>
   <string name="password">Jelszó</string>
   <string name="repeat_password">Ismételd meg a jelszót</string>
@@ -518,13 +521,17 @@
   <string name="done">Kész!</string>
   <string name="see_more_button">Részletek</string>
   <string name="monetary_amount_with_symbol">%1$s %2$s</string>
-  <string name="ending_in_title">Ending in</string>
+  <string name="ending_in_title">Hátralevő idő:</string>
   <string name="start_date_title">Kezdő dátum:</string>
-  <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
-  <string name="resend_button">Resend</string>
-  <string name="continue_button">Continue</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="end_date_title">Záró dátum:</string>
+  <string name="send_button">Küldés</string>
+  <string name="resend_button">Újraküldés</string>
+  <string name="continue_button">Folytatás</string>
+  <string name="card_expired_tag">Lejárt</string>
+  <string name="start_again_button">Újrakezdés</string>
+  <string name="max">Max</string>
+  <string name="amount">Összeg</string>
+  <string name="total_title">Végösszeg</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -533,6 +540,7 @@
   <string name="decline_button">Elutasít</string>
   <string name="get_started">Indítás</string>
   <string name="existent_wallet">Már van tárcám</string>
+  <string name="onboarding_verification_body">A vásárlás befejezéséhez hitelesítsd a fizetési módot.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Vásárolj a kedvenc játékodban, mi pedig intézünk mindent.</string>
   <string name="home_empty_discover_apps_button">FEDEZD FEL A LEGJOBB APPOKAT</string>
@@ -573,7 +581,7 @@
   <string name="verification_settings_verified_title">Tárca hitelesítve</string>
   <string name="verification_settings_verifying_title">Hitelesítés…</string>
   <string name="verification_verified_paypal_description">A visszatérítés azonnal megtörténik. Rövid időn belül ellenőrizzük a fizetési módodat.</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">Egy %s összegű tranzakció szükséges a fiókod megerősítéséhez. Ez azonnal visszatérítésre kerül.</string>
   <string name="verification_verify_paypal_button">Visszaigazolás most</string>
   <string name="verification_settings_card_verified_title">Kártya hitelesítve</string>
   <string name="verification_settings_no_internet">Internetkapcsolat szükséges</string>
@@ -582,12 +590,15 @@
   <string name="verified_tag">Hitelesítve</string>
   <string name="unferified_tag">Hitelesítetlen tárca</string>
   <string name="verification_wallets_verify_button">Hitelesítés</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_home_one_step_card_title">Már csak egy lépés van hátra!</string>
+  <string name="paypal_verification_home_one_step_card_body">A PayPal fiókod hitelesítéséhez add meg az e-mail címedre elküldött kódot.</string>
+  <string name="paypal_verification_header">PayPal hitelesítés</string>
+  <string name="paypal_verification_insert_code_body">Add meg a PayPal fiókodhoz tartozó e-mail címre elküldött 4 számjegyű kódot.</string>
+  <string name="paypal_verification_didnt_receive_title">Nem érkezett meg?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Összesen %1$s %2$s</string>
@@ -655,17 +666,38 @@
   <string name="error_blocked_wallet_title">Blokkolt wallet</string>
   <string name="error_blocked_wallet_body">A tárcádat blokkoltuk biztonsági okokból. További információért lépj velünk kapcsolatba.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">További költségek léphetnek fel.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s%2$s díjakkal és héa-val.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">pótdíjakkal együtt</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">pótdíjak nélkül</string>
   <string name="purchase_error_paypal">Probléma merült fel a PayPales fizetésednél. Próbáld újra egy másik fizetési móddal.</string>
-  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
+  <string name="purchase_error_google_pay">Probléma merült fel a Google Pay-nél. Próbáld újra egy másik fizetési móddal.</string>
   <string name="purchase_success_bonus_received_title">%s bónusz érkezett.</string>
   <string name="purchase_making_purchase_title">Vásárlás végrehajtása&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">Ez a fizetési mód nem támogatja a te valutádat, így tranzakciós díjat fog felszámolni. A fenti részben látható Végösszeg már tartalmazza ezt a díjat.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_title">%1$s%2$s díj</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Ez a fizetési mód nem támogatja a te valutádat, így tranzakciós díjat fog felszámolni. A fenti részben látható Végösszeg már tartalmazza ezt a díjat és a héát.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Ez a fizetési mód tranzakciós díjat fog felszámolni. A fenti részben látható Végösszeg már tartalmazza ezt a díjat és a héát.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Ez a fizetési mód nem támogatja a te valutádat, így tranzakciós díjat számíthat fel.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
-  <string name="purchase_fee_included_body">fees included</string>
-  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Ezzel a fizetési móddal kezelési díjat és héát fogsz fizetni.</string>
+  <string name="purchase_fee_included_body">díjakkal</string>
+  <string name="purchase_error_one_wallet_generic">Probléma merült fel a Wallet One fizetésednél. Próbáld újra egy másik fizetési móddal.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Csak feltöltéssel érhető el.</string>
+  <string name="purchase_payment_method_minimum_amount">Csak a %s értékű vásárlások felett.</string>
+  <string name="purchase_payment_method_not_availble_generic">Ennél a vásárlásnál nem érhető el.</string>
+  <string name="purchase_error_no_method_available_body">Jelenleg nincs olyan fizetési mód a régiódban, amivel el lehetne végezni ezt a fizetést. Maradj velünk!</string>
+  <string name="purchase_legal_disclaimer">Ha folytatod a fizetést, akkor beleegyezel, hogy a fizetés után megérkezik a tartalom, és ezzel elveszíted a visszalépés jogát.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">A bónusz AppCoins kreditekben érkezik.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
+  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
@@ -783,7 +815,7 @@
   <string name="backup_additional_security_disclaimer_body">Nincs jelszó visszaállítás.</string>
   <string name="backup_additional_security_password_not_march">A jelszavak nem egyeznek.</string>
   <string name="import_wallet_recovering_body">Tárca visszaállítása...</string>
-  <string name="backup_skip_title">Megértettem, hogy elveszíthetem a pénzem, ha nem végzem el a biztonsági mentést.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Wallet biztonsági mentése</string>
   <string name="backup_success_save_on_email">A biztonsági mentés fájl megérkezett emailben.</string>
   <string name="backup_success_save_on_device">A biztonsági mentés fájl az eszközödön található.</string>
@@ -824,8 +856,8 @@
   <string name="remove_wallet_no_button">Nem, vissza</string>
   <string name="remove_wallet_yes_button">Igen, eltávolítom a tárcát</string>
   <string name="remove_wallet_removed_body">Tárca eltávolítva!</string>
-  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
-  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
+  <string name="remove_wallet_extra_confirmation_title">Biztos?</string>
+  <string name="remove_wallet_extra_confirmation_body">Ne feledd, hogy biztonsági mentés nélkül elveszíted a pénzed és a bónuszszinted is.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Tranzakció</string>
   <string name="transfer_title">Pénzátutalás</string>
@@ -967,23 +999,29 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Hitelkártya/bankkártya hozzáadása</string>
   <string name="manage_cards_settings_manage_title">Kártyák kezelése</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Hitelkártya/bankkártya hozzáadása</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Másik kártya használata</string>
   <string name="manage_cards_view_title">Kártyák kezelése</string>
+  <string name="manage_cards_empty_body">Még nincsenek mentett kártyáid.</string>
   <string name="manage_cards_view_manage_subtitle">Fizetési kártyák kezelése</string>
-  <string name="manage_cards_add_title">Add New Card</string>
+  <string name="manage_cards_add_title">Új kártya hozzáadása</string>
+  <string name="manage_cards_add_button">Kártya hozzáadása</string>
   <string name="manage_cards_remove_confirmation">Biztos, hogy eltávolítod ezt a kártyát?</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">Nem, mégse</string>
+  <string name="manage_cards_remove_yes">Igen, eltávolítom</string>
   <string name="manage_cards_card_ending_body">A kártya utolsó négy számjegye %s</string>
   <string name="manage_cards_error_details">Minden adat helyesen van megadva? Próbáld újra!</string>
   <string name="manage_cards_error_card_problem">Úgy tűnik valami baj van a kártyáddal. Használj egy másikat.</string>
   <string name="manage_cards_select_title">Fizetési kártya kiválasztása</string>
   <string name="manage_cards_remember">Kártya megjegyzése</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Új kártya hozzáadása</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
+  <string name="settings_manage_cards_item">Fizetési kártyák kezelése</string>
+  <string name="card_added_title">Kártya hozzáadva</string>
+  <string name="card_removed">Kártya eltávolítva</string>
+  <string name="choose_card_title">Kártya kiválasztása</string>
+  <string name="manage_cards_update_disclaimer_1">A kártya frissítéséhez vagy eltávolításához lépj ide:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Szerezz akár %s%% bónuszt minden vásárlással</string>
   <string name="perks_gamif_subtitle">Minél többet költesz a kedvenc alkalmazásaiban, annál nagyobb a bónusz!</string>
@@ -1029,7 +1067,7 @@
   <string name="perks_empty_state_first_purchase_body">Itt az ideje az első vásárlásnak egy AppCoins kompatibilis alkalmazásban. Felfedezheted, milyen promóciók várnak rád!</string>
   <string name="perks_empty_body">Jelenleg nincs aktív promóció.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometric Lock</string>
+  <string name="fingerprint_settings">Biometrikus zár</string>
   <string name="fingerprint_failed_title">Sikertelen hitelesítés!</string>
   <string name="fingerprint_failed_body">Próbáld újra %s másodperc múlva.</string>
   <string name="fingerprint_authentication_required_title">Hitelesítés szükséges!</string>
@@ -1208,10 +1246,10 @@
   <string name="vip_program_promotions_list_title">Különleges promóciók számodra</string>
   <string name="vip_program_promo_code_tag">Promóciós kód</string>
   <string name="vip_program_referral_page_title">VIP ajánlási program</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body">Oszd meg ezt a promóciós kódot a közösségeddel és a barátaiddal, hogy mindenki kereshessen játék közben. Minden alkalmazáson belüli vásárlás után <b> te és a barátaid is %1$s%% bónuszt kaptok</b> az éppen aktív promóció mellé.<b>Érvényesség: %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Oszd meg ezt a kódot a barátaiddal</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">Csak, ha itt vásárolsz:</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s összeget szereztél %3$s ajánlásból</string>
   <string name="vip_program_gamification_title">Mi az én bónuszszintem?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Megkaptad a vásárlásodért járó bónuszt</string>
@@ -1222,6 +1260,7 @@
   <string name="vip_program_referral_notification_title">Elérhető egy VIP ajánlási kód!</string>
   <string name="vip_program_referral_notification_body">Oszd meg a kódod a közösségeddel, hogy játék közben is pénzt kereshess!</string>
   <string name="vip_program_title_vip_offer">VIP ajánlat</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Üdv az AppCoins Walletban</string>
   <string name="intro_welcome_body">Töltsd fel a tárcád vagy vásárolj bármely AppCoinsszal kompatibilis appban vagy játékban.</string>
@@ -1253,7 +1292,7 @@
   <string name="rewards_current_bonus_title">%s%% bónusz minden vásárlás után</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Az e-Skill jutalmak felvétele.</string>
-  <string name="rewards_promo_code_card_title">Promóciós kódok</string>
+  <string name="rewards_promo_code_card_title">Promóciós kód</string>
   <string name="rewards_promo_code_card_body">Különleges ajánlatokért használj promóciós kódot!</string>
   <string name="rewards_promo_code_status">Állapot:</string>
   <string name="rewards_promo_code_status_active">Aktív</string>
@@ -1263,6 +1302,8 @@
   <string name="rewards_make_first_purchase_body">Végezd el az első vásárlásod egy AppCoins kompatibilis játékban és szerezz bónuszt minden vásárlásért cserébe.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% bónusz minden vásárlás után</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Walletek kezelése</string>
+  <string name="manage_wallet_view_title">Walletek kezelése</string>
   <string name="manage_wallet_wallet_changed_title">Megváltozott a wallet</string>
   <string name="manage_wallet_change_active_wallet_title">Ezt a walletet választod ki?</string>
   <string name="manage_wallet_change_wallet_name_title">Wallet nevének megváltoztatása</string>
@@ -1270,6 +1311,7 @@
   <string name="manage_wallet_my_wallet_address_title">Tárcacím</string>
   <string name="manage_wallet_verify_title">Hitelesítsd a fizetési módot</string>
   <string name="manage_wallet_verify_body">Kerüld el a blokkolást és hitelesíts egy fizetési módot.</string>
+  <string name="manage_wallet_currency_disclaimer">Az egyszerűség kedvéért az egyenleg a helyi valutában jelenik meg, de attól még USD alapú, így az USD értékének változása kihat az egyenlegedre.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Hitelesítsd a fizetési módot</string>
   <string name="verify_card_body">Kerüld el a blokkolást és hitelesíts egy fizetési módot.</string>
@@ -1277,7 +1319,7 @@
   <string name="verify_card_one_more_step_body">Add meg a tranzakció részletekben megjelenő kódot</string>
   <string name="verify_card_one_more_step_button">Kód megadása</string>
   <string name="verify_card_verified">Fizetési mód hitelesítve!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">Hitelkártya/bankkártya hitelesítése</string>
   <string name="verify_card_view_title">Kártya hitelesítése</string>
   <string name="verify_card_view_disclaimer">%s összeget vonunk le a kártyádról, majd visszafizetjük miután megerősíted a kódot.</string>
   <string name="verify_card_view_title_2">Add meg a bankkártya adatokat</string>
@@ -1295,6 +1337,16 @@
   <string name="challenge_reward_card_body">Teljesítsd a kihívást és szerezz AppCoins krediteket.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Jó szórakozást a tárcádban található %s AppCoins kredithez</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">Maradj velünk!</string>
+  <string name="mail_list_card_body">Iratkozz fel a levelezőlistára, ha érdekelnek az exkluzív hírek és szívesen nyernél egy ajándékkártyát.</string>
+  <string name="mail_list_card_confirmation_title">E-mail cím megerősítése</string>
+  <string name="mail_list_card_confirmation_body">Küldtünk egy e-mailt ide: %s</string>
+  <string name="mail_list_backup">Iratkozz fel a levelezőlistára, ha érdekelnek az exkluzív hírek és szívesen nyernél egy ajándékkártyát.</string>
+  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
+  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
+  <string name="mail_list_confirmation_email_button">Confirm email</string>
+  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

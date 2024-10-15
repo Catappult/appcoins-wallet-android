@@ -16,11 +16,12 @@ dependencies {
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:shared-preferences"))
   implementation(project(":core:walletServices"))
+  implementation(project(":core:network:base"))
+  implementation(project(":core:network:backend"))
+  implementation(project(":core:utils:jvm-common"))
 
   implementation(libs.bundles.result)
   implementation(libs.bundles.rx)
   implementation(libs.firebase.messaging)
   implementation(libs.google.play.services)
-
-
 }

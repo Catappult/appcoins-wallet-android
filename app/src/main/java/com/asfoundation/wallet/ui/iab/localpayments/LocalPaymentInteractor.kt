@@ -42,14 +42,14 @@ class LocalPaymentInteractor @Inject constructor(
 
   fun isWalletVerified() =
     walletService.getAndSignCurrentWalletAddress()
-      .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
+      .flatMap { walletVerificationInteractor.isAtLeastOneVerified(it.address, it.signedAddress) }
       .onErrorReturn { true }
 
   fun getPaymentLink(
     paymentMethod: String, packageName: String, fiatAmount: String?, fiatCurrency: String?,
     productName: String?, type: String, origin: String?, developerPayload: String?,
     callbackUrl: String?, orderReference: String?,
-    referrerUrl: String?
+    referrerUrl: String?, guestWalletId: String?
   ): Single<String> {
     return walletService.getWalletAddress()
       .flatMap { address ->
@@ -71,7 +71,8 @@ class LocalPaymentInteractor @Inject constructor(
                 callback = callbackUrl,
                 orderReference = orderReference,
                 referrerUrl = referrerUrl,
-                walletAddress = address
+                walletAddress = address,
+                guestWalletId = guestWalletId,
               )
             }
           }
@@ -101,7 +102,8 @@ class LocalPaymentInteractor @Inject constructor(
           callback = null,
           orderReference = null,
           referrerUrl = null,
-          walletAddress = address
+          walletAddress = address,
+          guestWalletId = null,
         )
       }
       .map { it.url }
@@ -139,8 +141,8 @@ class LocalPaymentInteractor @Inject constructor(
     inAppPurchaseInteractor.saveAsyncLocalPayment(paymentMethod)
   }
 
-  fun showSupport(gamificationLevel: Int): Completable {
-    return supportInteractor.showSupport(gamificationLevel)
+  fun showSupport(gamificationLevel: Int, uid: String? = null): Completable {
+    return supportInteractor.showSupport(gamificationLevel, uid)
   }
 
   fun topUpBundle(

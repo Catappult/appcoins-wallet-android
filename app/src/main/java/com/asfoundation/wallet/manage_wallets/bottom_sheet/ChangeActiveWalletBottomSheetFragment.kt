@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.asf.wallet.R
@@ -29,6 +30,10 @@ class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
   private val views by viewBinding(ChangeActiveWalletBottomSheetLayoutBinding::bind)
 
   private val manageWalletSharedViewModel: ManageWalletSharedViewModel by activityViewModels()
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   companion object {
     const val WALLET_NAME = "wallet_name"
@@ -77,6 +82,7 @@ class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
 
   private fun setListeners(walletAddress: String?) {
     views.manageWalletBottomSheetSubmitButton.setOnClickListener {
+      buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.wallet_view_activate_button))
       showLoading()
       walletAddress?.let { it1 -> viewModel.changeActiveWallet(it1) }
     }

@@ -13,6 +13,7 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.feature.vkpay.VkPayManager
 import com.appcoins.wallet.sharedpreferences.VkDataPreferencesDataSource
 import com.asf.wallet.BuildConfig
@@ -93,9 +94,8 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
-    if (arguments?.getSerializable(PAYMENT_DATA) != null) {
-      viewModel.paymentData =
-        arguments?.getSerializable(PAYMENT_DATA) as TopUpPaymentData
+    if (getSerializableExtra<TopUpPaymentData>(PAYMENT_DATA) != null) {
+      viewModel.paymentData = getSerializableExtra<TopUpPaymentData>(PAYMENT_DATA)!!
     }
     val imm =
       requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager

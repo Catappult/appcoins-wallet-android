@@ -41,11 +41,13 @@ import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.widgets.ScreenTitle
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
@@ -64,6 +66,10 @@ class RemoveWalletFragment : BasePageViewFragment() {
   @Inject
   lateinit var myWalletsNavigator: MyWalletsNavigator
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -77,7 +83,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
     viewModel.getWallets(false)
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) }
       },
       containerColor = WalletColors.styleguide_blue,
     ) { padding ->
@@ -107,7 +113,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
         .padding(padding)
         .padding(horizontal = 16.dp)
     ) {
-      item { ScreenTitle() }
+      item { ScreenTitle(stringResource(R.string.remove_wallet_title)) }
 
       item { ScreenSubtitle() }
 
@@ -117,17 +123,6 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
       item { ActionButtons(walletInfo.wallet, walletInfo.name) }
     }
-  }
-
-  @Composable
-  fun ScreenTitle() {
-    Text(
-      text = stringResource(R.string.remove_wallet_title),
-      modifier = Modifier.padding(8.dp),
-      style = typography.headlineSmall,
-      fontWeight = Bold,
-      color = styleguide_light_grey,
-    )
   }
 
   @Composable
@@ -263,11 +258,13 @@ class RemoveWalletFragment : BasePageViewFragment() {
         .padding(horizontal = 8.dp)
     ) {
       ButtonWithText(
-        label = stringResource(id = R.string.my_wallets_action_backup_wallet),
+        label = stringResource(id = R.string.backup_button),
         onClick = { myWalletsNavigator.navigateToBackup(address, name) },
         labelColor = styleguide_light_grey,
         backgroundColor = styleguide_pink,
-        buttonType = ButtonType.LARGE
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
 
       ButtonWithText(
@@ -275,7 +272,9 @@ class RemoveWalletFragment : BasePageViewFragment() {
         onClick = { viewModel.deleteWallet(address) },
         labelColor = styleguide_light_grey,
         outlineColor = styleguide_light_grey,
-        buttonType = ButtonType.LARGE
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }

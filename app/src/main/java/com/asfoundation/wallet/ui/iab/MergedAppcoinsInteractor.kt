@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab
 
-import com.appcoins.wallet.feature.walletInfo.data.balance.BalanceInteractor
 import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -12,7 +11,6 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class MergedAppcoinsInteractor @Inject constructor(
-  private val balanceInteractor: BalanceInteractor,
   private val walletBlockedInteract: WalletBlockedInteract,
   private val supportInteractor: SupportInteractor,
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,

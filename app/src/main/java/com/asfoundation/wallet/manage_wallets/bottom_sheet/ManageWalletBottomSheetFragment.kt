@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ManageWalletBottomSheetLayoutBinding
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
+class ManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
   SingleStateFragment<ManageWalletBottomSheetState, ManageWalletBottomSheetSideEffect> {
 
 
@@ -28,6 +29,10 @@ class ManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
 
   private val viewModel: ManageWalletBottomSheetViewModel by viewModels()
   private val views by viewBinding(ManageWalletBottomSheetLayoutBinding::bind)
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   companion object {
 
@@ -67,14 +72,17 @@ class ManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
   private fun setListeners() {
     views.newWalletView.setOnClickListener {
       dismiss()
+      buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.my_wallets_action_new_wallet))
       navigator.navigateToManageNameWallet()
     }
     views.deleteWalletView.setOnClickListener {
       dismiss()
+      buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.my_wallets_action_delete_wallet))
       navigator.navigateToRemoveWallet(navController())
     }
     views.recoverWalletView.setOnClickListener {
       dismiss()
+      buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.my_wallets_action_recover_wallet))
       navigator.navigateToRecoverWallet()
     }
 

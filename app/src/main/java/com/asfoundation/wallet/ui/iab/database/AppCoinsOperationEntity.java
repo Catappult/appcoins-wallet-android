@@ -59,9 +59,7 @@ import androidx.room.PrimaryKey;
 
   @Override public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof AppCoinsOperationEntity)) return false;
-
-    AppCoinsOperationEntity that = (AppCoinsOperationEntity) o;
+    if (!(o instanceof AppCoinsOperationEntity that)) return false;
 
     if (!key.equals(that.key)) return false;
     if (!transactionId.equals(that.transactionId)) return false;

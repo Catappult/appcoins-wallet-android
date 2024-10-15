@@ -155,4 +155,22 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
       )
     )
   }
+
+  fun navigateToMiPay(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
+  ) {
+    navigate(
+      fragment.findNavController(),
+      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingMiPay(
+        transactionBuilder,
+        PaymentType.MI_PAY,
+        amount,
+        currency,
+        forecastBonus
+      )
+    )
+  }
 }

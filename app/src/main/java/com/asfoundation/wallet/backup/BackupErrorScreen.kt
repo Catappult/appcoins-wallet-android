@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -34,12 +35,12 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
-fun BackupErrorRoute(onClickBack: () -> Unit, onChatClick: () -> Unit, onCancelBackup: () -> Unit) {
+fun BackupErrorRoute(onClickBack: () -> Unit, onChatClick: () -> Unit, onCancelBackup: () -> Unit, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   Scaffold(
-    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = onChatClick) } },
+    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = onChatClick, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) } },
     modifier = Modifier
   ) { padding ->
-    BackupErrorScreen(scaffoldPadding = padding, onCancelBackup = onCancelBackup, onClickBack)
+    BackupErrorScreen(scaffoldPadding = padding, onCancelBackup = onCancelBackup, onClickBack, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
   }
 }
 
@@ -47,7 +48,9 @@ fun BackupErrorRoute(onClickBack: () -> Unit, onChatClick: () -> Unit, onCancelB
 fun BackupErrorScreen(
   scaffoldPadding: PaddingValues,
   onCancelBackup: () -> Unit,
-  onClickBack: () -> Unit
+  onClickBack: () -> Unit,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Column(
     modifier =
@@ -75,12 +78,12 @@ fun BackupErrorScreen(
         color = WalletColors.styleguide_light_grey,
       )
     }
-    BackupDialogCard(onCancelBackup = onCancelBackup, onClickBack)
+    BackupDialogCard(onCancelBackup = onCancelBackup, onClickBack, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
   }
 }
 
 @Composable
-fun BackupDialogCard(onCancelBackup: () -> Unit, onClickBack: () -> Unit) {
+fun BackupDialogCard(onCancelBackup: () -> Unit, onClickBack: () -> Unit, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
   Card(
     shape = RoundedCornerShape(14.dp),
     modifier = Modifier
@@ -120,7 +123,9 @@ fun BackupDialogCard(onCancelBackup: () -> Unit, onClickBack: () -> Unit) {
         onClick = { onCancelBackup() },
         backgroundColor = Color.Transparent,
         labelColor = WalletColors.styleguide_white,
-        buttonType = ButtonType.DEFAULT
+        buttonType = ButtonType.DEFAULT,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
 
       ButtonWithText(
@@ -128,7 +133,9 @@ fun BackupDialogCard(onCancelBackup: () -> Unit, onClickBack: () -> Unit) {
         onClick = { onClickBack() },
         backgroundColor = WalletColors.styleguide_pink,
         labelColor = WalletColors.styleguide_white,
-        buttonType = ButtonType.DEFAULT
+        buttonType = ButtonType.DEFAULT,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
       )
     }
   }
@@ -137,5 +144,5 @@ fun BackupDialogCard(onCancelBackup: () -> Unit, onClickBack: () -> Unit) {
 @Preview
 @Composable
 fun BackupDialogCardPreview() {
-  BackupDialogCard({}, {})
+  BackupDialogCard({}, {}, "HomeFragment", buttonsAnalytics = ButtonsAnalytics(null))
 }

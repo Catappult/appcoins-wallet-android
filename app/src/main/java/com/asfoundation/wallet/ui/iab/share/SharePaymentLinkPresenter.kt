@@ -52,7 +52,9 @@ class SharePaymentLinkPresenter(
           it.domain, it.skuId ?: "", it.amount,
           it.paymentMethod, it.type, "close"
         )
-        view.close()
+        view.back()
+      }.doOnError {
+        it.printStackTrace()
       }
       .subscribe())
   }

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
@@ -13,7 +12,6 @@ import com.appcoins.wallet.core.network.microservices.model.FeeType;
 import com.appcoins.wallet.core.network.microservices.model.Gateway;
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
-import com.appcoins.wallet.core.utils.properties.MiscProperties;
 import com.appcoins.wallet.feature.backup.data.use_cases.ShouldShowSystemNotificationUseCase;
 import com.appcoins.wallet.feature.backup.data.use_cases.UpdateWalletPurchasesCountUseCase;
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue;
@@ -287,7 +285,7 @@ public class InAppPurchaseInteractor {
   }
 
   private List<PaymentMethod> showTopup(List<PaymentMethod> paymentMethods) {
-    if (paymentMethods.size() == 0) {
+    if (paymentMethods.isEmpty()) {
       return paymentMethods;
     }
 
@@ -307,7 +305,8 @@ public class InAppPurchaseInteractor {
         new PaymentMethod(appcPaymentMethod.getId(), appcPaymentMethod.getLabel(),
             appcPaymentMethod.getIconUrl(), appcPaymentMethod.getAsync(),
             appcPaymentMethod.getFee(), appcPaymentMethod.isEnabled(),
-            appcPaymentMethod.getDisabledReason(), true, false, false));
+            appcPaymentMethod.getDisabledReason(), true, false, false, appcPaymentMethod.getPrice(),
+            appcPaymentMethod.getMessage()));
     return paymentMethods;
   }
 
@@ -355,28 +354,6 @@ public class InAppPurchaseInteractor {
       }
     }
     return paymentMethods;
-  }
-
-  private boolean hasRequiredAptoideVersionInstalled() {
-    try {
-      PackageInfo packageInfo =
-          packageManager.getPackageInfo(MiscProperties.INSTANCE.getAPTOIDE_PKG_NAME(), 0);
-      return packageInfo.versionCode >= EARN_APPCOINS_APTOIDE_VERCODE;
-    } catch (Exception e) {
-      return false;
-    }
-  }
-
-  private boolean hasFunds(List<PaymentMethod> clonedList) {
-    for (PaymentMethod paymentMethod : clonedList) {
-      if ((paymentMethod.getId()
-          .equals(APPC_ID) && paymentMethod.isEnabled())
-          || paymentMethod.getId()
-          .equals(CREDITS_ID) && paymentMethod.isEnabled()) {
-        return true;
-      }
-    }
-    return false;
   }
 
   List<PaymentMethod> mergeAppcoins(List<PaymentMethod> paymentMethods) {
@@ -498,11 +475,13 @@ public class InAppPurchaseInteractor {
           Gateway.Name.appcoins_credits)) {
         iterator.remove();
       } else if (paymentMethod.getGateway() != null && (paymentMethod.getGateway()
-          .getName() == (Gateway.Name.myappcoins)
+          .getName() == Gateway.Name.myappcoins
           || paymentMethod.getGateway()
-          .getName() == (Gateway.Name.adyen_v2)
+          .getName() == Gateway.Name.adyen_v2
           || paymentMethod.getGateway()
-          .getName() == Gateway.Name.challenge_reward) && !paymentMethod.isAvailable()) {
+          .getName() == Gateway.Name.challenge_reward
+          || paymentMethod.getGateway()
+          .getName() == Gateway.Name.truelayer) && !paymentMethod.isAvailable()) {
         iterator.remove();
       }
     }
@@ -517,13 +496,19 @@ public class InAppPurchaseInteractor {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
             paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null,
-            false, isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency));
+            false, isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency),
+            new FiatValue(paymentMethod.getPrice()
+                .getValue(), paymentMethod.getPrice()
+                .getCurrency(), ""), paymentMethod.getMessage());
       }
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
         paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false,
-        isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency));
+        isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency), new FiatValue(
+        paymentMethod.getPrice()
+            .getValue(), paymentMethod.getPrice()
+        .getCurrency(), ""), paymentMethod.getMessage());
   }
 
   private Boolean isToShowPaypalLogout(PaymentMethodEntity paymentMethod) {

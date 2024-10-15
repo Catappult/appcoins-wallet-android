@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.feature.backup.ui.success.BackupSuccessRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asfoundation.wallet.backup.BackupSaveOptionsComposeFragment.Companion.SAVE_PLACE_KEY
@@ -25,6 +26,10 @@ class BackupSuccessComposeFragment : BasePageViewFragment() {
   @Inject
   lateinit var navigator: BackupEntryNavigator
 
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
+
   companion object {
     fun newInstance() = BackupSuccessComposeFragment()
   }
@@ -40,6 +45,8 @@ class BackupSuccessComposeFragment : BasePageViewFragment() {
           Surface(modifier = Modifier.fillMaxSize()) {
             BackupSuccessRoute(
               onChatClick = { displayChat() },
+              fragmentName = fragmentName,
+              buttonsAnalytics = buttonsAnalytics,
               saveOnDevice = requireArguments().getBoolean(SAVE_PLACE_KEY)
             ) {
               navigator.navigateToHome()

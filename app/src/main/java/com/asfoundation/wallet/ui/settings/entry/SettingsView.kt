@@ -27,7 +27,7 @@ interface SettingsView {
 
   fun setFacebookPreference()
 
-  fun setTelegramPreference()
+  fun setDiscordPreference()
 
   fun setEmailPreference()
 
@@ -46,6 +46,12 @@ interface SettingsView {
   fun setAccountPreference()
 
   fun setManageSubscriptionsPreference()
+
+  fun setManageCardsPreference()
+
+  fun setAddNewCardPreference()
+
+  fun setSkeletonCardPreference()
 
   fun removeFingerprintPreference()
 

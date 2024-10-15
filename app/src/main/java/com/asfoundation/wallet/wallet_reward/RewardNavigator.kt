@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
-import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
@@ -23,15 +22,13 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     mainNavController.navigate(resId = R.id.action_navigate_to_settings, args = bundle)
   }
 
-  fun showPromoCodeFragment() {
-    navigate(navController, RewardFragmentDirections.actionNavigatePromoCode())
+  fun showPromoCodeFragment(promoCode: String? = null) {
+    navigate(navController, RewardFragmentDirections.actionNavigatePromoCode(promoCode))
   }
 
-  fun showGiftCardFragment() {
-    navigate(navController, RewardFragmentDirections.actionNavigateGiftCard())
+  fun showGiftCardFragment(giftCard: String? = null) {
+    navigate(navController, RewardFragmentDirections.actionNavigateGiftCard(giftCard))
   }
-
-  fun showOfferWallScreen() = ChallengeRewardManager.onNavigate()
 
   fun navigateToWithdrawScreen() {
     navigate(navController, RewardFragmentDirections.actionNavigateEskillsWithdraw())

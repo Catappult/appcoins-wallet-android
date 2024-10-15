@@ -7,9 +7,10 @@ import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResponse
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.verification.BrokerVerificationRepository
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType.CREDIT_CARD
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
-import com.wallet.appcoins.feature.support.data.SupportInteractor
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class VerificationIntroInteractor @Inject constructor(
   private val brokerVerificationRepository: BrokerVerificationRepository,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val walletService: WalletService,
-  private val supportInteractor: SupportInteractor,
+  private val displayChatUseCase: DisplayChatUseCase,
   private val walletVerificationInteractor: WalletVerificationInteractor
 ) {
 
@@ -43,7 +44,7 @@ class VerificationIntroInteractor @Inject constructor(
     returnUrl: String
   ): Single<VerificationPaymentModel> {
     return walletVerificationInteractor.makeVerificationPayment(
-      WalletVerificationInteractor.VerificationType.CREDIT_CARD, adyenPaymentMethod,
+      CREDIT_CARD, adyenPaymentMethod,
       shouldStoreMethod, returnUrl
     )
   }
@@ -78,7 +79,7 @@ class VerificationIntroInteractor @Inject constructor(
 
   fun showSupport(): Completable {
     return Completable.fromAction {
-      supportInteractor.displayChatScreen()
+      displayChatUseCase()
     }
   }
 }

@@ -2,6 +2,8 @@ package com.asfoundation.wallet.analytics
 
 import android.app.Application
 import android.content.Context
+import android.content.res.Configuration
+import androidx.appcompat.app.AppCompatDelegate
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsLabels
 import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
@@ -75,9 +77,10 @@ class InitilizeDataAnalytics @Inject constructor(
           Single.just(idsRepository.getActiveWalletAddress()),
           promoCodeLocalDataSource.getSavedPromoCode(),
           Single.just(idsRepository.getDeviceInfo()),
-          partnerAddressService.getOrSetOemIDFromGamesHub()
+          partnerAddressService.getOrSetOemIDFromGamesHub(),
+          Single.just(getTheme())
         )
-        { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode, deviceInfo: DeviceInformation, ghOemid: String ->
+        { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode, deviceInfo: DeviceInformation, ghOemid: String, theme: String ->
           IndicativeInitializeWrapper(
             installerPackage = installerPackage,
             level = level,
@@ -86,6 +89,7 @@ class InitilizeDataAnalytics @Inject constructor(
             promoCode = promoCode,
             deviceInfo = deviceInfo,
             ghOemId = ghOemid,
+            theme = theme
           )
         }
           .flatMap {
@@ -105,12 +109,32 @@ class InitilizeDataAnalytics @Inject constructor(
                   model = it.deviceInfo.model,
                   language = it.deviceInfo.language,
                   isEmulator = it.deviceInfo.isProbablyEmulator,
-                  ghOemId = it.ghOemId
+                  ghOemId = it.ghOemId,
+                  promoCode = it.promoCode.code ?: "",
+                  flavor = mapFlavor(BuildConfig.FLAVOR),
+                  theme = it.theme
                 )
               }
           }
       }
       .ignoreElement()
+  }
+
+  private fun mapFlavor(flavor: String): String {
+    return when (flavor) {
+      "aptoide" -> "aptoide"
+      "gp" -> "google"
+      else -> flavor
+    }
+  }
+
+  fun getTheme(): String {
+    val currentNightMode = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+    return mapTheme(currentNightMode == Configuration.UI_MODE_NIGHT_YES)
+  }
+
+  private fun mapTheme(isDarkModeOn: Boolean): String {
+    return if (isDarkModeOn) "dark" else "light"
   }
 
   private fun hasGms(): Boolean {

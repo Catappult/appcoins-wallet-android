@@ -3,13 +3,32 @@ package com.appcoins.wallet.core.network.backend
 import com.appcoins.wallet.core.network.backend.annotations.BackendBlockchainRetrofit
 import com.appcoins.wallet.core.network.backend.annotations.BackendDefaultRetrofit
 import com.appcoins.wallet.core.network.backend.annotations.BackendShortTimeoutRetrofit
-import com.appcoins.wallet.core.network.backend.api.*
+import com.appcoins.wallet.core.network.backend.api.AutoUpdateApi
+import com.appcoins.wallet.core.network.backend.api.BackupLogApi
+import com.appcoins.wallet.core.network.backend.api.CachedBackupApi
+import com.appcoins.wallet.core.network.backend.api.CachedGuestWalletApi
+import com.appcoins.wallet.core.network.backend.api.CachedTransactionApi
+import com.appcoins.wallet.core.network.backend.api.CountryApi
+import com.appcoins.wallet.core.network.backend.api.GamesApi
+import com.appcoins.wallet.core.network.backend.api.GamificationApi
+import com.appcoins.wallet.core.network.backend.api.GasServiceApi
+import com.appcoins.wallet.core.network.backend.api.ImpressionApi
+import com.appcoins.wallet.core.network.backend.api.PartnerAttributionApi
+import com.appcoins.wallet.core.network.backend.api.PromoCodeApi
+import com.appcoins.wallet.core.network.backend.api.RedeemGiftApi
+import com.appcoins.wallet.core.network.backend.api.SupportApi
+import com.appcoins.wallet.core.network.backend.api.TokenToFiatApi
+import com.appcoins.wallet.core.network.backend.api.TransactionOverviewApi
+import com.appcoins.wallet.core.network.backend.api.TransactionsApi
+import com.appcoins.wallet.core.network.backend.api.WalletInfoApi
+import com.appcoins.wallet.core.network.backend.api.WithdrawApi
 import com.appcoins.wallet.core.network.backend.model.PromotionsDeserializer
 import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.PromotionsSerializer
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
+import com.appcoins.wallet.core.network.base.compat.EmailApi
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -24,7 +43,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -77,8 +96,8 @@ class BackendApiModule {
   @Provides
   fun providesIpCountryCodeApi(
     @BackendDefaultRetrofit retrofit: Retrofit
-  ): IpApi {
-    return retrofit.create(IpApi::class.java)
+  ): CountryApi {
+    return retrofit.create(CountryApi::class.java)
   }
 
   @Singleton
@@ -227,5 +246,29 @@ class BackendApiModule {
     @BackendDefaultRetrofit retrofit: Retrofit
   ): PartnerAttributionApi {
     return retrofit.create(PartnerAttributionApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSupportApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): SupportApi {
+    return retrofit.create(SupportApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesEmailApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): EmailApi {
+    return retrofit.create(EmailApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun provideImpressionApi(
+    @BackendShortTimeoutRetrofit retrofit: Retrofit
+  ): ImpressionApi {
+    return retrofit.create(ImpressionApi::class.java)
   }
 }

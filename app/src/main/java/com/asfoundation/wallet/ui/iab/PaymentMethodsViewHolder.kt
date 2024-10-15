@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ItemPaymentMethodBinding
 import com.asfoundation.wallet.GlideApp
@@ -40,7 +41,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     binding.radioButton.isEnabled = data.isEnabled
 
     handleDescription(data, selected, data.isEnabled)
-    handleFee(data.fee, data.isEnabled)
+    handleFee(data.fee, data.price, data.isEnabled)
 
     binding.selectedBackground.visibility = if (selected) View.VISIBLE else View.INVISIBLE
 
@@ -53,10 +54,19 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       itemView.setOnClickListener(null)
       binding.radioButton.visibility = View.INVISIBLE
       itemView.background = null
-      if (data.disabledReason != null) {
-        showDisableReason(data.disabledReason)
-      } else {
-        hideDisableReason()
+
+      when {
+        data.disabledReason != null -> {
+          showDisableReason(data.disabledReason)
+        }
+
+        data.message != null -> {
+          showDisableReason(data.message)
+        }
+
+        else -> {
+          hideDisableReason()
+        }
       }
 
       applyAlphaScale(binding.paymentMethodIc)
@@ -94,29 +104,31 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       binding.paymentMethodDescription.setTextColor(
         ContextCompat.getColor(itemView.context, R.color.styleguide_payments_main_text)
       )
-      binding.paymentMethodDescription.typeface =
-        Typeface.create("sans-serif-medium", Typeface.BOLD)
     } else {
-      binding.paymentMethodDescription.setTextColor(  //
-        ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80)
-      )
-      binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
-    }
-    if (!isEnabled) {
       binding.paymentMethodDescription.setTextColor(
         ContextCompat.getColor(itemView.context, R.color.styleguide_payments_main_text)
       )
-      binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+      binding.paymentMethodDescription.typeface = Typeface.create("roboto_medium", Typeface.NORMAL)
+    }
+    if (!isEnabled) {
+      binding.paymentMethodDescription.setTextColor(
+        ContextCompat.getColor(itemView.context, R.color.styleguide_dark_grey)
+      )
+      binding.paymentMethodDescription.typeface = Typeface.create("roboto_medium", Typeface.NORMAL)
     }
   }
 
-  private fun handleFee(fee: PaymentMethodFee?, enabled: Boolean) {
-    if (fee?.isValidFee() == true) {
+  private fun handleFee(fee: PaymentMethodFee?, price: FiatValue, isEnabled: Boolean) {
+    if (fee?.isValidFee() == true && isEnabled) {
       binding.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils()
-        .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
+        .formatPaymentCurrency(fee.amount!! + price.amount, WalletCurrency.FIAT)
       binding.paymentMethodFee.text =
-        itemView.context.getString(R.string.purchase_fee_title, formattedValue, fee.currency)
+        itemView.context.getString(
+          R.string.purchase_fees_and_taxes_known_disclaimer_body,
+          formattedValue,
+          fee.currency
+        )
     } else {
       binding.paymentMethodFee.visibility = View.GONE
     }
@@ -139,7 +151,16 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
   private fun showDisableReason(@StringRes reason: Int?) {
     reason?.let {
       binding.paymentMethodReason.visibility = View.VISIBLE
+      binding.paymentMethodFee.visibility = View.GONE
       binding.paymentMethodReason.text = itemView.context.getString(it)
+    }
+  }
+
+  private fun showDisableReason(message: String?) {
+    message?.let {
+      binding.paymentMethodReason.visibility = View.VISIBLE
+      binding.paymentMethodFee.visibility = View.GONE
+      binding.paymentMethodReason.text = it
     }
   }
 

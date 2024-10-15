@@ -45,6 +45,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_blue_background
@@ -62,14 +63,16 @@ fun GamificationHeader(
   bonusValue: String,
   planetDrawable: Drawable?,
   isVip: Boolean,
-  isMaxVip: Boolean
+  isMaxVip: Boolean,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
 ) {
   Card(
-    modifier =
-    Modifier
+    modifier = Modifier
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
       .fillMaxSize()
       .clickable {
+        buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, "Gamification")
         onClick()
       },
     shape = RoundedCornerShape(8.dp),
@@ -93,8 +96,7 @@ fun GamificationHeader(
               .align(Alignment.CenterVertically),
           ) {
             Text(
-              text =
-              stringResource(
+              text = stringResource(
                 id = R.string.vip_program_max_bonus_body,
                 valueSpendForNextLevel,
                 currencySpend
@@ -113,8 +115,7 @@ fun GamificationHeader(
           ) {
             Text(
               modifier = Modifier.padding(end = 8.dp, top = 16.dp, bottom = 8.dp),
-              text =
-              stringResource(
+              text = stringResource(
                 id = R.string.rewards_spend_to_next_level_body,
                 valueSpendForNextLevel,
                 currencySpend
@@ -132,8 +133,7 @@ fun GamificationHeader(
               if (currentProgress >= 0 && maxProgress > 0) {
                 LinearProgressIndicator(
                   progress = currentProgress.toFloat() / maxProgress.toFloat(),
-                  modifier =
-                  Modifier
+                  modifier = Modifier
                     .background(Color.Transparent)
                     .clip(CircleShape)
                     .height(8.dp)
@@ -146,8 +146,7 @@ fun GamificationHeader(
                   text = "$currentProgress / $maxProgress",
                   style = MaterialTheme.typography.bodySmall,
                   color = WalletColors.styleguide_dark_grey,
-                  modifier =
-                  Modifier
+                  modifier = Modifier
                     .padding(end = 8.dp, top = 8.dp)
                     .align(alignment = Alignment.End),
                   fontWeight = FontWeight.Bold
@@ -169,8 +168,7 @@ fun GamificationHeader(
 fun GamificationBottomBar(bonusValue: String) {
   Row(
     // Bottom main content
-    modifier =
-    Modifier
+    modifier = Modifier
       .fillMaxWidth()
       .height(48.dp)
       .background(styleguide_grey_blue_background)
@@ -179,8 +177,7 @@ fun GamificationBottomBar(bonusValue: String) {
     verticalAlignment = Alignment.CenterVertically
   ) {
     Row {
-      val composition by
-      rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bonus_gift_animation))
+      val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bonus_gift_animation))
       val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
       LottieAnimation(
         modifier = Modifier
@@ -220,8 +217,7 @@ fun GamificationLevelIcon(
   modifier: Modifier
 ) {
   Box(modifier = modifier, contentAlignment = Alignment.BottomCenter) {
-    val composition by
-    rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.gamification_reached_vip))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.gamification_reached_vip))
     val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
 
     if (isMaxVip || isVip) {
@@ -236,14 +232,11 @@ fun GamificationLevelIcon(
           .height(112.dp),
         composition = composition,
         progress = { progress })
-    } else
+    } else {
       planetDrawable?.let {
-        val bitmap =
-          Bitmap.createBitmap(
-            planetDrawable.intrinsicWidth,
-            planetDrawable.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-          )
+        val bitmap = Bitmap.createBitmap(
+          planetDrawable.intrinsicWidth, planetDrawable.intrinsicHeight, Bitmap.Config.ARGB_8888
+        )
         val canvas = Canvas(bitmap)
         planetDrawable.setBounds(0, 0, canvas.width, canvas.height)
         planetDrawable.draw(canvas)
@@ -256,14 +249,14 @@ fun GamificationLevelIcon(
             .scale(1F)
         )
       }
+    }
   }
 }
 
 @Composable
 fun GamificationHeaderNoPurchases() {
   Card(
-    modifier =
-    Modifier
+    modifier = Modifier
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
       .fillMaxWidth()
       .height(170.dp),
@@ -276,7 +269,10 @@ fun GamificationHeaderNoPurchases() {
       verticalArrangement = Arrangement.SpaceEvenly,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      Image(painter = painterResource(id = R.drawable.ic_locked), contentDescription = "Locked")
+      Image(
+        painter = painterResource(id = R.drawable.ic_locked),
+        contentDescription = "Locked"
+      )
       Text(
         text = stringResource(id = R.string.rewards_make_first_purchase_body),
         fontSize = 16.sp,
@@ -293,83 +289,66 @@ fun GamificationHeaderNoPurchases() {
 }
 
 @Composable
-fun GamificationHeaderPartner(bonusPercentage: String) {
+fun GamificationHeaderPartner(bonusPerkDescription: String) {
   Card(
-    modifier =
-    Modifier
-      .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-      .fillMaxWidth()
-      .height(72.dp),
+    modifier = Modifier
+      .padding(horizontal = 16.dp)
+      .padding(top = 16.dp)
+      .fillMaxWidth(),
     shape = RoundedCornerShape(8.dp),
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
   ) {
-    Box(
-      contentAlignment = Alignment.Center,
+    Row( // Bottom main content
       modifier = Modifier
-        .fillMaxSize()
-        .align(Alignment.CenterHorizontally)
+        .padding(16.dp)
+        .fillMaxWidth(),
+      verticalAlignment = Alignment.CenterVertically
     ) {
-      Row( // Bottom main content
+      val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bonus_gift_animation))
+      val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
+      LottieAnimation(
         modifier = Modifier
-          .fillMaxWidth()
-          .height(48.dp)
-          .padding(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
-      ) {
-        val composition by
-        rememberLottieComposition(
-          LottieCompositionSpec.RawRes(R.raw.bonus_gift_animation)
-        )
-        val progress by
-        animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
-        LottieAnimation(
-          modifier = Modifier
-            .size(48.dp)
-            .align(Alignment.CenterVertically),
-          composition = composition,
-          progress = { progress })
+          .size(48.dp)
+          .align(Alignment.CenterVertically),
+        composition = composition,
+        progress = { progress })
 
-        Text(
-          text =
-          stringResource(id = R.string.vip_program_max_bonus_short, bonusPercentage),
-          fontSize = 16.sp,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_light_grey,
-          lineHeight = 24.sp,
-          modifier =
-          Modifier
-            .align(Alignment.CenterVertically)
-            .padding(horizontal = 6.dp)
-            .weight(1f, fill = false)
-        )
-      }
+      Text(
+        text = bonusPerkDescription,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
+        color = WalletColors.styleguide_light_grey,
+        lineHeight = 24.sp,
+        modifier = Modifier.padding(start = 16.dp)
+      )
     }
   }
 }
 
 @Composable
-fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long) {
+fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long, startDateTime: Long) {
+  val referralAvailable = isVipReferralAlreadyAvailable(startDateTime)
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-    modifier =
-    Modifier
+    modifier = Modifier
       .fillMaxSize()
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
       .clip(shape = RoundedCornerShape(8.dp))
-      .clickable { onClick() },
+      .clickable { if (referralAvailable) onClick() },
   ) {
     Column(verticalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxSize()) {
       Row(
-        modifier =
-        Modifier
+        modifier = Modifier
           .fillMaxWidth()
           .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp),
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
       ) {
         Image(
-          painter = painterResource(R.drawable.ic_vip_symbol),
+          painter = painterResource(
+            if (referralAvailable) R.drawable.ic_vip_symbol
+            else R.drawable.ic_soon_lock
+          ),
           contentDescription = stringResource(R.string.vip),
           modifier = Modifier
             .size(48.dp)
@@ -390,37 +369,56 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long) {
             modifier = Modifier.padding(horizontal = 20.dp)
           )
         }
-        Image(
+        if (referralAvailable) Image(
           painter = painterResource(R.drawable.ic_arrow_right),
           contentDescription = null,
           modifier = Modifier.size(32.dp)
         )
       }
-      VipReferralEndCountDownTimer(
-        endDateTime = endDateTime,
-        modifier = Modifier
-          .padding(bottom = 8.dp)
-          .fillMaxWidth()
-          .padding(horizontal = 24.dp)
+      VipReferralCountDownTimer(
+        dateTime = if (referralAvailable) endDateTime else startDateTime,
+        referralAvailable = referralAvailable
       )
     }
   }
 }
 
 @Composable
-fun VipReferralEndCountDownTimer(endDateTime: Long, modifier: Modifier = Modifier) {
+fun VipReferralCountDownTimer(
+  dateTime: Long,
+  modifier: Modifier = Modifier,
+  referralAvailable: Boolean
+) {
   Row(
-    modifier = modifier,
-    horizontalArrangement = Arrangement.SpaceBetween,
+    modifier = modifier
+      .padding(bottom = 8.dp)
+      .padding(horizontal = 16.dp)
+      .fillMaxWidth(),
     verticalAlignment = Alignment.CenterVertically
   ) {
-    Text(
-      text = stringResource(id = R.string.ending_in_title),
-      color = WalletColors.styleguide_light_grey,
-      style = MaterialTheme.typography.bodySmall,
-      fontWeight = FontWeight.Bold,
-    )
-    CountDownTimer(endDateTime = endDateTime)
+    Row(
+      modifier = modifier.weight(1f),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.Start
+    ) {
+      if (!referralAvailable) Image(
+        painter = painterResource(R.drawable.ic_timer),
+        contentDescription = null,
+        modifier = Modifier
+          .size(24.dp)
+          .padding(end = 8.dp)
+      )
+      Text(
+        text = stringResource(
+          if (referralAvailable) R.string.ending_in_title
+          else R.string.perks_available_soon_short
+        ),
+        color = WalletColors.styleguide_light_grey,
+        style = MaterialTheme.typography.bodySmall,
+        fontWeight = FontWeight.Bold,
+      )
+    }
+    CountDownTimer(endDateTime = dateTime)
   }
 }
 
@@ -428,8 +426,7 @@ fun VipReferralEndCountDownTimer(endDateTime: Long, modifier: Modifier = Modifie
 fun SkeletonLoadingGamificationCard() {
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-    modifier =
-    Modifier
+    modifier = Modifier
       .fillMaxWidth()
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
       .clip(shape = RoundedCornerShape(8.dp))
@@ -444,16 +441,14 @@ fun SkeletonLoadingGamificationCard() {
       ) {
         Column {
           Spacer(
-            modifier =
-            Modifier
+            modifier = Modifier
               .width(width = 150.dp)
               .height(height = 22.dp)
               .clip(RoundedCornerShape(5.dp))
               .background(brush = shimmerSkeleton()),
           )
           Spacer(
-            modifier =
-            Modifier
+            modifier = Modifier
               .width(width = 230.dp)
               .height(height = 30.dp)
               .padding(top = 8.dp)
@@ -462,8 +457,7 @@ fun SkeletonLoadingGamificationCard() {
           )
         }
         Spacer(
-          modifier =
-          Modifier
+          modifier = Modifier
             .size(90.dp)
             .clip(RoundedCornerShape(45.dp))
             .background(brush = shimmerSkeleton()),
@@ -472,8 +466,7 @@ fun SkeletonLoadingGamificationCard() {
     }
     Row(modifier = Modifier.fillMaxWidth()) {
       Spacer(
-        modifier =
-        Modifier
+        modifier = Modifier
           .fillMaxWidth()
           .height(50.dp)
           .background(brush = shimmerSkeleton()),
@@ -481,6 +474,9 @@ fun SkeletonLoadingGamificationCard() {
     }
   }
 }
+
+fun isVipReferralAlreadyAvailable(startDateTime: Long) =
+  startDateTime * 1000L <= System.currentTimeMillis()
 
 @Preview
 @Composable
@@ -495,7 +491,9 @@ fun PreviewRewardsGamification() {
     bonusValue = "16",
     planetDrawable = null,
     isVip = true,
-    isMaxVip = false
+    isMaxVip = false,
+    fragmentName = "RewardsFragment",
+    buttonsAnalytics = null
   )
 }
 
@@ -512,7 +510,9 @@ fun PreviewRewardsGamificationMaxVip() {
     bonusValue = "16",
     planetDrawable = null,
     isVip = true,
-    isMaxVip = true
+    isMaxVip = true,
+    fragmentName = "RewardsFragment",
+    buttonsAnalytics = null
   )
 }
 
@@ -525,13 +525,13 @@ fun PreviewRewardsGamificationNoPurchases() {
 @Preview
 @Composable
 fun PreviewRewardsGamificationPartner() {
-  GamificationHeaderPartner("5")
+  GamificationHeaderPartner(stringResource(id = R.string.vip_program_max_bonus_short, "5"))
 }
 
 @Preview
 @Composable
 fun PreviewRewardsVip() {
-  VipReferralCard({}, "5", 0L)
+  VipReferralCard({}, "5", 0L, 0L)
 }
 
 @Preview

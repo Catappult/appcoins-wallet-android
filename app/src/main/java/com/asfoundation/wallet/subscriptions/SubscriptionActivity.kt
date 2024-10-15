@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.compose.ui.platform.ComposeView
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
@@ -19,6 +20,10 @@ class SubscriptionActivity : BaseActivity() {
 
   @Inject
   lateinit var displayChat: DisplayChatUseCase
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+  private val fragmentName = this::class.java.simpleName
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -36,7 +41,7 @@ class SubscriptionActivity : BaseActivity() {
   fun toolbar() {
     findViewById<ComposeView>(R.id.app_bar).apply {
       setContent {
-        TopBar(isMainBar = false, onClickSupport = { displayChat() })
+        TopBar(isMainBar = false, onClickSupport = { displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
       }
     }
   }

@@ -138,7 +138,13 @@ internal class AppStartUseCaseTest {
       currency,
       orderReference,
       value,
-      signature
+      signature,
+      "ds",
+      "21",
+      "8362",
+      "",
+       "",
+      "",
     )
 
     @JvmStatic
@@ -324,6 +330,7 @@ class PendingPurchaseFlowUseCaseMock(
     return pendingPurchase
   }
 }
+
 
 class RestoreGuestWalletUseCaseMock(
   private val restoreGuestWallet: StartMode.RestoreGuestWalletFlow? = null

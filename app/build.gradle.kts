@@ -9,10 +9,11 @@ plugins {
 }
 
 android {
+  namespace = "com.asf.wallet"
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 301
-    versionName = "3.14.2"
+    versionCode = 330
+    versionName = "3.30.0"
   }
 }
 
@@ -52,7 +53,6 @@ dependencies {
   implementation(project(":feature:support:data"))
   implementation(project(":feature:backup:ui"))
   implementation(project(":feature:promo-code:data"))
-  implementation(project(":home"))
   implementation(project(":feature:vk-pay"))
 
   implementation(libs.kotlin.coroutines)
@@ -110,7 +110,7 @@ dependencies {
 
   implementation(libs.bundles.analytics)
 
-  implementation(libs.lottie)
+  implementation(libs.bundles.lottie)
   implementation(libs.shimmer)
   implementation(libs.glide)
   kapt(libs.glide.compiler)
@@ -129,6 +129,8 @@ dependencies {
   implementation(libs.commons.lang3)
   implementation(libs.android.support.annotations)
   implementation(libs.android.installreferrer)
+
+  implementation(libs.truelayer.payments)
 
   implementation(libs.bundles.paging)
 

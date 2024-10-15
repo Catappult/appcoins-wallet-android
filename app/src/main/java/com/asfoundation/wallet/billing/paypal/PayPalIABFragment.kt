@@ -14,6 +14,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPaypalBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -22,6 +24,7 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
+import com.asfoundation.wallet.ui.iab.OnBackPressedListener
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +36,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PayPalIABFragment : BasePageViewFragment() {
+class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
 
   @Inject
   lateinit var navigator: PayPalIABNavigator
@@ -113,7 +116,7 @@ class PayPalIABFragment : BasePageViewFragment() {
         }
 
         PayPalIABViewModel.State.TokenCanceled -> {
-          close()
+          iabView.showPaymentMethodsView()
         }
 
         is PayPalIABViewModel.State.WebViewAuthentication -> {
@@ -172,7 +175,7 @@ class PayPalIABFragment : BasePageViewFragment() {
   }
 
   private fun close() {
-    iabView.close(null)
+    iabView.close(Bundle())
   }
 
   private fun showSuccessAnimation(bundle: Bundle) {
@@ -209,15 +212,12 @@ class PayPalIABFragment : BasePageViewFragment() {
     }
   }
 
-  private val amount: BigDecimal by lazy {
-    if (requireArguments().containsKey(AMOUNT_KEY)) {
-      requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("amount data not found")
-    }
+  private val amount by lazy {
+    getSerializableExtra<BigDecimal>(AMOUNT_KEY)
+      ?: throw IllegalArgumentException("amount data not found")
   }
 
-  private val currency: String by lazy {
+  private val currency by lazy {
     if (requireArguments().containsKey(CURRENCY_KEY)) {
       requireArguments().getString(CURRENCY_KEY, "")
     } else {
@@ -233,15 +233,12 @@ class PayPalIABFragment : BasePageViewFragment() {
     }
   }
 
-  private val transactionBuilder: TransactionBuilder by lazy {
-    if (requireArguments().containsKey(TRANSACTION_DATA_KEY)) {
-      requireArguments().getParcelable<TransactionBuilder>(TRANSACTION_DATA_KEY)!!
-    } else {
-      throw IllegalArgumentException("transaction data not found")
-    }
+  private val transactionBuilder by lazy {
+    getParcelableExtra<TransactionBuilder>(TRANSACTION_DATA_KEY)
+      ?: throw IllegalArgumentException("transaction data not found")
   }
 
-  private val bonus: String by lazy {
+  private val bonus by lazy {
     if (requireArguments().containsKey(BONUS_KEY)) {
       requireArguments().getString(BONUS_KEY, "")
     } else {
@@ -249,7 +246,7 @@ class PayPalIABFragment : BasePageViewFragment() {
     }
   }
 
-  private val gamificationLevel: Int by lazy {
+  private val gamificationLevel by lazy {
     if (requireArguments().containsKey(GAMIFICATION_LEVEL)) {
       requireArguments().getInt(GAMIFICATION_LEVEL, 0)
     } else {
@@ -305,6 +302,10 @@ class PayPalIABFragment : BasePageViewFragment() {
       }
     }
 
+  }
+
+  override fun onBackPressed() {
+    iabView.showPaymentMethodsView()
   }
 
 }

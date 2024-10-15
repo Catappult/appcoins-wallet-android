@@ -3,13 +3,18 @@ package com.asfoundation.wallet.topup
 import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
+import androidx.compose.ui.platform.ComposeView
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Observable
 
 interface TopUpActivityView {
   fun showTopUpScreen()
 
-  fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData)
+  fun navigateToAdyenPayment(
+    paymentType: PaymentType,
+    data: TopUpPaymentData,
+    buyWithStoredCard: Boolean
+  )
 
   fun navigateToPaypalV2(paymentType: PaymentType, data: TopUpPaymentData)
 
@@ -17,6 +22,8 @@ interface TopUpActivityView {
     paymentId: String, icon: String, label: String, async: Boolean,
     topUpData: TopUpPaymentData
   )
+
+  fun navigateToPayPalVerification()
 
   fun finish(data: Bundle)
 
@@ -40,7 +47,7 @@ interface TopUpActivityView {
 
   fun getSupportClicks(): Observable<Any>
 
-  fun showVerification()
+  fun showCreditCardVerification()
 
   fun getTryAgainClicks(): Observable<Any>
 
@@ -57,4 +64,10 @@ interface TopUpActivityView {
   fun navigateToGooglePay(paymentType: PaymentType, data: TopUpPaymentData)
 
   fun navigateToWalletOne(paymentType: PaymentType, data: TopUpPaymentData)
+
+  fun navigateToTrueLayer(paymentType: PaymentType, data: TopUpPaymentData)
+
+  fun isActivityActive(): Boolean
+
+  fun getFullscreenComposeView(): ComposeView
 }

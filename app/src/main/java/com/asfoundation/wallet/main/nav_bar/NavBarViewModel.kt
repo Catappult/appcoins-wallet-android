@@ -9,6 +9,8 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.asf.wallet.R
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
+import com.asfoundation.wallet.onboarding.CachedTransactionRepository.Companion.PAYMENT_TYPE_OSP
+import com.asfoundation.wallet.onboarding.CachedTransactionRepository.Companion.PAYMENT_TYPE_SDK
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
@@ -22,7 +24,9 @@ sealed class NavBarSideEffect : SideEffect {
 
   object ShowOnboardingPendingPayment : NavBarSideEffect()
 
-  data class ShowOnboardingRecoverGuestWallet(val backup: String) : NavBarSideEffect()
+  object ShowAskNotificationPermission : NavBarSideEffect()
+
+  object ShowOnboardingRecoverGuestWallet : NavBarSideEffect()
 }
 
 data class NavBarState(
@@ -62,15 +66,22 @@ constructor(
   private fun handleOnboardingFromGameScreen() {
     viewModelScope.launch {
       when (val startMode = appStartUseCase.startModes.first()) {
-        is StartMode.PendingPurchaseFlow ->
-          sendSideEffect { NavBarSideEffect.ShowOnboardingPendingPayment }
-
-        is StartMode.GPInstall -> sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
-        is StartMode.RestoreGuestWalletFlow -> {
-          sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet(startMode.backup) }
+        is StartMode.PendingPurchaseFlow -> {
+          if (startMode.type == PAYMENT_TYPE_OSP) {
+            sendSideEffect { NavBarSideEffect.ShowOnboardingPendingPayment }
+          } else if (startMode.type == PAYMENT_TYPE_SDK) {
+            sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet }
+          }
         }
 
-        else -> Unit
+        is StartMode.GPInstall ->
+          sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
+
+        is StartMode.RestoreGuestWalletFlow ->
+          sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet }
+
+        StartMode.Regular, StartMode.Subsequent ->
+          sendSideEffect { NavBarSideEffect.ShowAskNotificationPermission }
       }
     }
   }

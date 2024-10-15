@@ -13,10 +13,18 @@
         app:destination="@id/verify_credit_card_wallet_activity" />
     <action
         android:id="@+id/action_navigate_to_verify_paypal"
-        app:destination="@id/verify_paypal_wallet_activity" />
+        app:destination="@id/verify_paypal_wallet_fragment" />
     <action
         android:id="@+id/action_navigate_to_verify_picker"
         app:destination="@id/verify_picker_dialog_fragment" />
+    <action
+        android:id="@+id/action_navigate_to_verify_cc"
+        app:destination="@id/verify_credit_card_wallet_activity"
+        app:popUpTo="@id/manage_wallet_fragment" />
+    <action
+        android:id="@+id/action_navigate_to_verify_pp"
+        app:destination="@id/verify_paypal_wallet_fragment"
+        app:popUpTo="@id/manage_wallet_fragment" />
     <action
         android:id="@+id/action_navigate_to_backup_wallet"
         app:destination="@id/backup_wallet_activity" />
@@ -42,10 +50,9 @@
       android:name="com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment"
       tools:layout="@layout/manage_wallet_name_bottom_sheet_layout"></dialog>
 
-  <activity
-      android:id="@+id/verify_paypal_wallet_activity"
-      android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
-      tools:layout="@layout/activity_wallet_paypal_verification" />
+  <fragment
+      android:id="@+id/verify_paypal_wallet_fragment"
+      android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalFragment" />
 
   <activity
       android:id="@+id/verify_credit_card_wallet_activity"
@@ -63,11 +70,11 @@
     <action
         android:id="@+id/action_navigate_to_verify_card"
         app:destination="@id/verify_credit_card_wallet_activity"
-        app:popUpTo="@id/my_wallets_fragment" />
+        app:popUpTo="@id/manage_wallet_fragment" />
     <action
         android:id="@+id/action_navigate_to_verify_paypal"
-        app:destination="@id/verify_paypal_wallet_activity"
-        app:popUpTo="@id/my_wallets_fragment" />
+        app:destination="@id/verify_paypal_wallet_fragment"
+        app:popUpTo="@id/manage_wallet_fragment" />
   </dialog>
 
   <activity

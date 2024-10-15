@@ -9,9 +9,11 @@ import androidx.core.app.ShareCompat
 import androidx.core.content.res.ResourcesCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentSharePaymentLinkBinding
 import com.asfoundation.wallet.ui.iab.IabView
+import com.asfoundation.wallet.ui.iab.OnBackPressedListener
 import com.jakewharton.rxbinding2.view.RxView
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,8 +25,8 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SharePaymentLinkFragment : BasePageViewFragment(),
-  SharePaymentLinkFragmentView {
+class SharePaymentLinkFragment : BasePageViewFragment(), SharePaymentLinkFragmentView,
+  OnBackPressedListener {
 
   @Inject
   lateinit var interactor: ShareLinkInteractor
@@ -48,9 +50,13 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
 
     @JvmStatic
     fun newInstance(
-      domain: String, skuId: String?, originalAmount: String?,
-      originalCurrency: String?, amount: BigDecimal,
-      type: String, paymentMethod: String
+      domain: String,
+      skuId: String?,
+      originalAmount: String?,
+      originalCurrency: String?,
+      amount: BigDecimal,
+      type: String,
+      paymentMethod: String
     ): SharePaymentLinkFragment =
       SharePaymentLinkFragment().apply {
         arguments = Bundle(2).apply {
@@ -65,82 +71,48 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
       }
   }
 
-  val domain: String by lazy {
-    if (requireArguments().containsKey(PARAM_DOMAIN)) {
-      requireArguments().getString(PARAM_DOMAIN)!!
-    } else {
-      throw IllegalArgumentException("Domain not found")
-    }
+  val domain by lazy {
+    requireArguments().getString(PARAM_DOMAIN)
+      ?: throw IllegalArgumentException("Domain not found")
   }
 
-  val paymentMethod: String by lazy {
-    if (requireArguments().containsKey(PARAM_PAYMENT_KEY)) {
-      requireArguments().getString(PARAM_PAYMENT_KEY)!!
-    } else {
-      throw IllegalArgumentException("paymentMethod not found")
-    }
+  val paymentMethod by lazy {
+    requireArguments().getString(PARAM_PAYMENT_KEY)
+      ?: throw IllegalArgumentException("paymentMethod not found")
   }
 
-  val type: String by lazy {
-    if (requireArguments().containsKey(PARAM_TRANSACTION_TYPE)) {
-      requireArguments().getString(PARAM_TRANSACTION_TYPE)!!
-    } else {
-      throw IllegalArgumentException("type not found")
-    }
+  val type by lazy {
+    requireArguments().getString(PARAM_TRANSACTION_TYPE)
+      ?: throw IllegalArgumentException("type not found")
   }
 
-  private val originalAmount: String? by lazy {
-    if (requireArguments().containsKey(
-        PARAM_ORIGINAL_AMOUNT
-      )
-    ) {
-      requireArguments().getString(
-        PARAM_ORIGINAL_AMOUNT
-      )
+  private val originalAmount by lazy {
+    if (requireArguments().containsKey(PARAM_ORIGINAL_AMOUNT)) {
+      requireArguments().getString(PARAM_ORIGINAL_AMOUNT)
     } else {
       throw IllegalArgumentException("Original amount not found")
     }
   }
 
   private val originalCurrency: String? by lazy {
-    if (requireArguments().containsKey(
-        PARAM_ORIGINAL_CURRENCY
-      )
-    ) {
-      requireArguments().getString(
-        PARAM_ORIGINAL_CURRENCY
-      )
+    if (requireArguments().containsKey(PARAM_ORIGINAL_CURRENCY)) {
+      requireArguments().getString(PARAM_ORIGINAL_CURRENCY)
     } else {
       throw IllegalArgumentException("Domain not found")
     }
   }
 
-  val skuId: String? by lazy {
-    if (requireArguments().containsKey(
-        PARAM_SKUID
-      )
-    ) {
-      val value = requireArguments().getString(
-        PARAM_SKUID
-      ) ?: return@lazy null
-      value
+  val skuId by lazy {
+    if (requireArguments().containsKey(PARAM_SKUID)) {
+      requireArguments().getString(PARAM_SKUID)
     } else {
       throw IllegalArgumentException("SkuId not found")
     }
   }
 
-  val amount: BigDecimal by lazy {
-    if (requireArguments().containsKey(
-        PARAM_AMOUNT
-      )
-    ) {
-      val value = requireArguments().getSerializable(
-        PARAM_AMOUNT
-      ) as BigDecimal
-      value
-    } else {
-      throw IllegalArgumentException("amount not found")
-    }
+  val amount by lazy {
+    getSerializableExtra<BigDecimal>(PARAM_AMOUNT)
+      ?: throw IllegalArgumentException("amount not found")
   }
 
   private val binding by viewBinding(FragmentSharePaymentLinkBinding::bind)
@@ -246,5 +218,13 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
 
   override fun close() {
     iabView?.close(Bundle())
+  }
+
+  override fun back() {
+    iabView?.showPaymentMethodsView()
+  }
+
+  override fun onBackPressed() {
+    iabView?.showPaymentMethodsView()
   }
 }

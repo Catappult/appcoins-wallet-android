@@ -188,7 +188,12 @@ class LocalTopUpPaymentPresenter(
   private fun handleSupportClicks() {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
       .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .flatMapCompletable { localPaymentInteractor.showSupport(data.topUpData.gamificationLevel) }
+      .flatMapCompletable {
+        localPaymentInteractor.showSupport(
+          data.topUpData.gamificationLevel,
+          data.paymentId
+        )
+      }
       .subscribe({}, { it.printStackTrace() })
     )
   }
