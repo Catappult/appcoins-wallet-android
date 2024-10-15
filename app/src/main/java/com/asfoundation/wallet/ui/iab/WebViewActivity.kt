@@ -101,7 +101,11 @@ class WebViewActivity : AppCompatActivity() {
       }
     }
 
-    fun newIntentFromData(activity: Activity?, htmlData: String?): Intent {
+    fun newIntentFromData(
+      activity: Activity?,
+      htmlData: String?,
+      forcePortrait: Boolean = false
+    ): Intent {
       return Intent(activity, WebViewActivity::class.java).apply {
         putExtra(URL, "")
         putExtra(HTML_DATA, htmlData)

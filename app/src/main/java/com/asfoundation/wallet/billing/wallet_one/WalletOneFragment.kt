@@ -57,7 +57,7 @@ class WalletOneFragment() : BasePageViewFragment() {
     binding = FragmentWalletOneBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
     navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
-    iabView.disableBack()
+    iabView.setBackEnable(false)
     registerWebViewResult()
     return views.root
   }
