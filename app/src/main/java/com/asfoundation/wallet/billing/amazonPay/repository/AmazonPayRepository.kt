@@ -2,11 +2,15 @@ package com.asfoundation.wallet.billing.amazonPay.repository
 
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.AmazonPayApi
+import com.appcoins.wallet.core.network.microservices.model.AmazonPayChargePermissionResponse
+import com.appcoins.wallet.core.network.microservices.model.AmazonPayCheckoutSessionRequest
 import com.appcoins.wallet.core.network.microservices.model.AmazonPayPaymentRequest
 import com.appcoins.wallet.core.network.microservices.model.AmazonPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.AmazonPrice
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.sharedpreferences.AmazonPayDataSource
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -16,12 +20,11 @@ class AmazonPayRepository @Inject constructor(
   private val ewtObtainer: EwtAuthenticatorService,
   private val amazonPayDataSource: AmazonPayDataSource,
   private val rxSchedulers: RxSchedulers,
-
-  ) {
+) {
 
   fun createTransaction(
     price: AmazonPrice, walletAddress: String, packageName: String?, sku: String?,
-    callbackUrl: String?, transactionType: String, method: String?, referrerUrl: String?
+    callbackUrl: String?, transactionType: String, method: String?, referrerUrl: String?, chargePermissionId: String?
   ): Single<AmazonPayTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -36,8 +39,9 @@ class AmazonPayRepository @Inject constructor(
             price = price,
             referrerUrl = referrerUrl,
             method = method,
-            returnUrl = "https://wallet.dev.appcoins.io/app/amazonpay/result",
+            returnUrl = HostProperties.AMAZON_PAY_REDIRECT_BASE_URL,
             channel = "ANDROID",
+            chargePermissionId = chargePermissionId
           )
         )
           .map { response: AmazonPayTransaction ->
@@ -68,12 +72,62 @@ class AmazonPayRepository @Inject constructor(
       }
   }
 
-  fun saveChromeResult(result: String, checkoutSessionId: String) {
-    amazonPayDataSource.saveResult(result, checkoutSessionId)
+  fun patchAmazonPayCheckoutSession(
+    uid: String?,
+    walletAddress: String,
+    amazonPayCheckoutSessionRequest: AmazonPayCheckoutSessionRequest
+  ): Completable {
+    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMapCompletable { ewt ->
+        amazonPayApi.updateCheckoutSessionId(
+          uid,
+          walletAddress,
+          ewt,
+          amazonPayCheckoutSessionRequest
+        )
+      }
   }
 
-  fun consumeChromeResult(): Array<String> {
+  fun getAmazonPayChargePermission(
+    walletAddress: String,
+  ): Single<AmazonPayChargePermissionResponse> {
+    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        amazonPayApi.getChargePermission(
+          walletAddress,
+          ewt,
+        )
+      }
+  }
+
+  fun deleteAmazonPayChargePermission(
+    walletAddress: String,
+  ): Completable {
+    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMapCompletable { ewt ->
+        amazonPayApi.deleteChargePermission(
+          walletAddress,
+          ewt,
+        )
+      }
+  }
+
+
+  fun saveResult(checkoutSessionId: String) {
+    amazonPayDataSource.saveResult(checkoutSessionId)
+  }
+
+  fun consumeResult(): String {
     return amazonPayDataSource.consumeResult()
+  }
+
+
+  fun saveChargePermissionId(chargePermissionId: String?) {
+    amazonPayDataSource.saveChargePermissionId(chargePermissionId)
+  }
+
+  fun getChargePermissionId(): String {
+    return amazonPayDataSource.getChargePermissionId()
   }
 
 }

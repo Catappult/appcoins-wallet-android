@@ -13,6 +13,7 @@ data class AmazonPayPaymentRequest(
   @SerializedName("return_url") val returnUrl: String?,
   @SerializedName("method") val method: String?,
   @SerializedName("channel") val channel: String?,
+  @SerializedName("charge_permission_id") val chargePermissionId: String?,
 )
 
 data class AmazonPrice(
