@@ -6,7 +6,6 @@ plugins {
   id("com.google.gms.google-services")
   id("androidx.navigation.safeargs.kotlin")
   id("de.mannodermaus.android-junit5")
-  id("io.sentry.android.gradle") version "4.11.0"
 }
 
 android {
@@ -109,6 +108,7 @@ dependencies {
   implementation(libs.paranoid)
   implementation(libs.flexbox)
 
+  implementation(libs.analytics.sentry)
   implementation(libs.bundles.analytics)
 
   implementation(libs.bundles.lottie)
@@ -144,13 +144,4 @@ dependencies {
   testImplementation(libs.test.junit.vintage.engine)
   testImplementation(libs.test.turbine)
   testImplementation(libs.kotlin.coroutines.test)
-}
-
-sentry {
-    org.set("sentry")
-    projectName.set("wallet-app")
-
-    // this will upload your source code to Sentry to show it as part of the stack traces
-    // disable if you don't want to expose your sources
-    includeSourceContext.set(true)
 }
