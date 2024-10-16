@@ -20,6 +20,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.sentry.Sentry
+import io.sentry.android.core.SentryAndroid
 import io.sentry.protocol.User
 import javax.inject.Inject
 
@@ -34,11 +35,11 @@ class InitilizeDataAnalytics @Inject constructor(
 ) {
 
   fun initializeSentry(): Completable {
-    /*Sentry.init { options ->
+    SentryAndroid.init(context) { options ->
       options.dsn = BuildConfig.SENTRY_DSN_KEY
-      options.enableTracing = true
-      options.isDebug = true
-    }*/
+      options.tracesSampleRate = 1.0
+      options.profilesSampleRate = 1.0
+    }
     val walletAddress = idsRepository.getActiveWalletAddress()
 
     val user = User().apply {
