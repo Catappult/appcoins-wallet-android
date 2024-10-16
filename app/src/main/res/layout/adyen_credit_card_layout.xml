@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
-    android:background="@drawable/background_content_payments"
+    android:background="@color/styleguide_payments_blue"
     android:theme="@style/AdyenMaterialAppTheme"
     >
   <RelativeLayout
@@ -21,6 +21,7 @@
         android:id="@+id/credit_card_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:background="@drawable/background_rounded_styleguide_payments"
         android:clickable="true"
         android:elevation="2dp"
@@ -33,7 +34,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
-          android:layout_marginEnd="32dp"
+          android:layout_marginEnd="16dp"
           app:layout_constraintBottom_toTopOf="@id/cl_payment_container"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +44,7 @@
           android:id="@+id/cl_payment_container"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:animateLayoutChanges="true"
           app:layout_constraintBottom_toTopOf="@id/bonus_layout"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +55,7 @@
             android:id="@+id/cc_info_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:paddingStart="16dp"
             android:overScrollMode="never"
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -66,6 +68,7 @@
           <RelativeLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:animateLayoutChanges="true"
               >
 
             <include
@@ -114,11 +117,11 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/adyen_saved_card"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="gone"
             tools:visibility="visible"
             />
 
@@ -138,39 +141,46 @@
             tools:visibility="gone"
             />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/fragment_credit_card_authorization_progress_bar"
-            android:layout_width="112dp"
-            android:layout_height="112dp"
+        <LinearLayout
+            android:id="@+id/loading_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="58dp"
+            android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_enableMergePathsForKitKatAndAbove="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading_wallet"
             tools:visibility="visible"
-            />
+            >
 
-        <TextView
-            android:id="@+id/making_purchase_text"
-            style="@style/PaymentLoadingTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginTop="-16dp"
-            android:layout_marginEnd="@dimen/big_margin"
-            android:gravity="center_horizontal"
-            android:text="@string/purchase_making_purchase_title"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_credit_card_authorization_progress_bar"
-            />
+          <com.airbnb.lottie.LottieAnimationView
+              android:id="@+id/fragment_credit_card_authorization_progress_bar"
+              android:layout_width="112dp"
+              android:layout_height="112dp"
+              app:lottie_autoPlay="true"
+              app:lottie_enableMergePathsForKitKatAndAbove="true"
+              app:lottie_loop="true"
+              app:lottie_rawRes="@raw/loading_wallet"
+              />
+
+          <TextView
+              android:id="@+id/making_purchase_text"
+              style="@style/PaymentLoadingTextStyle"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/big_margin"
+              android:layout_marginEnd="@dimen/big_margin"
+              android:gravity="center_horizontal"
+              android:text="@string/purchase_making_purchase_title"
+              android:visibility="gone"
+              />
+
+        </LinearLayout>
 
       </androidx.constraintlayout.widget.ConstraintLayout>
-
 
       <include
           android:id="@+id/bonus_layout"
@@ -180,7 +190,7 @@
           android:layout_below="@id/cl_payment_container"
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginEnd="@dimen/big_margin"
-          android:visibility="invisible"
+          android:visibility="gone"
           app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -204,6 +214,15 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/bonus_layout"
+          />
+
+      <androidx.constraintlayout.widget.Group
+          android:id="@+id/buttonsGroup"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:constraint_referenced_ids="bottom_separator_buttons_cc,dialog_buy_buttons "
+          tools:visibility="visible"
           />
 
       <com.appcoins.wallet.ui.widgets.SeparatorView
@@ -267,39 +286,32 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cv_legal_disclaimer"
+    <TextView
+        android:id="@+id/tv_legal_disclaimer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/styleguide_payments_blue"
-        android:layout_alignParentStart="true"
         android:layout_below="@id/credit_card_info"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/styleguide_payments_blue"
+        android:text="@string/purchase_legal_disclaimer"
+        android:textColor="@color/styleguide_dark_grey"
+        android:textSize="10sp"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible"
-        >
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:layout_marginEnd="16dp"
-          android:layout_marginBottom="8dp"
-          android:layout_marginTop="8dp"
-          android:text="@string/purchase_legal_disclaimer"
-          android:textColor="@color/styleguide_dark_grey"
-          android:textSize="10dp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        />
 
     <include
         android:id="@+id/fragment_iab_transaction_completed"
         layout="@layout/fragment_iab_transaction_completed"
+        android:animateLayoutChanges="true"
         tools:visibility="gone"
         />
 
