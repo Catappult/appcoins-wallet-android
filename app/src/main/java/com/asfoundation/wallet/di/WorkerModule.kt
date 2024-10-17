@@ -29,13 +29,6 @@ class WorkerModule {
     @ApplicationContext context: Context,
     getVipReferralWorkerFactory: GetVipReferralWorkerFactory
   ): WorkManager {
-    val config = Configuration.Builder()
-      .setWorkerFactory(getVipReferralWorkerFactory)
-      .setMinimumLoggingLevel(Log.DEBUG)
-      .build()
-
-    WorkManager.initialize(context, config)
-
     return WorkManager.getInstance(context)
   }
 
@@ -44,5 +37,15 @@ class WorkerModule {
   fun providesDelegatingWorkerFactory(): DelegatingWorkerFactory {
     return DelegatingWorkerFactory()
   }
+
+  @Singleton
+  @Provides
+  fun providesWorkManagerConfiguration(
+    getVipReferralWorkerFactory: GetVipReferralWorkerFactory
+  ): Configuration =
+    Configuration.Builder()
+      .setWorkerFactory(getVipReferralWorkerFactory)
+      .setMinimumLoggingLevel(Log.DEBUG)
+      .build()
 
 }

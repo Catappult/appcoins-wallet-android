@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ManageWalletBalanceBottomSheetLayoutBinding
@@ -27,7 +26,6 @@ class ManageWalletBalanceBottomSheetFragment : BottomSheetDialogFragment(),
   @Inject
   lateinit var navigator: ManageWalletBalanceBottomSheetNavigator
 
-  private val viewModel: ManageWalletBalanceBottomSheetViewModel by viewModels()
   private val views by viewBinding(ManageWalletBalanceBottomSheetLayoutBinding::bind)
 
   companion object {
@@ -50,10 +48,9 @@ class ManageWalletBalanceBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    val walletBalanceModel: WalletBalance =
-      arguments?.getSerializable(WALLET_BALANCE_MODEL) as WalletBalance
+    val walletBalanceModel = getSerializableExtra<WalletBalance>(WALLET_BALANCE_MODEL)
 
-    walletBalanceModel.let {
+    walletBalanceModel?.let {
       views.totalBalanceValue.text = it.creditsOnlyFiat.amount
         .toString()
         .formatMoney(it.creditsOnlyFiat.symbol, "")
@@ -75,7 +72,6 @@ class ManageWalletBalanceBottomSheetFragment : BottomSheetDialogFragment(),
       } ${it.ethBalance.token.symbol}"
     }
   }
-
 
   override fun onStart() {
     val behavior = BottomSheetBehavior.from(requireView().parent as View)

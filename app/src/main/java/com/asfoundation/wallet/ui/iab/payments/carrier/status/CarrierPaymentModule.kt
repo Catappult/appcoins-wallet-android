@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.status
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import dagger.Module
@@ -18,22 +19,20 @@ import java.math.BigDecimal
 class CarrierPaymentModule {
 
   @Provides
-  fun providesCarrierPaymentStatusData(fragment: Fragment): CarrierPaymentData {
-    fragment.requireArguments()
-      .apply {
-        return CarrierPaymentData(
-          getString(CarrierPaymentFragment.DOMAIN_KEY)!!,
-          getString(CarrierPaymentFragment.TRANSACTION_DATA_KEY)!!,
-          getString(CarrierPaymentFragment.TRANSACTION_TYPE_KEY)!!,
-          getString(CarrierPaymentFragment.SKU_ID_KEY),
-          getString(CarrierPaymentFragment.PAYMENT_URL)!!,
-          getString(CarrierPaymentFragment.CURRENCY_KEY)!!,
-          getSerializable(CarrierPaymentFragment.APPC_AMOUNT_KEY) as BigDecimal,
-          getSerializable(CarrierPaymentFragment.BONUS_AMOUNT_KEY) as BigDecimal?,
-          getString(CarrierPaymentFragment.PHONE_NUMBER_KEY)!!
-        )
-      }
-  }
+  fun providesCarrierPaymentStatusData(fragment: Fragment) =
+    fragment.requireArguments().run {
+      CarrierPaymentData(
+        domain = getString(CarrierPaymentFragment.DOMAIN_KEY)!!,
+        transactionData = getString(CarrierPaymentFragment.TRANSACTION_DATA_KEY)!!,
+        transactionType = getString(CarrierPaymentFragment.TRANSACTION_TYPE_KEY)!!,
+        skuId = getString(CarrierPaymentFragment.SKU_ID_KEY),
+        paymentUrl = getString(CarrierPaymentFragment.PAYMENT_URL)!!,
+        currency = getString(CarrierPaymentFragment.CURRENCY_KEY)!!,
+        appcAmount = getSerializableExtra<BigDecimal>(CarrierPaymentFragment.APPC_AMOUNT_KEY)!!,
+        bonusAmount = getSerializableExtra<BigDecimal>(CarrierPaymentFragment.BONUS_AMOUNT_KEY),
+        phoneNumber = getString(CarrierPaymentFragment.PHONE_NUMBER_KEY)!!
+      )
+    }
 
   @Provides
   fun providesCarrierPaymentStatusPresenter(
@@ -43,10 +42,15 @@ class CarrierPaymentModule {
     carrierInteractor: CarrierInteractor,
     billingAnalytics: BillingAnalytics,
     logger: Logger
-  ): CarrierPaymentPresenter {
-    return CarrierPaymentPresenter(
-      CompositeDisposable(), fragment as CarrierPaymentView, data, navigator, carrierInteractor,
-      billingAnalytics, logger, AndroidSchedulers.mainThread(), Schedulers.io()
-    )
-  }
+  ) = CarrierPaymentPresenter(
+    disposables = CompositeDisposable(),
+    view = fragment as CarrierPaymentView,
+    data = data,
+    navigator = navigator,
+    carrierInteractor = carrierInteractor,
+    billingAnalytics = billingAnalytics,
+    logger = logger,
+    viewScheduler = AndroidSchedulers.mainThread(),
+    ioScheduler = Schedulers.io()
+  )
 }

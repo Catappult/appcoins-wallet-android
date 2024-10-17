@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.feature.backup.ui.R
 import com.appcoins.wallet.feature.backup.ui.databinding.SettingsWalletBottomSheetLayoutBinding
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
@@ -55,11 +56,7 @@ class BackupEntryChooseWalletBottomSheetFragment :
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    val arguments = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      requireArguments().getSerializable(WALLET_MODEL_KEY, WalletsModel::class.java) as WalletsModel
-    } else {
-      requireArguments().getSerializable(WALLET_MODEL_KEY) as WalletsModel
-    }
+    val arguments = getSerializableExtra<WalletsModel>(WALLET_MODEL_KEY)!!
     presenter.present(arguments, navController())
   }
 

@@ -2,18 +2,15 @@ package com.asfoundation.wallet.billing.sandbox
 
 import android.animation.Animator
 import android.content.Context
-import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.airbnb.lottie.FontAssetDelegate
-import com.airbnb.lottie.TextDelegate
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentSandboxBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -42,11 +39,10 @@ class SandboxFragment : BasePageViewFragment() {
   private val views get() = binding!!
   private lateinit var compositeDisposable: CompositeDisposable
 
-  private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
   private var successBundle: Bundle? = null
 
   private lateinit var iabView: IabView
-  var navigatorIAB: Navigator? = null
+  private var navigatorIAB: Navigator? = null
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -146,7 +142,6 @@ class SandboxFragment : BasePageViewFragment() {
   private fun showLoadingAnimation() {
     views.successContainer.iabActivityTransactionCompleted.visibility = View.GONE
     views.loadingAuthorizationAnimation.visibility = View.VISIBLE
-
   }
 
   private fun showSpecificError(@StringRes stringRes: Int) {
@@ -158,38 +153,17 @@ class SandboxFragment : BasePageViewFragment() {
     views.sandboxErrorButtons.root.visibility = View.VISIBLE
   }
 
-  private fun getAnimationDuration() = views.successContainer.lottieTransactionSuccess.duration
-
   private fun handleBonusAnimation() {
     views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     views.successContainer.bonusSuccessLayout.visibility = View.GONE
   }
 
-  private fun setupTransactionCompleteAnimation() {
-    val textDelegate = TextDelegate(views.successContainer.lottieTransactionSuccess)
-    textDelegate.setText("bonus_value", bonus)
-    textDelegate.setText(
-      "bonus_received",
-      resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
-    views.successContainer.lottieTransactionSuccess.setTextDelegate(textDelegate)
-    views.successContainer.lottieTransactionSuccess.setFontAssetDelegate(object :
-      FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
+  private val amount by lazy {
+    getSerializableExtra<BigDecimal>(AMOUNT_KEY)
+      ?: throw IllegalArgumentException("amount data not found")
   }
 
-  private val amount: BigDecimal by lazy {
-    if (requireArguments().containsKey(AMOUNT_KEY)) {
-      requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("amount data not found")
-    }
-  }
-
-  private val currency: String by lazy {
+  private val currency by lazy {
     if (requireArguments().containsKey(CURRENCY_KEY)) {
       requireArguments().getString(CURRENCY_KEY, "")
     } else {
@@ -197,7 +171,7 @@ class SandboxFragment : BasePageViewFragment() {
     }
   }
 
-  private val origin: String? by lazy {
+  private val origin by lazy {
     if (requireArguments().containsKey(ORIGIN_KEY)) {
       requireArguments().getString(ORIGIN_KEY)
     } else {
@@ -205,23 +179,12 @@ class SandboxFragment : BasePageViewFragment() {
     }
   }
 
-  private val transactionBuilder: TransactionBuilder by lazy {
-    if (requireArguments().containsKey(TRANSACTION_DATA_KEY)) {
-      requireArguments().getParcelable<TransactionBuilder>(TRANSACTION_DATA_KEY)!!
-    } else {
-      throw IllegalArgumentException("transaction data not found")
-    }
+  private val transactionBuilder by lazy {
+    getParcelableExtra<TransactionBuilder>(TRANSACTION_DATA_KEY)
+      ?: throw IllegalArgumentException("transaction data not found")
   }
 
-  private val bonus: String by lazy {
-    if (requireArguments().containsKey(BONUS_KEY)) {
-      requireArguments().getString(BONUS_KEY, "")
-    } else {
-      throw IllegalArgumentException("bonus data not found")
-    }
-  }
-
-  private val gamificationLevel: Int by lazy {
+  private val gamificationLevel by lazy {
     if (requireArguments().containsKey(GAMIFICATION_LEVEL)) {
       requireArguments().getInt(GAMIFICATION_LEVEL, 0)
     } else {
@@ -229,9 +192,7 @@ class SandboxFragment : BasePageViewFragment() {
     }
   }
 
-
   companion object {
-
     private const val PAYMENT_TYPE_KEY = "payment_type"
     private const val ORIGIN_KEY = "origin"
     private const val TRANSACTION_DATA_KEY = "transaction_data"
@@ -244,7 +205,6 @@ class SandboxFragment : BasePageViewFragment() {
     private const val FREQUENCY = "frequency"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
-    private const val NAVIGATOR = "navigator"
 
     @JvmStatic
     fun newInstance(
@@ -276,7 +236,5 @@ class SandboxFragment : BasePageViewFragment() {
         putString(FREQUENCY, frequency)
       }
     }
-
   }
-
 }
