@@ -141,9 +141,8 @@ class MainActivity : AppCompatActivity(),
 
       is MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet ->
         navigator.navigateToOnboardingRecoverGuestWallet(
-          navController,
-          sideEffect.backup,
-          sideEffect.flow
+          navController = navController,
+          backupModel = sideEffect.backupModel,
         )
 
       MainActivitySideEffect.NavigateToNavigationBar ->

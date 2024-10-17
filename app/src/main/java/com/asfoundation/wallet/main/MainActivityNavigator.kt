@@ -11,6 +11,8 @@ import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
 import com.asfoundation.wallet.main.nav_bar.NavBarFragment
 import com.asfoundation.wallet.main.splash.SplashExtenderFragmentDirections
+import com.asfoundation.wallet.onboarding.BackupModel
+import com.asfoundation.wallet.onboarding.OnboardingFragmentArgs
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import javax.inject.Inject
 
@@ -23,14 +25,12 @@ class MainActivityNavigator @Inject constructor() :
 
   fun navigateToOnboardingRecoverGuestWallet(
     navController: NavController,
-    backup: String,
-    flow: String
+    backupModel: BackupModel,
   ) {
-    val bundle = Bundle().apply {
-      putString("backup", backup)
-      putString("flow", flow)
-    }
-    navController.setGraph(R.navigation.onboarding_graph, bundle)
+    navController.setGraph(
+      graphResId = R.navigation.onboarding_graph,
+      startDestinationArgs = OnboardingFragmentArgs(backupModel = backupModel).toBundle()
+    )
   }
 
   fun showAuthenticationActivity(
