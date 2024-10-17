@@ -16,9 +16,17 @@ class CachedGuestWalletRepository @Inject constructor(
       val response = api.getCachedGuestWallet()
       with(response) {
         if (code() == 204)
-          BackupModel("", "")
+          BackupModel(
+            backupPrivateKey = "",
+            flow = "",
+            paymentFunnel = null
+          )
         else
-          BackupModel(body()?.privateKey ?: "", body()?.flow ?: "")
+          BackupModel(
+            backupPrivateKey = body()?.privateKey ?: "",
+            flow = body()?.flow ?: "",
+            paymentFunnel = body()?.paymentFunnel
+          )
       }
     }.onErrorReturn { null }
   }

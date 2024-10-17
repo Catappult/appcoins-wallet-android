@@ -8,6 +8,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.main.use_cases.GetCachedGuestWalletUseCase
 import com.asfoundation.wallet.main.use_cases.HasAuthenticationPermissionUseCase
 import com.asfoundation.wallet.main.use_cases.IncreaseLaunchCountUseCase
+import com.asfoundation.wallet.onboarding.BackupModel
 import com.asfoundation.wallet.onboarding.use_cases.GetResponseCodeWebSocketUseCase
 import com.asfoundation.wallet.onboarding.use_cases.GetWsPortUseCase
 import com.asfoundation.wallet.onboarding.use_cases.ShouldShowOnboardingUseCase
@@ -26,7 +27,7 @@ sealed class MainActivitySideEffect : SideEffect {
   object NavigateToPayPalVerification : MainActivitySideEffect()
   data class NavigateToGiftCard(val giftCard: String, val fromSplashScreen: Boolean) : MainActivitySideEffect()
   data class NavigateToPromoCode(val promoCode: String, val fromSplashScreen: Boolean) : MainActivitySideEffect()
-  data class NavigateToOnboardingRecoverGuestWallet(val backup: String, val flow: String) :
+  data class NavigateToOnboardingRecoverGuestWallet(val backupModel: BackupModel) :
     MainActivitySideEffect()
 }
 
@@ -69,12 +70,10 @@ class MainActivityViewModel @Inject constructor(
             getCachedGuestWalletUseCase()
               .subscribeOn(rxSchedulers.io)
               .observeOn(rxSchedulers.main)
-              .doOnSuccess { backup ->
-                if (backup != null && backup.backupPrivateKey.isNotEmpty()) {
+              .doOnSuccess { backupModel ->
+                if (backupModel != null && backupModel.backupPrivateKey.isNotEmpty()) {
                   sendSideEffect {
-                    MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet(
-                      backup.backupPrivateKey, backup.flow
-                    )
+                    MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet(backupModel)
                   }
                   isOnboardingPaymentFlow = true
                 }
