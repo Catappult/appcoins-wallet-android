@@ -33,7 +33,6 @@ class MainActivityNavigator @Inject constructor() :
     navController.setGraph(R.navigation.onboarding_graph, bundle)
   }
 
-
   fun showAuthenticationActivity(
     context: Context,
     authenticationResultLauncher: ActivityResultLauncher<Intent>

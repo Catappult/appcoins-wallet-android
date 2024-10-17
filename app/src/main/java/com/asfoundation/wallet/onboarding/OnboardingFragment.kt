@@ -155,11 +155,20 @@ class OnboardingFragment : BasePageViewFragment(),
         context?.let { restart(it) }
       }
 
-      is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
-      OnboardingSideEffect.ShowLoadingRecover -> showRecoveringGuestWalletLoading()
-      is OnboardingSideEffect.UpdateGuestBonus -> showGuestBonus(sideEffect.bonus)
-      is OnboardingSideEffect.NavigateToVerify -> navigator.navigateToVerify(sideEffect.flow)
-      OnboardingSideEffect.NavigateToOnboardingPayment -> navigator.navigateToOnboardingPayment()
+      is OnboardingSideEffect.NavigateToLink ->
+        navigator.navigateToBrowser(sideEffect.uri)
+
+      OnboardingSideEffect.ShowLoadingRecover ->
+        showRecoveringGuestWalletLoading()
+
+      is OnboardingSideEffect.UpdateGuestBonus ->
+        showGuestBonus(sideEffect.bonus)
+
+      is OnboardingSideEffect.NavigateToVerify ->
+        navigator.navigateToVerify(sideEffect.flow)
+
+      OnboardingSideEffect.NavigateToOnboardingPayment ->
+        navigator.navigateToOnboardingPayment()
     }
   }
 
