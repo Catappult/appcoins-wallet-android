@@ -22,13 +22,13 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.asfoundation.wallet.iab.presentation.icon.getDownArrow
 import com.asfoundation.wallet.iab.theme.IAPTheme
+import com.asfoundation.wallet.ui.iab.PaymentMethod
 import kotlin.random.Random
 
 @Composable
-fun PaymentMethod(
+fun PaymentMethodRow(
   modifier: Modifier = Modifier,
   paymentMethodData: PaymentMethodData,
-  paymentMethodEnabled: Boolean,
   showArrow: Boolean = false
 ) {
   val disabledColor = IAPTheme.colors.disabledBColor
@@ -42,7 +42,7 @@ fun PaymentMethod(
       data = paymentMethodData.paymentMethodUrl,
       contentDescription = null,
       colorFilter = ColorFilter.tint(disabledColor)
-        .takeIf { paymentMethodEnabled }
+        .takeIf { paymentMethodData.isEnable }
     )
     Column(
       modifier = Modifier
@@ -53,7 +53,7 @@ fun PaymentMethod(
       Text(
         text = paymentMethodData.paymentMethodName,
         style = IAPTheme.typography.bodyLarge,
-        color = disabledColor.takeIf { paymentMethodEnabled }
+        color = disabledColor.takeIf { paymentMethodData.isEnable }
           ?: IAPTheme.colors.paymentMethodTextColor
       )
       paymentMethodData.paymentMethodDescription?.let {
@@ -61,7 +61,7 @@ fun PaymentMethod(
           modifier = Modifier.padding(top = 4.dp),
           text = it,
           style = IAPTheme.typography.bodySmall,
-          color = disabledColor.takeIf { paymentMethodEnabled }
+          color = disabledColor.takeIf { paymentMethodData.isEnable }
             ?: IAPTheme.colors.smallText
         )
       }
@@ -107,10 +107,9 @@ private fun PaymentMethodPreview(
   @PreviewParameter(PaymentMethodState::class) state: Pair<PaymentMethodData, Boolean>
 ) {
   IAPTheme {
-    PaymentMethod(
+    PaymentMethodRow(
       paymentMethodData = state.first,
       showArrow = state.second,
-      paymentMethodEnabled = Random.nextBoolean(),
     )
   }
 }
@@ -133,13 +132,25 @@ private class PaymentMethodState : PreviewParameterProvider<Pair<PaymentMethodDa
 }
 
 data class PaymentMethodData(
+  val id: String,
   val paymentMethodUrl: String,
   val paymentMethodName: String,
+  val isEnable: Boolean,
   val paymentMethodDescription: String? = null,
 )
 
+fun PaymentMethod.toPaymentMethodData() = PaymentMethodData(
+  id = id,
+  paymentMethodUrl = iconUrl,
+  paymentMethodName = label,
+  paymentMethodDescription = message,
+  isEnable = isEnabled,
+)
+
 val emptyPaymentMethodData = PaymentMethodData(
+  id = "1",
   paymentMethodUrl = "",
   paymentMethodName = "Credit Card",
+  isEnable = Random.nextBoolean(),
   paymentMethodDescription = "Payment method description",
 )
