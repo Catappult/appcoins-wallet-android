@@ -25,7 +25,10 @@ public enum PaymentType {
 
   MI_PAY(Collections.singletonList("mipay")),
 
-  TRUE_LAYER(Collections.singletonList("truelayer"));
+  TRUE_LAYER(Collections.singletonList("truelayer")),
+
+  WALLET_ONE(Collections.singletonList("credit_card_wallet_one")
+  );
 
   private final List<String> subTypes;
 

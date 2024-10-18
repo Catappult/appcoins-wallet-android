@@ -320,6 +320,57 @@ class OnboardingPaymentEvents @Inject constructor(
     )
   }
 
+  fun sendWalletOneSuccessFinishEvents(
+    transactionBuilder: TransactionBuilder,
+    txId: String
+  ) {
+    paymentMethodsAnalytics.stopTimingForPurchaseEvent(
+      paymentMethod = BillingAnalytics.PAYMENT_METHOD_WALLET_ONE,
+      success = true,
+      isPreselected = false
+    )
+    billingAnalytics.sendPaymentSuccessEvent(
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_WALLET_ONE,
+      transactionType = transactionBuilder.type,
+      txId = txId,
+      valueUsd = transactionBuilder.amountUsd.toString()
+    )
+    billingAnalytics.sendPaymentEvent(
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
+      transactionBuilder.amount().toString(),
+      BillingAnalytics.PAYMENT_METHOD_WALLET_ONE,
+      transactionBuilder.type,
+      isOnboardingPayment = true
+    )
+    billingAnalytics.sendRevenueEvent(revenueValueUseCase(transactionBuilder))
+  }
+
+  fun sendPaymentConfirmationWalletOneEvent(
+    transactionBuilder: TransactionBuilder,
+  ) {
+    billingAnalytics.sendPaymentConfirmationEvent(
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
+      transactionBuilder.amount().toString(),
+      BillingAnalytics.PAYMENT_METHOD_WALLET_ONE,
+      transactionBuilder.type,
+      BillingAnalytics.ACTION_BUY,
+      isOnboardingPayment = true
+    )
+  }
+
+  fun sendPendingPaymentEvents(
+    packageName: String, skuId: String?, amount: String, type: String,
+    paymentId: String
+  ) {
+    billingAnalytics.sendPaymentEvent(packageName, skuId, amount, paymentId, type)
+    billingAnalytics.sendPaymentPendingEvent(packageName, skuId, amount, paymentId, type)
+  }
+
   fun sendRevenueEvent(fiatAmount: String) = billingAnalytics.sendRevenueEvent(fiatAmount)
 
   companion object {

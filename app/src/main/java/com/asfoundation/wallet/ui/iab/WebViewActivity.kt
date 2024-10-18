@@ -41,7 +41,11 @@ class WebViewActivity : AppCompatActivity() {
         lockCurrentPosition()
       }
       val url = intent.getStringExtra(URL)
-      billingWebViewFragment = BillingWebViewFragment.newInstance(url).apply { retainInstance = false }
+      val htmlData = intent.getStringExtra(HTML_DATA)
+      billingWebViewFragment = if (url.isNullOrEmpty())
+        BillingWebViewFragment.newInstanceFromData(htmlData).apply { retainInstance = false }
+      else
+        BillingWebViewFragment.newInstance(url).apply { retainInstance = false }
       supportFragmentManager.beginTransaction()
         .add(R.id.container, billingWebViewFragment)
         .commit()
@@ -85,11 +89,26 @@ class WebViewActivity : AppCompatActivity() {
     const val FAIL = 0
     const val USER_CANCEL = 2
     private const val URL = "url"
+    private const val HTML_DATA = "html_data"
+    const val USER_CANCEL_THROWABLE = "user_cancel"
     const val FORCE_PORTRAIT = "${BuildConfig.APPLICATION_ID}.FORCE_PORTRAIT"
 
     fun newIntent(activity: Activity?, url: String?, forcePortrait: Boolean = false): Intent {
       return Intent(activity, WebViewActivity::class.java).apply {
         putExtra(URL, url)
+        putExtra(HTML_DATA, "")
+        putExtra(FORCE_PORTRAIT, forcePortrait)
+      }
+    }
+
+    fun newIntentFromData(
+      activity: Activity?,
+      htmlData: String?,
+      forcePortrait: Boolean = false
+    ): Intent {
+      return Intent(activity, WebViewActivity::class.java).apply {
+        putExtra(URL, "")
+        putExtra(HTML_DATA, htmlData)
         putExtra(FORCE_PORTRAIT, forcePortrait)
       }
     }
