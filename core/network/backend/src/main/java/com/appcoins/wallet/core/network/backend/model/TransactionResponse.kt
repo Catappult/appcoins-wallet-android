@@ -6,7 +6,7 @@ const val POSITIVE_SIGN = "+"
 const val NEGATIVE_SIGN = "-"
 
 data class TransactionResponse(
-  @JsonProperty("txid") val txId: String,
+  @JsonProperty("txid") val txId: String?,
   @JsonProperty("status") val status: StatusResponse,
   @JsonProperty("type") val type: TransactionTypeResponse,
   @JsonProperty("sender") val sender: String,

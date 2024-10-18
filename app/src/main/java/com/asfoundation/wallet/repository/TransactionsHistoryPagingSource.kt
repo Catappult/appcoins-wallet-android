@@ -14,20 +14,24 @@ class TransactionsHistoryPagingSource(
   val wallet: String,
   val currency: String
 ) : PagingSource<String, TransactionResponse>() {
+
   override suspend fun load(params: LoadParams<String>): LoadResult<String, TransactionResponse> {
     return try {
-      val data = backend.getTransactionHistory(
+      val response = backend.getTransactionHistory(
         wallet = wallet,
-        endingDate = params.key,
+        cursor = params.key, // Use the cursor from params.key
         limit = params.loadSize,
         defaultCurrency = currency,
         languageCode = Locale.getDefault().language
       ).body()
 
+      val items = response?.items ?: emptyList()
+      val nextCursor = response?.nextCursor
+
       LoadResult.Page(
-        data = data!!.map { it },
-        prevKey = null,
-        nextKey = data.lastOrNull()?.processedTime
+        data = items,
+        prevKey = null, // no paging backward
+        nextKey = nextCursor
       )
     } catch (e: IOException) {
       LoadResult.Error(e)
@@ -39,8 +43,6 @@ class TransactionsHistoryPagingSource(
   }
 
   override fun getRefreshKey(state: PagingState<String, TransactionResponse>): String? {
-    val anchorPosition = state.anchorPosition ?: return null
-    val transaction = state.closestItemToPosition(anchorPosition) ?: return null
-    return transaction.processedTime
+    return null
   }
 }
