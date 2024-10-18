@@ -38,7 +38,7 @@ import com.asfoundation.wallet.iab.presentation.GenericError
 import com.asfoundation.wallet.iab.presentation.IABLoading
 import com.asfoundation.wallet.iab.presentation.IABOpaqueButton
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
-import com.asfoundation.wallet.iab.presentation.PaymentMethod
+import com.asfoundation.wallet.iab.presentation.PaymentMethodRow
 import com.asfoundation.wallet.iab.presentation.PaymentMethodData
 import com.asfoundation.wallet.iab.presentation.PaymentMethodSkeleton
 import com.asfoundation.wallet.iab.presentation.PreviewAll
@@ -223,12 +223,11 @@ private fun PurchaseDetails(
       )
       if (showPreSelectedPaymentMethod) {
         SeparatorLine()
-        PaymentMethod(
+        PaymentMethodRow(
           modifier = Modifier
             .padding(16.dp)
             .addClick(onClick = onPaymentMethodClick, testTag = "onPaymentMethodClick"),
-          paymentMethodData = paymentMethodData,
-          paymentMethodEnabled = preSelectedPaymentMethodEnabled,
+          paymentMethodData = paymentMethodData.copy(isEnable = preSelectedPaymentMethodEnabled),
           showArrow = true,
         )
       }
