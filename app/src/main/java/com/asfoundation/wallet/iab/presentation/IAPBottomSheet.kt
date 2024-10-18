@@ -84,7 +84,8 @@ private fun IAPBottomSheetPortrait(
     ) {
       Image(
         modifier = Modifier
-          .padding(16.dp)
+          .padding(top = 16.dp)
+          .padding(horizontal = 16.dp)
           .size(24.dp),
         imageVector = getIcBack(IAPTheme.colors.backArrow),
         contentDescription = null,
