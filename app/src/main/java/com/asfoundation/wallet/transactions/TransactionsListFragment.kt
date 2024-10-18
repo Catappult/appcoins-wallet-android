@@ -77,7 +77,12 @@ class TransactionsListFragment : BasePageViewFragment() {
     Scaffold(
       topBar = {
         Surface {
-          TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
+          TopBar(
+            isMainBar = false,
+            onClickSupport = { viewModel.displayChat() },
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
+          )
         }
       },
       containerColor = WalletColors.styleguide_blue
@@ -144,12 +149,16 @@ class TransactionsListFragment : BasePageViewFragment() {
                 icon = icon,
                 appIcon = appIcon,
                 title = stringResource(id = title),
-                description = description ?: app,
+                description = if (status == StatusType.PENDING)
+                  stringResource(R.string.transaction_status_pending)
+                else
+                  description ?: app,
                 amount = amount,
                 convertedAmount = amountSubtitle,
                 subIcon = subIcon,
                 onClick = { navigateToTransactionDetails(uiModel.transaction) },
-                textDecoration = textDecoration
+                textDecoration = textDecoration,
+                isPending = status == StatusType.PENDING
               )
             }
             Spacer(modifier = Modifier.padding(top = 4.dp))

@@ -64,7 +64,8 @@ fun TransactionCard(
   convertedAmount: String?,
   subIcon: Int?,
   onClick: () -> Unit,
-  textDecoration: TextDecoration
+  textDecoration: TextDecoration,
+  isPending: Boolean,
 ) {
   Card(
     modifier = Modifier.fillMaxWidth(),
@@ -116,7 +117,10 @@ fun TransactionCard(
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.End,
-                color = styleguide_light_grey,
+                color = if (isPending)
+                  styleguide_dark_grey
+                else
+                  styleguide_light_grey,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 textDecoration = textDecoration
@@ -272,6 +276,7 @@ fun TransactionDetailLinkedHeader(description: String, appIcon: String? = null) 
     }
   }
 }
+
 @Composable
 fun PendingTransactionCard() {
 
@@ -286,12 +291,14 @@ fun PendingTransactionCard() {
   ) {
     Row(
       verticalAlignment = Alignment.CenterVertically,
-      modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+      modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
       LottieAnimation(
         composition = composition,
         progress = { progress },
-        modifier = Modifier.size(24.dp)
+        modifier = Modifier
+          .size(54.dp)
+          .padding(bottom = 14.dp)
       )
       Spacer(modifier = Modifier.width(16.dp))
       Text(
@@ -310,7 +317,6 @@ fun PendingTransactionCard() {
     }
   }
 }
-
 
 
 @Composable
@@ -569,7 +575,8 @@ fun PreviewTransactionCard() {
     convertedAmount = "-12,5000000000000000000.00 APPC-C",
     subIcon = R.drawable.ic_transaction_rejected_mini,
     {},
-    TextDecoration.LineThrough
+    TextDecoration.LineThrough,
+    true
   )
 }
 
