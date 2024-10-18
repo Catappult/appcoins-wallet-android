@@ -12,6 +12,10 @@
       android:id="@+id/action_navigate_to_verify_fragment"
       app:destination="@id/verify_fragment"/>
 
+    <action
+        android:id="@+id/action_navigate_to_payment_methods_fragment"
+        app:destination="@id/payment_methods_fragment"/>
+
     <argument
         android:name="purchaseDataExtra"
         app:nullable="true"
@@ -26,5 +30,22 @@
   <fragment
       android:id="@+id/verify_fragment"
       android:name="com.asfoundation.wallet.iab.presentation.verify.VerifyFragment" />
+
+  <fragment
+      android:id="@+id/payment_methods_fragment"
+      android:name="com.asfoundation.wallet.iab.presentation.payment_methods.PaymentMethodsFragment" >
+
+    <argument
+        android:name="purchaseDataExtra"
+        app:nullable="true"
+        app:argType="com.asfoundation.wallet.iab.domain.model.PurchaseData" />
+
+    <argument
+        android:name="purchaseInfoDataExtra"
+        app:nullable="true"
+        app:argType="com.asfoundation.wallet.iab.presentation.PurchaseInfoData" />
+
+  </fragment>
+
 
 </navigation>
