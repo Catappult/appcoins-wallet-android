@@ -19,7 +19,7 @@ class TransactionsHistoryPagingSource(
     return try {
       val response = backend.getTransactionHistory(
         wallet = wallet,
-        cursor = params.key, // Use the cursor from params.key
+        cursor = params.key,
         limit = params.loadSize,
         defaultCurrency = currency,
         languageCode = Locale.getDefault().language
@@ -30,7 +30,7 @@ class TransactionsHistoryPagingSource(
 
       LoadResult.Page(
         data = items,
-        prevKey = null, // no paging backward
+        prevKey = null,
         nextKey = nextCursor
       )
     } catch (e: IOException) {
