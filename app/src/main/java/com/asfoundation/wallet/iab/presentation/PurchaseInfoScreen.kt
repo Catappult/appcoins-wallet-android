@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.iab.presentation
 
 import android.graphics.drawable.Drawable
+import android.os.Parcelable
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -33,6 +34,7 @@ import com.appcoins.wallet.ui.common.getAppName
 import com.asfoundation.wallet.iab.presentation.icon.getDownArrow
 import com.asfoundation.wallet.iab.theme.IAPTheme
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import kotlinx.parcelize.Parcelize
 import kotlin.random.Random
 
 @Composable
@@ -259,6 +261,7 @@ private class IsPurchaseInfoExpandedProvider : PreviewParameterProvider<Boolean>
   )
 }
 
+@Parcelize
 data class PurchaseInfoData(
   val packageName: String,
   val productName: String,
@@ -267,7 +270,7 @@ data class PurchaseInfoData(
   val subtotal: String? = null,
   val taxes: String? = null,
   val giftCardDiscount: String? = null,
-)
+) : Parcelable
 
 val emptyPurchaseInfo = PurchaseInfoData(
   packageName = "com.appcoins.trivialdrivesample.test",
