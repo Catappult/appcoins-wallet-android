@@ -72,13 +72,18 @@ private fun PaymentMethodsContent(
     var isPurchaseInfoExpanded by rememberSaveable { mutableStateOf(false) }
     val onPurchaseInfoExpandClick = { isPurchaseInfoExpanded = !isPurchaseInfoExpanded }
 
+    val onPaymentMethodClick: (PaymentMethodData) -> Unit = { paymentMethodData ->
+
+    }
+
     RealPaymentMethodsContent(
       state = state,
       isPurchaseInfoExpanded = isPurchaseInfoExpanded,
       onPurchaseInfoExpandClick = onPurchaseInfoExpandClick,
       onSecondaryButtonClick = closeIAP,
       onSupportClick = onSupportClick,
-      onBackClick = onBackClick
+      onBackClick = onBackClick,
+      onPaymentMethodClick = onPaymentMethodClick,
     )
   } else {
     PurchaseDataError(
@@ -96,6 +101,7 @@ private fun RealPaymentMethodsContent(
   onSecondaryButtonClick: () -> Unit,
   onSupportClick: () -> Unit,
   onBackClick: () -> Unit,
+  onPaymentMethodClick: (PaymentMethodData) -> Unit,
 ) {
   IAPTheme {
     IAPBottomSheet(
@@ -110,6 +116,7 @@ private fun RealPaymentMethodsContent(
           onPurchaseInfoExpandClick = onPurchaseInfoExpandClick,
           isPurchaseInfoExpanded = isPurchaseInfoExpanded,
           appcBalance = state.appcBalance,
+          onPaymentMethodClick = onPaymentMethodClick,
         )
 
         is PaymentMethodsUiState.LoadingPaymentMethods -> PaymentMethodsScreen(
@@ -139,8 +146,9 @@ fun PaymentMethodsScreen(
   purchaseInfoData: PurchaseInfoData,
   isPurchaseInfoExpanded: Boolean,
   paymentMethods: List<PaymentMethodData>? = null,
-  onPurchaseInfoExpandClick: () -> Unit,
   appcBalance: String? = null,
+  onPurchaseInfoExpandClick: () -> Unit,
+  onPaymentMethodClick: ((PaymentMethodData) -> Unit)? = null,
 ) {
   Column(
     modifier = Modifier
@@ -176,7 +184,12 @@ fun PaymentMethodsScreen(
     ) {
       paymentMethods?.forEach {
         PaymentMethodRow(
-          modifier = Modifier.padding(24.dp),
+          modifier = Modifier
+            .conditional(
+              condition = it.isEnable && onPaymentMethodClick != null,
+              ifTrue = { addClick(onClick = { onPaymentMethodClick!!(it) }, "${it.id}Clicked") }
+            )
+            .padding(24.dp),
           paymentMethodData = it.takeIf { !(it.id == CREDITS_ID && appcBalance != null) }
             ?: it.copy(paymentMethodDescription = "Balance: $appcBalance")
         )
@@ -211,6 +224,7 @@ private fun PaymentMethodsPreview(
     onSupportClick = {},
     onSecondaryButtonClick = {},
     onBackClick = {},
+    onPaymentMethodClick = {},
   )
 }
 
