@@ -38,6 +38,7 @@ fun IAPBottomSheet(
   modifier: Modifier = Modifier,
   showWalletIcon: Boolean,
   fullscreen: Boolean,
+  onBackClick: (() -> Unit)? = null,
   content: @Composable () -> Unit,
 ) {
   Box(
@@ -47,11 +48,12 @@ fun IAPBottomSheet(
   ) {
     when (LocalConfiguration.current.orientation) {
       Configuration.ORIENTATION_LANDSCAPE,
-      -> {
+        -> {
         IAPBottomSheetLandscape(
           modifier = modifier,
           content = content,
           fullscreen = fullscreen,
+          onBackClick = onBackClick,
         )
       }
 
@@ -61,6 +63,7 @@ fun IAPBottomSheet(
           content = content,
           showWalletIcon = showWalletIcon,
           fullscreen = fullscreen,
+          onBackClick = onBackClick,
         )
       }
     }
@@ -72,6 +75,7 @@ private fun IAPBottomSheetPortrait(
   modifier: Modifier = Modifier,
   showWalletIcon: Boolean,
   fullscreen: Boolean,
+  onBackClick: (() -> Unit)?,
   content: @Composable () -> Unit,
 ) {
   val minHeight = 304.dp
@@ -84,9 +88,11 @@ private fun IAPBottomSheetPortrait(
     ) {
       Image(
         modifier = Modifier
-          .padding(top = 16.dp)
-          .padding(horizontal = 16.dp)
-          .size(24.dp),
+          .size(48.dp)
+          .conditional(
+            condition = onBackClick != null,
+            ifTrue = { addClick(onClick = onBackClick!!, "onBottomSheetBackClick") })
+          .padding(12.dp),
         imageVector = getIcBack(IAPTheme.colors.backArrow),
         contentDescription = null,
       )
@@ -133,6 +139,7 @@ private fun WalletLogo(
 private fun IAPBottomSheetLandscape(
   modifier: Modifier = Modifier,
   fullscreen: Boolean,
+  onBackClick: (() -> Unit)?,
   content: @Composable () -> Unit,
 ) {
   Box(modifier = modifier.fillMaxSize()) {
