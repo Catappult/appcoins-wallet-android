@@ -64,7 +64,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class AmazonPayTopUpFragment : BasePageViewFragment(){
+class AmazonPayTopUpFragment : BasePageViewFragment() {
 
   private val viewModel: AmazonPayTopUpViewModel by viewModels()
 
@@ -99,9 +99,9 @@ class AmazonPayTopUpFragment : BasePageViewFragment(){
     ) { _ ->
       when (viewModel.uiState.collectAsState().value) {
         is UiState.Success -> {
-          //SuccessScreen()
           handleCompletePurchase()
         }
+
         UiState.Idle,
         UiState.Loading -> {
           Row(
@@ -112,6 +112,7 @@ class AmazonPayTopUpFragment : BasePageViewFragment(){
             Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
           }
         }
+
         is UiState.Error -> {
           analytics.sendErrorEvent(
             value = viewModel.paymentData.appcValue.toDouble(),
@@ -129,8 +130,10 @@ class AmazonPayTopUpFragment : BasePageViewFragment(){
               navigator.navigateBack()
             },
             fragmentName = fragmentName,
-            buttonAnalytics = buttonsAnalytics)
+            buttonAnalytics = buttonsAnalytics
+          )
         }
+        UiState.PaymentRedirect3ds,
         UiState.PaymentLinkSuccess -> {
           createAmazonPayLink()
           Row(
@@ -146,20 +149,30 @@ class AmazonPayTopUpFragment : BasePageViewFragment(){
   }
 
   private fun createAmazonPayLink() {
-     val params = mapOf(
-       "merchantId" to viewModel.amazonTransaction?.merchantId,
-       "ledgerCurrency" to "EUR",
-       "checkoutLanguage" to CHECKOUT_LANGUAGE.getValue("UK"),
-       "productType" to "PayOnly",
-       "amazonCheckoutSessionId" to viewModel.amazonTransaction?.checkoutSessionId,
-       "integrationType" to "NativeMobile",
-       "payloadJSON" to viewModel.amazonTransaction?.payload
-     ).apply {
-       if (BuildConfig.DEBUG) {
-         put("environment", "SANDBOX")
-       }
-     }
-    buildURL(params, "DE")
+
+    val params = if (BuildConfig.DEBUG) {
+      mapOf(
+        "merchantId" to viewModel.amazonTransaction?.merchantId,
+        "ledgerCurrency" to "EUR",
+        "checkoutLanguage" to CHECKOUT_LANGUAGE.getValue("UK"),
+        "productType" to "PayOnly",
+        "amazonCheckoutSessionId" to viewModel.amazonTransaction?.checkoutSessionId,
+        "integrationType" to "NativeMobile",
+        "environment" to "SANDBOX",
+        "payloadJSON" to viewModel.amazonTransaction?.payload
+      )
+    } else {
+      mapOf(
+        "merchantId" to viewModel.amazonTransaction?.merchantId,
+        "ledgerCurrency" to "EUR",
+        "checkoutLanguage" to CHECKOUT_LANGUAGE.getValue("UK"),
+        "productType" to "PayOnly",
+        "amazonCheckoutSessionId" to viewModel.amazonTransaction?.checkoutSessionId,
+        "integrationType" to "NativeMobile",
+        "payloadJSON" to viewModel.amazonTransaction?.payload
+      )
+    }
+    buildURL(params, "ES")
   }
 
   override fun onResume() {
@@ -185,9 +198,9 @@ class AmazonPayTopUpFragment : BasePageViewFragment(){
       uriBuilder.appendQueryParameter(key, value)
     }
     uriBuilder.scheme("https")
-        .authority(APP_LINK_HOST.getValue(region))
-        .path(APP_LINK_PATH.getValue(region))
-      redirectUsingUniversalLink(uriBuilder.build().toString())
+      .authority(APP_LINK_HOST.getValue(region))
+      .path(APP_LINK_PATH.getValue(region))
+    redirectUsingUniversalLink(uriBuilder.build().toString())
   }
 
   private fun redirectUsingUniversalLink(url: String) {
@@ -203,7 +216,6 @@ class AmazonPayTopUpFragment : BasePageViewFragment(){
   fun PreviewLoading() {
     MainContent()
   }
-
 
 
   companion object {

@@ -11,6 +11,8 @@ data class AmazonPayTransaction(
   val merchantId: String?,
   @SerializedName("checkout_session_id")
   val checkoutSessionId: String?,
+  @SerializedName("redirect_url")
+  val redirectUrl: String?,
   val errorCode: String? = null,
   val errorContent: String? = null,
 )

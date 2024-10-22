@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.topup
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.backend.model.enums.RefundDisclaimerEnum
@@ -16,6 +17,10 @@ import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asfoundation.wallet.billing.adyen.PaymentBrands
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.amazonPay.usecases.DeleteAmazonPayChargePermissionUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionLocalStorageUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayChargePermissionLocalStorageUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.manage_cards.models.StoredCard
@@ -53,12 +58,17 @@ class TopUpFragmentPresenter(
   private val cardPaymentDataSource: CardPaymentDataSource,
   private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
   private val getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase,
-  private val setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase
+  private val setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase,
+  private val getAmazonPayChargePermissionLocalStorageUseCase: GetAmazonPayChargePermissionLocalStorageUseCase,
+  private val saveAmazonPayChargePermissionLocalStorageUseCase: SaveAmazonPayChargePermissionLocalStorageUseCase,
+  private val deleteAmazonPayChargePermissionUseCase: DeleteAmazonPayChargePermissionUseCase,
+  private val getAmazonPayChargePermissionUseCase: GetAmazonPayChargePermissionUseCase
 ) {
 
   private var cachedGamificationLevel = 0
   private var hasDefaultValues = false
-  var showPayPalLogout: Subject<Boolean> = BehaviorSubject.create()
+  var showPayPalLogout: Boolean = false
+  var showAmazonLogout: Boolean = false
   private var firstPaymentMethodsFetch: Boolean = true
   var hasStoredCard: Boolean = false
   var storedCardID: String? = null
@@ -76,6 +86,7 @@ class TopUpFragmentPresenter(
     }
     updateRefundDisclaimerValue()
     handlePaypalBillingAgreement()
+    getAmazonPayChargePermission()
     setupUi()
     handleNextClick()
     handleRetryClick()
@@ -404,19 +415,28 @@ class TopUpFragmentPresenter(
   }
 
   private fun setNextButton(methodSelected: String?) {
-    if (methodSelected == PaymentMethodId.CREDIT_CARD.id && hasStoredCard) {
-      view.setBuyButton()
+    when (methodSelected) {
+      PaymentMethodId.CREDIT_CARD.id -> {
+        if (hasStoredCard) view.setBuyButton()
+      }
+
+      PaymentMethodId.PAYPAL_V2.id -> {
+        handleLogoutResult(showPayPalLogout)
+      }
+
+      PaymentMethodId.AMAZONPAY.id -> {
+        handleLogoutResult(showAmazonLogout)
+      }
+
+      else -> view.setNextButton()
+    }
+  }
+
+  private fun handleLogoutResult(logout: Boolean?) {
+    if (logout == true) {
+      view.setTopupButton()
     } else {
-      disposables.add(
-        showPayPalLogout
-          .subscribe({
-            if (methodSelected == PaymentMethodId.PAYPAL_V2.id && it!!) {
-              view.setTopupButton()
-            } else {
-              view.setNextButton()
-            }
-          }, { it.printStackTrace() })
-      )
+      view.setNextButton()
     }
   }
 
@@ -574,11 +594,43 @@ class TopUpFragmentPresenter(
         .doOnError { handleError(it) }
         .subscribe(
           {
-            showPayPalLogout.onNext(it!!)
+            showPayPalLogout = it
           },
           {
             logger.log(TAG, "Error getting agreement")
-            showPayPalLogout.onNext(false)
+            showPayPalLogout = false
+          }
+        )
+    )
+  }
+
+  @SuppressLint("CheckResult")
+  private fun getAmazonPayChargePermission() {
+    showAmazonLogout = getAmazonPayChargePermissionLocalStorageUseCase().isNotEmpty()
+    if (!showAmazonLogout) {
+      getAmazonPayChargePermissionUseCase()
+        .flatMapCompletable { chargePermissionId ->
+          saveAmazonPayChargePermissionLocalStorageUseCase(chargePermissionId = chargePermissionId.chargePermissionId)
+          showAmazonLogout = chargePermissionId.chargePermissionId?.isNotEmpty() == true
+          Completable.complete()
+        }.subscribe({}, {})
+    }
+  }
+
+  fun removeAmazonPayChargePermission() {
+    disposables.add(
+      deleteAmazonPayChargePermissionUseCase.invoke()
+        .subscribeOn(networkThread)
+        .observeOn(viewScheduler)
+        .subscribe(
+          {
+            saveAmazonPayChargePermissionLocalStorageUseCase("")
+            view.hideLoading()
+            logger.log(TAG, "Charge Permission removed")
+          },
+          {
+            view.hideLoading()
+            logger.log(TAG, "Charge Permission not Removed")
           }
         )
     )

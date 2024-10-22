@@ -37,6 +37,7 @@ sealed class UiState {
   object Loading : UiState()
   object Error : UiState()
   object PaymentLinkSuccess : UiState()
+  object PaymentRedirect3ds : UiState()
   object Success : UiState()
 }
 
@@ -94,9 +95,10 @@ class AmazonPayTopUpViewModel @Inject constructor(
   private fun validateResultOfPaymentLink(amazonPayTransaction: AmazonPayTransaction) {
     amazonTransaction = amazonPayTransaction
     when {
+      amazonPayTransaction.errorCode == null && !amazonPayTransaction.redirectUrl.isNullOrEmpty()  ->
+        _uiState.value = UiState.PaymentRedirect3ds
       amazonPayTransaction.errorCode == null && getAmazonPayChargePermissionLocalStorageUseCase().isEmpty() ->
         _uiState.value = UiState.PaymentLinkSuccess
-
       amazonPayTransaction.errorCode == null && getAmazonPayChargePermissionLocalStorageUseCase().isNotEmpty() ->
         startTransactionStatusTimer()
 
