@@ -65,6 +65,8 @@ interface TopUpActivityView {
 
   fun navigateToTrueLayer(paymentType: PaymentType, data: TopUpPaymentData)
 
+  fun navigateToAmazonPay(topUpData: TopUpPaymentData)
+
   fun isActivityActive(): Boolean
 
   fun getFullscreenComposeView(): ComposeView

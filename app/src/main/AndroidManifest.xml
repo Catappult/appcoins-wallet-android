@@ -245,17 +245,39 @@
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
 
-        <data
-            android:host="${applicationId}"
-            android:scheme="googlepayresult" />
-        <data
-            android:host="wallet.dev.appcoins.io"
-            android:pathPrefix="/app/googlepay/result"
-            android:scheme="http" />
-        <data
-            android:host="wallet.dev.appcoins.io"
-            android:pathPrefix="/app/googlepay/result"
-            android:scheme="https" />
+        <data android:scheme="googlepayresult"/>
+        <data android:host="${applicationId}"/>
+        <data android:scheme="http"/>
+        <data android:host="wallet.dev.appcoins.io"/>
+        <data android:pathPrefix="/app/googlepay/result"/>
+        <data android:scheme="https"/>
+        <data android:host="wallet.dev.appcoins.io"/>
+        <data android:pathPrefix="/app/googlepay/result"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.billing.amazonPay.AmazonPayReturnActivity"
+        android:exported="true"
+        android:launchMode="singleTask"
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="https"/>
+        <data android:host="apichain.dev.catappult.io"/>
+        <data android:pathPattern="/amazonpay/result"/>
+      </intent-filter>
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="https"/>
+        <data android:host="apichain.catappult.io"/>
+        <data android:pathPattern="/amazonpay/result"/>
       </intent-filter>
     </activity>
 

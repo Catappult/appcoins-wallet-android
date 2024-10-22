@@ -64,6 +64,12 @@ class AndroidAppPlugin : Plugin<Project> {
             keyAlias = project.property("BDS_WALLET_KEY_ALIAS").toString()
             keyPassword = project.property("BDS_WALLET_KEY_PASSWORD").toString()
           }
+          register("dev") {
+            storeFile = project.property("BDS_WALLET_DEV_STORE_FILE")?.let { file(it) }
+            storePassword = project.property("BDS_WALLET_DEV_STORE_PASSWORD").toString()
+            keyAlias = project.property("BDS_WALLET_DEV_KEY_ALIAS").toString()
+            keyPassword = project.property("BDS_WALLET_DEV_KEY_PASSWORD").toString()
+          }
         }
 
         buildTypes {
@@ -73,6 +79,7 @@ class AndroidAppPlugin : Plugin<Project> {
             enableUnitTestCoverage = true
             applicationIdSuffix = ".dev"
             versionNameSuffix = ".dev"
+            signingConfig = signingConfigs.getByName("dev")
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.DEBUG)
             manifestPlaceholders["legacyPaymentHost"] =
