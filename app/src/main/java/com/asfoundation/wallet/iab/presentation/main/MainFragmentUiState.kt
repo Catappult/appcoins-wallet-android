@@ -13,12 +13,11 @@ sealed class MainFragmentUiState {
   data class Idle(
     val showDisclaimer: Boolean,
     val showPreSelectedPaymentMethod: Boolean,
-    val preSelectedPaymentMethodEnabled: Boolean,
+    val preSelectedPaymentMethod: PaymentMethodData?,
     val bonusAvailable: Boolean,
     val purchaseData: PurchaseData,
     val purchaseInfoData: PurchaseInfoData,
     val bonusInfoData: BonusInfoData,
-    val paymentMethodData: PaymentMethodData,
   ) : MainFragmentUiState()
   data class LoadingPurchaseData(
     val showDisclaimer: Boolean,

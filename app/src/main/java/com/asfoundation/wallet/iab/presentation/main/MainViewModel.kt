@@ -10,10 +10,10 @@ import com.appcoins.wallet.feature.walletInfo.data.country_code.CountryCodeRepos
 import com.appcoins.wallet.ui.common.callAsync
 import com.asfoundation.wallet.di.IoDispatcher
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
+import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.presentation.emptyBonusInfoData
-import com.asfoundation.wallet.iab.presentation.emptyPaymentMethodData
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.iab.presentation.toPaymentMethodData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 class MainViewModel(
   private val countryCodeProvider: CountryCodeRepository,
-  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private val paymentManager: PaymentManager,
   private val networkDispatcher: CoroutineDispatcher,
   private val purchaseData: PurchaseData,
 ) : ViewModel() {
@@ -51,7 +51,8 @@ class MainViewModel(
       viewModelState.update { MainFragmentUiState.LoadingDisclaimer }
 
       try {
-        val hasPreselectedPaymentMethod = inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
+        val hasPreselectedPaymentMethod = paymentManager.hasPreSelectedPaymentMethod()
+        val preSelectedPaymentMethod = if (hasPreselectedPaymentMethod) paymentManager.getSelectedPaymentMethod() else null
         val networkResponse = countryCodeProvider.getCountryCode().callAsync(networkDispatcher)
 
         val showDisclaimer = networkResponse.showRefundDisclaimer == 1
@@ -68,11 +69,10 @@ class MainViewModel(
           MainFragmentUiState.Idle(
             showDisclaimer = showDisclaimer,
             showPreSelectedPaymentMethod = hasPreselectedPaymentMethod,
-            preSelectedPaymentMethodEnabled = true, // TODO pre selected method might not be available for certain products
+            preSelectedPaymentMethod = preSelectedPaymentMethod?.toPaymentMethodData(),
             bonusAvailable = true, // TODO check if bonus is available for the product,
             purchaseInfoData = emptyPurchaseInfo.copy(packageName = purchaseData.domain),
             bonusInfoData = emptyBonusInfoData,
-            paymentMethodData = emptyPaymentMethodData,
             purchaseData = purchaseData
           )
         }
@@ -87,7 +87,8 @@ class MainViewModel(
 
 @Composable
 fun rememberMainViewModel(
-  purchaseData: PurchaseData
+  purchaseData: PurchaseData,
+  paymentManager: PaymentManager,
 ): MainViewModel {
   val injectionsProvider = hiltViewModel<MainViewModelInjectionsProvider>()
   return viewModel<MainViewModel>(
@@ -97,7 +98,7 @@ fun rememberMainViewModel(
         return MainViewModel(
           countryCodeProvider = injectionsProvider.countryCodeProvider,
           networkDispatcher = injectionsProvider.networkDispatcher,
-          inAppPurchaseInteractor = injectionsProvider.inAppPurchaseInteractor,
+          paymentManager = paymentManager,
           purchaseData = purchaseData
         ) as T
       }
@@ -108,6 +109,5 @@ fun rememberMainViewModel(
 @HiltViewModel
 private class MainViewModelInjectionsProvider @Inject constructor(
   val countryCodeProvider: CountryCodeRepository,
-  val inAppPurchaseInteractor: InAppPurchaseInteractor,
   @IoDispatcher val networkDispatcher: CoroutineDispatcher,
 ) : ViewModel()

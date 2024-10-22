@@ -112,6 +112,8 @@ class PaymentMethodsInteractor @Inject constructor(
 
   fun getLastUsedPaymentMethod(): String = inAppPurchaseInteractor.lastUsedPaymentMethod
 
+  fun getLastUsedPaymentMethodV2(): String? = inAppPurchaseInteractor.lastUsedPaymentMethodV2
+
   fun hasAuthenticationPermission() = fingerprintPreferences.hasAuthenticationPermission()
 
   fun checkTransactionStateFromTransactionId(uid: String): Observable<PendingTransaction> =

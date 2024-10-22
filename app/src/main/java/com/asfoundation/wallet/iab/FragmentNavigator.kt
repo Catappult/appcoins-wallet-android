@@ -28,7 +28,7 @@ class FragmentNavigator @AssistedInject constructor(
     displayChatUseCase()
   }
 
-  fun finish() {
+  fun navigateUp() {
     navController.navigateUp()
   }
 

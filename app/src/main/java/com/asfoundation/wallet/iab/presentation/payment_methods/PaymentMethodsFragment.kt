@@ -25,6 +25,7 @@ import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
+import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.presentation.GenericError
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
 import com.asfoundation.wallet.iab.presentation.PaymentMethodData
@@ -50,30 +51,41 @@ class PaymentMethodsFragment : IabBaseFragment() {
   private val purchaseInfoData by lazy { args.purchaseInfoDataExtra }
 
   @Composable
-  override fun FragmentContent() = PaymentMethodsContent(navigator, purchaseData, purchaseInfoData)
+  override fun FragmentContent() = PaymentMethodsContent(
+    navigator = navigator,
+    purchaseData = purchaseData,
+    purchaseInfoData = purchaseInfoData,
+    paymentManager = paymentManager,
+  )
 }
 
 @Composable
 private fun PaymentMethodsContent(
   navigator: FragmentNavigator,
+  paymentManager: PaymentManager,
   purchaseData: PurchaseData?,
-  purchaseInfoData: PurchaseInfoData?
+  purchaseInfoData: PurchaseInfoData?,
 ) {
   val context = LocalContext.current
 
   val closeIAP: () -> Unit = { context.getActivity()?.finish() }
   val onSupportClick = { navigator.onSupportClick() }
-  val onBackClick = { navigator.finish() }
+  val onBackClick = { navigator.navigateUp() }
 
   if (purchaseData != null && purchaseInfoData != null) {
-    val viewModel = rememberPaymentMethodsViewModel(purchaseData, purchaseInfoData)
+    val viewModel = rememberPaymentMethodsViewModel(
+      paymentManager = paymentManager,
+      purchaseData = purchaseData,
+      purchaseInfoData = purchaseInfoData
+    )
     val state by viewModel.uiState.collectAsState()
 
     var isPurchaseInfoExpanded by rememberSaveable { mutableStateOf(false) }
     val onPurchaseInfoExpandClick = { isPurchaseInfoExpanded = !isPurchaseInfoExpanded }
 
     val onPaymentMethodClick: (PaymentMethodData) -> Unit = { paymentMethodData ->
-
+      viewModel.setSelectedPaymentMethod(paymentMethodData)
+      navigator.navigateUp()
     }
 
     RealPaymentMethodsContent(
