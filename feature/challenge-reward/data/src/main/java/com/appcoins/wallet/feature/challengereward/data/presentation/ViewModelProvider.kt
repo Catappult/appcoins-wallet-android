@@ -9,13 +9,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.BillingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class InjectionsProvider @Inject constructor(
-  val bdsRepository: BdsRepository,
+  val bdsRepository: BillingRepository,
 ) : ViewModel()
 
 private val _challengeRewardVisibilityViewModel =

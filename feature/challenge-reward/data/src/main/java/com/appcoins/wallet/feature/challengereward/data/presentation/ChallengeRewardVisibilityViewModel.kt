@@ -4,7 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.BillingRepository
 import com.appcoins.wallet.core.analytics.analytics.logging.Log
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ChallengeRewardVisibilityViewModel(
-  private val bdsRepository: BdsRepository,
+  private val bdsRepository: BillingRepository,
   private val navigation: () -> Unit,
 ) : ViewModel() {
   private val viewModelState = MutableStateFlow<(() -> Unit)?>(null)

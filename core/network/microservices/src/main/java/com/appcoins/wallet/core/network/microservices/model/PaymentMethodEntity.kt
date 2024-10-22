@@ -15,6 +15,10 @@ data class PaymentMethodEntity(
   val message: String?,
 ) {
 
+  companion object {
+    const val CREDITS_ID = "appcoins_credits"
+  }
+
   fun isAvailable(): Boolean = this.availability != "UNAVAILABLE"
 }
 
