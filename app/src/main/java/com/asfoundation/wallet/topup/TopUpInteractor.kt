@@ -86,7 +86,7 @@ class TopUpInteractor @Inject constructor(
       fee = mapPaymentMethodFee(it.fee),
       isEnabled = it.isAvailable(),
       disabledReason = null,
-      showLogout = isToShowPaypalLogout(it),
+      showLogout = isToShowPaypalLogout(it) || isToShowAmazonPayLogout(it),
       showExtraFeesMessage = hasExtraFees(it, currency),
       price = FiatValue(it.price.value, it.price.currency)
     )
@@ -94,6 +94,10 @@ class TopUpInteractor @Inject constructor(
 
   private fun isToShowPaypalLogout(paymentMethod: PaymentMethodEntity): Boolean {
     return (paymentMethod.id == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id)
+  }
+
+  private fun isToShowAmazonPayLogout(paymentMethod: PaymentMethodEntity): Boolean {
+    return (paymentMethod.id == PaymentMethodsView.PaymentMethodId.AMAZONPAY.id)
   }
 
   private fun hasExtraFees(paymentMethod: PaymentMethodEntity, currency: String): Boolean {

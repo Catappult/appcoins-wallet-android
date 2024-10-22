@@ -45,6 +45,10 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentTopUpBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.amazonPay.usecases.DeleteAmazonPayChargePermissionUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionLocalStorageUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayChargePermissionLocalStorageUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.manage_cards.models.StoredCard
@@ -112,6 +116,18 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase
+
+  @Inject
+  lateinit var getAmazonPayChargePermissionLocalStorageUseCase: GetAmazonPayChargePermissionLocalStorageUseCase
+
+  @Inject
+  lateinit var deleteAmazonPayChargePermissionUseCase: DeleteAmazonPayChargePermissionUseCase
+
+  @Inject
+  lateinit var saveAmazonPayChargePermissionLocalStorageUseCase: SaveAmazonPayChargePermissionLocalStorageUseCase
+
+  @Inject
+  lateinit var getAmazonPayChargePermissionUseCase: GetAmazonPayChargePermissionUseCase
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -209,9 +225,13 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       cardPaymentDataSource = cardPaymentDataSource,
       getCurrentWalletUseCase = getCurrentWalletUseCase,
       getShowRefundDisclaimerCodeUseCase = getShowRefundDisclaimerCodeUseCase,
-      setCachedShowRefundDisclaimerUseCase = setCachedShowRefundDisclaimerUseCase
+      setCachedShowRefundDisclaimerUseCase = setCachedShowRefundDisclaimerUseCase,
+      getAmazonPayChargePermissionLocalStorageUseCase = getAmazonPayChargePermissionLocalStorageUseCase,
+      saveAmazonPayChargePermissionLocalStorageUseCase = saveAmazonPayChargePermissionLocalStorageUseCase,
+      deleteAmazonPayChargePermissionUseCase = deleteAmazonPayChargePermissionUseCase,
+      getAmazonPayChargePermissionUseCase = getAmazonPayChargePermissionUseCase
 
-    )
+      )
   }
 
   override fun onCreateView(
@@ -279,14 +299,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,
       paymentMethodClick = paymentMethodClick,
-      logoutCallback = {
-        presenter.removePaypalBillingAgreement()
-        presenter.showPayPalLogout.onNext(false)
-        setNextButton()
-        showAsLoading()
-      },
+      logoutCallback = { handleLogoutCallbackAdapter() },
       disposables = presenter.disposables,
-      showPayPalLogout = presenter.showPayPalLogout,
+      showLogoutAction = presenter.showPayPalLogout || presenter.showAmazonLogout,
       cardsList = this.cardsList,
       onChangeCardCallback = { showBottomSheet.value = true }
     )
@@ -297,6 +312,20 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
     binding.paymentsSkeleton.visibility = View.GONE
     binding.paymentMethods.visibility = View.VISIBLE
+  }
+
+  private fun handleLogoutCallbackAdapter() {
+    if (presenter.showPayPalLogout) {
+      presenter.removePaypalBillingAgreement()
+      presenter.showPayPalLogout = false
+      setNextButton()
+      showAsLoading()
+    } else if (presenter.showAmazonLogout) {
+      presenter.removeAmazonPayChargePermission()
+      presenter.showAmazonLogout = false
+      setNextButton()
+      showAsLoading()
+    }
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>) {
@@ -746,14 +775,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,
       paymentMethodClick = paymentMethodClick,
-      logoutCallback = {
-        presenter.removePaypalBillingAgreement()
-        presenter.showPayPalLogout.onNext(false)
-        setNextButton()
-        showAsLoading()
-      },
+      logoutCallback = { handleLogoutCallbackAdapter() },
       disposables = presenter.disposables,
-      showPayPalLogout = presenter.showPayPalLogout,
+      showLogoutAction = presenter.showPayPalLogout || presenter.showAmazonLogout,
       cardsList = this.cardsList,
       onChangeCardCallback = { showBottomSheet.value = true }
     )

@@ -20,10 +20,7 @@ class AmazonPayDataSource @Inject constructor(
 
 
   fun getChargePermissionId(): String {
-    val result = sharedPreferences.getString(RESULT_CHARGE_PERMISSION_ID, "") ?: ""
-    return result.also {
-      saveResult("")
-    }
+    return sharedPreferences.getString(RESULT_CHARGE_PERMISSION_ID, "") ?: ""
   }
 
   fun saveChargePermissionId(amazonChargePermissionId: String?) = sharedPreferences.edit()

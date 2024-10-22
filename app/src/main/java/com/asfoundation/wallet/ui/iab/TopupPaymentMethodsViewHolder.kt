@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
@@ -19,9 +20,7 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.ItemTopupPaymentMethodBinding
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.manage_cards.models.StoredCard
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.Subject
 
 class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -31,9 +30,9 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     data: PaymentMethod,
     checked: Boolean,
     listener: View.OnClickListener,
-    onClickPaypalLogout: () -> Unit,
+    onClickLogoutAction: () -> Unit,
     disposables: CompositeDisposable,
-    showPayPalLogout: Subject<Boolean>,
+    showLogoutAction: Boolean,
     cardData: StoredCard?,
     onChangeCardCallback: () -> Unit,
   ) {
@@ -74,25 +73,16 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
       applyAlphaScale(binding.paymentMethodIc)
     }
     if (data.showLogout) {
-      disposables.add(
-        showPayPalLogout
-          .observeOn(AndroidSchedulers.mainThread())
-          .subscribe {
-            binding.paymentMoreLogout.visibility = if (it!!)
-              View.VISIBLE
-            else
-              View.GONE
-          }
-      )
+      binding.paymentMoreLogout.isVisible = showLogoutAction
 
       binding.paymentMoreLogout.setOnClickListener {
         val wrapper: Context =
           ContextThemeWrapper(itemView.context.applicationContext, R.style.CustomLogoutPopUpStyle)
         val popup = PopupMenu(wrapper, it)
         popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
-        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+        popup.setOnMenuItemClickListener { _: MenuItem ->
           binding.paymentMoreLogout.visibility = View.GONE
-          onClickPaypalLogout()
+          onClickLogoutAction()
           return@setOnMenuItemClickListener true
         }
         popup.show()

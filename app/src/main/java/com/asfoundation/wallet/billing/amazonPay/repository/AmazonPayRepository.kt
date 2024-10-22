@@ -52,6 +52,7 @@ class AmazonPayRepository @Inject constructor(
               payload = response.payload,
               merchantId = response.merchantId,
               checkoutSessionId = response.checkoutSessionId,
+              redirectUrl = response.redirectUrl,
               errorCode = null
             )
           }
