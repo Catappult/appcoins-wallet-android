@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.iab.presentation.main
 
+import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.presentation.BonusInfoData
 import com.asfoundation.wallet.iab.presentation.PaymentMethodData
 import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
@@ -14,6 +15,7 @@ sealed class MainFragmentUiState {
     val showPreSelectedPaymentMethod: Boolean,
     val preSelectedPaymentMethodEnabled: Boolean,
     val bonusAvailable: Boolean,
+    val purchaseData: PurchaseData,
     val purchaseInfoData: PurchaseInfoData,
     val bonusInfoData: BonusInfoData,
     val paymentMethodData: PaymentMethodData,

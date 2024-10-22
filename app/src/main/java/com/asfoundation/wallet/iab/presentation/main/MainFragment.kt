@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.navArgs
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.asfoundation.wallet.iab.FragmentNavigator
@@ -38,8 +39,8 @@ import com.asfoundation.wallet.iab.presentation.GenericError
 import com.asfoundation.wallet.iab.presentation.IABLoading
 import com.asfoundation.wallet.iab.presentation.IABOpaqueButton
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
-import com.asfoundation.wallet.iab.presentation.PaymentMethodRow
 import com.asfoundation.wallet.iab.presentation.PaymentMethodData
+import com.asfoundation.wallet.iab.presentation.PaymentMethodRow
 import com.asfoundation.wallet.iab.presentation.PaymentMethodSkeleton
 import com.asfoundation.wallet.iab.presentation.PreviewAll
 import com.asfoundation.wallet.iab.presentation.PurchaseInfo
@@ -71,6 +72,9 @@ private fun MainScreen(navigator: FragmentNavigator, purchaseData: PurchaseData?
 
   val closeIAP: () -> Unit = { context.getActivity()?.finish() }
   val onSupportClick = { navigator.onSupportClick() }
+  val onNavigateTo: (NavDirections) -> Unit = { directions ->
+    navigator.navigateTo(directions = directions)
+  }
 
   purchaseData?.let {
     val viewModel = rememberMainViewModel(it)
@@ -81,7 +85,8 @@ private fun MainScreen(navigator: FragmentNavigator, purchaseData: PurchaseData?
     RealMainScreen(
       state = state,
       onSupportClick = onSupportClick,
-      loadData = loadData
+      loadData = loadData,
+      onNavigateTo = onNavigateTo
     )
 
   } ?: PurchaseDataError(
@@ -114,6 +119,7 @@ fun RealMainScreen(
   state: MainFragmentUiState,
   loadData: () -> Unit,
   onSupportClick: () -> Unit,
+  onNavigateTo: (NavDirections) -> Unit,
 ) {
   val showWalletIcon = state is MainFragmentUiState.Idle ||
       state is MainFragmentUiState.LoadingPurchaseData
@@ -142,7 +148,14 @@ fun RealMainScreen(
             showPreSelectedPaymentMethod = targetState.showPreSelectedPaymentMethod,
             preSelectedPaymentMethodEnabled = targetState.preSelectedPaymentMethodEnabled,
             bonusAvailable = targetState.bonusAvailable,
-            onPaymentMethodClick = { /* TODO add click here */ }
+            onPaymentMethodClick = {
+              onNavigateTo(
+                MainFragmentDirections.actionNavigateToPaymentMethodsFragment(
+                  purchaseInfoDataExtra = targetState.purchaseInfoData,
+                  purchaseDataExtra = targetState.purchaseData,
+                )
+              )
+            }
           )
 
           MainFragmentUiState.NoConnection -> GenericError(
@@ -206,7 +219,14 @@ private fun PurchaseDetails(
     ) {
       PurchaseInfo(
         modifier = Modifier
-          .conditional(purchaseInfoData.hasFees, { addClick(onClick = onPurchaseInfoExpandClick, testTag = "onPurchaseInfoExpandClick") })
+          .conditional(
+            purchaseInfoData.hasFees,
+            {
+              addClick(
+                onClick = onPurchaseInfoExpandClick,
+                testTag = "onPurchaseInfoExpandClick"
+              )
+            })
           .padding(16.dp),
         purchaseInfo = purchaseInfoData,
         isExpanded = isPurchaseInfoExpanded,
@@ -214,7 +234,9 @@ private fun PurchaseDetails(
       SeparatorLine()
       BonusInfo(
         modifier = Modifier
-          .conditional(bonusAvailable, { addClick(onClick = onBonusInfoExpandClick, testTag = "onBonusInfoExpandClick") })
+          .conditional(
+            bonusAvailable,
+            { addClick(onClick = onBonusInfoExpandClick, testTag = "onBonusInfoExpandClick") })
           .padding(16.dp),
         bonusInfoData = bonusInfoData,
         isExpanded = isBonusInfoExpanded,
@@ -247,7 +269,7 @@ private fun PurchaseDetails(
     )
     IABOpaqueButton(
       text = "Add payment method", // TODO hardcoded text
-      onClick = { }
+      onClick = onPaymentMethodClick
     )
   }
 }
@@ -316,7 +338,8 @@ private fun PreviewMainScreen(
     RealMainScreen(
       state = state,
       onSupportClick = {},
-      loadData = {}
+      loadData = {},
+      onNavigateTo = {},
     )
   }
 }
@@ -340,6 +363,7 @@ private class MainFragmentUiStateProvider : PreviewParameterProvider<MainFragmen
         ),
       bonusInfoData = emptyBonusInfoData,
       paymentMethodData = emptyPaymentMethodData,
+      purchaseData = emptyPurchaseData,
     ),
     MainFragmentUiState.Error,
     MainFragmentUiState.NoConnection,
