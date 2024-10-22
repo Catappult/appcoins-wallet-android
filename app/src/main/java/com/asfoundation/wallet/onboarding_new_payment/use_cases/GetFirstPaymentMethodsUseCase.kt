@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.onboarding_new_payment.use_cases
 
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.BillingRepository
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.microservices.model.FeeEntity
 import com.appcoins.wallet.core.network.microservices.model.FeeType
@@ -14,7 +14,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetFirstPaymentMethodsUseCase @Inject constructor(
-  private val bdsRepository: BdsRepository,
+  private val bdsRepository: BillingRepository,
   private val partnerAddressService: PartnerAddressService,
   private val filterValidGooglePayUseCase: FilterValidGooglePayUseCase,
 ) {

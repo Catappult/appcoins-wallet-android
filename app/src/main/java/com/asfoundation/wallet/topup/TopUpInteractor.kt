@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.topup
 
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.BillingRepository
 import com.appcoins.wallet.core.network.microservices.model.FeeEntity
 import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
@@ -26,7 +26,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class TopUpInteractor @Inject constructor(
-  private val repository: BdsRepository,
+  private val repository: BillingRepository,
   private val conversionService: LocalCurrencyConversionService,
   private val gamificationInteractor: GamificationInteractor,
   private val topUpValuesService: TopUpValuesService,
