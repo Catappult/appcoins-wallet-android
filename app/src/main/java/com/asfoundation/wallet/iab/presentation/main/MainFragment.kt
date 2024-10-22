@@ -32,6 +32,7 @@ import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
+import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.presentation.BonusInfo
 import com.asfoundation.wallet.iab.presentation.BonusInfoData
 import com.asfoundation.wallet.iab.presentation.BonusInfoSkeleton
@@ -63,11 +64,19 @@ class MainFragment : IabBaseFragment() {
   private val purchaseData by lazy { args.purchaseDataExtra }
 
   @Composable
-  override fun FragmentContent() = MainScreen(navigator, purchaseData)
+  override fun FragmentContent() = MainScreen(
+    navigator = navigator,
+    paymentManager = paymentManager,
+    purchaseData = purchaseData
+  )
 }
 
 @Composable
-private fun MainScreen(navigator: FragmentNavigator, purchaseData: PurchaseData?) {
+private fun MainScreen(
+  navigator: FragmentNavigator,
+  paymentManager: PaymentManager,
+  purchaseData: PurchaseData?
+) {
   val context = LocalContext.current
 
   val closeIAP: () -> Unit = { context.getActivity()?.finish() }
@@ -77,7 +86,10 @@ private fun MainScreen(navigator: FragmentNavigator, purchaseData: PurchaseData?
   }
 
   purchaseData?.let {
-    val viewModel = rememberMainViewModel(it)
+    val viewModel = rememberMainViewModel(
+      purchaseData = it,
+      paymentManager = paymentManager
+    )
     val state by viewModel.uiState.collectAsState()
 
     val loadData = { viewModel.reload() }
@@ -143,10 +155,8 @@ fun RealMainScreen(
           is MainFragmentUiState.Idle -> PurchaseDetails(
             purchaseInfoData = targetState.purchaseInfoData,
             bonusInfoData = targetState.bonusInfoData,
-            paymentMethodData = targetState.paymentMethodData,
             showDisclaimer = targetState.showDisclaimer,
-            showPreSelectedPaymentMethod = targetState.showPreSelectedPaymentMethod,
-            preSelectedPaymentMethodEnabled = targetState.preSelectedPaymentMethodEnabled,
+            preSelectedPaymentMethod = targetState.preSelectedPaymentMethod,
             bonusAvailable = targetState.bonusAvailable,
             onPaymentMethodClick = {
               onNavigateTo(
@@ -185,11 +195,9 @@ private fun PurchaseDetails(
   modifier: Modifier = Modifier,
   purchaseInfoData: PurchaseInfoData,
   bonusInfoData: BonusInfoData,
-  paymentMethodData: PaymentMethodData,
   showDisclaimer: Boolean,
-  showPreSelectedPaymentMethod: Boolean,
-  preSelectedPaymentMethodEnabled: Boolean,
   bonusAvailable: Boolean,
+  preSelectedPaymentMethod: PaymentMethodData?,
   onPaymentMethodClick: () -> Unit,
 ) {
   var isPurchaseInfoExpanded by rememberSaveable { mutableStateOf(false) }
@@ -226,7 +234,8 @@ private fun PurchaseDetails(
                 onClick = onPurchaseInfoExpandClick,
                 testTag = "onPurchaseInfoExpandClick"
               )
-            })
+            }
+          )
           .padding(16.dp),
         purchaseInfo = purchaseInfoData,
         isExpanded = isPurchaseInfoExpanded,
@@ -235,21 +244,27 @@ private fun PurchaseDetails(
       BonusInfo(
         modifier = Modifier
           .conditional(
-            bonusAvailable,
-            { addClick(onClick = onBonusInfoExpandClick, testTag = "onBonusInfoExpandClick") })
+            condition = bonusAvailable,
+            ifTrue = {
+              addClick(
+                onClick = onBonusInfoExpandClick,
+                testTag = "onBonusInfoExpandClick"
+              )
+            }
+          )
           .padding(16.dp),
         bonusInfoData = bonusInfoData,
         isExpanded = isBonusInfoExpanded,
         bonusAvailable = bonusAvailable,
         onPromoCodeAvailableClick = { /* TODO on promo code available click */ }
       )
-      if (showPreSelectedPaymentMethod) {
+      if (preSelectedPaymentMethod != null) {
         SeparatorLine()
         PaymentMethodRow(
           modifier = Modifier
             .padding(16.dp)
             .addClick(onClick = onPaymentMethodClick, testTag = "onPaymentMethodClick"),
-          paymentMethodData = paymentMethodData.copy(isEnable = preSelectedPaymentMethodEnabled),
+          paymentMethodData = preSelectedPaymentMethod,
           showArrow = true,
         )
       }
@@ -264,9 +279,7 @@ private fun PurchaseDetails(
         color = IAPTheme.colors.smallText,
       )
     }
-    Spacer(
-      modifier = Modifier.weight(1f)
-    )
+    Spacer(modifier = Modifier.weight(1f))
     IABOpaqueButton(
       text = "Add payment method", // TODO hardcoded text
       onClick = onPaymentMethodClick
@@ -354,7 +367,7 @@ private class MainFragmentUiStateProvider : PreviewParameterProvider<MainFragmen
     MainFragmentUiState.Idle(
       showDisclaimer = showDisclaimer,
       showPreSelectedPaymentMethod = showPreSelectedPaymentMethod,
-      preSelectedPaymentMethodEnabled = preSelectedPaymentMethodEnabled,
+      preSelectedPaymentMethod = emptyPaymentMethodData.takeIf { preSelectedPaymentMethodEnabled },
       bonusAvailable = bonusAvailable,
       purchaseInfoData = emptyPurchaseInfo
         .copy(
@@ -362,7 +375,6 @@ private class MainFragmentUiStateProvider : PreviewParameterProvider<MainFragmen
           hasFees = Random.nextBoolean()
         ),
       bonusInfoData = emptyBonusInfoData,
-      paymentMethodData = emptyPaymentMethodData,
       purchaseData = emptyPurchaseData,
     ),
     MainFragmentUiState.Error,
