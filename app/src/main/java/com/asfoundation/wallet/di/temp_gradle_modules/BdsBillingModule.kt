@@ -2,7 +2,6 @@ package com.asfoundation.wallet.di.temp_gradle_modules
 
 import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.*
-import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
@@ -43,16 +42,6 @@ class BdsBillingModule {
       .setFiatCurrenciesPreferencesDataSource(fiatCurrenciesPreferencesDataSource)
       .build()
 
-
-  @Singleton
-  @Provides
-  fun provideBillingFactory(
-    walletService: WalletService,
-    bdsRepository: BdsRepository,
-    partnerAddressService: PartnerAddressService
-  ): Billing =
-    BdsBilling(bdsRepository, walletService, BillingThrowableCodeMapper(), partnerAddressService)
-
   @Singleton
   @Provides
   fun provideRemoteRepository(
@@ -72,10 +61,6 @@ class BdsBillingModule {
       rxSchedulers,
       fiatCurrenciesPreferencesDataSource
     )
-
-  @Singleton
-  @Provides
-  fun provideBdsRepository(repository: RemoteRepository) = BdsRepository(repository)
 
   @Singleton
   @Provides

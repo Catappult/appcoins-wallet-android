@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.onboarding.pending_payment
 
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.BillingRepository
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
@@ -39,7 +39,7 @@ data class OnboardingPaymentState(val transactionContent: Async<TransactionConte
 @HiltViewModel
 class OnboardingPaymentViewModel @Inject constructor(
   private val getOnboardingTransactionBuilderUseCase: GetOnboardingTransactionBuilderUseCase,
-  private val bdsRepository: BdsRepository,
+  private val bdsRepository: BillingRepository,
   private val cachedTransactionRepository: CachedTransactionRepository,
   private val getEarningBonusUseCase: GetEarningBonusUseCase,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
