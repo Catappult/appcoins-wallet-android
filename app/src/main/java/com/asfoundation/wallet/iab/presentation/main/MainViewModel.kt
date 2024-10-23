@@ -19,6 +19,9 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -43,6 +46,18 @@ class MainViewModel(
     )
 
   init {
+    paymentManager.selectedPaymentMethod
+      .onEach { paymentMethod ->
+        viewModelState.getAndUpdate {
+          when (it) {
+            is MainFragmentUiState.LoadingPurchaseData -> it.copy(showPreSelectedPaymentMethod = paymentMethod != null)
+            is MainFragmentUiState.Idle -> it.copy(preSelectedPaymentMethod = paymentMethod?.toPaymentMethodData())
+            else -> it
+          }
+        }
+      }
+      .launchIn(viewModelScope)
+
     reload()
   }
 
@@ -52,7 +67,8 @@ class MainViewModel(
 
       try {
         val hasPreselectedPaymentMethod = paymentManager.hasPreSelectedPaymentMethod()
-        val preSelectedPaymentMethod = if (hasPreselectedPaymentMethod) paymentManager.getSelectedPaymentMethod() else null
+        val selectedPaymentMethod = if (hasPreselectedPaymentMethod) paymentManager.getSelectedPaymentMethod() else null
+
         val networkResponse = countryCodeProvider.getCountryCode().callAsync(networkDispatcher)
 
         val showDisclaimer = networkResponse.showRefundDisclaimer == 1
@@ -68,8 +84,7 @@ class MainViewModel(
         viewModelState.update {
           MainFragmentUiState.Idle(
             showDisclaimer = showDisclaimer,
-            showPreSelectedPaymentMethod = hasPreselectedPaymentMethod,
-            preSelectedPaymentMethod = preSelectedPaymentMethod?.toPaymentMethodData(),
+            preSelectedPaymentMethod = selectedPaymentMethod?.toPaymentMethodData(),
             bonusAvailable = true, // TODO check if bonus is available for the product,
             purchaseInfoData = emptyPurchaseInfo.copy(packageName = purchaseData.domain),
             bonusInfoData = emptyBonusInfoData,

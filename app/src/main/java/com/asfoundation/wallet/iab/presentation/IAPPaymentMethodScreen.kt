@@ -18,10 +18,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.asfoundation.wallet.iab.payment_manager.domain.PaymentMethodInfo
 import com.asfoundation.wallet.iab.presentation.icon.getDownArrow
 import com.asfoundation.wallet.iab.theme.IAPTheme
 import kotlin.random.Random
@@ -58,10 +60,11 @@ fun PaymentMethodRow(
         color = disabledColor.takeIf { !paymentMethodData.isEnable }
           ?: IAPTheme.colors.paymentMethodTextColor
       )
-      if (!paymentMethodData.paymentMethodDescription.isNullOrEmpty()) {
+      if (!paymentMethodData.paymentMethodDescription.isNullOrEmpty() || paymentMethodData.balance != null) {
         Text(
           modifier = Modifier.padding(top = 4.dp),
-          text = paymentMethodData.paymentMethodDescription,
+          text = paymentMethodData.paymentMethodDescription.takeIf { !paymentMethodData.paymentMethodDescription.isNullOrEmpty() && paymentMethodData.balance == null }
+            ?: "Balance: ${paymentMethodData.balance}",
           style = IAPTheme.typography.bodySmall,
           color = disabledColor.takeIf { !paymentMethodData.isEnable }
             ?: IAPTheme.colors.smallText
@@ -138,15 +141,17 @@ data class PaymentMethodData(
   val paymentMethodUrl: String,
   val paymentMethodName: String,
   val isEnable: Boolean,
-  val paymentMethodDescription: String? = null,
+  val paymentMethodDescription: String?,
+  val balance: String?,
 )
 
-fun PaymentMethodEntity.toPaymentMethodData() = PaymentMethodData(
-  id = id,
-  paymentMethodUrl = iconUrl,
-  paymentMethodName = label,
-  paymentMethodDescription = message,
-  isEnable = isAvailable(),
+fun PaymentMethodInfo.toPaymentMethodData() = PaymentMethodData(
+  id = paymentMethod.id,
+  paymentMethodUrl = paymentMethod.iconUrl,
+  paymentMethodName = paymentMethod.label,
+  paymentMethodDescription = paymentMethod.message,
+  isEnable = paymentMethod.isAvailable(),
+  balance = balance
 )
 
 val emptyPaymentMethodData = PaymentMethodData(
@@ -155,4 +160,5 @@ val emptyPaymentMethodData = PaymentMethodData(
   paymentMethodName = "Credit Card",
   isEnable = Random.nextBoolean(),
   paymentMethodDescription = "Payment method description",
+  balance = null,
 )
