@@ -5,9 +5,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class BackupModel(
-  val backupPrivateKey: String,
-  val flow: String,
-  val paymentFunnel: String?
+  val backupPrivateKey: String = "",
+  val flow: String = "",
+  val paymentFunnel: String? = null
 ) : Parcelable
 
 enum class OnboardingFlow {
