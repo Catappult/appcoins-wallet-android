@@ -90,6 +90,7 @@ private fun MainScreen(
       purchaseData = it,
       paymentManager = paymentManager
     )
+
     val state by viewModel.uiState.collectAsState()
 
     val loadData = { viewModel.reload() }
@@ -345,7 +346,7 @@ private fun SeparatorLine(modifier: Modifier = Modifier) {
 @PreviewAll
 @Composable
 private fun PreviewMainScreen(
-  @PreviewParameter(MainFragmentUiStateProvider::class) state: MainFragmentUiState
+  @PreviewParameter(MainFragmentUiStateProvider::class) state: MainFragmentUiState,
 ) {
   IAPTheme {
     RealMainScreen(
@@ -359,15 +360,13 @@ private fun PreviewMainScreen(
 
 private class MainFragmentUiStateProvider : PreviewParameterProvider<MainFragmentUiState> {
   private val bonusAvailable by lazy { Random.nextBoolean() }
-  private val preSelectedPaymentMethodEnabled by lazy { Random.nextBoolean() }
   private val showDisclaimer by lazy { Random.nextBoolean() }
   private val showPreSelectedPaymentMethod by lazy { Random.nextBoolean() }
 
   override val values = sequenceOf(
     MainFragmentUiState.Idle(
       showDisclaimer = showDisclaimer,
-      showPreSelectedPaymentMethod = showPreSelectedPaymentMethod,
-      preSelectedPaymentMethod = emptyPaymentMethodData.takeIf { preSelectedPaymentMethodEnabled },
+      preSelectedPaymentMethod = emptyPaymentMethodData.takeIf { Random.nextBoolean() },
       bonusAvailable = bonusAvailable,
       purchaseInfoData = emptyPurchaseInfo
         .copy(

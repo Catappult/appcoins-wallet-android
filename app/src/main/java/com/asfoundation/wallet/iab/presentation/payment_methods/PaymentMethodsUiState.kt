@@ -8,7 +8,6 @@ sealed class PaymentMethodsUiState {
   data class PaymentMethodsIdle(
     val purchaseInfo: PurchaseInfoData,
     val paymentMethods: List<PaymentMethodData>,
-    val appcBalance: String
   ) : PaymentMethodsUiState()
 
   data object PaymentMethodsError : PaymentMethodsUiState()
