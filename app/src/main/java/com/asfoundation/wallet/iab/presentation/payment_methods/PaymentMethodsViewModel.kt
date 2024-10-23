@@ -9,7 +9,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.use_case.GetBalanceUseCase
-import com.asfoundation.wallet.iab.domain.use_case.GetPaymentMethodsUseCase
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.presentation.PaymentMethodData
 import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
@@ -27,16 +26,13 @@ class PaymentMethodsViewModel(
   private val paymentManager: PaymentManager,
   private val purchaseData: PurchaseData,
   private val purchaseInfoData: PurchaseInfoData,
-  private val getPaymentMethodsUseCase: GetPaymentMethodsUseCase,
   private val getBalanceUseCase: GetBalanceUseCase,
   private val currencyFormatUtils: CurrencyFormatUtils
 ) : ViewModel() {
 
   private val viewModelState =
     MutableStateFlow<PaymentMethodsUiState>(
-      PaymentMethodsUiState.LoadingPaymentMethods(
-        purchaseInfoData
-      )
+      PaymentMethodsUiState.LoadingPaymentMethods(purchaseInfoData)
     )
 
   val uiState = viewModelState
@@ -55,9 +51,8 @@ class PaymentMethodsViewModel(
       viewModelState.update { PaymentMethodsUiState.LoadingPaymentMethods(purchaseInfoData) }
 
       try {
-        val balanceRequest = async { getBalanceUseCase() }
         val paymentMethodsRequest = async {
-          getPaymentMethodsUseCase(
+          paymentManager.getPaymentMethods(
             value = purchaseData.purchaseValue,
             currency = purchaseData.currency,
             transactionType = purchaseData.type,
@@ -66,18 +61,12 @@ class PaymentMethodsViewModel(
           ).map { it.toPaymentMethodData() }
         }
 
-        val balance = balanceRequest.await()
         val paymentMethods = paymentMethodsRequest.await()
 
         viewModelState.update {
           PaymentMethodsUiState.PaymentMethodsIdle(
             purchaseInfo = purchaseInfoData,
             paymentMethods = paymentMethods,
-            appcBalance = "${balance.walletBalance.creditsBalance.fiat.symbol} ${
-              currencyFormatUtils.formatCurrency(
-                balance.walletBalance.creditsBalance.fiat.amount
-              )
-            }",
           )
         }
 
@@ -106,7 +95,6 @@ fun rememberPaymentMethodsViewModel(
         return PaymentMethodsViewModel(
           purchaseData = purchaseData,
           purchaseInfoData = purchaseInfoData,
-          getPaymentMethodsUseCase = injectionsProvider.getPaymentMethodsUseCase,
           getBalanceUseCase = injectionsProvider.getBalanceUseCase,
           currencyFormatUtils = injectionsProvider.currencyFormatUtils,
           paymentManager = paymentManager,
@@ -118,7 +106,6 @@ fun rememberPaymentMethodsViewModel(
 
 @HiltViewModel
 private class PaymentMethodsViewModelInjectionsProvider @Inject constructor(
-  val getPaymentMethodsUseCase: GetPaymentMethodsUseCase,
   val getBalanceUseCase: GetBalanceUseCase,
   val currencyFormatUtils: CurrencyFormatUtils,
 ) : ViewModel()
