@@ -12,6 +12,8 @@
 
     <argument
         android:name="backupModel"
+        app:nullable="true"
+        android:defaultValue="@null"
         app:argType="com.asfoundation.wallet.onboarding.BackupModel" />
 
     <action

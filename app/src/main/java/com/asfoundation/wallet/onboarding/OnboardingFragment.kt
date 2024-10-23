@@ -48,6 +48,8 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private val args by navArgs<OnboardingFragmentArgs>()
 
+  private val backupModel by lazy { args.backupModel ?: BackupModel() }
+
   private val viewModel: OnboardingViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingBinding::bind)
   private val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -100,13 +102,13 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingButtons.onboardingNextButton.setOnClickListener { viewModel.handleLaunchWalletClick() }
     views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
     views.onboardingRecoverGuestButton.setOnClickListener {
-      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backupModel)
+      viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
     }
     views.onboardingGuestLaunchButton.setOnClickListener {
       viewModel.handleLaunchWalletClick()
     }
     views.onboardingGuestVerifyButton.setOnClickListener {
-      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backupModel)
+      viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
     }
   }
 
@@ -122,17 +124,17 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun handleRecoverGuestWallet() {
-    if (args.backupModel.backupPrivateKey.isNotBlank()) {
-      when (args.backupModel.flow) {
+    if (backupModel.backupPrivateKey.isNotBlank()) {
+      when (backupModel.flow) {
         OnboardingFlow.VERIFY_CREDIT_CARD.name,
         OnboardingFlow.VERIFY_PAYPAL.name ->
           showVerifyGuestWallet()
 
         OnboardingFlow.ONBOARDING_PAYMENT.name ->
-          viewModel.handleRecoverAndVerifyGuestWalletClick(args.backupModel)
+          viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
 
         else -> {
-          viewModel.getGuestWalletBonus(args.backupModel.backupPrivateKey)
+          viewModel.getGuestWalletBonus(backupModel.backupPrivateKey)
           showRecoverGuestWallet()
         }
       }
