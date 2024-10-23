@@ -3,7 +3,6 @@ package com.asfoundation.wallet.transactions
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +16,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
@@ -47,6 +47,7 @@ import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDayAn
 import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
+import com.appcoins.wallet.ui.widgets.PendingTransactionCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionDetailHeader
 import com.appcoins.wallet.ui.widgets.TransactionDetailItem
@@ -89,7 +90,14 @@ class TransactionDetailsFragment : BasePageViewFragment() {
   fun TransactionDetailView(uiState: UiState, invoiceState: InvoiceState) {
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) }
+        Surface {
+          TopBar(
+            isMainBar = false,
+            onClickSupport = { viewModel.displayChat() },
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
+          )
+        }
       },
       containerColor = WalletColors.styleguide_blue
     ) { padding ->
@@ -169,6 +177,11 @@ class TransactionDetailsFragment : BasePageViewFragment() {
                 textDecoration = textDecoration,
                 description = description
               )
+
+              if (status == StatusType.PENDING) {
+                PendingTransactionCard()
+                Spacer(modifier = Modifier.size(20.dp))
+              }
 
               TransactionDetailItem(
                 stringResource(R.string.transaction_status_label),
@@ -283,7 +296,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
         id = "0x385e12aa45036de011b8e67ceef307791c64a93bb01089d85b0fc2eda6a5aaec",
         from = "0x31a16aDF2D5FC73F149fBB779D20c036678b1bBD",
         to = "0xd21e10A8bd5917Fa57776dE4654284dCc8434F23",
-        invoiceId = "123"
+        invoiceId = "123",
       )
     )
   }
