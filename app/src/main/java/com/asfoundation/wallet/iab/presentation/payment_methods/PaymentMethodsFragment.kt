@@ -127,7 +127,6 @@ private fun RealPaymentMethodsContent(
           paymentMethods = state.paymentMethods,
           onPurchaseInfoExpandClick = onPurchaseInfoExpandClick,
           isPurchaseInfoExpanded = isPurchaseInfoExpanded,
-          appcBalance = state.appcBalance,
           onPaymentMethodClick = onPaymentMethodClick,
         )
 
@@ -158,7 +157,6 @@ fun PaymentMethodsScreen(
   purchaseInfoData: PurchaseInfoData,
   isPurchaseInfoExpanded: Boolean,
   paymentMethods: List<PaymentMethodData>? = null,
-  appcBalance: String? = null,
   onPurchaseInfoExpandClick: () -> Unit,
   onPaymentMethodClick: ((PaymentMethodData) -> Unit)? = null,
 ) {
@@ -202,8 +200,7 @@ fun PaymentMethodsScreen(
               ifTrue = { addClick(onClick = { onPaymentMethodClick!!(it) }, "${it.id}Clicked") }
             )
             .padding(24.dp),
-          paymentMethodData = it.takeIf { !(it.id == CREDITS_ID && appcBalance != null) }
-            ?: it.copy(paymentMethodDescription = "Balance: $appcBalance")
+          paymentMethodData = it
         )
       } ?: repeat(6) {
         PaymentMethodSkeleton(Modifier.padding(24.dp))
@@ -270,7 +267,6 @@ private class PaymentMethodsFragmentUiStateProvider :
           paymentMethodDescription = "Is enabled: $isEnabled".takeIf { !isEnabled } ?: "",
         ),
       ),
-      appcBalance = "€ 12.00"
     ),
     PaymentMethodsUiState.LoadingPaymentMethods(
       purchaseInfo = emptyPurchaseInfo
