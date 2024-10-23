@@ -6,23 +6,35 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
+import com.asfoundation.wallet.iab.domain.use_case.GetBalanceUseCase
+import com.asfoundation.wallet.iab.domain.use_case.GetPaymentMethodsUseCase
 import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
-import com.asfoundation.wallet.ui.iab.PaymentMethodsInteractor
+import com.asfoundation.wallet.iab.presentation.toPaymentMethodData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PaymentMethodsViewModel(
   private val purchaseData: PurchaseData,
   private val purchaseInfoData: PurchaseInfoData,
-  private val paymentMethodsInteractor: PaymentMethodsInteractor
+  private val getPaymentMethodsUseCase: GetPaymentMethodsUseCase,
+  private val getBalanceUseCase: GetBalanceUseCase,
+  private val currencyFormatUtils: CurrencyFormatUtils
 ) : ViewModel() {
 
   private val viewModelState =
-    MutableStateFlow<PaymentMethodsUiState>(PaymentMethodsUiState.LoadingPaymentMethods(purchaseInfoData))
+    MutableStateFlow<PaymentMethodsUiState>(
+      PaymentMethodsUiState.LoadingPaymentMethods(
+        purchaseInfoData
+      )
+    )
 
   val uiState = viewModelState
     .stateIn(
@@ -36,7 +48,40 @@ class PaymentMethodsViewModel(
   }
 
   fun reload() {
-    // TODO
+    viewModelScope.launch {
+      viewModelState.update { PaymentMethodsUiState.LoadingPaymentMethods(purchaseInfoData) }
+
+      try {
+        val balanceRequest = async { getBalanceUseCase() }
+        val paymentMethodsRequest = async {
+          getPaymentMethodsUseCase(
+            value = purchaseData.purchaseValue,
+            currency = purchaseData.currency,
+            transactionType = purchaseData.type,
+            packageName = purchaseData.domain,
+            entityOemId = purchaseData.oemId,
+          ).map { it.toPaymentMethodData() }
+        }
+
+        val balance = balanceRequest.await()
+        val paymentMethods = paymentMethodsRequest.await()
+
+        viewModelState.update {
+          PaymentMethodsUiState.PaymentMethodsIdle(
+            purchaseInfo = purchaseInfoData,
+            paymentMethods = paymentMethods,
+            appcBalance = "${balance.walletBalance.creditsBalance.fiat.symbol} ${
+              currencyFormatUtils.formatCurrency(
+                balance.walletBalance.creditsBalance.fiat.amount
+              )
+            }",
+          )
+        }
+
+      } catch (e: Throwable) {
+        viewModelState.update { PaymentMethodsUiState.PaymentMethodsError }
+      }
+    }
   }
 }
 
@@ -53,7 +98,9 @@ fun rememberPaymentMethodsViewModel(
         return PaymentMethodsViewModel(
           purchaseData = purchaseData,
           purchaseInfoData = purchaseInfoData,
-          paymentMethodsInteractor = injectionsProvider.paymentMethodsInteractor
+          getPaymentMethodsUseCase = injectionsProvider.getPaymentMethodsUseCase,
+          getBalanceUseCase = injectionsProvider.getBalanceUseCase,
+          currencyFormatUtils = injectionsProvider.currencyFormatUtils,
         ) as T
       }
     }
@@ -62,5 +109,7 @@ fun rememberPaymentMethodsViewModel(
 
 @HiltViewModel
 private class PaymentMethodsViewModelInjectionsProvider @Inject constructor(
-  val paymentMethodsInteractor: PaymentMethodsInteractor
+  val getPaymentMethodsUseCase: GetPaymentMethodsUseCase,
+  val getBalanceUseCase: GetBalanceUseCase,
+  val currencyFormatUtils: CurrencyFormatUtils,
 ) : ViewModel()

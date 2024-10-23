@@ -73,6 +73,7 @@ class MainViewModel(
             purchaseInfoData = emptyPurchaseInfo.copy(packageName = purchaseData.domain),
             bonusInfoData = emptyBonusInfoData,
             paymentMethodData = emptyPaymentMethodData,
+            purchaseData = purchaseData
           )
         }
 
