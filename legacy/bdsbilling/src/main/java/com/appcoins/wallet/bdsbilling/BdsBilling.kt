@@ -10,8 +10,13 @@ import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.walletservices.WalletService
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class BdsBilling(
+@Singleton
+@BoundTo(supertype = Billing::class)
+class BdsBilling @Inject constructor(
   private val repository: BillingRepository,
   private val walletService: WalletService,
   private val errorMapper: BillingThrowableCodeMapper,

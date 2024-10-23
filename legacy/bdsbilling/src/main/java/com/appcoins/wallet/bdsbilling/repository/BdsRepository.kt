@@ -8,9 +8,14 @@ import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import io.reactivex.Completable
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
 import java.math.BigDecimal
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRepository {
+@Singleton
+@BoundTo(supertype = BillingRepository::class)
+class BdsRepository @Inject constructor(private val remoteRepository: RemoteRepository) : BillingRepository {
 
   override fun registerAuthorizationProof(
     id: String,

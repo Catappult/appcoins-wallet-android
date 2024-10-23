@@ -20,6 +20,7 @@ fun WalletAsyncImage(
   contentDescription: String?,
   transformations: Transformation? = null,
   colorFilter: ColorFilter? = null,
+  contentScale: ContentScale = ContentScale.Crop,
 ) {
 
   val placeholderColor = IAPTheme.colors.onPrimary
@@ -29,7 +30,7 @@ fun WalletAsyncImage(
     placeholder = if (placeholder) remember { ColorPainter(placeholderColor) } else null,
     error = remember { ColorPainter(placeholderColor) },
     contentDescription = contentDescription,
-    contentScale = ContentScale.Crop,
+    contentScale = contentScale,
     colorFilter = colorFilter,
     modifier = modifier,
   )
