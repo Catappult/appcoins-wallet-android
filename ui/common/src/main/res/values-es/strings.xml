@@ -680,7 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Este método de pago cobra una tasa de procesamiento e IVA.</string>
   <string name="purchase_fee_included_body">tasas incluidas</string>
   <string name="purchase_error_one_wallet_generic">Hubo un problema con el pago de Wallet One. Prueba de nuevo o usa un método de pago diferente.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Hubo un problema con el pago. Prueba de nuevo o usa un método de pago diferente.</string>
   <string name="purchase_payment_method_top_ups_only">Solo disponible para recargas.</string>
   <string name="purchase_payment_method_minimum_amount">Solo para compras superiores a %s.</string>
   <string name="purchase_payment_method_not_availble_generic">No disponible en esta compra.</string>
@@ -688,13 +688,16 @@
   <string name="purchase_legal_disclaimer">Al completar el pago, aceptas y consientes que se te proporcione el contenido por el que pagas y por lo tanto renuncias a tu derecho de rescisión.</string>
   <string name="purchase_bonus_in_appc_disclaimer">El bonus se ofrece en AppCoins Credits.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Puede demorar hasta %s día.</item>
+    <item quantity="other">Puede demorar hasta %s días.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
-  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
+  <string name="purchase_bank_transfer_success_disclaimer">Tu banco está procesando la transacción y puede tardar hasta 2 días. Si toda la información es correcta, se añadirán %s en AppCoins Credits a tu wallet.</string>
+  <string name="purchase_bank_transfer_success_1">Se añadirán %s en AppCoins Credits a tu wallet.</string>
+  <string name="purchase_bank_transfer_success_2">Tu banco puede tardar hasta 2 días en procesarlo.</string>
+  <string name="purchase_bank_transfer_success_bonus">Recibirás un bonus de %s en AppCoins Credits.</string>
+  <string name="purchase_error_taking_long_body">Ups, está tardando más de lo normal...</string>
+  <string name="purchase_bank_transer_secure_body">Transferencia segura directamente de tu banco.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Estamos esperando que los fondos lleguen de tu banco.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Dirección</string>
   <string name="purchase_address_address_field">Dirección</string>
@@ -1244,7 +1247,7 @@
   <string name="vip_program_promo_code_tag">Código Promocional</string>
   <string name="vip_program_referral_page_title">Programa de Recomendación VIP</string>
   <string name="vip_program_referral_page_body">Comparte este código con tu comunidad y amigos para que todos ganen al jugar. Por cada compra que hagan, <b>tanto tú como tus amigos recibiréis un bonus del %1$s%%</b> además de las otras promociones. <b>Válido hasta el %2$s</b></string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Comparte este código con amigos y ambos recibiréis un bonus del %s%% en todas las compras que ellos hagan.</string>
   <string name="vip_program_referral_page_share_title">Comparte este código con tus amigos</string>
   <string name="vip_program_referral_page_only_app_title">Solo para compras en</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s ganado de %3$s recomendaciones</string>
@@ -1257,7 +1260,7 @@
   <string name="vip_program_referral_notification_title">¡Código de Recomendación VIP disponible!</string>
   <string name="vip_program_referral_notification_body">¡Comparte tu código con tu comunidad para que todos ganéis al jugar!</string>
   <string name="vip_program_title_vip_offer">Oferta VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">No puedes usar tu propio código VIP. ¡Compártelo con amigos!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Bienvenid@ a la AppCoins Wallet</string>
   <string name="intro_welcome_body">Recarga la wallet o haz una compra en cualquier app o juego compatible con AppCoins.</string>

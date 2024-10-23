@@ -21,6 +21,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
 import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.IAP
@@ -984,7 +985,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   private val transactionBuilder: TransactionBuilder? by lazy {
     if (requireArguments().containsKey(TRANSACTION)) {
-      requireArguments().getParcelable(TRANSACTION) as TransactionBuilder?
+      getParcelableExtra<TransactionBuilder>(TRANSACTION)
     } else {
       throw IllegalArgumentException("transaction data not found")
     }

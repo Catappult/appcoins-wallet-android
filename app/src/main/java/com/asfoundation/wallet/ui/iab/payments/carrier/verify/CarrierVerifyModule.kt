@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.ui.common.StringProvider
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
@@ -21,24 +22,22 @@ import java.math.BigDecimal
 class CarrierVerifyModule {
 
   @Provides
-  fun providesCarrierVerifyPhoneData(fragment: Fragment): CarrierVerifyData {
-    fragment.requireArguments()
-      .apply {
-        return CarrierVerifyData(
-          getBoolean(CarrierVerifyFragment.PRE_SELECTED_KEY),
-          getString(CarrierVerifyFragment.DOMAIN_KEY)!!,
-          getString(CarrierVerifyFragment.ORIGIN_KEY),
-          getString(CarrierVerifyFragment.TRANSACTION_TYPE_KEY) ?: "",
-          getString(CarrierVerifyFragment.TRANSACTION_DATA_KEY) ?: "",
-          getString(CarrierVerifyFragment.CURRENCY_KEY)!!,
-          getSerializable(CarrierVerifyFragment.FIAT_AMOUNT_KEY) as BigDecimal,
-          getSerializable(CarrierVerifyFragment.APPC_AMOUNT_KEY) as BigDecimal,
-          getSerializable(CarrierVerifyFragment.BONUS_AMOUNT_KEY) as BigDecimal?,
-          getString(CarrierVerifyFragment.SKU_DESCRIPTION)!!,
-          getString(CarrierVerifyFragment.SKU_ID)
-        )
-      }
-  }
+  fun providesCarrierVerifyPhoneData(fragment: Fragment) =
+    fragment.requireArguments().run {
+      CarrierVerifyData(
+        getBoolean(CarrierVerifyFragment.PRE_SELECTED_KEY),
+        getString(CarrierVerifyFragment.DOMAIN_KEY)!!,
+        getString(CarrierVerifyFragment.ORIGIN_KEY),
+        getString(CarrierVerifyFragment.TRANSACTION_TYPE_KEY) ?: "",
+        getString(CarrierVerifyFragment.TRANSACTION_DATA_KEY) ?: "",
+        getString(CarrierVerifyFragment.CURRENCY_KEY)!!,
+        getSerializableExtra<BigDecimal>(CarrierVerifyFragment.FIAT_AMOUNT_KEY)!!,
+        getSerializableExtra<BigDecimal>(CarrierVerifyFragment.APPC_AMOUNT_KEY)!!,
+        getSerializableExtra<BigDecimal>(CarrierVerifyFragment.BONUS_AMOUNT_KEY),
+        getString(CarrierVerifyFragment.SKU_DESCRIPTION)!!,
+        getString(CarrierVerifyFragment.SKU_ID)
+      )
+    }
 
   @Provides
   fun providesCarrierVerifyPresenter(

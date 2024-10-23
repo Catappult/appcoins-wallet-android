@@ -18,8 +18,10 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
 import com.asf.wallet.R
 import com.asf.wallet.databinding.MiPayIabLayoutBinding
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
@@ -125,9 +127,9 @@ class MiPayFragment : BasePageViewFragment(),
 
   fun showError() {
     viewModel.sendPaymentErrorEvent(
-      "",
-      "",
-      requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!
+      errorCode = "",
+      errorMessage = "",
+      transactionBuilder = getParcelableExtra(TRANSACTION_DATA_KEY)!!
     )
     binding.loading.visibility = View.GONE
     binding.loadingHintTextView.visibility = View.GONE
@@ -197,8 +199,8 @@ class MiPayFragment : BasePageViewFragment(),
 
   private fun showSuccessAnimation() {
     viewModel.sendPaymentSuccessEvent(
-      requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
-      viewModel.transactionUid!!
+      transactionBuilder = getParcelableExtra<TransactionBuilder>(TRANSACTION_DATA_KEY)!!,
+      txId = viewModel.transactionUid!!
     )
     val bonus = requireArguments().getString(BONUS_KEY)
     if (!bonus.isNullOrEmpty()) {
@@ -213,7 +215,7 @@ class MiPayFragment : BasePageViewFragment(),
   }
 
   private fun handleCompletePurchase() {
-    viewModel.getSuccessBundle(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
+    viewModel.getSuccessBundle(getParcelableExtra(TRANSACTION_DATA_KEY))
   }
 
   private fun createResultLauncher() {
