@@ -7,18 +7,16 @@ import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
 
 
 sealed class MainFragmentUiState {
-  object LoadingDisclaimer : MainFragmentUiState()
-  object NoConnection : MainFragmentUiState()
-  object Error : MainFragmentUiState()
+  data object LoadingDisclaimer : MainFragmentUiState()
+  data object NoConnection : MainFragmentUiState()
+  data object Error : MainFragmentUiState()
   data class Idle(
     val showDisclaimer: Boolean,
-    val showPreSelectedPaymentMethod: Boolean,
-    val preSelectedPaymentMethodEnabled: Boolean,
+    val preSelectedPaymentMethod: PaymentMethodData?,
     val bonusAvailable: Boolean,
     val purchaseData: PurchaseData,
     val purchaseInfoData: PurchaseInfoData,
     val bonusInfoData: BonusInfoData,
-    val paymentMethodData: PaymentMethodData,
   ) : MainFragmentUiState()
   data class LoadingPurchaseData(
     val showDisclaimer: Boolean,

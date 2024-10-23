@@ -580,6 +580,10 @@ public class InAppPurchaseInteractor {
         PaymentMethodsView.PaymentMethodId.CREDIT_CARD.getId());
   }
 
+  String getLastUsedPaymentMethodV2() {
+    return sharedPreferences.getString(LAST_USED_PAYMENT_METHOD_KEY, null);
+  }
+
   @NotNull public Single<PurchaseBundleModel> getCompletedPurchaseBundle(@NotNull String type,
       @NotNull String merchantName, @Nullable String sku, @Nullable String purchaseUid,
       @Nullable String orderReference, @Nullable String hash, @NotNull Scheduler scheduler) {

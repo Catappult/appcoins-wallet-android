@@ -25,6 +25,7 @@ import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
+import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.presentation.GenericError
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
 import com.asfoundation.wallet.iab.presentation.PaymentMethodData
@@ -50,27 +51,42 @@ class PaymentMethodsFragment : IabBaseFragment() {
   private val purchaseInfoData by lazy { args.purchaseInfoDataExtra }
 
   @Composable
-  override fun FragmentContent() = PaymentMethodsContent(navigator, purchaseData, purchaseInfoData)
+  override fun FragmentContent() = PaymentMethodsContent(
+    navigator = navigator,
+    purchaseData = purchaseData,
+    purchaseInfoData = purchaseInfoData,
+    paymentManager = paymentManager,
+  )
 }
 
 @Composable
 private fun PaymentMethodsContent(
   navigator: FragmentNavigator,
+  paymentManager: PaymentManager,
   purchaseData: PurchaseData?,
-  purchaseInfoData: PurchaseInfoData?
+  purchaseInfoData: PurchaseInfoData?,
 ) {
   val context = LocalContext.current
 
   val closeIAP: () -> Unit = { context.getActivity()?.finish() }
   val onSupportClick = { navigator.onSupportClick() }
-  val onBackClick = { navigator.finish() }
+  val onBackClick = { navigator.navigateUp() }
 
   if (purchaseData != null && purchaseInfoData != null) {
-    val viewModel = rememberPaymentMethodsViewModel(purchaseData, purchaseInfoData)
+    val viewModel = rememberPaymentMethodsViewModel(
+      paymentManager = paymentManager,
+      purchaseData = purchaseData,
+      purchaseInfoData = purchaseInfoData
+    )
     val state by viewModel.uiState.collectAsState()
 
     var isPurchaseInfoExpanded by rememberSaveable { mutableStateOf(false) }
     val onPurchaseInfoExpandClick = { isPurchaseInfoExpanded = !isPurchaseInfoExpanded }
+
+    val onPaymentMethodClick: (PaymentMethodData) -> Unit = { paymentMethodData ->
+      viewModel.setSelectedPaymentMethod(paymentMethodData)
+      navigator.navigateUp()
+    }
 
     RealPaymentMethodsContent(
       state = state,
@@ -78,7 +94,8 @@ private fun PaymentMethodsContent(
       onPurchaseInfoExpandClick = onPurchaseInfoExpandClick,
       onSecondaryButtonClick = closeIAP,
       onSupportClick = onSupportClick,
-      onBackClick = onBackClick
+      onBackClick = onBackClick,
+      onPaymentMethodClick = onPaymentMethodClick,
     )
   } else {
     PurchaseDataError(
@@ -96,6 +113,7 @@ private fun RealPaymentMethodsContent(
   onSecondaryButtonClick: () -> Unit,
   onSupportClick: () -> Unit,
   onBackClick: () -> Unit,
+  onPaymentMethodClick: (PaymentMethodData) -> Unit,
 ) {
   IAPTheme {
     IAPBottomSheet(
@@ -109,7 +127,7 @@ private fun RealPaymentMethodsContent(
           paymentMethods = state.paymentMethods,
           onPurchaseInfoExpandClick = onPurchaseInfoExpandClick,
           isPurchaseInfoExpanded = isPurchaseInfoExpanded,
-          appcBalance = state.appcBalance,
+          onPaymentMethodClick = onPaymentMethodClick,
         )
 
         is PaymentMethodsUiState.LoadingPaymentMethods -> PaymentMethodsScreen(
@@ -140,7 +158,7 @@ fun PaymentMethodsScreen(
   isPurchaseInfoExpanded: Boolean,
   paymentMethods: List<PaymentMethodData>? = null,
   onPurchaseInfoExpandClick: () -> Unit,
-  appcBalance: String? = null,
+  onPaymentMethodClick: ((PaymentMethodData) -> Unit)? = null,
 ) {
   Column(
     modifier = Modifier
@@ -176,9 +194,13 @@ fun PaymentMethodsScreen(
     ) {
       paymentMethods?.forEach {
         PaymentMethodRow(
-          modifier = Modifier.padding(24.dp),
-          paymentMethodData = it.takeIf { !(it.id == CREDITS_ID && appcBalance != null) }
-            ?: it.copy(paymentMethodDescription = "Balance: $appcBalance")
+          modifier = Modifier
+            .conditional(
+              condition = it.isEnable && onPaymentMethodClick != null,
+              ifTrue = { addClick(onClick = { onPaymentMethodClick!!(it) }, "${it.id}Clicked") }
+            )
+            .padding(24.dp),
+          paymentMethodData = it
         )
       } ?: repeat(6) {
         PaymentMethodSkeleton(Modifier.padding(24.dp))
@@ -211,6 +233,7 @@ private fun PaymentMethodsPreview(
     onSupportClick = {},
     onSecondaryButtonClick = {},
     onBackClick = {},
+    onPaymentMethodClick = {},
   )
 }
 
@@ -244,7 +267,6 @@ private class PaymentMethodsFragmentUiStateProvider :
           paymentMethodDescription = "Is enabled: $isEnabled".takeIf { !isEnabled } ?: "",
         ),
       ),
-      appcBalance = "€ 12.00"
     ),
     PaymentMethodsUiState.LoadingPaymentMethods(
       purchaseInfo = emptyPurchaseInfo

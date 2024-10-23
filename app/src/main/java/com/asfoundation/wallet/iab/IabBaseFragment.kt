@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.iab
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,15 @@ abstract class IabBaseFragment : Fragment() {
 
   val navigator by lazy { fragmentNavigatorFactory.create(findNavController()) }
 
+  protected val paymentManager
+    get() = (activity as IABView).paymentManager
+
   @Composable abstract fun FragmentContent()
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    check(context is IABView) { "IABView must be attached to $context" }
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
