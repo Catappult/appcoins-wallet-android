@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,12 +25,13 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.asf.wallet.R
 import com.asfoundation.wallet.iab.presentation.icon.getIcBack
 import com.asfoundation.wallet.iab.theme.IAPTheme
-import kotlin.random.Random
 
 @Composable
 fun IAPBottomSheet(
@@ -44,13 +44,12 @@ fun IAPBottomSheet(
   Box(
     modifier = modifier
       .fillMaxSize()
-      .background(Color.Black.copy(alpha = 0.60f))
+      .background(Color.Black.copy(alpha = 0.60f)),
+    contentAlignment = Alignment.BottomCenter
   ) {
     when (LocalConfiguration.current.orientation) {
-      Configuration.ORIENTATION_LANDSCAPE,
-        -> {
+      Configuration.ORIENTATION_LANDSCAPE -> {
         IAPBottomSheetLandscape(
-          modifier = modifier,
           content = content,
           fullscreen = fullscreen,
           onBackClick = onBackClick,
@@ -59,7 +58,6 @@ fun IAPBottomSheet(
 
       else -> {
         IAPBottomSheetPortrait(
-          modifier = modifier,
           content = content,
           showWalletIcon = showWalletIcon,
           fullscreen = fullscreen,
@@ -99,24 +97,58 @@ private fun IAPBottomSheetPortrait(
       content()
     }
   } else {
-    Box(modifier = modifier.fillMaxSize()) {
-      Surface(
-        modifier = Modifier
-          .align(Alignment.BottomCenter)
-          .fillMaxWidth()
-          .height(intrinsicSize = IntrinsicSize.Min)
-          .defaultMinSize(minHeight = minHeight)
-          .clip(RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
-      ) {
-        Column(
-          modifier = Modifier.background(color = IAPTheme.colors.primary)
-        ) {
-          if (showWalletIcon) {
-            WalletLogo(modifier = Modifier.padding(top = 16.dp))
-          }
-          content()
-        }
+    Column(
+      modifier = modifier
+        .fillMaxWidth()
+        .height(intrinsicSize = IntrinsicSize.Min)
+        .defaultMinSize(minHeight = minHeight)
+        .clip(RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
+        .background(color = IAPTheme.colors.primary)
+    ) {
+      if (showWalletIcon) {
+        WalletLogo(modifier = Modifier.padding(top = 16.dp))
       }
+      content()
+    }
+  }
+}
+
+@Composable
+private fun IAPBottomSheetLandscape(
+  modifier: Modifier = Modifier,
+  fullscreen: Boolean,
+  onBackClick: (() -> Unit)?,
+  content: @Composable () -> Unit,
+) {
+  val width = 456.dp
+  if (fullscreen) {
+    Column(
+      modifier = modifier
+        .fillMaxHeight()
+        .width(width)
+        .background(color = IAPTheme.colors.primary)
+    ) {
+      Image(
+        modifier = Modifier
+          .size(48.dp)
+          .conditional(
+            condition = onBackClick != null,
+            ifTrue = { addClick(onClick = onBackClick!!, "onBottomSheetBackClick") })
+          .padding(12.dp),
+        imageVector = getIcBack(IAPTheme.colors.backArrow),
+        contentDescription = null,
+      )
+      content()
+    }
+  } else {
+    Column(
+      modifier = modifier
+        .width(width)
+        .height(intrinsicSize = IntrinsicSize.Min)
+        .clip(RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
+        .background(color = IAPTheme.colors.primary)
+    ) {
+      content()
     }
   }
 }
@@ -135,36 +167,11 @@ private fun WalletLogo(
   )
 }
 
-@Composable
-private fun IAPBottomSheetLandscape(
-  modifier: Modifier = Modifier,
-  fullscreen: Boolean,
-  onBackClick: (() -> Unit)?,
-  content: @Composable () -> Unit,
-) {
-  Box(modifier = modifier.fillMaxSize()) {
-    Surface(
-      modifier = Modifier
-        .conditional(fullscreen, { fillMaxHeight() })
-        .width(456.dp)
-        .height(intrinsicSize = IntrinsicSize.Min)
-        .padding(top = 18.dp)
-        .align(Alignment.BottomCenter)
-        .clip(RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
-    ) {
-      Column(
-        modifier = Modifier.background(color = IAPTheme.colors.primary)
-      ) {
-        content()
-      }
-    }
-  }
-}
-
 @PreviewAll
 @Composable
-private fun PreviewIAPBottomSheet() {
-  val showingFullScreen = Random.nextBoolean()
+private fun PreviewIAPBottomSheet(
+  @PreviewParameter(PreviewBottomSheetProvider::class) showingFullScreen: Boolean
+) {
   IAPTheme {
     IAPBottomSheet(
       showWalletIcon = LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT,
@@ -180,4 +187,12 @@ private fun PreviewIAPBottomSheet() {
       }
     )
   }
+}
+
+private class PreviewBottomSheetProvider : PreviewParameterProvider<Boolean> {
+  override val values: Sequence<Boolean>
+    get() = sequenceOf(
+      false,
+      true
+    )
 }
