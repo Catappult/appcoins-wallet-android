@@ -42,9 +42,7 @@ fun IAPBottomSheet(
   content: @Composable () -> Unit,
 ) {
   Box(
-    modifier = modifier
-      .fillMaxSize()
-      .background(Color.Black.copy(alpha = 0.60f)),
+    modifier = modifier.fillMaxSize(),
     contentAlignment = Alignment.BottomCenter
   ) {
     when (LocalConfiguration.current.orientation) {
@@ -174,6 +172,7 @@ private fun PreviewIAPBottomSheet(
 ) {
   IAPTheme {
     IAPBottomSheet(
+      modifier = Modifier.background(Color.Black.copy(0.60f)),
       showWalletIcon = LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT,
       fullscreen = showingFullScreen,
       content = {

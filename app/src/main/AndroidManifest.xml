@@ -135,7 +135,7 @@
     <activity
         android:name="com.asfoundation.wallet.iab.PaymentActivity"
         android:exported="true"
-        android:theme="@style/Theme.AppCompat.Transparent.NoFloating">
+        android:theme="@style/Theme.AppCompat.Transparent.NoFloating.IAP">
 
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
