@@ -113,11 +113,11 @@ dependencies {
   implementation(libs.bundles.lottie)
   implementation(libs.shimmer)
   implementation(libs.glide)
-  ksp(libs.glide.compiler)
+  kapt(libs.glide.compiler)
   implementation(libs.bundles.coil)
 
   implementation(libs.epoxy)
-  ksp(libs.epoxy.processor)
+  kapt(libs.epoxy.processor)
 
   implementation(libs.appcoins.sdk)
   debugImplementation(libs.appcoins.sdk.debug)

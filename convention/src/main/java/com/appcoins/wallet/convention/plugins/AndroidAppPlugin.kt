@@ -20,7 +20,7 @@ class AndroidAppPlugin : Plugin<Project> {
         apply("com.android.application")
         apply("kotlin-android")
         apply("kotlin-parcelize")
-        apply("com.google.devtools.ksp")
+        apply("kotlin-kapt")
         apply<JacocoApplicationPlugin>()
       }
 

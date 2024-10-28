@@ -5,10 +5,12 @@ import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDao;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import it.czerwinski.android.hilt.annotations.BoundTo;
 import java.util.List;
 import javax.inject.Inject;
 
-public class AppCoinsOperationRepository implements Repository<String, AppCoinsOperation> {
+@BoundTo(supertype = Repository.class) public class AppCoinsOperationRepository
+    implements Repository<String, AppCoinsOperation> {
   private final AppCoinsOperationDao inAppPurchaseDataDao;
   private final AppCoinsOperationMapper mapper;
 
