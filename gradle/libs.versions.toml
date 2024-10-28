@@ -60,6 +60,7 @@ material_version = "1.5.0"
 michel_bull_kotlin_result = "1.1.16"
 mockito_version = "3.3.0"
 okhttp_version = "4.8.1"
+paranoid_version = "0.3.3"
 play_services_vision_version = "19.0.0"
 referrer_version = "2.2"
 retrofit_version = "2.8.1"
@@ -206,6 +207,7 @@ cpp = { module = "com.hbb20:ccp", version.ref = "cpp_version" }
 android-installreferrer = { module = "com.android.installreferrer:installreferrer", version.ref = "referrer_version" }
 android-support-annotations = { module = "com.android.support:support-annotations", version.ref = "support_annotations" }
 commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons_lang3_version" }
+paranoid = { module = "io.michaelrocks:paranoid-core", version.ref = "paranoid_version" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox_version" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains_annotations_version" }
 jackson-annotation = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson_version" }
