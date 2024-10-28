@@ -85,27 +85,29 @@ private fun MainScreen(
     navigator.navigateTo(directions = directions)
   }
 
-  purchaseData?.let {
-    val viewModel = rememberMainViewModel(
-      purchaseData = it,
-      paymentManager = paymentManager
+  IAPTheme {
+    purchaseData?.let {
+      val viewModel = rememberMainViewModel(
+        purchaseData = it,
+        paymentManager = paymentManager
+      )
+
+      val state by viewModel.uiState.collectAsState()
+
+      val loadData = { viewModel.reload() }
+
+      RealMainScreen(
+        state = state,
+        onSupportClick = onSupportClick,
+        loadData = loadData,
+        onNavigateTo = onNavigateTo
+      )
+
+    } ?: PurchaseDataError(
+      onSecondaryButtonClick = closeIAP,
+      onSupportClick = onSupportClick
     )
-
-    val state by viewModel.uiState.collectAsState()
-
-    val loadData = { viewModel.reload() }
-
-    RealMainScreen(
-      state = state,
-      onSupportClick = onSupportClick,
-      loadData = loadData,
-      onNavigateTo = onNavigateTo
-    )
-
-  } ?: PurchaseDataError(
-    onSecondaryButtonClick = closeIAP,
-    onSupportClick = onSupportClick
-  )
+  }
 }
 
 @Composable
@@ -113,22 +115,20 @@ private fun PurchaseDataError(
   onSecondaryButtonClick: () -> Unit,
   onSupportClick: () -> Unit,
 ) {
-  IAPTheme {
-    IAPBottomSheet(
-      showWalletIcon = true,
-      fullscreen = false,
-    ) {
-      GenericError(
-        secondaryButtonText = "Close", // TODO hardcoded string
-        onSecondaryButtonClick = onSecondaryButtonClick,
-        onSupportClick = onSupportClick
-      )
-    }
+  IAPBottomSheet(
+    showWalletIcon = false,
+    fullscreen = false,
+  ) {
+    GenericError(
+      secondaryButtonText = "Close", // TODO hardcoded string
+      onSecondaryButtonClick = onSecondaryButtonClick,
+      onSupportClick = onSupportClick
+    )
   }
 }
 
 @Composable
-fun RealMainScreen(
+private fun RealMainScreen(
   state: MainFragmentUiState,
   loadData: () -> Unit,
   onSupportClick: () -> Unit,
@@ -137,50 +137,48 @@ fun RealMainScreen(
   val showWalletIcon = state is MainFragmentUiState.Idle ||
       state is MainFragmentUiState.LoadingPurchaseData
 
-  IAPTheme {
-    IAPBottomSheet(
-      showWalletIcon = showWalletIcon,
-      fullscreen = false,
-    ) {
-      AnimatedContent(targetState = state, label = "AnimatedContent") { targetState ->
-        when (targetState) {
-          MainFragmentUiState.LoadingDisclaimer ->
-            LoadingDisclaimerScreen()
+  IAPBottomSheet(
+    showWalletIcon = showWalletIcon,
+    fullscreen = false,
+  ) {
+    AnimatedContent(targetState = state, label = "AnimatedContent") { targetState ->
+      when (targetState) {
+        MainFragmentUiState.LoadingDisclaimer ->
+          LoadingDisclaimerScreen()
 
-          is MainFragmentUiState.LoadingPurchaseData ->
-            PurchaseDetailsSkeleton(
-              showDisclaimer = targetState.showDisclaimer,
-              showPreSelectedPaymentMethod = targetState.showPreSelectedPaymentMethod,
-            )
-
-          is MainFragmentUiState.Idle -> PurchaseDetails(
-            purchaseInfoData = targetState.purchaseInfoData,
-            bonusInfoData = targetState.bonusInfoData,
+        is MainFragmentUiState.LoadingPurchaseData ->
+          PurchaseDetailsSkeleton(
             showDisclaimer = targetState.showDisclaimer,
-            preSelectedPaymentMethod = targetState.preSelectedPaymentMethod,
-            bonusAvailable = targetState.bonusAvailable,
-            onPaymentMethodClick = {
-              onNavigateTo(
-                MainFragmentDirections.actionNavigateToPaymentMethodsFragment(
-                  purchaseInfoDataExtra = targetState.purchaseInfoData,
-                  purchaseDataExtra = targetState.purchaseData,
-                )
+            showPreSelectedPaymentMethod = targetState.showPreSelectedPaymentMethod,
+          )
+
+        is MainFragmentUiState.Idle -> PurchaseDetails(
+          purchaseInfoData = targetState.purchaseInfoData,
+          bonusInfoData = targetState.bonusInfoData,
+          showDisclaimer = targetState.showDisclaimer,
+          preSelectedPaymentMethod = targetState.preSelectedPaymentMethod,
+          bonusAvailable = targetState.bonusAvailable,
+          onPaymentMethodClick = {
+            onNavigateTo(
+              MainFragmentDirections.actionNavigateToPaymentMethodsFragment(
+                purchaseInfoDataExtra = targetState.purchaseInfoData,
+                purchaseDataExtra = targetState.purchaseData,
               )
-            }
-          )
+            )
+          }
+        )
 
-          MainFragmentUiState.NoConnection -> GenericError(
-            secondaryButtonText = "Try Again", // TODO hardcoded string
-            onSecondaryButtonClick = loadData,
-            onSupportClick = onSupportClick
-          )
+        MainFragmentUiState.NoConnection -> GenericError(
+          secondaryButtonText = "Try Again", // TODO hardcoded string
+          onSecondaryButtonClick = loadData,
+          onSupportClick = onSupportClick
+        )
 
-          MainFragmentUiState.Error -> GenericError(
-            secondaryButtonText = "Try Again", // TODO hardcoded string
-            onSecondaryButtonClick = loadData,
-            onSupportClick = onSupportClick
-          )
-        }
+        MainFragmentUiState.Error -> GenericError(
+          secondaryButtonText = "Try Again", // TODO hardcoded string
+          onSecondaryButtonClick = loadData,
+          onSupportClick = onSupportClick
+        )
       }
     }
   }
