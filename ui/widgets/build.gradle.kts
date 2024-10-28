@@ -33,5 +33,4 @@ dependencies {
   implementation(libs.bundles.androidx.compose)
   implementation(libs.bundles.coil)
   implementation(libs.compose.lottie)
-  implementation(libs.androidx.swiperefreshlayout)
 }
