@@ -174,7 +174,7 @@ class OnboardingViewModel @Inject constructor(
         )
         deleteCachedGuest()
         saveIsFirstPaymentUseCase(
-          isFirstPayment = paymentFunnel.let { it == null || it == "first_payment_try" || it == "first_payment" }
+          isFirstPayment = paymentFunnel == null || paymentFunnel.equals("first_payment_try", true) || paymentFunnel.equals("first_payment", true)
         )
         onboardingAnalytics.sendRecoverGuestWalletEvent(
           bonus = guestBonus.amount.toString(),
