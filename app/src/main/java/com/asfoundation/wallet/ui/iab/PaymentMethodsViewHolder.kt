@@ -15,7 +15,7 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ItemPaymentMethodBinding
-import com.bumptech.glide.Glide
+import com.asfoundation.wallet.GlideApp
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
@@ -32,7 +32,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     disposables: CompositeDisposable,
     showPayPalLogout: Subject<Boolean>
   ) {
-    Glide.with(itemView.context)
+    GlideApp.with(itemView.context)
       .load(data.iconUrl)
       .into(binding.paymentMethodIc)
 

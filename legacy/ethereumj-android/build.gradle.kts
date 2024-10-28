@@ -12,4 +12,6 @@ dependencies {
   implementation(libs.commons.lang3)
   implementation(libs.spongycastle.prov)
   testImplementation(libs.bundles.testing)
+  androidTestImplementation(libs.test.junit.ext)
+  androidTestImplementation(libs.test.espresso)
 }

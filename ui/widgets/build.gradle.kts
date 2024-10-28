@@ -27,11 +27,10 @@ dependencies {
   implementation(libs.zxing.android)
   implementation(libs.glide)
   implementation(libs.epoxy)
-  ksp(libs.epoxy.processor)
+  kapt(libs.epoxy.processor)
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.appcompact)
   implementation(libs.bundles.androidx.compose)
   implementation(libs.bundles.coil)
   implementation(libs.compose.lottie)
-  implementation(libs.androidx.swiperefreshlayout)
 }

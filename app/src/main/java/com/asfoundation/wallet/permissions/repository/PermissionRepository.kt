@@ -32,7 +32,7 @@ class PermissionRepository(private val permissionsDao: PermissionsDao) :
   }
 
   override fun removeSync(key: String) {
-    permissionsDao.getSyncPermission(key)?.let { permissionsDao.remove(it) }
+    permissionsDao.remove(permissionsDao.getSyncPermission(key))
   }
 
   override fun contains(key: String): Single<Boolean> {

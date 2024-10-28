@@ -105,19 +105,19 @@ dependencies {
   implementation(platform(libs.firebase.bom))
   implementation(libs.firebase.messaging)
   implementation(libs.intercom) { exclude(group = "com.google.android", module = "flexbox") }
+  implementation(libs.paranoid)
   implementation(libs.flexbox)
 
-  implementation(libs.analytics.sentry)
   implementation(libs.bundles.analytics)
 
   implementation(libs.bundles.lottie)
   implementation(libs.shimmer)
   implementation(libs.glide)
-  ksp(libs.glide.compiler)
+  kapt(libs.glide.compiler)
   implementation(libs.bundles.coil)
 
   implementation(libs.epoxy)
-  ksp(libs.epoxy.processor)
+  kapt(libs.epoxy.processor)
 
   implementation(libs.appcoins.sdk)
   debugImplementation(libs.appcoins.sdk.debug)
@@ -135,6 +135,7 @@ dependencies {
   implementation(libs.bundles.paging)
 
   testImplementation(libs.bundles.testing)
+  androidTestImplementation(libs.test.junit.ext)
 
   testImplementation(libs.test.junit.jupiter.api)
   testRuntimeOnly(libs.test.junit.jupiter.engine)
