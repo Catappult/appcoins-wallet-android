@@ -569,6 +569,10 @@
   <string name="max">Max</string>
   <string name="amount">Amount</string>
   <string name="total_title">Total</string>
+  <string name="payment_method">Payment method</string>
+  <string name="credit_debit_card">Credit/debit card</string>
+  <string name="paypal">PayPal</string>
+  <string name="appc">AppCoins Credits</string>
 
 
   <!--Onboarding-->
