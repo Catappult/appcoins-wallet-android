@@ -134,6 +134,7 @@ dependencies {
   implementation(libs.bundles.paging)
 
   testImplementation(libs.bundles.testing)
+  androidTestImplementation(libs.test.junit.ext)
 
   testImplementation(libs.test.junit.jupiter.api)
   testRuntimeOnly(libs.test.junit.jupiter.engine)
