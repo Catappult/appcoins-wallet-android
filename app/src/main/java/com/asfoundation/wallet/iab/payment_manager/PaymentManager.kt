@@ -2,11 +2,12 @@ package com.asfoundation.wallet.iab.payment_manager
 
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.asfoundation.wallet.iab.domain.model.ProductInfoData
 import com.asfoundation.wallet.iab.domain.use_case.GetBalanceUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetPaymentMethodsUseCase
+import com.asfoundation.wallet.iab.domain.use_case.GetProductInfoUseCase
 import com.asfoundation.wallet.iab.payment_manager.domain.PaymentMethodInfo
 import com.asfoundation.wallet.ui.iab.PaymentMethodsInteractor
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,13 +16,29 @@ import javax.inject.Inject
 class PaymentManager @Inject constructor(
   private val paymentMethodsInteractor: PaymentMethodsInteractor,
   private val getPaymentMethodsUseCase: GetPaymentMethodsUseCase,
+  private val getProductInfoUseCase: GetProductInfoUseCase,
   private val getBalanceUseCase: GetBalanceUseCase,
   private val currencyFormatUtils: CurrencyFormatUtils,
 ) {
 
   private var paymentMethods: List<PaymentMethodInfo>? = null
 
+  private var productInfo: ProductInfoData? = null
+
   val selectedPaymentMethod = MutableStateFlow<PaymentMethodInfo?>(null)
+
+  suspend fun getProductInfo(
+    packageName: String,
+    skuId: String,
+  ) = coroutineScope {
+    if (productInfo != null) return@coroutineScope productInfo
+
+    return@coroutineScope getProductInfoUseCase(
+      packageName = packageName,
+      skuId = skuId
+    )
+      .also { productInfo = it }
+  }
 
   suspend fun getPaymentMethods(
     value: String? = null,
@@ -68,14 +85,16 @@ class PaymentManager @Inject constructor(
     }.also { this@PaymentManager.paymentMethods = it }
   }
 
-  fun hasPreSelectedPaymentMethod() = paymentMethodsInteractor.hasPreSelectedPaymentMethod()
+  fun hasPreSelectedPaymentMethod() =
+    selectedPaymentMethod.value != null || paymentMethodsInteractor.hasPreSelectedPaymentMethod()
 
   fun setSelectedPaymentMethod(id: String) {
     selectedPaymentMethod.tryEmit(paymentMethods?.first { it.paymentMethod.id == id })
   }
 
   suspend fun getSelectedPaymentMethod(): PaymentMethodInfo? {
-    val id = paymentMethodsInteractor.getLastUsedPaymentMethodV2()
+    val id = selectedPaymentMethod.value?.paymentMethod?.id
+      ?: paymentMethodsInteractor.getLastUsedPaymentMethodV2()
 
     if (id.isNullOrEmpty()) return null
 
