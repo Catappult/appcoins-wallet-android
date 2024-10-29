@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.appcoins.wallet.feature.walletInfo.data.country_code.CountryCodeRepository
-import com.appcoins.wallet.ui.common.callAsync
-import com.asfoundation.wallet.di.IoDispatcher
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
+import com.asfoundation.wallet.iab.domain.use_case.GetCountryCodeUseCase
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.presentation.emptyBonusInfoData
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
@@ -29,9 +27,8 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MainViewModel(
-  private val countryCodeProvider: CountryCodeRepository,
+  private val getCountryCodeUseCase: GetCountryCodeUseCase,
   private val paymentManager: PaymentManager,
-  private val networkDispatcher: CoroutineDispatcher,
   private val purchaseData: PurchaseData,
 ) : ViewModel() {
 
@@ -69,7 +66,7 @@ class MainViewModel(
         val hasPreselectedPaymentMethod = paymentManager.hasPreSelectedPaymentMethod()
         val selectedPaymentMethod = if (hasPreselectedPaymentMethod) paymentManager.getSelectedPaymentMethod() else null
 
-        val networkResponse = countryCodeProvider.getCountryCode().callAsync(networkDispatcher)
+        val networkResponse = getCountryCodeUseCase()
 
         val showDisclaimer = networkResponse.showRefundDisclaimer == 1
         viewModelState.update {
@@ -111,10 +108,9 @@ fun rememberMainViewModel(
       override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
         return MainViewModel(
-          countryCodeProvider = injectionsProvider.countryCodeProvider,
-          networkDispatcher = injectionsProvider.networkDispatcher,
           paymentManager = paymentManager,
-          purchaseData = purchaseData
+          purchaseData = purchaseData,
+          getCountryCodeUseCase = injectionsProvider.getCountryCodeUseCase
         ) as T
       }
     }
@@ -123,6 +119,5 @@ fun rememberMainViewModel(
 
 @HiltViewModel
 private class MainViewModelInjectionsProvider @Inject constructor(
-  val countryCodeProvider: CountryCodeRepository,
-  @IoDispatcher val networkDispatcher: CoroutineDispatcher,
+  val getCountryCodeUseCase: GetCountryCodeUseCase,
 ) : ViewModel()
