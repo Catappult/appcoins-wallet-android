@@ -28,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -291,16 +292,17 @@ fun PendingTransactionCard() {
   ) {
     Row(
       verticalAlignment = Alignment.CenterVertically,
-      modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+      modifier = Modifier.padding(start = 8.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
     ) {
       LottieAnimation(
         composition = composition,
         progress = { progress },
         modifier = Modifier
           .size(54.dp)
-          .padding(bottom = 14.dp)
+          .scale(1.3333f)
+          .padding(bottom = 13.dp)
       )
-      Spacer(modifier = Modifier.width(16.dp))
+      Spacer(modifier = Modifier.width(8.dp))
       Text(
         text = buildAnnotatedString {
           withStyle(style = SpanStyle(color = styleguide_light_grey)) {
