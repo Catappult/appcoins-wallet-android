@@ -39,7 +39,8 @@ fun PaymentMethodRow(
   ) {
     WalletAsyncImage(
       modifier = Modifier
-        .size(width = 36.dp, height = 20.dp),
+        .size(width = 34.dp, height = 24.dp),
+      placeholder = false,
       data = paymentMethodData.paymentMethodUrl,
       contentDescription = null,
       alpha = 0.4f.takeIf { !paymentMethodData.isEnable }
