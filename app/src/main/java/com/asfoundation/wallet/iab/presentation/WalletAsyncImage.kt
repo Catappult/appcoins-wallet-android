@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -20,6 +21,7 @@ fun WalletAsyncImage(
   contentDescription: String?,
   transformations: Transformation? = null,
   colorFilter: ColorFilter? = null,
+  alpha: Float = DefaultAlpha,
   contentScale: ContentScale = ContentScale.Crop,
 ) {
 
@@ -32,6 +34,7 @@ fun WalletAsyncImage(
     contentDescription = contentDescription,
     contentScale = contentScale,
     colorFilter = colorFilter,
+    alpha = alpha,
     modifier = modifier,
   )
 }
