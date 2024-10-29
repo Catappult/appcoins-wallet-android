@@ -757,7 +757,6 @@
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
 
   <!--New Purchase flow-->
-  <string name="purchase_add_method_disclaimer">By adding a payment method you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
   <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
   <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
   <string name="purchase_subtotal">Subtotal</string>
