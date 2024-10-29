@@ -570,6 +570,7 @@
   <string name="amount">Amount</string>
   <string name="total_title">Total</string>
   <string name="add_payment_method_button">Add payment method</string>
+  <string name="change_payment_method_button">Change payment method</string>
   <string name="add_card_button">Add credit/debit card</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
