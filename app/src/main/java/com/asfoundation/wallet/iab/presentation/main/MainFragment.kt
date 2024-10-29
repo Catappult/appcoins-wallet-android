@@ -263,8 +263,8 @@ private fun PurchaseDetails(
         SeparatorLine()
         PaymentMethodRow(
           modifier = Modifier
-            .padding(16.dp)
-            .addClick(onClick = onPaymentMethodClick, testTag = "onPaymentMethodClick"),
+            .addClick(onClick = onPaymentMethodClick, testTag = "onPaymentMethodClick")
+            .padding(16.dp),
           paymentMethodData = preSelectedPaymentMethod,
           showArrow = true,
         )
