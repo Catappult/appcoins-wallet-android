@@ -16,13 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.iab.payment_manager.domain.PaymentMethodInfo
 import com.asfoundation.wallet.iab.presentation.icon.getDownArrow
 import com.asfoundation.wallet.iab.theme.IAPTheme
@@ -44,8 +42,8 @@ fun PaymentMethodRow(
         .size(width = 36.dp, height = 20.dp),
       data = paymentMethodData.paymentMethodUrl,
       contentDescription = null,
-      colorFilter = ColorFilter.tint(disabledColor)
-        .takeIf { !paymentMethodData.isEnable },
+      alpha = 0.4f.takeIf { !paymentMethodData.isEnable }
+        ?: DefaultAlpha,
       contentScale = ContentScale.Fit,
     )
     Column(
