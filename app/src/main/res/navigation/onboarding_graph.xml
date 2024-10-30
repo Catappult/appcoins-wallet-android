@@ -11,14 +11,10 @@
       tools:layout="@layout/fragment_onboarding">
 
     <argument
-        android:name="backup"
-        android:defaultValue=""
-        app:argType="string" />
-
-    <argument
-        android:name="flow"
-        android:defaultValue=""
-        app:argType="string" />
+        android:name="backupModel"
+        app:nullable="true"
+        android:defaultValue="@null"
+        app:argType="com.asfoundation.wallet.onboarding.BackupModel" />
 
     <action
         android:id="@+id/action_navigate_to_recover_wallet_graph"

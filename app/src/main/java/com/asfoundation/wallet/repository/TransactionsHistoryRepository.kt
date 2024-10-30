@@ -2,7 +2,7 @@ package com.asfoundation.wallet.repository
 
 import com.appcoins.wallet.core.network.backend.api.TransactionsApi
 import com.appcoins.wallet.core.network.backend.model.InvoiceResponse
-import com.appcoins.wallet.core.network.backend.model.TransactionResponse
+import com.appcoins.wallet.core.network.backend.model.TransactionPagingResponse
 import com.appcoins.wallet.core.network.base.call_adapter.Result
 import com.appcoins.wallet.core.network.base.call_adapter.handleApi
 import it.czerwinski.android.hilt.annotations.BoundTo
@@ -18,7 +18,7 @@ interface TransactionsHistoryRepository {
     wallet: String,
     limit: Int,
     currency: String
-  ): Flow<Result<List<TransactionResponse>>>
+  ): Flow<Result<TransactionPagingResponse>>
 
   fun fetchPagingTransactions(wallet: String, currency: String): TransactionsHistoryPagingSource
 
@@ -32,7 +32,7 @@ class DefaultTransactionsHistoryRepository @Inject constructor(private val api: 
     wallet: String,
     limit: Int,
     currency: String
-  ): Flow<Result<List<TransactionResponse>>> {
+  ): Flow<Result<TransactionPagingResponse>> {
     return flow {
       emit(
         handleApi {

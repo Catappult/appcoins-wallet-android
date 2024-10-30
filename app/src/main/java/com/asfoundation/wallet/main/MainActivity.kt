@@ -23,9 +23,9 @@ import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOT
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPayPalProperties.PAYPAL_VERIFICATION_REQUIRED
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.disposables.Disposable
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 /**
@@ -93,7 +93,11 @@ class MainActivity : AppCompatActivity(),
     handleInitialNavigation(intent = intent)
   }
 
-  private fun handleInitialNavigation(authComplete: Boolean = false, intent: Intent? = null, fromSplashScreen: Boolean = false) {
+  private fun handleInitialNavigation(
+    authComplete: Boolean = false,
+    intent: Intent? = null,
+    fromSplashScreen: Boolean = false
+  ) {
     val action = intent?.action
     val launchedFromHistory = intent?.flags?.and(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0
 
@@ -126,28 +130,26 @@ class MainActivity : AppCompatActivity(),
 
   override fun onSideEffect(sideEffect: MainActivitySideEffect) {
     when (sideEffect) {
-      MainActivitySideEffect.NavigateToAutoUpdate -> navigator.navigateToAutoUpdate(navController)
+      MainActivitySideEffect.NavigateToAutoUpdate ->
+        navigator.navigateToAutoUpdate(navController)
+
       MainActivitySideEffect.NavigateToFingerprintAuthentication ->
         navigator.showAuthenticationActivity(this, authenticationResultLauncher)
 
-      MainActivitySideEffect.NavigateToOnboarding -> navigator.navigateToOnboarding(
-        navController
-      )
+      MainActivitySideEffect.NavigateToOnboarding ->
+        navigator.navigateToOnboarding(navController)
 
       is MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet ->
         navigator.navigateToOnboardingRecoverGuestWallet(
-          navController,
-          sideEffect.backup,
-          sideEffect.flow
+          navController = navController,
+          backupModel = sideEffect.backupModel,
         )
 
-      MainActivitySideEffect.NavigateToNavigationBar -> navigator.navigateToNavBarFragment(
-        navController
-      )
+      MainActivitySideEffect.NavigateToNavigationBar ->
+        navigator.navigateToNavBarFragment(navController)
 
-      MainActivitySideEffect.NavigateToPayPalVerification -> navigator.navigateToPayPalVerificationFragment(
-        navController
-      )
+      MainActivitySideEffect.NavigateToPayPalVerification ->
+        navigator.navigateToPayPalVerificationFragment(navController)
 
       is MainActivitySideEffect.NavigateToGiftCard -> {
         if (navController.currentDestination?.id == R.id.nav_bar_fragment) {
@@ -190,7 +192,7 @@ class MainActivity : AppCompatActivity(),
       ?.childFragmentManager
       ?.fragments
       ?.last() as? NavBarFragment
-    )?.handleGiftCard(giftCard)
+        )?.handleGiftCard(giftCard)
   }
 
   private fun setPromoCodeToCurrentFragment(promoCode: String) {
@@ -198,7 +200,7 @@ class MainActivity : AppCompatActivity(),
       ?.childFragmentManager
       ?.fragments
       ?.last() as? NavBarFragment
-    )?.handlePromoCode(promoCode)
+        )?.handlePromoCode(promoCode)
   }
 
   override fun onDestroy() {

@@ -122,17 +122,31 @@ class OnboardingViewModel @Inject constructor(
     sendSideEffect { OnboardingSideEffect.NavigateToLink(uri) }
   }
 
-  fun handleRecoverAndVerifyGuestWalletClick(backup: String, verificationFlow: String = "") {
+  fun handleRecoverAndVerifyGuestWalletClick(backupModel: BackupModel) {
     sendSideEffect { OnboardingSideEffect.ShowLoadingRecover }
     recoverEntryPrivateKeyUseCase(
       WalletKeyStore(
-        null, backup
+        name = null,
+        contents = backupModel.backupPrivateKey
       )
-    ).flatMap { setDefaultWallet(it) }.doOnSuccess { handleRecoverResult(it, verificationFlow) }
+    )
+      .flatMap { setDefaultWallet(it) }
+      .doOnSuccess {
+        handleRecoverResult(
+          recoverResult = it,
+          flow = backupModel.flow,
+          paymentFunnel = backupModel.paymentFunnel,
+        )
+      }
       .doOnError {
-        handleRecoverResult(FailedEntryRecover.GenericError(), verificationFlow)
+        handleRecoverResult(
+          recoverResult = FailedEntryRecover.GenericError(),
+          flow = backupModel.flow,
+          paymentFunnel = backupModel.paymentFunnel,
+        )
         walletsEventSender.sendWalletCompleteRestoreEvent(
-          WalletsAnalytics.STATUS_FAIL, it.message
+          status = WalletsAnalytics.STATUS_FAIL,
+          errorDetails = it.message
         )
       }.scopedSubscribe()
   }
@@ -147,16 +161,24 @@ class OnboardingViewModel @Inject constructor(
         .toSingleDefault(recoverResult)
     }
 
-  private fun handleRecoverResult(recoverResult: RecoverEntryResult, flow: String) =
+  private fun handleRecoverResult(
+    recoverResult: RecoverEntryResult,
+    flow: String,
+    paymentFunnel: String?
+  ) =
     when (recoverResult) {
       is SuccessfulEntryRecover -> {
         walletsEventSender.sendWalletRestoreEvent(
-          WalletsAnalytics.ACTION_IMPORT, WalletsAnalytics.STATUS_SUCCESS
+          action = WalletsAnalytics.ACTION_IMPORT,
+          status = WalletsAnalytics.STATUS_SUCCESS
         )
         deleteCachedGuest()
-        saveIsFirstPaymentUseCase(isFirstPayment = false)
+        saveIsFirstPaymentUseCase(
+          isFirstPayment = paymentFunnel == null || paymentFunnel.equals("first_payment_try", true) || paymentFunnel.equals("first_payment", true)
+        )
         onboardingAnalytics.sendRecoverGuestWalletEvent(
-          guestBonus.amount.toString(), guestBonus.currency
+          bonus = guestBonus.amount.toString(),
+          bonusCurrency = guestBonus.currency
         )
         if (flow.isEmpty()) sendSideEffect { OnboardingSideEffect.NavigateToFinish }
         else handleFlowTypes(flow)

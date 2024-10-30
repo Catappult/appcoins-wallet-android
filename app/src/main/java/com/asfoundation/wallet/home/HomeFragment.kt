@@ -76,6 +76,7 @@ import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
 import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.support.SupportNotificationProperties
+import com.asfoundation.wallet.transactions.StatusType
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
@@ -362,12 +363,16 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                 icon = icon,
                 appIcon = appIcon,
                 title = stringResource(id = title),
-                description = description ?: app,
+                description = if (status == StatusType.PENDING)
+                  stringResource(R.string.transaction_status_pending)
+                else
+                  description ?: app,
                 amount = amount,
                 convertedAmount = amountSubtitle,
                 subIcon = subIcon,
                 onClick = { navigateToTransactionDetails(transaction) },
-                textDecoration = textDecoration
+                textDecoration = textDecoration,
+                isPending = status == StatusType.PENDING
               )
             }
           }
