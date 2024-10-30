@@ -26,6 +26,7 @@ import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.emptyWalletInfo
 import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
+import com.asfoundation.wallet.iab.domain.model.emptyProductInfoData
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
@@ -248,7 +249,8 @@ private class PaymentMethodsFragmentUiStateProvider :
           paymentMethod = emptyPaymentMethodEntity,
           purchaseData = emptyPurchaseData,
           currencyFormatUtils = CurrencyFormatUtils(),
-          walletInfo = emptyWalletInfo
+          walletInfo = emptyWalletInfo,
+          productInfoData = emptyProductInfoData,
         ),
         CreditCardPaymentMethod(
           paymentMethod = emptyPaymentMethodEntity,

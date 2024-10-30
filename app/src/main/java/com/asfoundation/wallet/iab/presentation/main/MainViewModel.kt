@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class MainViewModel(
@@ -81,13 +82,13 @@ class MainViewModel(
             bonusAvailable = true, // TODO check if bonus is available for the product,
             purchaseInfoData = PurchaseInfoData(
               packageName = purchaseData.domain,
-              cost = selectedPaymentMethod?.run { "$currency $cost" }
-                ?: productInfoData.transaction.run { "$currencySymbol $amount" },
+              cost = selectedPaymentMethod?.run { "$currency ${currencyFormatUtils.formatCurrency(cost)}" }
+                ?: productInfoData.transaction.run { "$currency ${currencyFormatUtils.formatCurrency(amount)}" },
               productName = productInfoData.title,
               hasFees = selectedPaymentMethod?.hasFees ?: false,
-              taxes = selectedPaymentMethod?.run { "$currency $taxes" }
+              taxes = selectedPaymentMethod?.run { "$currency ${currencyFormatUtils.formatCurrency(taxes ?: BigDecimal.ZERO)}" }
                 ?.takeIf { selectedPaymentMethod.hasFees },
-              subtotal = selectedPaymentMethod?.run { "$currency $subtotal" }
+              subtotal = selectedPaymentMethod?.run { "$currency ${currencyFormatUtils.formatCurrency(subtotal ?: BigDecimal.ZERO)}" }
                 ?.takeIf { selectedPaymentMethod.hasFees }
             ),
             bonusInfoData = emptyBonusInfoData,

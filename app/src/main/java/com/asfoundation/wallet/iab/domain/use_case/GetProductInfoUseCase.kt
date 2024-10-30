@@ -7,6 +7,7 @@ import com.asfoundation.wallet.di.IoDispatcher
 import com.asfoundation.wallet.iab.domain.model.ProductInfoData
 import com.asfoundation.wallet.iab.domain.model.TransactionPrice
 import kotlinx.coroutines.CoroutineDispatcher
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class GetProductInfoUseCase @Inject constructor(
@@ -33,7 +34,7 @@ class GetProductInfoUseCase @Inject constructor(
       transaction = TransactionPrice(
         base = skuDetails.transactionPrice.base,
         appcoinsAmount = skuDetails.transactionPrice.appcoinsAmount,
-        amount = skuDetails.transactionPrice.amount,
+        amount = BigDecimal(skuDetails.transactionPrice.amount),
         currency = skuDetails.transactionPrice.currency,
         currencySymbol = skuDetails.transactionPrice.currencySymbol,
       )

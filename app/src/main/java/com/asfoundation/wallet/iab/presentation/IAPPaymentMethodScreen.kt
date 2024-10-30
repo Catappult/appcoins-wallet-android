@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.core.network.microservices.model.emptyPaymentMethodEntity
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.emptyWalletInfo
+import com.asfoundation.wallet.iab.domain.model.emptyProductInfoData
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.APPCPaymentMethod
@@ -141,7 +142,8 @@ private class PaymentMethodState : PreviewParameterProvider<Pair<PaymentMethod, 
         paymentMethod = emptyPaymentMethodEntity,
         purchaseData = emptyPurchaseData,
         currencyFormatUtils = CurrencyFormatUtils(),
-        walletInfo = emptyWalletInfo
+        walletInfo = emptyWalletInfo,
+        productInfoData = emptyProductInfoData
       ) to true,
       CreditCardPaymentMethod(
         paymentMethod = emptyPaymentMethodEntity,
