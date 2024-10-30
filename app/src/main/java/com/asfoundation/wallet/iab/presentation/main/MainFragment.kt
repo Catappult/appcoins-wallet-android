@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.iab.presentation.main
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -36,6 +35,7 @@ import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.CreditCardPaymentMethod
+import com.asfoundation.wallet.iab.presentation.AnimatedContentWithoutAnimationOnSameState
 import com.asfoundation.wallet.iab.presentation.BonusInfo
 import com.asfoundation.wallet.iab.presentation.BonusInfoData
 import com.asfoundation.wallet.iab.presentation.BonusInfoSkeleton
@@ -142,7 +142,7 @@ private fun RealMainScreen(
     showWalletIcon = showWalletIcon,
     fullscreen = false,
   ) {
-    AnimatedContent(targetState = state, label = "AnimatedContent") { targetState ->
+    AnimatedContentWithoutAnimationOnSameState(targetState = state) { targetState ->
       when (targetState) {
         MainFragmentUiState.LoadingDisclaimer ->
           LoadingDisclaimerScreen()
