@@ -261,7 +261,15 @@ private fun PurchaseDetails(
         SeparatorLine()
         PaymentMethodRow(
           modifier = Modifier
-            .addClick(onClick = onPaymentMethodClick, testTag = "onPaymentMethodClick")
+            .conditional(
+              condition = preSelectedPaymentMethod.isEnable,
+              ifTrue = {
+                addClick(
+                  onClick = onPaymentMethodClick,
+                  testTag = "onPaymentMethodClick"
+                )
+              }
+            )
             .padding(16.dp),
           paymentMethodData = preSelectedPaymentMethod,
           showArrow = true,
@@ -280,8 +288,20 @@ private fun PurchaseDetails(
     }
     Spacer(modifier = Modifier.weight(1f))
     IABOpaqueButton(
-      text = "Add payment method", // TODO hardcoded text
-      onClick = onPaymentMethodClick
+      text = when {
+        preSelectedPaymentMethod == null -> "Add payment method" // TODO hardcoded text
+        preSelectedPaymentMethod.isEnable -> "Buy" // TODO hardcoded text
+        else -> "Change payment method" // TODO hardcoded text
+      },
+      onClick = when {
+        preSelectedPaymentMethod?.isEnable == true -> preSelectedPaymentMethod.onBuyClick
+        else -> onPaymentMethodClick
+      },
+      testTag = when {
+        preSelectedPaymentMethod == null -> "addPaymentMethodClicked"
+        preSelectedPaymentMethod.isEnable -> "buyClicked"
+        else -> "changePaymentMethodClicked"
+      }
     )
   }
 }
