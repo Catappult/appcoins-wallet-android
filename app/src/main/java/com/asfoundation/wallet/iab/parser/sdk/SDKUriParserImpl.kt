@@ -83,7 +83,7 @@ class SDKUriParserImpl @Inject constructor(
       oemPackage = oemData.first,
       domain = data.domain,
       erc681Amount = amount,
-      symbol = tokenInfo.symbol
+      symbol = tokenInfo.symbol,
     )
   }
 

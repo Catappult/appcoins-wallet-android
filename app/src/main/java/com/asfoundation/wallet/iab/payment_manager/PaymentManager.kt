@@ -6,6 +6,7 @@ import com.asfoundation.wallet.iab.domain.model.ProductInfoData
 import com.asfoundation.wallet.iab.domain.use_case.GetBalanceUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetPaymentMethodsUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetProductInfoUseCase
+import com.asfoundation.wallet.iab.domain.use_case.GetWalletInfoUseCase
 import com.asfoundation.wallet.iab.payment_manager.domain.PaymentMethodInfo
 import com.asfoundation.wallet.ui.iab.PaymentMethodsInteractor
 import kotlinx.coroutines.async
@@ -17,6 +18,7 @@ class PaymentManager @Inject constructor(
   private val paymentMethodsInteractor: PaymentMethodsInteractor,
   private val getPaymentMethodsUseCase: GetPaymentMethodsUseCase,
   private val getProductInfoUseCase: GetProductInfoUseCase,
+  private val getCurrentWalletInfoUseCase: GetWalletInfoUseCase,
   private val getBalanceUseCase: GetBalanceUseCase,
   private val currencyFormatUtils: CurrencyFormatUtils,
 ) {
@@ -31,7 +33,7 @@ class PaymentManager @Inject constructor(
     packageName: String,
     skuId: String,
   ) = coroutineScope {
-    if (productInfo != null) return@coroutineScope productInfo
+    if (productInfo != null && productInfo?.id == skuId && productInfo?.packageName == packageName) return@coroutineScope productInfo
 
     return@coroutineScope getProductInfoUseCase(
       packageName = packageName,
@@ -48,10 +50,10 @@ class PaymentManager @Inject constructor(
     transactionType: String? = null,
     packageName: String? = null,
     entityOemId: String? = null,
-    address: String? = null,
   ) = coroutineScope {
     paymentMethods?.let { return@coroutineScope it }
 
+    val wallet = getCurrentWalletInfoUseCase()
     val walletInfoRequest = async { getBalanceUseCase() }
     val paymentMethodsRequest = async {
       getPaymentMethodsUseCase(
@@ -62,7 +64,7 @@ class PaymentManager @Inject constructor(
         transactionType = transactionType,
         packageName = packageName,
         entityOemId = entityOemId,
-        address = address,
+        address = wallet,
       )
     }
 

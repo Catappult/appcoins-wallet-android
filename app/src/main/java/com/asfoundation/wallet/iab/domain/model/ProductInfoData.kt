@@ -2,6 +2,7 @@ package com.asfoundation.wallet.iab.domain.model
 
 data class ProductInfoData(
   val id: String,
+  val packageName: String,
   val title: String,
   val description: String?,
   val transaction: TransactionPrice
