@@ -573,6 +573,9 @@
   <string name="credit_debit_card">Credit/debit card</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
+  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="mir_card">Mir card</string>
+  <string name="wallet_one">Wallet One</string>
 
 
   <!--Onboarding-->
