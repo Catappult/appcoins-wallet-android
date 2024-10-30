@@ -2,6 +2,7 @@ package com.appcoins.wallet.core.network.microservices.model
 
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
+import kotlin.random.Random
 
 data class PaymentMethodEntity(
   @SerializedName("name") val id: String, val label: String,
@@ -14,11 +15,6 @@ data class PaymentMethodEntity(
   val fee: FeeEntity?,
   val message: String?,
 ) {
-
-  companion object {
-    const val CREDITS_ID = "appcoins_credits"
-  }
-
   fun isAvailable(): Boolean = this.availability != "UNAVAILABLE"
 }
 
@@ -29,3 +25,28 @@ enum class FeeType {
 }
 
 data class Value(val value: BigDecimal, val currency: String)
+
+val emptyPaymentMethodEntity = PaymentMethodEntity(
+  id = Random.nextInt(1, 100000).toString(),
+  label = "Name",
+  iconUrl = "",
+  availability = "AVAILABLE",
+  gateway = Gateway(
+    name = Gateway.Name.appcoins,
+    label = "Gateway label",
+    icon = "Gateway icon"
+  ),
+  async = true,
+  price = Value(
+    value = BigDecimal(50.0),
+    currency = "€"
+  ),
+  fee = FeeEntity(
+    type = FeeType.EXACT,
+    cost = Value(
+      value = BigDecimal(50.0),
+      currency = "€"
+    )
+  ),
+  message = "Description",
+)
