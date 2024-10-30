@@ -20,14 +20,20 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.navigation.fragment.navArgs
-import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity.Companion.CREDITS_ID
+import com.appcoins.wallet.core.network.microservices.model.emptyPaymentMethodEntity
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.emptyWalletInfo
 import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
+import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
+import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.APPCPaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.CreditCardPaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.PayPalV1PaymentMethod
 import com.asfoundation.wallet.iab.presentation.GenericError
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
-import com.asfoundation.wallet.iab.presentation.PaymentMethodData
 import com.asfoundation.wallet.iab.presentation.PaymentMethodRow
 import com.asfoundation.wallet.iab.presentation.PaymentMethodSkeleton
 import com.asfoundation.wallet.iab.presentation.PreviewAll
@@ -35,7 +41,6 @@ import com.asfoundation.wallet.iab.presentation.PurchaseInfo
 import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
 import com.asfoundation.wallet.iab.presentation.addClick
 import com.asfoundation.wallet.iab.presentation.conditional
-import com.asfoundation.wallet.iab.presentation.emptyPaymentMethodData
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
 import com.asfoundation.wallet.iab.theme.IAPTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -78,8 +83,8 @@ private fun PaymentMethodsContent(
     var isPurchaseInfoExpanded by rememberSaveable { mutableStateOf(false) }
     val onPurchaseInfoExpandClick = { isPurchaseInfoExpanded = !isPurchaseInfoExpanded }
 
-    val onPaymentMethodClick: (PaymentMethodData) -> Unit = { paymentMethodData ->
-      viewModel.setSelectedPaymentMethod(paymentMethodData)
+    val onPaymentMethodClick: (PaymentMethod) -> Unit = { paymentMethod ->
+      viewModel.setSelectedPaymentMethod(paymentMethod)
       navigator.navigateUp()
     }
 
@@ -108,7 +113,7 @@ private fun RealPaymentMethodsContent(
   onSecondaryButtonClick: () -> Unit,
   onSupportClick: () -> Unit,
   onBackClick: () -> Unit,
-  onPaymentMethodClick: (PaymentMethodData) -> Unit,
+  onPaymentMethodClick: (PaymentMethod) -> Unit,
 ) {
   IAPTheme {
     IAPBottomSheet(
@@ -151,9 +156,9 @@ private fun RealPaymentMethodsContent(
 fun PaymentMethodsScreen(
   purchaseInfoData: PurchaseInfoData,
   isPurchaseInfoExpanded: Boolean,
-  paymentMethods: List<PaymentMethodData>? = null,
+  paymentMethods: List<PaymentMethod>? = null,
   onPurchaseInfoExpandClick: () -> Unit,
-  onPaymentMethodClick: ((PaymentMethodData) -> Unit)? = null,
+  onPaymentMethodClick: ((PaymentMethod) -> Unit)? = null,
 ) {
   Column(
     modifier = Modifier
@@ -234,32 +239,24 @@ private fun PaymentMethodsPreview(
 
 private class PaymentMethodsFragmentUiStateProvider :
   PreviewParameterProvider<PaymentMethodsUiState> {
-
-  val isEnabled = Random.nextBoolean()
-
+    
   override val values = sequenceOf(
     PaymentMethodsUiState.PaymentMethodsIdle(
       purchaseInfo = emptyPurchaseInfo,
       paymentMethods = listOf(
-        emptyPaymentMethodData.copy(
-          id = CREDITS_ID,
-          paymentMethodName = "Appc Credits",
-          isEnable = true,
-          paymentMethodDescription = "Is enabled: true",
-          paymentMethodUrl = "",
+        APPCPaymentMethod(
+          paymentMethod = emptyPaymentMethodEntity,
+          purchaseData = emptyPurchaseData,
+          currencyFormatUtils = CurrencyFormatUtils(),
+          walletInfo = emptyWalletInfo
         ),
-        emptyPaymentMethodData.copy(
-          id = "2",
-          paymentMethodName = "Credit Card",
-          isEnable = !isEnabled,
-          paymentMethodDescription = "Is enabled: $isEnabled".takeIf { !isEnabled } ?: "",
-          paymentMethodUrl = "",
+        CreditCardPaymentMethod(
+          paymentMethod = emptyPaymentMethodEntity,
+          purchaseData = emptyPurchaseData,
         ),
-        emptyPaymentMethodData.copy(
-          id = "3",
-          paymentMethodName = "Credit Card",
-          isEnable = isEnabled,
-          paymentMethodDescription = "Is enabled: $isEnabled".takeIf { !isEnabled } ?: "",
+        PayPalV1PaymentMethod(
+          paymentMethod = emptyPaymentMethodEntity,
+          purchaseData = emptyPurchaseData,
         ),
       ),
     ),
