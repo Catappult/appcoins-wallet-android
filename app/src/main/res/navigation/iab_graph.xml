@@ -40,11 +40,6 @@
       android:name="com.asfoundation.wallet.iab.presentation.payment_methods.PaymentMethodsFragment" >
 
     <argument
-        android:name="purchaseDataExtra"
-        app:nullable="true"
-        app:argType="com.asfoundation.wallet.iab.domain.model.PurchaseData" />
-
-    <argument
         android:name="purchaseInfoDataExtra"
         app:nullable="true"
         app:argType="com.asfoundation.wallet.iab.presentation.PurchaseInfoData" />

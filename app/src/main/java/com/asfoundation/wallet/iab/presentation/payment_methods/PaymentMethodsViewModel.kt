@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.presentation.PaymentMethodData
 import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
@@ -19,7 +18,6 @@ import kotlinx.coroutines.launch
 
 class PaymentMethodsViewModel(
   private val paymentManager: PaymentManager,
-  private val purchaseData: PurchaseData,
   private val purchaseInfoData: PurchaseInfoData,
 ) : ViewModel() {
 
@@ -44,16 +42,8 @@ class PaymentMethodsViewModel(
       viewModelState.update { PaymentMethodsUiState.LoadingPaymentMethods(purchaseInfoData) }
 
       try {
-        val productInfo =
-          paymentManager.getProductInfo(purchaseData.domain, purchaseData.skuId ?: "")
         val paymentMethodsRequest = async {
-          paymentManager.getPaymentMethods(
-            value = productInfo?.transaction?.amount.toString(),
-            currency = productInfo?.transaction?.currency,
-            transactionType = purchaseData.type,
-            packageName = purchaseData.domain,
-            entityOemId = purchaseData.oemId,
-          ).map { it.toPaymentMethodData() }
+          paymentManager.getPaymentMethods().map { it.toPaymentMethodData() }
         }
 
         val paymentMethods = paymentMethodsRequest.await()
@@ -79,7 +69,6 @@ class PaymentMethodsViewModel(
 @Composable
 fun rememberPaymentMethodsViewModel(
   paymentManager: PaymentManager,
-  purchaseData: PurchaseData,
   purchaseInfoData: PurchaseInfoData,
 ): PaymentMethodsViewModel {
   return viewModel<PaymentMethodsViewModel>(
@@ -87,7 +76,6 @@ fun rememberPaymentMethodsViewModel(
       override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
         return PaymentMethodsViewModel(
-          purchaseData = purchaseData,
           purchaseInfoData = purchaseInfoData,
           paymentManager = paymentManager,
         ) as T

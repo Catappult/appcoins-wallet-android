@@ -3,18 +3,21 @@ package com.asfoundation.wallet.iab.payment_manager
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.iab.domain.model.ProductInfoData
+import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.use_case.GetBalanceUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetPaymentMethodsUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetProductInfoUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetWalletInfoUseCase
 import com.asfoundation.wallet.iab.payment_manager.domain.PaymentMethodInfo
 import com.asfoundation.wallet.ui.iab.PaymentMethodsInteractor
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import javax.inject.Inject
 
-class PaymentManager @Inject constructor(
+class PaymentManager @AssistedInject constructor(
+  @Assisted private val purchaseData: PurchaseData,
   private val paymentMethodsInteractor: PaymentMethodsInteractor,
   private val getPaymentMethodsUseCase: GetPaymentMethodsUseCase,
   private val getProductInfoUseCase: GetProductInfoUseCase,
@@ -29,46 +32,43 @@ class PaymentManager @Inject constructor(
 
   val selectedPaymentMethod = MutableStateFlow<PaymentMethodInfo?>(null)
 
-  suspend fun getProductInfo(
-    packageName: String,
-    skuId: String,
-  ) = coroutineScope {
-    if (productInfo != null && productInfo?.id == skuId && productInfo?.packageName == packageName) return@coroutineScope productInfo
+  suspend fun getProductInfo() = coroutineScope {
+    if (productInfo != null) return@coroutineScope productInfo
 
     return@coroutineScope getProductInfoUseCase(
-      packageName = packageName,
-      skuId = skuId
+      packageName = purchaseData.domain,
+      skuId = purchaseData.skuId ?: ""
     )
       .also { productInfo = it }
   }
 
   suspend fun getPaymentMethods(
-    value: String? = null,
-    currency: String? = null,
     currencyType: String? = null,
     direct: Boolean? = null,
-    transactionType: String? = null,
-    packageName: String? = null,
-    entityOemId: String? = null,
   ) = coroutineScope {
     paymentMethods?.let { return@coroutineScope it }
 
-    val wallet = getCurrentWalletInfoUseCase()
+    val productInfoRequest = async { getProductInfo() }
+    val walletRequest = async { getCurrentWalletInfoUseCase() }
     val walletInfoRequest = async { getBalanceUseCase() }
+
+    val productInfo = productInfoRequest.await()
+    val wallet = walletRequest.await()
+    val walletInfo = walletInfoRequest.await()
+
     val paymentMethodsRequest = async {
       getPaymentMethodsUseCase(
-        value = value,
-        currency = currency,
+        value = productInfo?.transaction?.amount.toString(),
+        currency = productInfo?.transaction?.currency,
         currencyType = currencyType,
         direct = direct,
-        transactionType = transactionType,
-        packageName = packageName,
-        entityOemId = entityOemId,
+        transactionType = purchaseData.type,
+        packageName = purchaseData.domain,
+        entityOemId = purchaseData.oemId,
         address = wallet,
       )
     }
 
-    val walletInfo = walletInfoRequest.await()
     val paymentMethods = paymentMethodsRequest.await()
 
     return@coroutineScope paymentMethods.map { paymentMethod ->
