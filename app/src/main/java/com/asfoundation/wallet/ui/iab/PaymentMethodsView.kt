@@ -69,6 +69,11 @@ interface PaymentMethodsView {
     isSubscription: Boolean
   )
 
+  fun showAmazonPay(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
+
   fun showAdyen(
     fiatAmount: BigDecimal,
     fiatCurrency: String,

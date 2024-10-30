@@ -104,13 +104,7 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
 
         UiState.Idle,
         UiState.Loading -> {
-          Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = CenterVertically,
-            horizontalArrangement = Arrangement.Center
-          ) {
-            Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
-          }
+         Loading()
         }
 
         is UiState.Error -> {
@@ -133,23 +127,30 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
             buttonAnalytics = buttonsAnalytics
           )
         }
-        UiState.PaymentRedirect3ds,
+        UiState.PaymentRedirect3ds -> {
+          viewModel.amazonTransaction?.redirectUrl?.let { redirectUsingUniversalLink(it) }
+          Loading()
+        }
         UiState.PaymentLinkSuccess -> {
           createAmazonPayLink()
-          Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = CenterVertically,
-            horizontalArrangement = Arrangement.Center
-          ) {
-            Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
-          }
+          Loading()
         }
       }
     }
   }
 
-  private fun createAmazonPayLink() {
+  @Composable
+  private fun Loading() {
+    Row(
+      modifier = Modifier.fillMaxSize(),
+      verticalAlignment = CenterVertically,
+      horizontalArrangement = Arrangement.Center
+    ) {
+      Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
+    }
+  }
 
+  private fun createAmazonPayLink() {
     val params = if (BuildConfig.DEBUG) {
       mapOf(
         "merchantId" to viewModel.amazonTransaction?.merchantId,

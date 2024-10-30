@@ -496,7 +496,7 @@ public class InAppPurchaseInteractor {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
             paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null,
-            false, isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency),
+            false, isToShowPaypalLogout(paymentMethod)  || isToShowAmazonPayLogout(paymentMethod), hasExtraFees(paymentMethod, currency),
             new FiatValue(paymentMethod.getPrice()
                 .getValue(), paymentMethod.getPrice()
                 .getCurrency(), ""), paymentMethod.getMessage());
@@ -505,7 +505,7 @@ public class InAppPurchaseInteractor {
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
         paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false,
-        isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency), new FiatValue(
+        isToShowPaypalLogout(paymentMethod) || isToShowAmazonPayLogout(paymentMethod), hasExtraFees(paymentMethod, currency), new FiatValue(
         paymentMethod.getPrice()
             .getValue(), paymentMethod.getPrice()
         .getCurrency(), ""), paymentMethod.getMessage());
@@ -514,6 +514,11 @@ public class InAppPurchaseInteractor {
   private Boolean isToShowPaypalLogout(PaymentMethodEntity paymentMethod) {
     return paymentMethod.getId()
         .equals(PaymentMethodsView.PaymentMethodId.PAYPAL_V2.getId());
+  }
+
+  private Boolean isToShowAmazonPayLogout(PaymentMethodEntity paymentMethod) {
+    return paymentMethod.getId()
+        .equals(PaymentMethodsView.PaymentMethodId.AMAZONPAY.getId());
   }
 
   private Boolean hasExtraFees(PaymentMethodEntity paymentMethod, String currency) {

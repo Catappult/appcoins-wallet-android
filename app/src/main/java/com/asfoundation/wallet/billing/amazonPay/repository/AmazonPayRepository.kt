@@ -23,8 +23,12 @@ class AmazonPayRepository @Inject constructor(
 ) {
 
   fun createTransaction(
-    price: AmazonPrice, walletAddress: String, packageName: String?, sku: String?,
-    callbackUrl: String?, transactionType: String, method: String?, referrerUrl: String?, chargePermissionId: String?
+    price: AmazonPrice, reference: String?, walletAddress: String,
+    origin: String?, packageName: String?, metadata: String?, sku: String?,
+    callbackUrl: String?, transactionType: String,
+    entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
+    userWallet: String?, referrerUrl: String?,
+    method: String?, chargePermissionId: String?
   ): Single<AmazonPayTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -32,16 +36,23 @@ class AmazonPayRepository @Inject constructor(
           walletAddress = walletAddress,
           authorization = ewt,
           amazonPayRequest = AmazonPayPaymentRequest(
-            callbackUrl = callbackUrl,
-            domain = packageName,
-            sku = sku,
-            type = transactionType,
             price = price,
+            reference = reference,
+            origin = origin,
+            metadata = metadata,
+            sku = sku,
+            callbackUrl = callbackUrl,
+            entityOemId = entityOemId,
+            entityDomain = entityDomain,
+            entityPromoCode = entityPromoCode,
             referrerUrl = referrerUrl,
             method = method,
+            domain = packageName,
+            type = transactionType,
             returnUrl = HostProperties.AMAZON_PAY_REDIRECT_BASE_URL,
             channel = "ANDROID",
-            chargePermissionId = chargePermissionId
+            chargePermissionId = chargePermissionId,
+            guestWalletId = userWallet
           )
         )
           .map { response: AmazonPayTransaction ->
