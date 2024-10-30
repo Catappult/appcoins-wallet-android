@@ -24,7 +24,6 @@ import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity.
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
-import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.presentation.GenericError
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
@@ -47,13 +46,11 @@ class PaymentMethodsFragment : IabBaseFragment() {
 
   private val args by navArgs<PaymentMethodsFragmentArgs>()
 
-  private val purchaseData by lazy { args.purchaseDataExtra }
   private val purchaseInfoData by lazy { args.purchaseInfoDataExtra }
 
   @Composable
   override fun FragmentContent() = PaymentMethodsContent(
     navigator = navigator,
-    purchaseData = purchaseData,
     purchaseInfoData = purchaseInfoData,
     paymentManager = paymentManager,
   )
@@ -63,7 +60,6 @@ class PaymentMethodsFragment : IabBaseFragment() {
 private fun PaymentMethodsContent(
   navigator: FragmentNavigator,
   paymentManager: PaymentManager,
-  purchaseData: PurchaseData?,
   purchaseInfoData: PurchaseInfoData?,
 ) {
   val context = LocalContext.current
@@ -72,10 +68,9 @@ private fun PaymentMethodsContent(
   val onSupportClick = { navigator.onSupportClick() }
   val onBackClick = { navigator.navigateUp() }
 
-  if (purchaseData != null && purchaseInfoData != null) {
+  if (purchaseInfoData != null) {
     val viewModel = rememberPaymentMethodsViewModel(
       paymentManager = paymentManager,
-      purchaseData = purchaseData,
       purchaseInfoData = purchaseInfoData
     )
     val state by viewModel.uiState.collectAsState()

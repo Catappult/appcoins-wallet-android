@@ -6,6 +6,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.iab.di.GenericUriParser
 import com.asfoundation.wallet.iab.di.PaymentActivityNavigatorFactory
+import com.asfoundation.wallet.iab.di.PaymentManagerFactory
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.error.IABError
 import com.asfoundation.wallet.iab.parser.UriParser
@@ -19,14 +20,21 @@ class PaymentActivity : AppCompatActivity(), IABView {
   private val navHostFragment: NavHostFragment by lazy { supportFragmentManager.findFragmentById(R.id.fragment_nav_host) as NavHostFragment }
 
   @Inject
+  lateinit var paymentManagerFactory: PaymentManagerFactory
+
+  @Inject
   lateinit var paymentActivityFactory: PaymentActivityNavigatorFactory
 
   @Inject
   @GenericUriParser
   lateinit var uriParser: UriParser
 
-  @Inject
-  override lateinit var paymentManager: PaymentManager
+  override val paymentManager: PaymentManager by lazy {
+    paymentManagerFactory.create(
+      purchaseData = purchaseData.first
+        ?: throw RuntimeException("Unable to inject purchase data because its null")
+    )
+  }
 
   private val navigator by lazy { paymentActivityFactory.create(navHostFragment.navController) }
 

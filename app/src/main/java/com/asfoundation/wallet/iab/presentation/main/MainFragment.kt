@@ -162,7 +162,6 @@ private fun RealMainScreen(
             onNavigateTo(
               MainFragmentDirections.actionNavigateToPaymentMethodsFragment(
                 purchaseInfoDataExtra = targetState.purchaseInfoData,
-                purchaseDataExtra = targetState.purchaseData,
               )
             )
           }
