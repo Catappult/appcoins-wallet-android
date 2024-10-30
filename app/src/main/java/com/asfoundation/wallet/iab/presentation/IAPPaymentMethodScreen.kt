@@ -18,20 +18,28 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.asfoundation.wallet.iab.payment_manager.domain.PaymentMethodInfo
+import com.appcoins.wallet.core.network.microservices.model.emptyPaymentMethodEntity
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.emptyWalletInfo
+import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
+import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.APPCPaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.CreditCardPaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.PayPalV1PaymentMethod
 import com.asfoundation.wallet.iab.presentation.icon.getDownArrow
 import com.asfoundation.wallet.iab.theme.IAPTheme
-import kotlin.random.Random
 
 @Composable
 fun PaymentMethodRow(
   modifier: Modifier = Modifier,
-  paymentMethodData: PaymentMethodData,
+  paymentMethodData: PaymentMethod,
   showArrow: Boolean = false
 ) {
+  val context = LocalContext.current
   val disabledColor = IAPTheme.colors.disabledBColor
   Row(
     modifier = modifier,
@@ -41,7 +49,7 @@ fun PaymentMethodRow(
       modifier = Modifier
         .size(width = 34.dp, height = 24.dp),
       placeholder = false,
-      data = paymentMethodData.paymentMethodUrl,
+      data = paymentMethodData.icon,
       contentDescription = null,
       alpha = 0.4f.takeIf { !paymentMethodData.isEnable }
         ?: DefaultAlpha,
@@ -54,16 +62,16 @@ fun PaymentMethodRow(
         .weight(1f),
     ) {
       Text(
-        text = paymentMethodData.paymentMethodName,
+        text = paymentMethodData.name,
         style = IAPTheme.typography.bodyLarge,
         color = disabledColor.takeIf { !paymentMethodData.isEnable }
           ?: IAPTheme.colors.paymentMethodTextColor
       )
-      if (!paymentMethodData.paymentMethodDescription.isNullOrEmpty() || paymentMethodData.balance != null) {
+      val description = paymentMethodData.getDescription(context)
+      if (!description.isNullOrEmpty()) {
         Text(
           modifier = Modifier.padding(top = 4.dp),
-          text = paymentMethodData.paymentMethodDescription.takeIf { !paymentMethodData.paymentMethodDescription.isNullOrEmpty() && paymentMethodData.balance == null }
-            ?: "Balance: ${paymentMethodData.balance}",
+          text = description,
           style = IAPTheme.typography.bodySmall,
           color = disabledColor.takeIf { !paymentMethodData.isEnable }
             ?: IAPTheme.colors.smallText
@@ -108,7 +116,7 @@ fun PaymentMethodSkeleton(modifier: Modifier = Modifier) {
 @PreviewAll
 @Composable
 private fun PaymentMethodPreview(
-  @PreviewParameter(PaymentMethodState::class) state: Pair<PaymentMethodData, Boolean>
+  @PreviewParameter(PaymentMethodState::class) state: Pair<PaymentMethod, Boolean>
 ) {
   IAPTheme {
     PaymentMethodRow(
@@ -120,44 +128,28 @@ private fun PaymentMethodPreview(
 
 @PreviewAll
 @Composable
-fun PaymentMethodSkeletonPreview(modifier: Modifier = Modifier) {
+fun PaymentMethodSkeletonPreview() {
   IAPTheme {
     PaymentMethodSkeleton()
   }
 }
 
-private class PaymentMethodState : PreviewParameterProvider<Pair<PaymentMethodData, Boolean>> {
-  override val values: Sequence<Pair<PaymentMethodData, Boolean>>
+private class PaymentMethodState : PreviewParameterProvider<Pair<PaymentMethod, Boolean>> {
+  override val values: Sequence<Pair<PaymentMethod, Boolean>>
     get() = sequenceOf(
-      emptyPaymentMethodData to true,
-      emptyPaymentMethodData to false,
-      emptyPaymentMethodData.copy(paymentMethodDescription = null) to true
+      APPCPaymentMethod(
+        paymentMethod = emptyPaymentMethodEntity,
+        purchaseData = emptyPurchaseData,
+        currencyFormatUtils = CurrencyFormatUtils(),
+        walletInfo = emptyWalletInfo
+      ) to true,
+      CreditCardPaymentMethod(
+        paymentMethod = emptyPaymentMethodEntity,
+        purchaseData = emptyPurchaseData,
+      ) to false,
+      PayPalV1PaymentMethod(
+        paymentMethod = emptyPaymentMethodEntity,
+        purchaseData = emptyPurchaseData,
+      ) to true
     )
 }
-
-data class PaymentMethodData(
-  val id: String,
-  val paymentMethodUrl: String,
-  val paymentMethodName: String,
-  val isEnable: Boolean,
-  val paymentMethodDescription: String?,
-  val balance: String?,
-)
-
-fun PaymentMethodInfo.toPaymentMethodData() = PaymentMethodData(
-  id = paymentMethod.id,
-  paymentMethodUrl = paymentMethod.iconUrl,
-  paymentMethodName = paymentMethod.label,
-  paymentMethodDescription = paymentMethod.message,
-  isEnable = paymentMethod.isAvailable(),
-  balance = balance
-)
-
-val emptyPaymentMethodData = PaymentMethodData(
-  id = "1",
-  paymentMethodUrl = "",
-  paymentMethodName = "Credit Card",
-  isEnable = Random.nextBoolean(),
-  paymentMethodDescription = "Payment method description",
-  balance = null,
-)

@@ -27,12 +27,15 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.navArgs
+import com.appcoins.wallet.core.network.microservices.model.emptyPaymentMethodEntity
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
+import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.CreditCardPaymentMethod
 import com.asfoundation.wallet.iab.presentation.BonusInfo
 import com.asfoundation.wallet.iab.presentation.BonusInfoData
 import com.asfoundation.wallet.iab.presentation.BonusInfoSkeleton
@@ -40,7 +43,6 @@ import com.asfoundation.wallet.iab.presentation.GenericError
 import com.asfoundation.wallet.iab.presentation.IABLoading
 import com.asfoundation.wallet.iab.presentation.IABOpaqueButton
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
-import com.asfoundation.wallet.iab.presentation.PaymentMethodData
 import com.asfoundation.wallet.iab.presentation.PaymentMethodRow
 import com.asfoundation.wallet.iab.presentation.PaymentMethodSkeleton
 import com.asfoundation.wallet.iab.presentation.PreviewAll
@@ -50,7 +52,6 @@ import com.asfoundation.wallet.iab.presentation.PurchaseInfoSkeleton
 import com.asfoundation.wallet.iab.presentation.addClick
 import com.asfoundation.wallet.iab.presentation.conditional
 import com.asfoundation.wallet.iab.presentation.emptyBonusInfoData
-import com.asfoundation.wallet.iab.presentation.emptyPaymentMethodData
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
 import com.asfoundation.wallet.iab.theme.IAPTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -195,7 +196,7 @@ private fun PurchaseDetails(
   bonusInfoData: BonusInfoData,
   showDisclaimer: Boolean,
   bonusAvailable: Boolean,
-  preSelectedPaymentMethod: PaymentMethodData?,
+  preSelectedPaymentMethod: PaymentMethod?,
   onPaymentMethodClick: () -> Unit,
 ) {
   var isPurchaseInfoExpanded by rememberSaveable { mutableStateOf(false) }
@@ -363,7 +364,10 @@ private class MainFragmentUiStateProvider : PreviewParameterProvider<MainFragmen
   override val values = sequenceOf(
     MainFragmentUiState.Idle(
       showDisclaimer = showDisclaimer,
-      preSelectedPaymentMethod = emptyPaymentMethodData.takeIf { Random.nextBoolean() },
+      preSelectedPaymentMethod = CreditCardPaymentMethod(
+        paymentMethod = emptyPaymentMethodEntity,
+        purchaseData = emptyPurchaseData,
+      ).takeIf { Random.nextBoolean() },
       bonusAvailable = bonusAvailable,
       purchaseInfoData = emptyPurchaseInfo
         .copy(
