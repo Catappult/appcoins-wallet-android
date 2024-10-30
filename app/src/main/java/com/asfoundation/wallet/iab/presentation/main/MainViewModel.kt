@@ -75,10 +75,8 @@ class MainViewModel(
           }
         }
 
-        val productInfoData = paymentManager.getProductInfo(
-          packageName = purchaseData.domain,
-          skuId = purchaseData.skuId ?: ""
-        ) ?: throw RuntimeException("SkuId ${purchaseData.skuId} not found")
+        val productInfoData = paymentManager.getProductInfo()
+          ?: throw RuntimeException("SkuId ${purchaseData.skuId} not found")
 
         viewModelState.update {
           MainFragmentUiState.Idle(
