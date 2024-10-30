@@ -27,6 +27,7 @@ class GetProductInfoUseCase @Inject constructor(
 
     return ProductInfoData(
       id = skuDetails.sku,
+      packageName = packageName,
       title = skuDetails.title,
       description = skuDetails.description,
       transaction = TransactionPrice(

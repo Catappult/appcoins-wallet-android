@@ -1,33 +1,26 @@
 package com.asfoundation.wallet.iab.presentation.payment_methods
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
-import com.asfoundation.wallet.iab.domain.use_case.GetBalanceUseCase
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.presentation.PaymentMethodData
 import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
 import com.asfoundation.wallet.iab.presentation.toPaymentMethodData
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class PaymentMethodsViewModel(
   private val paymentManager: PaymentManager,
   private val purchaseData: PurchaseData,
   private val purchaseInfoData: PurchaseInfoData,
-  private val getBalanceUseCase: GetBalanceUseCase,
-  private val currencyFormatUtils: CurrencyFormatUtils
 ) : ViewModel() {
 
   private val viewModelState =
@@ -51,10 +44,12 @@ class PaymentMethodsViewModel(
       viewModelState.update { PaymentMethodsUiState.LoadingPaymentMethods(purchaseInfoData) }
 
       try {
+        val productInfo =
+          paymentManager.getProductInfo(purchaseData.domain, purchaseData.skuId ?: "")
         val paymentMethodsRequest = async {
           paymentManager.getPaymentMethods(
-            value = purchaseData.purchaseValue,
-            currency = purchaseData.currency,
+            value = productInfo?.transaction?.amount.toString(),
+            currency = productInfo?.transaction?.currency,
             transactionType = purchaseData.type,
             packageName = purchaseData.domain,
             entityOemId = purchaseData.oemId,
@@ -87,7 +82,6 @@ fun rememberPaymentMethodsViewModel(
   purchaseData: PurchaseData,
   purchaseInfoData: PurchaseInfoData,
 ): PaymentMethodsViewModel {
-  val injectionsProvider = hiltViewModel<PaymentMethodsViewModelInjectionsProvider>()
   return viewModel<PaymentMethodsViewModel>(
     factory = object : Factory {
       override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -95,17 +89,9 @@ fun rememberPaymentMethodsViewModel(
         return PaymentMethodsViewModel(
           purchaseData = purchaseData,
           purchaseInfoData = purchaseInfoData,
-          getBalanceUseCase = injectionsProvider.getBalanceUseCase,
-          currencyFormatUtils = injectionsProvider.currencyFormatUtils,
           paymentManager = paymentManager,
         ) as T
       }
     }
   )
 }
-
-@HiltViewModel
-private class PaymentMethodsViewModelInjectionsProvider @Inject constructor(
-  val getBalanceUseCase: GetBalanceUseCase,
-  val currencyFormatUtils: CurrencyFormatUtils,
-) : ViewModel()
