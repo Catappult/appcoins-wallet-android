@@ -49,14 +49,14 @@ class PaymentManager @AssistedInject constructor(
     val walletRequest = async { getCurrentWalletInfoUseCase() }
     val walletInfoRequest = async { getBalanceUseCase() }
 
-    val productInfo = productInfoRequest.await()
+    val productInfo = productInfoRequest.await() ?: throw RuntimeException("Error fetching sku details")
     val wallet = walletRequest.await()
     val walletInfo = walletInfoRequest.await()
 
     val paymentMethodsRequest = async {
       getPaymentMethodsUseCase(
-        value = productInfo?.transaction?.amount.toString(),
-        currency = productInfo?.transaction?.currency,
+        value = productInfo.transaction.amount.toString(),
+        currency = productInfo.transaction.currency,
         currencyType = currencyType,
         direct = direct,
         transactionType = purchaseData.type,
@@ -72,7 +72,8 @@ class PaymentManager @AssistedInject constructor(
         paymentMethodFactories.create(
           paymentMethod = paymentMethod,
           purchaseData = purchaseData,
-          walletInfo = walletInfo
+          walletInfo = walletInfo,
+          productInfoData = productInfo
         )
       }
 
