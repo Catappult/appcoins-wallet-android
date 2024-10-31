@@ -558,6 +558,12 @@
   <string name="rabbit_line_pay">Rabbit LINE Pay</string>
   <string name="sandbox">Sandbox</string>
   <string name="mipay">MiPay</string>
+  <string name="gopay">GoPay</string>
+  <string name="boleto">Boleto</string>
+  <string name="paytm_upi">Paytm</string>
+  <string name="paytm_wallet">Paytm Wallet</string>
+  <string name="qiwi">Qiwi</string>
+  <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -836,9 +842,9 @@
   <string name="backup_ready_email_button">به ایمیل ارسال کنید</string>
   <string name="backup_ready_device_button">روی دستگاه ذخیره کنید</string>
   <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
-  <string name="backup_confirmation_tips_1"><![CDATA[<b>آن را پرینت کنید</b> و در جای امنی نگه‌داری کنید.]]></string>
-  <string name="backup_confirmation_tips_2"><![CDATA[آن را روی یک USB <b>ذخیره کنید.</b>]]></string>
-  <string name="backup_confirmation_tips_3"><![CDATA[آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b>]]></string>
+  <string name="backup_confirmation_tips_1"><b>آن را پرینت کنید</b> و در جای امنی نگه‌داری کنید.</string>
+  <string name="backup_confirmation_tips_2">آن را روی یک USB <b>ذخیره کنید.</b></string>
+  <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b></string>
   <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_tooltip_later_button">شاید بعدا</string>
   <string name="backup_tooltip_backup_button">بک‌آپ</string>
