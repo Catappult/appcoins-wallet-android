@@ -558,6 +558,12 @@
   <string name="rabbit_line_pay">Rabbit LINE Pay</string>
   <string name="sandbox">Sandbox</string>
   <string name="mipay">MiPay</string>
+  <string name="gopay">GoPay</string>
+  <string name="boleto">Boleto</string>
+  <string name="paytm_upi">Paytm</string>
+  <string name="paytm_wallet">Paytm Wallet</string>
+  <string name="qiwi">Qiwi</string>
+  <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -835,9 +841,9 @@
   <string name="backup_ready_email_button">メールに送信</string>
   <string name="backup_ready_device_button">デバイスに保存</string>
   <string name="backup_confirmation_tips_title">ファイルを大切に保管してください:</string>
-  <string name="backup_confirmation_tips_1"><![CDATA[<b>印刷</b>して安全な場所に保管。]]></string>
-  <string name="backup_confirmation_tips_2"><![CDATA[<b>USBメモリ</b>に保存する。]]></string>
-  <string name="backup_confirmation_tips_3"><![CDATA[安全なプライベートクラウドストレージに<b>コピー</b>する。]]></string>
+  <string name="backup_confirmation_tips_1"><b>印刷</b>して安全な場所に保管。</string>
+  <string name="backup_confirmation_tips_2"><b>USBメモリ</b>に保存する。</string>
+  <string name="backup_confirmation_tips_3">安全なプライベートクラウドストレージに<b>コピー</b>する。</string>
   <string name="backup_tooltip_body">ウォレットのバックアップを取っておきましょう！</string>
   <string name="backup_tooltip_later_button">後で</string>
   <string name="backup_tooltip_backup_button">バックアップ</string>
