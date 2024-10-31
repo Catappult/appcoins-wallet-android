@@ -558,6 +558,12 @@
   <string name="rabbit_line_pay">Rabbit LINE Pay</string>
   <string name="sandbox">Sandbox</string>
   <string name="mipay">MiPay</string>
+  <string name="gopay">GoPay</string>
+  <string name="boleto">Boleto</string>
+  <string name="paytm_upi">Paytm</string>
+  <string name="paytm_wallet">Paytm Wallet</string>
+  <string name="qiwi">Qiwi</string>
+  <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -836,9 +842,9 @@
   <string name="backup_ready_email_button">Naar mailbox verzenden</string>
   <string name="backup_ready_device_button">Opslaan op apparaat</string>
   <string name="backup_confirmation_tips_title">Sla het bestand veilig op:</string>
-  <string name="backup_confirmation_tips_1"><![CDATA[<b>Bestand afdrukken</b> en op een veilige plek bewaren.]]></string>
-  <string name="backup_confirmation_tips_2"><![CDATA[<b>Bestand opslaan</b> op een USB-stick.]]></string>
-  <string name="backup_confirmation_tips_3"><![CDATA[<b>Bestand kopiëren</b> naar een persoonlijke en veilige cloudopslag.]]></string>
+  <string name="backup_confirmation_tips_1"><b>Bestand afdrukken</b> en op een veilige plek bewaren.</string>
+  <string name="backup_confirmation_tips_2"><b>Bestand opslaan</b> op een USB-stick.</string>
+  <string name="backup_confirmation_tips_3"><b>Bestand kopiëren</b> naar een persoonlijke en veilige cloudopslag.</string>
   <string name="backup_tooltip_body">Maak een back-up van je wallet!</string>
   <string name="backup_tooltip_later_button">Misschien later</string>
   <string name="backup_tooltip_backup_button">Back-up maken</string>
