@@ -558,6 +558,12 @@
   <string name="rabbit_line_pay">Rabbit LINE Pay</string>
   <string name="sandbox">Sandbox</string>
   <string name="mipay">MiPay</string>
+  <string name="gopay">GoPay</string>
+  <string name="boleto">Boleto</string>
+  <string name="paytm_upi">Paytm</string>
+  <string name="paytm_wallet">Paytm Wallet</string>
+  <string name="qiwi">Qiwi</string>
+  <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования и политику конфиденциальности, чтобы продолжить</string>
@@ -838,9 +844,9 @@
   <string name="backup_ready_email_button">Отправить на email</string>
   <string name="backup_ready_device_button">Сохранить на диск</string>
   <string name="backup_confirmation_tips_title">Держите файл в безопасном месте:</string>
-  <string name="backup_confirmation_tips_1"><![CDATA[<b>Распечатайте</b> и храните в безопасном месте.]]></string>
-  <string name="backup_confirmation_tips_2"><![CDATA[<b>Сохраните</b> на диск USB.]]></string>
-  <string name="backup_confirmation_tips_3"><![CDATA[<b>Скопируйте</b> в личное безопасное облачное хранилище.]]></string>
+  <string name="backup_confirmation_tips_1"><b>Распечатайте</b> и храните в безопасном месте.</string>
+  <string name="backup_confirmation_tips_2"><b>Сохраните</b> на диск USB.</string>
+  <string name="backup_confirmation_tips_3"><b>Скопируйте</b> в личное безопасное облачное хранилище.</string>
   <string name="backup_tooltip_body">Сделать резервную копию кошелька!</string>
   <string name="backup_tooltip_later_button">Может быть позже</string>
   <string name="backup_tooltip_backup_button">Бэкап</string>
