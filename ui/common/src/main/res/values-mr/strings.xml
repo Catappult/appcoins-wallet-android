@@ -558,6 +558,12 @@
   <string name="rabbit_line_pay">Rabbit LINE Pay</string>
   <string name="sandbox">Sandbox</string>
   <string name="mipay">MiPay</string>
+  <string name="gopay">GoPay</string>
+  <string name="boleto">Boleto</string>
+  <string name="paytm_upi">Paytm</string>
+  <string name="paytm_wallet">Paytm Wallet</string>
+  <string name="qiwi">Qiwi</string>
+  <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -836,9 +842,9 @@
   <string name="backup_ready_email_button">ईमेलवर पाठवा</string>
   <string name="backup_ready_device_button">डिव्हाईसवर सेव्ह करा</string>
   <string name="backup_confirmation_tips_title">फाईल सुरक्षित राखा:</string>
-  <string name="backup_confirmation_tips_1"><![CDATA[<b>प्रिंट करा</b> आणि कुठेतरी सुरक्षित राखा.]]></string>
-  <string name="backup_confirmation_tips_2"><![CDATA[यूएसबी ड्राईव्हवर <b>सेव्ह करा</b>.]]></string>
-  <string name="backup_confirmation_tips_3"><![CDATA[खासगी आणि सुरक्षित क्लाऊड स्टोरेजमध्ये <b>कॉपी करा</b>.]]></string>
+  <string name="backup_confirmation_tips_1"><b>प्रिंट करा</b> आणि कुठेतरी सुरक्षित राखा.</string>
+  <string name="backup_confirmation_tips_2">यूएसबी ड्राईव्हवर <b>सेव्ह करा</b>.</string>
+  <string name="backup_confirmation_tips_3">खासगी आणि सुरक्षित क्लाऊड स्टोरेजमध्ये <b>कॉपी करा</b>.</string>
   <string name="backup_tooltip_body">आपल्या वॉलेटचा बॅकअप करा!</string>
   <string name="backup_tooltip_later_button">कदाचित नंतर</string>
   <string name="backup_tooltip_backup_button">बॅक अप</string>
