@@ -537,6 +537,27 @@
   <string name="add_card_button">Add credit/debit card</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
+  <string name="payment_method">Payment method</string>
+  <string name="credit_debit_card">Credit/debit card</string>
+  <string name="paypal">PayPal</string>
+  <string name="appc">AppCoins Credits</string>
+  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="mir_card">Mir card</string>
+  <string name="wallet_one">Wallet One</string>
+  <string name="google_pay">Google Pay</string>
+  <string name="alipay">AliPayCN</string>
+  <string name="amazon_pay">Amazon Pay</string>
+  <string name="alfamart">Alfamart</string>
+  <string name="ovo">OVO</string>
+  <string name="dana">DANA</string>
+  <string name="linkaja">LinkAja</string>
+  <string name="doku_wallet">Doku Wallet</string>
+  <string name="oxxo">OXXO</string>
+  <string name="gcash">GCash</string>
+  <string name="true_money_wallet">TrueMoney Wallet</string>
+  <string name="rabbit_line_pay">Rabbit LINE Pay</string>
+  <string name="sandbox">Sandbox</string>
+  <string name="mipay">MiPay</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
