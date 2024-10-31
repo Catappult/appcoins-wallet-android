@@ -532,6 +532,11 @@
   <string name="max">Max.</string>
   <string name="amount">Importo</string>
   <string name="total_title">Totale</string>
+  <string name="add_payment_method_button">Add payment method</string>
+  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_card_button">Add credit/debit card</string>
+  <string name="add_paypal_button">Add paypal</string>
+  <string name="add_gift_card_button">Add gift card</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acconsento ai %1$s e all\'%2$s dell\'AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accetta i nostri Termini e condizioni e l\'Informativa sulla privacy per continuare</string>
@@ -698,6 +703,14 @@
   <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
   <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <!--New Purchase flow-->
+  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
+  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
+  <string name="purchase_subtotal">Subtotal</string>
+  <string name="purchase_taxes">Taxes</string>
+  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
+  <string name="purchase_promo_code_button">Do you have a promo code?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Indirizzo di fatturazione</string>
   <string name="purchase_address_address_field">Indirizzo</string>
