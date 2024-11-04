@@ -99,17 +99,21 @@ fun TransactionModel.cardInfoByType() =
         invoiceId = invoiceId
       )
 
-    TOPUP ->
+    TOPUP -> {
       TransactionCardInfo(
-        icon = R.drawable.ic_transaction_topup,
+        icon = if (status == StatusType.PENDING)
+          R.drawable.ic_transaction_pending
+        else
+          R.drawable.ic_transaction_topup,
         title = R.string.transaction_type_topup,
         amount = amount,
         amountSubtitle = amountSubtitle,
         date = date,
         status = status,
         txId = txId,
-        invoiceId = invoiceId
+        invoiceId = invoiceId,
       )
+    }
 
     GIFTCARD ->
       TransactionCardInfo(

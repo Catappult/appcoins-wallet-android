@@ -31,7 +31,7 @@ interface TopUpFragmentView {
   fun getSelectedCurrencyType(): String
   fun getSelectedCurrency(): LocalCurrency
   fun paymentMethodsFocusRequest()
-  fun getCurrentPaymentMethod(): String?
+  fun getCurrentPaymentMethod(): PaymentMethod?
   fun showNoNetworkError()
   fun showRetryAnimation()
   fun retryClick(): Observable<Any>

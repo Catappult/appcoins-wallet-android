@@ -41,12 +41,14 @@ import com.appcoins.wallet.ui.widgets.GameData
 import com.appcoins.wallet.ui.widgets.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
+import com.asfoundation.wallet.home.HomeViewModel.UiState.Success
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.FetchTransactionsHistoryUseCase
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
 import com.asfoundation.wallet.home.usecases.GetCardNotificationsUseCase
 import com.asfoundation.wallet.home.usecases.GetGamesListingUseCase
+import com.asfoundation.wallet.home.usecases.GetImpressionUseCase
 import com.asfoundation.wallet.home.usecases.GetLastShownUserLevelUseCase
 import com.asfoundation.wallet.home.usecases.GetLevelsUseCase
 import com.asfoundation.wallet.home.usecases.GetUnreadConversationsCountEventsUseCase
@@ -63,8 +65,6 @@ import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.toModel
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
-import com.asfoundation.wallet.home.HomeViewModel.UiState.Success
-import com.asfoundation.wallet.home.usecases.GetImpressionUseCase
 import com.github.michaelbull.result.unwrap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
@@ -389,14 +389,14 @@ constructor(
         .collect { result ->
           when (result) {
             is ApiSuccess -> {
-              newWallet = result.data.isEmpty()
+              newWallet = result.data.items.isEmpty()
               isLoadingTransactions = true
               _uiState.value =
                 Success(
-                  result.data
+                  result.data.items
                     .map { it.toModel(defaultCurrency) }
                     .take(
-                      with(result.data) {
+                      with(result.data.items) {
                         if (size < 4 || last().txId == get(lastIndex - 1).parentTxId) size
                         else size - 1
                       })

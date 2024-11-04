@@ -2,7 +2,10 @@ package com.asfoundation.wallet.onboarding_new_payment.mipay
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +20,16 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RedirectUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.MipayLayoutBinding
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_FATAL_ERROR
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_SUCCESS
+import com.asfoundation.wallet.onboarding_new_payment.utils.OnboardingUtils
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
 import javax.inject.Inject
 
 
@@ -31,6 +41,7 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
   private val binding by lazy { MipayLayoutBinding.bind(requireView()) }
   private var errorMessage = R.string.activity_iab_error_message
   lateinit var args: OnboardingMiPayFragmentArgs
+  private val clientWebSocket = OkHttpClient()
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -151,6 +162,8 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
   }
 
   private fun showCompletedPayment() {
+    viewModel.setResponseCodeWebSocket(SDK_STATUS_SUCCESS)
+    createWebSocketSdk()
     binding.progressBar.visibility = View.GONE
     binding.errorView.root.visibility = View.GONE
     binding.pendingUserPaymentView.root.visibility = View.GONE
@@ -162,7 +175,55 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
     binding.onboardingSuccessMiPayButtons.root.visibility = View.VISIBLE
   }
 
+  private fun createWebSocketSdk() {
+    if (args.transactionBuilder.type == "INAPP") {
+      if (
+        args.transactionBuilder.wspPort == null &&
+        OnboardingUtils.isSdkVersionAtLeast2(args.transactionBuilder.sdkVersion)
+      ) {
+        val responseCode = viewModel.getResponseCodeWebSocket()
+        val productToken = viewModel.transactionUid
+        val purchaseResultJson = JSONObject().apply {
+          put("responseCode", responseCode)
+          put("purchaseToken", productToken)
+        }.toString()
+
+        val encodedPurchaseResult = Uri.encode(purchaseResultJson)
+
+        val deepLinkUri = Uri.Builder()
+          .scheme("web-iap-result")
+          .authority(args.transactionBuilder.domain)
+          .appendQueryParameter("purchaseResult", encodedPurchaseResult)
+          .build()
+
+        val deepLinkIntent = Intent(Intent.ACTION_VIEW, deepLinkUri)
+
+        deepLinkIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        Handler(Looper.getMainLooper()).postDelayed({
+          startActivity(deepLinkIntent)
+        }, 2000)
+
+      } else {
+        val request = try {
+          Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
+        } catch (e: IllegalArgumentException) {
+          null
+        }
+        val listener = SdkPaymentWebSocketListener(
+          viewModel.transactionUid,
+          args.transactionBuilder.chainId.toString(),
+          viewModel.getResponseCodeWebSocket()
+        )
+        request?.let {
+          clientWebSocket.newWebSocket(request, listener)
+        }
+      }
+    }
+  }
+
   fun showError(message: Int?) {
+    viewModel.setResponseCodeWebSocket(SDK_STATUS_FATAL_ERROR)
+    createWebSocketSdk()
     message?.let { errorMessage = it }
     binding.errorView.errorMessage.text = getString(message ?: errorMessage)
     binding.pendingUserPaymentView.root.visibility = View.GONE

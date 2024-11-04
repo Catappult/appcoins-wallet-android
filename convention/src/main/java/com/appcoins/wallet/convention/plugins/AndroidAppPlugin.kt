@@ -145,7 +145,7 @@ class AndroidAppPlugin : Plugin<Project> {
             enable = true
           }
           composeOptions {
-            kotlinCompilerExtensionVersion = "1.4.3"
+            kotlinCompilerExtensionVersion = "1.5.13"
           }
           compose = true
           aidl = true

@@ -23,6 +23,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.R
@@ -124,12 +126,9 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper
 
-  private val fiatAmount: BigDecimal by lazy {
-    if (requireArguments().containsKey(FIAT_AMOUNT_KEY)) {
-      requireArguments().getSerializable(FIAT_AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("amount data not found")
-    }
+  private val fiatAmount by lazy {
+    getSerializableExtra<BigDecimal>(FIAT_AMOUNT_KEY)
+      ?: throw IllegalArgumentException("amount data not found")
   }
   private val currency: String by lazy {
     if (requireArguments().containsKey(FIAT_CURRENCY_KEY)) {
@@ -163,12 +162,9 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     }
   }
 
-  private val appcAmount: BigDecimal by lazy {
-    if (requireArguments().containsKey(APPC_AMOUNT_KEY)) {
-      requireArguments().getSerializable(APPC_AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("appc data not found")
-    }
+  private val appcAmount by lazy {
+    getSerializableExtra<BigDecimal>(APPC_AMOUNT_KEY)
+      ?: throw IllegalArgumentException("appc data not found")
   }
 
   private val isBds: Boolean by lazy {
@@ -187,7 +183,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     }
   }
 
-  private val skuId: String? by lazy {
+  private val skuId by lazy {
     requireArguments().getString(SKU_ID)
   }
 
@@ -207,12 +203,9 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     }
   }
 
-  private val transactionBuilder: TransactionBuilder by lazy {
-    if (requireArguments().containsKey(TRANSACTION_BUILDER)) {
-      (requireArguments().getParcelable(TRANSACTION_BUILDER) as TransactionBuilder?)!!
-    } else {
-      throw IllegalArgumentException("transaction builder not found")
-    }
+  private val transactionBuilder by lazy {
+    getParcelableExtra<TransactionBuilder>(TRANSACTION_BUILDER)
+      ?: throw IllegalArgumentException("transaction builder not found")
   }
 
   private val isSubscription: Boolean by lazy {

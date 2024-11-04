@@ -14,5 +14,7 @@ data class CachedTransactionResponse(
   val origin: String,
   val type: String,
   @SerializedName("oem_id") val oemId: String?,
-  @SerializedName("ws_port") val wsPort: String?
+  @SerializedName("ws_port") val wsPort: String?,
+  @SerializedName("sdk_version") val sdkVersion: String?,
+  val metadata: String?
 )

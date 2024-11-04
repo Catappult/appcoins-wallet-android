@@ -11,6 +11,7 @@ import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
@@ -97,9 +98,9 @@ class PaymentMethodsPresenter(
     savedInstanceState?.let {
       cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
       hasStartedAuth = savedInstanceState.getBoolean(HAS_STARTED_AUTH)
-      cachedFiatValue = savedInstanceState.getSerializable(FIAT_VALUE) as FiatValue?
+      cachedFiatValue = savedInstanceState.getSerializableExtra<FiatValue>(FIAT_VALUE)
       cachedPaymentNavigationData =
-        savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
+        savedInstanceState.getSerializableExtra<PaymentNavigationData>(PAYMENT_NAVIGATION_DATA)
     }
     handleOnGoingPurchases()
     getAmazonPayChargePermission()

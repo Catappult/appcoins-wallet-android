@@ -21,27 +21,14 @@ class PendingPurchaseFlowUseCaseImpl @Inject constructor(
     var startModeResult: StartMode.PendingPurchaseFlow? = null
     val cachedTransaction = cachedTransaction.getCachedTransaction().blockingGet()
     val cachedBackupKey = cachedBackup.getCachedBackup().blockingGet()
-    if (cachedBackupKey != null) {
-      if (cachedTransaction?.type?.uppercase() == PAYMENT_TYPE_SDK) {
+    val integrationFlow = when {
+      (cachedBackupKey != null && cachedTransaction?.type?.uppercase() == PAYMENT_TYPE_SDK) || cachedTransaction?.callbackUrl == null ->
+        "sdk"
+      else -> "osp"
+    }
+    if (cachedTransaction?.callbackUrl != null && cachedTransaction.sku != null) {
         startModeResult = StartMode.PendingPurchaseFlow(
-          integrationFlow = "sdk",
-          sku = cachedTransaction.sku,
-          packageName = cachedTransaction.packageName ?: "",
-          callbackUrl = null,
-          currency = cachedTransaction.currency,
-          orderReference = cachedTransaction.orderReference,
-          value = cachedTransaction.value,
-          signature = null,
-          origin = cachedTransaction.origin,
-          type = cachedTransaction.type,
-          oemId = cachedTransaction.oemId,
-          wsPort = cachedTransaction.wsPort,
-          backup = cachedBackupKey
-        )
-      }
-    } else if (cachedTransaction?.type?.uppercase() == PAYMENT_TYPE_OSP) {
-      startModeResult = StartMode.PendingPurchaseFlow(
-        integrationFlow = "osp",
+        integrationFlow = integrationFlow,
         sku = cachedTransaction.sku,
         packageName = cachedTransaction.packageName ?: "",
         callbackUrl = cachedTransaction.callbackUrl,
@@ -50,10 +37,11 @@ class PendingPurchaseFlowUseCaseImpl @Inject constructor(
         value = cachedTransaction.value,
         signature = cachedTransaction.signature,
         origin = cachedTransaction.origin,
-        type = cachedTransaction.type,
-        oemId = null,
-        wsPort = null,
-        backup = null
+        type = if (integrationFlow == "sdk") PAYMENT_TYPE_SDK else PAYMENT_TYPE_OSP,
+        oemId = cachedTransaction.oemId,
+        wsPort = cachedTransaction.wsPort,
+        sdkVersion = cachedTransaction.sdkVersion,
+        backup = cachedBackupKey
       )
     }
     return startModeResult

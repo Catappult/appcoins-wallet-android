@@ -1,19 +1,18 @@
 package com.asfoundation.wallet.billing.amazonPay
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.Nullable
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -32,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
@@ -42,14 +42,18 @@ import com.appcoins.wallet.ui.widgets.component.Animation
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.APP_LINK_HOST
-import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.APP_LINK_PATH
-import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.CHECKOUT_LANGUAGE
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_HOST
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_PATH
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.CHECKOUT_LANGUAGE
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -69,10 +73,18 @@ class AmazonPayIABFragment : BasePageViewFragment() {
   private lateinit var iabView: IabView
   private var navigatorIAB: Navigator? = null
 
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    check(context is IabView) { "VkPay payment fragment must be attached to IAB activity" }
+    iabView = context
+    iabView.lockRotation()
+  }
+
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     viewModel.getPaymentLink(
       transactionBuilder,
@@ -81,6 +93,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
       origin
     )
     viewModel.sendPaymentStartEvent(transactionBuilder)
+    navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
     return ComposeView(requireContext()).apply { setContent { MainContent() } }
   }
 
@@ -91,7 +104,8 @@ class AmazonPayIABFragment : BasePageViewFragment() {
       Modifier.height(400.dp),
       containerColor = styleguide_white_75,
     ) { _ ->
-      when (viewModel.uiState.collectAsState().value) {
+      val uiState = viewModel.uiState.collectAsState().value
+      when (uiState) {
         is UiState.Success -> {
           handleCompletePurchase()
           TransactionCompletedScreen()
@@ -109,7 +123,14 @@ class AmazonPayIABFragment : BasePageViewFragment() {
         }
 
         is UiState.Error -> {
-          //send error event
+          analytics.sendPaymentErrorEvent(
+            transactionBuilder.domain,
+            transactionBuilder.skuId,
+            transactionBuilder.amount().toString(),
+            BillingAnalytics.PAYMENT_METHOD_AMAZON_PAY,
+            transactionBuilder.type,
+            "",
+          )
           GenericError(
             message = stringResource(R.string.activity_iab_error_message),
             onSupportClick = {
@@ -135,46 +156,65 @@ class AmazonPayIABFragment : BasePageViewFragment() {
             Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
           }
         }
+
+        is UiState.SendSuccessBundle -> {
+          navigatorIAB?.popView(uiState.bundle)
+        }
       }
     }
   }
 
   @Composable
   fun TransactionCompletedScreen() {
-    Box(
+    Column(
       modifier = Modifier
-        .fillMaxWidth()
-        .height(260.dp),
-      contentAlignment = Alignment.TopCenter
+        .fillMaxSize(),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.Center
     ) {
       Animation(
-        modifier = Modifier.size(100.dp),
-        animationRes = R.raw.transaction_complete_bonus_animation_new
+        modifier = Modifier
+          .size(100.dp),
+        animationRes = R.raw.success_animation,
+        iterations = 1,
+        restartOnPlay = false,
+        onAnimationEnd = {
+          viewLifecycleOwner.lifecycleScope.launch {
+            delay(1500L)
+            viewModel.getSuccessBundle(transactionBuilder)
+          }
+        }
       )
       Text(
         text = stringResource(R.string.transaction_status_success),
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
-        modifier = Modifier
-          .padding(top = 108.dp)
-          .align(Alignment.Center)
+        modifier = Modifier.padding(top = 10.dp)
       )
-
-      Row(
-        modifier = Modifier
-          .padding(top = 148.dp)
-          .align(Alignment.Center),
-        verticalAlignment = CenterVertically
-      ) {
-        Animation(modifier = Modifier.size(28.dp), animationRes = R.raw.bonus_gift_animation)
-        Text(
-          text = stringResource(R.string.purchase_success_bonus_received_title, bonus),
-          fontSize = 12.sp,
-          color = styleguide_dark_grey
-        )
+      if (bonus.isNotEmpty()) {
+        Row(
+          modifier = Modifier
+            .padding(top = 6.dp),
+          verticalAlignment = CenterVertically
+        ) {
+          Animation(
+            modifier = Modifier.size(28.dp),
+            animationRes = R.raw.bonus_gift_animation
+          )
+          Text(
+            text = stringResource(
+              R.string.purchase_success_bonus_received_title,
+              bonus
+            ),
+            fontSize = 12.sp,
+            color = styleguide_dark_grey,
+            modifier = Modifier.padding(start = 8.dp)
+          )
+        }
       }
     }
   }
+
 
   private fun createAmazonPayLink() {
 

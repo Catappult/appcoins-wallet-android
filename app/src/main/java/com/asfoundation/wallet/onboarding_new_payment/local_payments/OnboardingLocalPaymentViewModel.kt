@@ -11,6 +11,8 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.onboarding.use_cases.GetResponseCodeWebSocketUseCase
+import com.asfoundation.wallet.onboarding.use_cases.SetResponseCodeWebSocketUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaymentLinkUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
@@ -45,13 +47,15 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
   private val getPaymentLinkUseCase: GetPaymentLinkUseCase,
   private val events: OnboardingPaymentEvents,
   private val getTransactionStatusUseCase: GetTransactionStatusUseCase,
+  private val getResponseCodeWebSocketUseCase: GetResponseCodeWebSocketUseCase,
+  private val setResponseCodeWebSocketUseCase: SetResponseCodeWebSocketUseCase,
   savedStateHandle: SavedStateHandle
 ) :
   BaseViewModel<OnboardingLocalPaymentState, OnboardingLocalPaymentSideEffect>(
     OnboardingLocalPaymentState()
   ) {
 
-  private var transactionUid: String? = null
+  var transactionUid: String? = null
   private val JOB_UPDATE_INTERVAL_MS = 20 * DateUtils.SECOND_IN_MILLIS
   private val JOB_TIMEOUT_MS = 180 * DateUtils.SECOND_IN_MILLIS
   private var jobTransactionStatus: Job? = null
@@ -177,6 +181,10 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
       }.scopedSubscribe()
     }
   }
+
+  fun getResponseCodeWebSocket() = getResponseCodeWebSocketUseCase()
+
+  fun setResponseCodeWebSocket(responseCode: Int) = setResponseCodeWebSocketUseCase(responseCode)
 
   fun handleBackButton() {
     sendSideEffect { OnboardingLocalPaymentSideEffect.NavigateBackToPaymentMethods }

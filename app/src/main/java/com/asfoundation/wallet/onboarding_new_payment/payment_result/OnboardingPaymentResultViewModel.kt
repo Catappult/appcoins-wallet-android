@@ -113,6 +113,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
           PaymentModel.Status.COMPLETED -> {
             args.paymentModel.purchaseUid = authorisedPaymentModel.purchaseUid
             uid = authorisedPaymentModel.uid
+            args.paymentModel.hash = authorisedPaymentModel.hash
             events.sendPaymentSuccessEvent(
               args.transactionBuilder,
               args.paymentType,

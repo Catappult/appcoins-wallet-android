@@ -19,10 +19,12 @@ class IndicativeEventLogger @Inject constructor(
   override fun setup() = Unit
 
   override fun log(
-    eventName: String, data: Map<String, Any>?,
-    action: AnalyticsManager.Action, context: String
+    eventName: String,
+    data: Map<String, Any>?,
+    action: AnalyticsManager.Action,
+    context: String
   ) {
-    val completedData: Map<String, Any>? = (data ?: HashMap()) + mapOf(
+    val completedData: Map<String, Any> = (data ?: HashMap()) + mapOf(
       Pair(
         AnalyticsLabels.DEVICE_ORIENTATION,
         indicativeAnalytics.findDeviceOrientation()
@@ -36,7 +38,7 @@ class IndicativeEventLogger @Inject constructor(
       )
     )
     Indicative.addProperties(indicativeAnalytics.superProperties)
-    Indicative.recordEvent(eventName, indicativeAnalytics.usrId, (completedData ?: HashMap()))
+    Indicative.recordEvent(eventName, indicativeAnalytics.usrId, completedData)
     Log.d(
       TAG,
       "log() called with: eventName = [$eventName], superProperties = [${indicativeAnalytics.superProperties}] data = [$completedData], action = [$action], context = [$context], userId = [${indicativeAnalytics.usrId}]"

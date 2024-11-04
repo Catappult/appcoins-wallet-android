@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Romanian\n"
 "Language: ro_RO\n"
-"PO-Revision-Date: 2023-03-29 11:53\n"
+"PO-Revision-Date: 2024-09-24 14:04\n"
 
 #. Card Title
 #:
@@ -116,4 +116,9 @@ msgstr "Primești un Bonus suplimentar de {0}% la toate achizițiile tale, cu ex
 #:
 msgid "New Perk Available"
 msgstr "Noi beneficii disponibile"
+
+#. Card - Title - Enjoy
+#:
+msgid "Enjoy {0}% bonus in every purchase."
+msgstr "Bucură-te de un bonus de {0}% la fiecare achiziție."
 

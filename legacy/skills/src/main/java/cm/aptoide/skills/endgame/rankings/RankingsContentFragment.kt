@@ -23,6 +23,7 @@ import cm.aptoide.skills.usecase.GetNextBonusScheduleUseCase
 import cm.aptoide.skills.usecase.GetUserStatisticsUseCase
 import com.appcoins.wallet.core.network.eskills.model.BonusUser
 import com.appcoins.wallet.core.network.eskills.model.TopRankings
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -32,11 +33,12 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RankingsContentFragment : Fragment() {
-  private lateinit var timeFrame: TimeFrame
-  private lateinit var walletAddress: String
-  private lateinit var packageName: String
-  private lateinit var sku: String
-  private var supportsRewards: Boolean = false
+  private val timeFrame by lazy { getSerializableExtra<TimeFrame>(TIME_FRAME_KEY) ?: throw RuntimeException("Missing TimeFrame") }
+  private val walletAddress: String by lazy { requireArguments().getString(WALLET_ADDRESS_KEY) ?: throw RuntimeException("Missing walletAddress") }
+  private val packageName: String by lazy { requireArguments().getString(PACKAGE_NAME_KEY) ?: throw RuntimeException("Missing packageName") }
+  private val sku: String by lazy { requireArguments().getString(SKU_KEY) ?: throw RuntimeException("Missing sku") }
+  private val supportsRewards: Boolean by lazy { requireArguments().getBoolean(SUPPORTS_REWARDS_KEY) }
+
   private lateinit var adapter: RankingsAdapter
   private var disposables = CompositeDisposable()
   private lateinit var loadingView: View
@@ -54,15 +56,6 @@ class RankingsContentFragment : Fragment() {
 
   @Inject
   lateinit var getNextBonusScheduleUseCase: GetNextBonusScheduleUseCase
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    timeFrame = requireArguments().getSerializable(TIME_FRAME_KEY) as TimeFrame
-    walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY)!!
-    packageName = requireArguments().getString(PACKAGE_NAME_KEY)!!
-    sku = requireArguments().getString(SKU_KEY)!!
-    supportsRewards = requireArguments().getBoolean(SUPPORTS_REWARDS_KEY)
-  }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -135,7 +128,7 @@ class RankingsContentFragment : Fragment() {
     val secondPlayerRowBinding: SecondRowLayoutBinding =
       binding.currentTop3Container.secondPlayerRow
     val thirdRowLayoutBinding: ThirdRowLayoutBinding = binding.currentTop3Container.thirdPlayerRow
-    if (players_score.size >= 1) {
+    if (players_score.isNotEmpty()) {
       val player1: TopRankings = players_score[0]
       populateTop3row(
         player1, firstPlayerRowBinding.rankingUsername, firstPlayerRowBinding.rankingScore
@@ -182,7 +175,7 @@ class RankingsContentFragment : Fragment() {
   }
 
   private fun updateLastBonusWinners(users: List<BonusUser>) {
-    if (users.size >= 1) {
+    if (users.isNotEmpty()) {
       binding.lastWinnersContainer.firstUsername.text = users[0].userName
       binding.lastWinnersContainer.firstWinnings.text = java.lang.String.format(
         Locale.getDefault(), "%.2f$", users[0].bonusAmount

@@ -78,8 +78,7 @@ class BdsPromotionsRepository @Inject constructor(
       .flatMapObservable {
         local.deleteAndInsertPromotions(it.promotions)
           .andThen(local.insertWalletOrigin(wallet, it.walletOrigin))
-          .toSingle { UserStats(it.promotions, it.walletOrigin) }
-          .toObservable()
+          .andThen(Observable.just(UserStats(it.promotions, it.walletOrigin)))
       }
       .onErrorResumeNext { throwable: Throwable ->
         if (useDbOnError) {
@@ -335,20 +334,6 @@ class BdsPromotionsRepository @Inject constructor(
   override fun getReferralInfo(): Single<ReferralResponse> {
     return api.getReferralInfo()
   }
-
-  override fun isReferralNotificationToShow(wallet: String): Observable<Boolean> {
-    return getGamificationStats(wallet, null)
-      .subscribeOn(Schedulers.io())
-      .map {
-        (!local.isReferralNotificationSeen(wallet)) && it.gamificationStatus == GamificationStatus.VIP
-      }
-      .onErrorReturn {
-        false
-      }
-  }
-
-  override fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) =
-    local.setReferralNotificationSeen(wallet, isSeen)
 
   private fun isNoNetworkException(throwable: Throwable): Boolean = throwable is IOException ||
       throwable.cause != null && throwable.cause is IOException

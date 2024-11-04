@@ -13,7 +13,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.annotation.Nullable
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +21,7 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
+import com.appcoins.wallet.core.utils.properties.UrlPropertiesFormatter
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingPaymentMethodsFragmentBinding
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
@@ -50,13 +50,14 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
   private lateinit var controller: PaymentMethodsController
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     return OnboardingPaymentMethodsFragmentBinding.inflate(inflater).root
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingPaymentMethodsFragmentArgs.fromBundle(requireArguments())
     handlePaymentMethodList()
@@ -216,9 +217,12 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
         privacyPolicy
       )
 
+    val termsConditionsUrl = UrlPropertiesFormatter.addLanguageElementToUrl(TERMS_CONDITIONS_URL)
+    val privacyPolicyUrl = UrlPropertiesFormatter.addLanguageElementToUrl(PRIVACY_POLICY_URL)
+
     val spannableString = SpannableString(termsPolicyTickBox)
-    setLinkToString(spannableString, termsConditions, Uri.parse(TERMS_CONDITIONS_URL))
-    setLinkToString(spannableString, privacyPolicy, Uri.parse(PRIVACY_POLICY_URL))
+    setLinkToString(spannableString, termsConditions, termsConditionsUrl)
+    setLinkToString(spannableString, privacyPolicy, privacyPolicyUrl)
 
     views.onboardingPaymentTermsConditions?.termsConditionsBody?.text = spannableString
     views.onboardingPaymentTermsConditions?.termsConditionsBody?.isClickable = true

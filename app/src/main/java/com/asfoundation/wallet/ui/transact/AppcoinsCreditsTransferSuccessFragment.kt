@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TransactSuccessFragmentLayoutBinding
 import com.jakewharton.rxbinding2.view.RxView
@@ -46,12 +47,16 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val amount = requireArguments().getSerializable(AMOUNT_SENT_KEY) as BigDecimal
+    val amount = getSerializableExtra<BigDecimal>(AMOUNT_SENT_KEY)!!
     val currency = requireArguments().getString(CURRENCY_KEY)!!
     val toAddress = requireArguments().getString(TO_ADDRESS_KEY)!!
     presenter = AppcoinsCreditsTransactSuccessPresenter(
-      this, amount, currency, toAddress,
-      CompositeDisposable(), formatter
+      view = this,
+      amount = amount,
+      currency = currency,
+      toAddress = toAddress,
+      disposables = CompositeDisposable(),
+      formatter = formatter
     )
   }
 
