@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.amazonPay
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.text.format.DateUtils
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
@@ -16,9 +17,13 @@ import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePerm
 import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayCheckoutSessionIdUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.PatchAmazonPayCheckoutSessionUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayChargePermissionLocalStorageUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
+import com.asfoundation.wallet.billing.vkpay.VkPaymentIABViewModel.SuccessInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -40,6 +45,7 @@ sealed class UiState {
   object PaymentLinkSuccess : UiState()
   object PaymentRedirect3ds : UiState()
   object Success : UiState()
+  data class SendSuccessBundle(val bundle: Bundle) : UiState()
 }
 
 @HiltViewModel
@@ -53,6 +59,8 @@ class AmazonPayTopUpViewModel @Inject constructor(
   private val patchAmazonPayCheckoutSessionUseCase: PatchAmazonPayCheckoutSessionUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
   private val analytics: BillingAnalytics,
+  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
   private val rxSchedulers: RxSchedulers,
 ) : ViewModel() {
 
@@ -66,6 +74,7 @@ class AmazonPayTopUpViewModel @Inject constructor(
   private var isTimerRunning = false
   val scope = CoroutineScope(Dispatchers.Main)
   var runningCustomTab = false
+  var successInfo: SuccessInfo? = null
 
   @SuppressLint("CheckResult")
   fun getPaymentLink(
@@ -251,6 +260,11 @@ class AmazonPayTopUpViewModel @Inject constructor(
         when (it.status) {
           Transaction.Status.COMPLETED -> {
             stopTransactionStatusTimer()
+            successInfo = SuccessInfo(
+              hash = it.hash,
+              orderReference = null,
+              purchaseUid = it.uid,
+            )
             _uiState.value = UiState.Success
           }
 
@@ -272,6 +286,31 @@ class AmazonPayTopUpViewModel @Inject constructor(
       }.subscribe()
     }
 
+  }
+
+  fun getSuccessBundle(
+    transactionBuilder: TransactionBuilder?
+  ) {
+    if (transactionBuilder == null) {
+      _uiState.value = UiState.Error
+      return
+    }
+    inAppPurchaseInteractor.savePreSelectedPaymentMethod(
+      PaymentMethodsView.PaymentMethodId.VKPAY.id
+    )
+    createSuccessBundleUseCase(
+      transactionBuilder.type,
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
+      successInfo?.purchaseUid,
+      successInfo?.orderReference,
+      successInfo?.hash,
+      rxSchedulers.io
+    ).doOnSuccess {
+      _uiState.value = UiState.SendSuccessBundle(it.bundle)
+    }.subscribeOn(rxSchedulers.main).observeOn(rxSchedulers.main).doOnError {
+      _uiState.value = UiState.Error
+    }.subscribe()
   }
 
 }
