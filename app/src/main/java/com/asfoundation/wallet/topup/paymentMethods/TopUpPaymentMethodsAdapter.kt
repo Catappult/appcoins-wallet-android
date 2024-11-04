@@ -7,13 +7,13 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.TopupPaymentMethodsViewHolder
+import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
 
 
 class TopUpPaymentMethodsAdapter(
   private var paymentMethods: List<PaymentMethod>,
-  private var paymentMethodClick: PublishSubject<PaymentMethod>,
+  private var paymentMethodClick: PublishRelay<PaymentMethod>,
   private val logoutCallback: () -> Unit,
   private val disposables: CompositeDisposable,
   private val showLogoutAction: Boolean,
@@ -45,7 +45,7 @@ class TopUpPaymentMethodsAdapter(
       checked = selectedItem == position,
       listener = {
         setSelectedItem(holder.absoluteAdapterPosition)
-        paymentMethodClick.onNext(paymentMethods[position])
+        paymentMethodClick.accept(paymentMethods[position])
       },
       onClickLogoutAction = logoutCallback,
       disposables = disposables,
