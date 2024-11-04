@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.Nullable
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
@@ -46,9 +44,9 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.APP_LINK_HOST
-import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.APP_LINK_PATH
-import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.CHECKOUT_LANGUAGE
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_HOST
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_PATH
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.CHECKOUT_LANGUAGE
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -78,8 +76,7 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
 
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
     args = OnboardingAmazonPayFragmentArgs.fromBundle(requireArguments())
     viewModel.getPaymentLink()
