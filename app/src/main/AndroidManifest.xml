@@ -238,14 +238,17 @@
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
 
-        <data android:scheme="googlepayresult"/>
-        <data android:host="${applicationId}"/>
-        <data android:scheme="http"/>
-        <data android:host="wallet.dev.appcoins.io"/>
-        <data android:pathPrefix="/app/googlepay/result"/>
-        <data android:scheme="https"/>
-        <data android:host="wallet.dev.appcoins.io"/>
-        <data android:pathPrefix="/app/googlepay/result"/>
+        <data
+            android:host="${applicationId}"
+            android:scheme="googlepayresult" />
+        <data
+            android:host="wallet.dev.appcoins.io"
+            android:pathPrefix="/app/googlepay/result"
+            android:scheme="http" />
+        <data
+            android:host="wallet.dev.appcoins.io"
+            android:pathPrefix="/app/googlepay/result"
+            android:scheme="https" />
       </intent-filter>
     </activity>
 
