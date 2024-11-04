@@ -9,8 +9,8 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 
 @Composable
-fun Animation(modifier: Modifier, animationRes: Int, iterations: Int = Int.MAX_VALUE) {
+fun Animation(modifier: Modifier, animationRes: Int, iterations: Int = Int.MAX_VALUE, restartOnPlay: Boolean = true) {
   val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(animationRes))
-  val progress by animateLottieCompositionAsState(composition, iterations = iterations)
+  val progress by animateLottieCompositionAsState(composition, iterations = iterations, restartOnPlay = restartOnPlay)
   LottieAnimation(modifier = modifier, composition = composition, progress = { progress })
 }
