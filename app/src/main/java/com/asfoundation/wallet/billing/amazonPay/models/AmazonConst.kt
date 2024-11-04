@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.billing.amazonPay.models
 
-class AmazonConsts {
+import java.util.Locale
+
+class AmazonConst {
   companion object {
     var APP_LINK_HOST = mapOf(
       "US" to "www.amazon.com",
@@ -30,5 +32,10 @@ class AmazonConsts {
       "ES" to "es_ES",
       "JP" to "ja_JP"
    )
+
+    fun getUserCheckoutLanguage(): String {
+      val userCountry = Locale.getDefault().country
+      return CHECKOUT_LANGUAGE.getOrDefault(userCountry, "en_US")
+    }
   }
 }
