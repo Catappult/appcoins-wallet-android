@@ -7,15 +7,13 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.TopupPaymentMethodsViewHolder
-import com.jakewharton.rxrelay2.PublishRelay
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.Subject
+import io.reactivex.subjects.PublishSubject
 
 
 class TopUpPaymentMethodsAdapter(
   private var paymentMethods: List<PaymentMethod>,
-  private var paymentMethodClick: PublishRelay<PaymentMethod>,
+  private var paymentMethodClick: PublishSubject<PaymentMethod>,
   private val logoutCallback: () -> Unit,
   private val disposables: CompositeDisposable,
   private val showLogoutAction: Boolean,
@@ -26,8 +24,10 @@ class TopUpPaymentMethodsAdapter(
   private var selectedItem = 0
 
   fun setSelectedItem(position: Int) {
+    val tempItem = selectedItem
     selectedItem = position
-    notifyDataSetChanged()
+    notifyItemChanged(tempItem)
+    notifyItemChanged(selectedItem)
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopupPaymentMethodsViewHolder {
@@ -44,9 +44,8 @@ class TopUpPaymentMethodsAdapter(
       data = paymentMethods[position],
       checked = selectedItem == position,
       listener = {
-        selectedItem = holder.absoluteAdapterPosition
-        paymentMethodClick.accept(paymentMethods[position])
-        notifyDataSetChanged()
+        setSelectedItem(holder.absoluteAdapterPosition)
+        paymentMethodClick.onNext(paymentMethods[position])
       },
       onClickLogoutAction = logoutCallback,
       disposables = disposables,

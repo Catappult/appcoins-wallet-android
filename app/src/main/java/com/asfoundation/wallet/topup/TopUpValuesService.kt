@@ -22,10 +22,11 @@ class TopUpValuesService @Inject constructor(
       .onErrorReturn { createErrorValuesList(it) }
   }
 
-  fun getLimitValues(currency: String?): Single<TopUpLimitValues> {
+  fun getLimitValues(currency: String?, method: String?): Single<TopUpLimitValues> {
     return api.getInputLimitValues(
       packageName = BuildConfig.APPLICATION_ID,
-      currency = currency ?: fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
+      currency = currency ?: fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency(),
+      method = method,
     )
       .map { responseMapper.mapValues(it) }
       .onErrorReturn { TopUpLimitValues(it.isNoNetworkException()) }

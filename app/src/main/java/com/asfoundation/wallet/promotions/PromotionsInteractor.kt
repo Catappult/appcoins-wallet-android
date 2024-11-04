@@ -29,8 +29,6 @@ constructor(
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
-    const val REFERRAL_ID = "REFERRAL"
-    const val VOUCHER_ID = "VOUCHER"
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
     const val PROMO_CODE_PERK = "PROMO_CODE_PERK"
   }

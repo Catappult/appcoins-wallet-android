@@ -98,8 +98,4 @@ class UserStatsDataTest : UserStatsLocalData {
 
   override fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) = Unit
 
-  override fun isReferralNotificationSeen(wallet: String): Boolean = false
-
-  override fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) = Unit
-
 }

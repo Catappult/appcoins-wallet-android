@@ -9,47 +9,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
-import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.widgets.GenericError
 import com.appcoins.wallet.ui.widgets.component.Animation
-import com.appcoins.wallet.ui.widgets.component.ButtonType
-import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.APP_LINK_HOST
-import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.APP_LINK_PATH
-import com.asfoundation.wallet.billing.amazonPay.models.AmazonConsts.Companion.CHECKOUT_LANGUAGE
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_HOST
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_PATH
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.CHECKOUT_LANGUAGE
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
@@ -59,7 +43,6 @@ import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.
 import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.TOP_UP_CURRENCY_SYMBOL
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import org.slf4j.MDC.put
 import javax.inject.Inject
 
 
@@ -104,7 +87,7 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
 
         UiState.Idle,
         UiState.Loading -> {
-         Loading()
+          Loading()
         }
 
         is UiState.Error -> {
@@ -155,7 +138,7 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
       mapOf(
         "merchantId" to viewModel.amazonTransaction?.merchantId,
         "ledgerCurrency" to "EUR",
-        "checkoutLanguage" to CHECKOUT_LANGUAGE.getValue("UK"),
+        "checkoutLanguage" to AmazonConst.getUserCheckoutLanguage(),
         "productType" to "PayOnly",
         "amazonCheckoutSessionId" to viewModel.amazonTransaction?.checkoutSessionId,
         "integrationType" to "NativeMobile",
@@ -166,7 +149,7 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
       mapOf(
         "merchantId" to viewModel.amazonTransaction?.merchantId,
         "ledgerCurrency" to "EUR",
-        "checkoutLanguage" to CHECKOUT_LANGUAGE.getValue("UK"),
+        "checkoutLanguage" to AmazonConst.getUserCheckoutLanguage(),
         "productType" to "PayOnly",
         "amazonCheckoutSessionId" to viewModel.amazonTransaction?.checkoutSessionId,
         "integrationType" to "NativeMobile",

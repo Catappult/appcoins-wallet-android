@@ -15,10 +15,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.annotation.Nullable
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.AppUtils
@@ -26,6 +26,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
+import com.appcoins.wallet.core.utils.properties.UrlPropertiesFormatter
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
@@ -45,7 +46,9 @@ class OnboardingFragment : BasePageViewFragment(),
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
-  lateinit var args: OnboardingFragmentArgs
+  private val args by navArgs<OnboardingFragmentArgs>()
+
+  private val backupModel by lazy { args.backupModel ?: BackupModel() }
 
   private val viewModel: OnboardingViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingBinding::bind)
@@ -82,12 +85,13 @@ class OnboardingFragment : BasePageViewFragment(),
 
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View = FragmentOnboardingBinding.inflate(inflater).root
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    args = OnboardingFragmentArgs.fromBundle(requireArguments())
     setClickListeners()
     setStringWithLinks()
     handleRecoverGuestWallet()
@@ -98,13 +102,13 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingButtons.onboardingNextButton.setOnClickListener { viewModel.handleLaunchWalletClick() }
     views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
     views.onboardingRecoverGuestButton.setOnClickListener {
-      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
+      viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
     }
     views.onboardingGuestLaunchButton.setOnClickListener {
       viewModel.handleLaunchWalletClick()
     }
     views.onboardingGuestVerifyButton.setOnClickListener {
-      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
+      viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
     }
   }
 
@@ -120,18 +124,17 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun handleRecoverGuestWallet() {
-    if (args.backup.isNotBlank()) {
-      when (args.flow) {
-        OnboardingFlow.VERIFY_CREDIT_CARD.name, OnboardingFlow.VERIFY_PAYPAL.name -> {
+    if (backupModel.backupPrivateKey.isNotBlank()) {
+      when (backupModel.flow) {
+        OnboardingFlow.VERIFY_CREDIT_CARD.name,
+        OnboardingFlow.VERIFY_PAYPAL.name ->
           showVerifyGuestWallet()
-        }
 
-        OnboardingFlow.ONBOARDING_PAYMENT.name -> {
-          viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
-        }
+        OnboardingFlow.ONBOARDING_PAYMENT.name ->
+          viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
 
         else -> {
-          viewModel.getGuestWalletBonus(args.backup)
+          viewModel.getGuestWalletBonus(backupModel.backupPrivateKey)
           showRecoverGuestWallet()
         }
       }
@@ -153,11 +156,20 @@ class OnboardingFragment : BasePageViewFragment(),
         context?.let { restart(it) }
       }
 
-      is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
-      OnboardingSideEffect.ShowLoadingRecover -> showRecoveringGuestWalletLoading()
-      is OnboardingSideEffect.UpdateGuestBonus -> showGuestBonus(sideEffect.bonus)
-      is OnboardingSideEffect.NavigateToVerify -> navigator.navigateToVerify(sideEffect.flow)
-      OnboardingSideEffect.NavigateToOnboardingPayment -> navigator.navigateToOnboardingPayment()
+      is OnboardingSideEffect.NavigateToLink ->
+        navigator.navigateToBrowser(sideEffect.uri)
+
+      OnboardingSideEffect.ShowLoadingRecover ->
+        showRecoveringGuestWalletLoading()
+
+      is OnboardingSideEffect.UpdateGuestBonus ->
+        showGuestBonus(sideEffect.bonus)
+
+      is OnboardingSideEffect.NavigateToVerify ->
+        navigator.navigateToVerify(sideEffect.flow)
+
+      OnboardingSideEffect.NavigateToOnboardingPayment ->
+        navigator.navigateToOnboardingPayment()
     }
   }
 
@@ -249,9 +261,12 @@ class OnboardingFragment : BasePageViewFragment(),
       R.string.intro_agree_terms_and_conditions_body, termsConditions, privacyPolicy
     )
 
+    val termsConditionsUrl = UrlPropertiesFormatter.addLanguageElementToUrl(TERMS_CONDITIONS_URL)
+    val privacyPolicyUrl = UrlPropertiesFormatter.addLanguageElementToUrl(PRIVACY_POLICY_URL)
+
     val spannableString = SpannableString(termsPolicyTickBox)
-    setLinkToString(spannableString, termsConditions, Uri.parse(TERMS_CONDITIONS_URL))
-    setLinkToString(spannableString, privacyPolicy, Uri.parse(PRIVACY_POLICY_URL))
+    setLinkToString(spannableString, termsConditions, termsConditionsUrl)
+    setLinkToString(spannableString, privacyPolicy, privacyPolicyUrl)
 
     views.onboardingTermsConditions.termsConditionsBody.text = spannableString
     views.onboardingTermsConditions.termsConditionsBody.isClickable = true

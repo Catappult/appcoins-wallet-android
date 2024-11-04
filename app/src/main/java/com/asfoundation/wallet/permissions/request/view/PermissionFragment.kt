@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoModel
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
+import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPermissionsLayoutBinding
@@ -63,12 +64,15 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val permission: PermissionName = arguments?.getSerializable(PERMISSION_KEY) as PermissionName
+    val permission = getSerializableExtra<PermissionName>(PERMISSION_KEY)!!
     presenter = PermissionsFragmentPresenter(
-      this, permissionsInteractor,
-      arguments?.getString(CALLING_PACKAGE)!!, permission,
-      arguments?.getString(APK_SIGNATURE_KEY)!!, CompositeDisposable(),
-      AndroidSchedulers.mainThread()
+      view = this,
+      permissionsInteractor = permissionsInteractor,
+      packageName = arguments?.getString(CALLING_PACKAGE)!!,
+      permissionName = permission,
+      apkSignature = arguments?.getString(APK_SIGNATURE_KEY)!!,
+      disposables = CompositeDisposable(),
+      viewScheduler = AndroidSchedulers.mainThread()
     )
   }
 

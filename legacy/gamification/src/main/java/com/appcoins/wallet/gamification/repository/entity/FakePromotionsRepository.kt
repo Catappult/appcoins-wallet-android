@@ -98,12 +98,4 @@ class FakePromotionsRepository : PromotionsRepository {
     TODO("Not yet implemented")
   }
 
-  override fun isReferralNotificationToShow(wallet: String): Observable<Boolean> {
-    TODO("Not yet implemented")
-  }
-
-  override fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) {
-    TODO("Not yet implemented")
-  }
-
 }

@@ -23,7 +23,12 @@ class RestoreGuestWalletUseCaseImpl @Inject constructor(
       if (cachedTransaction?.sku != null) {
         StartMode.RestoreGuestWalletFlow(
           backup = cachedBackupKey,
-          integrationFlow = if (cachedTransaction.type?.uppercase() == PAYMENT_TYPE_SDK) "sdk" else "osp",
+          integrationFlow = when {
+            (cachedTransaction.type?.uppercase() == PAYMENT_TYPE_SDK) ||
+                cachedTransaction.callbackUrl == null -> "sdk"
+
+            else -> "osp"
+          },
           sku = cachedTransaction.sku,
           packageName = cachedTransaction.packageName ?: "",
         )

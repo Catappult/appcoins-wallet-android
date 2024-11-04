@@ -25,6 +25,7 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
+import com.appcoins.wallet.core.utils.properties.UrlPropertiesFormatter
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
@@ -394,12 +395,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val privacyPolicyPreference = findPreference<Preference>("pref_privacy_policy")
     privacyPolicyPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
-        Uri.parse(
-          "$PRIVACY_POLICY_URL&lang=${
-            Locale.getDefault().toLanguageTag()
-          }"
-        ),
-        false
+        uri = UrlPropertiesFormatter.addLanguageElementToUrl(PRIVACY_POLICY_URL),
+        newTaskFlag = false
       )
       false
     }
@@ -409,12 +406,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val termsConditionsPreference = findPreference<Preference>("pref_terms_condition")
     termsConditionsPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
-        Uri.parse(
-          "$TERMS_CONDITIONS_URL&lang=${
-            Locale.getDefault().toLanguageTag()
-          }"
-        ),
-        false
+        uri = UrlPropertiesFormatter.addLanguageElementToUrl(TERMS_CONDITIONS_URL),
+        newTaskFlag = false
       )
       false
     }
