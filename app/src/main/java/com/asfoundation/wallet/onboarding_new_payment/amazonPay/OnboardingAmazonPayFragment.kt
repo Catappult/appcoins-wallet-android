@@ -38,6 +38,7 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
 import com.appcoins.wallet.ui.widgets.GenericError
 import com.appcoins.wallet.ui.widgets.component.Animation
@@ -194,6 +195,7 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
           analytics.sendPaymentConclusionNavigationEvent(OnboardingPaymentEvents.BACK_TO_THE_GAME)
           navigator.navigateBackToGame(args.transactionBuilder.domain)
         },
+        backgroundColor = styleguide_pink,
         labelColor = styleguide_white,
         buttonType = ButtonType.LARGE,
         fragmentName = fragmentName,
@@ -202,7 +204,6 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
           .fillMaxWidth()
           .padding(horizontal = 16.dp)
       )
-      Spacer(modifier = Modifier.height(24.dp))
       ButtonWithText(
         label = stringResource(R.string.onboarding_1st_explore_wallet_button),
         onClick = {
@@ -216,7 +217,7 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
         buttonsAnalytics = buttonsAnalytics,
         modifier = Modifier
           .fillMaxWidth()
-          .padding(horizontal = 16.dp)
+          .padding(horizontal = 16.dp, vertical = 16.dp)
       )
     }
   }
