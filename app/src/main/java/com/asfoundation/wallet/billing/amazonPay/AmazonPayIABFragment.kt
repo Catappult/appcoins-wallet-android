@@ -42,6 +42,7 @@ import com.appcoins.wallet.ui.widgets.component.Animation
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_HOST
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_PATH
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.CHECKOUT_LANGUAGE
@@ -222,7 +223,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
       mapOf(
         "merchantId" to viewModel.amazonTransaction?.merchantId,
         "ledgerCurrency" to "EUR",
-        "checkoutLanguage" to CHECKOUT_LANGUAGE.getValue("UK"),
+        "checkoutLanguage" to AmazonConst.getUserCheckoutLanguage(),
         "productType" to "PayOnly",
         "amazonCheckoutSessionId" to viewModel.amazonTransaction?.checkoutSessionId,
         "integrationType" to "NativeMobile",
@@ -233,7 +234,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
       mapOf(
         "merchantId" to viewModel.amazonTransaction?.merchantId,
         "ledgerCurrency" to "EUR",
-        "checkoutLanguage" to CHECKOUT_LANGUAGE.getValue("UK"),
+        "checkoutLanguage" to AmazonConst.getUserCheckoutLanguage(),
         "productType" to "PayOnly",
         "amazonCheckoutSessionId" to viewModel.amazonTransaction?.checkoutSessionId,
         "integrationType" to "NativeMobile",

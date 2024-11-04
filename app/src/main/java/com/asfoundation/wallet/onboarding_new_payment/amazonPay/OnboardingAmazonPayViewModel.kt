@@ -24,10 +24,13 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import java.util.Timer
 import java.util.TimerTask
 import javax.inject.Inject
@@ -132,21 +135,17 @@ class OnboardingAmazonPayViewModel @Inject constructor(
   }
 
   private fun startTransactionStatusTimer() {
-    // Set up a Timer to call getTransactionStatus() every 20 seconds
-    timerTransactionStatus.schedule(object : TimerTask() {
-      override fun run() {
-        scope.launch {
-          getTransactionStatus()
-        }
-      }
-    }, 0L, JOB_UPDATE_INTERVAL_MS)
-    // Set up a CoroutineJob that will automatically cancel after 180 seconds
     jobTransactionStatus = scope.launch {
       try {
-        delay(JOB_TIMEOUT_MS)
+        withTimeout(JOB_TIMEOUT_MS) {
+          while (isActive) {
+            getTransactionStatus()
+            delay(JOB_UPDATE_INTERVAL_MS)
+          }
+        }
+      } catch (e: TimeoutCancellationException) {
         _uiState.value = UiState.Error
       } finally {
-        timerTransactionStatus.cancel()
         isTimerRunning = false
       }
     }
