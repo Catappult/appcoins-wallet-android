@@ -537,6 +537,7 @@
   <string name="add_card_button">Add credit/debit card</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
+  <string name="buy_button">Buy</string>
   <string name="payment_method">Payment method</string>
   <string name="credit_debit_card">Credit/debit card</string>
   <string name="paypal">PayPal</string>
@@ -847,9 +848,9 @@
   <string name="backup_ready_email_button">أرسل إلى البريد الإلكتروني</string>
   <string name="backup_ready_device_button">احفظها في الجهاز</string>
   <string name="backup_confirmation_tips_title">احفظ الملف بأمان:</string>
-  <string name="backup_confirmation_tips_1"><b>اطبعها</b> وخزنها في مكان آمن.</string>
-  <string name="backup_confirmation_tips_2"><b>احفظها</b> على مشغل USB.</string>
-  <string name="backup_confirmation_tips_3"><b>انسخها</b> إلى سحابة تخزين خاصة وآمنة.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>اطبعها</b> وخزنها في مكان آمن.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>احفظها</b> على مشغل USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>انسخها</b> إلى سحابة تخزين خاصة وآمنة.]]></string>
   <string name="backup_tooltip_body">أنشئ نسخًا احتياطيًا لمحفظتك!</string>
   <string name="backup_tooltip_later_button">ربما لاحقًا</string>
   <string name="backup_tooltip_backup_button">نسخ احتياطي</string>
