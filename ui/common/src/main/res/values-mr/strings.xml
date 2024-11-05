@@ -534,20 +534,20 @@
   <string name="total_title">एकुण</string>
   <string name="add_payment_method_button">Add payment method</string>
   <string name="change_payment_method_button">Change payment method</string>
-  <string name="add_card_button">Add credit/debit card</string>
+  <string name="add_card_button">क्रेडीट/डेबीट कार्ड जोडा</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
-  <string name="buy_button">Buy</string>
-  <string name="payment_method">Payment method</string>
-  <string name="credit_debit_card">Credit/debit card</string>
-  <string name="paypal">PayPal</string>
-  <string name="appc">AppCoins Credits</string>
+  <string name="buy_button">खरेदी करा</string>
+  <string name="payment_method">पेमेंट पद्धत</string>
+  <string name="credit_debit_card">क्रेडीट/डेबीट कार्ड</string>
+  <string name="paypal">पेपाल</string>
+  <string name="appc">अॅपकॉइन्स क्रेडीटस</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
-  <string name="google_pay">Google Pay</string>
+  <string name="google_pay">गुगल पे</string>
   <string name="alipay">AliPayCN</string>
-  <string name="amazon_pay">Amazon Pay</string>
+  <string name="amazon_pay">अमेझॉन पे</string>
   <string name="alfamart">Alfamart</string>
   <string name="ovo">OVO</string>
   <string name="dana">DANA</string>
@@ -561,7 +561,7 @@
   <string name="mipay">MiPay</string>
   <string name="gopay">GoPay</string>
   <string name="boleto">Boleto</string>
-  <string name="paytm_upi">Paytm</string>
+  <string name="paytm_upi">पेटीएम</string>
   <string name="paytm_wallet">Paytm Wallet</string>
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
@@ -728,7 +728,7 @@
   <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_error_taking_long_body">अरेरे, नेहमीपेक्षा जास्तच वेळ लागतोय...</string>
   <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
