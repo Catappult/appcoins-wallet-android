@@ -534,12 +534,12 @@
   <string name="total_title">Total</string>
   <string name="add_payment_method_button">Add payment method</string>
   <string name="change_payment_method_button">Change payment method</string>
-  <string name="add_card_button">Add credit/debit card</string>
+  <string name="add_card_button">Adaugă card de credit/debit</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
-  <string name="buy_button">Buy</string>
-  <string name="payment_method">Payment method</string>
-  <string name="credit_debit_card">Credit/debit card</string>
+  <string name="buy_button">Cumpără</string>
+  <string name="payment_method">Metoda de plată</string>
+  <string name="credit_debit_card">Card de credit/debit</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
   <string name="bank_transfer">Easy bank transfer</string>
@@ -729,16 +729,16 @@
   <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_error_taking_long_body">Ups, durează mai mult decât de obicei...</string>
   <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
   <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
   <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
   <string name="purchase_subtotal">Subtotal</string>
-  <string name="purchase_taxes">Taxes</string>
+  <string name="purchase_taxes">Taxe și impozite</string>
   <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
-  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
+  <string name="purchase_bonus_bot_available_body">Bonus nedisponibil cu această metodă de plată.</string>
   <string name="purchase_promo_code_button">Do you have a promo code?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
