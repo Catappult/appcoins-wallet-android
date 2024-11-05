@@ -534,11 +534,12 @@
   <string name="total_title">Total</string>
   <string name="add_payment_method_button">Add payment method</string>
   <string name="change_payment_method_button">Change payment method</string>
-  <string name="add_card_button">Add credit/debit card</string>
+  <string name="add_card_button">新增信用卡/金融卡</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
+  <string name="buy_button">購買</string>
   <string name="payment_method">Payment method</string>
-  <string name="credit_debit_card">Credit/debit card</string>
+  <string name="credit_debit_card">信用卡/金融卡</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
   <string name="bank_transfer">Easy bank transfer</string>
@@ -841,9 +842,9 @@
   <string name="backup_ready_email_button">Send to email</string>
   <string name="backup_ready_device_button">Save on device</string>
   <string name="backup_confirmation_tips_title">確保資料安全：</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Print it</b> and store it somewhere safe.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Save it</b> on a USB drive.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Copy it</b> to a private and secure cloud storage.]]></string>
   <string name="backup_tooltip_body">備份您的錢包吧！</string>
   <string name="backup_tooltip_later_button">Maybe later</string>
   <string name="backup_tooltip_backup_button">Back up</string>

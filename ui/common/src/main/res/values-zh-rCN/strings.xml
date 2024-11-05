@@ -534,13 +534,14 @@
   <string name="total_title">总计</string>
   <string name="add_payment_method_button">Add payment method</string>
   <string name="change_payment_method_button">Change payment method</string>
-  <string name="add_card_button">Add credit/debit card</string>
+  <string name="add_card_button">添加信用卡/借记卡</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
+  <string name="buy_button">购买</string>
   <string name="payment_method">Payment method</string>
-  <string name="credit_debit_card">Credit/debit card</string>
+  <string name="credit_debit_card">信用卡/借记卡</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">AppCoins Credits</string>
+  <string name="appc">AppCoins积金</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -726,7 +727,7 @@
   <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_error_taking_long_body">抱歉，处理时间比平时要稍长一些……</string>
   <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
@@ -735,7 +736,7 @@
   <string name="purchase_subtotal">Subtotal</string>
   <string name="purchase_taxes">Taxes</string>
   <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
-  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
+  <string name="purchase_bonus_bot_available_body">此支付方式不提供奖金.</string>
   <string name="purchase_promo_code_button">Do you have a promo code?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
@@ -841,9 +842,9 @@
   <string name="backup_ready_email_button">发送至电子邮件</string>
   <string name="backup_ready_device_button">保存在设备上</string>
   <string name="backup_confirmation_tips_title">确保文件安全：</string>
-  <string name="backup_confirmation_tips_1"><b>打印</b>并将其存储在安全的地方。</string>
-  <string name="backup_confirmation_tips_2">将其<b>保存</b>在 USB 驱动器上。</string>
-  <string name="backup_confirmation_tips_3">将其<b>复制</b>到安全的私有云存储中。</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>打印</b>并将其存储在安全的地方。]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[将其<b>保存</b>在 USB 驱动器上。]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[将其<b>复制</b>到安全的私有云存储中。]]></string>
   <string name="backup_tooltip_body">备份您的钱包！</string>
   <string name="backup_tooltip_later_button">以后再说</string>
   <string name="backup_tooltip_backup_button">备份</string>
