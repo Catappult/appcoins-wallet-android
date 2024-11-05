@@ -25,7 +25,6 @@ dependencies {
   implementation(project(":legacy:gamification"))
   implementation(project(":legacy:permissions"))
   implementation(project(":legacy:appcoinsRewards"))
-//  implementation(project(":legacy:skills"))
   implementation(project(":legacy:ethereumj-android"))
   implementation(project(":core:analytics"))
   implementation(project(":core:shared-preferences"))

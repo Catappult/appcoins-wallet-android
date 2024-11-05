@@ -30,10 +30,6 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     navigate(navController, RewardFragmentDirections.actionNavigateGiftCard(giftCard))
   }
 
-  fun navigateToWithdrawScreen() {
-    navigate(navController, RewardFragmentDirections.actionNavigateEskillsWithdraw())
-  }
-
   fun navigateToGamification(cachedBonus: Double) {
     fragment.startActivity(GamificationActivity.newIntent(fragment.requireContext(), cachedBonus))
   }
