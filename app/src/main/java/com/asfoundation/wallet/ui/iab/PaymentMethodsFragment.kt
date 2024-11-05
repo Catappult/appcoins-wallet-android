@@ -32,6 +32,10 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.amazonPay.usecases.DeleteAmazonPayChargePermissionUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionLocalStorageUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayChargePermissionLocalStorageUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -118,6 +122,18 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   lateinit var isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase
 
   @Inject
+  lateinit var getAmazonPayChargePermissionLocalStorageUseCase: GetAmazonPayChargePermissionLocalStorageUseCase
+
+  @Inject
+  lateinit var deleteAmazonPayChargePermissionUseCase: DeleteAmazonPayChargePermissionUseCase
+
+  @Inject
+  lateinit var saveAmazonPayChargePermissionLocalStorageUseCase: SaveAmazonPayChargePermissionLocalStorageUseCase
+
+  @Inject
+  lateinit var getAmazonPayChargePermissionUseCase: GetAmazonPayChargePermissionUseCase
+
+  @Inject
   lateinit var logger: Logger
 
   @Inject
@@ -179,7 +195,11 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         isPaypalAgreementCreatedUseCase = isPaypalAgreementCreatedUseCase,
         logger = logger,
         interactor = paymentMethodsInteractor,
-        paymentMethodsData = paymentMethodsData
+        paymentMethodsData = paymentMethodsData,
+        getAmazonPayChargePermissionLocalStorageUseCase = getAmazonPayChargePermissionLocalStorageUseCase,
+        saveAmazonPayChargePermissionLocalStorageUseCase = saveAmazonPayChargePermissionLocalStorageUseCase,
+        deleteAmazonPayChargePermissionUseCase = deleteAmazonPayChargePermissionUseCase,
+        getAmazonPayChargePermissionUseCase = getAmazonPayChargePermissionUseCase
       )
   }
 
@@ -294,9 +314,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           paymentMethods = paymentMethods,
           paymentMethodId = paymentMethodId,
           paymentMethodClick = paymentMethodClick,
-          logoutCallback = { logoutFromPaypal() },
-          disposables = presenter.disposables,
-          showPayPalLogout = presenter.showPayPalLogout
+          logoutCallback = { handleLogoutCallbackAdapter() },
+          showLogoutAction = presenter.showPayPalLogout || presenter.showAmazonPayLogout
         )
       binding.paymentMethodsRadioList.adapter = paymentMethodsAdapter
       paymentMethodList.clear()
@@ -305,10 +324,17 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     }
   }
 
-  private fun logoutFromPaypal() {
-    presenter.removePaypalBillingAgreement()
-    presenter.showPayPalLogout.onNext(false)
-    showProgressBarLoading()
+  private fun handleLogoutCallbackAdapter() {
+    if (presenter.showPayPalLogout) {
+      presenter.removePaypalBillingAgreement()
+      presenter.showPayPalLogout = false
+      showProgressBarLoading()
+    } else if (presenter.showAmazonPayLogout) {
+      presenter.removeAmazonPayChargePermission()
+      presenter.showAmazonPayLogout = false
+      showProgressBarLoading()
+    }
+
   }
 
   private fun updateHeaderInfo(
@@ -378,9 +404,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         binding.layoutPreSelected.paymentMoreLogout.setOnClickListener {
           val popup = PopupMenu(context?.applicationContext, it)
           popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
-          popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+          popup.setOnMenuItemClickListener {
             binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
-            logoutFromPaypal()
+            handleLogoutCallbackAdapter()
             return@setOnMenuItemClickListener true
           }
           popup.show()
@@ -646,6 +672,25 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     isSubscription: Boolean
   ) {
     iabView.showVkPay(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.PAYPAL,
+      bonusMessageValue,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
+  }
+
+  override fun showAmazonPay(
+    gamificationLevel: Int,
+    fiatValue: FiatValue,
+    frequency: String?,
+    isSubscription: Boolean
+  ) {
+    iabView.showAmazonPay(
       fiatValue.amount,
       fiatValue.currency,
       isBds,

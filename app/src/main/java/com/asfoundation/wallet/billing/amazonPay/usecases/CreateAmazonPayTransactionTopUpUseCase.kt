@@ -28,7 +28,14 @@ class CreateAmazonPayTransactionTopUpUseCase @Inject constructor(
           transactionType = TOP_UP_TRANSACTION_TYPE,
           method = METHOD_AMAZONPAY,
           referrerUrl = null,
-          chargePermissionId = chargePermissionId
+          chargePermissionId = chargePermissionId,
+          entityOemId = null,
+          entityDomain = null,
+          entityPromoCode = null,
+          userWallet = null,
+          origin = null,
+          reference = null,
+          metadata = null
         )
       }
   }
