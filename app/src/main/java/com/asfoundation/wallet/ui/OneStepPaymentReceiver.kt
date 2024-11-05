@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import cm.aptoide.skills.SkillsActivity
+import android.widget.Toast
 import com.airbnb.lottie.LottieAnimationView
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -68,10 +68,8 @@ class OneStepPaymentReceiver : BaseActivity() {
         .filter { it != WalletGetterStatus.CREATING.toString() }
         .flatMap {
           if (isEskillsUri(intent.dataString!!)) {
-            val skillsActivityIntent = Intent(this, SkillsActivity::class.java)
-            skillsActivityIntent.putExtra(ESKILLS_URI_KEY, intent.dataString)
-            @Suppress("DEPRECATION")
-            startActivityForResult(skillsActivityIntent, REQUEST_CODE)
+            Toast.makeText(this, "Unavailable service.", Toast.LENGTH_SHORT).show()
+            finish()
             Observable.just("")
           } else {
             transferParser.parse(intent.dataString!!)
