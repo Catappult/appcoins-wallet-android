@@ -34,7 +34,6 @@ dependencies {
   implementation(project(":core:network:analytics"))
   implementation(project(":core:network:backend"))
   implementation(project(":core:network:bds"))
-  implementation(project(":core:network:eskills"))
   implementation(project(":core:network:microservices"))
   implementation(project(":core:network:zendesk"))
   implementation(project(":core:walletServices"))

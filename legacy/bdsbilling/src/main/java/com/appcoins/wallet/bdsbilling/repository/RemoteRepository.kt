@@ -7,7 +7,6 @@ import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
-import com.appcoins.wallet.core.network.microservices.model.CreditsPurchaseBody
 import com.appcoins.wallet.core.network.microservices.model.DetailsResponseBody
 import com.appcoins.wallet.core.network.microservices.model.GetPurchasesResponse
 import com.appcoins.wallet.core.network.microservices.model.MiPayTransaction
@@ -39,7 +38,6 @@ class RemoteRepository(
 ) {
   companion object {
     private const val SKUS_DETAILS_REQUEST_LIMIT = 50
-    private const val ESKILLS = "ESKILLS"
     private const val SKUS_SUBS_DETAILS_REQUEST_LIMIT = 100
     private const val TOP_UP_TYPE = "TOPUP"
     private const val ANDROID_CHANNEL = "ANDROID"
@@ -470,39 +468,30 @@ class RemoteRepository(
   ): Single<Transaction> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
-        if (type == ESKILLS) {
+        if (executingAppcTransaction.compareAndSet(false, true)) {
           brokerBdsApi.createTransaction(
             gateway = gateway,
+            origin = origin,
+            domain = packageName,
+            priceValue = amount,
+            priceCurrency = currency,
+            product = productName,
+            type = type,
+            userWallet = userWallet,
+            entityOemId = entityOemId,
+            entityDomain = entityDomain,
+            entityPromoCode = null,
+            token = token,
+            developerPayload = developerPayload,
+            callback = callback,
+            orderReference = orderReference,
+            referrerUrl = referrerUrl,
+            guestWalletId = guestWalletId,
             walletAddress = walletAddress,
-            authorization = ewt,
-            creditsPurchaseBody = CreditsPurchaseBody(callback, productToken, entityOemId)
+            authorization = ewt
           )
         } else {
-          if (executingAppcTransaction.compareAndSet(false, true)) {
-            brokerBdsApi.createTransaction(
-              gateway = gateway,
-              origin = origin,
-              domain = packageName,
-              priceValue = amount,
-              priceCurrency = currency,
-              product = productName,
-              type = type,
-              userWallet = userWallet,
-              entityOemId = entityOemId,
-              entityDomain = entityDomain,
-              entityPromoCode = null,
-              token = token,
-              developerPayload = developerPayload,
-              callback = callback,
-              orderReference = orderReference,
-              referrerUrl = referrerUrl,
-              guestWalletId = guestWalletId,
-              walletAddress = walletAddress,
-              authorization = ewt
-            )
-          } else {
-            Single.error(DuplicateException())
-          }
+          Single.error(DuplicateException())
         }
       }
       .doOnSuccess { executingAppcTransaction.set(false) }
