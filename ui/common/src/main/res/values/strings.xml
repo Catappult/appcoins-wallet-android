@@ -574,6 +574,7 @@
   <string name="add_card_button">Add credit/debit card</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
+  <string name="buy_button">Buy</string>
 
   <string name="payment_method">Payment method</string>
   <string name="credit_debit_card">Credit/debit card</string>
