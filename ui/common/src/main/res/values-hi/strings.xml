@@ -537,11 +537,11 @@
   <string name="add_card_button">Add credit/debit card</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
-  <string name="buy_button">Buy</string>
+  <string name="buy_button">खरीदें</string>
   <string name="payment_method">Payment method</string>
-  <string name="credit_debit_card">Credit/debit card</string>
-  <string name="paypal">PayPal</string>
-  <string name="appc">AppCoins Credits</string>
+  <string name="credit_debit_card">क्रेडिट या डेबिट कार्ड</string>
+  <string name="paypal">पेपैल</string>
+  <string name="appc">AppCoins क्रेडिट</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
