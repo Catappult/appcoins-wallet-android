@@ -534,14 +534,14 @@
   <string name="total_title">Total</string>
   <string name="add_payment_method_button">Add payment method</string>
   <string name="change_payment_method_button">Change payment method</string>
-  <string name="add_card_button">Add credit/debit card</string>
+  <string name="add_card_button">Dodaj kartę kredytową/debetową</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
-  <string name="buy_button">Buy</string>
-  <string name="payment_method">Payment method</string>
-  <string name="credit_debit_card">Credit/debit card</string>
+  <string name="buy_button">Kup</string>
+  <string name="payment_method">Metoda płatności</string>
+  <string name="credit_debit_card">Karta kredytowa/debetowa</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">AppCoins Credits</string>
+  <string name="appc">Kredyty AppCoins</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -737,9 +737,9 @@
   <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
   <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
   <string name="purchase_subtotal">Subtotal</string>
-  <string name="purchase_taxes">Taxes</string>
+  <string name="purchase_taxes">Opodatkowanie</string>
   <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
-  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
+  <string name="purchase_bonus_bot_available_body">Bonus niedostępny z tą metodą płatności.</string>
   <string name="purchase_promo_code_button">Do you have a promo code?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adres rozliczeniowy</string>
