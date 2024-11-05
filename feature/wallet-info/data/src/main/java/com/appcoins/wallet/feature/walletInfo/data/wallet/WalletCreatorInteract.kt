@@ -4,6 +4,7 @@ import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
 import com.appcoins.wallet.feature.walletInfo.data.authentication.rxOperator.Operators
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RegisterFirebaseTokenUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -13,19 +14,19 @@ class WalletCreatorInteract @Inject constructor(
   private val walletRepository: WalletRepositoryType,
   private val passwordStore: PasswordStore,
   private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+  private val registerTokenUseCase: RegisterFirebaseTokenUseCase,
 ) {
 
   fun create(name: String? = null): Single<Wallet> = passwordStore.generatePassword()
     .flatMap { passwordStore.setBackUpPassword(it).toSingleDefault(it) }
-    .flatMap {
-      walletRepository.createWallet(it)
-        .compose(Operators.savePassword(passwordStore, walletRepository, it))
-        .flatMap { wallet: Wallet -> passwordVerification(wallet, it) }
-        .flatMap { wallet: Wallet ->
-          updateWalletNameUseCase(wallet.address, name)
-            .toSingleDefault(wallet)
-        }
-    }
+    .flatMap { createWallet(it, name) }
+    .flatMap { registerTokenUseCase.registerFirebaseToken(it) }
+
+  private fun createWallet(password: String, name: String? = null) =
+    walletRepository.createWallet(password)
+      .compose(Operators.savePassword(passwordStore, walletRepository, password))
+      .flatMap { passwordVerification(it, password) }
+      .flatMap { updateWalletNameUseCase(it.address, name).toSingleDefault(it) }
 
   private fun passwordVerification(wallet: Wallet, masterPassword: String): Single<Wallet> =
     passwordStore.getPassword(wallet.address)

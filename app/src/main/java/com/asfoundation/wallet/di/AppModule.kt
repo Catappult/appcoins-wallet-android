@@ -47,6 +47,7 @@ import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import dagger.Module
@@ -54,6 +55,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.intercom.android.sdk.push.IntercomPushClient
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
@@ -284,4 +286,14 @@ internal class AppModule {
   @Provides
   fun provideAlarmManager(@ApplicationContext context: Context) =
     context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+  @Singleton
+  @Provides
+  fun provideIntercomPushClient() = IntercomPushClient()
+
+  @Singleton
+  @Provides
+  fun provideFirebaseMessaging() =
+    FirebaseMessaging.getInstance()
+
 }
