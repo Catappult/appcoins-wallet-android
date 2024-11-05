@@ -534,18 +534,18 @@
   <string name="total_title">합계</string>
   <string name="add_payment_method_button">Add payment method</string>
   <string name="change_payment_method_button">Change payment method</string>
-  <string name="add_card_button">Add credit/debit card</string>
+  <string name="add_card_button">신용/직불 카드 추가</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
-  <string name="buy_button">Buy</string>
-  <string name="payment_method">Payment method</string>
-  <string name="credit_debit_card">Credit/debit card</string>
-  <string name="paypal">PayPal</string>
-  <string name="appc">AppCoins Credits</string>
+  <string name="buy_button">구매</string>
+  <string name="payment_method">지불 방법</string>
+  <string name="credit_debit_card">신용/직불 카드</string>
+  <string name="paypal">페이팔</string>
+  <string name="appc">AppCoins 크레디트</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
-  <string name="google_pay">Google Pay</string>
+  <string name="google_pay">구글 페이</string>
   <string name="alipay">AliPayCN</string>
   <string name="amazon_pay">Amazon Pay</string>
   <string name="alfamart">Alfamart</string>
@@ -727,7 +727,7 @@
   <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_error_taking_long_body">이런, 예상보다 시간이 오래 걸리고 있네요...</string>
   <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
@@ -736,7 +736,7 @@
   <string name="purchase_subtotal">Subtotal</string>
   <string name="purchase_taxes">Taxes</string>
   <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
-  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
+  <string name="purchase_bonus_bot_available_body">이 결제 수단에서는 보너스를 사용할 수 없습니다.</string>
   <string name="purchase_promo_code_button">Do you have a promo code?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
