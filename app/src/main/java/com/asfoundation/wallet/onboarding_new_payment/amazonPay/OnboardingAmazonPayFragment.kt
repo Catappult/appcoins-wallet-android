@@ -1,7 +1,6 @@
-package com.asfoundation.wallet.billing.amazonPay
+package com.asfoundation.wallet.onboarding_new_payment.amazonPay
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,8 +11,9 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
@@ -31,70 +31,57 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white_75
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
 import com.appcoins.wallet.ui.widgets.GenericError
 import com.appcoins.wallet.ui.widgets.component.Animation
-
+import com.appcoins.wallet.ui.widgets.component.ButtonType
+import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_HOST
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_PATH
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.CHECKOUT_LANGUAGE
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.ui.iab.IabNavigator
-import com.asfoundation.wallet.ui.iab.IabView
-import com.asfoundation.wallet.ui.iab.Navigator
+import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
+import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.math.BigDecimal
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class AmazonPayIABFragment : BasePageViewFragment() {
+class OnboardingAmazonPayFragment : BasePageViewFragment() {
 
-  private val viewModel: AmazonPayIABViewModel by viewModels()
+  private val viewModel: OnboardingAmazonPayViewModel by viewModels()
+  lateinit var args: OnboardingAmazonPayFragmentArgs
 
   @Inject
-  lateinit var analytics: BillingAnalytics
+  lateinit var navigator: OnboardingAmazonPayNavigator
+
+  @Inject
+  lateinit var analytics: OnboardingPaymentEvents
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
+
 
   @Inject
   lateinit var buttonsAnalytics: ButtonsAnalytics
   private val fragmentName = this::class.java.simpleName
 
-  private lateinit var iabView: IabView
-  private var navigatorIAB: Navigator? = null
-
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    check(context is IabView) { "VkPay payment fragment must be attached to IAB activity" }
-    iabView = context
-    iabView.lockRotation()
-  }
-
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
-    viewModel.getPaymentLink(
-      transactionBuilder,
-      amount.toString(),
-      currency,
-      origin
-    )
-    viewModel.sendPaymentStartEvent(transactionBuilder)
-    navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
+    args = OnboardingAmazonPayFragmentArgs.fromBundle(requireArguments())
+    viewModel.getPaymentLink()
+    viewModel.sendPaymentStartEvent(args.transactionBuilder)
     return ComposeView(requireContext()).apply { setContent { MainContent() } }
   }
 
@@ -102,11 +89,9 @@ class AmazonPayIABFragment : BasePageViewFragment() {
   @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
   fun MainContent() {
     Scaffold(
-      Modifier.height(400.dp),
-      containerColor = styleguide_white_75,
+      containerColor = styleguide_blue_secondary,
     ) { _ ->
-      val uiState = viewModel.uiState.collectAsState().value
-      when (uiState) {
+      when (viewModel.uiState.collectAsState().value) {
         is UiState.Success -> {
           handleCompletePurchase()
           TransactionCompletedScreen()
@@ -124,13 +109,10 @@ class AmazonPayIABFragment : BasePageViewFragment() {
         }
 
         is UiState.Error -> {
-          analytics.sendPaymentErrorEvent(
-            transactionBuilder.domain,
-            transactionBuilder.skuId,
-            transactionBuilder.amount().toString(),
-            BillingAnalytics.PAYMENT_METHOD_AMAZON_PAY,
-            transactionBuilder.type,
-            "",
+          analytics.sendPaymentErrorMessageEvent(
+            errorMessage = "AmazonPay transaction error.",
+            transactionBuilder = args.transactionBuilder,
+            paymentMethod = BillingAnalytics.PAYMENT_METHOD_AMAZON_PAY,
           )
           GenericError(
             message = stringResource(R.string.activity_iab_error_message),
@@ -138,7 +120,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
               viewModel.launchChat()
             },
             onTryAgain = {
-              iabView.navigateBack()
+              navigator.navigateBack()
             },
             fragmentName = fragmentName,
             buttonAnalytics = buttonsAnalytics,
@@ -157,10 +139,6 @@ class AmazonPayIABFragment : BasePageViewFragment() {
             Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
           }
         }
-
-        is UiState.SendSuccessBundle -> {
-          navigatorIAB?.popView(uiState.bundle)
-        }
       }
     }
   }
@@ -170,52 +148,77 @@ class AmazonPayIABFragment : BasePageViewFragment() {
     Column(
       modifier = Modifier
         .fillMaxSize(),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.Center
+      horizontalAlignment = Alignment.CenterHorizontally
     ) {
       Animation(
         modifier = Modifier
-          .size(100.dp),
+          .size(100.dp)
+          .padding(top = 16.dp),
         animationRes = R.raw.success_animation,
         iterations = 1,
-        restartOnPlay = false,
-        onAnimationEnd = {
-          viewLifecycleOwner.lifecycleScope.launch {
-            delay(1500L)
-            viewModel.getSuccessBundle(transactionBuilder)
-          }
-        }
+        restartOnPlay = false
       )
       Text(
         text = stringResource(R.string.transaction_status_success),
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
+        color = styleguide_white,
         modifier = Modifier.padding(top = 10.dp)
       )
-      if (bonus.isNotEmpty()) {
-        Row(
-          modifier = Modifier
-            .padding(top = 6.dp),
-          verticalAlignment = CenterVertically
-        ) {
-          Animation(
-            modifier = Modifier.size(28.dp),
-            animationRes = R.raw.bonus_gift_animation
-          )
-          Text(
-            text = stringResource(
-              R.string.purchase_success_bonus_received_title,
-              bonus
-            ),
-            fontSize = 12.sp,
-            color = styleguide_dark_grey,
-            modifier = Modifier.padding(start = 8.dp)
-          )
-        }
+
+      Row(
+        modifier = Modifier
+          .padding(top = 6.dp),
+        verticalAlignment = CenterVertically
+      ) {
+        Animation(
+          modifier = Modifier.size(28.dp),
+          animationRes = R.raw.bonus_gift_animation
+        )
+        Text(
+          text = stringResource(
+            R.string.purchase_success_bonus_received_title,
+            args.forecastBonus.getPurchaseBonusMessage(formatter)
+          ),
+          fontSize = 12.sp,
+          color = styleguide_dark_grey,
+          modifier = Modifier.padding(start = 8.dp)
+        )
       }
+      Spacer(modifier = Modifier.weight(1f))
+
+      ButtonWithText(
+        label = stringResource(R.string.back_to_the_game_button),
+        onClick = {
+          analytics.sendPaymentConclusionNavigationEvent(OnboardingPaymentEvents.BACK_TO_THE_GAME)
+          navigator.navigateBackToGame(args.transactionBuilder.domain)
+        },
+        backgroundColor = styleguide_pink,
+        labelColor = styleguide_white,
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics,
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(horizontal = 16.dp)
+      )
+      ButtonWithText(
+        label = stringResource(R.string.onboarding_1st_explore_wallet_button),
+        onClick = {
+          analytics.sendPaymentConclusionNavigationEvent(OnboardingPaymentEvents.EXPLORE_WALLET)
+          navigator.navigateToHome()
+        },
+        outlineColor = styleguide_white,
+        labelColor = styleguide_white,
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics,
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(horizontal = 16.dp, vertical = 16.dp)
+      )
     }
   }
-
 
   private fun createAmazonPayLink() {
 
@@ -252,7 +255,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
   private fun handleCompletePurchase() {
     viewModel.amazonTransaction?.uid?.let {
       viewModel.sendPaymentSuccessEvent(
-        transactionBuilder,
+        args.transactionBuilder,
         it
       )
     }
@@ -284,97 +287,8 @@ class AmazonPayIABFragment : BasePageViewFragment() {
     MainContent()
   }
 
-  private val amount: BigDecimal by lazy {
-    if (requireArguments().containsKey(AMOUNT_KEY)) {
-      requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("amount data not found")
-    }
-  }
-
-  private val currency: String by lazy {
-    if (requireArguments().containsKey(CURRENCY_KEY)) {
-      requireArguments().getString(CURRENCY_KEY, "")
-    } else {
-      throw IllegalArgumentException("currency data not found")
-    }
-  }
-
-  private val origin: String? by lazy {
-    if (requireArguments().containsKey(ORIGIN_KEY)) {
-      requireArguments().getString(ORIGIN_KEY)
-    } else {
-      throw IllegalArgumentException("origin not found")
-    }
-  }
-
-  private val transactionBuilder: TransactionBuilder by lazy {
-    if (requireArguments().containsKey(TRANSACTION_DATA_KEY)) {
-      requireArguments().getParcelable<TransactionBuilder>(TRANSACTION_DATA_KEY)!!
-    } else {
-      throw IllegalArgumentException("transaction data not found")
-    }
-  }
-
-  private val bonus: String by lazy {
-    if (requireArguments().containsKey(BONUS_KEY)) {
-      requireArguments().getString(BONUS_KEY, "")
-    } else {
-      throw IllegalArgumentException("bonus data not found")
-    }
-  }
-
-  private val gamificationLevel: Int by lazy {
-    if (requireArguments().containsKey(GAMIFICATION_LEVEL)) {
-      requireArguments().getInt(GAMIFICATION_LEVEL, 0)
-    } else {
-      throw IllegalArgumentException("gamification level data not found")
-    }
-  }
-
 
   companion object {
-    private const val PAYMENT_TYPE_KEY = "payment_type"
-    private const val ORIGIN_KEY = "origin"
-    private const val TRANSACTION_DATA_KEY = "transaction_data"
-    private const val AMOUNT_KEY = "amount"
-    private const val CURRENCY_KEY = "currency"
-    private const val BONUS_KEY = "bonus"
-    private const val PRE_SELECTED_KEY = "pre_selected"
-    private const val IS_SUBSCRIPTION = "is_subscription"
-    private const val IS_SKILLS = "is_skills"
-    private const val FREQUENCY = "frequency"
-    private const val GAMIFICATION_LEVEL = "gamification_level"
-    private const val SKU_DESCRIPTION = "sku_description"
     const val CHROME_PACKAGE_NAME = "com.android.chrome"
-
-    @JvmStatic
-    fun newInstance(
-      paymentType: PaymentType,
-      origin: String?,
-      transactionBuilder: TransactionBuilder,
-      amount: BigDecimal,
-      currency: String?,
-      bonus: String?,
-      gamificationLevel: Int,
-      skuDescription: String,
-      isSubscription: Boolean,
-      isSkills: Boolean,
-      frequency: String?,
-    ): AmazonPayIABFragment = AmazonPayIABFragment().apply {
-      arguments = Bundle().apply {
-        putString(PAYMENT_TYPE_KEY, paymentType.name)
-        putString(ORIGIN_KEY, origin)
-        putParcelable(TRANSACTION_DATA_KEY, transactionBuilder)
-        putSerializable(AMOUNT_KEY, amount)
-        putString(CURRENCY_KEY, currency)
-        putString(BONUS_KEY, bonus)
-        putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        putString(SKU_DESCRIPTION, skuDescription)
-        putBoolean(IS_SUBSCRIPTION, isSubscription)
-        putBoolean(IS_SKILLS, isSkills)
-        putString(FREQUENCY, frequency)
-      }
-    }
   }
 }

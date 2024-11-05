@@ -108,6 +108,13 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
           args.forecastBonus
         )
 
+        is PaymentMethodClick.AmazonPayClick -> navigator.navigateToAmazonPay(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
         is PaymentMethodClick.GooglePayClick -> navigator.navigateToGooglePay(
           args.transactionBuilder,
           args.amount,

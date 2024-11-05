@@ -1,29 +1,23 @@
-package com.asfoundation.wallet.billing.amazonPay
+package com.asfoundation.wallet.onboarding_new_payment.amazonPay
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.text.format.DateUtils
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 
 import com.appcoins.wallet.core.network.microservices.model.AmazonPayCheckoutSessionRequest
 import com.appcoins.wallet.core.network.microservices.model.AmazonPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.AmazonPrice
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.billing.amazonPay.usecases.CreateAmazonPayTransactionUseCase
-import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionLocalStorageUseCase
-import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayCheckoutSessionIdUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.PatchAmazonPayCheckoutSessionUseCase
-import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayChargePermissionLocalStorageUseCase
-import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
-import com.asfoundation.wallet.billing.vkpay.VkPaymentIABViewModel.SuccessInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -48,23 +42,18 @@ sealed class UiState {
   object PaymentLinkSuccess : UiState()
   object PaymentRedirect3ds : UiState()
   object Success : UiState()
-  data class SendSuccessBundle(val bundle: Bundle) : UiState()
 }
 
 @HiltViewModel
-class AmazonPayIABViewModel @Inject constructor(
+class OnboardingAmazonPayViewModel @Inject constructor(
   private val getTransactionStatusUseCase: GetTransactionStatusUseCase,
   private val createAmazonPayTransactionUseCase: CreateAmazonPayTransactionUseCase,
   private val getAmazonPayCheckoutSessionIdUseCase: GetAmazonPayCheckoutSessionIdUseCase,
-  private val getAmazonPayChargePermissionUseCase: GetAmazonPayChargePermissionUseCase,
-  private val saveAmazonPayChargePermissionLocalStorageUseCase: SaveAmazonPayChargePermissionLocalStorageUseCase,
-  private val getAmazonPayChargePermissionLocalStorageUseCase: GetAmazonPayChargePermissionLocalStorageUseCase,
   private val patchAmazonPayCheckoutSessionUseCase: PatchAmazonPayCheckoutSessionUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
-  private val analytics: BillingAnalytics,
-  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-  private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
+  private val analytics: OnboardingPaymentEvents,
   private val rxSchedulers: RxSchedulers,
+  savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
   private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
@@ -76,36 +65,25 @@ class AmazonPayIABViewModel @Inject constructor(
   private val timerTransactionStatus = Timer()
   private var isTimerRunning = false
   val scope = CoroutineScope(Dispatchers.Main)
+  private var args: OnboardingAmazonPayFragmentArgs =
+    OnboardingAmazonPayFragmentArgs.fromSavedStateHandle(savedStateHandle)
   var runningCustomTab = false
-  var successInfo: SuccessInfo? = null
 
   @SuppressLint("CheckResult")
-  fun getPaymentLink(
-    transactionBuilder: TransactionBuilder,
-    amount: String,
-    fiatCurrencySymbol: String,
-    origin: String?
-  ) {
-    getAmazonPayChargePermissionUseCase()
-      .flatMap { chargePermissionId ->
-        saveAmazonPayChargePermissionLocalStorageUseCase(chargePermissionId = chargePermissionId.chargePermissionId)
-        createAmazonPayTransaction(
-          chargePermissionId = chargePermissionId.chargePermissionId,
-          transactionBuilder = transactionBuilder,
-          amount = amount,
-          fiatCurrencySymbol = fiatCurrencySymbol,
-          origin = origin
-        )
-      }
-      .onErrorResumeNext {
-        createAmazonPayTransaction(
-          chargePermissionId = null,
-          transactionBuilder = transactionBuilder,
-          amount = amount,
-          fiatCurrencySymbol = fiatCurrencySymbol,
-          origin = origin
-        )
-      }
+  fun getPaymentLink() {
+    val price = AmazonPrice(value = args.amount, currency = args.currency)
+    createAmazonPayTransactionUseCase(
+      price = price,
+      reference = args.transactionBuilder.orderReference,
+      origin = args.transactionBuilder.origin,
+      metadata = args.transactionBuilder.payload,
+      sku = args.transactionBuilder.skuId,
+      callbackUrl = args.transactionBuilder.callbackUrl,
+      transactionType = args.transactionBuilder.type,
+      referrerUrl = args.transactionBuilder.referrerUrl,
+      packageName = args.transactionBuilder.domain,
+      chargePermissionId = null
+    )
       .doOnSubscribe { _uiState.value = UiState.Loading }
       .doOnSuccess { amazonTransactionResult ->
         validateResultOfPaymentLink(amazonTransactionResult)
@@ -113,36 +91,10 @@ class AmazonPayIABViewModel @Inject constructor(
       .subscribe({}, { _ -> _uiState.value = UiState.Error })
   }
 
-  private fun createAmazonPayTransaction(
-    chargePermissionId: String?,
-    transactionBuilder: TransactionBuilder,
-    amount: String,
-    fiatCurrencySymbol: String,
-    origin: String?
-  ): Single<AmazonPayTransaction> {
 
-    val price = AmazonPrice(value = amount, currency = fiatCurrencySymbol)
-    return createAmazonPayTransactionUseCase(
-      price = price,
-      reference = transactionBuilder.orderReference,
-      origin = origin,
-      metadata = transactionBuilder.payload,
-      sku = transactionBuilder.skuId,
-      callbackUrl = transactionBuilder.callbackUrl,
-      transactionType = transactionBuilder.type,
-      referrerUrl = transactionBuilder.referrerUrl,
-      packageName = transactionBuilder.domain,
-      chargePermissionId = chargePermissionId
-    )
-  }
+  fun sendPaymentStartEvent(transactionBuilder: TransactionBuilder) {
+    analytics.sendPurchaseStartEvent(transactionBuilder = transactionBuilder, oemId = args.transactionBuilder.oemIdSdk)
 
-  fun sendPaymentStartEvent(transactionBuilder: TransactionBuilder?) {
-    analytics.sendPaymentConfirmationEvent(
-      transactionBuilder?.domain, transactionBuilder?.skuId,
-      transactionBuilder?.amount()
-        .toString(), BillingAnalytics.PAYMENT_METHOD_AMAZON_PAY,
-      transactionBuilder?.type, "BUY"
-    )
   }
 
   private fun validateResultOfPaymentLink(amazonPayTransaction: AmazonPayTransaction) {
@@ -151,11 +103,8 @@ class AmazonPayIABViewModel @Inject constructor(
       amazonPayTransaction.errorCode == null && !amazonPayTransaction.redirectUrl.isNullOrEmpty() ->
         _uiState.value = UiState.PaymentRedirect3ds
 
-      amazonPayTransaction.errorCode == null && getAmazonPayChargePermissionLocalStorageUseCase().isEmpty() ->
+      amazonPayTransaction.errorCode == null ->
         _uiState.value = UiState.PaymentLinkSuccess
-
-      amazonPayTransaction.errorCode == null && getAmazonPayChargePermissionLocalStorageUseCase().isNotEmpty() ->
-        startTransactionStatusTimer()
 
       else ->
         _uiState.value = UiState.Error
@@ -213,14 +162,14 @@ class AmazonPayIABViewModel @Inject constructor(
       Single.just(transactionBuilder)
         .observeOn(rxSchedulers.io)
         .doOnSuccess { transaction ->
-          analytics.sendPaymentSuccessEvent(
-            packageName = transactionBuilder.domain,
-            skuDetails = transaction.skuId,
-            value = transaction.amount().toString(),
-            purchaseDetails = BillingAnalytics.PAYMENT_METHOD_AMAZON_PAY,
-            transactionType = transaction.type,
+          analytics.sendPaymentConclusionEvents(
+            packageName = BuildConfig.APPLICATION_ID,
+            skuId = transaction.skuId,
+            amount = transaction.amount(),
+            type = transaction.type,
+            paymentId = transaction.chainId.toString(),
             txId = txId,
-            valueUsd = transaction.amountUsd.toString()
+            amountUsd = transaction.amountUsd
           )
         }
         .subscribe({}, { it.printStackTrace() })
@@ -236,15 +185,12 @@ class AmazonPayIABViewModel @Inject constructor(
       Single.just(transactionBuilder)
         .observeOn(rxSchedulers.io)
         .doOnSuccess { transaction ->
-          analytics.sendPaymentErrorWithDetailsAndRiskEvent(
-            transaction.domain,
-            transaction.skuId,
-            transaction.amount().toString(),
-            BillingAnalytics.PAYMENT_METHOD_AMAZON_PAY,
-            transaction.type,
-            errorCode ?: "",
-            errorMessage ?: "",
-            ""
+          analytics.sendPaymentErrorEvent(
+            transactionBuilder = transactionBuilder,
+            paymentType = args.paymentType,
+            refusalCode =  errorCode?.toInt(),
+            refusalReason = errorMessage ?: "",
+            riskRules = transaction.type,
           )
         }
         .subscribe({}, { it.printStackTrace() })
@@ -259,11 +205,6 @@ class AmazonPayIABViewModel @Inject constructor(
         when (it.status) {
           Transaction.Status.COMPLETED -> {
             stopTransactionStatusTimer()
-            successInfo = SuccessInfo(
-              hash = it.hash,
-              orderReference = null,
-              purchaseUid = it.uid,
-            )
             _uiState.value = UiState.Success
           }
 
@@ -285,31 +226,6 @@ class AmazonPayIABViewModel @Inject constructor(
       }.subscribe()
     }
 
-  }
-
-  fun getSuccessBundle(
-    transactionBuilder: TransactionBuilder?
-  ) {
-    if (transactionBuilder == null) {
-      _uiState.value = UiState.Error
-      return
-    }
-    inAppPurchaseInteractor.savePreSelectedPaymentMethod(
-      PaymentMethodsView.PaymentMethodId.VKPAY.id
-    )
-    createSuccessBundleUseCase(
-      transactionBuilder.type,
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      successInfo?.purchaseUid,
-      successInfo?.orderReference,
-      successInfo?.hash,
-      rxSchedulers.io
-    ).doOnSuccess {
-      _uiState.value = UiState.SendSuccessBundle(it.bundle)
-    }.subscribeOn(rxSchedulers.main).observeOn(rxSchedulers.main).doOnError {
-      _uiState.value = UiState.Error
-    }.subscribe()
   }
 
 }
