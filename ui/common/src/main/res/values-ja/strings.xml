@@ -534,13 +534,14 @@
   <string name="total_title">合計</string>
   <string name="add_payment_method_button">Add payment method</string>
   <string name="change_payment_method_button">Change payment method</string>
-  <string name="add_card_button">Add credit/debit card</string>
+  <string name="add_card_button">クレジット/デビットカードの追加</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
-  <string name="payment_method">Payment method</string>
-  <string name="credit_debit_card">Credit/debit card</string>
+  <string name="buy_button">購入</string>
+  <string name="payment_method">支払方法</string>
+  <string name="credit_debit_card">クレジット/デビットカード</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">AppCoins Credits</string>
+  <string name="appc">AppCoinsクレジット</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -726,7 +727,7 @@
   <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_error_taking_long_body">通常より時間がかかっているようです...</string>
   <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
@@ -841,9 +842,9 @@
   <string name="backup_ready_email_button">メールに送信</string>
   <string name="backup_ready_device_button">デバイスに保存</string>
   <string name="backup_confirmation_tips_title">ファイルを大切に保管してください:</string>
-  <string name="backup_confirmation_tips_1"><b>印刷</b>して安全な場所に保管。</string>
-  <string name="backup_confirmation_tips_2"><b>USBメモリ</b>に保存する。</string>
-  <string name="backup_confirmation_tips_3">安全なプライベートクラウドストレージに<b>コピー</b>する。</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>印刷</b>して安全な場所に保管。]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>USBメモリ</b>に保存する。]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[安全なプライベートクラウドストレージに<b>コピー</b>する。]]></string>
   <string name="backup_tooltip_body">ウォレットのバックアップを取っておきましょう！</string>
   <string name="backup_tooltip_later_button">後で</string>
   <string name="backup_tooltip_backup_button">バックアップ</string>

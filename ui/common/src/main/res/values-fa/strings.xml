@@ -534,13 +534,14 @@
   <string name="total_title">مجموع</string>
   <string name="add_payment_method_button">Add payment method</string>
   <string name="change_payment_method_button">Change payment method</string>
-  <string name="add_card_button">Add credit/debit card</string>
+  <string name="add_card_button">افزودن کارت اعتباری / بانکی</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
-  <string name="payment_method">Payment method</string>
-  <string name="credit_debit_card">Credit/debit card</string>
-  <string name="paypal">PayPal</string>
-  <string name="appc">AppCoins Credits</string>
+  <string name="buy_button">خرید</string>
+  <string name="payment_method">روش پرداخت</string>
+  <string name="credit_debit_card">کارت اعتباری / بانکی</string>
+  <string name="paypal">پی‌پال</string>
+  <string name="appc">اعتبار AppCoins</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -727,7 +728,7 @@
   <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_error_taking_long_body">بیشتر از معمول طول کشید ...</string>
   <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
@@ -736,7 +737,7 @@
   <string name="purchase_subtotal">Subtotal</string>
   <string name="purchase_taxes">Taxes</string>
   <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
-  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
+  <string name="purchase_bonus_bot_available_body">با این روش پرداخت بونوسی موجود نیست.</string>
   <string name="purchase_promo_code_button">Do you have a promo code?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
@@ -842,9 +843,9 @@
   <string name="backup_ready_email_button">به ایمیل ارسال کنید</string>
   <string name="backup_ready_device_button">روی دستگاه ذخیره کنید</string>
   <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
-  <string name="backup_confirmation_tips_1"><b>آن را پرینت کنید</b> و در جای امنی نگه‌داری کنید.</string>
-  <string name="backup_confirmation_tips_2">آن را روی یک USB <b>ذخیره کنید.</b></string>
-  <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b></string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>آن را پرینت کنید</b> و در جای امنی نگه‌داری کنید.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[آن را روی یک USB <b>ذخیره کنید.</b>]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b>]]></string>
   <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_tooltip_later_button">شاید بعدا</string>
   <string name="backup_tooltip_backup_button">بک‌آپ</string>

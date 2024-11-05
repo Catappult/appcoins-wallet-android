@@ -534,13 +534,14 @@
   <string name="total_title">Всего</string>
   <string name="add_payment_method_button">Add payment method</string>
   <string name="change_payment_method_button">Change payment method</string>
-  <string name="add_card_button">Add credit/debit card</string>
+  <string name="add_card_button">Добавить кредитную/дебитовую карту</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
-  <string name="payment_method">Payment method</string>
-  <string name="credit_debit_card">Credit/debit card</string>
+  <string name="buy_button">Купить</string>
+  <string name="payment_method">Способ оплаты</string>
+  <string name="credit_debit_card">Кредитная/дебитовая карта</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">AppCoins Credits</string>
+  <string name="appc">Кредиты AppCoins</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -729,7 +730,7 @@
   <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_error_taking_long_body">Ой, это заняло больше времени, чем обычно...</string>
   <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
@@ -738,7 +739,7 @@
   <string name="purchase_subtotal">Subtotal</string>
   <string name="purchase_taxes">Taxes</string>
   <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
-  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
+  <string name="purchase_bonus_bot_available_body">Бонус недоступен при данном способе оплаты.</string>
   <string name="purchase_promo_code_button">Do you have a promo code?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
@@ -844,9 +845,9 @@
   <string name="backup_ready_email_button">Отправить на email</string>
   <string name="backup_ready_device_button">Сохранить на диск</string>
   <string name="backup_confirmation_tips_title">Держите файл в безопасном месте:</string>
-  <string name="backup_confirmation_tips_1"><b>Распечатайте</b> и храните в безопасном месте.</string>
-  <string name="backup_confirmation_tips_2"><b>Сохраните</b> на диск USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Скопируйте</b> в личное безопасное облачное хранилище.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Распечатайте</b> и храните в безопасном месте.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Сохраните</b> на диск USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Скопируйте</b> в личное безопасное облачное хранилище.]]></string>
   <string name="backup_tooltip_body">Сделать резервную копию кошелька!</string>
   <string name="backup_tooltip_later_button">Может быть позже</string>
   <string name="backup_tooltip_backup_button">Бэкап</string>

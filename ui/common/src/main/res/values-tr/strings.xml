@@ -534,13 +534,14 @@
   <string name="total_title">Toplam</string>
   <string name="add_payment_method_button">Add payment method</string>
   <string name="change_payment_method_button">Change payment method</string>
-  <string name="add_card_button">Add credit/debit card</string>
+  <string name="add_card_button">Kredi/banka kartı ekle</string>
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
-  <string name="payment_method">Payment method</string>
-  <string name="credit_debit_card">Credit/debit card</string>
+  <string name="buy_button">Satın Al</string>
+  <string name="payment_method">Ödeme yöntemi</string>
+  <string name="credit_debit_card">Kredi/banka kartı</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">AppCoins Credits</string>
+  <string name="appc">AppCoins Kredileri</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -727,7 +728,7 @@
   <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
+  <string name="purchase_error_taking_long_body">Hay aksi, normalden daha uzun sürüyor...</string>
   <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
@@ -736,7 +737,7 @@
   <string name="purchase_subtotal">Subtotal</string>
   <string name="purchase_taxes">Taxes</string>
   <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
-  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
+  <string name="purchase_bonus_bot_available_body">Bonus bu ödeme yöntemiyle kullanılamıyor.</string>
   <string name="purchase_promo_code_button">Do you have a promo code?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
@@ -842,9 +843,9 @@
   <string name="backup_ready_email_button">E-postaya gönder</string>
   <string name="backup_ready_device_button">Cihaza kaydet</string>
   <string name="backup_confirmation_tips_title">Dosyayı güvende tutun:</string>
-  <string name="backup_confirmation_tips_1"><b>Yazdır</b> ve güvenli bir yerde sakla.</string>
-  <string name="backup_confirmation_tips_2">USB sürücüsüne <b>kaydet</b>.</string>
-  <string name="backup_confirmation_tips_3">Gizli ve güvenli bir bulut depolama alanına <b>kopyala</b>.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Yazdır</b> ve güvenli bir yerde sakla.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[USB sürücüsüne <b>kaydet</b>.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[Gizli ve güvenli bir bulut depolama alanına <b>kopyala</b>.]]></string>
   <string name="backup_tooltip_body">Cüzdanınızın bir yedeğini oluşturun!</string>
   <string name="backup_tooltip_later_button">Belki daha sonra</string>
   <string name="backup_tooltip_backup_button">Yedekle</string>
