@@ -4,8 +4,6 @@
   <string name="title_send_with_token">Send %s</string>
   <string name="title_request">Receive</string>
   <string name="title_import">Recover Wallet</string>
-  <string name="copied_to_clipboard">Copied to the clipboard</string>. // TODO remove
-  <string name="topup_button">Top Up</string>. // TODO remove
 
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">My Wallets</string>
