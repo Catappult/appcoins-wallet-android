@@ -538,8 +538,8 @@
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
   <string name="buy_button">Mua</string>
-  <string name="copied_to_clipboard">Copied to the clipboard</string>
-  <string name="topup_button">Top Up</string>
+  <string name="copied_to_clipboard">Đã sao chép vào khay nhớ tạm</string>
+  <string name="topup_button">Nạp tiền</string>
   <string name="payment_method">Phương thức thanh toán</string>
   <string name="credit_debit_card">Thẻ tín dụng/ghi nợ</string>
   <string name="paypal">PayPal</string>
