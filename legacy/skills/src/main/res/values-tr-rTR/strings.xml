@@ -5,7 +5,6 @@
   <string name="start_button">Başla</string>
   <string name="ok">Tamam</string>
   <string name="cancel">İptal et</string>
-  <string name="topup_button">Yükle</string>
   <string name="downloading">İndiliriyor</string>
   <string name="get_button">Al</string>
   <string name="got_it_button">Anladım</string>
@@ -33,7 +32,6 @@
   <string name="e_skills_room_field">Oda ismin…</string>
   <string name="e_skills_payment_title">Ödeme yöntemi</string>
   <string name="e_skills_payment_body">AppCoins Kredileri</string>
-  <string name="copied_to_clipboard">Panoya kopyalandı</string>
   <string name="processing_payment_title">Ödemen işleniyor</string>
   <string name="purchase_error_title">Hay aksi, bir şeyler ters gitti.</string>
   <string name="purchase_eskills_sku">Giriş bileti</string>
