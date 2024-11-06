@@ -538,8 +538,8 @@
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
   <string name="buy_button">购买</string>
-  <string name="copied_to_clipboard">Copied to the clipboard</string>
-  <string name="topup_button">Top Up</string>
+  <string name="copied_to_clipboard">已复制到剪贴板</string>
+  <string name="topup_button">充值</string>
   <string name="payment_method">Payment method</string>
   <string name="credit_debit_card">信用卡/借记卡</string>
   <string name="paypal">PayPal</string>
