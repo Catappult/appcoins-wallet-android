@@ -538,8 +538,8 @@
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
   <string name="buy_button">Vásárlás</string>
-  <string name="copied_to_clipboard">Copied to the clipboard</string>
-  <string name="topup_button">Top Up</string>
+  <string name="copied_to_clipboard">Vágólapra másolva</string>
+  <string name="topup_button">Befizetés</string>
   <string name="payment_method">Fizetési mód</string>
   <string name="credit_debit_card">Hitelkártya/bankkártya</string>
   <string name="paypal">PayPal</string>
