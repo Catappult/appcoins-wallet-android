@@ -5,7 +5,6 @@
   <string name="start_button">Start</string>
   <string name="ok">OK</string>
   <string name="cancel">Abbrechen</string>
-  <string name="topup_button">Aufladen</string>
   <string name="downloading">Wird heruntergeladen</string>
   <string name="get_button">Holen</string>
   <string name="got_it_button">Verstanden</string>
@@ -33,7 +32,6 @@
   <string name="e_skills_room_field">Dein Raumname hier…</string>
   <string name="e_skills_payment_title">Bezahlen mit</string>
   <string name="e_skills_payment_body">AppCoins Credits</string>
-  <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
   <string name="processing_payment_title">Verarbeitung deiner Zahlung</string>
   <string name="purchase_error_title">Upps, etwas ist schiefgelaufen.</string>
   <string name="purchase_eskills_sku">Eintrittskarte</string>
