@@ -5,7 +5,6 @@
   <string name="start_button">Start</string>
   <string name="ok">ਠੀਕ ਹੈ</string>
   <string name="cancel">ਕੈਂਸਲ</string>
-  <string name="topup_button">ਟੋਪ ਅੱਪ</string>
   <string name="downloading">Downloading</string>
   <string name="get_button">Get</string>
   <string name="got_it_button">ਮਿਲ ਗਿਆ</string>
@@ -33,7 +32,6 @@
   <string name="e_skills_room_field">ਇੱਥੇ ਤੁਹਾਡੇ ਰੂਮ ਦਾ ਨਾਮ…</string>
   <string name="e_skills_payment_title">ਭੁਗਤਾਨ ਦੇ ਢੰਗ</string>
   <string name="e_skills_payment_body">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ</string>
-  <string name="copied_to_clipboard">ਕਲਿੱਪਬੋਰਡ ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
   <string name="processing_payment_title">ਤੁਹਾਡੇ ਭੁਗਤਾਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
   <string name="purchase_error_title">ਓਹ ਹੋ, ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ|</string>
   <string name="purchase_eskills_sku">ਦਾਖਲਾ ਟਿਕਟ</string>
