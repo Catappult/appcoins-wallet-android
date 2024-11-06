@@ -538,8 +538,8 @@
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
   <string name="buy_button">خرید</string>
-  <string name="copied_to_clipboard">Copied to the clipboard</string>
-  <string name="topup_button">Top Up</string>
+  <string name="copied_to_clipboard">کپی به کلیپبورد</string>
+  <string name="topup_button">افزایش اعتبار</string>
   <string name="payment_method">روش پرداخت</string>
   <string name="credit_debit_card">کارت اعتباری / بانکی</string>
   <string name="paypal">پی‌پال</string>
