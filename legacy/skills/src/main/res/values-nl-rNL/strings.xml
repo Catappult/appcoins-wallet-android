@@ -5,7 +5,6 @@
   <string name="start_button">Start</string>
   <string name="ok">OK</string>
   <string name="cancel">Annuleren</string>
-  <string name="topup_button">Opwaarderen</string>
   <string name="downloading">Wordt gedownload</string>
   <string name="get_button">Nemen</string>
   <string name="got_it_button">Begrepen</string>
@@ -33,7 +32,6 @@
   <string name="e_skills_room_field">Voer de naam van je room in…</string>
   <string name="e_skills_payment_title">Betaling met</string>
   <string name="e_skills_payment_body">AppCoins Credits</string>
-  <string name="copied_to_clipboard">Naar klembord gekopieerd</string>
   <string name="processing_payment_title">Je betaling wordt verwerkt</string>
   <string name="purchase_error_title">Oeps, er is iets fout gegaan.</string>
   <string name="purchase_eskills_sku">Toegangsticket</string>
