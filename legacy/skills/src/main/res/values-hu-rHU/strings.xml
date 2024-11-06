@@ -5,7 +5,6 @@
   <string name="start_button">Indítás</string>
   <string name="ok">OKÉ</string>
   <string name="cancel">Mégse</string>
-  <string name="topup_button">Befizetés</string>
   <string name="downloading">Letöltés</string>
   <string name="get_button">Megszerzés</string>
   <string name="got_it_button">Értem</string>
@@ -33,7 +32,6 @@
   <string name="e_skills_room_field">Add meg a szoba nevét…</string>
   <string name="e_skills_payment_title">Fizetési mód</string>
   <string name="e_skills_payment_body">AppCoins kreditek</string>
-  <string name="copied_to_clipboard">Vágólapra másolva</string>
   <string name="processing_payment_title">Épp feldolgozzuk a fizetésed</string>
   <string name="purchase_error_title">Hoppá, valami baj történt.</string>
   <string name="purchase_eskills_sku">Belépőjegy</string>
