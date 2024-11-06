@@ -5,7 +5,6 @@
   <string name="start_button">Ξεκινήστε</string>
   <string name="ok">ΟΚ</string>
   <string name="cancel">Ακύρωση</string>
-  <string name="topup_button">Φόρτιση</string>
   <string name="downloading">Γίνεται λήψη</string>
   <string name="get_button">Λήψη</string>
   <string name="got_it_button">Το κατάλαβα</string>
@@ -33,7 +32,6 @@
   <string name="e_skills_room_field">Το όνομα του δωματίου σας εδώ...</string>
   <string name="e_skills_payment_title">Πληρωμή με</string>
   <string name="e_skills_payment_body">AppCoins Credits</string>
-  <string name="copied_to_clipboard">Αντιγράφηκε στο πρόχειρο</string>
   <string name="processing_payment_title">Επεξεργαζόμαστε την πληρωμή σας</string>
   <string name="purchase_error_title">Ωχ, κάτι πήγε στραβά.</string>
   <string name="purchase_eskills_sku">Εισιτήριο εισόδου</string>
