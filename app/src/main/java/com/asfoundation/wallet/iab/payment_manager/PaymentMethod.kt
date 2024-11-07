@@ -26,11 +26,13 @@ abstract class PaymentMethod(protected val paymentMethod: PaymentMethodEntity) {
     get() = paymentMethod.price.currency
   open val hasFees: Boolean
     get() = paymentMethod.fee != null
+
   @get:StringRes
   open val onPreSelectedButtonLabel: Int
     get() = R.string.buy_button
 
-  open fun getDescription(context: Context): String? = paymentMethod.message
+  open fun getDescription(context: Context): String? =
+    if (hasFees) "Fees and vat may apply" else paymentMethod.message // TODO hardcode text
 
   abstract val onBuyClick: () -> Unit
 
