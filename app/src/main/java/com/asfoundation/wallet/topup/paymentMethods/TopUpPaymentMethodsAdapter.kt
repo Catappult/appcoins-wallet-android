@@ -16,7 +16,7 @@ class TopUpPaymentMethodsAdapter(
   private var paymentMethodClick: PublishSubject<PaymentMethod>,
   private val logoutCallback: () -> Unit,
   private val disposables: CompositeDisposable,
-  private val showLogoutAction: Boolean,
+  internal var showLogoutAction: Boolean,
   private val cardsList: List<StoredCard>,
   private val onChangeCardCallback: () -> Unit,
 ) :

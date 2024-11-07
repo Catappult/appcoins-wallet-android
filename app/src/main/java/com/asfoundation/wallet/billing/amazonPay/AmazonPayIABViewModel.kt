@@ -295,7 +295,7 @@ class AmazonPayIABViewModel @Inject constructor(
       return
     }
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(
-      PaymentMethodsView.PaymentMethodId.VKPAY.id
+      PaymentMethodsView.PaymentMethodId.AMAZONPAY.id
     )
     createSuccessBundleUseCase(
       transactionBuilder.type,

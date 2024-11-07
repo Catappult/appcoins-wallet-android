@@ -12,7 +12,7 @@ class PaymentMethodsAdapter(
   private var paymentMethodId: String,
   private var paymentMethodClick: PublishRelay<Int>,
   private val logoutCallback: () -> Unit,
-  private val showLogoutAction: Boolean
+  internal var showLogoutAction: Boolean
 ) :
   RecyclerView.Adapter<PaymentMethodsViewHolder>() {
   private var selectedItem = 0

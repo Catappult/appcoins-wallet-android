@@ -3,6 +3,7 @@ package com.asfoundation.wallet.billing.amazonPay
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -101,8 +103,11 @@ class AmazonPayIABFragment : BasePageViewFragment() {
   @Composable
   @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
   fun MainContent() {
+    val orientation = this.resources.configuration.orientation
+    val dpWidth = if (orientation == Configuration.ORIENTATION_LANDSCAPE) 592.dp else 340.dp
     Scaffold(
-      Modifier.height(400.dp),
+      Modifier.height(300.dp)
+      .width(dpWidth),
       containerColor = styleguide_white_75,
     ) { _ ->
       val uiState = viewModel.uiState.collectAsState().value
@@ -114,13 +119,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
 
         UiState.Idle,
         UiState.Loading -> {
-          Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = CenterVertically,
-            horizontalArrangement = Arrangement.Center
-          ) {
-            Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
-          }
+          Loading()
         }
 
         is UiState.Error -> {
@@ -146,22 +145,30 @@ class AmazonPayIABFragment : BasePageViewFragment() {
           )
         }
 
-        UiState.PaymentRedirect3ds,
+        UiState.PaymentRedirect3ds-> {
+          viewModel.amazonTransaction?.redirectUrl?.let { redirectUsingUniversalLink(it) }
+          Loading()
+        }
         UiState.PaymentLinkSuccess -> {
           createAmazonPayLink()
-          Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = CenterVertically,
-            horizontalArrangement = Arrangement.Center
-          ) {
-            Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
-          }
+          Loading()
         }
 
         is UiState.SendSuccessBundle -> {
           navigatorIAB?.popView(uiState.bundle)
         }
       }
+    }
+  }
+
+  @Composable
+  private fun Loading() {
+    Row(
+      modifier = Modifier.fillMaxSize(),
+      verticalAlignment = CenterVertically,
+      horizontalArrangement = Arrangement.Center
+    ) {
+      Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
     }
   }
 
@@ -208,7 +215,6 @@ class AmazonPayIABFragment : BasePageViewFragment() {
               bonus
             ),
             fontSize = 12.sp,
-            color = styleguide_dark_grey,
             modifier = Modifier.padding(start = 8.dp)
           )
         }

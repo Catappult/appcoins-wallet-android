@@ -329,12 +329,19 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       presenter.removePaypalBillingAgreement()
       presenter.showPayPalLogout = false
       showProgressBarLoading()
+      updateAdapter()
     } else if (presenter.showAmazonPayLogout) {
       presenter.removeAmazonPayChargePermission()
       presenter.showAmazonPayLogout = false
       showProgressBarLoading()
+      updateAdapter()
     }
+  }
 
+  @SuppressLint("NotifyDataSetChanged")
+  private fun updateAdapter() {
+    paymentMethodsAdapter.showLogoutAction = presenter.showPayPalLogout || presenter.showAmazonPayLogout
+    paymentMethodsAdapter.notifyDataSetChanged()
   }
 
   private fun updateHeaderInfo(

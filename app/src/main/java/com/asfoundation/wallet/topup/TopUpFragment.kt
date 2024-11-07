@@ -69,6 +69,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import okhttp3.internal.notify
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -301,13 +302,21 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       presenter.removePaypalBillingAgreement()
       presenter.showPayPalLogout = false
       setNextButton()
+      updateAdapter()
       showAsLoading()
     } else if (presenter.showAmazonLogout) {
       presenter.removeAmazonPayChargePermission()
       presenter.showAmazonLogout = false
       setNextButton()
+      updateAdapter()
       showAsLoading()
     }
+  }
+
+  @SuppressLint("NotifyDataSetChanged")
+  private fun updateAdapter() {
+    adapter.showLogoutAction = presenter.showPayPalLogout || presenter.showAmazonLogout
+    adapter.notifyDataSetChanged()
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>) {

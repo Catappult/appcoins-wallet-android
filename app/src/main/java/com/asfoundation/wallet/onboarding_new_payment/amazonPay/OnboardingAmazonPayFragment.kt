@@ -148,7 +148,8 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
     Column(
       modifier = Modifier
         .fillMaxSize(),
-      horizontalAlignment = Alignment.CenterHorizontally
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.Center
     ) {
       Animation(
         modifier = Modifier
