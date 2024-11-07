@@ -16,6 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -54,6 +56,8 @@ fun PaymentMethodRow(
       contentDescription = null,
       alpha = 0.4f.takeIf { !paymentMethodData.isEnable }
         ?: DefaultAlpha,
+      colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
+        .takeIf { !paymentMethodData.isEnable },
       contentScale = ContentScale.Fit,
     )
     Column(
