@@ -38,11 +38,11 @@ class APPCPaymentMethod(
 
   override fun getDescription(context: Context) =
     walletInfo.walletBalance.creditsBalance.fiat.run {
-      "$symbol ${currencyFormatUtils.formatCurrency(amount)}"
+      "Balance: $symbol ${currencyFormatUtils.formatCurrency(amount)}" // TODO harcoded text
     }
       .takeIf { hasFunds }
       ?: walletInfo.walletBalance.creditsBalance.fiat.run {
-        "Insufficient funds: $symbol ${currencyFormatUtils.formatCurrency(amount)}"
+        "Balance: $symbol ${currencyFormatUtils.formatCurrency(amount)} - Insufficient funds" // TODO harcoded text
       }
 
   override fun createTransaction() {
