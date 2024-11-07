@@ -14,6 +14,7 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.billing.amazonPay.usecases.CreateAmazonPayTransactionUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayCheckoutSessionIdUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.PatchAmazonPayCheckoutSessionUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayPaymentRedirectTypeUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
@@ -53,6 +54,7 @@ class OnboardingAmazonPayViewModel @Inject constructor(
   private val displayChatUseCase: DisplayChatUseCase,
   private val analytics: OnboardingPaymentEvents,
   private val rxSchedulers: RxSchedulers,
+  private val saveAmazonPayPaymentRedirectTypeUseCase: SaveAmazonPayPaymentRedirectTypeUseCase,
   savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -68,31 +70,37 @@ class OnboardingAmazonPayViewModel @Inject constructor(
   private var args: OnboardingAmazonPayFragmentArgs =
     OnboardingAmazonPayFragmentArgs.fromSavedStateHandle(savedStateHandle)
   var runningCustomTab = false
+  var shouldStartPayment = true
 
   @SuppressLint("CheckResult")
   fun getPaymentLink() {
-    val price = AmazonPrice(value = args.amount, currency = args.currency)
-    createAmazonPayTransactionUseCase(
-      price = price,
-      reference = args.transactionBuilder.orderReference,
-      origin = args.transactionBuilder.origin,
-      metadata = args.transactionBuilder.payload,
-      sku = args.transactionBuilder.skuId,
-      callbackUrl = args.transactionBuilder.callbackUrl,
-      transactionType = args.transactionBuilder.type,
-      referrerUrl = args.transactionBuilder.referrerUrl,
-      packageName = args.transactionBuilder.domain,
-      chargePermissionId = null
-    )
-      .doOnSubscribe { _uiState.value = UiState.Loading }
-      .doOnSuccess { amazonTransactionResult ->
-        validateResultOfPaymentLink(amazonTransactionResult)
-      }
-      .subscribe({}, { _ -> _uiState.value = UiState.Error })
+    if(shouldStartPayment) {
+      shouldStartPayment = false
+      sendPaymentStartEvent(args.transactionBuilder)
+      saveAmazonPayPaymentRedirectTypeUseCase(BuildConfig.APPLICATION_ID)
+      val price = AmazonPrice(value = args.amount, currency = args.currency)
+      createAmazonPayTransactionUseCase(
+        price = price,
+        reference = args.transactionBuilder.orderReference,
+        origin = args.transactionBuilder.origin,
+        metadata = args.transactionBuilder.payload,
+        sku = args.transactionBuilder.skuId,
+        callbackUrl = args.transactionBuilder.callbackUrl,
+        transactionType = args.transactionBuilder.type,
+        referrerUrl = args.transactionBuilder.referrerUrl,
+        packageName = args.transactionBuilder.domain,
+        chargePermissionId = null
+      )
+        .doOnSubscribe { _uiState.value = UiState.Loading }
+        .doOnSuccess { amazonTransactionResult ->
+          validateResultOfPaymentLink(amazonTransactionResult)
+        }
+        .subscribe({}, { _ -> _uiState.value = UiState.Error })
+    }
   }
 
 
-  fun sendPaymentStartEvent(transactionBuilder: TransactionBuilder) {
+  private fun sendPaymentStartEvent(transactionBuilder: TransactionBuilder) {
     analytics.sendPurchaseStartEvent(transactionBuilder = transactionBuilder, oemId = args.transactionBuilder.oemIdSdk)
 
   }
@@ -113,6 +121,10 @@ class OnboardingAmazonPayViewModel @Inject constructor(
 
   fun launchChat() {
     displayChatUseCase()
+  }
+
+  fun changeUiState(uiState: UiState) {
+    _uiState.value = uiState
   }
 
   fun getAmazonCheckoutSessionId() {

@@ -17,6 +17,7 @@ import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePerm
 import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayCheckoutSessionIdUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.PatchAmazonPayCheckoutSessionUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayChargePermissionLocalStorageUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayPaymentRedirectTypeUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.billing.vkpay.VkPaymentIABViewModel.SuccessInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -64,6 +65,7 @@ class AmazonPayIABViewModel @Inject constructor(
   private val analytics: BillingAnalytics,
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
+  private val saveAmazonPayPaymentRedirectTypeUseCase: SaveAmazonPayPaymentRedirectTypeUseCase,
   private val rxSchedulers: RxSchedulers,
 ) : ViewModel() {
 
@@ -78,6 +80,7 @@ class AmazonPayIABViewModel @Inject constructor(
   val scope = CoroutineScope(Dispatchers.Main)
   var runningCustomTab = false
   var successInfo: SuccessInfo? = null
+  var shouldStartPayment = true
 
   @SuppressLint("CheckResult")
   fun getPaymentLink(
@@ -86,31 +89,36 @@ class AmazonPayIABViewModel @Inject constructor(
     fiatCurrencySymbol: String,
     origin: String?
   ) {
-    getAmazonPayChargePermissionUseCase()
-      .flatMap { chargePermissionId ->
-        saveAmazonPayChargePermissionLocalStorageUseCase(chargePermissionId = chargePermissionId.chargePermissionId)
-        createAmazonPayTransaction(
-          chargePermissionId = chargePermissionId.chargePermissionId,
-          transactionBuilder = transactionBuilder,
-          amount = amount,
-          fiatCurrencySymbol = fiatCurrencySymbol,
-          origin = origin
-        )
-      }
-      .onErrorResumeNext {
-        createAmazonPayTransaction(
-          chargePermissionId = null,
-          transactionBuilder = transactionBuilder,
-          amount = amount,
-          fiatCurrencySymbol = fiatCurrencySymbol,
-          origin = origin
-        )
-      }
-      .doOnSubscribe { _uiState.value = UiState.Loading }
-      .doOnSuccess { amazonTransactionResult ->
-        validateResultOfPaymentLink(amazonTransactionResult)
-      }
-      .subscribe({}, { _ -> _uiState.value = UiState.Error })
+    if (shouldStartPayment) {
+      shouldStartPayment = false
+      sendPaymentStartEvent(transactionBuilder)
+      saveAmazonPayPaymentRedirectTypeUseCase(transactionBuilder.domain)
+      getAmazonPayChargePermissionUseCase()
+        .flatMap { chargePermissionId ->
+          saveAmazonPayChargePermissionLocalStorageUseCase(chargePermissionId = chargePermissionId.chargePermissionId)
+          createAmazonPayTransaction(
+            chargePermissionId = chargePermissionId.chargePermissionId,
+            transactionBuilder = transactionBuilder,
+            amount = amount,
+            fiatCurrencySymbol = fiatCurrencySymbol,
+            origin = origin
+          )
+        }
+        .onErrorResumeNext {
+          createAmazonPayTransaction(
+            chargePermissionId = null,
+            transactionBuilder = transactionBuilder,
+            amount = amount,
+            fiatCurrencySymbol = fiatCurrencySymbol,
+            origin = origin
+          )
+        }
+        .doOnSubscribe { _uiState.value = UiState.Loading }
+        .doOnSuccess { amazonTransactionResult ->
+          validateResultOfPaymentLink(amazonTransactionResult)
+        }
+        .subscribe({}, { _ -> _uiState.value = UiState.Error })
+    }
   }
 
   private fun createAmazonPayTransaction(
@@ -143,6 +151,10 @@ class AmazonPayIABViewModel @Inject constructor(
         .toString(), BillingAnalytics.PAYMENT_METHOD_AMAZON_PAY,
       transactionBuilder?.type, "BUY"
     )
+  }
+
+  fun changeUiState(uiState: UiState) {
+    _uiState.value = uiState
   }
 
   private fun validateResultOfPaymentLink(amazonPayTransaction: AmazonPayTransaction) {

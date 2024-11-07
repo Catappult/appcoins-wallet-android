@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.onboarding_new_payment.amazonPay
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.content.Context
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -80,7 +81,6 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
   ): View {
     args = OnboardingAmazonPayFragmentArgs.fromBundle(requireArguments())
     viewModel.getPaymentLink()
-    viewModel.sendPaymentStartEvent(args.transactionBuilder)
     return ComposeView(requireContext()).apply { setContent { MainContent() } }
   }
 
@@ -234,6 +234,11 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
     viewModel.getAmazonCheckoutSessionId()
   }
 
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+  }
+
   private fun handleCompletePurchase() {
     viewModel.amazonTransaction?.uid?.let {
       viewModel.sendPaymentSuccessEvent(
@@ -259,7 +264,7 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
     viewModel.runningCustomTab = true
     val customTabsBuilder = CustomTabsIntent.Builder().build()
     customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)
-    customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    viewModel.changeUiState(UiState.Loading)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
   }
 

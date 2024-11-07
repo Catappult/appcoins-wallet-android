@@ -8,6 +8,7 @@ import com.appcoins.wallet.core.network.microservices.model.AmazonPayCheckoutSes
 import com.appcoins.wallet.core.network.microservices.model.AmazonPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.AmazonPrice
 import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.amazonPay.usecases.CreateAmazonPayTransactionTopUpUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.DeleteAmazonPayChargePermissionUseCase
@@ -16,6 +17,7 @@ import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePerm
 import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayCheckoutSessionIdUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.PatchAmazonPayCheckoutSessionUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayChargePermissionLocalStorageUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayPaymentRedirectTypeUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
 import com.asfoundation.wallet.topup.TopUpAnalytics
@@ -56,6 +58,7 @@ class AmazonPayTopUpViewModel @Inject constructor(
   private val patchAmazonPayCheckoutSessionUseCase: PatchAmazonPayCheckoutSessionUseCase,
   private val deleteAmazonPayChargePermissionUseCase: DeleteAmazonPayChargePermissionUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
+  private val saveAmazonPayPaymentRedirectTypeUseCase: SaveAmazonPayPaymentRedirectTypeUseCase,
   private val analytics: TopUpAnalytics
 ) : ViewModel() {
 
@@ -70,22 +73,27 @@ class AmazonPayTopUpViewModel @Inject constructor(
   private var isTimerRunning = false
   val scope = CoroutineScope(Dispatchers.Main)
   var runningCustomTab = false
+  var shouldStartPayment = true
 
   @SuppressLint("CheckResult")
   fun getPaymentLink() {
-    getAmazonPayChargePermissionUseCase()
-      .flatMap { chargePermissionId ->
-        saveAmazonPayChargePermissionLocalStorageUseCase(chargePermissionId = chargePermissionId.chargePermissionId)
-        createAmazonPayTransaction(chargePermissionId.chargePermissionId)
-      }
-      .onErrorResumeNext {
-        createAmazonPayTransaction(null)
-      }
-      .doOnSubscribe { _uiState.value = UiState.Loading }
-      .doOnSuccess { amazonTransactionResult ->
-        validateResultOfPaymentLink(amazonTransactionResult)
-      }
-      .subscribe({}, { _ -> _uiState.value = UiState.Error })
+    if(shouldStartPayment) {
+      shouldStartPayment = false
+      saveAmazonPayPaymentRedirectTypeUseCase(BuildConfig.APPLICATION_ID)
+      getAmazonPayChargePermissionUseCase()
+        .flatMap { chargePermissionId ->
+          saveAmazonPayChargePermissionLocalStorageUseCase(chargePermissionId = chargePermissionId.chargePermissionId)
+          createAmazonPayTransaction(chargePermissionId.chargePermissionId)
+        }
+        .onErrorResumeNext {
+          createAmazonPayTransaction(null)
+        }
+        .doOnSubscribe { _uiState.value = UiState.Loading }
+        .doOnSuccess { amazonTransactionResult ->
+          validateResultOfPaymentLink(amazonTransactionResult)
+        }
+        .subscribe({}, { _ -> _uiState.value = UiState.Error })
+    }
   }
 
   private fun createAmazonPayTransaction(chargePermissionId: String?): Single<AmazonPayTransaction> {
@@ -116,6 +124,10 @@ class AmazonPayTopUpViewModel @Inject constructor(
 
   fun launchChat() {
     displayChatUseCase()
+  }
+
+  fun changeUiState(uiState: UiState) {
+    _uiState.value = uiState
   }
 
   fun getAmazonCheckoutSessionId() {

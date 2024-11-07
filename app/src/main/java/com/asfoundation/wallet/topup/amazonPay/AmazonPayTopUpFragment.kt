@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup.amazonPay
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -34,6 +35,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_HOST
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_PATH
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.createAmazonTransactionLink
+import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
@@ -60,6 +62,8 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
   @Inject
   lateinit var buttonsAnalytics: ButtonsAnalytics
   private val fragmentName = this::class.java.simpleName
+  private var topUpActivityView: TopUpActivityView? = null
+
 
 
   override fun onCreateView(
@@ -149,6 +153,23 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
     viewModel.getAmazonCheckoutSessionId()
   }
 
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    check(context is TopUpActivityView) { "GooglePayTopupFragment must be attached to Topup activity" }
+    topUpActivityView = context
+    topUpActivityView?.lockOrientation()
+  }
+
+  override fun onDetach() {
+    super.onDetach()
+    topUpActivityView = null
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    topUpActivityView?.unlockRotation()
+  }
+
   private fun handleCompletePurchase() {
     val bundle = Bundle().apply {
       putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
@@ -177,6 +198,7 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
     val customTabsBuilder = CustomTabsIntent.Builder().build()
     customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)
     customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    viewModel.changeUiState(UiState.Loading)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
   }
 

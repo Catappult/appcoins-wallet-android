@@ -142,4 +142,12 @@ class AmazonPayRepository @Inject constructor(
     return amazonPayDataSource.getChargePermissionId()
   }
 
+  fun saveAmazonPayPaymentType(paymentType: String?) {
+    amazonPayDataSource.saveAmazonPayPaymentType(paymentType)
+  }
+
+  fun getAmazonPayPaymentType(): String {
+    return amazonPayDataSource.getAmazonPayPaymentType()
+  }
+
 }

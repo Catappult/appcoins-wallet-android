@@ -314,7 +314,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           paymentMethods = paymentMethods,
           paymentMethodId = paymentMethodId,
           paymentMethodClick = paymentMethodClick,
-          logoutCallback = { handleLogoutCallbackAdapter() },
+          logoutCallback = { handleLogoutCallbackAdapter(false) },
           showLogoutAction = presenter.showPayPalLogout || presenter.showAmazonPayLogout
         )
       binding.paymentMethodsRadioList.adapter = paymentMethodsAdapter
@@ -324,17 +324,19 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     }
   }
 
-  private fun handleLogoutCallbackAdapter() {
+  private fun handleLogoutCallbackAdapter(isPreselected: Boolean) {
     if (presenter.showPayPalLogout) {
       presenter.removePaypalBillingAgreement()
       presenter.showPayPalLogout = false
       showProgressBarLoading()
-      updateAdapter()
+      if (!isPreselected)
+        updateAdapter()
     } else if (presenter.showAmazonPayLogout) {
       presenter.removeAmazonPayChargePermission()
       presenter.showAmazonPayLogout = false
       showProgressBarLoading()
-      updateAdapter()
+      if (!isPreselected)
+        updateAdapter()
     }
   }
 
@@ -406,14 +408,15 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         if (isBonusActive) hideBonus()
       }
 
-      PaymentMethodId.PAYPAL_V2.id -> {
+      PaymentMethodId.PAYPAL_V2.id,
+      PaymentMethodId.AMAZONPAY.id -> {
         binding.layoutPreSelected.paymentMoreLogout.visibility = View.VISIBLE
         binding.layoutPreSelected.paymentMoreLogout.setOnClickListener {
           val popup = PopupMenu(context?.applicationContext, it)
           popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
           popup.setOnMenuItemClickListener {
             binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
-            handleLogoutCallbackAdapter()
+            handleLogoutCallbackAdapter(true)
             return@setOnMenuItemClickListener true
           }
           popup.show()

@@ -76,7 +76,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(context is IabView) { "VkPay payment fragment must be attached to IAB activity" }
+    check(context is IabView) { "Amazon payment fragment must be attached to IAB activity" }
     iabView = context
     iabView.lockRotation()
   }
@@ -93,7 +93,6 @@ class AmazonPayIABFragment : BasePageViewFragment() {
       currency,
       origin
     )
-    viewModel.sendPaymentStartEvent(transactionBuilder)
     navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
     return ComposeView(requireContext()).apply { setContent { MainContent() } }
   }
@@ -261,6 +260,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
     val customTabsBuilder = CustomTabsIntent.Builder().build()
     customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)
     customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    viewModel.changeUiState(UiState.Loading)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
   }
 

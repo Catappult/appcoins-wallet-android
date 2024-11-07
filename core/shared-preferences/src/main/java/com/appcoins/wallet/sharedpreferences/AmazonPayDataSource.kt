@@ -27,8 +27,17 @@ class AmazonPayDataSource @Inject constructor(
     .putString(RESULT_CHARGE_PERMISSION_ID, amazonChargePermissionId)
     .apply()
 
+  fun getAmazonPayPaymentType(): String {
+    return sharedPreferences.getString(PAYMENT_TYPE_AMAZON_PAY, "") ?: ""
+  }
+
+  fun saveAmazonPayPaymentType(paymentType: String?) = sharedPreferences.edit()
+    .putString(PAYMENT_TYPE_AMAZON_PAY, paymentType)
+    .apply()
+
   companion object {
     internal const val RESULT_CHECKOUT_SESSION_ID = "result_checkout_session_id"
     internal const val RESULT_CHARGE_PERMISSION_ID = "result_charge_permission_id"
+    internal const val PAYMENT_TYPE_AMAZON_PAY = "payment_type_amazon_pay"
   }
 }

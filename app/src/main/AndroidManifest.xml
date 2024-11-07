@@ -269,10 +269,18 @@
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
 
-        <data android:scheme="https" />
-        <data android:host="${legacyPaymentHost}" />
-        <data android:host="${paymentHost}" />
-        <data android:pathPrefix="/amazonpay/result" />
+        <data android:scheme="https"/>
+        <data android:host="apichain.dev.catappult.io"/>
+        <data android:pathPattern="/amazonpay/result"/>
+      </intent-filter>
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="https"/>
+        <data android:host="apichain.catappult.io"/>
+        <data android:pathPattern="/amazonpay/result"/>
       </intent-filter>
 
     </activity>
