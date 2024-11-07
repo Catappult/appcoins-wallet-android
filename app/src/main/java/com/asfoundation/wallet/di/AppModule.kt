@@ -15,6 +15,9 @@ import androidx.preference.PreferenceManager
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.core.analytics.analytics.TaskTimer
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.network.base.IGetPrivateKeyUseCase
+import com.appcoins.wallet.core.network.base.ISignUseCase
+import com.appcoins.wallet.core.network.base.WalletRepository
 import com.appcoins.wallet.core.utils.android_common.InternetManagerNetworkMonitor
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.core.utils.jvm_common.C
@@ -22,7 +25,6 @@ import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.jvm_common.SyncExecutor
 import com.appcoins.wallet.core.utils.properties.MiscProperties
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.promocode.data.wallet.WalletAddress
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.aptoide.apk.injector.extractor.data.Extractor
@@ -265,10 +267,19 @@ internal class AppModule {
   fun provideTaskTimer(): TaskTimer = TaskTimer()
 
   @Provides
-  fun providesEwtAuthService(walletService: WalletService): EwtAuthenticatorService {
+  fun providesEwtAuthService(
+    walletRepository: WalletRepository,
+    getPrivateKeyUseCase: IGetPrivateKeyUseCase,
+    signUseCase: ISignUseCase,
+  ): EwtAuthenticatorService {
     val headerJson = JsonObject()
     headerJson.addProperty("typ", "EWT")
-    return EwtAuthenticatorService(walletService, headerJson.toString())
+    return EwtAuthenticatorService(
+      walletRepository = walletRepository,
+      getPrivateKeyUseCase = getPrivateKeyUseCase,
+      signUseCase = signUseCase,
+      header = headerJson.toString()
+    )
   }
 
   @Singleton

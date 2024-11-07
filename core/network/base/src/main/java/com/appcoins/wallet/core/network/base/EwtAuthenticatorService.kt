@@ -1,7 +1,6 @@
 package com.appcoins.wallet.core.network.base
 
 import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.google.gson.JsonObject
 import io.reactivex.Single
 
@@ -16,15 +15,17 @@ private const val TTL_IN_SECONDS = 3600
  * This class is here temporarily only
  */
 class EwtAuthenticatorService(
-  private val walletService: WalletService,
+  private val walletRepository: WalletRepository,
+  private val getPrivateKeyUseCase: IGetPrivateKeyUseCase,
+  private val signUseCase: ISignUseCase,
   private val header: String
 ) {
 
   private var cachedAuth: MutableMap<String, Pair<String, Long>> = HashMap()
 
   fun getEwtAuthentication(): Single<String> {
-    return walletService.getWalletAddress()
-      .map { address -> getEwtAuthentication(address) }
+    return Single.just(walletRepository.getDefaultWalletAddress())
+      .map { wallet -> getEwtAuthentication(wallet) }
   }
 
   fun getEwtAuthenticationWithAddress(address: String): Single<String> {
@@ -63,7 +64,8 @@ class EwtAuthenticatorService(
   private fun buildEwtString(address: String, currentUnixTime: Long): String {
     val header = replaceInvalidCharacters(header.convertToBase64())
     val payload = replaceInvalidCharacters(getPayload(address, currentUnixTime))
-    val signedContent = walletService.signSpecificWalletAddressContent(address, payload)
+    val signedContent = Single.just(address)
+      .flatMap { wallet -> getPrivateKeyUseCase(wallet).map { signUseCase(payload, it) } }
       .blockingGet()
     return "Bearer $header.$payload.$signedContent".replace("[\n\r]", "")
   }

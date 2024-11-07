@@ -2,6 +2,7 @@ package com.appcoins.wallet.feature.walletInfo.data
 
 import android.content.SharedPreferences
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
+import com.appcoins.wallet.core.network.base.WalletRepository
 import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
 import com.appcoins.wallet.feature.walletInfo.data.authentication.rxOperator.Operators
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletNotFoundException
@@ -14,16 +15,14 @@ import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.Single
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-@BoundTo(supertype = WalletRepositoryType::class)
 class WalletRepository @Inject constructor(
   private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
   private val accountKeystoreService: AccountKeystoreService,
   private val analyticsSetUp: AnalyticsSetup,
   private val passwordStore: PasswordStore
-) : WalletRepositoryType {
+) : WalletRepositoryType, WalletRepository {
 
   override fun fetchWallets(): Single<Array<Wallet>> {
     return accountKeystoreService.fetchAccounts()
@@ -97,7 +96,7 @@ class WalletRepository @Inject constructor(
       .flatMap { address -> findWallet(address) }
   }
 
-  private fun getDefaultWalletAddress(): String {
+  override fun getDefaultWalletAddress(): String {
     val currentWalletAddress = commonsPreferencesDataSource.getCurrentWalletAddress()
     return currentWalletAddress ?: throw WalletNotFoundException()
   }
