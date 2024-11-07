@@ -41,13 +41,11 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white_75
 import com.appcoins.wallet.ui.widgets.GenericError
 import com.appcoins.wallet.ui.widgets.component.Animation
 
-import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_HOST
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_PATH
-import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.CHECKOUT_LANGUAGE
+import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.createAmazonTransactionLink
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
@@ -224,29 +222,11 @@ class AmazonPayIABFragment : BasePageViewFragment() {
 
 
   private fun createAmazonPayLink() {
-
-    val params = if (BuildConfig.DEBUG) {
-      mapOf(
-        "merchantId" to viewModel.amazonTransaction?.merchantId,
-        "ledgerCurrency" to "EUR",
-        "checkoutLanguage" to AmazonConst.getUserCheckoutLanguage(),
-        "productType" to "PayOnly",
-        "amazonCheckoutSessionId" to viewModel.amazonTransaction?.checkoutSessionId,
-        "integrationType" to "NativeMobile",
-        "environment" to "SANDBOX",
-        "payloadJSON" to viewModel.amazonTransaction?.payload
-      )
-    } else {
-      mapOf(
-        "merchantId" to viewModel.amazonTransaction?.merchantId,
-        "ledgerCurrency" to "EUR",
-        "checkoutLanguage" to AmazonConst.getUserCheckoutLanguage(),
-        "productType" to "PayOnly",
-        "amazonCheckoutSessionId" to viewModel.amazonTransaction?.checkoutSessionId,
-        "integrationType" to "NativeMobile",
-        "payloadJSON" to viewModel.amazonTransaction?.payload
-      )
-    }
+    val params = createAmazonTransactionLink(
+      merchantId = viewModel.amazonTransaction?.merchantId,
+      payload = viewModel.amazonTransaction?.payload,
+      checkoutSessionId = viewModel.amazonTransaction?.checkoutSessionId
+    )
     buildURL(params, "ES")
   }
 

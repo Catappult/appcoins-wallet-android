@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.billing.amazonPay.models
 
+import com.asf.wallet.BuildConfig
 import java.util.Locale
 
 class AmazonConst {
@@ -33,9 +34,35 @@ class AmazonConst {
       "JP" to "ja_JP"
    )
 
-    fun getUserCheckoutLanguage(): String {
+    private fun getUserCheckoutLanguage(): String {
       val userCountry = Locale.getDefault().country
       return CHECKOUT_LANGUAGE.getOrDefault(userCountry, "en_US")
+    }
+
+    fun createAmazonTransactionLink(merchantId: String?, payload: String?, checkoutSessionId: String?): Map<String, String?> {
+      return if (BuildConfig.DEBUG) {
+        mapOf(
+          "merchantId" to merchantId,
+          "ledgerCurrency" to "EUR",
+          "checkoutLanguage" to getUserCheckoutLanguage(),
+          "productType" to "PayOnly",
+          "amazonCheckoutSessionId" to checkoutSessionId,
+          "integrationType" to "NativeMobile",
+          "environment" to "SANDBOX",
+          "payloadJSON" to payload
+        )
+      } else {
+        mapOf(
+          "merchantId" to merchantId,
+          "ledgerCurrency" to "EUR",
+          "checkoutLanguage" to getUserCheckoutLanguage(),
+          "productType" to "PayOnly",
+          "amazonCheckoutSessionId" to checkoutSessionId,
+          "integrationType" to "NativeMobile",
+          "environment" to "LIVE",
+          "payloadJSON" to payload
+        )
+      }
     }
   }
 }
