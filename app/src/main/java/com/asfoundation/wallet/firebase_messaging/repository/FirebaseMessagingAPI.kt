@@ -6,6 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface FirebaseMessagingAPI {
 
@@ -15,9 +16,9 @@ interface FirebaseMessagingAPI {
     @Body firebaseTokenData: FirebaseTokenData
   ): Completable
 
-  @DELETE("/appc/firebase_token")
+  @DELETE("/appc/firebase_token/{token}")
   fun unregisterToken(
     @Header("authorization") authorization: String,
-    @Body firebaseTokenData: FirebaseTokenData
+    @Path("token") token: String,
   ): Completable
 }

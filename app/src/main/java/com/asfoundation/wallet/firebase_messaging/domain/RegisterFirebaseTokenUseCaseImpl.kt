@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.firebase_messaging.domain
 
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RegisterFirebaseTokenUseCase
@@ -14,14 +15,16 @@ import javax.inject.Inject
 class RegisterFirebaseTokenUseCaseImpl @Inject constructor(
   private val walletRepository: WalletRepositoryType,
   private val repository: FirebaseMessagingRepository,
-  private val firebaseMessaging: FirebaseMessaging
+  private val firebaseMessaging: FirebaseMessaging,
+  private val ewtAuthenticatorService: EwtAuthenticatorService,
 ) : RegisterFirebaseTokenUseCase, RegisterFirebaseTokenForWalletsUseCase {
 
   override suspend fun registerFirebaseTokenForAllWallets(token: String, retry: Int, maxRetries: Int) {
     try {
       walletRepository.fetchWallets()
         .flattenAsObservable { it.toList() }
-        .flatMapCompletable { repository.registerToken(it.address, token) }
+        .map { ewtAuthenticatorService.getEwtAuthentication(it.address) }
+        .flatMapCompletable { repository.registerToken(it, token) }
         .doOnError { throw RegisterFirebaseMessagingError(it) }
         .await()
     } catch (e: RegisterFirebaseMessagingError) {
@@ -35,7 +38,8 @@ class RegisterFirebaseTokenUseCaseImpl @Inject constructor(
         .addOnSuccessListener(emitter::onSuccess)
         .addOnFailureListener(emitter::onError)
     }
-      .flatMapCompletable { repository.registerToken(wallet.address, it).onErrorComplete() }
+      .map { ewtAuthenticatorService.getEwtAuthentication(wallet.address) to it }
+      .flatMapCompletable { repository.registerToken(it.first, it.second).onErrorComplete() }
       .andThen(Single.just(wallet))
       .doOnError { throw RegisterFirebaseMessagingError(it) }
 
@@ -45,7 +49,8 @@ class RegisterFirebaseTokenUseCaseImpl @Inject constructor(
         .addOnSuccessListener(emitter::onSuccess)
         .addOnFailureListener(emitter::onError)
     }
-      .flatMapCompletable { repository.unregisterToken(wallet.address, it) }
+      .map { ewtAuthenticatorService.getEwtAuthentication(wallet.address) to it }
+      .flatMapCompletable { repository.unregisterToken(it.first, it.second) }
       .onErrorComplete()
 
 }
