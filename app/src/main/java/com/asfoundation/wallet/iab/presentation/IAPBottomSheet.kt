@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -74,8 +73,6 @@ private fun IAPBottomSheetPortrait(
   onBackClick: (() -> Unit)?,
   content: @Composable () -> Unit,
 ) {
-  val minHeight = 304.dp
-
   if (fullscreen) {
     Column(
       modifier = modifier
@@ -99,7 +96,6 @@ private fun IAPBottomSheetPortrait(
       modifier = modifier
         .fillMaxWidth()
         .height(intrinsicSize = IntrinsicSize.Min)
-        .defaultMinSize(minHeight = minHeight)
         .clip(RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
         .background(color = IAPTheme.colors.primary)
     ) {
