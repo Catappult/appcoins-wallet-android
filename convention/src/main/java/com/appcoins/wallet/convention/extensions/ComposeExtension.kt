@@ -10,7 +10,7 @@ import org.gradle.kotlin.dsl.getByType
  * Configure Compose-specific options
  */
 internal fun Project.configureAndroidCompose(
-  commonExtension: CommonExtension<*, *, *, *, *, *>,
+  commonExtension: CommonExtension<*, *, *, *, *>,
 ) {
   val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
@@ -20,7 +20,8 @@ internal fun Project.configureAndroidCompose(
     }
 
     composeOptions {
-      kotlinCompilerExtensionVersion = libs.findVersion("androidx-compose-compiler").get().toString()
+      kotlinCompilerExtensionVersion =
+        libs.findVersion("androidx-compose-compiler").get().toString()
     }
 
     dependencies {
