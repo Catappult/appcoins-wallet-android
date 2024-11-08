@@ -41,12 +41,14 @@ class PaymentMethodsViewModel(
 
       try {
         val paymentMethods = paymentManager.getPaymentMethods()
+        val selectedPaymentMethod = paymentManager.getSelectedPaymentMethod()
 
         paymentMethods?.let { methods ->
           viewModelState.update {
             PaymentMethodsUiState.PaymentMethodsIdle(
               purchaseInfo = purchaseInfoData,
               paymentMethods = methods,
+              selectedPaymentMethod = selectedPaymentMethod
             )
           }
         } ?: viewModelState.update { PaymentMethodsUiState.PaymentMethodsError }

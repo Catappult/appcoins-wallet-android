@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,13 +35,15 @@ import com.asfoundation.wallet.iab.payment_manager.payment_methods.APPCPaymentMe
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.CreditCardPaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.PayPalV1PaymentMethod
 import com.asfoundation.wallet.iab.presentation.icon.getDownArrow
+import com.asfoundation.wallet.iab.presentation.icon.getIcCheck
 import com.asfoundation.wallet.iab.theme.IAPTheme
 
 @Composable
 fun PaymentMethodRow(
   modifier: Modifier = Modifier,
   paymentMethodData: PaymentMethod,
-  showArrow: Boolean = false
+  isSelected: Boolean = false,
+  showArrow: Boolean = false,
 ) {
   val context = LocalContext.current
   val disabledColor = IAPTheme.colors.disabledBColor
@@ -83,12 +86,15 @@ fun PaymentMethodRow(
         )
       }
     }
-    if (showArrow) {
+    val image = getDownArrow(arrowColor = IAPTheme.colors.arrowColor).takeIf { showArrow }
+      ?: getIcCheck().takeIf { isSelected }
+
+    image?.let {
       Image(
         modifier = Modifier
           .padding(start = 8.dp)
-          .rotate(-90F),
-        imageVector = getDownArrow(arrowColor = IAPTheme.colors.arrowColor),
+          .conditional(showArrow, { rotate(-90F) }),
+        imageVector = image,
         contentDescription = null
       )
     }
@@ -124,10 +130,20 @@ private fun PaymentMethodPreview(
   @PreviewParameter(PaymentMethodState::class) state: Pair<PaymentMethod, Boolean>
 ) {
   IAPTheme {
-    PaymentMethodRow(
-      paymentMethodData = state.first,
-      showArrow = state.second,
-    )
+    Column {
+      PaymentMethodRow(
+        paymentMethodData = state.first,
+        showArrow = state.second,
+        isSelected = true,
+      )
+
+      Spacer(Modifier.height(16.dp))
+
+      PaymentMethodRow(
+        paymentMethodData = state.first,
+        isSelected = true,
+      )
+    }
   }
 }
 
