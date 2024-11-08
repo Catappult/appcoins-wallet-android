@@ -24,7 +24,7 @@ class APPCPaymentMethod(
     get() = paymentMethod.isAvailable() && hasFunds
   override val cost: BigDecimal
     get() = productInfoData.transaction.amount
-  override val taxes: BigDecimal?
+  override val fees: BigDecimal?
     get() = null
   override val subtotal: BigDecimal?
     get() = null
