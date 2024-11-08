@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.asf.wallet.R
 import java.math.BigDecimal
+import java.util.Currency
 
 abstract class PaymentMethod(protected val paymentMethod: PaymentMethodEntity) {
 
@@ -24,6 +25,8 @@ abstract class PaymentMethod(protected val paymentMethod: PaymentMethodEntity) {
     get() = paymentMethod.fee?.run { paymentMethod.price.value }.takeIf { hasFees }
   open val currency: String
     get() = paymentMethod.price.currency
+  open val currencySymbol: String
+    get() = Currency.getInstance(currency).symbol
   open val hasFees: Boolean
     get() = paymentMethod.fee != null
 

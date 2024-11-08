@@ -82,13 +82,13 @@ class MainViewModel(
             bonusAvailable = true, // TODO check if bonus is available for the product,
             purchaseInfoData = PurchaseInfoData(
               packageName = purchaseData.domain,
-              cost = selectedPaymentMethod?.run { "$currency ${currencyFormatUtils.formatCurrency(cost)}" }
-                ?: productInfoData.transaction.run { "$currency ${currencyFormatUtils.formatCurrency(amount)}" },
+              cost = selectedPaymentMethod?.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(cost)}" }
+                ?: productInfoData.transaction.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(amount)}" },
               productName = productInfoData.title,
               hasFees = selectedPaymentMethod?.hasFees ?: false,
-              taxes = selectedPaymentMethod?.run { "$currency ${currencyFormatUtils.formatCurrency(taxes ?: BigDecimal.ZERO)}" }
+              taxes = selectedPaymentMethod?.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(taxes ?: BigDecimal.ZERO)}" }
                 ?.takeIf { selectedPaymentMethod.hasFees },
-              subtotal = selectedPaymentMethod?.run { "$currency ${currencyFormatUtils.formatCurrency(subtotal ?: BigDecimal.ZERO)}" }
+              subtotal = selectedPaymentMethod?.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(subtotal ?: BigDecimal.ZERO)}" }
                 ?.takeIf { selectedPaymentMethod.hasFees }
             ),
             bonusInfoData = emptyBonusInfoData,
