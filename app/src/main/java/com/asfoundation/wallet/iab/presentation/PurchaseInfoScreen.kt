@@ -177,8 +177,8 @@ private fun RealPurchaseInfo(
         )
         PurchaseDetails(
           modifier = Modifier.padding(vertical = 8.dp),
-          name = "Taxes", //TODO hardcoded text
-          value = purchaseInfo.taxes,
+          name = "Fees", //TODO hardcoded text
+          value = purchaseInfo.fees,
         )
         PurchaseDetails(
           modifier = Modifier.padding(vertical = 8.dp),
@@ -268,7 +268,7 @@ data class PurchaseInfoData(
   val cost: String,
   val hasFees: Boolean,
   val subtotal: String? = null,
-  val taxes: String? = null,
+  val fees: String? = null,
   val giftCardDiscount: String? = null,
 ) : Parcelable
 
@@ -278,6 +278,6 @@ val emptyPurchaseInfo = PurchaseInfoData(
   cost = "€12.98",
   hasFees = true,
   subtotal = "€12.73",
-  taxes = "€0.24",
+  fees = "€0.24",
   giftCardDiscount = "€0.00",
 )
