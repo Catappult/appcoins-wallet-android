@@ -86,7 +86,7 @@ class MainViewModel(
                 ?: productInfoData.transaction.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(amount)}" },
               productName = productInfoData.title,
               hasFees = selectedPaymentMethod?.hasFees ?: false,
-              taxes = selectedPaymentMethod?.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(taxes ?: BigDecimal.ZERO)}" }
+              fees = selectedPaymentMethod?.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(fees ?: BigDecimal.ZERO)}" }
                 ?.takeIf { selectedPaymentMethod.hasFees },
               subtotal = selectedPaymentMethod?.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(subtotal ?: BigDecimal.ZERO)}" }
                 ?.takeIf { selectedPaymentMethod.hasFees }
