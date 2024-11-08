@@ -8,6 +8,7 @@ sealed class PaymentMethodsUiState {
   data class PaymentMethodsIdle(
     val purchaseInfo: PurchaseInfoData,
     val paymentMethods: List<PaymentMethod>,
+    val selectedPaymentMethod: PaymentMethod?,
   ) : PaymentMethodsUiState()
 
   data object PaymentMethodsError : PaymentMethodsUiState()

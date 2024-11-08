@@ -129,6 +129,7 @@ private fun RealPaymentMethodsContent(
           onPurchaseInfoExpandClick = onPurchaseInfoExpandClick,
           isPurchaseInfoExpanded = isPurchaseInfoExpanded,
           onPaymentMethodClick = onPaymentMethodClick,
+          selectedPaymentMethod = state.selectedPaymentMethod,
         )
 
         is PaymentMethodsUiState.LoadingPaymentMethods -> PaymentMethodsScreen(
@@ -140,13 +141,13 @@ private fun RealPaymentMethodsContent(
         is PaymentMethodsUiState.PaymentMethodsError -> GenericError(
           secondaryButtonText = "Close", // TODO hardcoded string
           onSecondaryButtonClick = onSecondaryButtonClick,
-          onSupportClick = onSupportClick
+          onSupportClick = onSupportClick,
         )
 
         is PaymentMethodsUiState.NoConnection -> GenericError(
           secondaryButtonText = "Close", // TODO hardcoded string
           onSecondaryButtonClick = onSecondaryButtonClick,
-          onSupportClick = onSupportClick
+          onSupportClick = onSupportClick,
         )
       }
     }
@@ -157,6 +158,7 @@ private fun RealPaymentMethodsContent(
 fun PaymentMethodsScreen(
   purchaseInfoData: PurchaseInfoData,
   isPurchaseInfoExpanded: Boolean,
+  selectedPaymentMethod: PaymentMethod? = null,
   paymentMethods: List<PaymentMethod>? = null,
   onPurchaseInfoExpandClick: () -> Unit,
   onPaymentMethodClick: ((PaymentMethod) -> Unit)? = null,
@@ -201,7 +203,8 @@ fun PaymentMethodsScreen(
               ifTrue = { addClick(onClick = { onPaymentMethodClick!!(it) }, "${it.id}Clicked") }
             )
             .padding(24.dp),
-          paymentMethodData = it
+          paymentMethodData = it,
+          isSelected = it.id == selectedPaymentMethod?.id,
         )
       } ?: repeat(6) {
         PaymentMethodSkeleton(Modifier.padding(24.dp))
@@ -261,6 +264,10 @@ private class PaymentMethodsFragmentUiStateProvider :
           purchaseData = emptyPurchaseData,
         ),
       ),
+      selectedPaymentMethod = CreditCardPaymentMethod(
+        paymentMethod = emptyPaymentMethodEntity,
+        purchaseData = emptyPurchaseData,
+      )
     ),
     PaymentMethodsUiState.LoadingPaymentMethods(
       purchaseInfo = emptyPurchaseInfo
