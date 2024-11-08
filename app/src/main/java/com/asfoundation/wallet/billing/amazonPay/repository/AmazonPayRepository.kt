@@ -77,6 +77,8 @@ class AmazonPayRepository @Inject constructor(
               null,
               null,
               null,
+              null,
+              null,
               errorCode.toString(),
               errorContent ?: ""
             )
