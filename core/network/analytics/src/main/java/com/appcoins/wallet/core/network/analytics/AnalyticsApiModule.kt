@@ -2,7 +2,6 @@ package com.appcoins.wallet.core.network.analytics
 
 import com.appcoins.wallet.core.network.analytics.api.AnalyticsApi
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
-import com.appcoins.wallet.core.network.eskills.api.AppDataApi
 import com.fasterxml.jackson.databind.ObjectMapper
 import dagger.Module
 import dagger.Provides
@@ -44,11 +43,4 @@ class AnalyticsApiModule {
     return retrofit.create(AnalyticsApi::class.java)
   }
 
-  @Singleton
-  @Provides
-  fun provideAppDataAPI(
-    @Named("analytics-default") retrofit: Retrofit
-  ): AppDataApi {
-    return retrofit.create(AppDataApi::class.java)
-  }
 }

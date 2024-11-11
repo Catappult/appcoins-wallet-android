@@ -108,9 +108,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   lateinit var adyenPaymentInteractor: AdyenPaymentInteractor
 
   @Inject
-  lateinit var skillsPaymentInteractor: SkillsPaymentInteractor
-
-  @Inject
   lateinit var adyenEnvironment: Environment
 
   @Inject
