@@ -20,7 +20,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
 import javax.inject.Inject
 
 class MainViewModel(
@@ -82,13 +81,13 @@ class MainViewModel(
             bonusAvailable = true, // TODO check if bonus is available for the product,
             purchaseInfoData = PurchaseInfoData(
               packageName = purchaseData.domain,
-              cost = selectedPaymentMethod?.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(cost)}" }
-                ?: productInfoData.transaction.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(amount)}" },
+              cost = selectedPaymentMethod?.run { currencyFormatUtils.formatCost(currencySymbol = currencySymbol, currencyCode = currency, cost = cost) }
+                ?: productInfoData.transaction.run { currencyFormatUtils.formatCost(currencySymbol = currencySymbol, currencyCode = currency, cost = amount) },
               productName = productInfoData.title,
               hasFees = selectedPaymentMethod?.hasFees ?: false,
-              fees = selectedPaymentMethod?.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(fees ?: BigDecimal.ZERO)}" }
+              fees = selectedPaymentMethod?.run { currencyFormatUtils.formatCost(currencySymbol = currencySymbol, currencyCode = currency, cost = fees) }
                 ?.takeIf { selectedPaymentMethod.hasFees },
-              subtotal = selectedPaymentMethod?.run { "$currencySymbol ${currencyFormatUtils.formatCurrency(subtotal ?: BigDecimal.ZERO)}" }
+              subtotal = selectedPaymentMethod?.run { currencyFormatUtils.formatCost(currencySymbol = currencySymbol, currencyCode = currency, cost = subtotal) }
                 ?.takeIf { selectedPaymentMethod.hasFees }
             ),
             bonusInfoData = emptyBonusInfoData,
