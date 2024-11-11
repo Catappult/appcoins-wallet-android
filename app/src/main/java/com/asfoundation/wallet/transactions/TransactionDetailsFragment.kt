@@ -194,6 +194,17 @@ class TransactionDetailsFragment : BasePageViewFragment() {
                 stringResource(category ?: title)
               )
 
+              if (method != null) {
+                val paymentMethod = PaymentMethodDetails.getDetails(method)
+                TransactionDetailItem(
+                  stringResource(R.string.payment_method),
+                  if (paymentMethod.displayTextRes != null)
+                    stringResource(paymentMethod.displayTextRes)
+                  else
+                    paymentMethod.paymentKey
+                )
+              }
+
               if (sku != null)
                 TransactionDetailItem(
                   stringResource(R.string.transaction_details_sku), sku
