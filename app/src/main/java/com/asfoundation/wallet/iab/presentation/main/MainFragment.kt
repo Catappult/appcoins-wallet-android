@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,6 +56,8 @@ import com.asfoundation.wallet.iab.presentation.emptyBonusInfoData
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
 import com.asfoundation.wallet.iab.theme.IAPTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 @AndroidEntryPoint
@@ -199,6 +202,18 @@ private fun PurchaseDetails(
   preSelectedPaymentMethod: PaymentMethod?,
   onPaymentMethodClick: () -> Unit,
 ) {
+  var showLoadingPrice by rememberSaveable { mutableStateOf(false) }
+  var paymentMethodId by rememberSaveable { mutableStateOf<String?>(null) }
+
+  if (preSelectedPaymentMethod != null && paymentMethodId != preSelectedPaymentMethod.id) {
+    LaunchedEffect(Unit) {
+      showLoadingPrice = true
+      delay(TimeUnit.SECONDS.toMillis(1))
+      paymentMethodId = preSelectedPaymentMethod.id
+      showLoadingPrice = false
+    }
+  }
+
   var isPurchaseInfoExpanded by rememberSaveable { mutableStateOf(false) }
   var isBonusInfoExpanded by rememberSaveable { mutableStateOf(false) }
 
@@ -238,6 +253,7 @@ private fun PurchaseDetails(
           .padding(16.dp),
         purchaseInfo = purchaseInfoData,
         isExpanded = isPurchaseInfoExpanded,
+        showLoadingPrice = showLoadingPrice
       )
       SeparatorLine()
       BonusInfo(
