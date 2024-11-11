@@ -1,10 +1,14 @@
 package com.appcoins.wallet.core.utils.android_common
 
+import android.icu.util.Currency
+import android.icu.util.ULocale
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import javax.inject.Inject
+import android.icu.text.NumberFormat as ICUNumberFormat
+import android.icu.text.DecimalFormat as ICUDecimalFormat
 
 class CurrencyFormatUtils @Inject constructor() {
 
@@ -41,6 +45,29 @@ class CurrencyFormatUtils @Inject constructor() {
     val value = amount.toDouble()
     return formatCurrencyFiat(value)
   }
+
+  fun formatCost(currencyCode: String, currencySymbol: String, cost: BigDecimal?) : String {
+    val isSymbolBeforeAmount = isSymbolBeforeAmount(ULocale.getDefault(), currencyCode)
+
+    return "$currencySymbol ${formatCurrency(cost ?: BigDecimal.ZERO)}".takeIf { isSymbolBeforeAmount }
+      ?: "${formatCurrency(cost?: BigDecimal.ZERO)} $currencySymbol"
+  }
+
+  private fun isSymbolBeforeAmount(locale: ULocale, currencyCode: String): Boolean {
+    // Create a currency instance for the given currency code
+    val currency = Currency.getInstance(currencyCode)
+
+    // Get the currency formatter for the specified locale and set the currency
+    val currencyFormatter = ICUNumberFormat.getCurrencyInstance(locale) as ICUDecimalFormat
+    currencyFormatter.currency = currency
+
+    // Retrieve the pattern used for currency formatting
+    val pattern = currencyFormatter.toPattern()
+
+    // Check if the currency symbol (¤) appears before or after the number pattern (# or 0)
+    return pattern.indexOf('¤') < pattern.indexOf('#') || pattern.indexOf('¤') < pattern.indexOf('0')
+  }
+
 
   private fun formatCurrencyFiat(
     value: Double,
