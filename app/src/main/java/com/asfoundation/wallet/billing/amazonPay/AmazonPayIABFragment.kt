@@ -259,7 +259,6 @@ class AmazonPayIABFragment : BasePageViewFragment() {
     viewModel.runningCustomTab = true
     val customTabsBuilder = CustomTabsIntent.Builder().build()
     customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)
-    customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     viewModel.changeUiState(UiState.Loading)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
   }

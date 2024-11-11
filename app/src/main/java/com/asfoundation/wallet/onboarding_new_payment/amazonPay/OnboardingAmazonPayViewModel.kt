@@ -130,17 +130,12 @@ class OnboardingAmazonPayViewModel @Inject constructor(
   fun getAmazonCheckoutSessionId() {
     if (!isTimerRunning && runningCustomTab) {
       val amazonPayCheckoutRequest =
-        AmazonPayCheckoutSessionRequest(getAmazonPayCheckoutSessionIdUseCase())
-      if (amazonPayCheckoutRequest.checkoutSessionId.isEmpty()) {
-        _uiState.value = UiState.Error
-        return
-      } else {
-        patchAmazonPayCheckoutSessionUseCase(
-          amazonTransaction?.uid,
-          amazonPayCheckoutRequest
-        ).subscribe()
-        startTransactionStatusTimer()
-      }
+        AmazonPayCheckoutSessionRequest(amazonTransaction?.checkoutSessionId!!)
+      patchAmazonPayCheckoutSessionUseCase(
+        amazonTransaction?.uid,
+        amazonPayCheckoutRequest
+      ).subscribe()
+      startTransactionStatusTimer()
       runningCustomTab = false
       isTimerRunning = true
     }
