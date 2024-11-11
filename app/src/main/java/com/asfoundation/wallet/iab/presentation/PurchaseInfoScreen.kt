@@ -31,6 +31,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.ui.common.getAppIconDrawable
 import com.appcoins.wallet.ui.common.getAppName
+import com.appcoins.wallet.ui.widgets.component.Animation
+import com.asf.wallet.R
 import com.asfoundation.wallet.iab.presentation.icon.getDownArrow
 import com.asfoundation.wallet.iab.theme.IAPTheme
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
@@ -42,6 +44,7 @@ fun PurchaseInfo(
   modifier: Modifier = Modifier,
   purchaseInfo: PurchaseInfoData,
   isExpanded: Boolean,
+  showLoadingPrice: Boolean = false,
 ) {
   val localContext = LocalContext.current
   val appIcon = localContext.getAppIconDrawable(purchaseInfo.packageName)
@@ -53,6 +56,7 @@ fun PurchaseInfo(
     appName = appName,
     purchaseInfo = purchaseInfo,
     isExpanded = isExpanded,
+    showLoadingPrice = showLoadingPrice,
   )
 }
 
@@ -106,6 +110,7 @@ private fun RealPurchaseInfo(
   appName: String,
   purchaseInfo: PurchaseInfoData,
   isExpanded: Boolean,
+  showLoadingPrice: Boolean,
 ) {
   val colorState by animateColorAsState(
     targetValue = if (isExpanded) IAPTheme.colors.backArrow else IAPTheme.colors.arrowColor,
@@ -142,15 +147,22 @@ private fun RealPurchaseInfo(
             color = IAPTheme.colors.onPrimary,
           )
           Spacer(modifier = Modifier.weight(1f))
-          AnimatedVisibility(!isExpanded || !purchaseInfo.hasFees) {
-            Text(
-              modifier = Modifier.padding(bottom = 4.dp),
-              text = purchaseInfo.cost,
-              style = IAPTheme.typography.bodyLarge,
-              color = IAPTheme.colors.onPrimary,
+          if (showLoadingPrice) {
+            Animation(
+              modifier = Modifier.size(height = 22.dp, width = 48.dp),
+              animationRes = R.raw.dots_transition_animation
             )
+          } else {
+            AnimatedVisibility(!isExpanded || !purchaseInfo.hasFees) {
+              Text(
+                modifier = Modifier.padding(bottom = 4.dp),
+                text = purchaseInfo.cost,
+                style = IAPTheme.typography.bodyLarge,
+                color = IAPTheme.colors.onPrimary,
+              )
+            }
           }
-          if (purchaseInfo.hasFees) {
+          if (!showLoadingPrice && purchaseInfo.hasFees) {
             Image(
               modifier = Modifier
                 .padding(start = 8.dp)
@@ -237,12 +249,24 @@ private fun PurchaseInfoPreview(
   @PreviewParameter(IsPurchaseInfoExpandedProvider::class) isExpanded: Boolean
 ) {
   IAPTheme {
-    RealPurchaseInfo(
-      appIcon = null,
-      appName = "App name",
-      purchaseInfo = emptyPurchaseInfo.copy(hasFees = Random.nextBoolean()),
-      isExpanded = isExpanded,
-    )
+    Column {
+      Spacer(Modifier.height(24.dp))
+      RealPurchaseInfo(
+        appIcon = null,
+        appName = "App name",
+        purchaseInfo = emptyPurchaseInfo.copy(hasFees = Random.nextBoolean()),
+        isExpanded = isExpanded,
+        showLoadingPrice = false,
+      )
+      Spacer(Modifier.height(16.dp))
+      RealPurchaseInfo(
+        appIcon = null,
+        appName = "App name",
+        purchaseInfo = emptyPurchaseInfo.copy(hasFees = Random.nextBoolean()),
+        isExpanded = isExpanded,
+        showLoadingPrice = true,
+      )
+    }
   }
 }
 
