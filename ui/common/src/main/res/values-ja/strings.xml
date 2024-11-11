@@ -538,6 +538,8 @@
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
   <string name="buy_button">購入</string>
+  <string name="copied_to_clipboard">クリップボードにコピーされました</string>
+  <string name="topup_button">トップアップ</string>
   <string name="payment_method">支払方法</string>
   <string name="credit_debit_card">クレジット/デビットカード</string>
   <string name="paypal">PayPal</string>

@@ -5,7 +5,6 @@
   <string name="start_button">सुरु करा</string>
   <string name="ok">ठीक आहे</string>
   <string name="cancel">रद्द करा</string>
-  <string name="topup_button">भरणा करा</string>
   <string name="downloading">डाऊनलोड होत आहे</string>
   <string name="get_button">मिळवा</string>
   <string name="got_it_button">समजले</string>
@@ -33,7 +32,6 @@
   <string name="e_skills_room_field">आपल्या रुमचे नाव इथे…</string>
   <string name="e_skills_payment_title">सह पेमेंट करा</string>
   <string name="e_skills_payment_body">अॅपकॉइन्स क्रेडीटस</string>
-  <string name="copied_to_clipboard">क्लिपबोर्डवर कॉपी करा</string>
   <string name="processing_payment_title">आपले पेमेंट प्रक्रियागत करीत आहोत</string>
   <string name="purchase_error_title">अरेरे, काहीतरी चूक झाली.</string>
   <string name="purchase_eskills_sku">प्रवेश तिकिट</string>

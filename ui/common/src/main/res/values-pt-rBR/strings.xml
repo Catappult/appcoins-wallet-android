@@ -538,6 +538,8 @@
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
   <string name="buy_button">Comprar</string>
+  <string name="copied_to_clipboard">Copiado para área de transferência</string>
+  <string name="topup_button">Depositar</string>
   <string name="payment_method">Método de pagamento</string>
   <string name="credit_debit_card">Cartão de crédito/débito</string>
   <string name="paypal">PayPal</string>

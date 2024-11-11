@@ -5,7 +5,6 @@
   <string name="start_button">Bắt đầu</string>
   <string name="ok">OK</string>
   <string name="cancel">Hủy</string>
-  <string name="topup_button">Nạp tiền</string>
   <string name="downloading">Đang tải xuống</string>
   <string name="get_button">Tải</string>
   <string name="got_it_button">Đã hiểu</string>
@@ -33,7 +32,6 @@
   <string name="e_skills_room_field">Tên phòng của bạn ở đây…</string>
   <string name="e_skills_payment_title">Thanh toán bằng</string>
   <string name="e_skills_payment_body">AppCoins Credits</string>
-  <string name="copied_to_clipboard">Đã sao chép vào khay nhớ tạm</string>
   <string name="processing_payment_title">Thanh toán của bạn đang được xử lý</string>
   <string name="purchase_error_title">Rất tiếc, đã xảy ra lỗi.</string>
   <string name="purchase_eskills_sku">Vé tham gia</string>

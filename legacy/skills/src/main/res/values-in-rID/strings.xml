@@ -5,7 +5,6 @@
   <string name="start_button">Mulai</string>
   <string name="ok">Oke</string>
   <string name="cancel">Batal</string>
-  <string name="topup_button">Isi Ulang</string>
   <string name="downloading">Mengunduh</string>
   <string name="get_button">Ambil</string>
   <string name="got_it_button">Mengerti</string>
@@ -33,7 +32,6 @@
   <string name="e_skills_room_field">Nama ruang Anda di sini…</string>
   <string name="e_skills_payment_title">Pembayaran dengan</string>
   <string name="e_skills_payment_body">Kredit AppCoins</string>
-  <string name="copied_to_clipboard">Disalin ke clipboard</string>
   <string name="processing_payment_title">Memproses pembayaran Anda</string>
   <string name="purchase_error_title">Ups, ada kesalahan.</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>

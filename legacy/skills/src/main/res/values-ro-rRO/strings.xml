@@ -5,7 +5,6 @@
   <string name="start_button">Start</string>
   <string name="ok">OK</string>
   <string name="cancel">Anulează</string>
-  <string name="topup_button">Alimentează</string>
   <string name="downloading">Se descarcă</string>
   <string name="get_button">Obține</string>
   <string name="got_it_button">Am înțeles</string>
@@ -33,7 +32,6 @@
   <string name="e_skills_room_field">Numele sălii tale aici…</string>
   <string name="e_skills_payment_title">Plată cu</string>
   <string name="e_skills_payment_body">AppCoins Credits</string>
-  <string name="copied_to_clipboard">Copiat pe clipboard</string>
   <string name="processing_payment_title">Plată în curs de procesare</string>
   <string name="purchase_error_title">Ups, ceva nu a mers cum trebuie.</string>
   <string name="purchase_eskills_sku">Tichet de intrare</string>

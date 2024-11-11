@@ -5,7 +5,6 @@
   <string name="start_button">เริ่ม</string>
   <string name="ok">ตกลง</string>
   <string name="cancel">ยกเลิก</string>
-  <string name="topup_button">เติม</string>
   <string name="downloading">กำลังดาวน์โหลด</string>
   <string name="get_button">รับ</string>
   <string name="got_it_button">ได้รับ</string>
@@ -33,7 +32,6 @@
   <string name="e_skills_room_field">ชื่อห้องของคุณที่นี่...</string>
   <string name="e_skills_payment_title">ชำระเงินด้วย</string>
   <string name="e_skills_payment_body">เครดิต AppCoins</string>
-  <string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด</string>
   <string name="processing_payment_title">ดำเนินการชำระเงินของคุณ</string>
   <string name="purchase_error_title">อุ๊ปส์ มีบางอย่างผิดพลาด</string>
   <string name="purchase_eskills_sku">ตั๋วเข้า</string>

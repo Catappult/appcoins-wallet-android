@@ -538,6 +538,8 @@
   <string name="add_paypal_button">Add paypal</string>
   <string name="add_gift_card_button">Add gift card</string>
   <string name="buy_button">Beli</string>
+  <string name="copied_to_clipboard">Disalin ke clipboard</string>
+  <string name="topup_button">Isi Ulang</string>
   <string name="payment_method">Cara pembayaran</string>
   <string name="credit_debit_card">Kartu kredit/debit</string>
   <string name="paypal">PayPal</string>
