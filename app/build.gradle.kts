@@ -106,6 +106,7 @@ dependencies {
   implementation(libs.paranoid)
   implementation(libs.flexbox)
 
+  implementation(libs.analytics.sentry)
   implementation(libs.bundles.analytics)
 
   implementation(libs.bundles.lottie)

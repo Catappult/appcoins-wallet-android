@@ -21,4 +21,5 @@ dependencies {
   implementation(libs.bundles.network)
   implementation(libs.androidx.multidex)
   implementation(libs.google.play.services)
+  implementation(libs.analytics.sentry)
 }
