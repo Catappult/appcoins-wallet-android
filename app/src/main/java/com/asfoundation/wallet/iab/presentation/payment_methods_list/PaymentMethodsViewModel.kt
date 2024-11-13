@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.iab.presentation.payment_methods
+package com.asfoundation.wallet.iab.presentation.payment_methods_list
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel

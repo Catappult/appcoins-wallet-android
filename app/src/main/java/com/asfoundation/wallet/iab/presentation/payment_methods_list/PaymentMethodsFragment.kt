@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.iab.presentation.payment_methods
+package com.asfoundation.wallet.iab.presentation.payment_methods_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
