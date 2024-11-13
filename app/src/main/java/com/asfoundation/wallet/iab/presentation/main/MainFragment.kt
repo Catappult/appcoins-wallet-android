@@ -100,11 +100,28 @@ private fun MainScreen(
 
       val loadData = { viewModel.reload() }
 
+      val onPaymentMethodClick: (PurchaseInfoData) -> Unit = { purchaseInfoData ->
+        onNavigateTo(
+          MainFragmentDirections.actionNavigateToPaymentMethodsFragment(
+            purchaseInfoDataExtra = purchaseInfoData,
+          )
+        )
+      }
+
+      val onBuyClick: (PaymentMethod?, PurchaseInfoData) -> Unit =
+        { paymentMethod, purchaseInfoData ->
+          when {
+            paymentMethod?.isEnable == true -> viewModel.createTransaction(paymentMethod)
+            else -> onPaymentMethodClick(purchaseInfoData)
+          }
+        }
+
       RealMainScreen(
         state = state,
         onSupportClick = onSupportClick,
         loadData = loadData,
-        onNavigateTo = onNavigateTo
+        onPaymentMethodClick = onPaymentMethodClick,
+        onBuyClick = onBuyClick,
       )
 
     } ?: PurchaseDataError(
@@ -136,7 +153,8 @@ private fun RealMainScreen(
   state: MainFragmentUiState,
   loadData: () -> Unit,
   onSupportClick: () -> Unit,
-  onNavigateTo: (NavDirections) -> Unit,
+  onPaymentMethodClick: (PurchaseInfoData) -> Unit,
+  onBuyClick: (PaymentMethod?, PurchaseInfoData) -> Unit,
 ) {
   val showWalletIcon = state is MainFragmentUiState.Idle ||
       state is MainFragmentUiState.LoadingPurchaseData
@@ -162,13 +180,8 @@ private fun RealMainScreen(
           showDisclaimer = targetState.showDisclaimer,
           preSelectedPaymentMethod = targetState.preSelectedPaymentMethod,
           bonusAvailable = targetState.bonusAvailable,
-          onPaymentMethodClick = {
-            onNavigateTo(
-              MainFragmentDirections.actionNavigateToPaymentMethodsFragment(
-                purchaseInfoDataExtra = targetState.purchaseInfoData,
-              )
-            )
-          }
+          onPaymentMethodClick = onPaymentMethodClick,
+          onBuyClick = onBuyClick
         )
 
         MainFragmentUiState.NoConnection -> GenericError(
@@ -200,7 +213,8 @@ private fun PurchaseDetails(
   showDisclaimer: Boolean,
   bonusAvailable: Boolean,
   preSelectedPaymentMethod: PaymentMethod?,
-  onPaymentMethodClick: () -> Unit,
+  onPaymentMethodClick: (PurchaseInfoData) -> Unit,
+  onBuyClick: (PaymentMethod?, PurchaseInfoData) -> Unit
 ) {
   var showLoadingPrice by rememberSaveable { mutableStateOf(false) }
   var paymentMethodId by rememberSaveable { mutableStateOf<String?>(null) }
@@ -281,7 +295,7 @@ private fun PurchaseDetails(
               condition = preSelectedPaymentMethod.isEnable,
               ifTrue = {
                 addClick(
-                  onClick = onPaymentMethodClick,
+                  onClick = { onPaymentMethodClick(purchaseInfoData) },
                   testTag = "onPaymentMethodClick"
                 )
               }
@@ -309,10 +323,7 @@ private fun PurchaseDetails(
         preSelectedPaymentMethod.isEnable -> "Buy" // TODO hardcoded text
         else -> "Change payment method" // TODO hardcoded text
       },
-      onClick = when {
-        preSelectedPaymentMethod?.isEnable == true -> preSelectedPaymentMethod.onBuyClick
-        else -> onPaymentMethodClick
-      },
+      onClick = { onBuyClick(preSelectedPaymentMethod, purchaseInfoData) },
       testTag = when {
         preSelectedPaymentMethod == null -> "addPaymentMethodClicked"
         preSelectedPaymentMethod.isEnable -> "buyClicked"
@@ -387,7 +398,8 @@ private fun PreviewMainScreen(
       state = state,
       onSupportClick = {},
       loadData = {},
-      onNavigateTo = {},
+      onPaymentMethodClick = {},
+      onBuyClick = { _, _ -> },
     )
   }
 }

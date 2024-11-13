@@ -10,6 +10,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.use_case.GetCountryCodeUseCase
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
+import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
 import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
 import com.asfoundation.wallet.iab.presentation.emptyBonusInfoData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -100,6 +101,10 @@ class MainViewModel(
         viewModelState.update { MainFragmentUiState.Error }
       }
     }
+  }
+
+  fun createTransaction(paymentMethod: PaymentMethod) {
+
   }
 }
 

@@ -86,7 +86,7 @@ private fun PaymentMethodsContent(
 
     val onPaymentMethodClick: (PaymentMethod) -> Unit = { paymentMethod ->
       viewModel.setSelectedPaymentMethod(paymentMethod)
-      navigator.navigateUp()
+      paymentMethod.onPaymentMethodClick(navigator)
     }
 
     RealPaymentMethodsContent(

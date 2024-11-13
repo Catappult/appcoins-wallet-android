@@ -33,9 +33,6 @@ class APPCPaymentMethod(
   override val hasFees: Boolean
     get() = false
 
-  override val onBuyClick: () -> Unit
-    get() = { }
-
   override fun getDescription(context: Context) =
     walletInfo.walletBalance.creditsBalance.fiat.run {
       "Balance: ${currencyFormatUtils.formatCost(currencyCode = currency, currencySymbol = currencySymbol, cost = amount)}" // TODO harcoded text

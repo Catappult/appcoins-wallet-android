@@ -16,9 +16,6 @@ class UnknownPaymentMethod(
   override fun getDescription(context: Context): String =
     "Payment method not yet implemented"
 
-  override val onBuyClick: () -> Unit
-    get() = { }
-
   override fun createTransaction() {
     TODO("Not yet implemented")
   }
