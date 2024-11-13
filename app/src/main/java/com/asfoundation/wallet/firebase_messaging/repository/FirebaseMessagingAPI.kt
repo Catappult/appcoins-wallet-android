@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.firebase_messaging.repository
 
 import com.asfoundation.wallet.firebase_messaging.repository.model.FirebaseTokenData
-import io.reactivex.Completable
+import com.asfoundation.wallet.firebase_messaging.repository.model.TokenResponse
+import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Header
@@ -14,11 +15,11 @@ interface FirebaseMessagingAPI {
   fun registerToken(
     @Header("authorization") authorization: String,
     @Body firebaseTokenData: FirebaseTokenData
-  ): Completable
+  ): Single<TokenResponse>
 
   @DELETE("/appc/firebase_token/{token}")
   fun unregisterToken(
     @Header("authorization") authorization: String,
     @Path("token") token: String,
-  ): Completable
+  ): Single<TokenResponse>
 }

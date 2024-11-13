@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.firebase_messaging.di
 
-import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultRetrofit
+import com.appcoins.wallet.core.network.backend.annotations.BackendBlockchainRetrofit
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RegisterFirebaseTokenUseCase
 import com.asfoundation.wallet.firebase_messaging.domain.RegisterFirebaseTokenForWalletsUseCase
 import com.asfoundation.wallet.firebase_messaging.domain.RegisterFirebaseTokenUseCaseImpl
@@ -30,7 +30,7 @@ interface FirebaseMessagingModule {
     @Singleton
     @Provides
     fun provideFirebaseMessagingAPI(
-      @BrokerDefaultRetrofit retrofit: Retrofit
+      @BackendBlockchainRetrofit retrofit: Retrofit
     ): FirebaseMessagingAPI = retrofit.create(FirebaseMessagingAPI::class.java)
 
   }

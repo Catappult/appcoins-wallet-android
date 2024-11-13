@@ -39,9 +39,9 @@ class RegisterFirebaseTokenUseCaseImpl @Inject constructor(
         .addOnFailureListener(emitter::onError)
     }
       .map { ewtAuthenticatorService.getEwtAuthentication(wallet.address) to it }
-      .flatMapCompletable { repository.registerToken(it.first, it.second).onErrorComplete() }
+      .flatMapCompletable { repository.registerToken(it.first, it.second) }
+      .onErrorComplete()
       .andThen(Single.just(wallet))
-      .doOnError { throw RegisterFirebaseMessagingError(it) }
 
   override fun unregisterFirebaseToken(wallet: Wallet): Completable =
     Single.create { emitter ->
