@@ -37,7 +37,7 @@
 
   <fragment
       android:id="@+id/payment_methods_fragment"
-      android:name="com.asfoundation.wallet.iab.presentation.payment_methods.PaymentMethodsFragment" >
+      android:name="com.asfoundation.wallet.iab.presentation.payment_methods_list.PaymentMethodsFragment" >
 
     <argument
         android:name="purchaseInfoDataExtra"

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.iab.presentation.payment_methods
+package com.asfoundation.wallet.iab.presentation.payment_methods_list
 
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
 import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
