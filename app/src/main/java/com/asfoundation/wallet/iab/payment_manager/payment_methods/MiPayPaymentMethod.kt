@@ -9,9 +9,6 @@ class MiPayPaymentMethod(
   private val purchaseData: PurchaseData
 ) : PaymentMethod(paymentMethod) {
 
-  override val onBuyClick: () -> Unit
-    get() = { }
-
   override fun createTransaction() {
     TODO("Not yet implemented")
   }

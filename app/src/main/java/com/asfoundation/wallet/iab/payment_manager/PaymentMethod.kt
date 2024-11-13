@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.asf.wallet.R
+import com.asfoundation.wallet.iab.FragmentNavigator
 import java.math.BigDecimal
 import java.util.Currency
 
@@ -37,7 +38,9 @@ abstract class PaymentMethod(protected val paymentMethod: PaymentMethodEntity) {
   open fun getDescription(context: Context): String? =
     if (hasFees) "Fees and vat may apply" else paymentMethod.message // TODO hardcode text
 
-  abstract val onBuyClick: () -> Unit
+  open val onPaymentMethodClick: (FragmentNavigator) -> Unit = { navigator ->
+    navigator.navigateUp()
+  }
 
   abstract fun createTransaction()
 }
