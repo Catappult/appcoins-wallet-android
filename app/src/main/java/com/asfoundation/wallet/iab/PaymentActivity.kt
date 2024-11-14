@@ -54,7 +54,7 @@ class PaymentActivity : AppCompatActivity(), IABView {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_payment)
 
-    navigator.navigateToInitialScreen(purchaseData.first, purchaseData.second)
+    navigator.navigateToInitialScreen(purchaseData.second)
   }
 
 }
