@@ -16,7 +16,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class PaymentManager @AssistedInject constructor(
-  @Assisted private val purchaseData: PurchaseData,
+  @Assisted val purchaseData: PurchaseData,
   private val paymentMethodsInteractor: PaymentMethodsInteractor,
   private val getPaymentMethodsUseCase: GetPaymentMethodsUseCase,
   private val getProductInfoUseCase: GetProductInfoUseCase,

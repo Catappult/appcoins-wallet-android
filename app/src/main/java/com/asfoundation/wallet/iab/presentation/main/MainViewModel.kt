@@ -26,9 +26,11 @@ import javax.inject.Inject
 class MainViewModel(
   private val getCountryCodeUseCase: GetCountryCodeUseCase,
   private val paymentManager: PaymentManager,
-  private val purchaseData: PurchaseData,
   private val currencyFormatUtils: CurrencyFormatUtils,
 ) : ViewModel() {
+
+  private val purchaseData
+    get() = paymentManager.purchaseData
 
   private val viewModelState =
     MutableStateFlow<MainFragmentUiState>(MainFragmentUiState.LoadingDisclaimer)
@@ -110,7 +112,6 @@ class MainViewModel(
 
 @Composable
 fun rememberMainViewModel(
-  purchaseData: PurchaseData,
   paymentManager: PaymentManager,
 ): MainViewModel {
   val injectionsProvider = hiltViewModel<MainViewModelInjectionsProvider>()
@@ -120,7 +121,6 @@ fun rememberMainViewModel(
         @Suppress("UNCHECKED_CAST")
         return MainViewModel(
           paymentManager = paymentManager,
-          purchaseData = purchaseData,
           getCountryCodeUseCase = injectionsProvider.getCountryCodeUseCase,
           currencyFormatUtils = injectionsProvider.currencyFormatUtils,
         ) as T

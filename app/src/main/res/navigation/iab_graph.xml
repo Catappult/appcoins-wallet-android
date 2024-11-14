@@ -21,11 +21,6 @@
         app:popExitAnim="@anim/fragment_slide_down" />
 
     <argument
-        android:name="purchaseDataExtra"
-        app:nullable="true"
-        app:argType="com.asfoundation.wallet.iab.domain.model.PurchaseData" />
-
-    <argument
         android:name="parsingError"
         app:nullable="true"
         app:argType="com.asfoundation.wallet.iab.error.IABError" />

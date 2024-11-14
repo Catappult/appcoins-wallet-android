@@ -31,6 +31,7 @@ import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
+import com.asfoundation.wallet.iab.error.IABError
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.emptyCreditCardPaymentMethod
@@ -63,13 +64,13 @@ class MainFragment : IabBaseFragment() {
 
   private val args by navArgs<MainFragmentArgs>()
 
-  private val purchaseData by lazy { args.purchaseDataExtra }
+  private val error by lazy { args.parsingError }
 
   @Composable
   override fun FragmentContent() = MainScreen(
     navigator = navigator,
     paymentManager = paymentManager,
-    purchaseData = purchaseData
+    error = error
   )
 }
 
@@ -77,7 +78,7 @@ class MainFragment : IabBaseFragment() {
 private fun MainScreen(
   navigator: FragmentNavigator,
   paymentManager: PaymentManager,
-  purchaseData: PurchaseData?
+  error: IABError?
 ) {
   val context = LocalContext.current
 
@@ -88,9 +89,8 @@ private fun MainScreen(
   }
 
   IAPTheme {
-    purchaseData?.let {
+    if (error == null) {
       val viewModel = rememberMainViewModel(
-        purchaseData = it,
         paymentManager = paymentManager
       )
 
@@ -121,11 +121,12 @@ private fun MainScreen(
         onPaymentMethodClick = onPaymentMethodClick,
         onBuyClick = onBuyClick,
       )
-
-    } ?: PurchaseDataError(
-      onSecondaryButtonClick = closeIAP,
-      onSupportClick = onSupportClick
-    )
+    } else {
+      PurchaseDataError(
+        onSupportClick = onSupportClick,
+        onSecondaryButtonClick = closeIAP
+      )
+    }
   }
 }
 
