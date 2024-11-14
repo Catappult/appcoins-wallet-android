@@ -344,7 +344,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       unregisterProvider(RedirectComponent::class.java.canonicalName)
       setupRedirectComponent()
     }
-    var cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
+    var cardComponent = paymentInfoModel.cardComponent!!(requireActivity(), cardConfiguration)
     binding.adyenCardForm.adyenCardFormPreSelected.attach(cardComponent, this)
     cardComponent.observe(this) {
       if (it != null && it.isValid) {
