@@ -114,7 +114,7 @@
     <item name="android:statusBarColor">@android:color/transparent</item>
   </style>
 
-  <style name="Theme.AppCompat.Transparent.NoFloating.IAP" >
+  <style name="Theme.AppCompat.Transparent.NoFloating.IAP" parent="Theme.MaterialComponents.NoActionBar" >
     <item name="android:windowBackground">#99000000</item>
   </style>
 
