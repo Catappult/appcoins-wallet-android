@@ -1,6 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
-import androidx.fragment.app.Fragment
+import androidx.activity.ComponentActivity
 import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
@@ -14,7 +14,7 @@ data class PaymentInfoModel(
   var isStored: Boolean = false,
   val priceAmount: BigDecimal,
   val priceCurrency: String,
-  var cardComponent: ((Fragment, CardConfiguration) -> CardComponent)? = null,
+  var cardComponent: ((ComponentActivity, CardConfiguration) -> CardComponent)? = null,
   val supportedShopperInteractions: List<String> = emptyList(),
   val error: Error = Error()
 ) {
@@ -26,8 +26,8 @@ data class PaymentInfoModel(
     false,
     value,
     currency,
-    { fragment: Fragment, config: CardConfiguration ->
-      CardComponent.PROVIDER.get(fragment, paymentMethod, config)
+    { activity: ComponentActivity, config: CardConfiguration ->
+      CardComponent.PROVIDER.get(activity, paymentMethod, config)
     }
   )
 
@@ -36,8 +36,8 @@ data class PaymentInfoModel(
     true,
     value,
     currency,
-    { fragment: Fragment, config: CardConfiguration ->
-      CardComponent.PROVIDER.get(fragment, paymentMethod, config)
+    { activity: ComponentActivity, config: CardConfiguration ->
+      CardComponent.PROVIDER.get(activity, paymentMethod, config)
     },
     paymentMethod.supportedShopperInteractions ?: emptyList()
   )

@@ -913,7 +913,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       unregisterProvider(RedirectComponent::class.java.canonicalName)
       setupRedirectComponent()
     }
-    val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
+    val cardComponent = paymentInfoModel.cardComponent!!(requireActivity(), cardConfiguration)
     adyenCardFormPreSelected.attach(cardComponent, this)
     cardComponent.observe(this) {
       adyenCardView.setError(null)

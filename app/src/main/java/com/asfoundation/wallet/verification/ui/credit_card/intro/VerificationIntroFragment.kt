@@ -126,7 +126,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     forget: Boolean
   ) {
     if (forget) adyenCardView.clear(this)
-    val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
+    val cardComponent = paymentInfoModel.cardComponent!!(requireActivity(), cardConfiguration)
     views.adyenCardForm.adyenCardFormPreSelected.attach(cardComponent, this)
     cardComponent.observe(this) {
       adyenCardView.setError(null)
