@@ -20,19 +20,14 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.navigation.fragment.navArgs
-import com.appcoins.wallet.core.network.microservices.model.emptyPaymentMethodEntity
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.emptyWalletInfo
 import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
-import com.asfoundation.wallet.iab.domain.model.emptyProductInfoData
-import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
-import com.asfoundation.wallet.iab.payment_manager.payment_methods.APPCPaymentMethod
-import com.asfoundation.wallet.iab.payment_manager.payment_methods.CreditCardPaymentMethod
-import com.asfoundation.wallet.iab.payment_manager.payment_methods.PayPalV1PaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.emptyAPPCPaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.emptyCreditCardPaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.emptyPayPalV1PaymentMethod
 import com.asfoundation.wallet.iab.presentation.GenericError
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
 import com.asfoundation.wallet.iab.presentation.PaymentMethodRow
@@ -248,26 +243,11 @@ private class PaymentMethodsFragmentUiStateProvider :
     PaymentMethodsUiState.PaymentMethodsIdle(
       purchaseInfo = emptyPurchaseInfo,
       paymentMethods = listOf(
-        APPCPaymentMethod(
-          paymentMethod = emptyPaymentMethodEntity,
-          purchaseData = emptyPurchaseData,
-          currencyFormatUtils = CurrencyFormatUtils(),
-          walletInfo = emptyWalletInfo,
-          productInfoData = emptyProductInfoData,
-        ),
-        CreditCardPaymentMethod(
-          paymentMethod = emptyPaymentMethodEntity,
-          purchaseData = emptyPurchaseData,
-        ),
-        PayPalV1PaymentMethod(
-          paymentMethod = emptyPaymentMethodEntity,
-          purchaseData = emptyPurchaseData,
-        ),
+        emptyAPPCPaymentMethod,
+        emptyCreditCardPaymentMethod,
+        emptyPayPalV1PaymentMethod,
       ),
-      selectedPaymentMethod = CreditCardPaymentMethod(
-        paymentMethod = emptyPaymentMethodEntity,
-        purchaseData = emptyPurchaseData,
-      )
+      selectedPaymentMethod = emptyCreditCardPaymentMethod
     ),
     PaymentMethodsUiState.LoadingPaymentMethods(
       purchaseInfo = emptyPurchaseInfo

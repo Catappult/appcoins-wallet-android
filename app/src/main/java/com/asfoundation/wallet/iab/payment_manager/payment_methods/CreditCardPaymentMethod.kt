@@ -6,6 +6,7 @@ import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.domain.WalletData
+import com.asfoundation.wallet.iab.payment_manager.domain.emptyWalletData
 
 class CreditCardPaymentMethod(
   paymentMethod: PaymentMethodEntity,
@@ -21,5 +22,6 @@ class CreditCardPaymentMethod(
 
 val emptyCreditCardPaymentMethod = CreditCardPaymentMethod(
   paymentMethod = emptyPaymentMethodEntity,
-  purchaseData = emptyPurchaseData
+  purchaseData = emptyPurchaseData,
+  walletData = emptyWalletData,
 )

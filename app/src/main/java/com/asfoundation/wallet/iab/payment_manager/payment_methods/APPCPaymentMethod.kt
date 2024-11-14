@@ -2,11 +2,15 @@ package com.asfoundation.wallet.iab.payment_manager.payment_methods
 
 import android.content.Context
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
+import com.appcoins.wallet.core.network.microservices.model.emptyPaymentMethodEntity
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.iab.domain.model.ProductInfoData
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
+import com.asfoundation.wallet.iab.domain.model.emptyProductInfoData
+import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.domain.WalletData
+import com.asfoundation.wallet.iab.payment_manager.domain.emptyWalletData
 import java.math.BigDecimal
 
 class APPCPaymentMethod(
@@ -47,3 +51,11 @@ class APPCPaymentMethod(
   }
 
 }
+
+val emptyAPPCPaymentMethod = APPCPaymentMethod(
+  paymentMethod = emptyPaymentMethodEntity,
+  purchaseData = emptyPurchaseData,
+  currencyFormatUtils = CurrencyFormatUtils(),
+  walletData = emptyWalletData,
+  productInfoData = emptyProductInfoData
+)
