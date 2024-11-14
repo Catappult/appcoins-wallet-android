@@ -17,9 +17,64 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.google.gson.JsonObject
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-class AdyenPaymentRepository @Inject constructor(
+interface AdyenPaymentRepository {
+  fun loadPaymentInfo(
+    methods: Methods,
+    value: String,
+    currency: String,
+    walletAddress: String,
+    ewt: String
+  ): Single<PaymentInfoModel>
+
+  fun getStoredCards(
+    methods: Methods,
+    value: String,
+    currency: String?,
+    walletAddress: String,
+    ewt: String
+  ): Single<List<StoredPaymentMethod>>
+
+  fun makePayment(
+    adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
+    supportedShopperInteractions: List<String>, returnUrl: String, value: String,
+    currency: String, reference: String?, paymentType: String, walletAddress: String,
+    origin: String?, packageName: String?, metadata: String?, sku: String?,
+    callbackUrl: String?, transactionType: String,
+    entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
+    userWallet: String?,
+    walletSignature: String,
+    referrerUrl: String?,
+    guestWalletId: String?,
+  ): Single<PaymentModel>
+
+  fun submitRedirect(
+    uid: String, walletAddress: String,
+    details: JsonObject, paymentData: String?
+  ): Single<PaymentModel>
+
+  fun disablePayments(walletAddress: String): Single<Boolean>
+
+  fun removeSavedCard(walletAddress: String, recurringReference: String?): Single<Boolean>
+
+  fun getTransaction(
+    uid: String, walletAddress: String,
+    signedWalletAddress: String
+  ): Single<PaymentModel>
+
+  fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse>
+
+  fun setMandatoryCVC(mandatoryCvc: Boolean)
+
+  enum class Methods(val adyenType: String, val transactionType: String) {
+    CREDIT_CARD("scheme", "credit_card"), PAYPAL("paypal", "paypal")
+  }
+}
+
+@BoundTo(AdyenPaymentRepository::class)
+class AdyenPaymentRepositoryImpl @Inject constructor(
   private val adyenApi: AdyenApi,
   private val brokerBdsApi: BrokerBdsApi,
   private val subscriptionsApi: SubscriptionBillingApi,
@@ -28,10 +83,10 @@ class AdyenPaymentRepository @Inject constructor(
   private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
   private val logger: Logger
-) {
+): AdyenPaymentRepository {
 
-  fun loadPaymentInfo(
-    methods: Methods,
+  override fun loadPaymentInfo(
+    methods: AdyenPaymentRepository.Methods,
     value: String,
     currency: String,
     walletAddress: String,
@@ -53,8 +108,8 @@ class AdyenPaymentRepository @Inject constructor(
       }
   }
 
-  fun getStoredCards(
-    methods: Methods,
+  override fun getStoredCards(
+    methods: AdyenPaymentRepository.Methods,
     value: String,
     currency: String?,
     walletAddress: String,
@@ -76,7 +131,7 @@ class AdyenPaymentRepository @Inject constructor(
       }
   }
 
-  fun makePayment(
+  override fun makePayment(
     adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
     supportedShopperInteractions: List<String>, returnUrl: String, value: String,
     currency: String, reference: String?, paymentType: String, walletAddress: String,
@@ -168,7 +223,7 @@ class AdyenPaymentRepository @Inject constructor(
     }
   }
 
-  fun submitRedirect(
+  override fun submitRedirect(
     uid: String, walletAddress: String,
     details: JsonObject, paymentData: String?
   ): Single<PaymentModel> {
@@ -186,7 +241,7 @@ class AdyenPaymentRepository @Inject constructor(
       }
   }
 
-  fun disablePayments(walletAddress: String): Single<Boolean> {
+  override fun disablePayments(walletAddress: String): Single<Boolean> {
     return adyenApi.disablePayments(DisableWallet(walletAddress, null))
       .toSingleDefault(true)
       .doOnError { it.printStackTrace() }
@@ -195,7 +250,7 @@ class AdyenPaymentRepository @Inject constructor(
       }
   }
 
-  fun removeSavedCard(walletAddress: String, recurringReference: String?): Single<Boolean> {
+  override fun removeSavedCard(walletAddress: String, recurringReference: String?): Single<Boolean> {
     return adyenApi.disablePayments(DisableWallet(walletAddress, recurringReference))
       .toSingleDefault(true)
       .doOnError { it.printStackTrace() }
@@ -204,7 +259,7 @@ class AdyenPaymentRepository @Inject constructor(
       }
   }
 
-  fun getTransaction(
+  override fun getTransaction(
     uid: String, walletAddress: String,
     signedWalletAddress: String
   ): Single<PaymentModel> {
@@ -220,7 +275,7 @@ class AdyenPaymentRepository @Inject constructor(
       }
   }
 
-  fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse> {
+  override fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse> {
     return adyenApi.getCreditCardNeedCVC()
       .map {
         if (!cardPaymentDataSource.isMandatoryCvc())
@@ -234,11 +289,8 @@ class AdyenPaymentRepository @Inject constructor(
       }
   }
 
-  fun setMandatoryCVC(mandatoryCvc: Boolean) {
+  override fun setMandatoryCVC(mandatoryCvc: Boolean) {
     cardPaymentDataSource.setMandatoryCvc(mandatoryCvc)
   }
 
-  enum class Methods(val adyenType: String, val transactionType: String) {
-    CREDIT_CARD("scheme", "credit_card"), PAYPAL("paypal", "paypal")
-  }
 }
