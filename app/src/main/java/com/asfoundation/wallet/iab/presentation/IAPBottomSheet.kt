@@ -35,8 +35,8 @@ import com.asfoundation.wallet.iab.theme.IAPTheme
 @Composable
 fun IAPBottomSheet(
   modifier: Modifier = Modifier,
-  showWalletIcon: Boolean,
-  fullscreen: Boolean,
+  fullscreen: Boolean = false,
+  showWalletIcon: Boolean = !fullscreen,
   onBackClick: (() -> Unit)? = null,
   content: @Composable () -> Unit,
 ) {
