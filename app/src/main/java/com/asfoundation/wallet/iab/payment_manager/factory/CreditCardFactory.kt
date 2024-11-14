@@ -7,6 +7,7 @@ import com.asfoundation.wallet.iab.domain.model.ProductInfoData
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethodFactory
+import com.asfoundation.wallet.iab.payment_manager.domain.WalletData
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.CreditCardPaymentMethod
 
 class CreditCardFactory : PaymentMethodFactory {
@@ -19,14 +20,15 @@ class CreditCardFactory : PaymentMethodFactory {
     paymentMethodEntity: PaymentMethodEntity,
     purchaseData: PurchaseData,
     productInfoData: ProductInfoData,
-    walletInfo: WalletInfo,
+    walletData: WalletData,
     currencyFormatUtils: CurrencyFormatUtils
   ): PaymentMethod? {
     if (paymentMethodEntity.id != ID) return null
 
     return CreditCardPaymentMethod(
       paymentMethod = paymentMethodEntity,
-      purchaseData = purchaseData
+      purchaseData = purchaseData,
+      walletData = walletData
     )
   }
 }

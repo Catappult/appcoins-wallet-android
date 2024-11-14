@@ -5,10 +5,12 @@ import com.appcoins.wallet.core.network.microservices.model.emptyPaymentMethodEn
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.domain.WalletData
 
 class CreditCardPaymentMethod(
   paymentMethod: PaymentMethodEntity,
   private val purchaseData: PurchaseData,
+  private val walletData: WalletData,
 ) : PaymentMethod(paymentMethod) {
 
   override fun createTransaction() {
