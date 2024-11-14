@@ -27,15 +27,13 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.navArgs
-import com.appcoins.wallet.core.network.microservices.model.emptyPaymentMethodEntity
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
-import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
-import com.asfoundation.wallet.iab.payment_manager.payment_methods.CreditCardPaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.emptyCreditCardPaymentMethod
 import com.asfoundation.wallet.iab.presentation.AnimatedContentWithoutAnimationOnSameState
 import com.asfoundation.wallet.iab.presentation.BonusInfo
 import com.asfoundation.wallet.iab.presentation.BonusInfoData
@@ -412,10 +410,7 @@ private class MainFragmentUiStateProvider : PreviewParameterProvider<MainFragmen
   override val values = sequenceOf(
     MainFragmentUiState.Idle(
       showDisclaimer = showDisclaimer,
-      preSelectedPaymentMethod = CreditCardPaymentMethod(
-        paymentMethod = emptyPaymentMethodEntity,
-        purchaseData = emptyPurchaseData,
-      ).takeIf { Random.nextBoolean() },
+      preSelectedPaymentMethod = emptyCreditCardPaymentMethod.takeIf { Random.nextBoolean() },
       bonusAvailable = bonusAvailable,
       purchaseInfoData = emptyPurchaseInfo
         .copy(

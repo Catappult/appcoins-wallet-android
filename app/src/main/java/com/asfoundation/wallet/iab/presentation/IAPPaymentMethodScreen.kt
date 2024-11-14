@@ -24,17 +24,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.appcoins.wallet.core.network.microservices.model.emptyPaymentMethodEntity
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.emptyWalletInfo
-import com.asfoundation.wallet.iab.domain.model.emptyProductInfoData
-import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
-import com.asfoundation.wallet.iab.payment_manager.payment_methods.APPCPaymentMethod
-import com.asfoundation.wallet.iab.payment_manager.payment_methods.CreditCardPaymentMethod
-import com.asfoundation.wallet.iab.payment_manager.payment_methods.PayPalV1PaymentMethod
 import com.appcoins.wallet.ui.common.iap.icon.getIcCheck
 import com.appcoins.wallet.ui.common.iap.icon.getRightArrow
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.emptyAPPCPaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.emptyCreditCardPaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.payment_methods.emptyPayPalV1PaymentMethod
+import com.asfoundation.wallet.iab.presentation.icon.getIcCheck
 import com.asfoundation.wallet.iab.theme.IAPTheme
 
 @Composable
@@ -155,20 +151,8 @@ fun PaymentMethodSkeletonPreview() {
 private class PaymentMethodState : PreviewParameterProvider<Pair<PaymentMethod, Boolean>> {
   override val values: Sequence<Pair<PaymentMethod, Boolean>>
     get() = sequenceOf(
-      APPCPaymentMethod(
-        paymentMethod = emptyPaymentMethodEntity,
-        purchaseData = emptyPurchaseData,
-        currencyFormatUtils = CurrencyFormatUtils(),
-        walletInfo = emptyWalletInfo,
-        productInfoData = emptyProductInfoData
-      ) to true,
-      CreditCardPaymentMethod(
-        paymentMethod = emptyPaymentMethodEntity,
-        purchaseData = emptyPurchaseData,
-      ) to false,
-      PayPalV1PaymentMethod(
-        paymentMethod = emptyPaymentMethodEntity,
-        purchaseData = emptyPurchaseData,
-      ) to true
+      emptyAPPCPaymentMethod to true,
+      emptyCreditCardPaymentMethod to false,
+      emptyPayPalV1PaymentMethod to true
     )
 }
