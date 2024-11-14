@@ -1,11 +1,13 @@
 package com.asfoundation.wallet.iab.payment_manager
 
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.asfoundation.wallet.iab.domain.model.ProductInfoData
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.use_case.GetBalanceUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetPaymentMethodsUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetProductInfoUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetWalletInfoUseCase
+import com.asfoundation.wallet.iab.payment_manager.domain.WalletData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsInteractor
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -20,12 +22,15 @@ class PaymentManager @AssistedInject constructor(
   private val getProductInfoUseCase: GetProductInfoUseCase,
   private val getCurrentWalletInfoUseCase: GetWalletInfoUseCase,
   private val getBalanceUseCase: GetBalanceUseCase,
+  private val ewtAuthenticatorService: EwtAuthenticatorService,
   private val paymentMethodFactories: PaymentMethodCreator
 ) {
 
   private var paymentMethods: List<PaymentMethod>? = null
 
   private var productInfo: ProductInfoData? = null
+
+  private var walletData: WalletData? = null
 
   val selectedPaymentMethod = MutableStateFlow<PaymentMethod?>(null)
 
@@ -52,6 +57,13 @@ class PaymentManager @AssistedInject constructor(
     val productInfo = productInfoRequest.await() ?: throw RuntimeException("Error fetching sku details")
     val wallet = walletRequest.await()
     val walletInfo = walletInfoRequest.await()
+    val walletEwt = ewtAuthenticatorService.getEwtAuthentication(wallet)
+
+    walletData = WalletData(
+      address = wallet,
+      ewt = walletEwt,
+      walletInfo = walletInfo
+    )
 
     val paymentMethodsRequest = async {
       getPaymentMethodsUseCase(
@@ -72,7 +84,7 @@ class PaymentManager @AssistedInject constructor(
         paymentMethodFactories.create(
           paymentMethod = paymentMethod,
           purchaseData = purchaseData,
-          walletInfo = walletInfo,
+          walletData = walletData!!,
           productInfoData = productInfo
         )
       }
