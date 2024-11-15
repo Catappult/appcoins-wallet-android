@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,7 +39,7 @@ fun IAPBottomSheet(
   fullscreen: Boolean = false,
   showWalletIcon: Boolean = !fullscreen,
   onBackClick: (() -> Unit)? = null,
-  content: @Composable () -> Unit,
+  content: @Composable ColumnScope.() -> Unit,
 ) {
   Box(
     modifier = modifier.fillMaxSize(),
@@ -71,7 +72,7 @@ private fun IAPBottomSheetPortrait(
   showWalletIcon: Boolean,
   fullscreen: Boolean,
   onBackClick: (() -> Unit)?,
-  content: @Composable () -> Unit,
+  content: @Composable ColumnScope.() -> Unit,
 ) {
   if (fullscreen) {
     Column(
@@ -112,7 +113,7 @@ private fun IAPBottomSheetLandscape(
   modifier: Modifier = Modifier,
   fullscreen: Boolean,
   onBackClick: (() -> Unit)?,
-  content: @Composable () -> Unit,
+  content: @Composable ColumnScope.() -> Unit,
 ) {
   val width = 456.dp
   if (fullscreen) {
