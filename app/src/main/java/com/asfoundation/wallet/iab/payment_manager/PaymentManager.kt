@@ -92,8 +92,14 @@ class PaymentManager @AssistedInject constructor(
     return@coroutineScope paymentMethods
   }
 
+  fun getPaymentMethodById(id: String) = paymentMethods?.firstOrNull { it.id == id }
+
   fun hasPreSelectedPaymentMethod() =
     selectedPaymentMethod.value != null || paymentMethodsInteractor.hasPreSelectedPaymentMethod()
+
+  fun setSelectedPaymentMethod(paymentMethod: PaymentMethod) {
+    selectedPaymentMethod.tryEmit(paymentMethod)
+  }
 
   fun setSelectedPaymentMethod(id: String) {
     selectedPaymentMethod.tryEmit(paymentMethods?.first { it.id == id })

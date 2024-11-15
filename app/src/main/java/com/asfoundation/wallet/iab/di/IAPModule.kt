@@ -47,11 +47,14 @@ interface IAPModule {
   companion object {
 
     @Provides
-    fun providePaymentMethodCreator(currencyFormatUtils: CurrencyFormatUtils) =
+    fun providePaymentMethodCreator(
+      creditCardFactory: CreditCardFactory,
+      currencyFormatUtils: CurrencyFormatUtils
+    ) =
       PaymentMethodCreator(
         paymentMethodFactories = listOf(
           APPCFactory(),
-          CreditCardFactory(),
+          creditCardFactory,
           PayPalV1Factory(),
           PayPalV2Factory(),
           VKFactory(),
