@@ -41,6 +41,13 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletTextField
 
+val validEmailChars = setOf(
+  '@', '.', '_', '-', '+',
+  *('a'..'z').toSet().toTypedArray(),
+  *('A'..'Z').toSet().toTypedArray(),
+  *('0'..'9').toSet().toTypedArray()
+)
+
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun WelcomeEmailCard(
