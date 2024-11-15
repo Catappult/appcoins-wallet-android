@@ -80,7 +80,6 @@ private fun PaymentMethodsContent(
     val onPurchaseInfoExpandClick = { isPurchaseInfoExpanded = !isPurchaseInfoExpanded }
 
     val onPaymentMethodClick: (PaymentMethod) -> Unit = { paymentMethod ->
-      viewModel.setSelectedPaymentMethod(paymentMethod)
       paymentMethod.onPaymentMethodClick(navigator)
     }
 

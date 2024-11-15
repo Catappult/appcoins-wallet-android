@@ -23,6 +23,7 @@
     <argument
         android:name="parsingError"
         app:nullable="true"
+        android:defaultValue="@null"
         app:argType="com.asfoundation.wallet.iab.error.IABError" />
   </fragment>
 
@@ -41,5 +42,19 @@
 
   </fragment>
 
+  <fragment
+    android:id="@+id/credit_card_fragment"
+    android:name="com.asfoundation.wallet.iab.presentation.payment_methods.credit_card.CreditCardFragment" >
+
+    <action
+        android:id="@+id/action_navigate_to_main_fragment"
+        app:destination="@id/main_fragment"
+        app:enterAnim="@anim/fragment_slide_up"
+        app:exitAnim="@anim/fragment_slide_down"
+        app:popEnterAnim="@anim/fragment_slide_up"
+        app:popExitAnim="@anim/fragment_slide_down"
+        app:popUpTo="@id/main_fragment"
+        app:popUpToInclusive="true" />
+  </fragment>
 
 </navigation>
