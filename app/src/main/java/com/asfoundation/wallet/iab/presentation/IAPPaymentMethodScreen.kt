@@ -42,7 +42,7 @@ fun PaymentMethodRow(
   showArrow: Boolean = false,
 ) {
   val context = LocalContext.current
-  val disabledColor = IAPTheme.colors.disabledBColor
+  val disabledColor = IAPTheme.colors.disabledTextColor
   Row(
     modifier = modifier,
     verticalAlignment = Alignment.CenterVertically,

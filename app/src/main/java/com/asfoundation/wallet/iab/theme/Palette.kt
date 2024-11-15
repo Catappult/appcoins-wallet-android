@@ -34,7 +34,8 @@ object DarkPalette {
 val lightColorPalette = IAPColors(
   backArrow = LightPalette.MidnightEclipse,
   smallText = LightPalette.StormyLaggon,
-  disabledBColor = LightPalette.StormyLaggon,
+  disabledTextColor = LightPalette.StormyLaggon,
+  disabledButtonColor = LightPalette.SilverMist,
   transparentButtonText = LightPalette.MidnightEclipse,
   arrowColor = LightPalette.StormyLaggon,
   lineColor = LightPalette.StormyLaggon,
@@ -53,7 +54,8 @@ val lightColorPalette = IAPColors(
 val darkColorPalette = IAPColors(
   backArrow = DarkPalette.MidnightEclipse,
   smallText = DarkPalette.StormyLaggon,
-  disabledBColor = LightPalette.StormyLaggon,
+  disabledTextColor = LightPalette.StormyLaggon,
+  disabledButtonColor = LightPalette.SilverMist,
   transparentButtonText = LightPalette.MidnightEclipse,
   arrowColor = LightPalette.StormyLaggon,
   lineColor = LightPalette.StormyLaggon,
@@ -72,7 +74,8 @@ val darkColorPalette = IAPColors(
 data class IAPColors(
   val backArrow: Color,
   val smallText: Color,
-  val disabledBColor: Color,
+  val disabledTextColor: Color,
+  val disabledButtonColor: Color,
   val transparentButtonText: Color,
   val arrowColor: Color,
   val lineColor: Color,
