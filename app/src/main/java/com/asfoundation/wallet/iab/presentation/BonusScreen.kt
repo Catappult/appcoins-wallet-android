@@ -75,7 +75,7 @@ fun BonusInfo(
           .weight(1f),
         text = bonusInfoData.bonusText,
         style = IAPTheme.typography.bodyMedium,
-        color = if (bonusAvailable) IAPTheme.colors.onPrimary else IAPTheme.colors.disabledBColor
+        color = if (bonusAvailable) IAPTheme.colors.onPrimary else IAPTheme.colors.disabledTextColor
       )
       if (bonusAvailable) {
         Image(

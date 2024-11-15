@@ -43,7 +43,7 @@ fun IABOpaqueButton(
     shape = RoundedCornerShape(50),
     colors = ButtonDefaults.buttonColors(
       containerColor = IAPTheme.colors.secondary,
-      disabledContentColor = IAPTheme.colors.disabledBColor
+      disabledContentColor = IAPTheme.colors.disabledButtonColor
     ),
   ) {
     Text(
@@ -80,7 +80,7 @@ fun IABTransparentButton(
     shape = RoundedCornerShape(50),
     colors = ButtonDefaults.buttonColors(
       containerColor = Color.Transparent,
-      disabledContentColor = IAPTheme.colors.disabledBColor
+      disabledContentColor = IAPTheme.colors.disabledButtonColor
     ),
   ) {
     Text(
