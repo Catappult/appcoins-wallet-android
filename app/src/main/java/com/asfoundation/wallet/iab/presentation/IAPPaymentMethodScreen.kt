@@ -37,6 +37,7 @@ import com.asfoundation.wallet.iab.theme.IAPTheme
 fun PaymentMethodRow(
   modifier: Modifier = Modifier,
   paymentMethodData: PaymentMethod,
+  showDescription: Boolean = true,
   isSelected: Boolean = false,
   showArrow: Boolean = false,
 ) {
@@ -70,15 +71,17 @@ fun PaymentMethodRow(
         color = disabledColor.takeIf { !paymentMethodData.isEnable }
           ?: IAPTheme.colors.paymentMethodTextColor
       )
-      val description = paymentMethodData.getDescription(context)
-      if (!description.isNullOrEmpty()) {
-        Text(
-          modifier = Modifier.padding(top = 4.dp),
-          text = description,
-          style = IAPTheme.typography.bodySmall,
-          color = disabledColor.takeIf { !paymentMethodData.isEnable }
-            ?: IAPTheme.colors.smallText
-        )
+      if (showDescription) {
+        val description = paymentMethodData.getDescription(context)
+        if (!description.isNullOrEmpty()) {
+          Text(
+            modifier = Modifier.padding(top = 4.dp),
+            text = description,
+            style = IAPTheme.typography.bodySmall,
+            color = disabledColor.takeIf { !paymentMethodData.isEnable }
+              ?: IAPTheme.colors.smallText
+          )
+        }
       }
     }
     val image = getRightArrow(arrowColor = IAPTheme.colors.arrowColor).takeIf { showArrow }
