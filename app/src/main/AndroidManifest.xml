@@ -135,6 +135,7 @@
     <activity
         android:name="com.asfoundation.wallet.iab.PaymentActivity"
         android:exported="true"
+        android:windowSoftInputMode="adjustResize"
         android:theme="@style/Theme.AppCompat.Transparent.NoFloating.IAP">
 
       <intent-filter>
