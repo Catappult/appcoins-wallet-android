@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -201,7 +202,7 @@ private fun RealMainScreen(
 
 @Composable
 private fun LoadingDisclaimerScreen(modifier: Modifier = Modifier) {
-  IABLoading(modifier = modifier.padding(32.dp))
+  IABLoading(modifier = modifier.fillMaxSize().padding(32.dp))
 }
 
 @Composable
