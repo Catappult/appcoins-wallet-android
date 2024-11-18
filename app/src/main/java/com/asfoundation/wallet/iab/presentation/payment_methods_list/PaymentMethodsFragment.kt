@@ -38,6 +38,7 @@ import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
 import com.asfoundation.wallet.iab.presentation.addClick
 import com.asfoundation.wallet.iab.presentation.conditional
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
+import com.asfoundation.wallet.iab.presentation.isInPortrait
 import com.asfoundation.wallet.iab.theme.IAPTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
@@ -163,28 +164,30 @@ fun PaymentMethodsScreen(
       .verticalScroll(rememberScrollState())
       .padding(16.dp)
   ) {
-    PurchaseInfo(
-      modifier = Modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(12.dp))
-        .background(IAPTheme.colors.primaryContainer)
-        .conditional(
-          condition = purchaseInfoData.hasFees,
-          ifTrue = {
-            addClick(
-              onClick = onPurchaseInfoExpandClick,
-              testTag = "onPurchaseInfoExpandClick"
-            )
-          }
-        )
-        .padding(16.dp),
-      purchaseInfo = purchaseInfoData,
-      isExpanded = isPurchaseInfoExpanded,
-    )
+    if (isInPortrait()) {
+      PurchaseInfo(
+        modifier = Modifier
+          .padding(bottom = 16.dp)
+          .fillMaxWidth()
+          .clip(RoundedCornerShape(12.dp))
+          .background(IAPTheme.colors.primaryContainer)
+          .conditional(
+            condition = purchaseInfoData.hasFees,
+            ifTrue = {
+              addClick(
+                onClick = onPurchaseInfoExpandClick,
+                testTag = "onPurchaseInfoExpandClick"
+              )
+            }
+          )
+          .padding(16.dp),
+        purchaseInfo = purchaseInfoData,
+        isExpanded = isPurchaseInfoExpanded,
+      )
+    }
 
     Column(
       modifier = Modifier
-        .padding(top = 16.dp)
         .fillMaxWidth()
         .clip(RoundedCornerShape(12.dp))
         .background(IAPTheme.colors.primaryContainer)

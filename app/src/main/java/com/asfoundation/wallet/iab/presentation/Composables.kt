@@ -43,6 +43,9 @@ fun Modifier.addClick(onClick: () -> Unit, testTag: String, enabled: Boolean = t
 fun isInLandscape() = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
 
 @Composable
+fun isInPortrait() = LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT
+
+@Composable
 fun <S> AnimatedContentWithoutAnimationOnSameState(
   targetState: S,
   modifier: Modifier = Modifier,

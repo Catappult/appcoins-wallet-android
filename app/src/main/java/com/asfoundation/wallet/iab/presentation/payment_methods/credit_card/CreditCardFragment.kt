@@ -59,6 +59,7 @@ import com.asfoundation.wallet.iab.presentation.PreviewAll
 import com.asfoundation.wallet.iab.presentation.PurchaseInfo
 import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
+import com.asfoundation.wallet.iab.presentation.isInPortrait
 import com.asfoundation.wallet.iab.theme.IAPTheme
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -142,9 +143,11 @@ private fun CreditCardScreen(
     AnimatedContentWithoutAnimationOnSameState(targetState = uiState) { targetState ->
       when (targetState) {
         CreditCardUiState.Loading ->
-          IABLoading(modifier = Modifier
-            .fillMaxSize()
-            .padding(32.dp))
+          IABLoading(
+            modifier = Modifier
+              .fillMaxSize()
+              .padding(32.dp)
+          )
 
         is CreditCardUiState.Idle -> CreditCardIdle(
           purchaseInfo = targetState.purchaseInfoData,
@@ -198,12 +201,14 @@ private fun CreditCardIdle(
       .fillMaxSize()
       .verticalScroll(rememberScrollState())
   ) {
-    PurchaseInfo(
-      modifier = Modifier
-        .padding(horizontal = 16.dp)
-        .padding(top = 16.dp),
-      purchaseInfo = purchaseInfo
-    )
+    if (isInPortrait()) {
+      PurchaseInfo(
+        modifier = Modifier
+          .padding(horizontal = 16.dp)
+          .padding(top = 16.dp),
+        purchaseInfo = purchaseInfo
+      )
+    }
     Column(
       modifier = Modifier
         .animateContentSize()
