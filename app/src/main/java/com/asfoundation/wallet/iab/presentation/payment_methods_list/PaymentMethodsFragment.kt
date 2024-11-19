@@ -81,6 +81,7 @@ private fun PaymentMethodsContent(
     val onPurchaseInfoExpandClick = { isPurchaseInfoExpanded = !isPurchaseInfoExpanded }
 
     val onPaymentMethodClick: (PaymentMethod) -> Unit = { paymentMethod ->
+      viewModel.setSelectedPaymentMethod(paymentMethod)
       paymentMethod.onPaymentMethodClick(navigator)
     }
 
@@ -240,7 +241,7 @@ private fun PaymentMethodsPreview(
 
 private class PaymentMethodsFragmentUiStateProvider :
   PreviewParameterProvider<PaymentMethodsUiState> {
-    
+
   override val values = sequenceOf(
     PaymentMethodsUiState.PaymentMethodsIdle(
       purchaseInfo = emptyPurchaseInfo,

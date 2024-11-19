@@ -4,6 +4,7 @@ import android.content.Context
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
+import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
 import com.asf.wallet.BuildConfig
 import dagger.Module
@@ -11,6 +12,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -46,4 +48,14 @@ class AdyenModule {
     Adyen3DS2Configuration.Builder(context, BuildConfig.ADYEN_PUBLIC_KEY)
       .setEnvironment(adyenEnvironment)
       .build()
+
+  @AdyenReturnUrl
+  @Provides
+  fun provideReturnUrl(
+    @ApplicationContext context: Context,
+  ): String = RedirectComponent.getReturnUrl(context)
 }
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class AdyenReturnUrl

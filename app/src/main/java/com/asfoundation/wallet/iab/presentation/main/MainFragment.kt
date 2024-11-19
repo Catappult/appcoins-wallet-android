@@ -45,6 +45,7 @@ import com.asfoundation.wallet.iab.presentation.IABLoading
 import com.asfoundation.wallet.iab.presentation.IABOpaqueButton
 import com.asfoundation.wallet.iab.presentation.IAPBottomSheet
 import com.asfoundation.wallet.iab.presentation.PaymentMethodRow
+import com.asfoundation.wallet.iab.presentation.PaymentMethodRowData
 import com.asfoundation.wallet.iab.presentation.PaymentMethodSkeleton
 import com.asfoundation.wallet.iab.presentation.PreviewAll
 import com.asfoundation.wallet.iab.presentation.PurchaseInfo
@@ -53,6 +54,7 @@ import com.asfoundation.wallet.iab.presentation.PurchaseInfoSkeleton
 import com.asfoundation.wallet.iab.presentation.addClick
 import com.asfoundation.wallet.iab.presentation.conditional
 import com.asfoundation.wallet.iab.presentation.emptyBonusInfoData
+import com.asfoundation.wallet.iab.presentation.emptyPaymentMethodRowData
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
 import com.asfoundation.wallet.iab.theme.IAPTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -178,10 +180,11 @@ private fun RealMainScreen(
           purchaseInfoData = targetState.purchaseInfoData,
           bonusInfoData = targetState.bonusInfoData,
           showDisclaimer = targetState.showDisclaimer,
-          preSelectedPaymentMethod = targetState.preSelectedPaymentMethod,
+          selectedPaymentMethod = targetState.selectedPaymentMethod,
+          selectedPaymentMethodRowData = targetState.selectedPaymentMethodRowData,
           bonusAvailable = targetState.bonusAvailable,
           onPaymentMethodClick = onPaymentMethodClick,
-          onBuyClick = onBuyClick
+          onBuyClick = onBuyClick,
         )
 
         MainFragmentUiState.NoConnection -> GenericError(
@@ -212,18 +215,19 @@ private fun PurchaseDetails(
   bonusInfoData: BonusInfoData,
   showDisclaimer: Boolean,
   bonusAvailable: Boolean,
-  preSelectedPaymentMethod: PaymentMethod?,
+  selectedPaymentMethod: PaymentMethod?,
+  selectedPaymentMethodRowData: PaymentMethodRowData?,
   onPaymentMethodClick: (PurchaseInfoData) -> Unit,
   onBuyClick: (PaymentMethod?, PurchaseInfoData) -> Unit
 ) {
   var showLoadingPrice by rememberSaveable { mutableStateOf(false) }
   var paymentMethodId by rememberSaveable { mutableStateOf<String?>(null) }
 
-  if (preSelectedPaymentMethod != null && paymentMethodId != preSelectedPaymentMethod.id) {
+  if (selectedPaymentMethodRowData != null && paymentMethodId != selectedPaymentMethodRowData.id) {
     LaunchedEffect(Unit) {
       showLoadingPrice = true
       delay(TimeUnit.SECONDS.toMillis(1))
-      paymentMethodId = preSelectedPaymentMethod.id
+      paymentMethodId = selectedPaymentMethodRowData.id
       showLoadingPrice = false
     }
   }
@@ -287,12 +291,12 @@ private fun PurchaseDetails(
         bonusAvailable = bonusAvailable,
         onPromoCodeAvailableClick = { /* TODO on promo code available click */ }
       )
-      if (preSelectedPaymentMethod != null) {
+      if (selectedPaymentMethodRowData != null) {
         SeparatorLine()
         PaymentMethodRow(
           modifier = Modifier
             .conditional(
-              condition = preSelectedPaymentMethod.isEnable,
+              condition = selectedPaymentMethodRowData.isEnable,
               ifTrue = {
                 addClick(
                   onClick = { onPaymentMethodClick(purchaseInfoData) },
@@ -301,8 +305,7 @@ private fun PurchaseDetails(
               }
             )
             .padding(16.dp),
-          paymentMethodData = preSelectedPaymentMethod,
-          showArrow = true,
+          paymentMethodData = selectedPaymentMethodRowData,
         )
       }
     }
@@ -319,14 +322,14 @@ private fun PurchaseDetails(
     Spacer(modifier = Modifier.weight(1f))
     IABOpaqueButton(
       text = when {
-        preSelectedPaymentMethod == null -> "Add payment method" // TODO hardcoded text
-        preSelectedPaymentMethod.isEnable -> "Buy" // TODO hardcoded text
+        selectedPaymentMethodRowData == null -> "Add payment method" // TODO hardcoded text
+        selectedPaymentMethodRowData.isEnable -> "Buy" // TODO hardcoded text
         else -> "Change payment method" // TODO hardcoded text
       },
-      onClick = { onBuyClick(preSelectedPaymentMethod, purchaseInfoData) },
+      onClick = { onBuyClick(selectedPaymentMethod, purchaseInfoData) },
       testTag = when {
-        preSelectedPaymentMethod == null -> "addPaymentMethodClicked"
-        preSelectedPaymentMethod.isEnable -> "buyClicked"
+        selectedPaymentMethodRowData == null -> "addPaymentMethodClicked"
+        selectedPaymentMethodRowData.isEnable -> "buyClicked"
         else -> "changePaymentMethodClicked"
       }
     )
@@ -407,12 +410,13 @@ private fun PreviewMainScreen(
 private class MainFragmentUiStateProvider : PreviewParameterProvider<MainFragmentUiState> {
   private val bonusAvailable by lazy { Random.nextBoolean() }
   private val showDisclaimer by lazy { Random.nextBoolean() }
-  private val showPreSelectedPaymentMethod by lazy { Random.nextBoolean() }
+  private val showSelectedPaymentMethod by lazy { Random.nextBoolean() }
 
   override val values = sequenceOf(
     MainFragmentUiState.Idle(
       showDisclaimer = showDisclaimer,
-      preSelectedPaymentMethod = emptyCreditCardPaymentMethod.takeIf { Random.nextBoolean() },
+      selectedPaymentMethod = emptyCreditCardPaymentMethod.takeIf { showSelectedPaymentMethod },
+      selectedPaymentMethodRowData = emptyPaymentMethodRowData.takeIf { showSelectedPaymentMethod },
       bonusAvailable = bonusAvailable,
       purchaseInfoData = emptyPurchaseInfo
         .copy(
@@ -427,7 +431,7 @@ private class MainFragmentUiStateProvider : PreviewParameterProvider<MainFragmen
     MainFragmentUiState.LoadingDisclaimer,
     MainFragmentUiState.LoadingPurchaseData(
       showDisclaimer = showDisclaimer,
-      showPreSelectedPaymentMethod = showPreSelectedPaymentMethod,
+      showPreSelectedPaymentMethod = showSelectedPaymentMethod,
     ),
   )
 }

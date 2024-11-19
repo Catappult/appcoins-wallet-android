@@ -6,6 +6,7 @@ import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.use_case.GetBalanceUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetPaymentMethodsUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetProductInfoUseCase
+import com.asfoundation.wallet.iab.domain.use_case.GetSignedWalletAddressUseCase
 import com.asfoundation.wallet.iab.domain.use_case.GetWalletInfoUseCase
 import com.asfoundation.wallet.iab.payment_manager.domain.WalletData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsInteractor
@@ -21,9 +22,10 @@ class PaymentManager @AssistedInject constructor(
   private val getPaymentMethodsUseCase: GetPaymentMethodsUseCase,
   private val getProductInfoUseCase: GetProductInfoUseCase,
   private val getCurrentWalletInfoUseCase: GetWalletInfoUseCase,
+  private val getSignedWalletAddressUseCase: GetSignedWalletAddressUseCase,
   private val getBalanceUseCase: GetBalanceUseCase,
   private val ewtAuthenticatorService: EwtAuthenticatorService,
-  private val paymentMethodFactories: PaymentMethodCreator
+  private val paymentMethodFactories: PaymentMethodCreator,
 ) {
 
   private var paymentMethods: List<PaymentMethod>? = null
@@ -54,15 +56,18 @@ class PaymentManager @AssistedInject constructor(
     val walletRequest = async { getCurrentWalletInfoUseCase() }
     val walletInfoRequest = async { getBalanceUseCase() }
 
-    val productInfo = productInfoRequest.await() ?: throw RuntimeException("Error fetching sku details")
+    val productInfo =
+      productInfoRequest.await() ?: throw RuntimeException("Error fetching sku details")
     val wallet = walletRequest.await()
     val walletInfo = walletInfoRequest.await()
     val walletEwt = ewtAuthenticatorService.getEwtAuthentication(wallet)
+    val signedAddress = getSignedWalletAddressUseCase(wallet)
 
     walletData = WalletData(
       address = wallet,
       ewt = walletEwt,
-      walletInfo = walletInfo
+      walletInfo = walletInfo,
+      signedAddress = signedAddress.signedAddress,
     )
 
     val paymentMethodsRequest = async {
@@ -88,13 +93,14 @@ class PaymentManager @AssistedInject constructor(
           productInfoData = productInfo
         )
       }
+      .onEach { it.init() }
 
     return@coroutineScope paymentMethods
   }
 
   fun getPaymentMethodById(id: String) = paymentMethods?.firstOrNull { it.id == id }
 
-  fun hasPreSelectedPaymentMethod() =
+  fun hasSelectedPaymentMethod() =
     selectedPaymentMethod.value != null || paymentMethodsInteractor.hasPreSelectedPaymentMethod()
 
   fun setSelectedPaymentMethod(paymentMethod: PaymentMethod) {

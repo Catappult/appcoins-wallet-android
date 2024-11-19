@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.use_case.GetCountryCodeUseCase
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
+import com.asfoundation.wallet.iab.presentation.PaymentMethodRowData
 import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
 import com.asfoundation.wallet.iab.presentation.emptyBonusInfoData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -57,7 +57,7 @@ class MainViewModel(
       }
 
       try {
-        val hasPreselectedPaymentMethod = paymentManager.hasPreSelectedPaymentMethod()
+        val hasPreselectedPaymentMethod = paymentManager.hasSelectedPaymentMethod()
         val selectedPaymentMethod =
           if (hasPreselectedPaymentMethod) paymentManager.getSelectedPaymentMethod() else null
 
@@ -77,20 +77,59 @@ class MainViewModel(
         val productInfoData = paymentManager.getProductInfo()
           ?: throw RuntimeException("SkuId ${purchaseData.skuId} not found")
 
+        selectedPaymentMethod?.init()
+
         viewModelState.update {
           MainFragmentUiState.Idle(
             showDisclaimer = showDisclaimer,
-            preSelectedPaymentMethod = selectedPaymentMethod,
+            selectedPaymentMethod = selectedPaymentMethod,
+            selectedPaymentMethodRowData = selectedPaymentMethod?.let {
+              PaymentMethodRowData(
+                id = it.id,
+                name = it.getTitleOnPreSelected(),
+                icon = it.getIconOnPreSelected(),
+                isEnable = it.isEnable,
+                description = it.getDescription(),
+                showArrow = true
+              )
+            },
             bonusAvailable = true, // TODO check if bonus is available for the product,
             purchaseInfoData = PurchaseInfoData(
               packageName = purchaseData.domain,
-              cost = selectedPaymentMethod?.run { currencyFormatUtils.formatCost(currencySymbol = currencySymbol, currencyCode = currency, cost = cost) }
-                ?: productInfoData.transaction.run { currencyFormatUtils.formatCost(currencySymbol = currencySymbol, currencyCode = currency, cost = amount) },
+              cost = selectedPaymentMethod
+                ?.run {
+                  currencyFormatUtils.formatCost(
+                    currencySymbol = currencySymbol,
+                    currencyCode = currency,
+                    cost = cost
+                  )
+                }
+                ?: productInfoData.transaction.run {
+                  currencyFormatUtils.formatCost(
+                    currencySymbol = currencySymbol,
+                    currencyCode = currency,
+                    cost = amount
+                  )
+                },
               productName = productInfoData.title,
               hasFees = selectedPaymentMethod?.hasFees ?: false,
-              fees = selectedPaymentMethod?.run { currencyFormatUtils.formatCost(currencySymbol = currencySymbol, currencyCode = currency, cost = fees) }
+              fees = selectedPaymentMethod
+                ?.run {
+                  currencyFormatUtils.formatCost(
+                    currencySymbol = currencySymbol,
+                    currencyCode = currency,
+                    cost = fees
+                  )
+                }
                 ?.takeIf { selectedPaymentMethod.hasFees },
-              subtotal = selectedPaymentMethod?.run { currencyFormatUtils.formatCost(currencySymbol = currencySymbol, currencyCode = currency, cost = subtotal) }
+              subtotal = selectedPaymentMethod
+                ?.run {
+                  currencyFormatUtils.formatCost(
+                    currencySymbol = currencySymbol,
+                    currencyCode = currency,
+                    cost = subtotal
+                  )
+                }
                 ?.takeIf { selectedPaymentMethod.hasFees }
             ),
             bonusInfoData = emptyBonusInfoData,

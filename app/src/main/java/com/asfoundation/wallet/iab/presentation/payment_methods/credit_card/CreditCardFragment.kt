@@ -1,9 +1,13 @@
 package com.asfoundation.wallet.iab.presentation.payment_methods.credit_card
 
+import android.content.Intent
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivityResultRegistryOwner
 import androidx.appcompat.widget.SwitchCompat
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -20,6 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -38,12 +44,17 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.adyen.checkout.card.CardComponent
+import com.adyen.checkout.card.CardComponentState
 import com.adyen.checkout.card.CardView
 import com.adyen.checkout.card.R
 import com.adyen.checkout.card.ui.ExpiryDateInput
 import com.adyen.checkout.card.ui.SecurityCodeInput
+import com.adyen.checkout.components.base.BaseActionComponent
+import com.appcoins.wallet.billing.adyen.PaymentInfoModel
+import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.IabBaseFragment
 import com.asfoundation.wallet.iab.payment_manager.PaymentManager
@@ -61,8 +72,10 @@ import com.asfoundation.wallet.iab.presentation.PurchaseInfoData
 import com.asfoundation.wallet.iab.presentation.emptyPurchaseInfo
 import com.asfoundation.wallet.iab.presentation.isInPortrait
 import com.asfoundation.wallet.iab.theme.IAPTheme
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONObject
 import kotlin.random.Random
 
 @AndroidEntryPoint
@@ -90,34 +103,63 @@ private fun CreditCardContent(
   paymentManager: PaymentManager,
   paymentMethodId: String
 ) {
+  val activityResultRegistry =
+    LocalActivityResultRegistryOwner.current!!.activityResultRegistry
+  val context = LocalContext.current.getActivity() as ComponentActivity
   val viewModel = rememberCreditCardViewModel(
+    activity = context,
     paymentManager = paymentManager,
     paymentMethodId = paymentMethodId
   )
   val uiState by viewModel.uiState.collectAsState()
   val uiStateSavingCard by viewModel.uiStateSavingCard.collectAsState()
-  var leavingWithSuccess by rememberSaveable { mutableStateOf(false) }
+  val uiStateInputError by viewModel.uiStateInputError.collectAsState()
 
-  val loadData = { viewModel.loadCreditCard() }
-  val onSupportClick = { navigator.onSupportClick() }
-  val onSaveCardClick = { viewModel.saveCreditCardData() }
-  val onBackClick = { navigator.navigateUp() }
-  val onFinishWithSuccess = { // For some reason, compose calls this two times...
-    if (!leavingWithSuccess) {
-      leavingWithSuccess = true
-      navigator.navigateTo(CreditCardFragmentDirections.actionNavigateToMainFragment())
-    }
+  var adyenCardWrapper by rememberSaveable { mutableStateOf<AdyenCardWrapper?>(null) }
+
+  val onUserAction: (BaseActionComponent<*>, PaymentModel) -> Unit = { _, paymentModel ->
+    navigator.navigateToUriForResult(
+      activityResultRegistry,
+      AdyenResultContract(paymentModel),
+      viewModel::onWebViewResult,
+      paymentModel.redirectUrl ?: ""
+    )
   }
+  val onReloadClick = {
+    viewModel.clearAdyenComponents(context)
+    viewModel.loadCreditCard()
+  }
+  val onVerifyClick = { navigator.startActivity(VerificationCreditCardActivity.newIntent(context)) }
+  val onSaveCardClick = { viewModel.saveCreditCardData(adyenCardWrapper) }
+  val onFinishWithSuccess = { navigator.navigateTo(CreditCardFragmentDirections.actionNavigateToMainFragment()) }
+  val onCardComponentStateUpdate: (CardComponentState, PaymentInfoModel) -> Unit =
+    { state, paymentInfoModel ->
+      state.data.paymentMethod?.let { paymentMethod ->
+        val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
+        adyenCardWrapper = AdyenCardWrapper(
+          cardPaymentMethod = paymentMethod,
+          shouldStoreCard = true,
+          hasCvc = hasCvc,
+          supportedShopperInteractions = paymentInfoModel.supportedShopperInteractions
+        )
+      }
+    }
 
   IAPTheme {
     CreditCardScreen(
       uiState = uiState,
       uiStateSavingCard = uiStateSavingCard,
-      loadData = loadData,
-      onBackClick = onBackClick,
-      onSupportClick = onSupportClick,
+      uiStateInputError = uiStateInputError,
+      loadData = onReloadClick,
+      onBackClick = navigator::navigateUp,
+      onSupportClick = navigator::onSupportClick,
       onSaveCardClick = onSaveCardClick,
-      onFinishWithSuccess = onFinishWithSuccess
+      onFinishWithSuccess = onFinishWithSuccess,
+      submitActionResult = viewModel::submitActionResult,
+      onVerifyClick = onVerifyClick,
+      onVerifyTryAgainClick = navigator::navigateUp,
+      onCardComponentStateUpdate = onCardComponentStateUpdate,
+      onUserAction = onUserAction,
     )
   }
 }
@@ -126,11 +168,17 @@ private fun CreditCardContent(
 private fun CreditCardScreen(
   uiState: CreditCardUiState,
   uiStateSavingCard: Boolean,
+  uiStateInputError: String?,
   loadData: () -> Unit,
   onBackClick: () -> Unit,
   onSupportClick: () -> Unit,
   onSaveCardClick: () -> Unit,
   onFinishWithSuccess: () -> Unit,
+  onVerifyClick: () -> Unit,
+  onVerifyTryAgainClick: () -> Unit,
+  submitActionResult: (String?, JSONObject?, PaymentModel) -> Unit,
+  onUserAction: (BaseActionComponent<*>, PaymentModel) -> Unit,
+  onCardComponentStateUpdate: (CardComponentState, PaymentInfoModel) -> Unit,
 ) {
   val context = LocalContext.current.getActivity() as ComponentActivity
   val lifecycleOwner = LocalLifecycleOwner.current
@@ -156,18 +204,32 @@ private fun CreditCardScreen(
           showLoading = uiStateSavingCard,
           isButtonEnabled = isButtonEnabled,
         ) {
-          targetState.cardComponent?.invoke(context)?.let { cardComponent ->
-            cardComponent.observe(lifecycleOwner) { state ->
-              isButtonEnabled = state.isInputValid
+          LaunchedEffect(Unit) {
+            targetState.cardComponent?.invoke(context)?.let { cardComponent ->
+              cardComponent.observe(lifecycleOwner) { state ->
+                isButtonEnabled = state.isInputValid
+                onCardComponentStateUpdate(state, targetState.paymentInfoModel)
+              }
             }
+          }
+
+          targetState.cardComponent?.let { cardComponent ->
             AdyenCreditCardView(
-              cardComponent = cardComponent,
-              isEnabled = !uiStateSavingCard
+              cardComponent = cardComponent(context)!!,
+              isEnabled = !uiStateSavingCard,
+              errorOnCVC = uiStateInputError,
             )
           }
         }
 
-        CreditCardUiState.PaymentMethodsError -> GenericError(
+        is CreditCardUiState.AddCreditCardError -> GenericError(
+          secondaryButtonText = "Try Again", // TODO hardcoded string
+          onSecondaryButtonClick = loadData,
+          onSupportClick = onSupportClick,
+          messageText = targetState.errorMessage
+        )
+
+        CreditCardUiState.CreditCardError -> GenericError(
           secondaryButtonText = "Try Again", // TODO hardcoded string
           onSecondaryButtonClick = loadData,
           onSupportClick = onSupportClick
@@ -179,8 +241,45 @@ private fun CreditCardScreen(
           onSupportClick = onSupportClick
         )
 
+        is CreditCardUiState.VerifyScreen -> GenericError(
+          titleText = targetState.message,
+          primaryButtonText = stringResource(id = com.asf.wallet.R.string.referral_view_verify_button),
+          onPrimaryButtonClick = onVerifyClick,
+          secondaryButtonText = "Try with another method", // TODO hardcoded text
+          onSecondaryButtonClick = onVerifyTryAgainClick,
+          onSupportClick = onSupportClick
+        )
+
+        is CreditCardUiState.UserAction<*> ->
+          LaunchedEffect(targetState.paymentModel.uid) {
+            onUserAction(
+              targetState.component,
+              targetState.paymentModel
+            )
+          }
+
+        is CreditCardUiState.Handle3DSAction -> {
+          LaunchedEffect(Unit) {
+            targetState.component.observe(lifecycleOwner) {
+              submitActionResult(it.paymentData, it.details, targetState.paymentModel)
+              targetState.component.removeObservers(lifecycleOwner)
+            }
+            targetState.component.handleAction(context, targetState.paymentModel.action!!)
+          }
+        }
+
+        is CreditCardUiState.HandleRedirectAction -> {
+          LaunchedEffect(Unit) {
+            targetState.component.observe(lifecycleOwner) {
+              submitActionResult(it.paymentData, it.details, targetState.paymentModel)
+              targetState.component.removeObservers(lifecycleOwner)
+            }
+            targetState.component.handleIntent(Intent("", targetState.uri))
+          }
+        }
+
         CreditCardUiState.Finish ->
-          onFinishWithSuccess()
+          LaunchedEffect(Unit) { onFinishWithSuccess() }
       }
     }
   }
@@ -226,7 +325,7 @@ private fun CreditCardIdle(
         showDescription = false,
       )
       adyenContent()
-      AnimatedVisibility(showLoading) {
+      AnimatedVisibility(showLoading, enter = fadeIn(), exit = fadeOut()) {
         IABLoading(
           modifier = Modifier
             .fillMaxSize()
@@ -235,7 +334,7 @@ private fun CreditCardIdle(
           text = "Adding Card...", // TODO hardcoded text
         )
       }
-      AnimatedVisibility(!showLoading) {
+      AnimatedVisibility(!showLoading, enter = fadeIn(), exit = fadeOut()) {
         Column {
           Spacer(
             modifier = Modifier
@@ -260,6 +359,7 @@ private fun AdyenCreditCardView(
   modifier: Modifier = Modifier,
   isEnabled: Boolean,
   cardComponent: CardComponent,
+  errorOnCVC: String?
 ) {
   val lifecycleOwner = LocalLifecycleOwner.current
   AndroidView(
@@ -269,11 +369,15 @@ private fun AdyenCreditCardView(
       }
     },
     update = {
+      it.findViewById<TextInputLayout>(com.asf.wallet.R.id.textInputLayout_securityCode).error =
+        errorOnCVC
       it.findViewById<TextInputLayout>(R.id.textInputLayout_cardNumber).isEnabled = isEnabled
       it.findViewById<SecurityCodeInput>(R.id.editText_securityCode).isEnabled = isEnabled
       it.findViewById<ExpiryDateInput>(R.id.editText_expiryDate).isEnabled = isEnabled
-      it.findViewById<SwitchCompat>(R.id.switch_storePaymentMethod)?.isVisible = false
-      it.findViewById<SwitchCompat>(R.id.switch_storePaymentMethod)?.isChecked = true
+      it.findViewById<SwitchCompat>(R.id.switch_storePaymentMethod)?.run {
+        isVisible = false
+        isChecked = true
+      }
     },
     modifier = modifier.fillMaxWidth(),
   )
@@ -323,11 +427,17 @@ private fun CreditCardScreenPreview(
     CreditCardScreen(
       uiState = uiState,
       uiStateSavingCard = false,
+      uiStateInputError = null,
       loadData = { },
       onBackClick = { },
       onSaveCardClick = { },
       onSupportClick = { },
       onFinishWithSuccess = { },
+      onCardComponentStateUpdate = { _, _ -> },
+      onUserAction = { _, _ -> },
+      onVerifyTryAgainClick = { },
+      onVerifyClick = { },
+      submitActionResult = { _, _, _ -> },
     )
   }
 }
@@ -346,7 +456,8 @@ private class CreditCardFragmentUiStateProvider :
 
   override val values = sequenceOf(
     CreditCardUiState.Loading,
-    CreditCardUiState.PaymentMethodsError,
+    CreditCardUiState.AddCreditCardError("Some error message"),
+    CreditCardUiState.CreditCardError,
     CreditCardUiState.NoConnection,
   )
 }

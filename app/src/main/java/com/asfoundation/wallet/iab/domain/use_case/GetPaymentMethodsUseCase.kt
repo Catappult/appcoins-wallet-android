@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Singleton
 class GetPaymentMethodsUseCase @Inject constructor(
   private val billingRepository: BillingRepository,
-  @IoDispatcher val networkDispatcher: CoroutineDispatcher,
+  @IoDispatcher private val networkDispatcher: CoroutineDispatcher,
 ) {
 
   suspend operator fun invoke(
