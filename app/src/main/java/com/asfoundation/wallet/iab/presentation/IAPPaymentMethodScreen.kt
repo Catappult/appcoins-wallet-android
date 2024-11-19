@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
@@ -30,8 +29,8 @@ import com.appcoins.wallet.ui.common.iap.icon.getRightArrow
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.emptyAPPCPaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.emptyCreditCardPaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.emptyPayPalV1PaymentMethod
-import com.asfoundation.wallet.iab.presentation.icon.getIcCheck
 import com.asfoundation.wallet.iab.theme.IAPTheme
+import kotlin.random.Random
 
 @Composable
 fun PaymentMethodRow(
@@ -41,7 +40,26 @@ fun PaymentMethodRow(
   isSelected: Boolean = false,
   showArrow: Boolean = false,
 ) {
-  val context = LocalContext.current
+  PaymentMethodRow(
+    modifier = modifier,
+    paymentMethodData = PaymentMethodRowData(
+      id = paymentMethodData.id,
+      name = paymentMethodData.name,
+      icon = paymentMethodData.icon,
+      isEnable = paymentMethodData.isEnable,
+      description = paymentMethodData.getDescription(),
+      showDescription = showDescription,
+      isSelected = isSelected,
+      showArrow = showArrow,
+    )
+  )
+}
+
+@Composable
+fun PaymentMethodRow(
+  modifier: Modifier = Modifier,
+  paymentMethodData: PaymentMethodRowData,
+) {
   val disabledColor = IAPTheme.colors.disabledTextColor
   Row(
     modifier = modifier,
@@ -71,12 +89,11 @@ fun PaymentMethodRow(
         color = disabledColor.takeIf { !paymentMethodData.isEnable }
           ?: IAPTheme.colors.paymentMethodTextColor
       )
-      if (showDescription) {
-        val description = paymentMethodData.getDescription(context)
-        if (!description.isNullOrEmpty()) {
+      if (paymentMethodData.showDescription) {
+        if (!paymentMethodData.description.isNullOrEmpty()) {
           Text(
             modifier = Modifier.padding(top = 4.dp),
-            text = description,
+            text = paymentMethodData.description,
             style = IAPTheme.typography.bodySmall,
             color = disabledColor.takeIf { !paymentMethodData.isEnable }
               ?: IAPTheme.colors.smallText
@@ -84,8 +101,8 @@ fun PaymentMethodRow(
         }
       }
     }
-    val image = getRightArrow(arrowColor = IAPTheme.colors.arrowColor).takeIf { showArrow }
-      ?: getIcCheck().takeIf { isSelected }
+    val image = getRightArrow(arrowColor = IAPTheme.colors.arrowColor).takeIf { paymentMethodData.showArrow }
+      ?: getIcCheck().takeIf { paymentMethodData.isSelected }
 
     image?.let {
       Image(
@@ -159,3 +176,25 @@ private class PaymentMethodState : PreviewParameterProvider<Pair<PaymentMethod, 
       emptyPayPalV1PaymentMethod to true
     )
 }
+
+data class PaymentMethodRowData(
+  val id: String,
+  val name: String,
+  val icon: String,
+  val isEnable: Boolean,
+  val description: String?,
+  val showDescription: Boolean = true,
+  val isSelected: Boolean = false,
+  val showArrow: Boolean = false,
+)
+
+val emptyPaymentMethodRowData = PaymentMethodRowData(
+  id = emptyCreditCardPaymentMethod.id,
+  name = emptyCreditCardPaymentMethod.name,
+  icon = emptyCreditCardPaymentMethod.icon,
+  isEnable = emptyCreditCardPaymentMethod.isEnable,
+  description = emptyCreditCardPaymentMethod.getDescription(),
+  showDescription = true,
+  isSelected = Random.nextBoolean(),
+  showArrow = Random.nextBoolean(),
+)
