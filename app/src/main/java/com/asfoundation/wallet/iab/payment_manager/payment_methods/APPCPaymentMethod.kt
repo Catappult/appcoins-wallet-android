@@ -6,6 +6,8 @@ import com.appcoins.wallet.core.network.microservices.model.emptyPaymentMethodEn
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.iab.domain.model.ProductInfoData
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
+import com.asfoundation.wallet.iab.payment_manager.domain.Transaction
+import com.asfoundation.wallet.iab.payment_manager.domain.TransactionData
 import com.asfoundation.wallet.iab.domain.model.emptyProductInfoData
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
@@ -37,7 +39,7 @@ class APPCPaymentMethod(
   override val hasFees: Boolean
     get() = false
 
-  override fun getDescription(context: Context) =
+  override fun getDescription() =
     walletData.walletInfo.walletBalance.creditsBalance.fiat.run {
       "Balance: ${currencyFormatUtils.formatCost(currencyCode = currency, currencySymbol = currencySymbol, cost = amount)}" // TODO harcoded text
     }
@@ -46,7 +48,7 @@ class APPCPaymentMethod(
         "Balance: ${currencyFormatUtils.formatCost(currencyCode = currency, currencySymbol = currencySymbol, cost = amount)} - Insufficient funds" // TODO harcoded text
       }
 
-  override fun createTransaction() {
+  override suspend fun createTransaction(transaction: TransactionData) : Transaction {
     TODO("Not yet implemented")
   }
 

@@ -15,6 +15,8 @@ import com.asfoundation.wallet.iab.FragmentNavigator
 import com.asfoundation.wallet.iab.domain.model.PurchaseData
 import com.asfoundation.wallet.iab.domain.model.emptyPurchaseData
 import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
+import com.asfoundation.wallet.iab.payment_manager.domain.Transaction
+import com.asfoundation.wallet.iab.payment_manager.domain.TransactionData
 import com.asfoundation.wallet.iab.payment_manager.domain.WalletData
 import com.asfoundation.wallet.iab.payment_manager.domain.emptyWalletData
 import com.asfoundation.wallet.iab.presentation.payment_methods.credit_card.CreditCardFragment
@@ -57,7 +59,7 @@ class CreditCardPaymentMethod(
     ).callAsync(networkDispatcher)
 
 
-  override fun createTransaction() {
+  override suspend fun createTransaction(transaction: TransactionData): Transaction {
     TODO("Not yet implemented")
   }
 
