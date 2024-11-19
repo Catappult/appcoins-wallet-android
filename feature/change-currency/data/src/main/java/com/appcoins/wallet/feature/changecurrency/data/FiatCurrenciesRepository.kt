@@ -11,18 +11,20 @@ import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.qualifiers.ApplicationContext
+import it.czerwinski.android.hilt.annotations.BoundTo
 import kotlinx.coroutines.rx2.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class FiatCurrenciesRepository @Inject constructor(
+@BoundTo(FiatCurrenciesRepository::class)
+class FiatCurrenciesRepositoryImpl @Inject constructor(
   private val fiatCurrenciesApi: FiatCurrenciesApi,
   private val fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource,
   private val fiatCurrenciesDao: FiatCurrenciesDao,
   private val conversionService: LocalCurrencyConversionService,
   private val dispatchers: Dispatchers,
   @ApplicationContext private val context: Context
-) {
+) : FiatCurrenciesRepository {
 
   private suspend fun fetchCurrenciesList(): DataResult<List<FiatCurrency>> =
     withContext(dispatchers.io) {
@@ -38,7 +40,7 @@ class FiatCurrenciesRepository @Inject constructor(
         }
     }
 
-  suspend fun getCurrenciesList(): DataResult<List<FiatCurrency>> =
+  override suspend fun getCurrenciesList(): DataResult<List<FiatCurrency>> =
     withContext(dispatchers.io) {
       val versionCode = context.packageManager.getPackageInfo(context.packageName, 0).versionCode
       if (fiatCurrenciesPreferencesDataSource.getCurrencyListLastVersion() != versionCode ||
@@ -51,7 +53,7 @@ class FiatCurrenciesRepository @Inject constructor(
       }
     }
 
-  suspend fun getSelectedCurrency(): DataResult<String> {
+  override suspend fun getSelectedCurrency(): DataResult<String> {
     return if (fiatCurrenciesPreferencesDataSource.getSelectCurrency()) {
       val fiatValue: FiatValue = conversionService.localCurrency.await()
       fiatCurrenciesPreferencesDataSource.setSelectedCurrency(fiatValue.currency)
@@ -62,17 +64,24 @@ class FiatCurrenciesRepository @Inject constructor(
     }
   }
 
-  fun getCachedResultSelectedCurrency(): DataResult<String> {
+  override fun getCachedResultSelectedCurrency(): DataResult<String> {
     return fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency().toDataResult()
   }
 
-  fun getCachedSelectedCurrency(): String? =
+  override fun getCachedSelectedCurrency(): String? =
     fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
 
-
-  suspend fun setSelectedCurrency(currency: String) {
+  override suspend fun setSelectedCurrency(currency: String) {
     withContext(dispatchers.io) {
       fiatCurrenciesPreferencesDataSource.setSelectedCurrency(currency)
     }
   }
+}
+
+interface FiatCurrenciesRepository {
+  suspend fun getCurrenciesList(): DataResult<List<FiatCurrency>>
+  suspend fun getSelectedCurrency(): DataResult<String>
+  fun getCachedResultSelectedCurrency(): DataResult<String>
+  fun getCachedSelectedCurrency(): String?
+  suspend fun setSelectedCurrency(currency: String)
 }
