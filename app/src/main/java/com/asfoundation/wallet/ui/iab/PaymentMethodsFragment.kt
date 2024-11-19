@@ -309,14 +309,38 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.preSelectedPaymentMethodGroup.visibility = View.GONE
     binding.midSeparator?.visibility = View.VISIBLE
     if (paymentMethods.isNotEmpty()) {
-      paymentMethodsAdapter =
-        PaymentMethodsAdapter(
-          paymentMethods = paymentMethods,
-          paymentMethodId = paymentMethodId,
-          paymentMethodClick = paymentMethodClick,
-          logoutCallback = { handleLogoutCallbackAdapter() },
-          showLogoutAction = presenter.showPayPalLogout || presenter.showAmazonPayLogout
-        )
+      paymentMethodsAdapter = when {
+        presenter.showPayPalLogout -> {
+          PaymentMethodsAdapter(
+            paymentMethods = paymentMethods,
+            paymentMethodId = paymentMethodId,
+            paymentMethodClick = paymentMethodClick,
+            logoutCallback = { handleLogoutPaypalCallbackAdapter(false) },
+            showLogoutAction = presenter.showPayPalLogout
+          )
+        }
+
+        presenter.showAmazonPayLogout -> {
+          PaymentMethodsAdapter(
+            paymentMethods = paymentMethods,
+            paymentMethodId = paymentMethodId,
+            paymentMethodClick = paymentMethodClick,
+            logoutCallback = { handleLogoutAmazonCallbackAdapter(false) },
+            showLogoutAction = presenter.showAmazonPayLogout
+          )
+        }
+
+        else -> {
+          PaymentMethodsAdapter(
+            paymentMethods = paymentMethods,
+            paymentMethodId = paymentMethodId,
+            paymentMethodClick = paymentMethodClick,
+            logoutCallback = { },
+            showLogoutAction = false
+          )
+        }
+      }
+
       binding.paymentMethodsRadioList.adapter = paymentMethodsAdapter
       paymentMethodList.clear()
       paymentMethodList.addAll(paymentMethods)
@@ -324,18 +348,18 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     }
   }
 
-  private fun handleLogoutCallbackAdapter() {
-    if (presenter.showPayPalLogout) {
-      presenter.removePaypalBillingAgreement()
-      presenter.showPayPalLogout = false
-      showProgressBarLoading()
-      updateAdapter()
-    } else if (presenter.showAmazonPayLogout) {
-      presenter.removeAmazonPayChargePermission()
-      presenter.showAmazonPayLogout = false
-      showProgressBarLoading()
-      updateAdapter()
-    }
+  private fun handleLogoutPaypalCallbackAdapter(isPreselected: Boolean) {
+    presenter.removePaypalBillingAgreement()
+    presenter.showPayPalLogout = false
+    showProgressBarLoading()
+    if (!isPreselected) updateAdapter()
+  }
+
+  private fun handleLogoutAmazonCallbackAdapter(isPreselected: Boolean) {
+    presenter.removeAmazonPayChargePermission()
+    presenter.showAmazonPayLogout = false
+    showProgressBarLoading()
+    if (!isPreselected) updateAdapter()
   }
 
   @SuppressLint("NotifyDataSetChanged")
@@ -408,12 +432,28 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
       PaymentMethodId.PAYPAL_V2.id -> {
         binding.layoutPreSelected.paymentMoreLogout.visibility = View.VISIBLE
+        binding.layoutPreSelected.paymentMethodSecondary.visibility = View.GONE
         binding.layoutPreSelected.paymentMoreLogout.setOnClickListener {
           val popup = PopupMenu(context?.applicationContext, it)
           popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
           popup.setOnMenuItemClickListener {
             binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
-            handleLogoutCallbackAdapter()
+            handleLogoutPaypalCallbackAdapter(true)
+            return@setOnMenuItemClickListener true
+          }
+          popup.show()
+        }
+      }
+
+      PaymentMethodId.AMAZONPAY.id -> {
+        binding.layoutPreSelected.paymentMoreLogout.visibility = View.VISIBLE
+        binding.layoutPreSelected.paymentMethodSecondary.visibility = View.GONE
+        binding.layoutPreSelected.paymentMoreLogout.setOnClickListener {
+          val popup = PopupMenu(context?.applicationContext, it)
+          popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
+          popup.setOnMenuItemClickListener {
+            binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
+            handleLogoutAmazonCallbackAdapter(true)
             return@setOnMenuItemClickListener true
           }
           popup.show()
