@@ -16,6 +16,8 @@ interface WalletService {
 
   fun signSpecificWalletAddressContent(walletAddress: String, content: String): Single<String>
 
+  fun getAndSignWalletAddress(walletAddress: String): Single<WalletAddressModel>
+
   fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel>
 
   fun getAndSignSpecificWalletAddress(walletAddress: String): Single<WalletAddressModel>

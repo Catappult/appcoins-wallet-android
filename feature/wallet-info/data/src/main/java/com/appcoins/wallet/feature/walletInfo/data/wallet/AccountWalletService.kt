@@ -61,6 +61,15 @@ class AccountWalletService @Inject constructor(
   ): Single<String> = walletRepository.findWallet(walletAddress)
     .flatMap { wallet -> getPrivateKey(wallet).map { sign(normalizer.normalize(content), it) } }
 
+  override fun getAndSignWalletAddress(
+    walletAddress: String,
+  ): Single<WalletAddressModel> = walletRepository.findWallet(walletAddress)
+    .flatMap { wallet ->
+      getPrivateKey(wallet)
+        .map { sign(normalizer.normalize(toChecksumAddress(wallet.address)), it) }
+        .map { WalletAddressModel(wallet.address, it) }
+    }
+
   override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> = find()
     .flatMap { wallet ->
       getPrivateKey(wallet)
