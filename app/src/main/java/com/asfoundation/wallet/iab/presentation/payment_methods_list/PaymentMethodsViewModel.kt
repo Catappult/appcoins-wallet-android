@@ -60,7 +60,9 @@ class PaymentMethodsViewModel(
   }
 
   fun setSelectedPaymentMethod(paymentMethod: PaymentMethod) {
-    paymentManager.setSelectedPaymentMethod(paymentMethod.id)
+    if (paymentMethod.isReadyToPay) {
+      paymentManager.setSelectedPaymentMethod(paymentMethod)
+    }
   }
 }
 

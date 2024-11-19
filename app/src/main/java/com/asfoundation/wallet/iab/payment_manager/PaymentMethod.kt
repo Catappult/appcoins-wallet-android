@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.iab.payment_manager
 
-import android.content.Context
 import androidx.annotation.StringRes
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.asf.wallet.R
@@ -32,16 +31,26 @@ abstract class PaymentMethod(protected val paymentMethod: PaymentMethodEntity) {
     get() = Currency.getInstance(currency).symbol
   open val hasFees: Boolean
     get() = paymentMethod.fee != null
+  open val isReadyToPay: Boolean
+    get() = true
 
   @get:StringRes
   open val onPreSelectedButtonLabel: Int
     get() = R.string.buy_button
 
-  open fun getDescription(context: Context): String? =
+  open fun getIconOnPreSelected(): String = icon
+
+  open fun getTitleOnPreSelected(): String = name
+
+  open fun getDescription(): String? =
     if (hasFees) "Fees and vat may apply" else paymentMethod.message // TODO hardcode text
 
   open val onPaymentMethodClick: (FragmentNavigator) -> Unit = { navigator ->
     navigator.navigateUp()
+  }
+
+  open suspend fun init() {
+    return
   }
 
   abstract suspend fun createTransaction(transaction: TransactionData): Transaction

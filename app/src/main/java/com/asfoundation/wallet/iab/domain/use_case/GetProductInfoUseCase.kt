@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class GetProductInfoUseCase @Inject constructor(
   private val billingRepository: BillingRepository,
-  @IoDispatcher val networkDispatcher: CoroutineDispatcher,
+  @IoDispatcher private val networkDispatcher: CoroutineDispatcher,
 ) {
 
   suspend operator fun invoke(

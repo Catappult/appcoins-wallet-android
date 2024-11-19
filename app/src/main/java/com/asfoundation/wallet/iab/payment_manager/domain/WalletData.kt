@@ -6,11 +6,13 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.emptyWalletInfo
 class WalletData(
   val address: String,
   val ewt: String,
+  val signedAddress: String,
   val walletInfo: WalletInfo,
 )
 
 val emptyWalletData = WalletData(
   address = "",
   ewt = "",
+  signedAddress = "",
   walletInfo = emptyWalletInfo
 )

@@ -13,7 +13,7 @@ import javax.inject.Singleton
 class GetBalanceUseCase @Inject constructor(
   private val walletRepository: WalletRepositoryType,
   private val walletInfoRepository: WalletInfoRepository,
-  @IoDispatcher val networkDispatcher: CoroutineDispatcher,
+  @IoDispatcher private val networkDispatcher: CoroutineDispatcher,
 ) {
 
   suspend operator fun invoke(): WalletInfo {
