@@ -5,6 +5,8 @@ import androidx.annotation.StringRes
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.asf.wallet.R
 import com.asfoundation.wallet.iab.FragmentNavigator
+import com.asfoundation.wallet.iab.payment_manager.domain.Transaction
+import com.asfoundation.wallet.iab.payment_manager.domain.TransactionData
 import java.math.BigDecimal
 import java.util.Currency
 
@@ -42,5 +44,5 @@ abstract class PaymentMethod(protected val paymentMethod: PaymentMethodEntity) {
     navigator.navigateUp()
   }
 
-  abstract fun createTransaction()
+  abstract suspend fun createTransaction(transaction: TransactionData): Transaction
 }
