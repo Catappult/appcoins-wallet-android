@@ -10,6 +10,7 @@ import com.appcoins.wallet.core.network.microservices.model.AmazonPrice
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.sharedpreferences.AmazonPayDataSource
+import com.asf.wallet.BuildConfig
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.HttpException
@@ -21,6 +22,8 @@ class AmazonPayRepository @Inject constructor(
   private val amazonPayDataSource: AmazonPayDataSource,
   private val rxSchedulers: RxSchedulers,
 ) {
+
+  val TEST_MFA = "MFA"
 
   fun createTransaction(
     price: AmazonPrice, reference: String?, walletAddress: String,
@@ -52,7 +55,12 @@ class AmazonPayRepository @Inject constructor(
             returnUrl = HostProperties.AMAZON_PAY_REDIRECT_BASE_URL,
             channel = "ANDROID",
             chargePermissionId = chargePermissionId,
-            guestWalletId = userWallet
+            guestWalletId = userWallet,
+            testCase = if (BuildConfig.DEBUG)
+              null
+              //TEST_MFA // For testing in sandbox with MFA active
+            else
+              null
           )
         )
           .map { response: AmazonPayTransaction ->

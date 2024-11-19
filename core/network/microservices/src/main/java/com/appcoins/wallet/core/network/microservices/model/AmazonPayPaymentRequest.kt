@@ -21,6 +21,7 @@ data class AmazonPayPaymentRequest(
   @SerializedName("method") val method: String?,
   @SerializedName("channel") val channel: String?,
   @SerializedName("charge_permission_id") val chargePermissionId: String?,
+  @SerializedName("test_case") val testCase: String? = null,
 )
 
 data class AmazonPrice(

@@ -30,6 +30,7 @@
     <package android:name="id.dana" />
     <package android:name="com.dti.folderlauncher" />
     <package android:name="com.android.chrome" />
+    <package android:name="com.amazon.mShop.android.shopping"/>
   </queries>
 
   <application
@@ -264,16 +265,16 @@
         android:exported="true"
         android:launchMode="singleTask"
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
-      <intent-filter android:autoVerify="true">
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
+<!--      <intent-filter android:autoVerify="true">-->
+<!--        <action android:name="android.intent.action.VIEW" />-->
+<!--        <category android:name="android.intent.category.DEFAULT" />-->
+<!--        <category android:name="android.intent.category.BROWSABLE" />-->
 
-        <data android:scheme="https" />
-        <data android:host="${legacyPaymentHost}" />
-        <data android:host="${paymentHost}" />
-        <data android:pathPrefix="/amazonpay/result" />
-      </intent-filter>
+<!--        <data android:scheme="https" />-->
+<!--        <data android:host="${legacyPaymentHost}" />-->
+<!--        <data android:host="${paymentHost}" />-->
+<!--        <data android:pathPrefix="/amazonpay/result" />-->
+<!--      </intent-filter>-->
 
     </activity>
 

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.billing.amazonPay
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.asfoundation.wallet.billing.amazonPay.repository.AmazonPayRepository
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +18,7 @@ class AmazonPayReturnActivity : BaseActivity() {
     val data = intent.data
     if (Intent.ACTION_VIEW == intent.action && data != null) {
       val amazonCheckoutSessionId = data.getQueryParameter("amazonCheckoutSessionId")
+      Log.i("AMAZON", "AmazonPayReturnActivity: $amazonCheckoutSessionId")
       amazonPayRepository.saveResult(amazonCheckoutSessionId ?: "")
     }
     finish()

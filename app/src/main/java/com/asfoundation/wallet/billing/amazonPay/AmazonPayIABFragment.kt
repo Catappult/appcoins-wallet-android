@@ -1,14 +1,19 @@
 package com.asfoundation.wallet.billing.amazonPay
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,11 +40,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white_75
 import com.appcoins.wallet.ui.widgets.GenericError
 import com.appcoins.wallet.ui.widgets.component.Animation
-
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_HOST
@@ -51,6 +54,7 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
+import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -74,6 +78,8 @@ class AmazonPayIABFragment : BasePageViewFragment() {
   private lateinit var iabView: IabView
   private var navigatorIAB: Navigator? = null
 
+  private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
     check(context is IabView) { "VkPay payment fragment must be attached to IAB activity" }
@@ -95,6 +101,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
     )
     viewModel.sendPaymentStartEvent(transactionBuilder)
     navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
+    registerWebViewResult()
     return ComposeView(requireContext()).apply { setContent { MainContent() } }
   }
 
@@ -104,8 +111,9 @@ class AmazonPayIABFragment : BasePageViewFragment() {
     val orientation = this.resources.configuration.orientation
     val dpWidth = if (orientation == Configuration.ORIENTATION_LANDSCAPE) 592.dp else 340.dp
     Scaffold(
-      Modifier.height(300.dp)
-      .width(dpWidth),
+      Modifier
+        .height(400.dp)
+        .width(dpWidth),
       containerColor = styleguide_white_75,
     ) { _ ->
       val uiState = viewModel.uiState.collectAsState().value
@@ -135,7 +143,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
               viewModel.launchChat()
             },
             onTryAgain = {
-              iabView.navigateBack()
+              iabView.showPaymentMethodsView()
             },
             fragmentName = fragmentName,
             buttonAnalytics = buttonsAnalytics,
@@ -143,10 +151,11 @@ class AmazonPayIABFragment : BasePageViewFragment() {
           )
         }
 
-        UiState.PaymentRedirect3ds-> {
+        UiState.PaymentRedirect3ds -> {
           viewModel.amazonTransaction?.redirectUrl?.let { redirectUsingUniversalLink(it) }
           Loading()
         }
+
         UiState.PaymentLinkSuccess -> {
           createAmazonPayLink()
           Loading()
@@ -253,15 +262,68 @@ class AmazonPayIABFragment : BasePageViewFragment() {
     uriBuilder.scheme("https")
       .authority(APP_LINK_HOST.getValue(region))
       .path(APP_LINK_PATH.getValue(region))
-    redirectUsingUniversalLink(uriBuilder.build().toString())
+
+    Log.d("AMAZON", "buildURL: ${uriBuilder.build().toString()}")
+//    redirectInCCT(uriBuilder.build().toString())
+//    redirectUsingUniversalLink(uriBuilder.build().toString())
+    startWebViewAuthorization(uriBuilder.build().toString())
   }
 
   private fun redirectUsingUniversalLink(url: String) {
+    viewModel.runningCustomTab = true
+
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    val amazonPackageName = "com.amazon.mShop.android.shopping"
+    // Check if the Amazon app is installed
+    val isAmazonAppInstalled = try {
+      requireContext().packageManager.getPackageInfo(
+        amazonPackageName,
+        PackageManager.GET_ACTIVITIES
+      )
+      true
+    } catch (e: PackageManager.NameNotFoundException) {
+      false
+    }
+
+    if (isAmazonAppInstalled) {
+      Log.i("Amazon", "redirectUsingUniversalLink: startActivity")
+      startActivity(intent)
+    } else {
+      Log.i("Amazon", "redirectUsingUniversalLink: redirectInCCT")
+      redirectInCCT(url)
+    }
+
+  }
+
+  private fun redirectInCCT(url: String) {
     viewModel.runningCustomTab = true
     val customTabsBuilder = CustomTabsIntent.Builder().build()
     customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)
     customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
+  }
+
+  private fun registerWebViewResult() {
+    resultAuthLauncher =
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.data?.dataString?.contains(HostProperties.AMAZON_PAY_REDIRECT_BASE_URL) == true) {
+          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
+          val uri = Uri.parse(result.data?.dataString)
+          val amazonCheckoutSessionId = uri.getQueryParameter("amazonCheckoutSessionId")
+          viewModel.getAmazonCheckoutSessionId(amazonCheckoutSessionId)
+        } else if (
+          result.resultCode == Activity.RESULT_CANCELED
+        ) {
+          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
+          iabView.showPaymentMethodsView()
+        }
+      }
+  }
+
+  private fun startWebViewAuthorization(url: String) {
+    viewModel.runningCustomTab = true
+    val intent = WebViewActivity.newIntent(requireActivity(), url)
+    resultAuthLauncher.launch(intent)
   }
 
   @Preview

@@ -1,12 +1,17 @@
 package com.asfoundation.wallet.topup.amazonPay
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Nullable
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.Arrangement
@@ -25,11 +30,14 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.widgets.GenericError
 import com.appcoins.wallet.ui.widgets.component.Animation
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.amazonPay.AmazonPayIABFragment
+import com.asfoundation.wallet.billing.amazonPay.AmazonPayIABFragment.Companion
 
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_HOST
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_PATH
@@ -41,6 +49,7 @@ import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.
 import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.TOP_UP_AMOUNT
 import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.TOP_UP_CURRENCY
 import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.TOP_UP_CURRENCY_SYMBOL
+import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -61,6 +70,7 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
   lateinit var buttonsAnalytics: ButtonsAnalytics
   private val fragmentName = this::class.java.simpleName
 
+  private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -70,6 +80,7 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
       viewModel.paymentData =
         arguments?.getSerializable(PAYMENT_DATA) as TopUpPaymentData
     }
+    registerWebViewResult()
     viewModel.getPaymentLink()
     return ComposeView(requireContext()).apply { setContent { MainContent() } }
   }
@@ -169,15 +180,63 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
     uriBuilder.scheme("https")
       .authority(APP_LINK_HOST.getValue(region))
       .path(APP_LINK_PATH.getValue(region))
-    redirectUsingUniversalLink(uriBuilder.build().toString())
+
+    Log.d("AMAZON", "buildURL: ${uriBuilder.build().toString()}")
+    startWebViewAuthorization(uriBuilder.build().toString())
   }
 
   private fun redirectUsingUniversalLink(url: String) {
     viewModel.runningCustomTab = true
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    val amazonPackageName = "com.amazon.mShop.android.shopping"
+    // Check if the Amazon app is installed
+    val isAmazonAppInstalled = try {
+      requireContext().packageManager.getPackageInfo(
+        amazonPackageName,
+        PackageManager.GET_ACTIVITIES
+      )
+      true
+    } catch (e: PackageManager.NameNotFoundException) {
+      false
+    }
+    if (isAmazonAppInstalled) {
+      Log.i("Amazon", "redirectUsingUniversalLink: startActivity")
+      startActivity(intent)
+    } else {
+      Log.i("Amazon", "redirectUsingUniversalLink: redirectInCCT")
+      redirectInCCT(url)
+    }
+  }
+
+  private fun redirectInCCT(url: String) {
+    viewModel.runningCustomTab = true
     val customTabsBuilder = CustomTabsIntent.Builder().build()
-    customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)
+    customTabsBuilder.intent.setPackage(AmazonPayIABFragment.CHROME_PACKAGE_NAME)
     customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
+  }
+
+  private fun registerWebViewResult() {
+    resultAuthLauncher =
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.data?.dataString?.contains(HostProperties.AMAZON_PAY_REDIRECT_BASE_URL) == true) {
+          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
+          val uri = Uri.parse(result.data?.dataString)
+          val amazonCheckoutSessionId = uri.getQueryParameter("amazonCheckoutSessionId")
+          viewModel.getAmazonCheckoutSessionId(amazonCheckoutSessionId)
+        } else if (
+          result.resultCode == Activity.RESULT_CANCELED
+        ) {
+          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
+          navigator.navigateBack()
+        }
+      }
+  }
+
+  private fun startWebViewAuthorization(url: String) {
+    viewModel.runningCustomTab = true
+    val intent = WebViewActivity.newIntent(requireActivity(), url)
+    resultAuthLauncher.launch(intent)
   }
 
   @Preview
