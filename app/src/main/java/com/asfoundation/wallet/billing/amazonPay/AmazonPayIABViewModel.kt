@@ -180,10 +180,12 @@ class AmazonPayIABViewModel @Inject constructor(
           return
         }
       }
-      patchAmazonPayCheckoutSessionUseCase(
-        amazonTransaction?.uid,
-        amazonPayCheckoutRequest
-      ).subscribe()
+      CompositeDisposable().add(
+        patchAmazonPayCheckoutSessionUseCase(
+          amazonTransaction?.uid,
+          amazonPayCheckoutRequest
+        ).subscribe({}, {_uiState.value = UiState.Error})
+      )
       startTransactionStatusTimer()
       runningCustomTab = false
       isTimerRunning = true
@@ -287,7 +289,7 @@ class AmazonPayIABViewModel @Inject constructor(
           Transaction.Status.SETTLED -> {
           }
         }
-      }.subscribe()
+      }.subscribe({}, { it.printStackTrace() })
     }
 
   }
@@ -302,19 +304,21 @@ class AmazonPayIABViewModel @Inject constructor(
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(
       PaymentMethodsView.PaymentMethodId.AMAZONPAY.id
     )
-    createSuccessBundleUseCase(
-      transactionBuilder.type,
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      successInfo?.purchaseUid,
-      successInfo?.orderReference,
-      successInfo?.hash,
-      rxSchedulers.io
-    ).doOnSuccess {
-      _uiState.value = UiState.SendSuccessBundle(it.bundle)
-    }.subscribeOn(rxSchedulers.main).observeOn(rxSchedulers.main).doOnError {
-      _uiState.value = UiState.Error
-    }.subscribe()
+    CompositeDisposable().add(
+      createSuccessBundleUseCase(
+        transactionBuilder.type,
+        transactionBuilder.domain,
+        transactionBuilder.skuId,
+        successInfo?.purchaseUid,
+        successInfo?.orderReference,
+        successInfo?.hash,
+        rxSchedulers.io
+      ).doOnSuccess {
+        _uiState.value = UiState.SendSuccessBundle(it.bundle)
+      }.subscribeOn(rxSchedulers.main).observeOn(rxSchedulers.main).doOnError {
+        _uiState.value = UiState.Error
+      }.subscribe({}, { it.printStackTrace() })
+    )
   }
 
 }

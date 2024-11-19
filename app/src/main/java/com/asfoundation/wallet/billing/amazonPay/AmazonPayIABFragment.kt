@@ -82,7 +82,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(context is IabView) { "VkPay payment fragment must be attached to IAB activity" }
+    check(context is IabView) { "Amazon pay fragment must be attached to IAB activity" }
     iabView = context
     iabView.lockRotation()
   }
@@ -112,7 +112,7 @@ class AmazonPayIABFragment : BasePageViewFragment() {
     val dpWidth = if (orientation == Configuration.ORIENTATION_LANDSCAPE) 592.dp else 340.dp
     Scaffold(
       Modifier
-        .height(400.dp)
+        .height(380.dp)
         .width(dpWidth),
       containerColor = styleguide_white_75,
     ) { _ ->

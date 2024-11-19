@@ -22,6 +22,7 @@ import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -132,10 +133,12 @@ class AmazonPayTopUpViewModel @Inject constructor(
           return
         }
       }
-      patchAmazonPayCheckoutSessionUseCase(
-        amazonTransaction?.uid,
-        amazonPayCheckoutRequest
-      ).subscribe()
+      CompositeDisposable().add(
+        patchAmazonPayCheckoutSessionUseCase(
+          amazonTransaction?.uid,
+          amazonPayCheckoutRequest
+        ).subscribe({}, {_uiState.value = UiState.Error})
+      )
       startTransactionStatusTimer()
       runningCustomTab = false
       isTimerRunning = true
@@ -200,7 +203,7 @@ class AmazonPayTopUpViewModel @Inject constructor(
           Transaction.Status.SETTLED -> {
           }
         }
-      }.subscribe()
+      }.subscribe({}, { it.printStackTrace() })
     }
 
   }

@@ -36,7 +36,8 @@ fun GenericError(
   onTryAgain: () -> Unit,
   fragmentName: String,
   buttonAnalytics: ButtonsAnalytics?,
-  isDarkTheme: Boolean = true
+  isDarkTheme: Boolean = true,
+  smallSpacing: Boolean = false,
 ) {
   Column(
     modifier = Modifier
@@ -74,7 +75,7 @@ fun GenericError(
       text = stringResource(id = R.string.error_contac_us_body),
       color = if (isDarkTheme) WalletColors.styleguide_medium_grey else WalletColors.styleguide_dark_grey,
       fontSize = 14.sp,
-      modifier = Modifier.padding(top = 48.dp),
+      modifier = Modifier.padding(top = if (smallSpacing) 4.dp else 16.dp),
       textAlign = TextAlign.Center,
       fontWeight = FontWeight.Medium
     )
@@ -82,7 +83,7 @@ fun GenericError(
     Spacer(Modifier.weight(232f))
     ButtonWithText(
       modifier = Modifier
-        .padding(top = 40.dp)
+        .padding(top = 16.dp)
         .widthIn(max = 360.dp),
       label = stringResource(R.string.try_again),
       onClick = onTryAgain,
@@ -119,5 +120,19 @@ fun PreviewGenericError() {
     {},
     "HomeFragment",
     null
+  )
+}
+
+@Preview
+@Composable
+fun PreviewGenericErrorSmall() {
+  GenericError(
+    message = stringResource(id = R.string.manage_cards_error_details),
+    onSupportClick = {},
+    onTryAgain = {},
+    fragmentName = "HomeFragment",
+    buttonAnalytics = null,
+    isDarkTheme = false,
+    smallSpacing = true
   )
 }

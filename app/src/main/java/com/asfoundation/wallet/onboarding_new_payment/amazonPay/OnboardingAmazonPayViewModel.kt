@@ -129,10 +129,12 @@ class OnboardingAmazonPayViewModel @Inject constructor(
           return
         }
       }
-      patchAmazonPayCheckoutSessionUseCase(
-        amazonTransaction?.uid,
-        amazonPayCheckoutRequest
-      ).subscribe()
+      CompositeDisposable().add(
+        patchAmazonPayCheckoutSessionUseCase(
+          amazonTransaction?.uid,
+          amazonPayCheckoutRequest
+        ).subscribe({}, {_uiState.value = UiState.Error})
+      )
       startTransactionStatusTimer()
       runningCustomTab = false
       isTimerRunning = true
@@ -228,7 +230,7 @@ class OnboardingAmazonPayViewModel @Inject constructor(
           Transaction.Status.SETTLED -> {
           }
         }
-      }.subscribe()
+      }.subscribe({}, { it.printStackTrace() })
     }
 
   }
