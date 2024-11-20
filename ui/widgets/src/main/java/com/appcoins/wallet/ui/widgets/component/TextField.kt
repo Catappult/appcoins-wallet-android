@@ -94,8 +94,7 @@ fun WalletTextField(
     value = value,
     onValueChange = { input ->
       if (keyboardType == KeyboardType.Email) {
-        val filteredInput =
-          input.filter { it.isLowerCase() || it.isDigit() || it in validEmailChars }
+        val filteredInput = input.replace(validEmailChars, "")
         onValueChange(filteredInput)
       } else {
         onValueChange(input)

@@ -41,12 +41,7 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletTextField
 
-val validEmailChars = setOf(
-  '@', '.', '_', '-', '+',
-  *('a'..'z').toSet().toTypedArray(),
-  *('A'..'Z').toSet().toTypedArray(),
-  *('0'..'9').toSet().toTypedArray()
-)
+val validEmailChars = Regex("[^a-zA-Z0-9@._+\\-]")
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
