@@ -36,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
@@ -66,7 +67,7 @@ import javax.inject.Inject
 class OnboardingAmazonPayFragment : BasePageViewFragment() {
 
   private val viewModel: OnboardingAmazonPayViewModel by viewModels()
-  lateinit var args: OnboardingAmazonPayFragmentArgs
+  private val args by navArgs<OnboardingAmazonPayFragmentArgs>()
 
   @Inject
   lateinit var navigator: OnboardingAmazonPayNavigator
@@ -82,13 +83,22 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
   lateinit var buttonsAnalytics: ButtonsAnalytics
   private val fragmentName = this::class.java.simpleName
 
-  private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
+  private var resultAuthLauncher: ActivityResultLauncher<Intent> =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      if (result.data?.dataString?.contains(HostProperties.AMAZON_PAY_REDIRECT_BASE_URL) == true) {
+        val uri = Uri.parse(result.data?.dataString)
+        val amazonCheckoutSessionId = uri.getQueryParameter("amazonCheckoutSessionId")
+        viewModel.getAmazonCheckoutSessionId(amazonCheckoutSessionId)
+      } else if (
+        result.resultCode == Activity.RESULT_CANCELED
+      ) {
+        navigator.navigateBack()
+      }
+    }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
-    args = OnboardingAmazonPayFragmentArgs.fromBundle(requireArguments())
-    registerWebViewResult()
     viewModel.getPaymentLink()
     viewModel.sendPaymentStartEvent(args.transactionBuilder)
     return ComposeView(requireContext()).apply { setContent { MainContent() } }
@@ -282,10 +292,8 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
       false
     }
     if (isAmazonAppInstalled) {
-      Log.i("Amazon", "redirectUsingUniversalLink: startActivity")
       startActivity(intent)
     } else {
-      Log.i("Amazon", "redirectUsingUniversalLink: redirectInCCT")
       redirectInCCT(url)
     }
   }
@@ -296,23 +304,6 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
     customTabsBuilder.intent.setPackage(AmazonPayIABFragment.CHROME_PACKAGE_NAME)
     customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
-  }
-
-  private fun registerWebViewResult() {
-    resultAuthLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.data?.dataString?.contains(HostProperties.AMAZON_PAY_REDIRECT_BASE_URL) == true) {
-          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          val uri = Uri.parse(result.data?.dataString)
-          val amazonCheckoutSessionId = uri.getQueryParameter("amazonCheckoutSessionId")
-          viewModel.getAmazonCheckoutSessionId(amazonCheckoutSessionId)
-        } else if (
-          result.resultCode == Activity.RESULT_CANCELED
-        ) {
-          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-          navigator.navigateBack()
-        }
-      }
   }
 
   private fun startWebViewAuthorization(url: String) {

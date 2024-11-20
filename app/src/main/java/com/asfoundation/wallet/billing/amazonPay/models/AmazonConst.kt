@@ -44,7 +44,7 @@ class AmazonConst {
         mapOf(
           "merchantId" to merchantId,
           "ledgerCurrency" to "EUR",
-          "checkoutLanguage" to "en_GB",//getUserCheckoutLanguage(),
+          "checkoutLanguage" to "en_GB",
           "productType" to "PayOnly",
           "amazonCheckoutSessionId" to checkoutSessionId,
           "integrationType" to "NativeMobile",
@@ -55,7 +55,7 @@ class AmazonConst {
         mapOf(
           "merchantId" to merchantId,
           "ledgerCurrency" to "EUR",
-          "checkoutLanguage" to "en_GB",//getUserCheckoutLanguage(),
+          "checkoutLanguage" to "en_GB",
           "productType" to "PayOnly",
           "amazonCheckoutSessionId" to checkoutSessionId,
           "integrationType" to "NativeMobile",

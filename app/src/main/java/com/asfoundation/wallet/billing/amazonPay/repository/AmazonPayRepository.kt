@@ -57,8 +57,7 @@ class AmazonPayRepository @Inject constructor(
             chargePermissionId = chargePermissionId,
             guestWalletId = userWallet,
             testCase = if (BuildConfig.DEBUG)
-              null
-              //TEST_MFA // For testing in sandbox with MFA active
+              null //TEST_MFA // For testing in sandbox with MFA active
             else
               null
           )

@@ -78,7 +78,20 @@ class AmazonPayIABFragment : BasePageViewFragment() {
   private lateinit var iabView: IabView
   private var navigatorIAB: Navigator? = null
 
-  private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
+  private val resultAuthLauncher: ActivityResultLauncher<Intent> =
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.data?.dataString?.contains(HostProperties.AMAZON_PAY_REDIRECT_BASE_URL) == true) {
+          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
+          val uri = Uri.parse(result.data?.dataString)
+          val amazonCheckoutSessionId = uri.getQueryParameter("amazonCheckoutSessionId")
+          viewModel.getAmazonCheckoutSessionId(amazonCheckoutSessionId)
+        } else if (
+          result.resultCode == Activity.RESULT_CANCELED
+        ) {
+          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
+          iabView.showPaymentMethodsView()
+        }
+      }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -101,7 +114,6 @@ class AmazonPayIABFragment : BasePageViewFragment() {
     )
     viewModel.sendPaymentStartEvent(transactionBuilder)
     navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
-    registerWebViewResult()
     return ComposeView(requireContext()).apply { setContent { MainContent() } }
   }
 
@@ -286,10 +298,8 @@ class AmazonPayIABFragment : BasePageViewFragment() {
     }
 
     if (isAmazonAppInstalled) {
-      Log.i("Amazon", "redirectUsingUniversalLink: startActivity")
       startActivity(intent)
     } else {
-      Log.i("Amazon", "redirectUsingUniversalLink: redirectInCCT")
       redirectInCCT(url)
     }
 
@@ -301,23 +311,6 @@ class AmazonPayIABFragment : BasePageViewFragment() {
     customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)
     customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
-  }
-
-  private fun registerWebViewResult() {
-    resultAuthLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.data?.dataString?.contains(HostProperties.AMAZON_PAY_REDIRECT_BASE_URL) == true) {
-          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          val uri = Uri.parse(result.data?.dataString)
-          val amazonCheckoutSessionId = uri.getQueryParameter("amazonCheckoutSessionId")
-          viewModel.getAmazonCheckoutSessionId(amazonCheckoutSessionId)
-        } else if (
-          result.resultCode == Activity.RESULT_CANCELED
-        ) {
-          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-          iabView.showPaymentMethodsView()
-        }
-      }
   }
 
   private fun startWebViewAuthorization(url: String) {

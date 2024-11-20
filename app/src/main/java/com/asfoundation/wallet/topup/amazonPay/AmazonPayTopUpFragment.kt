@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.Nullable
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -34,11 +33,8 @@ import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.widgets.GenericError
 import com.appcoins.wallet.ui.widgets.component.Animation
-import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.amazonPay.AmazonPayIABFragment
-import com.asfoundation.wallet.billing.amazonPay.AmazonPayIABFragment.Companion
-
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_HOST
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.APP_LINK_PATH
 import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.createAmazonTransactionLink
@@ -70,7 +66,18 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
   lateinit var buttonsAnalytics: ButtonsAnalytics
   private val fragmentName = this::class.java.simpleName
 
-  private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
+  private val resultAuthLauncher: ActivityResultLauncher<Intent> =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      if (result.data?.dataString?.contains(HostProperties.AMAZON_PAY_REDIRECT_BASE_URL) == true) {
+        val uri = Uri.parse(result.data?.dataString)
+        val amazonCheckoutSessionId = uri.getQueryParameter("amazonCheckoutSessionId")
+        viewModel.getAmazonCheckoutSessionId(amazonCheckoutSessionId)
+      } else if (
+        result.resultCode == Activity.RESULT_CANCELED
+      ) {
+        navigator.navigateBack()
+      }
+    }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -80,7 +87,6 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
       viewModel.paymentData =
         arguments?.getSerializable(PAYMENT_DATA) as TopUpPaymentData
     }
-    registerWebViewResult()
     viewModel.getPaymentLink()
     return ComposeView(requireContext()).apply { setContent { MainContent() } }
   }
@@ -181,7 +187,6 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
       .authority(APP_LINK_HOST.getValue(region))
       .path(APP_LINK_PATH.getValue(region))
 
-    Log.d("AMAZON", "buildURL: ${uriBuilder.build().toString()}")
     startWebViewAuthorization(uriBuilder.build().toString())
   }
 
@@ -200,10 +205,8 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
       false
     }
     if (isAmazonAppInstalled) {
-      Log.i("Amazon", "redirectUsingUniversalLink: startActivity")
       startActivity(intent)
     } else {
-      Log.i("Amazon", "redirectUsingUniversalLink: redirectInCCT")
       redirectInCCT(url)
     }
   }
@@ -214,23 +217,6 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
     customTabsBuilder.intent.setPackage(AmazonPayIABFragment.CHROME_PACKAGE_NAME)
     customTabsBuilder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
-  }
-
-  private fun registerWebViewResult() {
-    resultAuthLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.data?.dataString?.contains(HostProperties.AMAZON_PAY_REDIRECT_BASE_URL) == true) {
-          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          val uri = Uri.parse(result.data?.dataString)
-          val amazonCheckoutSessionId = uri.getQueryParameter("amazonCheckoutSessionId")
-          viewModel.getAmazonCheckoutSessionId(amazonCheckoutSessionId)
-        } else if (
-          result.resultCode == Activity.RESULT_CANCELED
-        ) {
-          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-          navigator.navigateBack()
-        }
-      }
   }
 
   private fun startWebViewAuthorization(url: String) {

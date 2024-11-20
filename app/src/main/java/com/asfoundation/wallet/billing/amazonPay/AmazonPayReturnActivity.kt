@@ -18,7 +18,6 @@ class AmazonPayReturnActivity : BaseActivity() {
     val data = intent.data
     if (Intent.ACTION_VIEW == intent.action && data != null) {
       val amazonCheckoutSessionId = data.getQueryParameter("amazonCheckoutSessionId")
-      Log.i("AMAZON", "AmazonPayReturnActivity: $amazonCheckoutSessionId")
       amazonPayRepository.saveResult(amazonCheckoutSessionId ?: "")
     }
     finish()
