@@ -25,7 +25,6 @@ import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
   isMainBar: Boolean,
@@ -37,31 +36,28 @@ fun TopBar(
   fragmentName: String,
   buttonsAnalytics: ButtonsAnalytics?
 ) {
-  TopAppBar(
-    modifier = Modifier.fillMaxWidth(),
-    colors = TopAppBarDefaults.mediumTopAppBarColors(WalletColors.styleguide_blue),
-    title = {},
-    navigationIcon = {
-      Row(
-        modifier = Modifier
-          .padding(start = 16.dp)
-          .height(64.dp),
-        verticalAlignment = Alignment.CenterVertically,
-      ) {
-        if (isMainBar) WalletLogo() else BackButton(onClickBack, fragmentName, buttonsAnalytics)
+  Row(
+    modifier = Modifier
+      .fillMaxWidth()
+      .background(WalletColors.styleguide_blue)
+      .height(64.dp)
+      .padding(start = 16.dp, end = 4.dp),
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.SpaceBetween
+  ) {
+    if (isMainBar) {
+      WalletLogo()
+    } else {
+      BackButton(onClickBack, fragmentName, buttonsAnalytics)
+    }
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+      if (isMainBar) {
+        SettingsButton(onClickSettings, fragmentName, buttonsAnalytics)
       }
-    },
-    actions = {
-      Row(
-        modifier = Modifier
-          .padding(end = 4.dp)
-          .height(64.dp),
-        verticalAlignment = Alignment.CenterVertically,
-      ) {
-        if (isMainBar) SettingsButton(onClickSettings, fragmentName, buttonsAnalytics)
-        SupportButton(onClickSupport, hasNotificationBadge, fragmentName, buttonsAnalytics)
-      }
-    })
+      SupportButton(onClickSupport, hasNotificationBadge, fragmentName, buttonsAnalytics)
+    }
+  }
 }
 
 // This TopBar was created because there is a bug on compose when that is used in a screen with
@@ -99,7 +95,11 @@ fun WalletLogo() {
 }
 
 @Composable
-fun NotificationsButton(onClickNotifications: () -> Unit = {}, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
+fun NotificationsButton(
+  onClickNotifications: () -> Unit = {},
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
+) {
   ActionButton(
     imagePainter = painterResource(R.drawable.ic_notifications),
     description = "Notifications",
@@ -111,7 +111,11 @@ fun NotificationsButton(onClickNotifications: () -> Unit = {}, fragmentName: Str
 }
 
 @Composable
-fun SettingsButton(onClickSettings: () -> Unit = {}, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
+fun SettingsButton(
+  onClickSettings: () -> Unit = {},
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
+) {
   ActionButton(
     imagePainter = painterResource(R.drawable.ic_settings_white_24dp),
     description = "Settings",
@@ -123,7 +127,12 @@ fun SettingsButton(onClickSettings: () -> Unit = {}, fragmentName: String, butto
 }
 
 @Composable
-fun SupportButton(onClickSupport: () -> Unit = {}, hasNotificationBadge: Boolean, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
+fun SupportButton(
+  onClickSupport: () -> Unit = {},
+  hasNotificationBadge: Boolean,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
+) {
   ActionButton(
     imagePainter = painterResource(R.drawable.ic_settings_support),
     description = "Support",
@@ -135,7 +144,11 @@ fun SupportButton(onClickSupport: () -> Unit = {}, hasNotificationBadge: Boolean
 }
 
 @Composable
-fun BackButton(onClickBack: (() -> Unit)? = null, fragmentName: String, buttonsAnalytics: ButtonsAnalytics?) {
+fun BackButton(
+  onClickBack: (() -> Unit)? = null,
+  fragmentName: String,
+  buttonsAnalytics: ButtonsAnalytics?
+) {
   if (onClickBack != null)
     ActionButton(
       imagePainter = painterResource(R.drawable.ic_arrow_back),

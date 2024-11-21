@@ -158,16 +158,16 @@ constructor(
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
-  var showBackup by mutableStateOf(false)
-  var newWallet by mutableStateOf(false)
-  var isLoadingTransactions by mutableStateOf(false)
-  var hasNotificationBadge by mutableStateOf(false)
-  var gamesList by mutableStateOf(listOf<GameData>())
+  val showBackup = mutableStateOf(false)
+  val newWallet = mutableStateOf(false)
+  val isLoadingTransactions = mutableStateOf(false)
+  val hasNotificationBadge = mutableStateOf(false)
+  val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
-  var hasSavedEmail by mutableStateOf(hasWalletEmailPreferencesData())
-  var isEmailError by mutableStateOf(false)
-  var emailErrorText by mutableStateOf(0)
-  private var alreadyGetImpression by mutableStateOf(false)
+  val hasSavedEmail = mutableStateOf(hasWalletEmailPreferencesData())
+  val isEmailError = mutableStateOf(false)
+  val emailErrorText = mutableStateOf(0)
+  private val alreadyGetImpression = mutableStateOf(false)
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
@@ -190,7 +190,7 @@ constructor(
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
     fetchPromotions()
-    hasNotificationBadge = commonsPreferencesDataSource.getUpdateNotificationBadge()
+    hasNotificationBadge.value = commonsPreferencesDataSource.getUpdateNotificationBadge()
   }
 
   private fun handleWalletData() {
@@ -254,12 +254,12 @@ constructor(
     emailAnalytics.walletAppEmailSubmitClick()
     postUserEmailUseCase(email).doOnComplete {
       emailAnalytics.walletAppEmailSubmitted(SUCCESS_EMAIL_ANALYTICS)
-      hasSavedEmail = true
+      hasSavedEmail.value = true
     }.scopedSubscribe { e ->
       e.printStackTrace()
       emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
-      isEmailError = true
-      emailErrorText = if (e.message.equals("HTTP 422 ")) {
+      isEmailError.value = true
+      emailErrorText.value = if (e.message.equals("HTTP 422 ")) {
         R.string.e_skills_withdraw_invalid_email_error_message
       } else {
         R.string.error_general
@@ -284,9 +284,9 @@ constructor(
   }
 
   fun getImpression() {
-    if (!alreadyGetImpression) {
+    if (!alreadyGetImpression.value) {
       getImpressionUseCase().doOnComplete {
-        alreadyGetImpression = true
+        alreadyGetImpression.value = true
       }.scopedSubscribe { e ->
         e.printStackTrace()
       }
@@ -389,8 +389,8 @@ constructor(
         .collect { result ->
           when (result) {
             is ApiSuccess -> {
-              newWallet = result.data.items.isEmpty()
-              isLoadingTransactions = true
+              newWallet.value = result.data.items.isEmpty()
+              isLoadingTransactions.value = true
               _uiState.value =
                 Success(
                   result.data.items
@@ -404,11 +404,11 @@ constructor(
             }
 
             is ApiFailure -> {
-              isLoadingTransactions = true
+              isLoadingTransactions.value = true
             }
 
             is ApiException -> {
-              isLoadingTransactions = true
+              isLoadingTransactions.value = true
             }
 
             else -> {}
@@ -439,7 +439,7 @@ constructor(
   fun fetchGamesListing() {
     getGamesListingUseCase()
       .subscribeOn(rxSchedulers.io)
-      .scopedSubscribe({ gamesList = it }, { e -> e.printStackTrace() })
+      .scopedSubscribe({ gamesList.value = it }, { e -> e.printStackTrace() })
   }
 
   private fun verifyUserLevel() {
