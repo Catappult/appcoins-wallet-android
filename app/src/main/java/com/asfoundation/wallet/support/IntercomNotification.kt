@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.support
 
+import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -15,34 +16,27 @@ import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_KEY
 import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_ID
 import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_NAME
 import com.asfoundation.wallet.support.SupportNotificationProperties.NOTIFICATION_SERVICE_ID
-import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.intercom.android.sdk.push.IntercomPushClient
+import javax.inject.Inject
 
+class IntercomNotification @Inject constructor(
+  @ApplicationContext private val context: Context,
+  private val notificationManager: NotificationManager,
+  private val intercomPushClient: IntercomPushClient,
+) {
 
-class SupportMessagingService : FirebaseMessagingService() {
-
-  private lateinit var notificationManager: NotificationManager
-  private lateinit var intercomPushClient: IntercomPushClient
-  private val HAS_NOTIFICATION_BADGE = "has_seen_notification_badge"
-
-  override fun onCreate() {
-    super.onCreate()
-    intercomPushClient = IntercomPushClient()
+  companion object {
+    private const val HAS_NOTIFICATION_BADGE = "has_seen_notification_badge"
   }
 
-  override fun onNewToken(token: String) =
-    intercomPushClient.sendTokenToIntercom(application, token)
+  private val application
+    get() = context as Application
 
-  override fun onMessageReceived(remoteMessage: RemoteMessage) {
-    notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    if (intercomPushClient.isIntercomPush(remoteMessage.data)) {
-      if (isSupportMessage(remoteMessage.data)) {
-        notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(this).build())
-        saveBooleanNotificationToSharedPreferences(this)
-      }
-    }
+  fun sendNotification() {
+    notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(application).build())
+    saveBooleanNotificationToSharedPreferences(application)
   }
 
   private fun createNotification(context: Context): NotificationCompat.Builder {
@@ -72,10 +66,7 @@ class SupportMessagingService : FirebaseMessagingService() {
       context,
       0,
       intent,
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        PendingIntent.FLAG_IMMUTABLE
-      else
-        0
+      PendingIntent.FLAG_IMMUTABLE
     )
   }
 
@@ -87,12 +78,16 @@ class SupportMessagingService : FirebaseMessagingService() {
       context,
       1,
       intent,
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        PendingIntent.FLAG_IMMUTABLE
-      else
-        0
+      PendingIntent.FLAG_IMMUTABLE
     )
   }
+
+  fun sendTokenToIntercom(token: String) {
+    intercomPushClient.sendTokenToIntercom(application, token)
+  }
+
+  fun isIntercomPush(remoteMessage: RemoteMessage) =
+    intercomPushClient.isIntercomPush(remoteMessage.data) && isSupportMessage(remoteMessage.data)
 
   private fun isSupportMessage(data: MutableMap<String, String>): Boolean {
     val type = data["conversation_part_type"]
@@ -107,5 +102,4 @@ class SupportMessagingService : FirebaseMessagingService() {
     editor.putBoolean(HAS_NOTIFICATION_BADGE, true)
     editor.apply()
   }
-
 }

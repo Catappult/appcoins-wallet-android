@@ -15,6 +15,9 @@ import androidx.preference.PreferenceManager
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.core.analytics.analytics.TaskTimer
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.network.base.IGetPrivateKeyUseCase
+import com.appcoins.wallet.core.network.base.ISignUseCase
+import com.appcoins.wallet.core.network.base.WalletRepository
 import com.appcoins.wallet.core.utils.android_common.InternetManagerNetworkMonitor
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.core.utils.jvm_common.C
@@ -22,7 +25,6 @@ import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.jvm_common.SyncExecutor
 import com.appcoins.wallet.core.utils.properties.MiscProperties
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.promocode.data.wallet.WalletAddress
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.aptoide.apk.injector.extractor.data.Extractor
@@ -47,6 +49,7 @@ import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import dagger.Module
@@ -54,6 +57,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.intercom.android.sdk.push.IntercomPushClient
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
@@ -263,10 +267,19 @@ internal class AppModule {
   fun provideTaskTimer(): TaskTimer = TaskTimer()
 
   @Provides
-  fun providesEwtAuthService(walletService: WalletService): EwtAuthenticatorService {
+  fun providesEwtAuthService(
+    walletRepository: WalletRepository,
+    getPrivateKeyUseCase: IGetPrivateKeyUseCase,
+    signUseCase: ISignUseCase,
+  ): EwtAuthenticatorService {
     val headerJson = JsonObject()
     headerJson.addProperty("typ", "EWT")
-    return EwtAuthenticatorService(walletService, headerJson.toString())
+    return EwtAuthenticatorService(
+      walletRepository = walletRepository,
+      getPrivateKeyUseCase = getPrivateKeyUseCase,
+      signUseCase = signUseCase,
+      header = headerJson.toString()
+    )
   }
 
   @Singleton
@@ -284,4 +297,14 @@ internal class AppModule {
   @Provides
   fun provideAlarmManager(@ApplicationContext context: Context) =
     context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+  @Singleton
+  @Provides
+  fun provideIntercomPushClient() = IntercomPushClient()
+
+  @Singleton
+  @Provides
+  fun provideFirebaseMessaging() =
+    FirebaseMessaging.getInstance()
+
 }

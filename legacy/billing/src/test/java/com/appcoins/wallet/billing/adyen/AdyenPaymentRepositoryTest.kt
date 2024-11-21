@@ -9,12 +9,9 @@ import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBi
 import com.appcoins.wallet.core.network.microservices.model.*
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.core.walletservices.WalletService
-import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.google.gson.JsonObject
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
@@ -52,7 +49,7 @@ class AdyenPaymentRepositoryTest {
   @Mock
   lateinit var logger: Logger
 
-  //  @Mock
+  @Mock
   lateinit var ewtAuthenticatorService: EwtAuthenticatorService
 
   //  @Mock
@@ -72,27 +69,6 @@ class AdyenPaymentRepositoryTest {
 
   @Before
   fun setup() {
-    ewtAuthenticatorService = EwtAuthenticatorService(
-      object : WalletService {
-        override fun getWalletAddress(): Single<String> = Single.just(TEST_WALLET_ADDRESS)
-        override fun getWalletOrCreate(): Single<String> = Single.just(TEST_WALLET_ADDRESS)
-        override fun findWalletOrCreate(): Observable<String> = Observable.just(TEST_WALLET_ADDRESS)
-        override fun signContent(content: String): Single<String> =
-          Single.just(TEST_WALLET_SIGNATURE)
-
-        override fun signSpecificWalletAddressContent(
-          walletAddress: String,
-          content: String
-        ): Single<String> = Single.just(TEST_WALLET_SIGNATURE)
-
-        override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> =
-          Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
-
-        override fun getAndSignSpecificWalletAddress(walletAddress: String): Single<WalletAddressModel> =
-          Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
-      }, "11223344"
-    )
-
     rxSchedulers = object : RxSchedulers {
       override val main: Scheduler
         get() = TestScheduler()

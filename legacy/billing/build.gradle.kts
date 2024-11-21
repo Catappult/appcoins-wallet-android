@@ -33,4 +33,5 @@ dependencies {
   implementation(libs.bundles.jackson)
   implementation(libs.spongycastle.core)
   testImplementation(libs.bundles.testing)
+  testImplementation(project(":legacy:ethereumj-android"))
 }
