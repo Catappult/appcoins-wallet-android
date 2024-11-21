@@ -96,6 +96,7 @@
     <item name="android:windowTranslucentStatus">true</item>
     <item name="android:fitsSystemWindows">true</item>
     <item name="android:windowContentTransitions">true</item>
+    <item name="android:statusBarColor">@color/statusBarColor</item>
   </style>
 
   <style name="Theme.AppCompat.Transparent.WebActivity" parent="Theme.AppCompat.Transparent">
