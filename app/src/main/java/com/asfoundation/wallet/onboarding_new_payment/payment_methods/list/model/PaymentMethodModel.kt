@@ -85,6 +85,10 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
         clickListener?.invoke(PaymentMethodClick.GooglePayClick)
       }
 
+      PaymentMethodsView.SelectedPaymentMethod.WALLET_ONE -> {
+        clickListener?.invoke(PaymentMethodClick.WalletOneClick)
+      }
+
       PaymentMethodsView.SelectedPaymentMethod.MI_PAY -> {
         clickListener?.invoke(PaymentMethodClick.MiPayPayClick(paymentMethod.id))
       }

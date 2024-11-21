@@ -23,6 +23,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.WebviewFragmentBinding
 import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
+import com.asfoundation.wallet.billing.wallet_one.WalletOneReturnSchemas
 import com.google.android.material.snackbar.Snackbar
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,8 +61,10 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val ADYEN_PAYMENT_SCHEMA = "adyencheckout://"
     private const val LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/"
     private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
-    private var PAYPAL_SUCCESS_SCHEMA = PaypalReturnSchemas.RETURN.schema
-    private var PAYPAL_CANCEL_SCHEMA = PaypalReturnSchemas.CANCEL.schema
+    private val PAYPAL_SUCCESS_SCHEMA = PaypalReturnSchemas.RETURN.schema
+    private val PAYPAL_CANCEL_SCHEMA = PaypalReturnSchemas.CANCEL.schema
+    private val WALLET_ONE_SUCCESS_SCHEMA = WalletOneReturnSchemas.SUCCESS.schema
+    private val WALLET_ONE_ERROR_SCHEMA = WalletOneReturnSchemas.ERROR.schema
     private val EXTERNAL_INTENT_SCHEMA_LIST = listOf(
       "picpay://",
       "shopeeid://",
@@ -84,6 +87,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
       "https://pay.dlocal.com/payment_method_connectors/global_pm//back"
     private const val CODAPAY_CANCEL_URL = "codapayments.com/airtime/cancelConfirm"
     private const val URL = "url"
+    private const val HTML_DATA = "htmlData"
     private const val CURRENT_URL = "currentUrl"
     private const val ORDER_ID_PARAMETER = "OrderId"
     val OPEN_SUPPORT = "${HostProperties.MY_APPCOINS_HOST}open-support/"
@@ -95,10 +99,22 @@ class BillingWebViewFragment : BasePageViewFragment() {
       return BillingWebViewFragment().apply {
         arguments = Bundle().apply {
           putString(URL, url)
+          putString(HTML_DATA, "")
         }
         retainInstance = true
       }
     }
+
+    fun newInstanceFromData(htmlData: String?): BillingWebViewFragment {
+      return BillingWebViewFragment().apply {
+        arguments = Bundle().apply {
+          putString(URL, "")
+          putString(HTML_DATA, htmlData)
+        }
+        retainInstance = true
+      }
+    }
+
   }
 
   override fun onAttach(context: Context) {
@@ -110,7 +126,13 @@ class BillingWebViewFragment : BasePageViewFragment() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     executorService = Executors.newScheduledThreadPool(0)
-    require(arguments != null && requireArguments().containsKey(URL)) { "Provided url is null!" }
+    require(
+      arguments != null && (requireArguments().containsKey(URL) || requireArguments().containsKey(
+        HTML_DATA
+      ))
+    ) {
+      "Provided url is null!"
+    }
     currentUrl = if (savedInstanceState == null) {
       requireArguments().getString(URL)!!
     } else {
@@ -133,6 +155,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
           clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) ||
               clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
               clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) ||
+              clickUrl.contains(WALLET_ONE_SUCCESS_SCHEMA) ||
               clickUrl.contains(APP_REDIRECT_SCHEMA)
           -> {
             currentUrl = clickUrl
@@ -159,6 +182,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
           clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
           clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
           clickUrl.contains(PAYPAL_CANCEL_SCHEMA) -> finishWithFail(clickUrl)
+          clickUrl.contains(WALLET_ONE_ERROR_SCHEMA) -> finishWithFail(clickUrl)
           else -> {
             currentUrl = clickUrl
             return false
@@ -193,7 +217,12 @@ class BillingWebViewFragment : BasePageViewFragment() {
       val autofillManager = requireContext().getSystemService(AutofillManager::class.java)
       autofillManager?.notifyViewEntered(binding.webview)
     }
-    binding.webview.loadUrl(currentUrl)
+    if (currentUrl.isNotEmpty()) {
+      binding.webview.loadUrl(currentUrl)
+    } else {
+      val htmlData = requireArguments().getString(HTML_DATA)
+      binding.webview.loadData(htmlData ?: "", "text/html", "UTF-8")
+    }
 
     binding.warningGetBt.setOnClickListener {
       dismissGetAppWarning()

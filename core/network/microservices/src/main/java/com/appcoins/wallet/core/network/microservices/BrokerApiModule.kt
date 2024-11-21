@@ -111,6 +111,14 @@ class BrokerApiModule {
 
   @Singleton
   @Provides
+  fun providesWalletOneApi(
+    @BrokerDefaultRetrofit retrofit: Retrofit
+  ): WalletOneApi {
+    return retrofit.create(WalletOneApi::class.java)
+  }
+
+  @Singleton
+  @Provides
   fun providesBrokerBdsApi(
     @BrokerBlockchainRetrofit retrofit: Retrofit
   ): BrokerBdsApi {

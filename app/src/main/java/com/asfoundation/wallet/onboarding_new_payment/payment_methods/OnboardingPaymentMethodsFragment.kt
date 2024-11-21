@@ -122,6 +122,13 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
           args.forecastBonus
         )
 
+        is PaymentMethodClick.WalletOneClick -> navigator.navigateToWalletOne(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
         PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
       }
     }

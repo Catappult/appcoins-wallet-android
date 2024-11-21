@@ -698,6 +698,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
         PaymentType.GOOGLEPAY_WEB.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.GOOGLEPAY_WEB, data.id, data.label, data.iconUrl)
 
+        PaymentType.WALLET_ONE.subTypes.contains(data.id) ->
+          PaymentTypeInfo(PaymentType.WALLET_ONE, data.id, data.label, data.iconUrl)
+
         PaymentType.TRUE_LAYER.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.TRUE_LAYER, data.id, data.label, data.iconUrl)
 

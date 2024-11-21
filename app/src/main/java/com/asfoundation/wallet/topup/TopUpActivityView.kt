@@ -63,6 +63,8 @@ interface TopUpActivityView {
 
   fun navigateToGooglePay(paymentType: PaymentType, data: TopUpPaymentData)
 
+  fun navigateToWalletOne(paymentType: PaymentType, data: TopUpPaymentData)
+
   fun navigateToTrueLayer(paymentType: PaymentType, data: TopUpPaymentData)
 
   fun isActivityActive(): Boolean

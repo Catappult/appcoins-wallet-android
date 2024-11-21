@@ -683,6 +683,13 @@ class TopUpFragmentPresenter(
         )
       }
 
+      PaymentType.WALLET_ONE -> {
+        activity?.navigateToWalletOne(
+          paymentType = paymentMethod.paymentType,
+          data = mapTopUpPaymentData(topUpData, gamificationLevel)
+        )
+      }
+
       PaymentType.CHALLENGE_REWARD -> {
         activity?.navigateToChallengeReward()
       }
