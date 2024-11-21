@@ -634,7 +634,7 @@
   <style name="GamificationBottomPeekTextStyle.Body">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textSize">10sp</item>
-    <item name="android:textColor">@color/styleguide_dark_grey_new</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
   </style>
 
   <style name="SettingsTextStyle">
