@@ -30,6 +30,7 @@
     <package android:name="id.dana" />
     <package android:name="com.dti.folderlauncher" />
     <package android:name="com.android.chrome" />
+    <package android:name="com.amazon.mShop.android.shopping"/>
   </queries>
 
   <application
@@ -258,6 +259,13 @@
             android:pathPrefix="/app/googlepay/result"
             android:scheme="https" />
       </intent-filter>
+    </activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.billing.amazonPay.AmazonPayReturnActivity"
+        android:exported="true"
+        android:launchMode="singleTask"
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
     </activity>
 
     <activity

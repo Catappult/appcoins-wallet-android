@@ -29,6 +29,7 @@ import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
+import com.asfoundation.wallet.topup.amazonPay.AmazonPayTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
@@ -268,6 +269,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     fragmentVk.arguments = args
     supportFragmentManager.beginTransaction().add(R.id.fragment_container, fragmentVk)
       .addToBackStack(VkPaymentTopUpFragment::class.java.simpleName).commit()
+  }
+
+  override fun navigateToAmazonPay(topUpData: TopUpPaymentData) {
+    val fragmentVk = AmazonPayTopUpFragment()
+    val args = Bundle()
+    args.putSerializable(AmazonPayTopUpFragment.PAYMENT_DATA, topUpData)
+    fragmentVk.arguments = args
+    supportFragmentManager.beginTransaction().add(R.id.fragment_container, fragmentVk)
+      .addToBackStack(AmazonPayTopUpFragment::class.java.simpleName).commit()
   }
 
   override fun finishActivity(data: Bundle) {

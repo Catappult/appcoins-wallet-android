@@ -155,4 +155,22 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
       )
     )
   }
+
+  fun navigateToAmazonPay(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
+  ) {
+    navigate(
+      fragment.findNavController(),
+      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingAmazonPay(
+        transactionBuilder,
+        PaymentType.AMAZONPAY,
+        amount,
+        currency,
+        forecastBonus
+      )
+    )
+  }
 }

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.StringRes
@@ -18,11 +19,16 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfo
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.amazonPay.usecases.DeleteAmazonPayChargePermissionUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionLocalStorageUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionUseCase
+import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayChargePermissionLocalStorageUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.AMAZONPAY
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.APPC
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.CARRIER_BILLING
@@ -44,8 +50,6 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.Single.zip
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.Subject
 import retrofit2.HttpException
 import java.math.BigDecimal
 import java.util.Currency
@@ -66,7 +70,11 @@ class PaymentMethodsPresenter(
   private val isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase,
   private val logger: Logger,
   private val interactor: PaymentMethodsInteractor,
-  private val paymentMethodsData: PaymentMethodsData
+  private val paymentMethodsData: PaymentMethodsData,
+  private val getAmazonPayChargePermissionLocalStorageUseCase: GetAmazonPayChargePermissionLocalStorageUseCase,
+  private val saveAmazonPayChargePermissionLocalStorageUseCase: SaveAmazonPayChargePermissionLocalStorageUseCase,
+  private val deleteAmazonPayChargePermissionUseCase: DeleteAmazonPayChargePermissionUseCase,
+  private val getAmazonPayChargePermissionUseCase: GetAmazonPayChargePermissionUseCase
 ) {
 
   private var cachedGamificationLevel = 0
@@ -75,7 +83,8 @@ class PaymentMethodsPresenter(
   private var viewState: ViewState = ViewState.DEFAULT
   private var hasStartedAuth = false
   private var loadedPaymentMethodEvent: String? = null
-  var showPayPalLogout: Subject<Boolean> = BehaviorSubject.create()
+  var showPayPalLogout: Boolean = false
+  var showAmazonPayLogout: Boolean = false
 
   companion object {
     val TAG = PaymentMethodsPresenter::class.java.name
@@ -94,6 +103,7 @@ class PaymentMethodsPresenter(
         savedInstanceState.getSerializableExtra<PaymentNavigationData>(PAYMENT_NAVIGATION_DATA)
     }
     handleOnGoingPurchases()
+    getAmazonPayChargePermission()
     handleCancelClick()
     handleErrorDismisses()
     handleMorePaymentMethodClicks()
@@ -180,6 +190,12 @@ class PaymentMethodsPresenter(
               )
 
               VKPAY -> view.showVkPay(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
+              AMAZONPAY -> view.showAmazonPay(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
                 paymentMethodsData.frequency,
@@ -361,6 +377,13 @@ class PaymentMethodsPresenter(
       )
 
       GOOGLEPAY_WEB -> view.showGooglePayWeb(
+        cachedGamificationLevel,
+        cachedFiatValue!!,
+        paymentMethodsData.frequency,
+        paymentMethodsData.subscription
+      )
+
+      AMAZONPAY ->  view.showAmazonPay(
         cachedGamificationLevel,
         cachedFiatValue!!,
         paymentMethodsData.frequency,
@@ -1130,11 +1153,43 @@ class PaymentMethodsPresenter(
         .subscribeOn(networkThread)
         .subscribe(
           {
-            showPayPalLogout.onNext(it!!)
+            showPayPalLogout = it
           },
           {
             logger.log(TAG, "Error getting agreement")
-            showPayPalLogout.onNext(false)
+            showPayPalLogout = false
+          }
+        )
+    )
+  }
+
+  @SuppressLint("CheckResult")
+  private fun getAmazonPayChargePermission() {
+    showAmazonPayLogout = getAmazonPayChargePermissionLocalStorageUseCase().isNotEmpty()
+    if (!showAmazonPayLogout) {
+      getAmazonPayChargePermissionUseCase()
+        .flatMapCompletable { chargePermissionId ->
+          saveAmazonPayChargePermissionLocalStorageUseCase(chargePermissionId = chargePermissionId.chargePermissionId)
+          showAmazonPayLogout = chargePermissionId.chargePermissionId?.isNotEmpty() == true
+          Completable.complete()
+        }.subscribe({}, {})
+    }
+  }
+
+  fun removeAmazonPayChargePermission() {
+    disposables.add(
+      deleteAmazonPayChargePermissionUseCase.invoke()
+        .subscribeOn(networkThread)
+        .observeOn(viewScheduler)
+        .subscribe(
+          {
+            saveAmazonPayChargePermissionLocalStorageUseCase("")
+            view.hideLoading()
+            logger.log(TAG, "Charge Permission removed")
+          },
+          {
+            view.hideLoading()
+            logger.log(TAG, "Charge Permission not Removed")
           }
         )
     )
@@ -1186,6 +1241,7 @@ class PaymentMethodsPresenter(
       PaymentMethodId.SANDBOX.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_SANDBOX
       PaymentMethodId.GOOGLEPAY_WEB.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
       PaymentMethodId.MI_PAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_MI_PAY
+      PaymentMethodId.AMAZONPAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_AMAZON_PAY
       else -> PaymentMethodsAnalytics.PAYMENT_METHOD_SELECTION
     }
   }

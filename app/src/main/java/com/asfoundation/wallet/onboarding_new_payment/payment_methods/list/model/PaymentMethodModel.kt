@@ -89,6 +89,10 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
         clickListener?.invoke(PaymentMethodClick.MiPayPayClick(paymentMethod.id))
       }
 
+      PaymentMethodsView.SelectedPaymentMethod.AMAZONPAY -> {
+        clickListener?.invoke(PaymentMethodClick.AmazonPayClick(paymentMethod.id))
+      }
+
       PaymentMethodsView.SelectedPaymentMethod.APPC -> Unit
       PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> Unit
       PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> Unit
