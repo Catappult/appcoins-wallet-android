@@ -532,6 +532,41 @@
   <string name="max">Max</string>
   <string name="amount">จำนวน</string>
   <string name="total_title">Total</string>
+  <string name="add_payment_method_button">Add payment method</string>
+  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_card_button">เพิ่มบัตรเครดิต/เดบิต</string>
+  <string name="add_paypal_button">Add paypal</string>
+  <string name="add_gift_card_button">Add gift card</string>
+  <string name="buy_button">ซื้อ</string>
+  <string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด</string>
+  <string name="topup_button">เติม</string>
+  <string name="payment_method">วิธีการชำระเงิน</string>
+  <string name="credit_debit_card">บัตรเครดิต/เดบิต</string>
+  <string name="paypal">Paypal</string>
+  <string name="appc">เครดิต AppCoins</string>
+  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="mir_card">Mir card</string>
+  <string name="wallet_one">Wallet One</string>
+  <string name="google_pay">Google Pay</string>
+  <string name="alipay">AliPayCN</string>
+  <string name="amazon_pay">Amazon Pay</string>
+  <string name="alfamart">Alfamart</string>
+  <string name="ovo">OVO</string>
+  <string name="dana">DANA</string>
+  <string name="linkaja">LinkAja</string>
+  <string name="doku_wallet">Doku Wallet</string>
+  <string name="oxxo">OXXO</string>
+  <string name="gcash">GCash</string>
+  <string name="true_money_wallet">TrueMoney Wallet</string>
+  <string name="rabbit_line_pay">Rabbit LINE Pay</string>
+  <string name="sandbox">Sandbox</string>
+  <string name="mipay">MiPay</string>
+  <string name="gopay">GoPay</string>
+  <string name="boleto">Boleto</string>
+  <string name="paytm_upi">Paytm</string>
+  <string name="paytm_wallet">Paytm Wallet</string>
+  <string name="qiwi">Qiwi</string>
+  <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -685,7 +720,7 @@
   <string name="purchase_payment_method_minimum_amount">สำหรับการซื้อที่สูงกว่า %s เท่านั้น</string>
   <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
-  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
+  <string name="purchase_legal_disclaimer">ในการดำเนินการชำระเงิน แสดงว่าคุณตกลงและยินยอมที่จะจัดหาเนื้อหาเมื่อชำระเงิน และทำให้เสียสิทธิ์ในการเพิกถอน</string>
   <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
     <item quantity="other">It may take up to %s days.</item>
@@ -697,6 +732,14 @@
   <string name="purchase_error_taking_long_body">Oops, it\'s taking longer than usual...</string>
   <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <!--New Purchase flow-->
+  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
+  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
+  <string name="purchase_subtotal">Subtotal</string>
+  <string name="purchase_taxes">Taxes</string>
+  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
+  <string name="purchase_promo_code_button">Do you have a promo code?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>

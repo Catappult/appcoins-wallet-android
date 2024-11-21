@@ -69,7 +69,6 @@ class AdyenPaymentViewModel @Inject constructor(
   private val analytics: BillingAnalytics,
   private val paymentAnalytics: PaymentMethodsAnalytics,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
-  private val skillsPaymentInteractor: SkillsPaymentInteractor,
   private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
   private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
   private val formatter: CurrencyFormatUtils,
@@ -132,6 +131,7 @@ class AdyenPaymentViewModel @Inject constructor(
       val isWalletVerified: Boolean,
       val paymentType: String
     ) : SingleEventState()
+
     data class handleCreditCardNeedCVC(val needCVC: Boolean) : SingleEventState()
     data class close(val bundle: Bundle?) : SingleEventState()
     data class submitUriResult(val uri: Uri) : SingleEventState()
@@ -556,36 +556,26 @@ class AdyenPaymentViewModel @Inject constructor(
         val adyenCard = pair.first
         val shouldStore = pair.second.shouldStoreCard
         handleBuyAnalytics(paymentData.transactionBuilder)
-        if (paymentData.skills) {
-          skillsPaymentInteractor.makeSkillsPayment(
-            paymentData.returnUrl,
-            paymentData.transactionBuilder.productToken,
-            adyenCard.cardPaymentMethod.encryptedCardNumber,
-            adyenCard.cardPaymentMethod.encryptedExpiryMonth,
-            adyenCard.cardPaymentMethod.encryptedExpiryYear,
-            adyenCard.cardPaymentMethod.encryptedSecurityCode!!
-          )
-        } else {
-          adyenPaymentInteractor.makePayment(
-            adyenPaymentMethod = adyenCard.cardPaymentMethod,
-            shouldStoreMethod = shouldStore,
-            hasCvc = adyenCard.hasCvc,
-            supportedShopperInteraction = adyenCard.supportedShopperInteractions,
-            returnUrl = paymentData.returnUrl,
-            value = priceAmount.toString(),
-            currency = priceCurrency,
-            reference = paymentData.transactionBuilder.orderReference,
-            paymentType = mapPaymentToService(paymentData.paymentType).transactionType,
-            origin = paymentData.origin,
-            packageName = paymentData.transactionBuilder.domain,
-            metadata = paymentData.transactionBuilder.payload,
-            sku = paymentData.transactionBuilder.skuId,
-            callbackUrl = paymentData.transactionBuilder.callbackUrl,
-            transactionType = paymentData.transactionBuilder.type,
-            referrerUrl = paymentData.transactionBuilder.referrerUrl,
-            guestWalletId = paymentData.transactionBuilder.guestWalletId,
-          )
-        }
+        adyenPaymentInteractor.makePayment(
+          adyenPaymentMethod = adyenCard.cardPaymentMethod,
+          shouldStoreMethod = shouldStore,
+          hasCvc = adyenCard.hasCvc,
+          supportedShopperInteraction = adyenCard.supportedShopperInteractions,
+          returnUrl = paymentData.returnUrl,
+          value = priceAmount.toString(),
+          currency = priceCurrency,
+          reference = paymentData.transactionBuilder.orderReference,
+          paymentType = mapPaymentToService(paymentData.paymentType).transactionType,
+          origin = paymentData.origin,
+          packageName = paymentData.transactionBuilder.domain,
+          metadata = paymentData.transactionBuilder.payload,
+          sku = paymentData.transactionBuilder.skuId,
+          callbackUrl = paymentData.transactionBuilder.callbackUrl,
+          transactionType = paymentData.transactionBuilder.type,
+          referrerUrl = paymentData.transactionBuilder.referrerUrl,
+          guestWalletId = paymentData.transactionBuilder.guestWalletId,
+        )
+
       }
       .observeOn(viewScheduler)
       .flatMapCompletable {
@@ -769,10 +759,12 @@ class AdyenPaymentViewModel @Inject constructor(
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
       .doOnNext { isWalletVerified ->
-        sendSingleEvent(SingleEventState.showVerification(
-          isWalletVerified,
-          paymentData.paymentType
-        ))
+        sendSingleEvent(
+          SingleEventState.showVerification(
+            isWalletVerified,
+            paymentData.paymentType
+          )
+        )
       }
       .subscribe({}, { it.printStackTrace() })
     )

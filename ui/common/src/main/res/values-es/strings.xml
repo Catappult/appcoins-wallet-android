@@ -532,6 +532,41 @@
   <string name="max">Max</string>
   <string name="amount">Cantidad</string>
   <string name="total_title">Total</string>
+  <string name="add_payment_method_button">Add payment method</string>
+  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_card_button">Añadir tarjeta de crédito/débito</string>
+  <string name="add_paypal_button">Add paypal</string>
+  <string name="add_gift_card_button">Add gift card</string>
+  <string name="buy_button">Comprar</string>
+  <string name="copied_to_clipboard">Copiado al portapapeles</string>
+  <string name="topup_button">Recargar</string>
+  <string name="payment_method">Método de pago</string>
+  <string name="credit_debit_card">Tarjeta de crédito/débito</string>
+  <string name="paypal">PayPal</string>
+  <string name="appc">AppCoins Credits</string>
+  <string name="bank_transfer">Transferencia bancaria segura</string>
+  <string name="mir_card">Mir card</string>
+  <string name="wallet_one">Wallet One</string>
+  <string name="google_pay">Google Pay</string>
+  <string name="alipay">AliPayCN</string>
+  <string name="amazon_pay">Amazon Pay</string>
+  <string name="alfamart">Alfamart</string>
+  <string name="ovo">OVO</string>
+  <string name="dana">DANA</string>
+  <string name="linkaja">LinkAja</string>
+  <string name="doku_wallet">Doku Wallet</string>
+  <string name="oxxo">OXXO</string>
+  <string name="gcash">GCash</string>
+  <string name="true_money_wallet">TrueMoney Wallet</string>
+  <string name="rabbit_line_pay">Rabbit LINE Pay</string>
+  <string name="sandbox">Sandbox</string>
+  <string name="mipay">MiPay</string>
+  <string name="gopay">GoPay</string>
+  <string name="boleto">Boleto</string>
+  <string name="paytm_upi">Paytm</string>
+  <string name="paytm_wallet">Paytm Wallet</string>
+  <string name="qiwi">Qiwi</string>
+  <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
@@ -698,6 +733,14 @@
   <string name="purchase_error_taking_long_body">Ups, está tardando más de lo normal...</string>
   <string name="purchase_bank_transer_secure_body">Transferencia segura directamente de tu banco.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">Estamos esperando que los fondos lleguen de tu banco.</string>
+  <!--New Purchase flow-->
+  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
+  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
+  <string name="purchase_subtotal">Subtotal</string>
+  <string name="purchase_taxes">Impuestos</string>
+  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
+  <string name="purchase_promo_code_button">Do you have a promo code?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Dirección</string>
   <string name="purchase_address_address_field">Dirección</string>

@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.analytics
 
-import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatDelegate
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsLabels
 import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
@@ -22,8 +20,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.sentry.Sentry
-import io.sentry.android.AndroidSentryClientFactory
-import io.sentry.event.User
+import io.sentry.android.core.SentryAndroid
+import io.sentry.protocol.User
 import javax.inject.Inject
 
 class InitilizeDataAnalytics @Inject constructor(
@@ -37,22 +35,27 @@ class InitilizeDataAnalytics @Inject constructor(
 ) {
 
   fun initializeSentry(): Completable {
-    Sentry.init(
-      BuildConfig.SENTRY_DSN_KEY,
-      AndroidSentryClientFactory(context.applicationContext as Application)
-    )
-    val walletAddress = idsRepository.getActiveWalletAddress()
-    Sentry.getContext().apply {
-      user = User(walletAddress, null, null, null)
-      addExtra(AnalyticsLabels.USER_LEVEL, idsRepository.getGamificationLevel())
-      addExtra(AnalyticsLabels.HAS_GMS, hasGms())
+    SentryAndroid.init(context) { options ->
+      options.dsn = BuildConfig.SENTRY_DSN_KEY
+      options.tracesSampleRate = 1.0
+      options.profilesSampleRate = 1.0
     }
+    val walletAddress = idsRepository.getActiveWalletAddress()
+
+    val user = User().apply {
+      id = walletAddress
+    }
+
+    Sentry.setUser(user)
+    Sentry.setTag(AnalyticsLabels.USER_LEVEL, idsRepository.getGamificationLevel().toString())
+    Sentry.setTag(AnalyticsLabels.HAS_GMS, hasGms().toString())
+
     logger.addReceiver(SentryReceiver())
+
     return Completable.mergeArray(
       idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID)
         .doOnSuccess {
-          Sentry.getContext()
-            .addExtra(AnalyticsLabels.ENTRY_POINT, it.ifEmpty { "other" })
+          Sentry.setTag(AnalyticsLabels.ENTRY_POINT, it.ifEmpty { "other" })
         }
         .ignoreElement()
         .onErrorComplete(),
@@ -60,7 +63,9 @@ class InitilizeDataAnalytics @Inject constructor(
         .flatMap {
           promotionsRepository.getWalletOrigin(walletAddress, it.code)
         }
-        .doOnSuccess { Sentry.getContext().addExtra(AnalyticsLabels.WALLET_ORIGIN, it) }
+        .doOnSuccess {
+          Sentry.setTag(AnalyticsLabels.WALLET_ORIGIN, it.toString())
+        }
         .ignoreElement()
         .onErrorComplete()
     )
@@ -111,7 +116,7 @@ class InitilizeDataAnalytics @Inject constructor(
                   isEmulator = it.deviceInfo.isProbablyEmulator,
                   ghOemId = it.ghOemId,
                   promoCode = it.promoCode.code ?: "",
-                  flavor = mapFlavor(BuildConfig.FLAVOR),
+                  flavor = mapFlavor(),
                   theme = it.theme
                 )
               }
@@ -120,7 +125,7 @@ class InitilizeDataAnalytics @Inject constructor(
       .ignoreElement()
   }
 
-  private fun mapFlavor(flavor: String): String {
+  private fun mapFlavor(flavor: String = BuildConfig.FLAVOR): String {
     return when (flavor) {
       "aptoide" -> "aptoide"
       "gp" -> "google"
@@ -129,7 +134,8 @@ class InitilizeDataAnalytics @Inject constructor(
   }
 
   fun getTheme(): String {
-    val currentNightMode = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+    val currentNightMode =
+      context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
     return mapTheme(currentNightMode == Configuration.UI_MODE_NIGHT_YES)
   }
 

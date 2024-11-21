@@ -1,38 +1,41 @@
 package com.appcoins.wallet.core.analytics.analytics
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import io.sentry.Sentry
-import io.sentry.event.Breadcrumb
-import io.sentry.event.BreadcrumbBuilder
-import io.sentry.event.User
+import io.sentry.SentryLevel
+import io.sentry.protocol.User
 import org.json.JSONObject
 import javax.inject.Inject
 
-class SentryAnalytics @Inject constructor(
-  @ApplicationContext private val context: Context
-) :
-  AnalyticsSetup {
+class SentryAnalytics @Inject constructor() : AnalyticsSetup {
 
   override fun setUserId(walletAddress: String) {
-    val old = Sentry.getContext().user.id
-    Sentry.getContext().recordBreadcrumb(
-      BreadcrumbBuilder()
-        .setType(Breadcrumb.Type.USER)
-        .setLevel(Breadcrumb.Level.INFO)
-        .setMessage("Changing wallet from $old to $walletAddress")
-        .setCategory("wallet")
-        .build()
-    )
-    Sentry.getContext().user = User(walletAddress, null, null, null)
+    var oldUserId = "unknown"
+    Sentry.withScope { scope ->
+      oldUserId = scope.user?.id ?: "unknown"
+
+      scope.setTag("category", "wallet")
+      scope.level = SentryLevel.INFO
+
+      val user = User().apply {
+        id = walletAddress
+      }
+      scope.user = user
+    }
+
+    // Capture the message AFTER setting the new user and outside the withScope block
+    Sentry.captureMessage("Changing wallet from $oldUserId to $walletAddress")
   }
 
   override fun setGamificationLevel(level: Int) {
-    Sentry.getContext().addExtra(AnalyticsLabels.USER_LEVEL, level)
+    Sentry.withScope { scope ->
+      scope.setTag(AnalyticsLabels.USER_LEVEL, level.toString())
+    }
   }
 
   override fun setWalletOrigin(origin: String) {
-    Sentry.getContext().addExtra(AnalyticsLabels.WALLET_ORIGIN, origin)
+    Sentry.withScope { scope ->
+      scope.setTag(AnalyticsLabels.WALLET_ORIGIN, origin)
+    }
   }
 
   override fun setPromoCode(code: String?, bonus: Double?, validity: Int?, appName: String?) {
@@ -41,6 +44,8 @@ class SentryAnalytics @Inject constructor(
     promoCode.put("bonus", bonus)
     promoCode.put("validity", validity)
     promoCode.put("appName", appName)
-    Sentry.getContext().addExtra(AnalyticsLabels.PROMO_CODE, promoCode)
+    Sentry.withScope { scope ->
+      scope.setTag(AnalyticsLabels.PROMO_CODE, promoCode.toString())
+    }
   }
 }

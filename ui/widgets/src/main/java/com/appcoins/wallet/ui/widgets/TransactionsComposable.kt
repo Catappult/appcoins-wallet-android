@@ -52,7 +52,9 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_green
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -308,7 +310,7 @@ fun PendingTransactionCard() {
           withStyle(style = SpanStyle(color = styleguide_light_grey)) {
             append(stringResource(id = R.string.transaction_status_pending) + " - ")
           }
-          withStyle(style = SpanStyle(color = WalletColors.styleguide_dark_grey)) {
+          withStyle(style = SpanStyle(color = styleguide_dark_grey)) {
             append(stringResource(id = R.string.purchase_bank_transfer_pending_disclaimer))
           }
         },
@@ -367,7 +369,7 @@ fun TransactionDetailInfo(
       Icon(
         painter = painterResource(R.drawable.ic_copy),
         contentDescription = stringResource(R.string.copy),
-        tint = WalletColors.styleguide_pink,
+        tint = styleguide_pink,
         modifier = Modifier.size(14.dp)
       )
     }
@@ -390,14 +392,14 @@ fun IconTextButton(text: String, iconId: Int, onClick: () -> Unit = {}) {
     Icon(
       painter = painterResource(iconId),
       contentDescription = text,
-      tint = WalletColors.styleguide_pink,
+      tint = styleguide_pink,
       modifier = Modifier
         .padding(end = 8.dp)
         .size(14.dp)
     )
     Text(
       text = text,
-      color = WalletColors.styleguide_pink,
+      color = styleguide_pink,
       style = MaterialTheme.typography.bodySmall,
       maxLines = 1,
       overflow = TextOverflow.Ellipsis,
@@ -560,7 +562,7 @@ fun PreviewTransactionDetailItem() {
   TransactionDetailItem(
     label = "Order ID",
     data = "APT453473277845346",
-    dataColor = WalletColors.styleguide_green,
+    dataColor = styleguide_green,
     allowCopy = true
   )
 }
