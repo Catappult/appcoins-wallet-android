@@ -3,6 +3,7 @@ package com.asfoundation.wallet.billing.amazonPay
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.format.DateUtils
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 
@@ -110,7 +111,10 @@ class AmazonPayIABViewModel @Inject constructor(
       .doOnSuccess { amazonTransactionResult ->
         validateResultOfPaymentLink(amazonTransactionResult)
       }
-      .subscribe({}, { _ -> _uiState.value = UiState.Error })
+      .subscribe({}, { _ ->
+        Log.i("Amazon", "error 1")
+        _uiState.value = UiState.Error
+      })
   }
 
   private fun createAmazonPayTransaction(
@@ -157,8 +161,10 @@ class AmazonPayIABViewModel @Inject constructor(
       amazonPayTransaction.errorCode == null && getAmazonPayChargePermissionLocalStorageUseCase().isNotEmpty() ->
         startTransactionStatusTimer()
 
-      else ->
+      else -> {
+        Log.i("Amazon", "error 2")
         _uiState.value = UiState.Error
+      }
     }
   }
 
@@ -176,6 +182,7 @@ class AmazonPayIABViewModel @Inject constructor(
           amazonTransaction?.checkoutSessionId ?: ""
         )
         if(amazonPayCheckoutRequest.checkoutSessionId.isEmpty()) {
+          Log.i("Amazon", "error 3")
           _uiState.value = UiState.Error
           return
         }
@@ -184,7 +191,10 @@ class AmazonPayIABViewModel @Inject constructor(
         patchAmazonPayCheckoutSessionUseCase(
           amazonTransaction?.uid,
           amazonPayCheckoutRequest
-        ).subscribe({}, {_uiState.value = UiState.Error})
+        ).subscribe({}, {
+          Log.i("Amazon", "error 4")
+          _uiState.value = UiState.Error
+        })
       )
       startTransactionStatusTimer()
       runningCustomTab = false
@@ -202,6 +212,7 @@ class AmazonPayIABViewModel @Inject constructor(
           }
         }
       } catch (e: TimeoutCancellationException) {
+        Log.i("Amazon", "error 5")
         _uiState.value = UiState.Error
       } finally {
         isTimerRunning = false
@@ -279,6 +290,7 @@ class AmazonPayIABViewModel @Inject constructor(
           Transaction.Status.CANCELED,
           Transaction.Status.FRAUD -> {
             stopTransactionStatusTimer()
+            Log.i("Amazon", "error 6")
             _uiState.value = UiState.Error
           }
 
@@ -298,6 +310,7 @@ class AmazonPayIABViewModel @Inject constructor(
     transactionBuilder: TransactionBuilder?
   ) {
     if (transactionBuilder == null) {
+      Log.i("Amazon", "error 7")
       _uiState.value = UiState.Error
       return
     }
@@ -316,6 +329,7 @@ class AmazonPayIABViewModel @Inject constructor(
       ).doOnSuccess {
         _uiState.value = UiState.SendSuccessBundle(it.bundle)
       }.subscribeOn(rxSchedulers.main).observeOn(rxSchedulers.main).doOnError {
+        Log.i("Amazon", "error 8")
         _uiState.value = UiState.Error
       }.subscribe({}, { it.printStackTrace() })
     )
