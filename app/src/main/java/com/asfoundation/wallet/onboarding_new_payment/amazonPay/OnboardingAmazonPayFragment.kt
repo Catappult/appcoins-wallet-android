@@ -147,7 +147,13 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
           )
         }
 
-        UiState.PaymentRedirect3ds,
+        UiState.PaymentRedirect3ds -> {
+          viewModel.amazonTransaction?.redirectUrl?.let {
+//            redirectUsingUniversalLink(it)
+            startWebViewAuthorization(it)
+          }
+        }
+
         UiState.PaymentLinkSuccess -> {
           createAmazonPayLink()
           Row(
@@ -247,11 +253,6 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
       checkoutSessionId = viewModel.amazonTransaction?.checkoutSessionId
     )
     buildURL(params, "ES")
-  }
-
-  override fun onResume() {
-    super.onResume()
-    viewModel.getAmazonCheckoutSessionId()
   }
 
   private fun handleCompletePurchase() {
