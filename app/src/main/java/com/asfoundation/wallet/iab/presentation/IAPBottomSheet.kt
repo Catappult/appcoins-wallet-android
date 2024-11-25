@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.asf.wallet.R
-import com.asfoundation.wallet.iab.presentation.icon.getIcBack
+import com.appcoins.wallet.ui.common.iap.icon.getIcBack
 import com.asfoundation.wallet.iab.theme.IAPTheme
 
 @Composable

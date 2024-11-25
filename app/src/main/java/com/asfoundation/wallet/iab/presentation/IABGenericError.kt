@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.asf.wallet.R
-import com.asfoundation.wallet.iab.presentation.icon.getImgError
+import com.appcoins.wallet.ui.common.iap.icon.getImgError
 import com.asfoundation.wallet.iab.theme.IAPTheme
 
 @Composable

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.iab.presentation.icon
+package com.appcoins.wallet.ui.common.iap.icon
 
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
