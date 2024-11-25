@@ -110,3 +110,9 @@ msgstr ""
 #:
 msgid "Enjoy {0}% bonus in every purchase."
 msgstr ""
+
+#. Card - Title - Bank Transfer
+#:
+msgid "Get {0}% extra bonus in all top-ups made with Easy Bank Transfer."
+msgstr ""
+
