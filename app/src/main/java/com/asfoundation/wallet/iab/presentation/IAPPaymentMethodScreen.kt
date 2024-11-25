@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.DefaultAlpha
@@ -34,8 +33,8 @@ import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.APPCPaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.CreditCardPaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.PayPalV1PaymentMethod
-import com.asfoundation.wallet.iab.presentation.icon.getDownArrow
 import com.asfoundation.wallet.iab.presentation.icon.getIcCheck
+import com.asfoundation.wallet.iab.presentation.icon.getRightArrow
 import com.asfoundation.wallet.iab.theme.IAPTheme
 
 @Composable
@@ -86,14 +85,12 @@ fun PaymentMethodRow(
         )
       }
     }
-    val image = getDownArrow(arrowColor = IAPTheme.colors.arrowColor).takeIf { showArrow }
+    val image = getRightArrow(arrowColor = IAPTheme.colors.arrowColor).takeIf { showArrow }
       ?: getIcCheck().takeIf { isSelected }
 
     image?.let {
       Image(
-        modifier = Modifier
-          .padding(start = 8.dp)
-          .conditional(showArrow, { rotate(-90F) }),
+        modifier = Modifier.padding(start = 8.dp),
         imageVector = image,
         contentDescription = null
       )
