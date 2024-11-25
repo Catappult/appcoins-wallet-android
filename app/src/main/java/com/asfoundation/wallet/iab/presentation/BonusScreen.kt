@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieConstants
 import com.appcoins.wallet.ui.widgets.component.Animation
 import com.asf.wallet.R
-import com.asfoundation.wallet.iab.presentation.icon.getDownArrow
-import com.asfoundation.wallet.iab.presentation.icon.getIcGiftDisabled
+import com.appcoins.wallet.ui.common.iap.icon.getDownArrow
+import com.appcoins.wallet.ui.common.iap.icon.getIcGiftDisabled
 import com.asfoundation.wallet.iab.theme.IAPTheme
 import kotlin.random.Random
 

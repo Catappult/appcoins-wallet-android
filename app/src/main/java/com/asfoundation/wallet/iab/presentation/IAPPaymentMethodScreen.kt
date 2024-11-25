@@ -33,8 +33,8 @@ import com.asfoundation.wallet.iab.payment_manager.PaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.APPCPaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.CreditCardPaymentMethod
 import com.asfoundation.wallet.iab.payment_manager.payment_methods.PayPalV1PaymentMethod
-import com.asfoundation.wallet.iab.presentation.icon.getIcCheck
-import com.asfoundation.wallet.iab.presentation.icon.getRightArrow
+import com.appcoins.wallet.ui.common.iap.icon.getIcCheck
+import com.appcoins.wallet.ui.common.iap.icon.getRightArrow
 import com.asfoundation.wallet.iab.theme.IAPTheme
 
 @Composable

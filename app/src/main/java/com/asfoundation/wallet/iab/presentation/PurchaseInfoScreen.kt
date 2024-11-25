@@ -33,7 +33,7 @@ import com.appcoins.wallet.ui.common.getAppIconDrawable
 import com.appcoins.wallet.ui.common.getAppName
 import com.appcoins.wallet.ui.widgets.component.Animation
 import com.asf.wallet.R
-import com.asfoundation.wallet.iab.presentation.icon.getDownArrow
+import com.appcoins.wallet.ui.common.iap.icon.getDownArrow
 import com.asfoundation.wallet.iab.theme.IAPTheme
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import kotlinx.parcelize.Parcelize

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.iab.presentation.icon
+package com.appcoins.wallet.ui.common.iap.icon
 
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
@@ -13,14 +13,13 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.ui.common.theme.WalletTheme
-import com.asfoundation.wallet.iab.theme.LightPalette
 
 @Composable
 @Preview
 private fun PreviewGetIcBack(modifier: Modifier = Modifier) {
   WalletTheme {
     Image(
-      imageVector = getImgError(LightPalette.CoralBlush),
+      imageVector = getImgError(Color(0xFFFF6381)),
       contentDescription = null
     )
   }
