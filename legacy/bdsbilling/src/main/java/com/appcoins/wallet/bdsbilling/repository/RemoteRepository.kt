@@ -470,7 +470,7 @@ class RemoteRepository(
     productName: String?,
     guestWalletId: String?
   ): Single<Transaction> =
-    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+    ewtObtainer.getEwtAuthentication(gateway == "appcoins_credits").subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         if (executingAppcTransaction.compareAndSet(false, true)) {
           brokerBdsApi.createTransaction(
