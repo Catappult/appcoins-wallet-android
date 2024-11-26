@@ -869,7 +869,7 @@
   <string name="promotions_vouhers_button">Vouchers</string>
   <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <string name="promotions_bank_transfer_title">Easy Bank Transfer</string>
-  <string name="promotions_bank_transfer_body">Get %s%% extra bonus in all top-ups made with Easy Bank Transfer.</string>
+  <string name="promotions_bank_transfer_body">Get %s%% extra bonus in all top-ups made with Easy bank transfer.</string>
 
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Update to receive rewards</string>
