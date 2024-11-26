@@ -82,7 +82,8 @@ class OnboardingAmazonPayViewModel @Inject constructor(
       transactionType = args.transactionBuilder.type,
       referrerUrl = args.transactionBuilder.referrerUrl,
       packageName = args.transactionBuilder.domain,
-      chargePermissionId = null
+      chargePermissionId = null,
+      guestWalletId = args.transactionBuilder.guestWalletId
     )
       .doOnSubscribe { _uiState.value = UiState.Loading }
       .doOnSuccess { amazonTransactionResult ->

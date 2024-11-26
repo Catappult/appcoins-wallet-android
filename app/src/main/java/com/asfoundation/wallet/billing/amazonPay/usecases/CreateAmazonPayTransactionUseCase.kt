@@ -20,7 +20,7 @@ class CreateAmazonPayTransactionUseCase @Inject constructor(
     price: AmazonPrice, reference: String?,
     origin: String?, metadata: String?, packageName: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
-    referrerUrl: String?, chargePermissionId: String?
+    referrerUrl: String?, chargePermissionId: String?, guestWalletId: String?
   ): Single<AmazonPayTransaction> {
     return Single.zip(
       walletService.getWalletAddress(),
@@ -46,7 +46,8 @@ class CreateAmazonPayTransactionUseCase @Inject constructor(
             userWallet = address,
             referrerUrl = referrerUrl,
             method = METHOD_AMAZONPAY,
-            chargePermissionId = chargePermissionId
+            chargePermissionId = chargePermissionId,
+            guestWalletId = guestWalletId
           )
         }
       }

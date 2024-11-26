@@ -31,7 +31,7 @@ class AmazonPayRepository @Inject constructor(
     callbackUrl: String?, transactionType: String,
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
     userWallet: String?, referrerUrl: String?,
-    method: String?, chargePermissionId: String?
+    method: String?, chargePermissionId: String?, guestWalletId: String?,
   ): Single<AmazonPayTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -55,7 +55,7 @@ class AmazonPayRepository @Inject constructor(
             returnUrl = HostProperties.AMAZON_PAY_REDIRECT_BASE_URL,
             channel = "ANDROID",
             chargePermissionId = chargePermissionId,
-            guestWalletId = userWallet,
+            guestWalletId = guestWalletId,
             testCase = if (BuildConfig.DEBUG)
               null //TEST_MFA // For testing in sandbox with MFA active
             else
