@@ -113,6 +113,6 @@ msgstr ""
 
 #. Card - Title - Bank Transfer
 #:
-msgid "Get {0}% extra bonus in all top-ups made with Easy Bank Transfer."
+msgid "Get {0}% extra bonus in all top-ups made with Easy bank transfer."
 msgstr ""
 
