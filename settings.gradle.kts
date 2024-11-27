@@ -27,6 +27,13 @@ dependencyResolutionManagement {
     maven {
       url = uri("https://artifactory-external.vkpartner.ru/artifactory/superappkit-maven-public/")
     }
+    maven {
+      credentials  {
+        username = "i.sharkov"
+        password = "R85uFTY8k16i"
+      }
+      url = uri("https://artifactory-external.vkpartner.ru/artifactory/superappkit-maven/")
+    }
   }
 }
 

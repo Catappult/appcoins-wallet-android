@@ -84,8 +84,9 @@ mockk_version = "1.13.13"
 paging_version = "3.3.2"
 paging_compose_version = "3.3.2"
 fyber_sdk_version = "3.55.0"
-vk_pay_version = "0.112-beta24429"
-vk_pay_checkout_version = "0.112-beta24429"
+vk_oauth_version = "1.126"
+vk_sdk_pub_version = "1.126"
+vk_pay_checkout_version = "1.126"
 truelayer_payments_version = "3.2.0" # intercom is using compose-bom 2024.06.00. this is the true layer lib that best fits with this bom version
 
 [libraries]
@@ -232,8 +233,8 @@ test-junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params",
 test-junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit5_version" }
 test-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine_version" }
 
-vk-pay-oauth = { module = "com.vk:oauth-vk", version.ref = "vk_pay_version" }
-vk-sdk-pub = { module = "com.vk:vksdk-pub", version.ref = "vk_pay_version" }
+vk-pay-oauth = { module = "com.vk:oauth-api", version.ref = "vk_oauth_version" }
+vk-sdk = { module = "com.vk:vksdk", version.ref = "vk_sdk_pub_version" }
 vk-checkout = { module = "com.vk:vkpay-checkout", version.ref = "vk_pay_checkout_version" }
 
 truelayer-payments = { module = "com.truelayer.payments:ui", version.ref = "truelayer_payments_version" }
@@ -261,5 +262,5 @@ jackson = ["jackson-annotation", "jackson-databind"]
 rx = ["rx-rxjava", "rx-rxandroid", "rx-rxbinding"]
 result = ["kotlin-result-coroutines", "kotlin-result"]
 paging = ["paging", "paging_compose"]
-vk = ["vk-pay-oauth", "vk-sdk-pub", "vk-checkout"]
+vk = ["vk-pay-oauth", "vk-sdk", "vk-checkout"]
 lottie = ["lottie", "compose-lottie"]

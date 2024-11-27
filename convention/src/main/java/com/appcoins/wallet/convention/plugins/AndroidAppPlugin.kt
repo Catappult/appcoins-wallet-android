@@ -88,12 +88,8 @@ class AndroidAppPlugin : Plugin<Project> {
               project.property("MANIFEST_PAYMENT_HOST_DEV").toString()
             manifestPlaceholders["VkExternalAuthRedirectScheme"] =
               project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME_DEV").toString()
-            resValue("string", "com_vk_sdk_AppId", project.property("VK_SDK_APP_ID_DEV").toString())
-            resValue(
-              "string",
-              "vk_client_secret",
-              project.property("VK_CLIENT_SECRET_DEV").toString()
-            )
+            manifestPlaceholders["VK_SDK_APP_ID"] = project.property("VK_SDK_APP_ID_DEV").toString()
+            manifestPlaceholders["VK_SDK_CLIENT_SECRET"] = project.property("VK_CLIENT_SECRET_DEV").toString()
             resValue(
               "string",
               "vk_external_oauth_redirect_url",
@@ -113,8 +109,8 @@ class AndroidAppPlugin : Plugin<Project> {
               project.property("MANIFEST_PAYMENT_HOST").toString()
             manifestPlaceholders["VkExternalAuthRedirectScheme"] =
               project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME").toString()
-            resValue("string", "com_vk_sdk_AppId", project.property("VK_SDK_APP_ID").toString())
-            resValue("string", "vk_client_secret", project.property("VK_CLIENT_SECRET").toString())
+            manifestPlaceholders["VK_SDK_APP_ID"] = project.property("VK_SDK_APP_ID").toString()
+            manifestPlaceholders["VK_SDK_CLIENT_SECRET"] = project.property("VK_CLIENT_SECRET").toString()
             resValue(
               "string",
               "vk_external_oauth_redirect_url",

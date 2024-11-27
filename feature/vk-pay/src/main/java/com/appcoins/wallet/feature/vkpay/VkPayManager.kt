@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentManager
 import com.vk.auth.main.VkClientUiInfo
+import com.vk.auth.main.VkSilentTokenExchanger
 import com.vk.dto.common.id.UserId
 import com.vk.superapp.SuperappKit
 import com.vk.superapp.SuperappKitConfig
@@ -51,6 +52,8 @@ class VkPayManager @Inject constructor() {
         )
         .setApplicationInfo(appInfo)
         .setUseCodeFlow(true)
+        .setSilentTokenExchanger(VkSilentTokenExchanger.STUB)
+        .disableMyTrackerAnalytics()
         .build()
     }
 
