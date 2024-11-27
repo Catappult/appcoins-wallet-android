@@ -136,7 +136,8 @@ class AmazonPayIABViewModel @Inject constructor(
       transactionType = transactionBuilder.type,
       referrerUrl = transactionBuilder.referrerUrl,
       packageName = transactionBuilder.domain,
-      chargePermissionId = chargePermissionId
+      chargePermissionId = chargePermissionId,
+      guestWalletId = transactionBuilder.guestWalletId,
     )
   }
 

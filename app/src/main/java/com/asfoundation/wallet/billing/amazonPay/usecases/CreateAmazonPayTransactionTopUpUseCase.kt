@@ -35,7 +35,8 @@ class CreateAmazonPayTransactionTopUpUseCase @Inject constructor(
           userWallet = null,
           origin = null,
           reference = null,
-          metadata = null
+          metadata = null,
+          guestWalletId = null
         )
       }
   }
