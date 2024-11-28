@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.onboarding
 
-import android.content.Context
 import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.net.Uri
@@ -153,7 +152,7 @@ class OnboardingFragment : BasePageViewFragment(),
 
       OnboardingSideEffect.NavigateToFinish -> {
         unlockRotation()
-        context?.let { restart(it) }
+        restart()
       }
 
       is OnboardingSideEffect.NavigateToLink ->
@@ -173,9 +172,9 @@ class OnboardingFragment : BasePageViewFragment(),
     }
   }
 
-  private fun restart(context: Context) {
+  private fun restart() {
     lifecycleScope.launch {
-      AppUtils.restartApp(context)
+      AppUtils.restartApp(requireActivity())
     }
   }
 
