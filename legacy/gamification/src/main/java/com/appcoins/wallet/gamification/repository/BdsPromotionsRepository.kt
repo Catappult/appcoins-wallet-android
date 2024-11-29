@@ -119,7 +119,8 @@ class BdsPromotionsRepository @Inject constructor(
     local.setSeenGenericPromotion(id, screen)
 
   override fun getForecastBonus(
-    wallet: String, packageName: String,
+    wallet: String,
+    packageName: String,
     amount: BigDecimal,
     promoCodeString: String?,
     currency: String?
