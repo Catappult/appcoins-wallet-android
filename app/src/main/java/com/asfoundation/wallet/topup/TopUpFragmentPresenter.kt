@@ -34,8 +34,6 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.Subject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -162,7 +160,12 @@ class TopUpFragmentPresenter(
             setupUi(selectedPaymentMethod)
           } else {
             view.hideValuesSkeletons()
-            loadBonusIntoView(appPackage, fiatAmount, selectedCurrency)
+            loadBonusIntoView(
+              appPackage = appPackage,
+              amount = fiatAmount,
+              currency = selectedCurrency,
+              selectedPaymentMethod = selectedPaymentMethod
+            )
           }
         } else {
           view.showNoMethodsError()
@@ -174,9 +177,15 @@ class TopUpFragmentPresenter(
   private fun loadBonusIntoView(
     appPackage: String,
     amount: String,
-    currency: String
+    currency: String,
+    selectedPaymentMethod: PaymentMethod,
   ) {
-    interactor.getEarningBonus(appPackage, amount.toBigDecimal(), currency)
+    interactor.getEarningBonus(
+      packageName = appPackage,
+      amount = amount.toBigDecimal(),
+      currency = currency,
+      paymentMethodId = selectedPaymentMethod.id
+    )
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
       .doOnSuccess { bonusAndLevel ->

@@ -24,7 +24,8 @@ interface PromotionsRepository {
     packageName: String,
     amount: BigDecimal,
     promoCodeString: String?,
-    currency: String?
+    currency: String?,
+    paymentMethodId: String?
   ): Single<ForecastBonus>
 
   fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext): Single<Int>

@@ -50,14 +50,21 @@ class GamificationInteractor @Inject constructor(
   }
 
   fun getEarningBonus(
-    packageName: String, amount: BigDecimal,
-    promoCodeString: String?, currency: String?
+    packageName: String,
+    amount: BigDecimal,
+    promoCodeString: String?,
+    currency: String?,
+    paymentMethodId: String?
   ): Single<ForecastBonusAndLevel> {
     return defaultWallet.find()
       .flatMap { wallet: Wallet ->
         gamification.getEarningBonus(
-          wallet.address, packageName, amount,
-          promoCodeString, currency
+          wallet = wallet.address,
+          packageName = packageName,
+          amount = amount,
+          promoCodeString = promoCodeString,
+          currency = currency,
+          paymentMethodId = paymentMethodId
         ).map { forecastBonus ->
           ForecastBonusAndLevel(
             status = forecastBonus.status,
