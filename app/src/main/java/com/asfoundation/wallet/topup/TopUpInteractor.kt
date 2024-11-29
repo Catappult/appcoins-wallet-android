@@ -117,7 +117,8 @@ class TopUpInteractor @Inject constructor(
   fun getEarningBonus(
     packageName: String,
     amount: BigDecimal,
-    currency: String
+    currency: String,
+    paymentMethodId: String?
   ): Single<ForecastBonusAndLevel> =
     getCurrentPromoCodeUseCase()
       .flatMap {
@@ -125,7 +126,8 @@ class TopUpInteractor @Inject constructor(
           packageName = packageName,
           amount = amount,
           promoCodeString = it.code,
-          currency = currency
+          currency = currency,
+          paymentMethodId = paymentMethodId,
         )
       }
 
