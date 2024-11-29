@@ -148,12 +148,15 @@ class TopUpFragmentPresenter(
               cardLastNumbers = it.lastFour ?: "****",
               cardIcon = PaymentBrands.getPayment(it.brand).brandFlag,
               recurringReference = it.id,
-              !storedCardID.isNullOrEmpty() && it.id == storedCardID
+              isSelectedCard = !storedCardID.isNullOrEmpty() && it.id == storedCardID
             )
           }
           val selectedPaymentMethod = getSelectedPaymentMethod(paymentMethods)
           val selectedCurrency = getCurrencyOfSelectedPaymentMethod(paymentMethods)
-          view.setupPaymentMethods(paymentMethods = paymentMethods, cardList)
+          view.setupPaymentMethods(
+            paymentMethods = paymentMethods,
+            cardsList = cardList
+          )
           handleFeeVisibility(selectedPaymentMethod.fee)
           if (selectedCurrency != view.getSelectedCurrency().code) {
             setupUi(selectedPaymentMethod)

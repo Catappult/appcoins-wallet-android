@@ -60,9 +60,9 @@ class GamificationInteractor @Inject constructor(
           promoCodeString, currency
         ).map { forecastBonus ->
           ForecastBonusAndLevel(
-            forecastBonus.status,
-            forecastBonus.amount,
-            forecastBonus.currency,
+            status = forecastBonus.status,
+            amount = forecastBonus.amount,
+            currency = forecastBonus.currency,
             level = forecastBonus.level
           )
         }
