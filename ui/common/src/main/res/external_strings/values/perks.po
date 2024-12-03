@@ -116,3 +116,8 @@ msgstr ""
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
 msgstr ""
 
+#. Payment Method - Title - Bank Transfer
+#:
+msgid "Easy bank transfer"
+msgstr ""
+
