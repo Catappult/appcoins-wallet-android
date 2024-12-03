@@ -7,9 +7,11 @@ import android.os.Build
 import android.os.Bundle
 import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
@@ -21,13 +23,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.webkit.WebSettingsCompat
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
+import com.asf.wallet.R
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,6 +68,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay);
     setContent {
       MainContent(url)
     }
@@ -66,8 +77,21 @@ class WebViewPaymentActivity : AppCompatActivity() {
   @SuppressLint("SetJavaScriptEnabled")
   @Composable
   fun MainContent(url: String) {
+    val context = LocalContext.current
+    val webView = remember { WebView(context) }
+
+    BackHandler(enabled = true) {
+      if (webView?.canGoBack() == true) {
+        webView?.goBack()
+      } else {
+        finish()
+      }
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
-      Spacer(modifier = Modifier.height(200.dp))
+      Spacer(modifier = Modifier
+        .height(200.dp)
+      )
       Box(
         modifier = Modifier
           .fillMaxWidth()
@@ -79,26 +103,31 @@ class WebViewPaymentActivity : AppCompatActivity() {
       )
       AndroidView(
         modifier = Modifier
-          .fillMaxWidth(),
-//          .weight(1f),
+          .fillMaxWidth()
+          .background(styleguide_light_grey),
         factory = {
-
-          WebView(baseContext).apply {
+          webView.apply {
+            setBackgroundColor(resources.getColor(R. color. transparent))
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             settings.useWideViewPort = true
+            WebSettingsCompat.setForceDark(
+              settings,
+              WebSettingsCompat.FORCE_DARK_ON
+            )
             webViewClient = object : WebViewClient() {
               override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
                 when {
                   clickUrl.contains(SUCCESS_SCHEMA) -> {
-                    createSuccessBundleAndFinish()
-//                    finishActivity( Bundle().apply {
-//                      putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-//                    })
+//                    createSuccessBundleAndFinish(). // TODO activate
+                    finishActivity( Bundle().apply {
+                      putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+                    })
+                    return true
                   }
 
                 }
-                return true
+                return false
               }
 
 //              override fun onPageFinished(view: WebView, url: String) {
@@ -141,6 +170,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
           }
         }
       )
+
     }
   }
 
@@ -165,6 +195,11 @@ class WebViewPaymentActivity : AppCompatActivity() {
 //        finish(it.) // TODO handle error
 //      }
       .subscribe()
+  }
+
+  override fun finish() {
+    super.finish()
+    overridePendingTransition(R.anim.stay, R.anim.slide_out_bottom)
   }
 
   fun showSupport(gamificationLevel: Int) {

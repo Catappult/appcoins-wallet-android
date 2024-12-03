@@ -184,6 +184,7 @@ class OneStepPaymentReceiver : BaseActivity() {
             "&signature=${walletModel.signedAddress}" +
             "&payment_channel=wallet_app" + // TODO
             "&ewt=${ewt}"
+        //TODO product(sku), domain, type
       }
   }
 

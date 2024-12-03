@@ -338,7 +338,8 @@
 
     <activity
         android:name="com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity"
-        android:theme="@style/Theme.AppCompat.Transparent.WebActivity" />
+        android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
+    />
 
     <service
         android:name="com.asfoundation.wallet.transactions.PerkBonusAndGamificationService"
