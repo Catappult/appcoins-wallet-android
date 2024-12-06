@@ -37,7 +37,8 @@ class FakePromotionsRepository : PromotionsRepository {
     packageName: String,
     amount: BigDecimal,
     promoCodeString: String?,
-    currency: String?
+    currency: String?,
+    paymentMethodId: String?
   ): Single<ForecastBonus> {
     TODO("Not yet implemented")
   }

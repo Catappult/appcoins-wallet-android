@@ -62,13 +62,18 @@ class OnboardingPaymentViewModel @Inject constructor(
         Single.zip(
           getOnboardingTransactionBuilderUseCase(cachedTransaction),
           bdsRepository.getSkuDetails(
-            cachedTransaction.packageName!!,
-            mutableListOf(cachedTransaction.sku!!),
-            BillingSupportedType.INAPP
+            packageName = cachedTransaction.packageName!!,
+            skus = mutableListOf(cachedTransaction.sku!!),
+            type = BillingSupportedType.INAPP
           ),
           addressService.getAttribution(cachedTransaction.packageName)
         ) { transactionBuilder, products, attribution ->
-          Quadruple(cachedTransaction, transactionBuilder, products, attribution)
+          Quadruple(
+            first = cachedTransaction,
+            second = transactionBuilder,
+            third = products,
+            fourth = attribution
+          )
         }
       }
       .retryWhen { it.take(10).delay(200, TimeUnit.MILLISECONDS) }
@@ -81,19 +86,19 @@ class OnboardingPaymentViewModel @Inject constructor(
           transactionBuilder.amount(BigDecimal(products.first().transactionPrice.appcoinsAmount))
         events.sendPurchaseStartEvent(modifiedTransactionBuilder, attribution.oemId)
         getEarningBonusUseCase(
-          modifiedTransactionBuilder.domain,
-          products.first().transactionPrice.amount.toBigDecimal(),
-          products.first().transactionPrice.currency
+          packageName = modifiedTransactionBuilder.domain,
+          amount = products.first().transactionPrice.amount.toBigDecimal(),
+          currency = products.first().transactionPrice.currency,
         ).map { forecastBonus ->
           TransactionContent(
-            modifiedTransactionBuilder,
-            modifiedCachedTransaction.packageName!!,
-            modifiedCachedTransaction.sku!!,
-            products.first().title,
-            modifiedCachedTransaction.value,
-            modifiedCachedTransaction.currency!!,
-            products.first().transactionPrice.currencySymbol,
-            forecastBonus
+            transactionBuilder = modifiedTransactionBuilder,
+            packageName = modifiedCachedTransaction.packageName!!,
+            sku = modifiedCachedTransaction.sku!!,
+            skuTitle = products.first().title,
+            value = modifiedCachedTransaction.value,
+            currency = modifiedCachedTransaction.currency!!,
+            currencySymbol = products.first().transactionPrice.currencySymbol,
+            forecastBonus = forecastBonus
           )
         }
       }

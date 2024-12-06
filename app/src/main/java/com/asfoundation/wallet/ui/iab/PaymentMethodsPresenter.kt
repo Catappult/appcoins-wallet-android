@@ -542,7 +542,11 @@ class PaymentMethodsPresenter(
         zip(
           getPaymentMethods(fiatValue)
             .subscribeOn(networkThread),
-          interactor.getEarningBonus(transaction.domain, fiatValue.amount, fiatValue.currency)
+          interactor.getEarningBonus(
+            packageName = transaction.domain,
+            amount = fiatValue.amount,
+            currency = fiatValue.currency,
+          )
             .subscribeOn(networkThread)
         ) { paymentMethods, bonus ->
           Pair(paymentMethods, bonus)
