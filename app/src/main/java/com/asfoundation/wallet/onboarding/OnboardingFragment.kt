@@ -48,6 +48,7 @@ class OnboardingFragment : BasePageViewFragment(),
   private val args by navArgs<OnboardingFragmentArgs>()
 
   private val backupModel by lazy { args.backupModel ?: BackupModel() }
+  private val createWalletAutomatically by lazy { args.createWalletAutomatically }
 
   private val viewModel: OnboardingViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingBinding::bind)
@@ -63,6 +64,13 @@ class OnboardingFragment : BasePageViewFragment(),
     super.onCreate(savedInstanceState)
     handleBackPress()
     lockRotation()
+    if (createWalletAutomatically) {
+      if (!backupModel.isForRecoverWallet()) {
+        viewModel.handleLaunchWalletClick()
+      } else {
+        viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
+      }
+    }
   }
 
   override fun onResume() {
@@ -82,7 +90,6 @@ class OnboardingFragment : BasePageViewFragment(),
     }
   }
 
-
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -98,8 +105,12 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun setClickListeners() {
-    views.onboardingButtons.onboardingNextButton.setOnClickListener { viewModel.handleLaunchWalletClick() }
-    views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
+    views.onboardingButtons.onboardingNextButton.setOnClickListener {
+      viewModel.handleLaunchWalletClick()
+    }
+    views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener {
+      viewModel.handleRecoverClick()
+    }
     views.onboardingRecoverGuestButton.setOnClickListener {
       viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
     }
