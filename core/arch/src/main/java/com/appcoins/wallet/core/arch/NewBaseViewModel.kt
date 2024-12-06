@@ -131,9 +131,9 @@ abstract class NewBaseViewModel<S : ViewState, E : SideEffect>(initialState: S) 
   private fun <T> DataResult<T>.toAsyncWithState(
     retainValue: KProperty1<S, Async<T>>? = null, reducer: S.(Async<T>) -> S
   ) {
-    when (this) {
-      is Ok -> setState { reducer(Async.Success(this@toAsyncWithState.value)) }
-      is Err -> setState {
+    when {
+      this.isOk -> setState { reducer(Async.Success(this@toAsyncWithState.value)) }
+      this.isErr -> setState {
         reducer(Async.Fail(error, retainValue?.get(this)?.value))
       }
     }
