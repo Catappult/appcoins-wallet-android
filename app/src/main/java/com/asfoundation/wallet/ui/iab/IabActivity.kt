@@ -26,6 +26,7 @@ import com.asf.wallet.databinding.ActivityIabBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.amazonPay.AmazonPayIABFragment
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.mipay.MiPayFragment
 import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
@@ -323,6 +324,35 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       addToBackStackName = VkPaymentIABFragment::class.java.simpleName
     )
   }
+
+  override fun showAmazonPay(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  ) {
+    replaceFragment(
+      AmazonPayIABFragment.newInstance(
+        paymentType = paymentType,
+        origin = getOrigin(isBds),
+        transactionBuilder = transaction!!,
+        amount = amount,
+        currency = currency,
+        bonus = bonus,
+        gamificationLevel = gamificationLevel,
+        skuDescription = getSkuDescription(),
+        isSubscription = isSubscription,
+        isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
+        frequency = frequency,
+      )
+    )
+  }
+
 
   override fun showGooglePayWeb(
     amount: BigDecimal,

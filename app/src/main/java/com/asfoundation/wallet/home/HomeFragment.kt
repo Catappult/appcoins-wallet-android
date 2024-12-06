@@ -136,7 +136,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       viewModel.showSupportScreen()
     }
     viewModel.fetchPromotions()
-    viewModel.isEmailError = false
+    viewModel.isEmailError.value = false
   }
 
   override fun onStart() {
@@ -161,7 +161,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen() },
-            hasNotificationBadge = viewModel.hasNotificationBadge,
+            hasNotificationBadge = viewModel.hasNotificationBadge.value,
             fragmentName = fragmentName,
             buttonsAnalytics = buttonsAnalytics
           )
@@ -182,8 +182,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         .padding(padding),
     ) {
       BalanceCard(
-        newWallet = viewModel.newWallet,
-        showBackup = viewModel.showBackup,
+        newWallet = viewModel.newWallet.value,
+        showBackup = viewModel.showBackup.value,
         balanceContent = { BalanceContent() },
         onClickTransfer = { viewModel.onTransferClick() },
         onClickBackup = { viewModel.onBackupClick() },
@@ -191,7 +191,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         onClickMenuOptions = { navigator.navigateToManageBottomSheet() },
         isLoading =
         (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
-            !viewModel.isLoadingTransactions,
+            !viewModel.isLoadingTransactions.value,
         fragmentName = fragmentName,
         buttonsAnalytics = buttonsAnalytics
       )
@@ -208,7 +208,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       }
       GamesBundle(
         listState,
-        viewModel.gamesList,
+        viewModel.gamesList.value,
         viewModel.referenceSendPromotionClickEvent()
       ) { viewModel.fetchGamesListing() }
       Spacer(modifier = Modifier.padding(40.dp))
@@ -318,7 +318,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     val hasSavedEmail = remember { viewModel.hasSavedEmail }
     val isEmailError = remember { viewModel.isEmailError }
     if (!hideUserEmailCard.value) {
-      if (!hasSavedEmail) {
+      if (!hasSavedEmail.value) {
         WelcomeEmailCard(
           email,
           {
@@ -328,8 +328,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             viewModel.saveHideWalletEmailCardPreferencesData(true)
             hideUserEmailCard.value = true
           },
-          isEmailError,
-          if (isEmailError) stringResource(id = viewModel.emailErrorText) else "",
+          isEmailError.value,
+          if (isEmailError.value) stringResource(id = viewModel.emailErrorText.value) else "",
           fragmentName = fragmentName,
           buttonsAnalytics = buttonsAnalytics
         )
@@ -468,7 +468,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   private fun setBackup(hasBackup: Async<Boolean>) {
     when (hasBackup) {
-      is Async.Success -> viewModel.showBackup = !(hasBackup.value ?: false)
+      is Async.Success -> viewModel.showBackup.value = !(hasBackup.value ?: false)
       else -> Unit
     }
   }

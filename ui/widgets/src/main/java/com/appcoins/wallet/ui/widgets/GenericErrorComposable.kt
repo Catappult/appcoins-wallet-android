@@ -35,7 +35,9 @@ fun GenericError(
   onSupportClick: () -> Unit,
   onTryAgain: () -> Unit,
   fragmentName: String,
-  buttonAnalytics: ButtonsAnalytics?
+  buttonAnalytics: ButtonsAnalytics?,
+  isDarkTheme: Boolean = true,
+  smallSpacing: Boolean = false,
 ) {
   Column(
     modifier = Modifier
@@ -55,13 +57,13 @@ fun GenericError(
     )
     Text(
       text = stringResource(id = R.string.error_general),
-      color = WalletColors.styleguide_white,
+      color = if (isDarkTheme) WalletColors.styleguide_white else WalletColors.styleguide_blue,
       fontSize = 16.sp,
       fontWeight = FontWeight.Bold,
     )
     Text(
       text = message,
-      color = WalletColors.styleguide_white,
+      color = if (isDarkTheme) WalletColors.styleguide_white else WalletColors.styleguide_blue,
       fontSize = 14.sp,
       modifier = Modifier
         .padding(top = 8.dp, bottom = 16.dp)
@@ -71,21 +73,21 @@ fun GenericError(
     )
     Text(
       text = stringResource(id = R.string.error_contac_us_body),
-      color = WalletColors.styleguide_medium_grey,
+      color = if (isDarkTheme) WalletColors.styleguide_medium_grey else WalletColors.styleguide_dark_grey,
       fontSize = 14.sp,
-      modifier = Modifier.padding(top = 48.dp),
+      modifier = Modifier.padding(top = if (smallSpacing) 4.dp else 16.dp),
       textAlign = TextAlign.Center,
       fontWeight = FontWeight.Medium
     )
-    SupportButton(onSupportClick = onSupportClick)
+    SupportButton(onSupportClick = onSupportClick, isDarkTheme = isDarkTheme)
     Spacer(Modifier.weight(232f))
     ButtonWithText(
       modifier = Modifier
-        .padding(top = 40.dp)
+        .padding(top = 16.dp)
         .widthIn(max = 360.dp),
       label = stringResource(R.string.try_again),
       onClick = onTryAgain,
-      labelColor = WalletColors.styleguide_white,
+      labelColor =  WalletColors.styleguide_white,
       backgroundColor = WalletColors.styleguide_pink,
       buttonType = ButtonType.LARGE,
       fragmentName = fragmentName,
@@ -95,13 +97,13 @@ fun GenericError(
 }
 
 @Composable
-fun SupportButton(onSupportClick: () -> Unit) {
+fun SupportButton(onSupportClick: () -> Unit, isDarkTheme: Boolean) {
   Button(
     onClick = onSupportClick,
     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
   ) {
     Image(
-      painterResource(id = R.drawable.ic_logo_appc_support_light),
+      painterResource(id = if(isDarkTheme) R.drawable.ic_logo_appc_support_light else R.drawable.ic_logo_appc_support),
       contentDescription = null,
       modifier = Modifier.padding(end = 8.dp)
     )
@@ -118,5 +120,19 @@ fun PreviewGenericError() {
     {},
     "HomeFragment",
     null
+  )
+}
+
+@Preview
+@Composable
+fun PreviewGenericErrorSmall() {
+  GenericError(
+    message = stringResource(id = R.string.manage_cards_error_details),
+    onSupportClick = {},
+    onTryAgain = {},
+    fragmentName = "HomeFragment",
+    buttonAnalytics = null,
+    isDarkTheme = false,
+    smallSpacing = true
   )
 }

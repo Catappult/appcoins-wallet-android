@@ -9,7 +9,6 @@ import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.TopupPaymentMethodsViewHolder
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.Subject
 
 
 class TopUpPaymentMethodsAdapter(
@@ -17,7 +16,7 @@ class TopUpPaymentMethodsAdapter(
   private var paymentMethodClick: PublishSubject<PaymentMethod>,
   private val logoutCallback: () -> Unit,
   private val disposables: CompositeDisposable,
-  private val showPayPalLogout: Subject<Boolean>,
+  internal var showLogoutAction: Boolean,
   private val cardsList: List<StoredCard>,
   private val onChangeCardCallback: () -> Unit,
 ) :
@@ -48,9 +47,9 @@ class TopUpPaymentMethodsAdapter(
         setSelectedItem(holder.absoluteAdapterPosition)
         paymentMethodClick.onNext(paymentMethods[position])
       },
-      onClickPaypalLogout = logoutCallback,
+      onClickLogoutAction = logoutCallback,
       disposables = disposables,
-      showPayPalLogout = showPayPalLogout,
+      showLogoutAction = showLogoutAction,
       cardData = cardsList.find { it.isSelectedCard } ?: cardsList.firstOrNull(),
       onChangeCardCallback = onChangeCardCallback
     )

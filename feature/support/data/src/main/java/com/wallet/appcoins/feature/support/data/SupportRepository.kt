@@ -27,7 +27,8 @@ class SupportRepository @Inject constructor(
   private val app: Application,
   private val ewtAuthenticatorService: EwtAuthenticatorService,
   private val supportApi: SupportApi,
-  private val logger: Logger
+  private val logger: Logger,
+  private val firebaseMessaging: FirebaseMessaging,
 ) {
 
   companion object {
@@ -74,7 +75,7 @@ class SupportRepository @Inject constructor(
   }
 
   private fun handleFirebaseToken() {
-    FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+    firebaseMessaging.token.addOnCompleteListener { task ->
       if (task.isSuccessful) {
         val token = task.result
         if (token != null) {

@@ -69,6 +69,11 @@ interface PaymentMethodsView {
     isSubscription: Boolean
   )
 
+  fun showAmazonPay(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
+
   fun showAdyen(
     fiatAmount: BigDecimal,
     fiatCurrency: String,
@@ -162,7 +167,7 @@ interface PaymentMethodsView {
 
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS,
-    EARN_APPC, CARRIER_BILLING, ERROR, SANDBOX, CHALLENGE_REWARD, VKPAY, GOOGLEPAY_WEB, MI_PAY
+    EARN_APPC, CARRIER_BILLING, ERROR, SANDBOX, CHALLENGE_REWARD, VKPAY, GOOGLEPAY_WEB, MI_PAY, AMAZONPAY
   }
 
   enum class PaymentMethodId(val id: String) {
@@ -179,5 +184,6 @@ interface PaymentMethodsView {
     VKPAY("vk_pay"),
     GOOGLEPAY_WEB("googlepay"),
     MI_PAY("mipay"),
+    AMAZONPAY("amazonpay")
   }
 }

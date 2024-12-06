@@ -46,6 +46,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.R
 import com.appcoins.wallet.ui.widgets.component.WalletTextField.FILLED_FIELD_SIZE
 import com.appcoins.wallet.ui.widgets.component.WalletTextField.TEXT_FIELD_LAST_INDEX
+import com.appcoins.wallet.ui.widgets.validEmailChars
 
 object WalletTextField {
   const val FILLED_FIELD_SIZE = 1
@@ -91,7 +92,14 @@ fun WalletTextField(
 ) {
   TextField(
     value = value,
-    onValueChange = onValueChange,
+    onValueChange = { input ->
+      if (keyboardType == KeyboardType.Email) {
+        val filteredInput = input.replace(validEmailChars, "")
+        onValueChange(filteredInput)
+      } else {
+        onValueChange(input)
+      }
+    },
     modifier = modifier,
     singleLine = true,
     shape = roundedCornerShape,

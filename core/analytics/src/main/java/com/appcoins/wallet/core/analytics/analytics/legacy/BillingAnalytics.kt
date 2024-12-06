@@ -34,7 +34,7 @@ class BillingAnalytics @Inject constructor(
     val eventData = mutableMapOf(
       EVENT_PURCHASE to purchaseData,
       EVENT_TRANSACTION_TYPE to transactionType,
-    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+    ).apply { if (isOnboardingPayment) this[EVENT_ONBOARDING_PAYMENT] = true }
 
     analytics.logEvent(
       eventData,
@@ -61,7 +61,7 @@ class BillingAnalytics @Inject constructor(
       EVENT_PURCHASE to purchaseData,
       EVENT_PAYMENT_METHOD to purchaseDetails,
       EVENT_TRANSACTION_TYPE to transactionType,
-    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+    ).apply { if (isOnboardingPayment) this[EVENT_ONBOARDING_PAYMENT] = true }
 
     analytics.logEvent(
       eventData,
@@ -108,13 +108,13 @@ class BillingAnalytics @Inject constructor(
     val purchaseData = mutableMapOf(
       EVENT_PACKAGE_NAME to packageName,
       EVENT_VALUE to value,
-    ).apply { skuDetails?.let { EVENT_SKU to skuDetails } }
+    ).apply { skuDetails?.let { this[EVENT_SKU] = skuDetails } }
 
     val eventData = mutableMapOf(
       EVENT_PURCHASE to purchaseData,
       EVENT_PAYMENT_METHOD to purchaseDetails,
       EVENT_TRANSACTION_TYPE to transactionType,
-    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+    ).apply { if (isOnboardingPayment) this[EVENT_ONBOARDING_PAYMENT] = true }
 
     analytics.logEvent(
       eventData,
@@ -131,7 +131,7 @@ class BillingAnalytics @Inject constructor(
     val eventData = mutableMapOf<String, Any>(
       EVENT_VALUE to value,
       EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId(),
-    ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+    ).apply { if (isOnboardingPayment) this[EVENT_ONBOARDING_PAYMENT] = true }
 
     analytics.logEvent(
       eventData,
@@ -158,7 +158,7 @@ class BillingAnalytics @Inject constructor(
       transactionType = transactionType,
       action = action,
       isOnboardingPayment = isOnboardingPayment
-    ).apply { EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId() }
+    ).apply { this[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId() }
 
     analytics.logEvent(
       eventData,
@@ -185,7 +185,7 @@ class BillingAnalytics @Inject constructor(
       transactionType = transactionType,
       action = action,
       isOnboardingPayment = isOnboardingPayment
-    ).apply { EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId() }
+    ).apply { this[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId() }
 
     analytics.logEvent(
       eventData,
@@ -212,7 +212,7 @@ class BillingAnalytics @Inject constructor(
       transactionType = transactionType,
       action = action,
       isOnboardingPayment = isOnboardingPayment
-    ).apply { EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId() }
+    ).apply { this[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId() }
 
     analytics.logEvent(
       eventData,
@@ -240,8 +240,8 @@ class BillingAnalytics @Inject constructor(
       status = EVENT_FAIL,
       isOnboardingPayment = isOnboardingPayment
     ).apply {
-      EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId()
-      EVENT_ERROR_CODE to errorCode
+      this[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
+      this[EVENT_ERROR_CODE] = errorCode
     }
     analytics.logEvent(
       eventData,
@@ -270,9 +270,9 @@ class BillingAnalytics @Inject constructor(
       status = EVENT_FAIL,
       isOnboardingPayment = isOnboardingPayment
     ).apply {
-      EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId()
-      EVENT_ERROR_CODE to errorCode
-      EVENT_ERROR_DETAILS to errorDetails
+      this[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
+      this[EVENT_ERROR_CODE] = errorCode
+      this[EVENT_ERROR_DETAILS] = errorDetails
     }
 
     analytics.logEvent(
@@ -303,10 +303,10 @@ class BillingAnalytics @Inject constructor(
       status = EVENT_FAIL,
       isOnboardingPayment = isOnboardingPayment
     ).apply {
-      EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId()
-      EVENT_ERROR_CODE to errorCode
-      errorDetails?.let { EVENT_ERROR_DETAILS to it }
-      riskRules?.let { EVENT_CODE_RISK_RULES to it }
+      this[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
+      this[EVENT_ERROR_CODE] = errorCode
+      errorDetails?.let { this[EVENT_ERROR_DETAILS] = it }
+      riskRules?.let { this[EVENT_CODE_RISK_RULES] = it }
     }
 
     analytics.logEvent(
@@ -383,7 +383,7 @@ class BillingAnalytics @Inject constructor(
       transactionType = transactionType,
       status = EVENT_PENDING,
       isOnboardingPayment = isOnboardingPayment
-    ).apply { EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId() }
+    ).apply { this[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId() }
 
     analytics.logEvent(
       eventData,
@@ -411,8 +411,8 @@ class BillingAnalytics @Inject constructor(
       EVENT_CONTEXT to context,
       EVENT_OEMID to (oemId ?: ""),
     ).apply {
-      purchaseDetails?.let { EVENT_PAYMENT_METHOD to it }
-      if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true
+      purchaseDetails?.let { this[EVENT_PAYMENT_METHOD] = it }
+      if (isOnboardingPayment) this[EVENT_ONBOARDING_PAYMENT] = true
     }
 
     analytics.logEvent(
@@ -442,12 +442,12 @@ class BillingAnalytics @Inject constructor(
       EVENT_RESULT_CODE to resultCode,
       EVENT_OEMID to oemIdPreferencesDataSource.getCurrentOemId(),
     ).apply {
-      EVENT_URL to if (url != null && url.length > MAX_CHARACTERS) {
+      this[EVENT_URL] = if (url != null && url.length > MAX_CHARACTERS) {
         url.substring(url.length - MAX_CHARACTERS)
       } else {
         url
       }
-      if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true
+      if (isOnboardingPayment) this[EVENT_ONBOARDING_PAYMENT] = true
     }
 
     analytics.logEvent(
@@ -473,7 +473,7 @@ class BillingAnalytics @Inject constructor(
     EVENT_TRANSACTION_TYPE to transactionType,
     EVENT_PAYMENT_METHOD to purchaseDetails,
     EVENT_ACTION to action,
-  ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+  ).apply { if (isOnboardingPayment) this[EVENT_ONBOARDING_PAYMENT] = true }
 
   private fun createConclusionWalletEventMap(
     packageName: String,
@@ -492,7 +492,7 @@ class BillingAnalytics @Inject constructor(
     EVENT_PAYMENT_METHOD to purchaseDetails,
     EVENT_STATUS to status,
     EVENT_CARD_PAYMENT_TYPE to cardPaymentType,
-  ).apply { if (isOnboardingPayment) EVENT_ONBOARDING_PAYMENT to true }
+  ).apply { if (isOnboardingPayment) this[EVENT_ONBOARDING_PAYMENT] = true }
 
   companion object {
     const val PURCHASE_DETAILS = "PURCHASE_DETAILS"
@@ -509,6 +509,7 @@ class BillingAnalytics @Inject constructor(
     const val PAYMENT_METHOD_CARRIER = "CARRIER"
     const val PAYMENT_METHOD_SANDBOX = "SANDBOX"
     const val PAYMENT_METHOD_MI_PAY = "MI_PAY"
+    const val PAYMENT_METHOD_AMAZON_PAY = "AMAZON_PAY"
     const val WALLET_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method"
     const val WALLET_PAYMENT_METHOD = "wallet_payment_method"
     const val WALLET_PAYMENT_CONFIRMATION = "wallet_payment_confirmation"

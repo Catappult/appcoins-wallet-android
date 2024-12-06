@@ -4,9 +4,12 @@ import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService
 import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
 import com.appcoins.wallet.feature.walletInfo.data.wallet.AccountWalletService
-import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletCreatorInteract
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.CreateWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetPrivateKeyUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RegisterFirebaseTokenUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SignUseCase
 import io.reactivex.Single
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.observers.TestObserver
@@ -21,17 +24,28 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class AccountWalletServiceTest {
 
+  private val signUseCase = SignUseCase()
+
   @Mock
   lateinit var accountKeyService: AccountKeystoreService
 
   @Mock
   lateinit var passwordStore: PasswordStore
 
-  @Mock
-  lateinit var walletCreatorInteract: WalletCreatorInteract
+
+  private val getPrivateKeyUseCase = GetPrivateKeyUseCase(
+    accountKeyService = accountKeyService,
+    passwordStore = passwordStore
+  )
 
   @Mock
-  lateinit var walletRepository: WalletRepositoryType
+  lateinit var createWalletUseCase: CreateWalletUseCase
+
+  @Mock
+  lateinit var registerFirebaseTokenUseCase: RegisterFirebaseTokenUseCase
+
+  @Mock
+  lateinit var walletRepositoryType: WalletRepositoryType
 
   @Mock
   lateinit var syncScheduler: ExecutorScheduler
@@ -47,16 +61,20 @@ class AccountWalletServiceTest {
 
   @Before
   fun setUp() {
-    `when`(walletRepository.getDefaultWallet()).thenReturn(
+    `when`(walletRepositoryType.getDefaultWallet()).thenReturn(
       Single.just(Wallet(ADDRESS))
     )
     `when`(passwordStore.getPassword(any())).thenReturn(Single.just(PASSWORD))
     `when`(accountKeyService.exportAccount(any(), any(), any())).thenReturn(Single.just(KEYSTORE))
 
     accountWalletService = AccountWalletService(
-      accountKeyService,
-      passwordStore, walletCreatorInteract,
-      walletRepository, syncScheduler
+      passwordStore = passwordStore,
+      walletRepository = walletRepositoryType,
+      syncScheduler = syncScheduler,
+      registerFirebaseTokenUseCase = registerFirebaseTokenUseCase,
+      getPrivateKeyUseCase = getPrivateKeyUseCase,
+      signUseCase = signUseCase,
+      createWalletUseCase = createWalletUseCase,
     )
   }
 

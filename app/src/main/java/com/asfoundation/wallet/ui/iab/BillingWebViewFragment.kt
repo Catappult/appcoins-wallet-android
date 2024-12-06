@@ -62,6 +62,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
     private var PAYPAL_SUCCESS_SCHEMA = PaypalReturnSchemas.RETURN.schema
     private var PAYPAL_CANCEL_SCHEMA = PaypalReturnSchemas.CANCEL.schema
+    private val AMAZON_PAY_SCHEMA = HostProperties.AMAZON_PAY_REDIRECT_BASE_URL
     private val EXTERNAL_INTENT_SCHEMA_LIST = listOf(
       "picpay://",
       "shopeeid://",
@@ -133,7 +134,8 @@ class BillingWebViewFragment : BasePageViewFragment() {
           clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) ||
               clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
               clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) ||
-              clickUrl.contains(APP_REDIRECT_SCHEMA)
+              clickUrl.contains(APP_REDIRECT_SCHEMA) ||
+              clickUrl.contains(AMAZON_PAY_SCHEMA)
           -> {
             currentUrl = clickUrl
             finishWithValidations(clickUrl)
