@@ -3,6 +3,7 @@ package com.appcoins.wallet.core.network.base
 import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64
 import com.google.gson.JsonObject
 import io.reactivex.Single
+import org.web3j.crypto.Keys.toChecksumAddress
 
 
 /**
@@ -25,6 +26,7 @@ class EwtAuthenticatorService(
 
   fun getEwtAuthentication(): Single<String> {
     return Single.just(walletRepository.getDefaultWalletAddress())
+      .map { toChecksumAddress(it) }
       .map { wallet -> getEwtAuthentication(wallet) }
   }
 
