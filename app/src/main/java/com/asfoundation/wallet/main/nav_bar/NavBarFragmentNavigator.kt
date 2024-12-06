@@ -21,7 +21,11 @@ class NavBarFragmentNavigator @Inject constructor() : Navigator {
     )
   }
 
-  fun navigateToRewards(navController: NavController, giftCard: String? = null, promoCode: String? = null) {
+  fun navigateToRewards(
+    navController: NavController,
+    giftCard: String? = null,
+    promoCode: String? = null
+  ) {
     navController.navigate(
       resId = R.id.reward_graph,
       args = getBundle(giftCard, promoCode),
@@ -48,7 +52,15 @@ class NavBarFragmentNavigator @Inject constructor() : Navigator {
     navigate(navController, NavBarGraphDirections.actionNavigateToFirstPaymentFragment())
   }
 
-  fun showOnboardingRecoverGuestWallet(navController: NavController) {
-    navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph())
+  fun showOnboardingRecoverGuestWallet(
+    navController: NavController,
+    createWalletAutomatically: Boolean
+  ) {
+    navigate(
+      navController = navController,
+      destination = SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph(
+        createWalletAutomatically = createWalletAutomatically
+      )
+    )
   }
 }

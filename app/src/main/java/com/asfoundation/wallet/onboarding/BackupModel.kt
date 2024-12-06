@@ -8,7 +8,10 @@ data class BackupModel(
   val backupPrivateKey: String = "",
   val flow: String = "",
   val paymentFunnel: String? = null
-) : Parcelable
+) : Parcelable {
+
+  fun isForRecoverWallet() = backupPrivateKey != "" && flow != "" && paymentFunnel != null
+}
 
 enum class OnboardingFlow {
   VERIFY_PAYPAL,

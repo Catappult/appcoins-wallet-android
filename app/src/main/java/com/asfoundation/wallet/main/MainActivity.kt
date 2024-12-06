@@ -126,6 +126,9 @@ class MainActivity : AppCompatActivity(),
     }
   }
 
+  private fun launchedFromPromoCodeOrGiftCard() =
+    intent.action == Intent.ACTION_VIEW && (intent.data?.host == BuildConfig.GIFT_CARD_HOST || intent.data?.host == BuildConfig.PROMO_CODE_HOST)
+
   override fun onStateChanged(state: MainActivityState) = Unit
 
   override fun onSideEffect(sideEffect: MainActivitySideEffect) {
@@ -136,14 +139,21 @@ class MainActivity : AppCompatActivity(),
       MainActivitySideEffect.NavigateToFingerprintAuthentication ->
         navigator.showAuthenticationActivity(this, authenticationResultLauncher)
 
-      MainActivitySideEffect.NavigateToOnboarding ->
-        navigator.navigateToOnboarding(navController)
+      MainActivitySideEffect.NavigateToOnboarding -> {
+        navigator.navigateToOnboarding(
+          navController = navController,
+          createWalletAutomatically = launchedFromPromoCodeOrGiftCard()
+        )
+      }
 
-      is MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet ->
+      is MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet -> {
+        val launchedFromPromoCodeOrGiftCard = launchedFromPromoCodeOrGiftCard()
         navigator.navigateToOnboardingRecoverGuestWallet(
           navController = navController,
           backupModel = sideEffect.backupModel,
+          createWalletAutomatically = launchedFromPromoCodeOrGiftCard
         )
+      }
 
       MainActivitySideEffect.NavigateToNavigationBar ->
         navigator.navigateToNavBarFragment(navController)

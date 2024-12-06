@@ -19,17 +19,29 @@ import javax.inject.Inject
 class MainActivityNavigator @Inject constructor() :
   Navigator {
 
-  fun navigateToOnboarding(navController: NavController) {
-    navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph())
+  fun navigateToOnboarding(
+    navController: NavController,
+    createWalletAutomatically: Boolean
+  ) {
+    navigate(
+      navController = navController,
+      destination = SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph(
+        createWalletAutomatically = createWalletAutomatically
+      )
+    )
   }
 
   fun navigateToOnboardingRecoverGuestWallet(
     navController: NavController,
     backupModel: BackupModel,
+    createWalletAutomatically: Boolean
   ) {
     navController.setGraph(
       graphResId = R.navigation.onboarding_graph,
-      startDestinationArgs = OnboardingFragmentArgs(backupModel = backupModel).toBundle()
+      startDestinationArgs = OnboardingFragmentArgs(
+        backupModel = backupModel,
+        createWalletAutomatically = createWalletAutomatically
+      ).toBundle()
     )
   }
 
@@ -73,7 +85,10 @@ class MainActivityNavigator @Inject constructor() :
   fun navigateToPromoCodeFromSplashScreen(navController: NavController, promoCode: String) {
     navigate(
       navController,
-      SplashExtenderFragmentDirections.actionNavigateToNavBarGraph(giftCard = null, promoCode = promoCode),
+      SplashExtenderFragmentDirections.actionNavigateToNavBarGraph(
+        giftCard = null,
+        promoCode = promoCode
+      ),
     )
   }
 

@@ -260,7 +260,10 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   private fun showOnboardingRecoverGuestWallet() {
     views.fullHostContainer.visibility = View.VISIBLE
-    navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController)
+    navigator.showOnboardingRecoverGuestWallet(
+      navController = mainHostFragment.navController,
+      createWalletAutomatically = false
+    )
   }
 
   private fun adjustBottomNavigationViewOnKeyboardVisibility() {
@@ -276,6 +279,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
           views.composeView.visibility = View.VISIBLE
         }
       } catch (e: Exception) {
+        e.printStackTrace()
       }
     }
     views.root.viewTreeObserver?.addOnGlobalLayoutListener(keyboardListener)
