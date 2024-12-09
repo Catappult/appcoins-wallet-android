@@ -65,11 +65,7 @@ class OnboardingFragment : BasePageViewFragment(),
     handleBackPress()
     lockRotation()
     if (createWalletAutomatically) {
-      if (!backupModel.isForRecoverWallet()) {
-        viewModel.handleLaunchWalletClick()
-      } else {
-        viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
-      }
+      createWalletAutomatically()
     }
   }
 
@@ -319,6 +315,14 @@ class OnboardingFragment : BasePageViewFragment(),
 
   fun unlockRotation() {
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+  }
+
+  fun createWalletAutomatically() {
+    if (!backupModel.isForRecoverWallet()) {
+      viewModel.handleLaunchWalletClick()
+    } else {
+      viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
+    }
   }
 
 }
