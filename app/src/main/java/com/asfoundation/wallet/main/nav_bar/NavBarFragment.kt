@@ -102,9 +102,11 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     views.composeView.setContent { BottomNavigationHome() }
     arguments?.getString(EXTRA_GIFT_CARD)?.let {
       handleGiftCard(it)
+      arguments?.remove(EXTRA_GIFT_CARD)
     }
     arguments?.getString(EXTRA_PROMO_CODE)?.let {
       handlePromoCode(it)
+      arguments?.remove(EXTRA_PROMO_CODE)
     }
   }
 
@@ -260,7 +262,10 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   private fun showOnboardingRecoverGuestWallet() {
     views.fullHostContainer.visibility = View.VISIBLE
-    navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController)
+    navigator.showOnboardingRecoverGuestWallet(
+      navController = mainHostFragment.navController,
+      createWalletAutomatically = false
+    )
   }
 
   private fun adjustBottomNavigationViewOnKeyboardVisibility() {
@@ -276,6 +281,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
           views.composeView.visibility = View.VISIBLE
         }
       } catch (e: Exception) {
+        e.printStackTrace()
       }
     }
     views.root.viewTreeObserver?.addOnGlobalLayoutListener(keyboardListener)
