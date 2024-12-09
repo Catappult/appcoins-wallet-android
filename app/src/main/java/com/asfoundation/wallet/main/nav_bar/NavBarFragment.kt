@@ -102,9 +102,11 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     views.composeView.setContent { BottomNavigationHome() }
     arguments?.getString(EXTRA_GIFT_CARD)?.let {
       handleGiftCard(it)
+      arguments?.remove(EXTRA_GIFT_CARD)
     }
     arguments?.getString(EXTRA_PROMO_CODE)?.let {
       handlePromoCode(it)
+      arguments?.remove(EXTRA_PROMO_CODE)
     }
   }
 
