@@ -26,23 +26,17 @@ class GetPaymentInfoFilterByCardModelUseCase @Inject constructor(
     return Single.zip(
       walletService.getWalletAddress().subscribeOn(rxSchedulers.io),
       ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-    ) { walletModel, ewt ->
-      Pair(walletModel, ewt)
-    }
-      .flatMap { pair ->
-        val wallet = pair.first
-        val ewt = pair.second
+    ) { walletModel, ewt -> walletModel to ewt }
+      .flatMap { (walletModel, ewt) ->
         adyenApi.loadPaymentInfo(
-          wallet,
-          ewt,
-          value,
-          currency,
-          mapPaymentToService().transactionType,
+          walletAddress = walletModel,
+          authorization = ewt,
+          value = value,
+          currency = currency,
+          methods = mapPaymentToService().transactionType,
         )
           .map { adyenResponseMapper.mapWithFilterByCard(it, mapPaymentToService(), cardId) }
-          .onErrorReturn {
-            adyenResponseMapper.mapInfoModelError(it)
-          }
+          .onErrorReturn { adyenResponseMapper.mapInfoModelError(it) }
       }
   }
 
