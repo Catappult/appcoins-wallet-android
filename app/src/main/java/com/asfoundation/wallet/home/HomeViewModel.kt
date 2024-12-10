@@ -52,9 +52,7 @@ import com.asfoundation.wallet.home.usecases.GetImpressionUseCase
 import com.asfoundation.wallet.home.usecases.GetLastShownUserLevelUseCase
 import com.asfoundation.wallet.home.usecases.GetLevelsUseCase
 import com.asfoundation.wallet.home.usecases.GetUnreadConversationsCountEventsUseCase
-import com.asfoundation.wallet.home.usecases.GetUserLevelUseCase
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
-import com.asfoundation.wallet.home.usecases.RegisterSupportUserUseCase
 import com.asfoundation.wallet.home.usecases.ShouldOpenRatingDialogUseCase
 import com.asfoundation.wallet.home.usecases.UpdateLastShownUserLevelUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsModel
@@ -67,7 +65,6 @@ import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.github.michaelbull.result.unwrap
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -134,12 +131,10 @@ constructor(
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val getGamesListingUseCase: GetGamesListingUseCase,
   private val getLevelsUseCase: GetLevelsUseCase,
-  private val getUserLevelUseCase: GetUserLevelUseCase,
   private val observeUserStatsUseCase: ObserveUserStatsUseCase,
   private val getLastShownUserLevelUseCase: GetLastShownUserLevelUseCase,
   private val updateLastShownUserLevelUseCase: UpdateLastShownUserLevelUseCase,
   private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
-  private val registerSupportUserUseCase: RegisterSupportUserUseCase,
   private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
   private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
@@ -201,7 +196,7 @@ constructor(
   }
 
   private fun observeRefreshData(): Observable<Boolean> {
-    return refreshData.filter { refreshData: Boolean? -> refreshData!! }
+    return refreshData.filter { it }
   }
 
   fun updateData() {
@@ -229,7 +224,6 @@ constructor(
     return Observable.mergeDelayError(
       observeBalance(),
       updateTransactions(model).subscribeOn(rxSchedulers.io),
-      updateRegisterUser(model.wallet).toObservable(),
       observeBackup()
     )
       .map {}
@@ -291,24 +285,6 @@ constructor(
         e.printStackTrace()
       }
     }
-  }
-
-  private fun updateRegisterUser(wallet: Wallet): Completable {
-    return getUserLevelUseCase()
-      .subscribeOn(rxSchedulers.io)
-      .map { userLevel ->
-        registerSupportUser(userLevel, wallet.address)
-        true
-      }
-      .ignoreElement()
-      .doOnError {
-        it.printStackTrace()
-      }
-      .subscribeOn(rxSchedulers.io)
-  }
-
-  private fun registerSupportUser(level: Int, walletAddress: String) {
-    registerSupportUserUseCase(level, walletAddress)
   }
 
   /**

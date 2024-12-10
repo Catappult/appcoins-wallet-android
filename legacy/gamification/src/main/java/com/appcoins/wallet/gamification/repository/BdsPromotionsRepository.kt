@@ -32,7 +32,8 @@ class BdsPromotionsRepository @Inject constructor(
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.
   private fun getUserStatsFromResponses(
-    wallet: String, promoCodeString: String?,
+    wallet: String,
+    promoCodeString: String?,
     offlineFirst: Boolean = true
   ): Observable<UserStats> = if (offlineFirst) {
     Observable.concat(
@@ -49,18 +50,17 @@ class BdsPromotionsRepository @Inject constructor(
     wallet: String,
     throwable: Throwable? = null
   ): Observable<UserStats> = Single.zip(
-    local.getPromotions(), local.retrieveWalletOrigin(wallet)
-  ) { promotions: List<PromotionsResponse>, walletOrigin: WalletOrigin ->
-    Pair(promotions, walletOrigin)
-  }
-    .toObservable()
-    .map { (promotions, walletOrigin) ->
+    local.getPromotions(),
+    local.retrieveWalletOrigin(wallet)
+  ) { promotions, wallet -> wallet to promotions }
+    .map { (walletOrigin, promotions) ->
       if (throwable == null) {
         UserStats(promotions, walletOrigin, null, true)
       } else {
         mapErrorToUserStatsModel(promotions, walletOrigin, throwable)
       }
     }
+    .toObservable()
     .onErrorReturn {
       mapErrorToUserStatsModel(throwable ?: it, throwable == null)
     }
@@ -151,8 +151,9 @@ class BdsPromotionsRepository @Inject constructor(
 
   override fun getGamificationStats(
     wallet: String,
-    promoCodeString: String?
-  ): Observable<PromotionsGamificationStats> = getUserStatsFromResponses(wallet, promoCodeString)
+    promoCodeString: String?,
+    offlineFirst: Boolean
+  ): Observable<PromotionsGamificationStats> = getUserStatsFromResponses(wallet, promoCodeString, offlineFirst)
     .map {
       val gamificationStats = mapToGamificationStats(it)
       if (!it.fromCache && it.error == null) local.setGamificationLevel(gamificationStats.level)

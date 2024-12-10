@@ -14,7 +14,7 @@ class GamificationApiTest : GamificationApi {
   var levelsResponse: Single<LevelsResponse>? = null
   var bonusResponse: Single<ForecastBonusResponse>? = null
   private var referralResponse: Single<ReferralResponse>? = null
-  var vipReferralResponse: Single<VipReferralResponse>? = null
+  private var vipReferralResponse: Single<VipReferralResponse>? = null
 
   override fun getUserStats(
     address: String,

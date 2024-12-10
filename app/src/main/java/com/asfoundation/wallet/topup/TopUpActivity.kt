@@ -24,6 +24,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.GooglePayTopupFragment
 import com.asfoundation.wallet.billing.paypal.PayPalTopupFragment
 import com.asfoundation.wallet.billing.true_layer.TrueLayerTopupFragment
+import com.asfoundation.wallet.gamification.UpdateUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -53,6 +54,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   @Inject
   lateinit var topUpInteractor: TopUpInteractor
+
+  @Inject
+  lateinit var updateUserStatsUseCase: UpdateUserStatsUseCase
 
   @Inject
   lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
@@ -97,14 +101,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
     presenter = TopUpActivityPresenter(
-      this,
-      topUpInteractor,
-      startVipReferralPollingUseCase,
-      AndroidSchedulers.mainThread(),
-      Schedulers.io(),
-      CompositeDisposable(),
-      logger,
-      displayChatUseCase
+      view = this,
+      topUpInteractor = topUpInteractor,
+      startVipReferralPollingUseCase = startVipReferralPollingUseCase,
+      viewScheduler = AndroidSchedulers.mainThread(),
+      networkScheduler = Schedulers.io(),
+      disposables = CompositeDisposable(),
+      logger = logger,
+      displayChatUseCase = displayChatUseCase,
+      updateUserStatsUseCase = updateUserStatsUseCase,
     )
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)

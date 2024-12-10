@@ -19,7 +19,8 @@ class FakePromotionsRepository : PromotionsRepository {
 
   override fun getGamificationStats(
     wallet: String,
-    promoCodeString: String?
+    promoCodeString: String?,
+    offlineFirst: Boolean
   ): Observable<PromotionsGamificationStats> {
     TODO("Not yet implemented")
   }

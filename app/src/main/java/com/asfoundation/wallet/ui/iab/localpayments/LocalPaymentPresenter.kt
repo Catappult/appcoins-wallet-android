@@ -293,7 +293,7 @@ class LocalPaymentPresenter(
   private fun handleSupportClicks(uid: String?) {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
       .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .flatMapCompletable { localPaymentInteractor.showSupport(data.gamificationLevel, uid) }
+      .flatMapCompletable { localPaymentInteractor.showSupport(uid) }
       .subscribe({}, { it.printStackTrace() })
     )
   }
