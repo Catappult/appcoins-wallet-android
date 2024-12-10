@@ -78,8 +78,8 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondar
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.widgets.BackupAlertCard
-import com.appcoins.wallet.ui.widgets.ScreenTitle
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.ScreenTitle
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.VerifyWalletAlertCard
 import com.appcoins.wallet.ui.widgets.component.Animation
@@ -139,7 +139,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     LaunchedEffect(key1 = dialogDismissed) { viewModel.getWallets() }
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)}
+        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) }
       },
       containerColor = styleguide_blue,
     ) { padding ->

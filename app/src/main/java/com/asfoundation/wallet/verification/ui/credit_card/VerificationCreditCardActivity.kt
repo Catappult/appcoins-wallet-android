@@ -9,7 +9,7 @@ import android.view.View
 import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityWalletVerificationBinding
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase

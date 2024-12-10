@@ -2,7 +2,6 @@ package com.asfoundation.wallet.wallet_reward
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,7 +59,7 @@ import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingGamificationCard
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingRewardsActionsCard
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.VipReferralCard
 import com.appcoins.wallet.ui.widgets.expanded
 import com.appcoins.wallet.ui.widgets.openGame
@@ -123,7 +122,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
-    viewModel.updateNotificationBadge()
     arguments?.getString(EXTRA_GIFT_CARD)?.let {
       navigator.showGiftCardFragment(it)
     }
@@ -152,10 +150,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         Surface {
           TopBar(
             isMainBar = true,
-            onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen() },
-            hasNotificationBadge = viewModel.hasNotificationBadge.value,
             fragmentName = fragmentName,
             buttonsAnalytics = buttonsAnalytics
           )

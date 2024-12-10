@@ -1,4 +1,4 @@
-package com.appcoins.wallet.ui.widgets
+package com.appcoins.wallet.ui.widgets.top_bar
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,12 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -21,21 +20,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.widgets.ActionButton
+import com.appcoins.wallet.ui.widgets.R
 
 @Composable
 fun TopBar(
   isMainBar: Boolean,
-  onClickNotifications: () -> Unit = {},
   onClickSettings: () -> Unit = {},
   onClickSupport: () -> Unit = {},
   onClickBack: (() -> Unit)? = null,
-  hasNotificationBadge: Boolean = false,
   fragmentName: String,
   buttonsAnalytics: ButtonsAnalytics?
 ) {
+  val viewModel = hiltViewModel<TopBarComposableViewModel>()
+  val hasNotificationBadge by viewModel.uiState.collectAsState()
+
   Row(
     modifier = Modifier
       .fillMaxWidth()
@@ -66,10 +69,12 @@ fun TopBar(
 fun TopBar(
   onClickSupport: () -> Unit = {},
   onClickBack: (() -> Unit)? = null,
-  hasNotificationBadge: Boolean = false,
   fragmentName: String,
   buttonsAnalytics: ButtonsAnalytics?
 ) {
+  val viewModel = hiltViewModel<TopBarComposableViewModel>()
+  val hasNotificationBadge by viewModel.uiState.collectAsState()
+
   Row(
     modifier =
     Modifier
@@ -188,7 +193,6 @@ fun ScreenTitle(title: String) {
 fun TopBarPreview() {
   TopBar(
     isMainBar = true,
-    hasNotificationBadge = true,
     fragmentName = "TestFragment",
     buttonsAnalytics = null
   )

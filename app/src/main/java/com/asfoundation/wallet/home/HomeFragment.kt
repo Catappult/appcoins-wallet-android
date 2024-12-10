@@ -2,7 +2,6 @@ package com.asfoundation.wallet.home
 
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,7 +62,7 @@ import com.appcoins.wallet.ui.widgets.GamesBundle
 import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingTransactionCard
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionCard
 import com.appcoins.wallet.ui.widgets.WelcomeEmailCard
 import com.appcoins.wallet.ui.widgets.component.BalanceValue
@@ -157,10 +156,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         Surface {
           TopBar(
             isMainBar = true,
-            onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen() },
-            hasNotificationBadge = viewModel.hasNotificationBadge.value,
             fragmentName = fragmentName,
             buttonsAnalytics = buttonsAnalytics
           )

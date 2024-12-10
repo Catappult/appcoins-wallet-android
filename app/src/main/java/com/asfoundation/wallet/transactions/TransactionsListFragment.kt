@@ -36,7 +36,7 @@ import androidx.paging.compose.itemKey
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDay
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionCard
 import com.appcoins.wallet.ui.widgets.TransactionSeparator
 import com.asf.wallet.R
