@@ -3,10 +3,8 @@ package com.asfoundation.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics
@@ -35,7 +33,6 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
-import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.EmailPreferencesDataSource
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
@@ -104,7 +101,6 @@ data class HomeState(
   val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
   val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
-  val unreadMessages: Boolean = false,
   val hasBackup: Async<Boolean> = Async.Uninitialized
 ) : ViewState
 
@@ -142,7 +138,6 @@ constructor(
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers,
   private val logger: Logger,
-  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
   private val postUserEmailUseCase: PostUserEmailUseCase,
   private val emailPreferencesDataSource: EmailPreferencesDataSource,
   private val emailAnalytics: EmailAnalytics,
@@ -185,7 +180,6 @@ constructor(
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
     fetchPromotions()
-    hasNotificationBadge.value = commonsPreferencesDataSource.getUpdateNotificationBadge()
   }
 
   private fun handleWalletData() {
@@ -441,10 +435,9 @@ constructor(
   private fun handleUnreadConversationCount() {
     observeRefreshData()
       .switchMap {
-        getUnreadConversationsCountEventsUseCase().subscribeOn(rxSchedulers.main)
-          .doOnNext { count: Int? ->
-            setState { copy(unreadMessages = (count != null && count != 0)) }
-          }
+        getUnreadConversationsCountEventsUseCase()
+          .subscribeOn(rxSchedulers.main)
+          .doOnNext { count -> hasNotificationBadge.value = count > 0 }
       }
       .scopedSubscribe { e -> e.printStackTrace() }
   }
@@ -459,7 +452,6 @@ constructor(
   }
 
   fun showSupportScreen() {
-    commonsPreferencesDataSource.setUpdateNotificationBadge(false)
     displayChatUseCase()
   }
 

@@ -123,7 +123,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
-    viewModel.updateNotificationBadge()
     arguments?.getString(EXTRA_GIFT_CARD)?.let {
       navigator.showGiftCardFragment(it)
     }
