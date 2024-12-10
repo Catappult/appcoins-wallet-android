@@ -4,10 +4,10 @@ import com.appcoins.wallet.core.network.backend.model.GamificationResponse
 import com.appcoins.wallet.core.network.backend.model.GenericResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.FindDefaultWalletUseCase
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
-import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor

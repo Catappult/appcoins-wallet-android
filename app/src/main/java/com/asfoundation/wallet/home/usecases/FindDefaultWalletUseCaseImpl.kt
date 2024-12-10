@@ -1,21 +1,23 @@
-package com.appcoins.wallet.feature.walletInfo.data.wallet
+package com.asfoundation.wallet.home.usecases
 
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.FindDefaultWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetActiveWalletUseCase
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
+import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-class FindDefaultWalletInteract @Inject constructor(
+@BoundTo(FindDefaultWalletUseCase::class)
+class FindDefaultWalletUseCaseImpl @Inject constructor(
   private val walletRepository: WalletRepositoryType,
-  private val rxSchedulers: RxSchedulers,
   private val setActiveWalletUseCase: SetActiveWalletUseCase
-) {
+): FindDefaultWalletUseCase {
 
-  fun find(): Single<Wallet> {
+  override operator fun invoke(): Single<Wallet> {
     return walletRepository.getDefaultWallet()
-      .subscribeOn(rxSchedulers.io)
+      .subscribeOn(Schedulers.io())
       .onErrorResumeNext {
         walletRepository.fetchWallets()
           .filter { it.isNotEmpty() }

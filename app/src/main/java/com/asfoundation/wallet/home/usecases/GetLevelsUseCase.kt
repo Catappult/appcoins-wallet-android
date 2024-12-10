@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.home.usecases
 
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.FindDefaultWalletUseCase
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.Levels
 import io.reactivex.Single

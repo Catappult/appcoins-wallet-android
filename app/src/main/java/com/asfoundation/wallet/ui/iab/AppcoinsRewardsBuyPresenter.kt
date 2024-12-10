@@ -308,7 +308,7 @@ class AppcoinsRewardsBuyPresenter(
       Observable.merge(view.getSupportIconClick(), view.getSupportLogoClick())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
-        .flatMapCompletable { appcoinsRewardsBuyInteract.showSupport(gamificationLevel) }
+        .flatMapCompletable { appcoinsRewardsBuyInteract.showSupport() }
         .subscribe({}, { it.printStackTrace() })
     )
   }

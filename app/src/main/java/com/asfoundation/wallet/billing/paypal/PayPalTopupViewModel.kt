@@ -222,9 +222,9 @@ class PayPalTopupViewModel @Inject constructor(
     )
   }
 
-  fun showSupport(gamificationLevel: Int) {
+  fun showSupport() {
     compositeDisposable.add(
-      supportInteractor.showSupport(gamificationLevel).subscribe({}, { it.printStackTrace() })
+      supportInteractor.showSupport().subscribe({}, { it.printStackTrace() })
     )
   }
 

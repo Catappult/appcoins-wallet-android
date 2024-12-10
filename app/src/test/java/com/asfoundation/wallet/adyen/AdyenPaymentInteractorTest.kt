@@ -148,10 +148,10 @@ class AdyenPaymentInteractorTest {
   @Test
   fun showSupportTest() {
     val testObserver = TestObserver<Any>()
-    Mockito.`when`(supportInteractor.showSupport(1, ""))
+    Mockito.`when`(supportInteractor.showSupport(""))
       .thenReturn(Completable.complete())
 
-    interactor.showSupport(1, "")
+    interactor.showSupport("")
       .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -161,7 +161,6 @@ class AdyenPaymentInteractorTest {
   @Test
   fun loadPaymentInfoTest() {
     val testObserver = TestObserver<PaymentInfoModel>()
-    val expectedModel = PaymentInfoModel(null, false, BigDecimal(2), TEST_FIAT_CURRENCY)
     Mockito.`when`(walletService.getWalletAddress())
       .thenReturn(
         Single.just(TEST_WALLET_ADDRESS)
@@ -198,10 +197,29 @@ class AdyenPaymentInteractorTest {
       .thenReturn(Single.just(PromoCode(null, null, null, null)))
     Mockito.`when`(
       repository.makePayment(
-        payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, "", "package", null, "sku", null,
-        "INAPP", "store_address", "oem_address", null, TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE, null, null
+        adyenPaymentMethod = payment,
+        shouldStoreMethod = false,
+        hasCvc = false,
+        supportedShopperInteractions = emptyList(),
+        returnUrl = "",
+        value = TEST_FIAT_VALUE,
+        currency = TEST_FIAT_CURRENCY,
+        reference = null,
+        paymentType = "",
+        walletAddress = TEST_WALLET_ADDRESS,
+        origin = "",
+        packageName = "package",
+        metadata = null,
+        sku = "sku",
+        callbackUrl = null,
+        transactionType = "INAPP",
+        entityOemId = "store_address",
+        entityDomain = "oem_address",
+        entityPromoCode = null,
+        userWallet = TEST_WALLET_ADDRESS,
+        walletSignature = TEST_WALLET_SIGNATURE,
+        referrerUrl = null,
+        guestWalletId = null
       )
     )
       .thenReturn(Single.just(expectedModel))
@@ -244,16 +262,44 @@ class AdyenPaymentInteractorTest {
       .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(
       repository.makePayment(
-        payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, null, "wallet", null, null, null,
-        "TOPUP", null, null, null, null, TEST_WALLET_SIGNATURE, null, null
+        adyenPaymentMethod = payment,
+        shouldStoreMethod = false,
+        hasCvc = false,
+        supportedShopperInteractions = emptyList(),
+        returnUrl = "",
+        value = TEST_FIAT_VALUE,
+        currency = TEST_FIAT_CURRENCY,
+        reference = null,
+        paymentType = "",
+        walletAddress = TEST_WALLET_ADDRESS,
+        origin = null,
+        packageName = "wallet",
+        metadata = null,
+        sku = null,
+        callbackUrl = null,
+        transactionType = "TOPUP",
+        entityOemId = null,
+        entityDomain = null,
+        entityPromoCode = null,
+        userWallet = null,
+        walletSignature = TEST_WALLET_SIGNATURE,
+        referrerUrl = null,
+        guestWalletId = null
       )
     )
       .thenReturn(Single.just(expectedModel))
 
     interactor.makeTopUpPayment(
-      payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
-      TEST_FIAT_CURRENCY, "", "TOPUP", "wallet"
+      adyenPaymentMethod = payment,
+      shouldStoreMethod = false,
+      hasCvc = false,
+      supportedShopperInteraction = emptyList(),
+      returnUrl = "",
+      value = TEST_FIAT_VALUE,
+      currency = TEST_FIAT_CURRENCY,
+      paymentType = "",
+      transactionType = "TOPUP",
+      packageName = "wallet"
     )
       .subscribe(testObserver)
 

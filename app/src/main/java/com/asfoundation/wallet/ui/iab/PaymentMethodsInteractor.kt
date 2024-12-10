@@ -39,8 +39,8 @@ class PaymentMethodsInteractor @Inject constructor(
 
   private var uid: String? = null
 
-  fun showSupport(gamificationLevel: Int): Completable {
-    return supportInteractor.showSupport(gamificationLevel, uid)
+  fun showSupport(): Completable {
+    return supportInteractor.showSupport(uid)
   }
 
   fun isBonusActiveAndValid() = gamificationInteractor.isBonusActiveAndValid()
