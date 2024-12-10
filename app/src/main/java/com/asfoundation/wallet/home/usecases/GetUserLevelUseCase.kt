@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.home.usecases
 
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.FindDefaultWalletUseCase
 import com.appcoins.wallet.gamification.Gamification
 import io.reactivex.Single
 import javax.inject.Inject

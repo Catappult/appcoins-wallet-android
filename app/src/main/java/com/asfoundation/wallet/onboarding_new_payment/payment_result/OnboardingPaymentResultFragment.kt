@@ -97,10 +97,10 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
       viewModel.setResponseCodeWebSocket(SDK_STATUS_USER_CANCEL)
     }
     views.genericErrorLayout.layoutSupportIcn.setOnClickListener {
-      viewModel.showSupport(args.forecastBonus.level)
+      viewModel.showSupport()
     }
     views.genericErrorLayout.layoutSupportLogo.setOnClickListener {
-      viewModel.showSupport(args.forecastBonus.level)
+      viewModel.showSupport()
     }
     views.onboardingSuccessButtons.backToGameButton.setOnClickListener {
       viewModel.handleBackToGameClick()

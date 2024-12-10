@@ -263,9 +263,9 @@ class SandboxViewModel @Inject constructor(
     )
   }
 
-  fun showSupport(gamificationLevel: Int) {
+  fun showSupport() {
     compositeDisposable.add(
-      supportInteractor.showSupport(gamificationLevel, uid).subscribe({}, { it.printStackTrace() })
+      supportInteractor.showSupport(uid).subscribe({}, { it.printStackTrace() })
     )
   }
 

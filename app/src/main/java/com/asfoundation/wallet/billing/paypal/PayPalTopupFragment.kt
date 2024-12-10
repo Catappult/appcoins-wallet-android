@@ -135,7 +135,7 @@ class PayPalTopupFragment : BasePageViewFragment() {
       close()
     }
     views.paypalErrorLayout.layoutSupportIcn.setOnClickListener {
-      viewModel.showSupport(gamificationLevel)
+      viewModel.showSupport()
     }
   }
 

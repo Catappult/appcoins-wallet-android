@@ -131,7 +131,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     if (!fromSupportNotification) {
       viewModel.updateData()
       checkRoot()
-      Intercom.client().handlePushMessage()
     } else {
       viewModel.showSupportScreen()
     }
@@ -503,6 +502,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             viewModel.activePromotions.add(cardItem)
           }
         }
+
+        Intercom.client().handlePushMessage()
       }
 
       else -> Unit

@@ -114,7 +114,7 @@ class SandboxFragment : BasePageViewFragment() {
         override fun onAnimationStart(animation: Animator) = Unit
       })
     views.sandboxErrorLayout.layoutSupportIcn.setOnClickListener {
-      viewModel.showSupport(gamificationLevel)
+      viewModel.showSupport()
     }
   }
 

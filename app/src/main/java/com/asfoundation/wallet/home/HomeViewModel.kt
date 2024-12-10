@@ -3,10 +3,8 @@ package com.asfoundation.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics
@@ -28,13 +26,13 @@ import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurr
 import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.FindDefaultWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
-import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.EmailPreferencesDataSource
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
@@ -44,7 +42,6 @@ import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.HomeViewModel.UiState.Success
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.FetchTransactionsHistoryUseCase
-import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
 import com.asfoundation.wallet.home.usecases.GetCardNotificationsUseCase
 import com.asfoundation.wallet.home.usecases.GetGamesListingUseCase
@@ -52,9 +49,7 @@ import com.asfoundation.wallet.home.usecases.GetImpressionUseCase
 import com.asfoundation.wallet.home.usecases.GetLastShownUserLevelUseCase
 import com.asfoundation.wallet.home.usecases.GetLevelsUseCase
 import com.asfoundation.wallet.home.usecases.GetUnreadConversationsCountEventsUseCase
-import com.asfoundation.wallet.home.usecases.GetUserLevelUseCase
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
-import com.asfoundation.wallet.home.usecases.RegisterSupportUserUseCase
 import com.asfoundation.wallet.home.usecases.ShouldOpenRatingDialogUseCase
 import com.asfoundation.wallet.home.usecases.UpdateLastShownUserLevelUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsModel
@@ -67,7 +62,6 @@ import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.github.michaelbull.result.unwrap
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -107,7 +101,6 @@ data class HomeState(
   val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
   val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
-  val unreadMessages: Boolean = false,
   val hasBackup: Async<Boolean> = Async.Uninitialized
 ) : ViewState
 
@@ -134,12 +127,10 @@ constructor(
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val getGamesListingUseCase: GetGamesListingUseCase,
   private val getLevelsUseCase: GetLevelsUseCase,
-  private val getUserLevelUseCase: GetUserLevelUseCase,
   private val observeUserStatsUseCase: ObserveUserStatsUseCase,
   private val getLastShownUserLevelUseCase: GetLastShownUserLevelUseCase,
   private val updateLastShownUserLevelUseCase: UpdateLastShownUserLevelUseCase,
   private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
-  private val registerSupportUserUseCase: RegisterSupportUserUseCase,
   private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
   private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
@@ -147,7 +138,6 @@ constructor(
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers,
   private val logger: Logger,
-  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
   private val postUserEmailUseCase: PostUserEmailUseCase,
   private val emailPreferencesDataSource: EmailPreferencesDataSource,
   private val emailAnalytics: EmailAnalytics,
@@ -190,7 +180,6 @@ constructor(
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
     fetchPromotions()
-    hasNotificationBadge.value = commonsPreferencesDataSource.getUpdateNotificationBadge()
   }
 
   private fun handleWalletData() {
@@ -201,7 +190,7 @@ constructor(
   }
 
   private fun observeRefreshData(): Observable<Boolean> {
-    return refreshData.filter { refreshData: Boolean? -> refreshData!! }
+    return refreshData.filter { it }
   }
 
   fun updateData() {
@@ -229,7 +218,6 @@ constructor(
     return Observable.mergeDelayError(
       observeBalance(),
       updateTransactions(model).subscribeOn(rxSchedulers.io),
-      updateRegisterUser(model.wallet).toObservable(),
       observeBackup()
     )
       .map {}
@@ -291,24 +279,6 @@ constructor(
         e.printStackTrace()
       }
     }
-  }
-
-  private fun updateRegisterUser(wallet: Wallet): Completable {
-    return getUserLevelUseCase()
-      .subscribeOn(rxSchedulers.io)
-      .map { userLevel ->
-        registerSupportUser(userLevel, wallet.address)
-        true
-      }
-      .ignoreElement()
-      .doOnError {
-        it.printStackTrace()
-      }
-      .subscribeOn(rxSchedulers.io)
-  }
-
-  private fun registerSupportUser(level: Int, walletAddress: String) {
-    registerSupportUserUseCase(level, walletAddress)
   }
 
   /**
@@ -465,10 +435,9 @@ constructor(
   private fun handleUnreadConversationCount() {
     observeRefreshData()
       .switchMap {
-        getUnreadConversationsCountEventsUseCase().subscribeOn(rxSchedulers.main)
-          .doOnNext { count: Int? ->
-            setState { copy(unreadMessages = (count != null && count != 0)) }
-          }
+        getUnreadConversationsCountEventsUseCase()
+          .subscribeOn(rxSchedulers.main)
+          .doOnNext { count -> hasNotificationBadge.value = count > 0 }
       }
       .scopedSubscribe { e -> e.printStackTrace() }
   }
@@ -483,7 +452,6 @@ constructor(
   }
 
   fun showSupportScreen() {
-    commonsPreferencesDataSource.setUpdateNotificationBadge(false)
     displayChatUseCase()
   }
 
