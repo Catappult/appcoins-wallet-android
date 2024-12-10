@@ -181,7 +181,7 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun restart() {
     lifecycleScope.launch {
-      AppUtils.restartApp(requireActivity())
+      AppUtils.restartApp(requireActivity(), copyIntent = createWalletAutomatically)
     }
   }
 
