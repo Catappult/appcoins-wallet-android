@@ -540,6 +540,7 @@
   <string name="buy_button">ဝယ္မည္</string>
   <string name="copied_to_clipboard">ကလစ္ဘုတ္သို႔ ကူးမည္</string>
   <string name="topup_button">ေငြျဖည့္မည္</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">Payment method</string>
   <string name="credit_debit_card">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္</string>
   <string name="paypal">PayPal</string>
