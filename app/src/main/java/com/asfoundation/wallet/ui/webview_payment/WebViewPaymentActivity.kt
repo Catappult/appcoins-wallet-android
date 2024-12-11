@@ -2,12 +2,14 @@ package com.asfoundation.wallet.ui.webview_payment
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
-import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
@@ -23,22 +25,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.webkit.WebSettingsCompat
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
@@ -60,10 +58,17 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   companion object {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
+    const val TRANSACTION_BUILDER = "transactionBuilder"
+    const val URL = "url"
   }
 
   private val url: String by lazy {
-    intent.getStringExtra("url") ?: throw IllegalArgumentException("URL not provided")
+    intent.getStringExtra(URL) ?: throw IllegalArgumentException("URL not provided")
+  }
+
+  private val transactionBuilder: TransactionBuilder by lazy<TransactionBuilder> {
+    intent.getParcelableExtra(TRANSACTION_BUILDER)
+      ?: throw IllegalArgumentException("TransactionBuilder not provided")
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +82,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
   @SuppressLint("SetJavaScriptEnabled")
   @Composable
   fun MainContent(url: String) {
+    Log.i("WebView", "starting url: $url")
     val context = LocalContext.current
     val webView = remember { WebView(context) }
 
@@ -89,16 +95,20 @@ class WebViewPaymentActivity : AppCompatActivity() {
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-      Spacer(modifier = Modifier
-        .height(200.dp)
+      Spacer(
+        modifier = Modifier
+          .height(200.dp)
       )
       Box(
         modifier = Modifier
           .fillMaxWidth()
-          .height(16.dp)
+          .height(8.dp)
           .background(
-            color = styleguide_light_grey,
-            shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+            color = if (isDarkModeEnabled(context))
+              styleguide_blue_webview_payment
+            else
+              styleguide_light_grey,
+            shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
           )
       )
       AndroidView(
@@ -107,20 +117,16 @@ class WebViewPaymentActivity : AppCompatActivity() {
           .background(styleguide_light_grey),
         factory = {
           webView.apply {
-            setBackgroundColor(resources.getColor(R. color. transparent))
+            setBackgroundColor(resources.getColor(R.color.transparent))
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             settings.useWideViewPort = true
-            WebSettingsCompat.setForceDark(
-              settings,
-              WebSettingsCompat.FORCE_DARK_ON
-            )
             webViewClient = object : WebViewClient() {
               override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
                 when {
                   clickUrl.contains(SUCCESS_SCHEMA) -> {
-//                    createSuccessBundleAndFinish(). // TODO activate
-                    finishActivity( Bundle().apply {
+//                    createSuccessBundleAndFinish() // TODO activate
+                    finishActivity(Bundle().apply {
                       putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
                     })
                     return true
@@ -149,8 +155,19 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
             addJavascriptInterface(
               WebViewPaymentInterface(
-                context
-              ) { showSupport(0) },
+                context = context,
+                intercomCallback = { showSupport(0) },
+                onPurchaseResultCallback = { webResult ->
+                  createSuccessBundleAndFinish(
+                    type = transactionBuilder.type, //"INAPP_UNMANAGED",
+                    merchantName = transactionBuilder.domain, //"test",
+                    sku = transactionBuilder.skuId, //"oilTest",
+                    purchaseUid = webResult?.uid ?: "",
+                    orderReference = webResult?.orderReference ?: "",
+                    hash = webResult?.hash ?: ""
+                  )
+                }
+              ),
               "WebViewPaymentInterface"
             )
 
@@ -174,14 +191,21 @@ class WebViewPaymentActivity : AppCompatActivity() {
     }
   }
 
-  fun createSuccessBundleAndFinish() { // TODO obtain from web success page
+  fun createSuccessBundleAndFinish(
+    type: String,
+    merchantName: String,
+    sku: String,
+    purchaseUid: String,
+    orderReference: String,
+    hash: String
+  ) { // TODO obtain from web success page
     createSuccessBundleUseCase(
-      type = "INAPP_UNMANAGED", //transactionBuilder.type,
-      merchantName = "test", //transactionBuilder.domain,
-      sku = "oilTest", //transactionBuilder.skuId,
-      purchaseUid = "1234", //purchaseUid,
-      orderReference = "1234", //orderReference,
-      hash = "1234", //hash,
+      type = type, // "INAPP_UNMANAGED", //transactionBuilder.type,
+      merchantName = merchantName, //"test", //transactionBuilder.domain,
+      sku = sku, // "oilTest", //transactionBuilder.skuId,
+      purchaseUid = purchaseUid, // "1234", //purchaseUid,
+      orderReference = orderReference, // "1234", //orderReference,
+      hash = hash, //"1234", //hash,
       scheduler = rxSchedulers.io
     )
       .doOnSuccess {
@@ -222,6 +246,11 @@ class WebViewPaymentActivity : AppCompatActivity() {
 //    data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
     setResult(Activity.RESULT_OK, Intent().putExtras(data))
     finish()
+  }
+
+  fun isDarkModeEnabled(context: Context): Boolean {
+    return (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
+        Configuration.UI_MODE_NIGHT_YES
   }
 
 }

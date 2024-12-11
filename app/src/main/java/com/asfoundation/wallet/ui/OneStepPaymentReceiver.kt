@@ -154,11 +154,8 @@ class OneStepPaymentReceiver : BaseActivity() {
   ): Single<String> {
     return buildWebViewPaymentUrl(transaction)
       .doOnSuccess { url ->
-        launchWebViewPayment(url)
+        launchWebViewPayment(url, transaction)
       }
-
-//    val intentWebView = WebViewActivity.newIntent(this, url)
-//    resultAuthLauncher.launch(intentWebView)
   }
 
   //TODO remove, example of WebView Payment url
@@ -182,9 +179,13 @@ class OneStepPaymentReceiver : BaseActivity() {
             "&country=PT" + //TODO
             "&address=${walletModel.address}" +
             "&signature=${walletModel.signedAddress}" +
-            "&payment_channel=wallet_app" + // TODO
-            "&ewt=${ewt}"
-        //TODO product(sku), domain, type
+            "&payment_channel=wallet_app" +
+            "&ewt=${ewt}" +
+            "&origin=BDS" +
+            "&product=${transaction.skuId}" +
+            "&domain=${transaction.domain}" +
+            "&type=${transaction.type}" +
+            "&oem_id=" // TODO extract
       }
   }
 
@@ -195,9 +196,10 @@ class OneStepPaymentReceiver : BaseActivity() {
     startActivityForResult(intent, REQUEST_CODE)
   }
 
-  private fun launchWebViewPayment(url: String) {
+  private fun launchWebViewPayment(url: String, transaction: TransactionBuilder) {
     val intentWebView = Intent(this, WebViewPaymentActivity::class.java).apply {
-      putExtra("url", url)
+      putExtra(WebViewPaymentActivity.URL, url)
+      putExtra(WebViewPaymentActivity.TRANSACTION_BUILDER, transaction)
     }
     startActivity(intentWebView)
   }

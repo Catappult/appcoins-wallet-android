@@ -339,6 +339,7 @@
     <activity
         android:name="com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity"
         android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
+        android:windowSoftInputMode="adjustPan"
     />
 
     <service
