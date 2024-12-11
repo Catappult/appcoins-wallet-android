@@ -322,22 +322,25 @@ fun GetText(
 ) {
   val hasGameInstall =
     isPackageInstalled(packageName, packageManager = LocalContext.current.packageManager)
-  val text =
-    if (hasGameInstall) stringResource(id = R.string.play_button)
-    else if (BuildConfig.FLAVOR != "gp") stringResource(R.string.get_button) else ""
-
-  TextButton(
-    modifier = modifier,
-    onClick = {
-      buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, text)
-      action()
-    }) {
-    Text(
-      text = text,
-      fontWeight = FontWeight.Bold,
-      color = if (isVip) WalletColors.styleguide_vip_yellow else WalletColors.styleguide_pink,
-      fontSize = 14.sp
-    )
+  val text = when {
+    hasGameInstall -> stringResource(id = R.string.play_button)
+    BuildConfig.FLAVOR != "gp" && packageName != null -> stringResource(R.string.get_button)
+    else -> null
+  }
+  text?.let {
+    TextButton(
+      modifier = modifier,
+      onClick = {
+        buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, text)
+        action()
+      }) {
+      Text(
+        text = text,
+        fontWeight = FontWeight.Bold,
+        color = if (isVip) WalletColors.styleguide_vip_yellow else WalletColors.styleguide_pink,
+        fontSize = 14.sp
+      )
+    }
   }
 }
 
