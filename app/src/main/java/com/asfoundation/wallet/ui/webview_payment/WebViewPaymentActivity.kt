@@ -37,6 +37,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
@@ -243,7 +244,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   fun finishActivity(data: Bundle) {
 //    savePreselectedPaymentMethod(data)
-//    data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
+    data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
     setResult(Activity.RESULT_OK, Intent().putExtras(data))
     finish()
   }

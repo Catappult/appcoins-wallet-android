@@ -15,6 +15,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -46,6 +47,9 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   @Inject
   lateinit var ewtObtainer: EwtAuthenticatorService
+
+  @Inject
+  lateinit var getCountryCodeUseCase: GetCountryCodeUseCase
 
   @Inject
   lateinit var rxSchedulers: RxSchedulers
@@ -158,25 +162,24 @@ class OneStepPaymentReceiver : BaseActivity() {
       }
   }
 
-  //TODO remove, example of WebView Payment url
-  val test_url_osp = "https://wallet.dev.appcoins.io/iap?referrer_url=https%3A%2F%2Fapichain.dev.catappult.io%2Ftransaction%2Finapp%3Fproduct%3Doil%26value%3D0.05%26currency%3DUSD%26callback_url%3Dhttps%253A%252F%252Fapi.dev.catappult.io%252Fbroker%252F8.20200101%252Fmock%252Fcallback%26domain%3Dcom.appcoins.trivialdrivesample.test%26signature%3D570c49c27cb916c595744e73d0aca61faf8ebae16603d90504ed8677ac5d4504&country=PT&address=0x9b80a0d785ee8046bc1a0545b80627fe86a32eba&signature=9ac61e132c432ce8cd86bdf5f8f84a2bbbd97ab6c09341cc63ec7a4f97e08deb07e61fe35d0c16de0fc2313aa245c5ffeac5b75ba04f716c3b17f135d9096dc800&payment_channel=wallet_app&ewt=eyJ0eXAiOiJFV1QifQ.eyJpc3MiOiIweDliODBhMGQ3ODVlZTgwNDZiYzFhMDU0NWI4MDYyN2ZlODZhMzJlYmEiLCJleHAiOjE3MzI2NDcxOTB9.66076da43d6b1ed7e03435de4fab8793bd5b12d14f5e88afb9fd65311926e97a75d46502df98167d5aa73623af4598070788cd7adcdc5e6af9b5fe7561c2d73901"
-
-  val baseWebViewPaymentUrl = "https://wallet.dev.appcoins.io/iap"
+  val baseWebViewPaymentUrl = "https://wallet.dev.appcoins.io/iap"  //TODO from buildConfig
 
   private fun buildWebViewPaymentUrl(transaction: TransactionBuilder): Single<String> {
     return Single.zip(
-      walletService.getAndSignCurrentWalletAddress(),
-      ewtObtainer.getEwtAuthenticationNoBearer().subscribeOn(rxSchedulers.io) // TODO confirmar wallet usada
-    ) { walletModel, ewt ->
-      Pair(walletModel, ewt)
+      walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
+      ewtObtainer.getEwtAuthenticationNoBearer().subscribeOn(rxSchedulers.io), // TODO confirmar wallet usada
+      getCountryCodeUseCase().subscribeOn(rxSchedulers.io)
+    ) { walletModel, ewt, country ->
+      Triple(walletModel, ewt, country)
     }
-      .map { pair ->
-        val walletModel = pair.first
-        val ewt = pair.second
+      .map { args ->
+        val walletModel = args.first
+        val ewt = args.second
+        val country = args.third
 
         "$baseWebViewPaymentUrl?" +
             "referrer_url=${URLEncoder.encode(transaction.referrerUrl, StandardCharsets.UTF_8.toString())}" +
-            "&country=PT" + //TODO
+            "&country=$country" +
             "&address=${walletModel.address}" +
             "&signature=${walletModel.signedAddress}" +
             "&payment_channel=wallet_app" +
@@ -185,7 +188,8 @@ class OneStepPaymentReceiver : BaseActivity() {
             "&product=${transaction.skuId}" +
             "&domain=${transaction.domain}" +
             "&type=${transaction.type}" +
-            "&oem_id=" // TODO extract
+            "&oem_id=" + // TODO extract
+            "&reference=${transaction.orderReference}"
       }
   }
 
@@ -201,7 +205,8 @@ class OneStepPaymentReceiver : BaseActivity() {
       putExtra(WebViewPaymentActivity.URL, url)
       putExtra(WebViewPaymentActivity.TRANSACTION_BUILDER, transaction)
     }
-    startActivity(intentWebView)
+    @Suppress("DEPRECATION")
+    startActivityForResult(intentWebView, REQUEST_CODE)
   }
 
   override fun onPause() {
