@@ -9,9 +9,11 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.airbnb.lottie.LottieAnimationView
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.orEmpty
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
@@ -19,6 +21,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCod
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.onboarding.pending_payment.Quadruple
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -50,6 +53,9 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   @Inject
   lateinit var getCountryCodeUseCase: GetCountryCodeUseCase
+
+  @Inject
+  lateinit var addressService: AddressService
 
   @Inject
   lateinit var rxSchedulers: RxSchedulers
@@ -168,14 +174,16 @@ class OneStepPaymentReceiver : BaseActivity() {
     return Single.zip(
       walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
       ewtObtainer.getEwtAuthenticationNoBearer().subscribeOn(rxSchedulers.io), // TODO confirmar wallet usada
-      getCountryCodeUseCase().subscribeOn(rxSchedulers.io)
-    ) { walletModel, ewt, country ->
-      Triple(walletModel, ewt, country)
+      getCountryCodeUseCase().subscribeOn(rxSchedulers.io),
+      addressService.getAttribution(transaction?.domain ?: "").subscribeOn(rxSchedulers.io),
+    ) { walletModel, ewt, country, oemId ->
+      Quadruple(walletModel, ewt, country, oemId)
     }
       .map { args ->
         val walletModel = args.first
         val ewt = args.second
         val country = args.third
+        val oemId = args.fourth.oemId
 
         "$baseWebViewPaymentUrl?" +
             "referrer_url=${URLEncoder.encode(transaction.referrerUrl, StandardCharsets.UTF_8.toString())}" +
@@ -188,8 +196,8 @@ class OneStepPaymentReceiver : BaseActivity() {
             "&product=${transaction.skuId}" +
             "&domain=${transaction.domain}" +
             "&type=${transaction.type}" +
-            "&oem_id=" + // TODO extract
-            "&reference=${transaction.orderReference}"
+            "&oem_id=${oemId ?: ""}" +
+            "&reference=${transaction.orderReference ?: ""}"
       }
   }
 
