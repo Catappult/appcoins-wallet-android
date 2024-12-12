@@ -223,66 +223,64 @@ fun CountDownTimer(endDateTime: Long) {
     }
   }
   Row(
+    modifier = Modifier.padding(top = 6.dp),
     horizontalArrangement = Arrangement.Start,
   ) {
     CardWithTextAndDetail(
       text = remainingTime.value.toDays().toString(),
-      detail =
-      pluralStringResource(id = R.plurals.day, count = remainingTime.value.toDays().toInt())
+      detail = pluralStringResource(
+        id = R.plurals.day,
+        count = remainingTime.value.toDays().toInt()
+      ),
+      modifier = Modifier.padding(end = 2.dp)
     )
     CardWithTextAndDetail(
       text = (remainingTime.value.toHours() % 24).toString(),
-      detail =
-      pluralStringResource(
-        id = R.plurals.hour, count = (remainingTime.value.toHours() % 24).toInt()
-      )
+      detail = pluralStringResource(
+        id = R.plurals.hour,
+        count = (remainingTime.value.toHours() % 24).toInt()
+      ),
+      modifier = Modifier.padding(horizontal = 2.dp)
     )
     CardWithTextAndDetail(
       text = (remainingTime.value.toMinutes() % 60).toString(),
-      detail =
-      pluralStringResource(
-        id = R.plurals.minute, count = (remainingTime.value.toMinutes() % 60).toInt()
-      )
+      detail = pluralStringResource(
+        id = R.plurals.minute,
+        count = (remainingTime.value.toMinutes() % 60).toInt()
+      ),
+      modifier = Modifier.padding(horizontal = 2.dp)
     )
     CardWithTextAndDetail(
       text = (remainingTime.value.seconds % 60).toString(),
-      detail =
-      pluralStringResource(
-        id = R.plurals.second, count = (remainingTime.value.seconds % 60).toInt()
-      )
+      detail = pluralStringResource(
+        id = R.plurals.second,
+        count = (remainingTime.value.seconds % 60).toInt()
+      ),
+      modifier = Modifier.padding(start = 2.dp)
     )
   }
 }
 
 @Composable
-fun CardWithTextAndDetail(text: String, detail: String) {
+fun CardWithTextAndDetail(modifier: Modifier = Modifier, text: String, detail: String) {
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_black.copy(alpha = 0.2F)),
-    modifier =
-    Modifier
-      .padding(top = 6.dp, bottom = 6.dp, end = 3.dp)
-      .width(41.dp)
-      .height(39.dp)
-      .clip(shape = RoundedCornerShape(3.dp))
-      .zIndex(8f)
+    modifier = modifier.height(44.dp).width(46.dp),
   ) {
     Column(
-      modifier = Modifier
-        .fillMaxSize()
-        .padding(4.dp),
+      modifier = Modifier.fillMaxSize(),
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.Center
     ) {
       Text(
         text = text,
-        fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
         color = WalletColors.styleguide_light_grey,
-        maxLines = 1
+        maxLines = 1,
       )
       Text(
         text = detail,
-        fontSize = 7.sp,
+        fontSize = 6.sp,
         color = WalletColors.styleguide_light_grey,
       )
     }
@@ -371,14 +369,12 @@ fun ImageWithTitleAndDescription(
       ) {
         Text(
           text = title ?: "",
-          fontWeight = FontWeight.Bold,
           color = WalletColors.styleguide_dark_grey,
           maxLines = 1,
-          fontSize = 12.sp
+          fontSize = 14.sp
         )
         Text(
           text = description ?: "",
-          fontWeight = FontWeight.Bold,
           maxLines = 2,
           style = MaterialTheme.typography.bodyMedium,
           color = WalletColors.styleguide_white,
