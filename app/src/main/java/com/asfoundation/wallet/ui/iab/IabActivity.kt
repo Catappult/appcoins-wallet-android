@@ -31,7 +31,6 @@ import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.mipay.MiPayFragment
 import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
 import com.asfoundation.wallet.billing.sandbox.SandboxFragment
-import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -293,35 +292,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         isSkills = intent.dataString?.contains("&skills") ?: false,
         frequency = frequency,
       )
-    )
-  }
-
-  override fun showVkPay(
-    amount: BigDecimal,
-    currency: String?,
-    isBds: Boolean,
-    paymentType: PaymentType,
-    bonus: String?,
-    iconUrl: String?,
-    gamificationLevel: Int,
-    isSubscription: Boolean,
-    frequency: String?
-  ) {
-    addFragment(
-      fragment = VkPaymentIABFragment().apply {
-        arguments = bundleOf(
-          VkPaymentIABFragment.PAYMENT_TYPE_KEY to paymentType.name,
-          VkPaymentIABFragment.ORIGIN_KEY to getOrigin(isBds),
-          VkPaymentIABFragment.TRANSACTION_DATA_KEY to transaction!!,
-          VkPaymentIABFragment.AMOUNT_KEY to amount,
-          VkPaymentIABFragment.CURRENCY_KEY to currency,
-          VkPaymentIABFragment.BONUS_KEY to bonus,
-          VkPaymentIABFragment.SKU_DESCRIPTION to getSkuDescription(),
-          VkPaymentIABFragment.IS_SKILLS to intent.dataString?.contains(SKILLS_TAG),
-          VkPaymentIABFragment.FREQUENCY to frequency
-        )
-      },
-      addToBackStackName = VkPaymentIABFragment::class.java.simpleName
     )
   }
 

@@ -23,7 +23,6 @@ class PaymentMethodsMapper @Inject constructor(
       "onebip" -> SelectedPaymentMethod.CARRIER_BILLING
       "sandbox" -> SelectedPaymentMethod.SANDBOX
       "challenge_reward" -> SelectedPaymentMethod.CHALLENGE_REWARD
-      "vk_pay" -> SelectedPaymentMethod.VKPAY
       "googlepay" -> SelectedPaymentMethod.GOOGLEPAY_WEB
       "mipay" -> SelectedPaymentMethod.MI_PAY
       "amazonpay" -> SelectedPaymentMethod.AMAZONPAY
@@ -46,7 +45,6 @@ class PaymentMethodsMapper @Inject constructor(
       SelectedPaymentMethod.CARRIER_BILLING -> "carrier_billing"
       SelectedPaymentMethod.SANDBOX -> "sandbox"
       SelectedPaymentMethod.CHALLENGE_REWARD -> "challenge_reward"
-      SelectedPaymentMethod.VKPAY -> "vk_pay"
       SelectedPaymentMethod.GOOGLEPAY_WEB -> "googlepay"
       SelectedPaymentMethod.MI_PAY -> "mipay"
       SelectedPaymentMethod.AMAZONPAY -> "amazonpay"

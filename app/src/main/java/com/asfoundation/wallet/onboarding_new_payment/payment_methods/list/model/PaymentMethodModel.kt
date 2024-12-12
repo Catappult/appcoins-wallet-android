@@ -77,10 +77,6 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
         clickListener?.invoke(PaymentMethodClick.ChallengeRewardClick)
       }
 
-      PaymentMethodsView.SelectedPaymentMethod.VKPAY -> {
-        clickListener?.invoke(PaymentMethodClick.VkPayPaymentClick)
-      }
-
       PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB -> {
         clickListener?.invoke(PaymentMethodClick.GooglePayClick)
       }

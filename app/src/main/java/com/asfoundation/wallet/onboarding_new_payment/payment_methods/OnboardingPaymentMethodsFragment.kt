@@ -101,12 +101,6 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
         is PaymentMethodClick.CarrierBillingClick -> navigator.navigateToCarrierBilling()
         is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
         is PaymentMethodClick.ChallengeRewardClick -> navigator.navigateToChallengeReward()
-        is PaymentMethodClick.VkPayPaymentClick -> navigator.navigateToVkPayPayment(
-          args.transactionBuilder,
-          args.amount,
-          args.currency,
-          args.forecastBonus
-        )
 
         is PaymentMethodClick.AmazonPayClick -> navigator.navigateToAmazonPay(
           args.transactionBuilder,
@@ -123,13 +117,6 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
         )
 
         is PaymentMethodClick.MiPayPayClick -> navigator.navigateToMiPay(
-          args.transactionBuilder,
-          args.amount,
-          args.currency,
-          args.forecastBonus
-        )
-
-        is PaymentMethodClick.AmazonPayClick -> navigator.navigateToAmazonPay(
           args.transactionBuilder,
           args.amount,
           args.currency,

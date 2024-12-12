@@ -53,8 +53,6 @@ class AndroidAppPlugin : Plugin<Project> {
 
           buildConfigField("String", "GIFT_CARD_HOST", "\"$giftCardHost\"")
           manifestPlaceholders["giftCardHost"] = giftCardHost
-          manifestPlaceholders["VkExternalAuthRedirectHost"] =
-            project.property("VK_EXTERNAL_AUTH_REDIRECT_HOST").toString()
         }
 
         signingConfigs {
@@ -86,15 +84,6 @@ class AndroidAppPlugin : Plugin<Project> {
               project.property("MANIFEST_LEGACY_PAYMENT_HOST_DEV").toString()
             manifestPlaceholders["paymentHost"] =
               project.property("MANIFEST_PAYMENT_HOST_DEV").toString()
-            manifestPlaceholders["VkExternalAuthRedirectScheme"] =
-              project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME_DEV").toString()
-            manifestPlaceholders["VK_SDK_APP_ID"] = project.property("VK_SDK_APP_ID_DEV").toString()
-            manifestPlaceholders["VK_SDK_CLIENT_SECRET"] = project.property("VK_CLIENT_SECRET_DEV").toString()
-            resValue(
-              "string",
-              "vk_external_oauth_redirect_url",
-              project.property("VK_EXTERNAL_URL_REDIRECT_DEV").toString()
-            )
           }
 
           release {
@@ -107,15 +96,6 @@ class AndroidAppPlugin : Plugin<Project> {
               project.property("MANIFEST_LEGACY_PAYMENT_HOST").toString()
             manifestPlaceholders["paymentHost"] =
               project.property("MANIFEST_PAYMENT_HOST").toString()
-            manifestPlaceholders["VkExternalAuthRedirectScheme"] =
-              project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME").toString()
-            manifestPlaceholders["VK_SDK_APP_ID"] = project.property("VK_SDK_APP_ID").toString()
-            manifestPlaceholders["VK_SDK_CLIENT_SECRET"] = project.property("VK_CLIENT_SECRET").toString()
-            resValue(
-              "string",
-              "vk_external_oauth_redirect_url",
-              project.property("VK_EXTERNAL_URL_REDIRECT").toString()
-            )
           }
 
           register("staging") {

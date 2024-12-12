@@ -51,7 +51,6 @@ dependencies {
   implementation(project(":feature:support:data"))
   implementation(project(":feature:backup:ui"))
   implementation(project(":feature:promo-code:data"))
-  implementation(project(":feature:vk-pay"))
 
   implementation(libs.kotlin.coroutines)
   implementation(libs.kotlin.coroutines.rx2)
@@ -92,8 +91,6 @@ dependencies {
   implementation(libs.google.play.services)
   implementation(libs.google.zxing)
   implementation(libs.zxing.android)
-
-  implementation(libs.bundles.vk)
 
   implementation(libs.bundles.adyen) {
     exclude(group = "io.michaelrocks", module = "paranoid-core")

@@ -32,8 +32,8 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(
     )
       .flatMap { attributionEntity ->
         bdsRepository.getPaymentMethods(
-          cachedTransaction.value.toString(),
-          cachedTransaction.currency,
+          value = cachedTransaction.value.toString(),
+          currency = cachedTransaction.currency,
           packageName = cachedTransaction.packageName,
           entityOemId = attributionEntity.oemId
         ).map { paymentMethods ->

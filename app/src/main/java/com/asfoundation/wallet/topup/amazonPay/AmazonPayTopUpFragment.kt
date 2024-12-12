@@ -41,10 +41,6 @@ import com.asfoundation.wallet.billing.amazonPay.models.AmazonConst.Companion.cr
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
-import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.BONUS
-import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.TOP_UP_AMOUNT
-import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.TOP_UP_CURRENCY
-import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment.Companion.TOP_UP_CURRENCY_SYMBOL
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -232,6 +228,9 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
 
   companion object {
     const val PAYMENT_DATA = "data"
-    const val CHROME_PACKAGE_NAME = "com.android.chrome"
+    internal const val TOP_UP_AMOUNT = "top_up_amount"
+    internal const val TOP_UP_CURRENCY = "currency"
+    internal const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
+    internal const val BONUS = "bonus"
   }
 }

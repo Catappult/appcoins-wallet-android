@@ -103,20 +103,11 @@ class BrokerApiModule {
 
   @Singleton
   @Provides
-  fun providesVkPayApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): VkPayApi {
-    return retrofit.create(VkPayApi::class.java)
-  }
-
-  @Singleton
-  @Provides
   fun providesAmazonPayApi(
     @BrokerDefaultRetrofit retrofit: Retrofit
   ): AmazonPayApi {
     return retrofit.create(AmazonPayApi::class.java)
   }
-
 
   @Singleton
   @Provides

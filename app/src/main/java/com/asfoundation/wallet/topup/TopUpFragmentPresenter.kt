@@ -717,10 +717,6 @@ class TopUpFragmentPresenter(
         )
       }
 
-      PaymentType.VKPAY -> {
-        activity?.navigateToVkPayPayment(mapTopUpPaymentData(topUpData, gamificationLevel))
-      }
-
       PaymentType.AMAZONPAY -> {
         activity?.navigateToAmazonPay(mapTopUpPaymentData(topUpData, gamificationLevel))
       }

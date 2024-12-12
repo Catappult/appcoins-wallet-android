@@ -19,7 +19,6 @@ import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayCheckoutSe
 import com.asfoundation.wallet.billing.amazonPay.usecases.PatchAmazonPayCheckoutSessionUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.SaveAmazonPayChargePermissionLocalStorageUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
-import com.asfoundation.wallet.billing.vkpay.VkPaymentIABViewModel.SuccessInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase

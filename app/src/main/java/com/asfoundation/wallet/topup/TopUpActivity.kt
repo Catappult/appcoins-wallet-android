@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -31,7 +30,6 @@ import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCas
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.amazonPay.AmazonPayTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
-import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
@@ -262,21 +260,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   override fun navigateToChallengeReward() = ChallengeRewardManager.onNavigate()
 
-  override fun navigateToVkPayPayment(topUpData: TopUpPaymentData) {
-    val fragmentVk = VkPaymentTopUpFragment()
-    val args = Bundle()
-    args.putSerializable(VkPaymentTopUpFragment.PAYMENT_DATA, topUpData)
-    fragmentVk.arguments = args
-    supportFragmentManager.beginTransaction().add(R.id.fragment_container, fragmentVk)
-      .addToBackStack(VkPaymentTopUpFragment::class.java.simpleName).commit()
-  }
-
   override fun navigateToAmazonPay(topUpData: TopUpPaymentData) {
-    val fragmentVk = AmazonPayTopUpFragment()
+    val fragment = AmazonPayTopUpFragment()
     val args = Bundle()
     args.putSerializable(AmazonPayTopUpFragment.PAYMENT_DATA, topUpData)
-    fragmentVk.arguments = args
-    supportFragmentManager.beginTransaction().add(R.id.fragment_container, fragmentVk)
+    fragment.arguments = args
+    supportFragmentManager.beginTransaction().add(R.id.fragment_container, fragment)
       .addToBackStack(AmazonPayTopUpFragment::class.java.simpleName).commit()
   }
 
