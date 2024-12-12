@@ -1,6 +1,6 @@
 package com.appcoins.wallet.feature.vkpay
 
-import android.app.Activity
+import android.app.Application
 import android.content.Context
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentManager
@@ -16,49 +16,46 @@ import com.vk.superapp.vkpay.checkout.api.dto.model.VkTransactionInfo
 import com.vk.superapp.vkpay.checkout.config.VkPayCheckoutConfig
 import com.vk.superapp.vkpay.checkout.config.VkPayCheckoutConfigBuilder
 import com.vk.superapp.vkpay.checkout.data.VkCheckoutUserInfo
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 
-class VkPayManager @Inject constructor() {
+class VkPayManager @Inject constructor(
+  @ApplicationContext private val context: Context,
+  private val walletVKSilentTokenExchanger: VkSilentTokenExchanger
+) {
 
-  companion object {
-    const val APP_VK_VERSION = "1.232"
-    internal const val SERVICE_USER_AGREEMENT = "https://id.vk.com/terms"
-    internal const val SERVICE_PRIVACY_POLICY = "https://id.vk.com/privacy"
-  }
+  private val application
+    get() = context as Application
 
   fun initSuperAppKit(
     appName: String,
     clientSecret: String,
-    context: Context,
     iconResources: Int,
     vkSdkAppId: String,
-    activity: Activity?
   ) {
-    val icon = AppCompatResources.getDrawable(context, iconResources)!!
-    val appInfo = SuperappConfig.AppInfo(
-      appName,
-      vkSdkAppId,
-      APP_VK_VERSION
-    )
+    if (!SuperappKit.isInitialized()) {
+      val icon = AppCompatResources.getDrawable(application, iconResources)!!
+      val appInfo = SuperappConfig.AppInfo(
+        appName = appName,
+        appId = vkSdkAppId,
+        appVersion = VKConstants.APP_VK_VERSION
+      )
 
-    val config = activity?.let {
-      SuperappKitConfig.Builder(it.application)
+      val config = SuperappKitConfig.Builder(application)
         .setAuthModelData(clientSecret)
         .setAuthUiManagerData(VkClientUiInfo(icon, appName))
         .setLegalInfoLinks(
-          serviceUserAgreement = SERVICE_USER_AGREEMENT,
-          servicePrivacyPolicy = SERVICE_PRIVACY_POLICY
+          serviceUserAgreement = VKConstants.SERVICE_USER_AGREEMENT,
+          servicePrivacyPolicy = VKConstants.SERVICE_PRIVACY_POLICY
         )
         .setApplicationInfo(appInfo)
         .setUseCodeFlow(true)
-        .setSilentTokenExchanger(VkSilentTokenExchanger.STUB)
+        .setSilentTokenExchanger(walletVKSilentTokenExchanger)
         .disableMyTrackerAnalytics()
         .build()
-    }
 
-    if (!SuperappKit.isInitialized()) {
-      config?.let { SuperappKit.init(it) }
+      SuperappKit.init(config)
     }
   }
 
@@ -74,17 +71,19 @@ class VkPayManager @Inject constructor() {
     fragmentManager: FragmentManager
   ) {
     val transaction = VkTransactionInfo(
-      amount,
-      createVKData(
+      amount = amount,
+      orderId = createVKData(
         uid = uidTransaction,
         phone = phone,
         email = email
       ),
-      VkTransactionInfo.Currency.RUB
+      currency = VkTransactionInfo.Currency.RUB
     )
     val merchantInfo = VkMerchantInfo(
-      vkMerchantId,
-      hash, walletAddress, "wallet APPC"
+      merchantId = vkMerchantId,
+      merchantSignature = hash,
+      merchantUserId = walletAddress,
+      merchantName = "wallet APPC"
     )
 
     //This Val need to implement only in Developer Mode
@@ -96,15 +95,21 @@ class VkPayManager @Inject constructor() {
         useTestMerchant = true,
         domain = VkPayCheckoutConfig.Domain.TEST
       )
-      VkPayCheckoutConfigBuilder(merchantInfo).setParentAppId(vkSdkAppId)
-        .setEnvironment(sandbox).build()
+      VkPayCheckoutConfigBuilder(merchantInfo)
+        .setParentAppId(vkSdkAppId)
+        .setEnvironment(sandbox)
+        .build()
     } else {
-      VkPayCheckoutConfigBuilder(merchantInfo).setParentAppId(vkSdkAppId)
+      VkPayCheckoutConfigBuilder(merchantInfo)
+        .setParentAppId(vkSdkAppId)
         .build()
     }
-    VkPayCheckout.startCheckout(fragmentManager, transaction, config)
-
+    VkPayCheckout.startCheckout(
+      fm = fragmentManager,
+      transactionInfo = transaction,
+      config = config
+    )
   }
 
-  fun createVKData(uid: String, phone: String, email: String) = "$uid;$phone;$email"
+  private fun createVKData(uid: String, phone: String, email: String) = "$uid;$phone;$email"
 }

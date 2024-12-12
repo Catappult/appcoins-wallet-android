@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -72,23 +71,22 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
 
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     //Build Vk Pay SuperApp Kit
     vkPayManager.initSuperAppKit(
       BuildConfig.VK_APP_NAME,
       BuildConfig.VK_CLIENT_SECRET,
-      requireContext(),
       R.mipmap.ic_launcher,
       BuildConfig.VK_SDK_APP_ID,
-      activity
     )
     VkClientAuthLib.addAuthCallback(authVkCallback)
     return OnboardingVkPaymentLayoutBinding.inflate(inflater).root
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingVkPaymentFragmentArgs.fromBundle(requireArguments())
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)

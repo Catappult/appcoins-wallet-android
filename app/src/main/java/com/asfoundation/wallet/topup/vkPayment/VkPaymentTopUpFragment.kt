@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
@@ -74,24 +73,23 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
 
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     //Build Vk Pay SuperApp Kit
     vkPayManager.initSuperAppKit(
       BuildConfig.VK_APP_NAME,
       BuildConfig.VK_CLIENT_SECRET,
-      requireContext(),
       R.mipmap.ic_launcher,
       BuildConfig.VK_SDK_APP_ID,
-      activity
     )
     VkClientAuthLib.addAuthCallback(authVkCallback)
     return VkTopupPaymentLayoutBinding.inflate(inflater).root
 
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     if (getSerializableExtra<TopUpPaymentData>(PAYMENT_DATA) != null) {

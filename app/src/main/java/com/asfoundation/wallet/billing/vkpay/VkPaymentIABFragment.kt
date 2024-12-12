@@ -42,7 +42,6 @@ import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class VkPaymentIABFragment : BasePageViewFragment(),
   SingleStateFragment<VkPaymentIABState, VkPaymentIABSideEffect> {
@@ -109,10 +108,8 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     vkPayManager.initSuperAppKit(
       BuildConfig.VK_APP_NAME,
       BuildConfig.VK_CLIENT_SECRET,
-      requireContext(),
       R.mipmap.ic_launcher,
       BuildConfig.VK_SDK_APP_ID,
-      activity
     )
     VkClientAuthLib.addAuthCallback(authVkCallback)
     navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
