@@ -51,7 +51,6 @@ dependencies {
   implementation(project(":feature:support:data"))
   implementation(project(":feature:backup:ui"))
   implementation(project(":feature:promo-code:data"))
-  implementation(project(":feature:vk-pay"))
 
   implementation(libs.kotlin.coroutines)
   implementation(libs.kotlin.coroutines.rx2)
@@ -93,8 +92,6 @@ dependencies {
   implementation(libs.google.zxing)
   implementation(libs.zxing.android)
 
-  implementation(libs.bundles.vk)
-
   implementation(libs.bundles.adyen) {
     exclude(group = "io.michaelrocks", module = "paranoid-core")
     // To resolve the bouncycastle version conflict with the adyen (1.68 vs 1.69)
@@ -103,7 +100,6 @@ dependencies {
   implementation(platform(libs.firebase.bom))
   implementation(libs.firebase.messaging)
   implementation(libs.intercom) { exclude(group = "com.google.android", module = "flexbox") }
-  implementation(libs.paranoid)
   implementation(libs.flexbox)
 
   implementation(libs.analytics.sentry)
@@ -112,11 +108,11 @@ dependencies {
   implementation(libs.bundles.lottie)
   implementation(libs.shimmer)
   implementation(libs.glide)
-  kapt(libs.glide.compiler)
+  ksp(libs.glide.compiler)
   implementation(libs.bundles.coil)
 
   implementation(libs.epoxy)
-  kapt(libs.epoxy.processor)
+  ksp(libs.epoxy.processor)
 
   implementation(libs.appcoins.sdk)
   debugImplementation(libs.appcoins.sdk.debug)
@@ -134,7 +130,6 @@ dependencies {
   implementation(libs.bundles.paging)
 
   testImplementation(libs.bundles.testing)
-  androidTestImplementation(libs.test.junit.ext)
 
   testImplementation(libs.test.junit.jupiter.api)
   testRuntimeOnly(libs.test.junit.jupiter.engine)
