@@ -120,8 +120,10 @@ open class AdyenResponseMapper @Inject constructor(
     var fraudResultsId: List<Int> = emptyList()
 
     if (adyenResponse != null) {
-      if (adyenResponse.fraudResult != null) {
-        fraudResultsId = adyenResponse.fraudResult!!.results.map { it.fraudCheckResult.checkId }
+      if (response.status == TransactionStatus.FAILED && adyenResponse.refusalReason == "FRAUD") {
+        fraudResultsId = adyenResponse.fraudResult?.results
+          ?.mapNotNull { it.fraudCheckResult?.checkId }
+          ?: emptyList()
       }
       if (adyenResponse.action != null) {
         actionType = adyenResponse.action!!.get("type")?.asString
