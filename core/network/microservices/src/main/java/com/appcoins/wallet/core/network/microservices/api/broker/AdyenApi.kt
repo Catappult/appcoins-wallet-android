@@ -6,15 +6,8 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 interface AdyenApi {
-  @POST("8.20240524/gateways/adyen_v2/transactions")
-  @Headers("Content-Type: application/json;format=product_token")
-  fun makeAdyenBodyPayment(
-    @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
-    @Body payment: PaymentRequest
-  ): Single<AdyenTransactionResponse>
 
-  @POST("8.20240524/gateways/adyen_v2/transactions")
+  @POST("8.20241204/gateways/adyen_v2/transactions")
   fun makeAdyenPayment(
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
