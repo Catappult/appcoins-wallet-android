@@ -540,6 +540,7 @@
   <string name="buy_button">Cumpără</string>
   <string name="copied_to_clipboard">Copiat pe clipboard</string>
   <string name="topup_button">Alimentează</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">Metoda de plată</string>
   <string name="credit_debit_card">Card de credit/debit</string>
   <string name="paypal">PayPal</string>

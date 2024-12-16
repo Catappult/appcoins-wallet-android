@@ -540,6 +540,7 @@
   <string name="buy_button">ซื้อ</string>
   <string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด</string>
   <string name="topup_button">เติม</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">วิธีการชำระเงิน</string>
   <string name="credit_debit_card">บัตรเครดิต/เดบิต</string>
   <string name="paypal">Paypal</string>
