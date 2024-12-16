@@ -191,7 +191,7 @@ class OneStepPaymentReceiver : BaseActivity() {
             "&address=${walletModel.address}" +
             "&signature=${walletModel.signedAddress}" +
             "&payment_channel=wallet_app" +
-            "&ewt=${ewt}" +
+            "&token=${ewt}" +
             "&origin=BDS" +
             "&product=${transaction.skuId}" +
             "&domain=${transaction.domain}" +

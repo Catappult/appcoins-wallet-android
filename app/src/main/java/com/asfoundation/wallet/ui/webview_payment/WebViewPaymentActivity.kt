@@ -74,7 +74,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay);
+    overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay)
     setContent {
       MainContent(url)
     }
