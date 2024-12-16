@@ -47,8 +47,8 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
-import com.appcoins.wallet.ui.widgets.ScreenTitle
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.ScreenTitle
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R

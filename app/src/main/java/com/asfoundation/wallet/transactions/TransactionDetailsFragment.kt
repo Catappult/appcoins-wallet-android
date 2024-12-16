@@ -48,7 +48,7 @@ import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExt
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.widgets.PendingTransactionCard
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionDetailHeader
 import com.appcoins.wallet.ui.widgets.TransactionDetailItem
 import com.asf.wallet.R

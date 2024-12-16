@@ -27,13 +27,12 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_COMPACT
-import androidx.fragment.app.Fragment
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletTypography
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText

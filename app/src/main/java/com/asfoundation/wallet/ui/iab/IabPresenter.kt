@@ -13,6 +13,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetCachedShow
 import com.asfoundation.wallet.di.NetworkDispatcher
 import com.asfoundation.wallet.di.ViewDispatcher
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.gamification.UpdateUserStatsUseCase
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
@@ -31,6 +32,7 @@ class IabPresenter @Inject constructor(
   private val billingAnalytics: BillingAnalytics,
   private val iabInteract: IabInteract,
   private val addressService: AddressService,
+  private val updateUserStatsUseCase: UpdateUserStatsUseCase,
   private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
   private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
   private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
@@ -103,16 +105,18 @@ class IabPresenter @Inject constructor(
   }
 
   fun handlePerkNotifications(bundle: Bundle) {
-    disposable.add(iabInteract.getWalletAddress()
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
-      .doOnSuccess {
-        view.launchPerkBonusAndGamificationService(it.address)
-        view.finishActivity(bundle)
-      }
-      .doOnError { view.finishActivity(bundle) }
-      .subscribe({}, { it.printStackTrace() })
+    disposable.add(
+      updateUserStatsUseCase()
+        .andThen(iabInteract.getWalletAddress())
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
+        .doOnSuccess {
+          view.launchPerkBonusAndGamificationService(it.address)
+          view.finishActivity(bundle)
+        }
+        .doOnError { view.finishActivity(bundle) }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -159,10 +163,11 @@ class IabPresenter @Inject constructor(
               }
               firstImpression = false
             }
+          }
         }
-    }
-      .subscribeOn(networkScheduler)
-      .subscribe({}, { it.printStackTrace() }))
+        .subscribeOn(networkScheduler)
+        .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   private fun handleAutoUpdate() {

@@ -49,8 +49,8 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.GenericError
-import com.appcoins.wallet.ui.widgets.ScreenTitle
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.ScreenTitle
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.component.Animation
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText

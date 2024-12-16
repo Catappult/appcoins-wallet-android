@@ -50,7 +50,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.widgets.AddNewCardComposable
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.component.Animation
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_cards.models.StoredCard

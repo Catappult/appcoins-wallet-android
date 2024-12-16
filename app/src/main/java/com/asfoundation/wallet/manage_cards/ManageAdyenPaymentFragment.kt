@@ -31,7 +31,7 @@ import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ManageAdyenPaymentFragmentBinding

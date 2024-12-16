@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.compose.ui.platform.ComposeView
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
