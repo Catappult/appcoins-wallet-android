@@ -4,17 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityIabWalletCreationBinding
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.ui.OneStepPaymentReceiver.Companion
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.PRODUCT_NAME
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
+import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
+import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
 import com.asfoundation.wallet.util.TransferParser
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +46,9 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
 
   @Inject
   lateinit var analytics: PaymentMethodsAnalytics
+
+  @Inject
+  lateinit var createWebViewPaymentSdkUseCase: CreateWebViewPaymentSdkUseCase
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -68,7 +79,8 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         AndroidSchedulers.mainThread(),
         CompositeDisposable(),
         productName,
-        partnerAddressService
+        partnerAddressService,
+        createWebViewPaymentSdkUseCase
       )
     presenter.present(savedInstanceState)
   }
@@ -101,6 +113,15 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     throwable.printStackTrace()
     startActivity(MainActivity.newIntent(this, supportNotificationClicked = false))
     finish()
+  }
+
+  override fun launchWebViewPayment(url: String, transaction: TransactionBuilder) {
+    val intentWebView = Intent(this, WebViewPaymentActivity::class.java).apply {
+      putExtra(WebViewPaymentActivity.URL, url)
+      putExtra(WebViewPaymentActivity.TRANSACTION_BUILDER, transaction)
+    }
+    @Suppress("DEPRECATION")
+    startActivityForResult(intentWebView, OneStepPaymentReceiver.REQUEST_CODE)
   }
 
   override fun endAnimation() {

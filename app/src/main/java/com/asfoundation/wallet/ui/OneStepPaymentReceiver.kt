@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -28,6 +29,7 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
+import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
 import com.asfoundation.wallet.util.TransferParser
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,18 +49,21 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   @Inject
   lateinit var walletService: WalletService
+//
+//  @Inject
+//  lateinit var ewtObtainer: EwtAuthenticatorService
+//
+//  @Inject
+//  lateinit var getCountryCodeUseCase: GetCountryCodeUseCase
+//
+//  @Inject
+//  lateinit var addressService: AddressService
+//
+//  @Inject
+//  lateinit var rxSchedulers: RxSchedulers
 
   @Inject
-  lateinit var ewtObtainer: EwtAuthenticatorService
-
-  @Inject
-  lateinit var getCountryCodeUseCase: GetCountryCodeUseCase
-
-  @Inject
-  lateinit var addressService: AddressService
-
-  @Inject
-  lateinit var rxSchedulers: RxSchedulers
+  lateinit var createWebViewPaymentOspUseCase: CreateWebViewPaymentOspUseCase
 
   @Inject
   lateinit var logger: Logger
@@ -77,25 +82,8 @@ class OneStepPaymentReceiver : BaseActivity() {
   private var walletCreationAnimation: LottieAnimationView? = null
   private var walletCreationText: View? = null
 
-  private val resultAuthLauncher: ActivityResultLauncher<Intent> =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      if (result.data?.dataString?.contains(PaypalReturnSchemas.RETURN.schema) == true) {
-        Log.d("WebViewPayment", "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-
-        //success
-
-      } else if (
-        result.resultCode == Activity.RESULT_CANCELED ||
-        (result.data?.dataString?.contains(PaypalReturnSchemas.CANCEL.schema) == true)
-      ) {
-        Log.d("WebViewPayment", "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-        // cancel
-      }
-    }
-
   companion object {
     const val REQUEST_CODE = 234
-    private const val ESKILLS_URI_KEY = "ESKILLS_URI"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,7 +108,7 @@ class OneStepPaymentReceiver : BaseActivity() {
               .flatMap { transaction: TransactionBuilder ->
                 inAppPurchaseInteractor.isWalletFromBds(transaction.domain, transaction.toAddress())
                   .doOnSuccess { isBds: Boolean ->
-                    // startOneStepTransfer(transaction, isBds) // TODO uncomment to use the old IAP
+                    // startOneStepTransfer(transaction, isBds) // TODO uncomment to use the old IAP, use payflow sdk api to direct to the correct flow.
                   }
                   .flatMap { isBds: Boolean ->
                     startWebViewPayment(transaction)
@@ -135,6 +123,7 @@ class OneStepPaymentReceiver : BaseActivity() {
     }
   }
 
+  @SuppressLint("UnsafeIntentLaunch")
   @Suppress("DEPRECATION")
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
@@ -162,42 +151,9 @@ class OneStepPaymentReceiver : BaseActivity() {
   private fun startWebViewPayment(
     transaction: TransactionBuilder,
   ): Single<String> {
-    return buildWebViewPaymentUrl(transaction)
+    return createWebViewPaymentOspUseCase(transaction)
       .doOnSuccess { url ->
         launchWebViewPayment(url, transaction)
-      }
-  }
-
-  val baseWebViewPaymentUrl = "https://wallet.dev.appcoins.io/iap"  //TODO from buildConfig
-
-  private fun buildWebViewPaymentUrl(transaction: TransactionBuilder): Single<String> {
-    return Single.zip(
-      walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
-      ewtObtainer.getEwtAuthenticationNoBearer().subscribeOn(rxSchedulers.io), // TODO confirmar wallet usada
-      getCountryCodeUseCase().subscribeOn(rxSchedulers.io),
-      addressService.getAttribution(transaction?.domain ?: "").subscribeOn(rxSchedulers.io),
-    ) { walletModel, ewt, country, oemId ->
-      Quadruple(walletModel, ewt, country, oemId)
-    }
-      .map { args ->
-        val walletModel = args.first
-        val ewt = args.second
-        val country = args.third
-        val oemId = args.fourth.oemId
-
-        "$baseWebViewPaymentUrl?" +
-            "referrer_url=${URLEncoder.encode(transaction.referrerUrl, StandardCharsets.UTF_8.toString())}" +
-            "&country=$country" +
-            "&address=${walletModel.address}" +
-            "&signature=${walletModel.signedAddress}" +
-            "&payment_channel=wallet_app" +
-            "&token=${ewt}" +
-            "&origin=BDS" +
-            "&product=${transaction.skuId}" +
-            "&domain=${transaction.domain}" +
-            "&type=${transaction.type}" +
-            "&oem_id=${oemId ?: ""}" +
-            "&reference=${transaction.orderReference ?: ""}"
       }
   }
 
