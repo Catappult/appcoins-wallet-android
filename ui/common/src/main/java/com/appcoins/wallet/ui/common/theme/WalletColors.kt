@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 object WalletColors {
   val styleguide_blue = Color(0xFF1A1A24)
   val styleguide_blue_secondary = Color(0xFF242333)
+  val styleguide_blue_webview_payment = Color(0xFF282934)
   val styleguide_pink = Color(0xFFFF6381)
 
   val styleguide_white = Color(0xFFFFFFFF)

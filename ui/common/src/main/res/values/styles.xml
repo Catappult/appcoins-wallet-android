@@ -104,6 +104,14 @@
     <item name="android:windowIsFloating">false</item>
   </style>
 
+  <style name="Theme.AppCompat.Transparent.WebPayment" parent="Theme.MaterialComponents.DayNight">
+    <item name="android:fitsSystemWindows">true</item>
+    <item name="android:windowIsFloating">false</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
   <style name="Theme.AppCompat.Transparent.FitAppWindow" parent="Theme.AppCompat.Transparent">
     <item name="android:fitsSystemWindows">true</item>
     <item name="android:windowIsFloating">false</item>

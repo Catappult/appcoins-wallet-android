@@ -84,7 +84,7 @@ class VkPayManager @Inject constructor() {
       hash, walletAddress, "wallet APPC"
     )
 
-    //This Val need to implement only in Developer Mode
+    //This Val needs to be implemented only in Developer Mode
     val config = if (BuildConfig.DEBUG) {
       val sandbox = VkPayCheckoutConfig.Environment.Sandbox(
         userInfo = VkCheckoutUserInfo(UserId(12345), "+1234566790"),

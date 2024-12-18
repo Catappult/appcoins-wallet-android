@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -15,10 +16,13 @@ import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
+import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
 import com.asfoundation.wallet.util.TransferParser
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.util.Locale
@@ -31,6 +35,21 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   @Inject
   lateinit var walletService: WalletService
+//
+//  @Inject
+//  lateinit var ewtObtainer: EwtAuthenticatorService
+//
+//  @Inject
+//  lateinit var getCountryCodeUseCase: GetCountryCodeUseCase
+//
+//  @Inject
+//  lateinit var addressService: AddressService
+//
+//  @Inject
+//  lateinit var rxSchedulers: RxSchedulers
+
+  @Inject
+  lateinit var createWebViewPaymentOspUseCase: CreateWebViewPaymentOspUseCase
 
   @Inject
   lateinit var logger: Logger
@@ -51,7 +70,6 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   companion object {
     const val REQUEST_CODE = 234
-    private const val ESKILLS_URI_KEY = "ESKILLS_URI"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +94,10 @@ class OneStepPaymentReceiver : BaseActivity() {
               .flatMap { transaction: TransactionBuilder ->
                 inAppPurchaseInteractor.isWalletFromBds(transaction.domain, transaction.toAddress())
                   .doOnSuccess { isBds: Boolean ->
-                    startOneStepTransfer(transaction, isBds)
+                    // startOneStepTransfer(transaction, isBds) // TODO uncomment to use the old IAP, use payflow sdk api to direct to the correct flow.
+                  }
+                  .flatMap { isBds: Boolean ->
+                    startWebViewPayment(transaction)
                   }
               }.toObservable()
           }
@@ -88,6 +109,7 @@ class OneStepPaymentReceiver : BaseActivity() {
     }
   }
 
+  @SuppressLint("UnsafeIntentLaunch")
   @Suppress("DEPRECATION")
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
@@ -112,11 +134,29 @@ class OneStepPaymentReceiver : BaseActivity() {
     startActivityForResult(intent, REQUEST_CODE)
   }
 
+  private fun startWebViewPayment(
+    transaction: TransactionBuilder,
+  ): Single<String> {
+    return createWebViewPaymentOspUseCase(transaction)
+      .doOnSuccess { url ->
+        launchWebViewPayment(url, transaction)
+      }
+  }
+
   private fun startOneStepWithError(errorFromReceiver: String?) {
     val intent =
       newIntent(this, intent, errorFromReceiver)
     @Suppress("DEPRECATION")
     startActivityForResult(intent, REQUEST_CODE)
+  }
+
+  private fun launchWebViewPayment(url: String, transaction: TransactionBuilder) {
+    val intentWebView = Intent(this, WebViewPaymentActivity::class.java).apply {
+      putExtra(WebViewPaymentActivity.URL, url)
+      putExtra(WebViewPaymentActivity.TRANSACTION_BUILDER, transaction)
+    }
+    @Suppress("DEPRECATION")
+    startActivityForResult(intentWebView, REQUEST_CODE)
   }
 
   override fun onPause() {

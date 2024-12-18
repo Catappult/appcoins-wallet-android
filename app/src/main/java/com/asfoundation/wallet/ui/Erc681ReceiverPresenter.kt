@@ -4,10 +4,14 @@ import android.os.Bundle
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
+import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
 internal class Erc681ReceiverPresenter(
@@ -20,6 +24,7 @@ internal class Erc681ReceiverPresenter(
   private var disposables: CompositeDisposable,
   private val productName: String?,
   private val partnerAddressService: PartnerAddressService,
+  private val createWebViewPaymentSdkUseCase: CreateWebViewPaymentSdkUseCase,
 ) {
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
@@ -41,7 +46,12 @@ internal class Erc681ReceiverPresenter(
                   transactionBuilder.domain,
                   transactionBuilder.toAddress()
                 )
-                  .doOnSuccess { isBds -> view.startEipTransfer(transactionBuilder, isBds) }
+                  .doOnSuccess { isBds ->
+//                    view.startEipTransfer(transactionBuilder, isBds)
+                  }
+                  .flatMap { isBds: Boolean ->
+                    startWebViewPayment(transactionBuilder)
+                  }
               }
               .toObservable()
 
@@ -50,6 +60,15 @@ internal class Erc681ReceiverPresenter(
           .subscribe({ }, { view.startApp(it) })
       )
     }
+  }
+
+  private fun startWebViewPayment(
+    transaction: TransactionBuilder,
+  ): Single<String> {
+    return createWebViewPaymentSdkUseCase(transaction)
+      .doOnSuccess { url ->
+        view.launchWebViewPayment(url, transaction)
+      }
   }
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {
