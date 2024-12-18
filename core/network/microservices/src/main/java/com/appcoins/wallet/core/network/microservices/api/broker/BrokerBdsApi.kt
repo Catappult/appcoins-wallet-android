@@ -6,6 +6,7 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 interface BrokerBdsApi {
+
   @GET("8.20240524/transactions")
   fun getSkuTransaction(
     @Query("wallet.address") walletAddress: String,
@@ -59,7 +60,6 @@ interface BrokerBdsApi {
     @Path("gateway") gateway: String,
     @Path("uid") uid: String,
     @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
     @Field("pay_key") paykey: String
   ): Completable
 
@@ -74,7 +74,6 @@ interface BrokerBdsApi {
   fun createTransaction(
     @Path("gateway") gateway: String,
     @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
     @Body creditsPurchaseBody: CreditsPurchaseBody
   ): Single<Transaction>
 
@@ -121,7 +120,6 @@ interface BrokerBdsApi {
     @Field("referrer_url") referrerUrl: String?,
     @Field("entity.guest_id") guestWalletId: String?,
     @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
   ): Single<Transaction>
 
   /**
@@ -165,7 +163,6 @@ interface BrokerBdsApi {
     @Field("referrer_url") referrerUrl: String?,
     @Field("entity.guest_id") guestWalletId: String?,
     @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
   ): Single<Transaction>
 
   @FormUrlEncoded
@@ -185,6 +182,6 @@ interface BrokerBdsApi {
     @Field("entity.guest_id") guestWalletId: String?,
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String?,
-    @Header("authorization") authorization: String,
   ): Single<MiPayTransaction>
+
 }

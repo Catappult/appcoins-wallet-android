@@ -22,7 +22,7 @@ interface TransactionsHistoryRepository {
 
   fun fetchPagingTransactions(wallet: String, currency: String): TransactionsHistoryPagingSource
 
-  fun getInvoiceUrl(invoiceId: String, ewt: String): Flow<Result<InvoiceResponse>>
+  fun getInvoiceUrl(invoiceId: String): Flow<Result<InvoiceResponse>>
 }
 
 @BoundTo(supertype = TransactionsHistoryRepository::class)
@@ -42,17 +42,24 @@ class DefaultTransactionsHistoryRepository @Inject constructor(private val api: 
             limit = limit,
             languageCode = Locale.getDefault().language
           )
-        })
+        }
+      )
     }
       .flowOn(Dispatchers.IO)
   }
 
   override fun fetchPagingTransactions(wallet: String, currency: String) =
-    TransactionsHistoryPagingSource(backend = api, wallet = wallet, currency = currency)
+    TransactionsHistoryPagingSource(
+      backend = api,
+      wallet = wallet,
+      currency = currency
+    )
 
-  override fun getInvoiceUrl(invoiceId: String, ewt: String): Flow<Result<InvoiceResponse>> {
+  override fun getInvoiceUrl(invoiceId: String): Flow<Result<InvoiceResponse>> {
     return flow {
-      emit(handleApi { api.getInvoiceById(invoiceId = invoiceId, authorization = ewt) })
+      emit(
+        handleApi { api.getInvoiceById(invoiceId = invoiceId) }
+      )
     }
       .flowOn(Dispatchers.IO)
   }

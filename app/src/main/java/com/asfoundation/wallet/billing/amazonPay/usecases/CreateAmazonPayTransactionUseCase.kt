@@ -43,7 +43,6 @@ class CreateAmazonPayTransactionUseCase @Inject constructor(
             entityOemId = attrEntity.oemId,
             entityDomain = attrEntity.domain,
             entityPromoCode = promoCode.code,
-            userWallet = address,
             referrerUrl = referrerUrl,
             method = METHOD_AMAZONPAY,
             chargePermissionId = chargePermissionId,

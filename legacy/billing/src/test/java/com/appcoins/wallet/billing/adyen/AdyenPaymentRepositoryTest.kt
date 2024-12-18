@@ -2,7 +2,6 @@ package com.appcoins.wallet.billing.adyen
 
 import android.content.SharedPreferences
 import com.appcoins.wallet.billing.util.Error
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
@@ -49,9 +48,6 @@ class AdyenPaymentRepositoryTest {
   @Mock
   lateinit var logger: Logger
 
-  @Mock
-  lateinit var ewtAuthenticatorService: EwtAuthenticatorService
-
   //  @Mock
   lateinit var rxSchedulers: RxSchedulers
 
@@ -79,37 +75,38 @@ class AdyenPaymentRepositoryTest {
     }
 
     adyenRepo = AdyenPaymentRepository(
-      adyenApi,
-      brokerBdsApi,
-      subscriptionsApi,
-      mapper,
-      cardPaymentDataSource,
-      ewtAuthenticatorService,
-      rxSchedulers,
-      logger
+      adyenApi = adyenApi,
+      brokerBdsApi = brokerBdsApi,
+      subscriptionsApi = subscriptionsApi,
+      adyenResponseMapper = mapper,
+      cardPaymentDataSource = cardPaymentDataSource,
+      rxSchedulers = rxSchedulers,
+      logger = logger
     )
   }
 
   @Test
   fun loadPaymentInfoTest() {
     val response = PaymentMethodsResponse(
-      AdyenPrice(
-        BigDecimal(2),
-        TEST_FIAT_CURRENCY
-      ), JsonObject()
+      adyenPrice = AdyenPrice(
+        value = BigDecimal(2),
+        currency = TEST_FIAT_CURRENCY
+      ),
+      payment = JsonObject()
     )
 
     val model = PaymentInfoModel(
-      null, false, BigDecimal(2),
-      TEST_FIAT_CURRENCY
+      paymentMethod = null,
+      isStored = false,
+      priceAmount = BigDecimal(2),
+      priceCurrency = TEST_FIAT_CURRENCY
     )
     Mockito.`when`(
       adyenApi.loadPaymentInfo(
-        TEST_WALLET_ADDRESS,
-        TEST_EWT,
-        TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY,
-        AdyenPaymentRepository.Methods.CREDIT_CARD.transactionType
+        walletAddress = TEST_WALLET_ADDRESS,
+        value = TEST_FIAT_VALUE,
+        currency = TEST_FIAT_CURRENCY,
+        methods = AdyenPaymentRepository.Methods.CREDIT_CARD.transactionType
       )
     )
       .thenReturn(Single.just(response))
@@ -119,11 +116,10 @@ class AdyenPaymentRepositoryTest {
     val testObserver = TestObserver<PaymentInfoModel>()
 
     adyenRepo.loadPaymentInfo(
-      AdyenPaymentRepository.Methods.CREDIT_CARD,
-      TEST_FIAT_VALUE,
-      TEST_FIAT_CURRENCY,
-      TEST_WALLET_ADDRESS,
-      TEST_EWT
+      methods = AdyenPaymentRepository.Methods.CREDIT_CARD,
+      value = TEST_FIAT_VALUE,
+      currency = TEST_FIAT_CURRENCY,
+      walletAddress = TEST_WALLET_ADDRESS,
     )
       .subscribe(testObserver)
 
@@ -137,11 +133,10 @@ class AdyenPaymentRepositoryTest {
     val model = PaymentInfoModel(Error())
     Mockito.`when`(
       adyenApi.loadPaymentInfo(
-        TEST_WALLET_ADDRESS,
-        TEST_EWT,
-        TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY,
-        AdyenPaymentRepository.Methods.CREDIT_CARD.transactionType
+        walletAddress = TEST_WALLET_ADDRESS,
+        value = TEST_FIAT_VALUE,
+        currency = TEST_FIAT_CURRENCY,
+        methods = AdyenPaymentRepository.Methods.CREDIT_CARD.transactionType
       )
     )
       .thenReturn(Single.error(throwable))
@@ -151,11 +146,10 @@ class AdyenPaymentRepositoryTest {
     val testObserver = TestObserver<PaymentInfoModel>()
 
     adyenRepo.loadPaymentInfo(
-      AdyenPaymentRepository.Methods.CREDIT_CARD,
-      TEST_FIAT_VALUE,
-      TEST_FIAT_CURRENCY,
-      TEST_WALLET_ADDRESS,
-      TEST_EWT
+      methods = AdyenPaymentRepository.Methods.CREDIT_CARD,
+      value = TEST_FIAT_VALUE,
+      currency = TEST_FIAT_CURRENCY,
+      walletAddress = TEST_WALLET_ADDRESS,
     )
       .subscribe(testObserver)
 
@@ -226,8 +220,8 @@ class AdyenPaymentRepositoryTest {
     Mockito.`when`(
       adyenApi.disablePayments(
         DisableWallet(
-          TEST_WALLET_ADDRESS,
-          null
+          walletAddress = TEST_WALLET_ADDRESS,
+          recurringReference = null
         )
       )
     )
@@ -246,8 +240,8 @@ class AdyenPaymentRepositoryTest {
     Mockito.`when`(
       adyenApi.disablePayments(
         DisableWallet(
-          TEST_WALLET_ADDRESS,
-          null
+          walletAddress = TEST_WALLET_ADDRESS,
+          recurringReference = null
         )
       )
     )

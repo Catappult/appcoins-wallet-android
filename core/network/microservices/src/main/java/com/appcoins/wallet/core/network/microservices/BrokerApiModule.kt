@@ -6,9 +6,7 @@ import com.appcoins.wallet.core.network.base.call_adapter.ApiResultCallAdapterFa
 import com.appcoins.wallet.core.network.microservices.annotations.BrokerBlockchainRetrofit
 import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultResultRetrofit
 import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultRetrofit
-import com.appcoins.wallet.core.network.microservices.api.*
 import com.appcoins.wallet.core.network.microservices.api.broker.*
-import com.appcoins.wallet.core.network.microservices.api.broker.BrokerVerificationApi.*
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponse
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponseTypeAdapter
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -129,7 +127,6 @@ class BrokerApiModule {
   @Provides
   fun providesCarrierBillingApi1(
     @DefaultHttpClient client: OkHttpClient,
-    @BrokerDefaultRetrofit retrofit: Retrofit,
     rxSchedulers: RxSchedulers
   ): CarrierBillingApi {
     val gson = GsonBuilder().registerTypeAdapter(

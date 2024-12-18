@@ -15,10 +15,15 @@ class CreateSandboxTransactionUseCase @Inject constructor(
 ) {
 
   operator fun invoke(
-    value: String, currency: String, reference: String?,
-    origin: String?, packageName: String, metadata: String?,
-    sku: String?, callbackUrl: String?, transactionType: String,
-    developerWallet: String?,
+    value: String,
+    currency: String,
+    reference: String?,
+    origin: String?,
+    packageName: String,
+    metadata: String?,
+    sku: String?,
+    callbackUrl: String?,
+    transactionType: String,
     referrerUrl: String?,
     guestWalletId: String?,
   ): Single<SandboxTransaction> {
@@ -30,7 +35,8 @@ class CreateSandboxTransactionUseCase @Inject constructor(
       .flatMap { pair ->
         val address = pair.first
         val attrEntity = pair.second
-        getCurrentPromoCodeUseCase().flatMap { promoCode ->
+        getCurrentPromoCodeUseCase()
+          .flatMap { promoCode ->
           sandboxRepository.createTransaction(
             value = value,
             currency = currency,
@@ -42,7 +48,6 @@ class CreateSandboxTransactionUseCase @Inject constructor(
             sku = sku,
             callbackUrl = callbackUrl,
             transactionType = transactionType,
-            developerWallet = developerWallet,
             entityOemId = attrEntity.oemId,
             entityDomain = attrEntity.domain,
             entityPromoCode = promoCode.code,

@@ -16,22 +16,60 @@ public class CreditsRemoteRepository
   }
 
   @NotNull @Override
-  public Single<Transaction> pay(@NotNull String walletAddress, @NotNull String signature,
-      @NotNull BigDecimal amount, @Nullable String origin, @Nullable String sku,
-      @NotNull String type, @Nullable String entityOemId, @Nullable String entityDomain,
-      @NotNull String packageName, @Nullable String payload, @Nullable String callback,
-      @Nullable String orderReference, @Nullable String referrerUrl,
-      @Nullable String productToken, String guestWalletId) {
-    return remoteRepository.registerAuthorizationProof(origin, type, entityOemId, entityDomain,
-        null, "appcoins_credits", walletAddress, sku, packageName, amount, payload, callback,
-        orderReference, referrerUrl, productToken, guestWalletId);
+  public Single<Transaction> pay(
+      @NotNull String walletAddress,
+      @NotNull String signature,
+      @NotNull BigDecimal amount,
+      @Nullable String origin,
+      @Nullable String sku,
+      @NotNull String type,
+      @Nullable String entityOemId,
+      @Nullable String entityDomain,
+      @NotNull String packageName,
+      @Nullable String payload,
+      @Nullable String callback,
+      @Nullable String orderReference,
+      @Nullable String referrerUrl,
+      String guestWalletId
+  ) {
+    return remoteRepository.registerAuthorizationProof(
+        origin,
+        type,
+        entityOemId,
+        entityDomain,
+        null,
+        "appcoins_credits",
+        walletAddress,
+        sku,
+        packageName,
+        amount,
+        payload,
+        callback,
+        orderReference,
+        referrerUrl,
+        guestWalletId
+    );
   }
 
   @NotNull @Override
-  public Single<Transaction> sendCredits(@NotNull String toWallet, @NotNull String walletAddress,
-      @NotNull String signature, @NotNull BigDecimal amount, @NotNull String origin,
-      @NotNull String type, @NotNull String packageName, String guestWalletId) {
-    return remoteRepository.transferCredits(toWallet, origin, type, "appcoins_credits",
-        walletAddress, signature, packageName, amount, guestWalletId);
+  public Single<Transaction> sendCredits(
+      @NotNull String toWallet,
+      @NotNull String walletAddress,
+      @NotNull BigDecimal amount,
+      @NotNull String origin,
+      @NotNull String type,
+      @NotNull String packageName,
+      String guestWalletId
+  ) {
+    return remoteRepository.transferCredits(
+        toWallet,
+        origin,
+        type,
+        "appcoins_credits",
+        walletAddress,
+        packageName,
+        amount,
+        guestWalletId
+    );
   }
 }

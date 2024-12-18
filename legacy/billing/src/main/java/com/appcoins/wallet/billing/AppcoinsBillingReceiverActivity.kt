@@ -56,23 +56,21 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     serializer = ExternalBillingSerializer()
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
-    val bdsBilling =
-      BdsBilling(
-        BdsRepository(
-          RemoteRepository(
-            dependenciesProvider.brokerBdsApi(),
-            dependenciesProvider.inappApi(),
-            BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-            dependenciesProvider.subscriptionsApi(),
-            dependenciesProvider.ewtObtainer(),
-            dependenciesProvider.rxSchedulers(),
-            dependenciesProvider.fiatCurrenciesPreferencesDataSource()
-          )
-        ),
-        dependenciesProvider.walletService(),
-        BillingThrowableCodeMapper(),
-        dependenciesProvider.partnerAddressService()
-      )
+    val bdsBilling = BdsBilling(
+      repository = BdsRepository(
+        RemoteRepository(
+          brokerBdsApi = dependenciesProvider.brokerBdsApi(),
+          inappApi = dependenciesProvider.inappApi(),
+          responseMapper = BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
+          subsApi = dependenciesProvider.subscriptionsApi(),
+          rxSchedulers = dependenciesProvider.rxSchedulers(),
+          fiatCurrenciesPreferences = dependenciesProvider.fiatCurrenciesPreferencesDataSource()
+        )
+      ),
+      walletService = dependenciesProvider.walletService(),
+      errorMapper = BillingThrowableCodeMapper(),
+      partnerAddressService = dependenciesProvider.partnerAddressService()
+    )
 
     proxyService = dependenciesProvider.proxyService()
     billingMessagesMapper = dependenciesProvider.billingMessagesMapper()
@@ -115,6 +113,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
         oemId,
         guestWalletId
       )
+
       4 -> consumePurchase(apiVersion, packageName, purchaseToken, billingType)
       else -> {
         Log.w(TAG, "Unknown method id for: $methodId")
