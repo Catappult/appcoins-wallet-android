@@ -33,10 +33,7 @@ class AccountWalletServiceTest {
   lateinit var passwordStore: PasswordStore
 
 
-  private val getPrivateKeyUseCase = GetPrivateKeyUseCase(
-    accountKeyService = accountKeyService,
-    passwordStore = passwordStore
-  )
+  private lateinit var getPrivateKeyUseCase: GetPrivateKeyUseCase
 
   @Mock
   lateinit var createWalletUseCase: CreateWalletUseCase
@@ -66,6 +63,11 @@ class AccountWalletServiceTest {
     )
     `when`(passwordStore.getPassword(any())).thenReturn(Single.just(PASSWORD))
     `when`(accountKeyService.exportAccount(any(), any(), any())).thenReturn(Single.just(KEYSTORE))
+
+    getPrivateKeyUseCase = GetPrivateKeyUseCase(
+      accountKeyService = accountKeyService,
+      passwordStore = passwordStore
+    )
 
     accountWalletService = AccountWalletService(
       passwordStore = passwordStore,
