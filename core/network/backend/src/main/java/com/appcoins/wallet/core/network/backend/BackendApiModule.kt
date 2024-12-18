@@ -27,6 +27,7 @@ import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.PromotionsSerializer
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
+import com.appcoins.wallet.core.network.base.annotations.RenewJwtBackendUrl
 import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
 import com.appcoins.wallet.core.network.base.compat.EmailApi
 import com.appcoins.wallet.core.utils.properties.HostProperties
@@ -51,6 +52,10 @@ import javax.inject.Singleton
 class BackendApiModule {
 
   private val backendUrl = HostProperties.BACKEND_HOST
+
+  @Provides
+  @RenewJwtBackendUrl
+  fun provideBackendUrl(): String = backendUrl
 
   @Singleton
   @Provides
