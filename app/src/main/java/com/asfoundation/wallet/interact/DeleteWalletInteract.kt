@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.interact
 
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletInfoRepository
@@ -25,6 +26,7 @@ class DeleteWalletInteract @Inject constructor(
   private val walletInfoRepository: WalletInfoRepository,
   private val registerFirebaseTokenUseCase: RegisterFirebaseTokenUseCase,
   private val setActiveWalletUseCase: SetActiveWalletUseCase,
+  private val schedulers: RxSchedulers,
 ) {
 
   fun delete(address: String): Completable = passwordStore.getPassword(address)
@@ -43,6 +45,8 @@ class DeleteWalletInteract @Inject constructor(
     )
     .andThen(walletInfoRepository.deleteWalletInfo(address))
     .andThen(setNewWallet())
+    .subscribeOn(schedulers.io)
+    .observeOn(schedulers.main)
 
   private fun setNewWallet(): Completable = walletRepository.fetchWallets()
     .filter { it.isNotEmpty() }

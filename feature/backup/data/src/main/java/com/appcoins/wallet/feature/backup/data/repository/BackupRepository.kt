@@ -44,8 +44,7 @@ constructor(
   private fun getDefaultBackupFileExtension() = ".bck"
 
   fun sendBackupEmail(walletAddress: String, keystore: String, email: String): Completable {
-    return walletService
-      .getAndSignSpecificWalletAddress(walletAddress)
+    return walletService.getAndSignSpecificWalletAddress(walletAddress)
       .flatMapCompletable {
         backupEmailApi.sendBackupEmail(
           walletAddress = it.address,
@@ -56,7 +55,8 @@ constructor(
       .subscribeOn(rxSchedulers.io)
   }
 
-  fun logBackupSuccess(ewt: String): Completable {
-    return backupLogApi.logBackupSuccess(ewt).subscribeOn(rxSchedulers.io)
+  fun logBackupSuccess(jwt: String): Completable {
+    return backupLogApi.logBackupSuccess(jwt)
+      .subscribeOn(rxSchedulers.io)
   }
 }

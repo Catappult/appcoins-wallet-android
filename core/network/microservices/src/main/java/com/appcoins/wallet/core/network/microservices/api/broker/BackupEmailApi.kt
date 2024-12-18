@@ -12,7 +12,6 @@ interface BackupEmailApi {
   fun sendBackupEmail(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
-//    @Header("authorization") authorization: String,
     @Body emailBody: EmailBody
   ): Completable
 }

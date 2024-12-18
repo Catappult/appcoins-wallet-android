@@ -29,31 +29,30 @@ class BillingService : Service() {
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
     val serializer = ExternalBillingSerializer()
     return AppcoinsBillingBinder(
-      dependenciesProvider.supportedVersion(),
-      dependenciesProvider.billingMessagesMapper(),
-      packageManager,
-      object : BillingFactory {
+      supportedApiVersion = dependenciesProvider.supportedVersion(),
+      billingMessagesMapper = dependenciesProvider.billingMessagesMapper(),
+      packageManager = packageManager,
+      billingFactory = object : BillingFactory {
         override fun getBilling(): Billing = BdsBilling(
-          BdsRepository(
+          repository = BdsRepository(
             RemoteRepository(
-              dependenciesProvider.brokerBdsApi(),
-              dependenciesProvider.inappApi(),
-              BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-              dependenciesProvider.subscriptionsApi(),
-              dependenciesProvider.ewtObtainer(),
-              dependenciesProvider.rxSchedulers(),
-              dependenciesProvider.fiatCurrenciesPreferencesDataSource()
+              brokerBdsApi = dependenciesProvider.brokerBdsApi(),
+              inappApi = dependenciesProvider.inappApi(),
+              responseMapper = BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
+              subsApi = dependenciesProvider.subscriptionsApi(),
+              rxSchedulers = dependenciesProvider.rxSchedulers(),
+              fiatCurrenciesPreferences = dependenciesProvider.fiatCurrenciesPreferencesDataSource()
             )
           ),
-          dependenciesProvider.walletService(),
-          BillingThrowableCodeMapper(),
-          dependenciesProvider.partnerAddressService()
+          walletService = dependenciesProvider.walletService(),
+          errorMapper = BillingThrowableCodeMapper(),
+          partnerAddressService = dependenciesProvider.partnerAddressService()
         )
       },
-      serializer,
-      dependenciesProvider.proxyService(),
-      BillingIntentBuilder(applicationContext),
-      Schedulers.io()
+      serializer = serializer,
+      proxyService = dependenciesProvider.proxyService(),
+      intentBuilder = BillingIntentBuilder(applicationContext),
+      networkScheduler = Schedulers.io()
     )
   }
 }

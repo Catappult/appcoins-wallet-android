@@ -7,7 +7,6 @@ import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -43,8 +42,6 @@ interface TransactionsApi {
   ): Single<List<WalletHistory.Transaction>>
 
   @GET(value = "/transaction/wallet/invoices/{invoice_id}/pdf/")
-  suspend fun getInvoiceById(
-    @Path("invoice_id") invoiceId: String,
-    @Header("authorization") authorization: String
-  ): Response<InvoiceResponse>
+  suspend fun getInvoiceById(@Path("invoice_id") invoiceId: String): Response<InvoiceResponse>
+
 }

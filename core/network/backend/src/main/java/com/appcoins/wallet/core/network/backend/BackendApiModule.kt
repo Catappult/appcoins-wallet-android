@@ -21,7 +21,6 @@ import com.appcoins.wallet.core.network.backend.api.TokenToFiatApi
 import com.appcoins.wallet.core.network.backend.api.TransactionOverviewApi
 import com.appcoins.wallet.core.network.backend.api.TransactionsApi
 import com.appcoins.wallet.core.network.backend.api.WalletInfoApi
-import com.appcoins.wallet.core.network.backend.api.WithdrawApi
 import com.appcoins.wallet.core.network.backend.model.PromotionsDeserializer
 import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.PromotionsSerializer
@@ -219,14 +218,6 @@ class BackendApiModule {
     @BackendShortTimeoutRetrofit retrofit: Retrofit
   ): CachedGuestWalletApi {
     return retrofit.create(CachedGuestWalletApi::class.java)
-  }
-
-  @Singleton
-  @Provides
-  fun provideWithdrawApi(
-    @BackendDefaultRetrofit retrofit: Retrofit
-  ): WithdrawApi {
-    return retrofit.create(WithdrawApi::class.java)
   }
 
   @Singleton

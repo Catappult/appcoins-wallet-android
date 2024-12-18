@@ -7,6 +7,6 @@ import retrofit2.http.POST
 interface BackupLogApi {
   @POST("/transaction/wallet/backup/")
   fun logBackupSuccess(
-    @Header("authorization") authorization: String
+    @Header("Authorization") jwt: String
   ): Completable
 }

@@ -3,7 +3,6 @@ package com.wallet.appcoins.feature.support.data
 import android.app.Application
 import com.appcoins.wallet.core.network.backend.api.SupportApi
 import com.appcoins.wallet.core.network.backend.model.IntercomAttributesRequest
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
@@ -20,12 +19,10 @@ import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-
 class SupportRepository @Inject constructor(
   private val appStartPreferencesDataSource: AppStartPreferencesDataSource,
   private val oemIdPreferences: OemIdPreferencesDataSource,
   private val app: Application,
-  private val ewtAuthenticatorService: EwtAuthenticatorService,
   private val supportApi: SupportApi,
   private val logger: Logger,
   private val firebaseMessaging: FirebaseMessaging,
@@ -132,10 +129,7 @@ class SupportRepository @Inject constructor(
   private fun sendConversationAttributes(
     attributes: IntercomAttributesRequest
   ) {
-    ewtAuthenticatorService.getEwtAuthentication()
-      .flatMap { ewt ->
-        supportApi.setConversationAttributesAndTags(ewt, attributes)
-      }
+    supportApi.setConversationAttributesAndTags(attributes)
       .subscribeOn(Schedulers.io())
       .onErrorReturn {
         logger.log(TAG, it)
