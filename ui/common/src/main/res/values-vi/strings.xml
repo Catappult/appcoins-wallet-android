@@ -540,6 +540,7 @@
   <string name="buy_button">Mua</string>
   <string name="copied_to_clipboard">Đã sao chép vào khay nhớ tạm</string>
   <string name="topup_button">Nạp tiền</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">Phương thức thanh toán</string>
   <string name="credit_debit_card">Thẻ tín dụng/ghi nợ</string>
   <string name="paypal">PayPal</string>

@@ -540,6 +540,7 @@
   <string name="buy_button">Comprar</string>
   <string name="copied_to_clipboard">Copiado para a área de transferência</string>
   <string name="topup_button">Carregar</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">Método de pagamento</string>
   <string name="credit_debit_card">Cartão de crédito/débito</string>
   <string name="paypal">PayPal</string>

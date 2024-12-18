@@ -2,7 +2,6 @@ package com.asfoundation.wallet.my_wallets.create_wallet
 
 import android.animation.Animator
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -80,13 +79,13 @@ class CreateWalletDialogFragment : DialogFragment(),
           if (requireArguments().getBoolean(IS_PAYMENT))
             navigator.navigateBack()
           else
-            restart(requireContext())
+            restart()
 
         } else {
           views.createWalletLoading.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator) = Unit
             override fun onAnimationEnd(animation: Animator) = run {
-              restart(requireContext())
+              restart()
             }
 
             override fun onAnimationCancel(animation: Animator) = Unit
@@ -101,9 +100,12 @@ class CreateWalletDialogFragment : DialogFragment(),
     }
   }
 
-  private fun restart(context: Context) {
+  private fun restart() {
     lifecycleScope.launch {
-      AppUtils.restartApp(context)
+      AppUtils.restartApp(
+        activity = requireActivity(),
+        copyIntent = true
+      )
     }
   }
 

@@ -11,6 +11,11 @@
       tools:layout="@layout/fragment_onboarding">
 
     <argument
+        android:name="createWalletAutomatically"
+        app:nullable="false"
+        app:argType="boolean" />
+
+    <argument
         android:name="backupModel"
         app:nullable="true"
         android:defaultValue="@null"

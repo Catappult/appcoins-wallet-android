@@ -540,6 +540,7 @@
   <string name="buy_button">구매</string>
   <string name="copied_to_clipboard">클립보드에 복사되었습니다</string>
   <string name="topup_button">충전</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">지불 방법</string>
   <string name="credit_debit_card">신용/직불 카드</string>
   <string name="paypal">페이팔</string>

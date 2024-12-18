@@ -53,20 +53,26 @@ class MainActivityViewModel @Inject constructor(
     handleSavedStateParameters()
   }
 
-  fun handleInitialNavigation(authComplete: Boolean = false, giftCard: String? = null, promoCode: String? = null, fromSplashScreen: Boolean = false) {
+  fun handleInitialNavigation(
+    authComplete: Boolean = false,
+    giftCard: String? = null,
+    promoCode: String? = null,
+    fromSplashScreen: Boolean = false,
+    newIntent: Boolean = false,
+  ) {
     getAutoUpdateModelUseCase()
       .subscribeOn(rxSchedulers.io)
       .observeOn(rxSchedulers.main)
       .doOnSuccess { (updateVersionCode, updateMinSdk, blackList) ->
         when {
-          hasRequiredHardUpdateUseCase(blackList, updateVersionCode, updateMinSdk) ->
+          !newIntent && hasRequiredHardUpdateUseCase(blackList, updateVersionCode, updateMinSdk) ->
             sendSideEffect { MainActivitySideEffect.NavigateToAutoUpdate }
 
-          hasAuthenticationPermissionUseCase() && !authComplete -> {
+          !newIntent && hasAuthenticationPermissionUseCase() && !authComplete -> {
             sendSideEffect { MainActivitySideEffect.NavigateToFingerprintAuthentication }
           }
 
-          shouldShowOnboardingUseCase() -> {
+          !newIntent && shouldShowOnboardingUseCase() -> {
             getCachedGuestWalletUseCase()
               .subscribeOn(rxSchedulers.io)
               .observeOn(rxSchedulers.main)
