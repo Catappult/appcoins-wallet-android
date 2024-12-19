@@ -32,7 +32,6 @@ class CreateAmazonPayTransactionTopUpUseCase @Inject constructor(
           entityOemId = null,
           entityDomain = null,
           entityPromoCode = null,
-          userWallet = null,
           origin = null,
           reference = null,
           metadata = null,

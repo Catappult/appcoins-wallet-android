@@ -3,7 +3,6 @@ package com.asfoundation.wallet.billing.carrier_billing
 import com.appcoins.wallet.billing.carrierbilling.AvailableCountryListModel
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.CarrierBillingApi
 import com.appcoins.wallet.core.network.microservices.model.CarrierTransactionBody
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -18,7 +17,6 @@ class CarrierBillingRepository @Inject constructor(
   private val preferences: CarrierBillingPreferencesRepository,
   private val mapper: CarrierResponseMapper,
   private val logger: Logger,
-  private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
 ) {
 
@@ -30,64 +28,65 @@ class CarrierBillingRepository @Inject constructor(
 
   fun makePayment(
     walletAddress: String,
-    phoneNumber: String, packageName: String, origin: String?, sku: String?,
-    reference: String?, transactionType: String, currency: String,
-    value: String, entityOemId: String?,
-    entityDomain: String?, entityPromoCode: String?,
-    userWallet: String?, referrerUrl: String?, developerPayload: String?,
-    callbackUrl: String?, guestWalletId: String?
-  ): Single<CarrierPaymentModel> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMap { ewt ->
-        api.makePayment(
-          walletAddress = walletAddress,
-          authorization = ewt,
-          carrierTransactionBody = CarrierTransactionBody(
-            phoneNumber = phoneNumber,
-            returnUrl = RETURN_URL,
-            method = METHOD,
-            domain = packageName,
-            origin = origin,
-            sku = sku,
-            reference = reference,
-            type = transactionType,
-            currency = currency,
-            value = value,
-            entityOemId = entityOemId,
-            entityDomain = entityDomain,
-            entityPromoCode = entityPromoCode,
-            user = userWallet,
-            referrerUrl = referrerUrl,
-            developerPayload = developerPayload,
-            callbackUrl = callbackUrl,
-            guestWalletId = guestWalletId,
-          )
-        )
-          .map { response -> mapper.mapPayment(response) }
-          .onErrorReturn { e ->
-            logger.log("CarrierBillingRepository", e)
-            mapper.mapPaymentError(e)
-          }
-      }
-  }
+    phoneNumber: String,
+    packageName: String,
+    origin: String?,
+    sku: String?,
+    reference: String?,
+    transactionType: String,
+    currency: String,
+    value: String,
+    entityOemId: String?,
+    entityDomain: String?,
+    entityPromoCode: String?,
+    userWallet: String?,
+    referrerUrl: String?,
+    developerPayload: String?,
+    callbackUrl: String?,
+    guestWalletId: String?
+  ): Single<CarrierPaymentModel> = api.makePayment(
+    walletAddress = walletAddress,
+    carrierTransactionBody = CarrierTransactionBody(
+      phoneNumber = phoneNumber,
+      returnUrl = RETURN_URL,
+      method = METHOD,
+      domain = packageName,
+      origin = origin,
+      sku = sku,
+      reference = reference,
+      type = transactionType,
+      currency = currency,
+      value = value,
+      entityOemId = entityOemId,
+      entityDomain = entityDomain,
+      entityPromoCode = entityPromoCode,
+      user = userWallet,
+      referrerUrl = referrerUrl,
+      developerPayload = developerPayload,
+      callbackUrl = callbackUrl,
+      guestWalletId = guestWalletId,
+    )
+  )
+    .subscribeOn(rxSchedulers.io)
+    .map { response -> mapper.mapPayment(response) }
+    .onErrorReturn { e ->
+      logger.log("CarrierBillingRepository", e)
+      mapper.mapPaymentError(e)
+    }
 
   fun getPayment(
-    uid: String, walletAddress: String,
-  ): Observable<CarrierPaymentModel> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMapObservable { ewt ->
-        api.getPayment(
-          uid = uid,
-          walletAddress = walletAddress,
-          authorization = ewt
-        )
-          .map { response -> mapper.mapPayment(response) }
-          .onErrorReturn { e ->
-            logger.log("CarrierBillingRepository", e)
-            mapper.mapPaymentError(e)
-          }
-      }
-  }
+    uid: String,
+    walletAddress: String,
+  ): Observable<CarrierPaymentModel> = api.getPayment(
+    uid = uid,
+    walletAddress = walletAddress
+  )
+    .subscribeOn(rxSchedulers.io)
+    .map { response -> mapper.mapPayment(response) }
+    .onErrorReturn { e ->
+      logger.log("CarrierBillingRepository", e)
+      mapper.mapPaymentError(e)
+    }
 
   fun retrieveAvailableCountryList(): Single<AvailableCountryListModel> {
     return api.getAvailableCountryList()

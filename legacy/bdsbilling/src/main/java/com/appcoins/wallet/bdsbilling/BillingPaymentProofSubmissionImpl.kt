@@ -5,7 +5,6 @@ import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.InAppMapper
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.SubscriptionsMapper
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
@@ -26,8 +25,6 @@ class BillingPaymentProofSubmissionImpl internal constructor(
   private val networkScheduler: Scheduler,
   private val transactionFromApprove: MutableMap<String, Transaction>,
   private val transactionIdsFromBuy: MutableMap<String, String>,
-  private val ewtObtainer: EwtAuthenticatorService,
-  private val rxSchedulers: RxSchedulers,
 ) : BillingPaymentProofSubmission {
 
   override fun processPurchaseProof(paymentProof: PaymentProof): Single<Transaction> =
@@ -137,7 +134,6 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private var brokerBdsApi: BrokerBdsApi? = null
     private var inappApi: InappBillingApi? = null
     private var subscriptionBillingApi: SubscriptionBillingApi? = null
-    private var ewtObtainer: EwtAuthenticatorService? = null
     private var rxSchedulers: RxSchedulers? = null
     private var fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource? = null
 
@@ -150,14 +146,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     fun setSubscriptionBillingService(subscriptionBillingApi: SubscriptionBillingApi) =
       apply { this.subscriptionBillingApi = subscriptionBillingApi }
 
-    fun setScheduler(scheduler: Scheduler) =
-      apply { this.networkScheduler = scheduler }
-
     fun setWalletService(walletService: WalletService) =
       apply { this.walletService = walletService }
-
-    fun setEwtObtainer(ewtObtainer: EwtAuthenticatorService) =
-      apply { this.ewtObtainer = ewtObtainer }
 
     fun setRxSchedulers(rxSchedulers: RxSchedulers) =
       apply { this.rxSchedulers = rxSchedulers }
@@ -166,40 +156,35 @@ class BillingPaymentProofSubmissionImpl internal constructor(
       apply { this.fiatCurrenciesPreferencesDataSource = fiatCurrenciesPreferencesDataSource }
 
     fun build(): BillingPaymentProofSubmissionImpl =
-      ewtObtainer?.let { ewtObtainer ->
-        rxSchedulers?.let { rxSchedulers ->
-          walletService?.let { walletService ->
-            brokerBdsApi?.let { brokerBdsApi ->
-              inappApi?.let { inappApi ->
-                subscriptionBillingApi?.let { subscriptionsApi ->
-                  fiatCurrenciesPreferencesDataSource?.let { fiatCurrenciesPreferencesDataSource ->
-                    BillingPaymentProofSubmissionImpl(
-                      walletService,
-                      BdsRepository(
-                        RemoteRepository(
-                          brokerBdsApi,
-                          inappApi,
-                          BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-                          subscriptionsApi,
-                          ewtObtainer,
-                          rxSchedulers,
-                          fiatCurrenciesPreferencesDataSource
-                        )
-                      ),
-                      networkScheduler,
-                      ConcurrentHashMap(),
-                      ConcurrentHashMap(),
-                      ewtObtainer,
-                      rxSchedulers
-                    )
-                  }
-                    ?: throw IllegalArgumentException("fiatCurrenciesPreferencesDataSource not defined")
-                } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
-              } ?: throw IllegalArgumentException("InappBdsApi not defined")
-            } ?: throw IllegalArgumentException("BrokerBdsApi not defined")
-          } ?: throw IllegalArgumentException("WalletService not defined")
-        } ?: throw IllegalArgumentException("ewtObtainer not defined")
-      } ?: throw IllegalArgumentException("rxSchedulers not defined")
+      rxSchedulers?.let { rxSchedulers ->
+        walletService?.let { walletService ->
+          brokerBdsApi?.let { brokerBdsApi ->
+            inappApi?.let { inappApi ->
+              subscriptionBillingApi?.let { subscriptionsApi ->
+                fiatCurrenciesPreferencesDataSource?.let { fiatCurrenciesPreferencesDataSource ->
+                  BillingPaymentProofSubmissionImpl(
+                    walletService = walletService,
+                    repository = BdsRepository(
+                      RemoteRepository(
+                        brokerBdsApi = brokerBdsApi,
+                        inappApi = inappApi,
+                        responseMapper = BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
+                        subsApi = subscriptionsApi,
+                        rxSchedulers = rxSchedulers,
+                        fiatCurrenciesPreferences = fiatCurrenciesPreferencesDataSource
+                      )
+                    ),
+                    networkScheduler = networkScheduler,
+                    transactionFromApprove = ConcurrentHashMap(),
+                    transactionIdsFromBuy = ConcurrentHashMap(),
+                  )
+                }
+                  ?: throw IllegalArgumentException("fiatCurrenciesPreferencesDataSource not defined")
+              } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
+            } ?: throw IllegalArgumentException("InappBdsApi not defined")
+          } ?: throw IllegalArgumentException("BrokerBdsApi not defined")
+        } ?: throw IllegalArgumentException("WalletService not defined")
+      } ?: throw IllegalArgumentException("ewtObtainer not defined")
   }
 
 }

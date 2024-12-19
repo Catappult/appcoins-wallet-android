@@ -11,9 +11,9 @@ class FirebaseMessagingRepositoryImpl @Inject constructor(
   private val firebaseMessagingAPI: FirebaseMessagingAPI,
 ) : FirebaseMessagingRepository {
 
-  override fun registerToken(ewtAuthentication: String, token: String): Completable =
+  override fun registerToken(jwt: String, token: String): Completable =
     firebaseMessagingAPI.registerToken(
-      authorization = ewtAuthentication,
+      jwt = jwt,
       firebaseTokenData = FirebaseTokenData(
         token = token,
       )
@@ -22,9 +22,9 @@ class FirebaseMessagingRepositoryImpl @Inject constructor(
       .onErrorComplete()
       .subscribeOn(Schedulers.io())
 
-  override fun unregisterToken(ewtAuthentication: String, token: String): Completable =
+  override fun unregisterToken(jwt: String, token: String): Completable =
     firebaseMessagingAPI.unregisterToken(
-      authorization = ewtAuthentication,
+      jwt = jwt,
       token = token,
     )
       .ignoreElement()

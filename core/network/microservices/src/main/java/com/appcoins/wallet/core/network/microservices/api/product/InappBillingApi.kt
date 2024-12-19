@@ -14,7 +14,6 @@ interface InappBillingApi {
   fun consumePurchase(
     @Path("domain") domain: String,
     @Path("uid") uid: String,
-    @Header("authorization") authorization: String,
     @Query("payload") payload: String? = null
   ): Completable
 
@@ -22,7 +21,6 @@ interface InappBillingApi {
   fun acknowledgePurchase(
     @Path("domain") domain: String,
     @Path("uid") uid: String,
-    @Header("authorization") authorization: String,
     @Query("payload") payload: String? = null
   ): Completable
 
@@ -36,7 +34,6 @@ interface InappBillingApi {
   @GET("8.20200701/applications/{packageName}/inapp/consumable/purchases")
   fun getPurchases(
     @Path("packageName") packageName: String,
-    @Header("authorization") authorization: String,
     @Query("type") type: String,
     @Query("state") state: String = "PENDING",
     @Query("sku") sku: String? = null,

@@ -59,76 +59,126 @@ class AppcoinsRewardsTest {
   fun setUp() {
     `when`(
       remoteApi.sendCredits(
-        "", USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE,
-        BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME, null
+        toWallet = "",
+        walletAddress = USER_ADDRESS,
+        amount = PRICE,
+        origin = BDS_ORIGIN,
+        type = TYPE_TRANSFER,
+        packageName = PACKAGE_NAME,
+        guestWalletId = null
       )
     ).thenReturn(
       Single.just(
         com.appcoins.wallet.core.network.microservices.model.Transaction(
-          "123456789",
-          com.appcoins.wallet.core.network.microservices.model.Transaction.Status.PROCESSING,
-          null,
-          null,
-          null,
-          null,
-          null,
-          "",
-          null,
-          null
+          uid = "123456789",
+          status = com.appcoins.wallet.core.network.microservices.model.Transaction.Status.PROCESSING,
+          gateway = null,
+          hash = null,
+          metadata = null,
+          orderReference = null,
+          price = null,
+          type = "",
+          wallets = null,
+          url = null
         )
       )
     )
 
     `when`(
       remoteApi.pay(
-        USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, BDS_ORIGIN, SKU, TYPE,
-        STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
-        null,
-        null,
-        null
+        walletAddress = USER_ADDRESS,
+        signature = USER_ADDRESS_SIGNATURE,
+        amount = PRICE,
+        origin = BDS_ORIGIN,
+        sku = SKU,
+        type = TYPE,
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        guestWalletId = null
       )
     ).thenReturn(
       Single.just(
         TransactionCore(
-          UID,
-          TransactionCore.Status.COMPLETED,
-          Gateway.unknown(), "0x32453134", null, "orderReference", null, "", null
+          uid = UID,
+          status = TransactionCore.Status.COMPLETED,
+          gateway = Gateway.unknown(),
+          hash = "0x32453134",
+          metadata = null,
+          orderReference = "orderReference",
+          price = null,
+          type = "",
+          wallets = null
         )
       )
     )
 
     `when`(
       remoteApi.pay(
-        USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, UNITY_ORIGIN, SKU, TYPE,
-        STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
-        null,
-        null,
-        null
+        walletAddress = USER_ADDRESS,
+        signature = USER_ADDRESS_SIGNATURE,
+        amount = PRICE,
+        origin = UNITY_ORIGIN,
+        sku = SKU,
+        type = TYPE,
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        guestWalletId = null
       )
     ).thenReturn(
       Single.just(
         TransactionCore(
-          UID,
-          TransactionCore.Status.COMPLETED,
-          Gateway.unknown(), "0x32453134", null, "orderReference", null, "", null
+          uid = UID,
+          status = TransactionCore.Status.COMPLETED,
+          gateway = Gateway.unknown(),
+          hash = "0x32453134",
+          metadata = null,
+          orderReference = "orderReference",
+          price = null,
+          type = "",
+          wallets = null
         )
       )
     )
 
     `when`(
       remoteApi.pay(
-        USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, null, SKU, TYPE,
-        STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
-        null,
-        null,
-        null
+        walletAddress = USER_ADDRESS,
+        signature = USER_ADDRESS_SIGNATURE,
+        amount = PRICE,
+        origin = null,
+        sku = SKU,
+        type = TYPE,
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        guestWalletId = null
       )
     ).thenReturn(
       Single.just(
         TransactionCore(
-          UID,
-          TransactionCore.Status.COMPLETED,
-          Gateway.unknown(), "0x32453134", null, "orderReference", null, "", null
+          uid = UID,
+          status = TransactionCore.Status.COMPLETED,
+          gateway = Gateway.unknown(),
+          hash = "0x32453134",
+          metadata = null,
+          orderReference = "orderReference",
+          price = null,
+          type = "",
+          wallets = null
         )
       )
     )
@@ -136,9 +186,15 @@ class AppcoinsRewardsTest {
     `when`(billing.getAppcoinsTransaction(UID, scheduler)).thenReturn(
       Single.just(
         TransactionCore(
-          UID,
-          TransactionCore.Status.COMPLETED,
-          Gateway.unknown(), "0x32453134", null, "orderReference", null, "", null
+          uid = UID,
+          status = TransactionCore.Status.COMPLETED,
+          gateway = Gateway.unknown(),
+          hash = "0x32453134",
+          metadata = null,
+          orderReference = "orderReference",
+          price = null,
+          type = "",
+          wallets = null
         )
       )
     )
@@ -148,7 +204,8 @@ class AppcoinsRewardsTest {
 
     appcoinsRewards =
       AppcoinsRewards(
-        BdsAppcoinsRewardsRepository(remoteApi), object : WalletService {
+        repository = BdsAppcoinsRewardsRepository(remoteApi),
+        walletService = object : WalletService {
           override fun getWalletAddress(): Single<String> {
             return Single.just(USER_ADDRESS)
           }
@@ -158,10 +215,13 @@ class AppcoinsRewardsTest {
 
           }
         },
-        MemoryCache(
+        cache = MemoryCache(
           BehaviorSubject.create(),
           ConcurrentHashMap()
-        ), scheduler, billing, ErrorMapper(Gson())
+        ),
+        scheduler = scheduler,
+        billing = billing,
+        errorMapper = ErrorMapper(Gson())
       )
     appcoinsRewards.start()
   }
@@ -170,12 +230,27 @@ class AppcoinsRewardsTest {
   fun makePayment() {
     val testObserver = TestObserver<Any>()
     appcoinsRewards.pay(
-      PRICE, BDS_ORIGIN, SKU, TYPE, STORE_ADDRESS, OEM_ADDRESS,
-      PACKAGE_NAME, null, null, null, null, null, null
+      amount = PRICE,
+      origin = BDS_ORIGIN,
+      sku = SKU,
+      type = TYPE,
+      entityOemId = STORE_ADDRESS,
+      entityDomainId = OEM_ADDRESS,
+      packageName = PACKAGE_NAME,
+      payload = null,
+      callbackUrl = null,
+      orderReference = null,
+      referrerUrl = null,
+      productToken = null,
+      guestWalletId = null
     )
       .subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
-    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString())
+    appcoinsRewards.getPayment(
+      packageName = PACKAGE_NAME,
+      sku = SKU,
+      amount = PRICE.toString()
+    )
       .subscribe(statusObserver)
 
     scheduler.triggerActions()
@@ -183,16 +258,42 @@ class AppcoinsRewardsTest {
       .assertComplete()
     val mutableListOf = mutableListOf(
       Transaction(
-        SKU, TYPE, "", STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-        PRICE, BDS_ORIGIN, Transaction.Status.PROCESSING, null, null, null, null, null, null,
-        null, null
+        sku = SKU,
+        type = TYPE,
+        developerAddress = "",
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        amount = PRICE,
+        origin = BDS_ORIGIN,
+        status = Transaction.Status.PROCESSING,
+        txId = null,
+        purchaseUid = null,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        productToken = null,
+        guestWalletId = null
       ),
       Transaction(
-        SKU, TYPE, "", STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-        PRICE, BDS_ORIGIN, Transaction.Status.COMPLETED, UID, null, null, null, null,
-        null,
-        null,
-        null
+        sku = SKU,
+        type = TYPE,
+        developerAddress = "",
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        amount = PRICE,
+        origin = BDS_ORIGIN,
+        status = Transaction.Status.COMPLETED,
+        txId = UID,
+        purchaseUid = null,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        productToken = null,
+        guestWalletId = null
       )
     )
     statusObserver.assertNoErrors()
@@ -204,12 +305,27 @@ class AppcoinsRewardsTest {
     val testObserver = TestObserver<Any>()
     val origin = UNITY_ORIGIN
     appcoinsRewards.pay(
-      PRICE, origin, SKU, TYPE, STORE_ADDRESS, OEM_ADDRESS,
-      PACKAGE_NAME, null, null, null, null, null, null
+      amount = PRICE,
+      origin = origin,
+      sku = SKU,
+      type = TYPE,
+      entityOemId = STORE_ADDRESS,
+      entityDomainId = OEM_ADDRESS,
+      packageName = PACKAGE_NAME,
+      payload = null,
+      callbackUrl = null,
+      orderReference = null,
+      referrerUrl = null,
+      productToken = null,
+      guestWalletId = null
     )
       .subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
-    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString())
+    appcoinsRewards.getPayment(
+      packageName = PACKAGE_NAME,
+      sku = SKU,
+      amount = PRICE.toString()
+    )
       .subscribe(statusObserver)
 
     scheduler.triggerActions()
@@ -217,13 +333,42 @@ class AppcoinsRewardsTest {
       .assertComplete()
     val mutableListOf = mutableListOf(
       Transaction(
-        SKU, TYPE, "", STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-        PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null, null, null, null
+        sku = SKU,
+        type = TYPE,
+        developerAddress = "",
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        amount = PRICE,
+        origin = origin,
+        status = Transaction.Status.PROCESSING,
+        txId = null,
+        purchaseUid = null,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        productToken = null,
+        guestWalletId = null
       ),
       Transaction(
-        SKU, TYPE, "", STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-        PRICE, origin, Transaction.Status.COMPLETED, UID, null, null, null, null, null,
-        null, null
+        sku = SKU,
+        type = TYPE,
+        developerAddress = "",
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        amount = PRICE,
+        origin = origin,
+        status = Transaction.Status.COMPLETED,
+        txId = UID,
+        purchaseUid = null,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        productToken = null,
+        guestWalletId = null
       )
     )
     statusObserver.assertNoErrors()
@@ -235,12 +380,27 @@ class AppcoinsRewardsTest {
     val testObserver = TestObserver<Any>()
     val origin = UNKNOWN_ORIGIN
     appcoinsRewards.pay(
-      PRICE, origin, SKU, TYPE, STORE_ADDRESS, OEM_ADDRESS,
-      PACKAGE_NAME, null, null, null, null, null, null
+      amount = PRICE,
+      origin = origin,
+      sku = SKU,
+      type = TYPE,
+      entityOemId = STORE_ADDRESS,
+      entityDomainId = OEM_ADDRESS,
+      packageName = PACKAGE_NAME,
+      payload = null,
+      callbackUrl = null,
+      orderReference = null,
+      referrerUrl = null,
+      productToken = null,
+      guestWalletId = null
     )
       .subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
-    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString())
+    appcoinsRewards.getPayment(
+      packageName = PACKAGE_NAME,
+      sku = SKU,
+      amount = PRICE.toString()
+    )
       .subscribe(statusObserver)
 
     scheduler.triggerActions()
@@ -248,13 +408,42 @@ class AppcoinsRewardsTest {
       .assertComplete()
     val mutableListOf = mutableListOf(
       Transaction(
-        SKU, TYPE, "", STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-        PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null, null, null, null
+        sku = SKU,
+        type = TYPE,
+        developerAddress = "",
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        amount = PRICE,
+        origin = origin,
+        status = Transaction.Status.PROCESSING,
+        txId = null,
+        purchaseUid = null,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        productToken = null,
+        guestWalletId = null
       ),
       Transaction(
-        SKU, TYPE, "", STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-        PRICE, origin, Transaction.Status.COMPLETED, UID, null, null, null, null, null,
-        null, null
+        sku = SKU,
+        type = TYPE,
+        developerAddress = "",
+        entityOemId = STORE_ADDRESS,
+        entityDomain = OEM_ADDRESS,
+        packageName = PACKAGE_NAME,
+        amount = PRICE,
+        origin = origin,
+        status = Transaction.Status.COMPLETED,
+        txId = UID,
+        purchaseUid = null,
+        payload = null,
+        callback = null,
+        orderReference = null,
+        referrerUrl = null,
+        productToken = null,
+        guestWalletId = null
       )
     )
     statusObserver.assertNoErrors()
@@ -263,7 +452,12 @@ class AppcoinsRewardsTest {
 
   @Test
   fun transferCredits() {
-    val test = appcoinsRewards.sendCredits("", PRICE, PACKAGE_NAME, null)
+    val test = appcoinsRewards.sendCredits(
+      toWallet = "",
+      amount = PRICE,
+      packageName = PACKAGE_NAME,
+      guestWalletId = null
+    )
       .test()
     scheduler.triggerActions()
     test.assertNoErrors()
@@ -275,8 +469,13 @@ class AppcoinsRewardsTest {
   fun transferCreditsNetworkError() {
     `when`(
       remoteApi.sendCredits(
-        "", USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE,
-        BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME, null
+        toWallet = "",
+        walletAddress = USER_ADDRESS,
+        amount = PRICE,
+        origin = BDS_ORIGIN,
+        type = TYPE_TRANSFER,
+        packageName = PACKAGE_NAME,
+        guestWalletId = null
       )
     ).thenReturn(
       Single.error(
@@ -285,7 +484,12 @@ class AppcoinsRewardsTest {
         )
       )
     )
-    val test = appcoinsRewards.sendCredits("", PRICE, PACKAGE_NAME, null)
+    val test = appcoinsRewards.sendCredits(
+      toWallet = "",
+      amount = PRICE,
+      packageName = PACKAGE_NAME,
+      guestWalletId = null
+    )
       .test()
     scheduler.triggerActions()
     test.assertNoErrors()
@@ -297,13 +501,23 @@ class AppcoinsRewardsTest {
   fun transferCreditsUnknownError() {
     `when`(
       remoteApi.sendCredits(
-        "", USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE,
-        BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME, null
+        toWallet = "",
+        walletAddress = USER_ADDRESS,
+        amount = PRICE,
+        origin = BDS_ORIGIN,
+        type = TYPE_TRANSFER,
+        packageName = PACKAGE_NAME,
+        guestWalletId = null
       )
     ).thenReturn(
       Single.error(NullPointerException())
     )
-    val test = appcoinsRewards.sendCredits("", PRICE, PACKAGE_NAME, null)
+    val test = appcoinsRewards.sendCredits(
+      toWallet = "",
+      amount = PRICE,
+      packageName = PACKAGE_NAME,
+      guestWalletId = null
+    )
       .test()
     scheduler.triggerActions()
     test.assertNoErrors()
