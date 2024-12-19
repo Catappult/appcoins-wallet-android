@@ -14,11 +14,18 @@ class GetEarningBonusUseCase @Inject constructor(
   operator fun invoke(
     packageName: String,
     amount: BigDecimal,
-    currency: String
+    currency: String,
+    paymentMethodId: String? = null
   ): Single<ForecastBonusAndLevel> {
     return getCurrentPromoCodeUseCase()
       .flatMap {
-        gamificationInteractor.getEarningBonus(packageName, amount, it.code, currency)
+        gamificationInteractor.getEarningBonus(
+          packageName = packageName,
+          amount = amount,
+          promoCodeString = it.code,
+          currency = currency,
+          paymentMethodId = paymentMethodId
+        )
       }
   }
 }

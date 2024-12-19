@@ -23,7 +23,8 @@ interface GamificationApi {  //
     @Query("package_name") packageName: String,
     @Query("amount") amount: BigDecimal,
     @Query("currency") currency: String,
-    @Query("promo_code") promoCodeString: String?
+    @Query("promo_code") promoCodeString: String?,
+    @Query("payment_method") paymentMethodId: String?
   ): Single<ForecastBonusResponse>
 
   @GET("gamification/referral_info")
