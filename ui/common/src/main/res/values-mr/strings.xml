@@ -540,6 +540,7 @@
   <string name="buy_button">खरेदी करा</string>
   <string name="copied_to_clipboard">क्लिपबोर्डवर कॉपी करा</string>
   <string name="topup_button">भरणा करा</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">पेमेंट पद्धत</string>
   <string name="credit_debit_card">क्रेडीट/डेबीट कार्ड</string>
   <string name="paypal">पेपाल</string>

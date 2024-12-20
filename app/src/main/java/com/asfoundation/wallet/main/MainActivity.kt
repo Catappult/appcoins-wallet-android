@@ -12,11 +12,13 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
+import com.appcoins.wallet.core.utils.android_common.OnNewIntentActivityHandler
 import com.appcoins.wallet.core.utils.jvm_common.RxBus
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.main.nav_bar.NavBarFragment
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
+import com.asfoundation.wallet.onboarding.OnboardingFragment
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_SUCCESS
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
@@ -32,7 +34,7 @@ import javax.inject.Inject
  * Container activity for main screen with bottom navigation (Home, Promotions, My Wallets, Top up)
  */
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(),
+class MainActivity : AppCompatActivity(), OnNewIntentActivityHandler,
   SingleStateFragment<MainActivityState, MainActivitySideEffect> {
 
   @Inject
@@ -47,6 +49,8 @@ class MainActivity : AppCompatActivity(),
   private lateinit var authenticationResultLauncher: ActivityResultLauncher<Intent>
 
   private var disposable: Disposable? = null
+
+  private var newIntent: Intent? = null
 
   /**
   To avoid having to set the theme back to the main app one, we should use the new splash screen api.
@@ -90,16 +94,18 @@ class MainActivity : AppCompatActivity(),
 
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
-    handleInitialNavigation(intent = intent)
+    newIntent = intent
+    handleInitialNavigation(intent = intent, newIntent = true)
   }
 
   private fun handleInitialNavigation(
     authComplete: Boolean = false,
-    intent: Intent? = null,
-    fromSplashScreen: Boolean = false
+    intent: Intent,
+    fromSplashScreen: Boolean = false,
+    newIntent: Boolean = false,
   ) {
-    val action = intent?.action
-    val launchedFromHistory = intent?.flags?.and(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0
+    val action = intent.action
+    val launchedFromHistory = intent.flags.and(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0
 
     if (action == Intent.ACTION_VIEW && launchedFromHistory) {
       val host = intent.data?.host
@@ -108,14 +114,16 @@ class MainActivity : AppCompatActivity(),
           viewModel.handleInitialNavigation(
             authComplete = authComplete,
             giftCard = intent.data?.getQueryParameter(DEEPLINK_GIFT_CARD_QUERY_PARAM),
-            fromSplashScreen = fromSplashScreen
+            fromSplashScreen = fromSplashScreen,
+            newIntent = newIntent,
           )
 
         BuildConfig.PROMO_CODE_HOST ->
           viewModel.handleInitialNavigation(
             authComplete = authComplete,
             promoCode = intent.data?.getQueryParameter(DEEPLINK_PROMO_CODE_QUERY_PARAM),
-            fromSplashScreen = fromSplashScreen
+            fromSplashScreen = fromSplashScreen,
+            newIntent = newIntent,
           )
 
         else ->
@@ -125,6 +133,9 @@ class MainActivity : AppCompatActivity(),
       viewModel.handleInitialNavigation(authComplete = authComplete)
     }
   }
+
+  private fun launchedFromPromoCodeOrGiftCard() =
+    intent.action == Intent.ACTION_VIEW && (intent.data?.host == BuildConfig.GIFT_CARD_HOST || intent.data?.host == BuildConfig.PROMO_CODE_HOST)
 
   override fun onStateChanged(state: MainActivityState) = Unit
 
@@ -136,14 +147,21 @@ class MainActivity : AppCompatActivity(),
       MainActivitySideEffect.NavigateToFingerprintAuthentication ->
         navigator.showAuthenticationActivity(this, authenticationResultLauncher)
 
-      MainActivitySideEffect.NavigateToOnboarding ->
-        navigator.navigateToOnboarding(navController)
+      MainActivitySideEffect.NavigateToOnboarding -> {
+        navigator.navigateToOnboarding(
+          navController = navController,
+          createWalletAutomatically = launchedFromPromoCodeOrGiftCard()
+        )
+      }
 
-      is MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet ->
+      is MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet -> {
+        val launchedFromPromoCodeOrGiftCard = launchedFromPromoCodeOrGiftCard()
         navigator.navigateToOnboardingRecoverGuestWallet(
           navController = navController,
           backupModel = sideEffect.backupModel,
+          createWalletAutomatically = launchedFromPromoCodeOrGiftCard
         )
+      }
 
       MainActivitySideEffect.NavigateToNavigationBar ->
         navigator.navigateToNavBarFragment(navController)
@@ -151,8 +169,10 @@ class MainActivity : AppCompatActivity(),
       MainActivitySideEffect.NavigateToPayPalVerification ->
         navigator.navigateToPayPalVerificationFragment(navController)
 
-      is MainActivitySideEffect.NavigateToGiftCard -> {
-        if (navController.currentDestination?.id == R.id.nav_bar_fragment) {
+      is MainActivitySideEffect.NavigateToGiftCard ->
+        if (navController.currentDestination?.id == R.id.nav_bar_fragment ||
+          navController.currentDestination?.id == R.id.onboarding_fragment
+        ) {
           setGiftCardToCurrentFragment(sideEffect.giftCard)
         } else {
           if (sideEffect.fromSplashScreen) {
@@ -167,40 +187,53 @@ class MainActivity : AppCompatActivity(),
             )
           }
         }
-      }
 
-      is MainActivitySideEffect.NavigateToPromoCode -> if (navController.currentDestination?.id == R.id.nav_bar_fragment) {
-        setPromoCodeToCurrentFragment(sideEffect.promoCode)
-      } else {
-        if (sideEffect.fromSplashScreen) {
-          navigator.navigateToPromoCodeFromSplashScreen(
-            navController = navController,
-            promoCode = sideEffect.promoCode
-          )
+      is MainActivitySideEffect.NavigateToPromoCode ->
+        if (navController.currentDestination?.id == R.id.nav_bar_fragment ||
+          navController.currentDestination?.id == R.id.onboarding_fragment
+        ) {
+          setPromoCodeToCurrentFragment(sideEffect.promoCode)
         } else {
-          navigator.navigateToPromoCode(
-            navController = navController,
-            promoCode = sideEffect.promoCode
-          )
+          if (sideEffect.fromSplashScreen) {
+            navigator.navigateToPromoCodeFromSplashScreen(
+              navController = navController,
+              promoCode = sideEffect.promoCode
+            )
+          } else {
+            navigator.navigateToPromoCode(
+              navController = navController,
+              promoCode = sideEffect.promoCode
+            )
+          }
         }
-      }
     }
   }
 
   private fun setGiftCardToCurrentFragment(giftCard: String) {
-    (supportFragmentManager.findFragmentById(R.id.main_host_container)
+    val fragment = (supportFragmentManager.findFragmentById(R.id.main_host_container)
       ?.childFragmentManager
       ?.fragments
-      ?.last() as? NavBarFragment
-        )?.handleGiftCard(giftCard)
+      ?.last())
+
+    when (fragment) {
+      is NavBarFragment -> fragment.handleGiftCard(giftCard)
+      is OnboardingFragment -> fragment.createWalletAutomatically()
+    }
   }
 
+  override fun getCurrentIntent(): Intent =
+    newIntent ?: super.getIntent()
+
   private fun setPromoCodeToCurrentFragment(promoCode: String) {
-    (supportFragmentManager.findFragmentById(R.id.main_host_container)
+    val fragment = (supportFragmentManager.findFragmentById(R.id.main_host_container)
       ?.childFragmentManager
       ?.fragments
-      ?.last() as? NavBarFragment
-        )?.handlePromoCode(promoCode)
+      ?.last())
+
+    when (fragment) {
+      is NavBarFragment -> fragment.handlePromoCode(promoCode)
+      is OnboardingFragment -> fragment.createWalletAutomatically()
+    }
   }
 
   override fun onDestroy() {

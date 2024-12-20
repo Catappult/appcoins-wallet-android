@@ -540,6 +540,7 @@
   <string name="buy_button">Αγορά</string>
   <string name="copied_to_clipboard">Αντιγράφηκε στο πρόχειρο</string>
   <string name="topup_button">Φόρτιση</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">Μέθοδος πληρωμής</string>
   <string name="credit_debit_card">Πιστωτική/χρεωστική κάρτα</string>
   <string name="paypal">PayPal</string>

@@ -540,6 +540,7 @@
   <string name="buy_button">شراء</string>
   <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
   <string name="topup_button">إضافة</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">وسيلة الدفع</string>
   <string name="credit_debit_card">بطاقة ائتمان/مسبقة الدفع</string>
   <string name="paypal">بايبال</string>

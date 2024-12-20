@@ -540,6 +540,7 @@
   <string name="buy_button">購入</string>
   <string name="copied_to_clipboard">クリップボードにコピーされました</string>
   <string name="topup_button">トップアップ</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">支払方法</string>
   <string name="credit_debit_card">クレジット/デビットカード</string>
   <string name="paypal">PayPal</string>

@@ -5,7 +5,11 @@ import com.appcoins.wallet.core.network.microservices.model.SubscriptionPurchase
 import com.appcoins.wallet.core.network.microservices.model.SubscriptionsResponse
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface SubscriptionBillingApi {
   /**
@@ -19,7 +23,7 @@ interface SubscriptionBillingApi {
   fun getSubscriptions(
     @Header("Accept-Language") language: String,
     @Path("domain") domain: String,
-    @Query("skus") skus: List<String>?,
+    @Query("skus") skus: String?,
     @Query("limit") limit: Long? = null,
     @Query("currency") currency: String? = null
   ): Single<SubscriptionsResponse>
