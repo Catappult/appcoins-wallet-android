@@ -15,7 +15,7 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ItemPaymentMethodBinding
-import com.asfoundation.wallet.GlideApp
+import com.bumptech.glide.Glide
 
 class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -28,7 +28,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     onClickLogoutAction: () -> Unit,
     showLogoutAction: Boolean
   ) {
-    GlideApp.with(itemView.context)
+    Glide.with(itemView.context)
       .load(data.iconUrl)
       .into(binding.paymentMethodIc)
 

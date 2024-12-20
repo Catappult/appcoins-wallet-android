@@ -25,6 +25,6 @@ interface PermissionsDao {
   fun insert(roomPermission: PermissionEntity)
 
   @Delete
-  fun remove(roomPermission: PermissionEntity?)
+  fun remove(roomPermission: PermissionEntity)
 
 }

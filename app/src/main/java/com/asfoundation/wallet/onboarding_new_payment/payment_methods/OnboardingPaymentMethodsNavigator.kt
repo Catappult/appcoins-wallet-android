@@ -102,24 +102,6 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
 
   fun navigateToChallengeReward() = Unit
 
-  fun navigateToVkPayPayment(
-    transactionBuilder: TransactionBuilder,
-    amount: String,
-    currency: String,
-    forecastBonus: ForecastBonusAndLevel
-  ) {
-    navigate(
-      fragment.findNavController(),
-      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingVkPayment(
-        transactionBuilder,
-        PaymentType.VKPAY,
-        amount,
-        currency,
-        forecastBonus
-      )
-    )
-  }
-
   fun navigateToGooglePay(
     transactionBuilder: TransactionBuilder,
     amount: String,

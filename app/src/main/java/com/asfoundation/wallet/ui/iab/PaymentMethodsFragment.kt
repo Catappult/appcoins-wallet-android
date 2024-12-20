@@ -30,7 +30,6 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCachedShow
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.R
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
-import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.amazonPay.usecases.DeleteAmazonPayChargePermissionUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionLocalStorageUseCase
@@ -41,6 +40,7 @@ import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreem
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.Period
+import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -54,7 +54,6 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
@@ -492,7 +491,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     compositeDisposable.add(
       Observable.fromCallable {
         val context = context
-        GlideApp.with(context!!).asBitmap().load(paymentMethod.iconUrl).submit().get()
+        Glide.with(context!!).asBitmap().load(paymentMethod.iconUrl).submit().get()
       }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -710,25 +709,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         frequency
       )
     }
-  }
-
-  override fun showVkPay(
-    gamificationLevel: Int,
-    fiatValue: FiatValue,
-    frequency: String?,
-    isSubscription: Boolean
-  ) {
-    iabView.showVkPay(
-      fiatValue.amount,
-      fiatValue.currency,
-      isBds,
-      PaymentType.PAYPAL,
-      bonusMessageValue,
-      null,
-      gamificationLevel,
-      isSubscription,
-      frequency
-    )
   }
 
   override fun showAmazonPay(

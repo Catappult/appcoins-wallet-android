@@ -10,10 +10,10 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
+import com.bumptech.glide.Glide
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -85,7 +85,7 @@ class LocalTopUpPaymentPresenter(
 
   private fun getPaymentMethodIcon(): Single<Bitmap> {
     return Single.fromCallable {
-      GlideApp.with(context!!)
+      Glide.with(context!!)
         .asBitmap()
         .load(data.paymentIcon)
         .override(getWidth(), getHeight())

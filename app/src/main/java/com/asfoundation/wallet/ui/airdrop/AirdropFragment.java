@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.appcoins.wallet.core.utils.android_common.Log;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.GlideApp;
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
@@ -64,7 +64,7 @@ import javax.inject.Inject;
 
   @Override public void showCaptcha(String captchaUrl) {
     Log.d(TAG, "showCaptcha() called with: captchaUrl = [" + captchaUrl + "]");
-    GlideApp.with(getContext())
+    Glide.with(getContext())
         .load(captchaUrl)
         .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true))
