@@ -154,7 +154,7 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
         override fun onAnimationStart(animation: Animator) = Unit
       })
     views.paypalErrorLayout.layoutSupportIcn.setOnClickListener {
-      viewModel.showSupport(gamificationLevel)
+      viewModel.showSupport()
     }
   }
 

@@ -39,29 +39,36 @@ class GamificationTest {
   fun getUserStats() {
     val userStatsGamification =
       GamificationResponse(
-        "GAMIFICATION", 100, GamificationStatus.STANDARD, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 1,
-        BigDecimal.TEN,
-        PromotionsResponse.Status.ACTIVE, true
+        id = "GAMIFICATION",
+        priority = 100,
+        gamificationStatus = GamificationStatus.STANDARD,
+        bonus = 2.2,
+        totalSpend = BigDecimal.ONE,
+        totalEarned = BigDecimal.ZERO,
+        level = 1,
+        nextLevelAmount = BigDecimal.TEN,
+        status = PromotionsResponse.Status.ACTIVE,
+        bundle = true
       )
     val referralResponse =
       ReferralResponse(
-        "REFERRAL",
-        99,
-        GamificationStatus.NONE,
-        BigDecimal(2.2),
-        3,
-        true,
-        2,
-        "EUR",
-        "€",
-        false,
-        "link",
-        BigDecimal.ONE,
-        BigDecimal.ZERO,
-        ReferralResponse.UserStatus.REDEEMED,
-        BigDecimal.ZERO,
-        PromotionsResponse.Status.ACTIVE,
-        BigDecimal.ONE
+        id = "REFERRAL",
+        priority = 99,
+        gamificationStatus = GamificationStatus.NONE,
+        maxAmount = BigDecimal(2.2),
+        available = 3,
+        bundle = true,
+        completed = 2,
+        currency = "EUR",
+        symbol = "€",
+        invited = false,
+        link = "link",
+        pendingAmount = BigDecimal.ONE,
+        receivedAmount = BigDecimal.ZERO,
+        userStatus = ReferralResponse.UserStatus.REDEEMED,
+        minAmount = BigDecimal.ZERO,
+        status = PromotionsResponse.Status.ACTIVE,
+        amount = BigDecimal.ONE
       )
     local.walletOriginResponse = Single.just(WalletOrigin.UNKNOWN)
     local.userStatusResponse = Single.just(emptyList())
@@ -71,21 +78,21 @@ class GamificationTest {
           listOf(userStatsGamification, referralResponse), WalletOrigin.APTOIDE
         )
       )
-    val testObserver = gamification.getUserStats(WALLET, null)
+    val testObserver = gamification.getUserStats(WALLET, null, true)
       .test()
     testObserver.assertResult(
       PromotionsGamificationStats(
-        PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
+        resultState = PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
         fromCache = true,
         gamificationStatus = GamificationStatus.NONE
       ),
       PromotionsGamificationStats(
-        PromotionsGamificationStats.ResultState.OK,
-        1,
-        BigDecimal.TEN,
-        2.2,
-        BigDecimal.ONE,
-        BigDecimal.ZERO,
+        resultState = PromotionsGamificationStats.ResultState.OK,
+        level = 1,
+        nextLevelAmount = BigDecimal.TEN,
+        bonus = 2.2,
+        totalSpend = BigDecimal.ONE,
+        totalEarned = BigDecimal.ZERO,
         isActive = true,
         fromCache = false,
         gamificationStatus = GamificationStatus.STANDARD
@@ -100,29 +107,40 @@ class GamificationTest {
     local.userStatusResponse = Single.just(
       listOf(
         GamificationResponse(
-          "GAMIFICATION", 100, GamificationStatus.STANDARD, 15.0,
-          BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
-          PromotionsResponse.Status.ACTIVE, false
+          id = "GAMIFICATION",
+          priority = 100,
+          gamificationStatus = GamificationStatus.STANDARD,
+          bonus = 15.0,
+          totalSpend = BigDecimal(25000.0),
+          totalEarned = BigDecimal(5000.0),
+          level = 5,
+          nextLevelAmount = BigDecimal(60000.0),
+          status = PromotionsResponse.Status.ACTIVE,
+          bundle = false
         )
       )
     )
     api.userStatusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getUserStats(WALLET, null)
+    val testObserver = gamification.getUserStats(WALLET, null, true)
       .test()
     testObserver.assertResult(
       PromotionsGamificationStats(
-        PromotionsGamificationStats.ResultState.OK, 5, BigDecimal(60000.0), 15.0,
-        BigDecimal(25000.0), BigDecimal(5000.0), isActive = true, fromCache = true,
+        resultState = PromotionsGamificationStats.ResultState.OK,
+        level = 5,
+        nextLevelAmount = BigDecimal(60000.0),
+        bonus = 15.0,
+        totalSpend = BigDecimal(25000.0),
+        totalEarned = BigDecimal(5000.0), isActive = true, fromCache = true,
         gamificationStatus = GamificationStatus.STANDARD
       ),
       PromotionsGamificationStats(
-        PromotionsGamificationStats.ResultState.NO_NETWORK,
-        PromotionsGamificationStats.INVALID_LEVEL,
-        BigDecimal.ZERO,
-        -1.0,
-        BigDecimal.ZERO,
-        BigDecimal.ZERO,
-        false,
+        resultState = PromotionsGamificationStats.ResultState.NO_NETWORK,
+        level = PromotionsGamificationStats.INVALID_LEVEL,
+        nextLevelAmount = BigDecimal.ZERO,
+        bonus = -1.0,
+        totalSpend = BigDecimal.ZERO,
+        totalEarned = BigDecimal.ZERO,
+        isActive = false,
         fromCache = false,
         gamificationStatus = GamificationStatus.NONE
       )
@@ -134,28 +152,28 @@ class GamificationTest {
     local.walletOriginResponse = Single.error(EmptyResultSetException(""))
     local.userStatusResponse = Single.error(EmptyResultSetException(""))
     api.userStatusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getUserStats(WALLET, null)
+    val testObserver = gamification.getUserStats(WALLET, null, true)
       .test()
     testObserver.assertResult(
       PromotionsGamificationStats(
-        PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
-        -1,
-        BigDecimal.ZERO,
-        -1.0,
-        BigDecimal.ZERO,
-        BigDecimal.ZERO,
+        resultState = PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
+        level = -1,
+        nextLevelAmount = BigDecimal.ZERO,
+        bonus = -1.0,
+        totalSpend = BigDecimal.ZERO,
+        totalEarned = BigDecimal.ZERO,
         isActive = false,
         fromCache = true,
         gamificationStatus = GamificationStatus.NONE
       ),
       PromotionsGamificationStats(
-        PromotionsGamificationStats.ResultState.NO_NETWORK,
-        PromotionsGamificationStats.INVALID_LEVEL,
-        BigDecimal.ZERO,
-        -1.0,
-        BigDecimal.ZERO,
-        BigDecimal.ZERO,
-        false,
+        resultState = PromotionsGamificationStats.ResultState.NO_NETWORK,
+        level = PromotionsGamificationStats.INVALID_LEVEL,
+        nextLevelAmount = BigDecimal.ZERO,
+        bonus = -1.0,
+        totalSpend = BigDecimal.ZERO,
+        totalEarned = BigDecimal.ZERO,
+        isActive = false,
         fromCache = false,
         gamificationStatus = GamificationStatus.NONE
       )
@@ -168,37 +186,51 @@ class GamificationTest {
     local.userStatusResponse = Single.just(
       listOf(
         GamificationResponse(
-          "GAMIFICATION", 100, GamificationStatus.STANDARD, 15.0,
-          BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
-          PromotionsResponse.Status.ACTIVE, false
+          id = "GAMIFICATION",
+          priority = 100,
+          gamificationStatus = GamificationStatus.STANDARD,
+          bonus = 15.0,
+          totalSpend = BigDecimal(25000.0),
+          totalEarned = BigDecimal(5000.0),
+          level = 5,
+          nextLevelAmount = BigDecimal(60000.0),
+          status = PromotionsResponse.Status.ACTIVE,
+          bundle = false
         )
       )
     )
     val userStatsGamification =
       GamificationResponse(
-        "GAMIFICATION", 100, GamificationStatus.STANDARD, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 4,
-        BigDecimal.TEN,
-        PromotionsResponse.Status.ACTIVE, true
+        id = "GAMIFICATION",
+        priority = 100,
+        gamificationStatus = GamificationStatus.STANDARD,
+        bonus = 2.2,
+        totalSpend = BigDecimal.ONE,
+        totalEarned = BigDecimal.ZERO,
+        level = 4,
+        nextLevelAmount = BigDecimal.TEN,
+        status = PromotionsResponse.Status.ACTIVE,
+        bundle = true
       )
     val referralResponse =
       ReferralResponse(
-        "REFERRAL",
-        99,
-        GamificationStatus.STANDARD,
-        BigDecimal(2.2),
-        3,
-        true,
-        2,
-        "EUR",
-        "€",
-        false,
-        "link",
-        BigDecimal.ONE,
-        BigDecimal.ZERO,
-        ReferralResponse.UserStatus.REDEEMED,
-        BigDecimal.ZERO,
-        PromotionsResponse.Status.ACTIVE,
-        BigDecimal.ONE
+        id = "REFERRAL",
+        priority = 99,
+        gamificationStatus = GamificationStatus.STANDARD,
+        maxAmount = BigDecimal(2.2),
+        available = 3,
+        bundle = true,
+        completed = 2,
+        currency = "EUR",
+        symbol = "€",
+        invited = false,
+        link = "link",
+        pendingAmount = BigDecimal.ONE,
+        receivedAmount = BigDecimal.ZERO,
+        userStatus = ReferralResponse.UserStatus.REDEEMED,
+        minAmount = BigDecimal.ZERO,
+        status = PromotionsResponse.Status.ACTIVE,
+        amount = BigDecimal.ONE
       )
     api.userStatusResponse =
       Single.just(
@@ -219,37 +251,51 @@ class GamificationTest {
     local.userStatusResponse = Single.just(
       listOf(
         GamificationResponse(
-          "GAMIFICATION", 100, GamificationStatus.STANDARD, 15.0,
-          BigDecimal(25000.0), BigDecimal(5000.0), 4, BigDecimal(60000.0),
-          PromotionsResponse.Status.ACTIVE, false
+          id = "GAMIFICATION",
+          priority = 100,
+          gamificationStatus = GamificationStatus.STANDARD,
+          bonus = 15.0,
+          totalSpend = BigDecimal(25000.0),
+          totalEarned = BigDecimal(5000.0),
+          level = 4,
+          nextLevelAmount = BigDecimal(60000.0),
+          status = PromotionsResponse.Status.ACTIVE,
+          bundle = false
         )
       )
     )
     val userStatsGamification =
       GamificationResponse(
-        "GAMIFICATION", 100, GamificationStatus.STANDARD, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 5,
-        BigDecimal.TEN,
-        PromotionsResponse.Status.ACTIVE, true
+        id = "GAMIFICATION",
+        priority = 100,
+        gamificationStatus = GamificationStatus.STANDARD,
+        bonus = 2.2,
+        totalSpend = BigDecimal.ONE,
+        totalEarned = BigDecimal.ZERO,
+        level = 5,
+        nextLevelAmount = BigDecimal.TEN,
+        status = PromotionsResponse.Status.ACTIVE,
+        bundle = true
       )
     val referralResponse =
       ReferralResponse(
-        "REFERRAL",
-        99,
-        GamificationStatus.STANDARD,
-        BigDecimal(2.2),
-        3,
-        true,
-        2,
-        "EUR",
-        "€",
-        false,
-        "link",
-        BigDecimal.ONE,
-        BigDecimal.ZERO,
-        ReferralResponse.UserStatus.REDEEMED,
-        BigDecimal.ZERO,
-        PromotionsResponse.Status.ACTIVE,
-        BigDecimal.ONE
+        id = "REFERRAL",
+        priority = 99,
+        gamificationStatus = GamificationStatus.STANDARD,
+        maxAmount = BigDecimal(2.2),
+        available = 3,
+        bundle = true,
+        completed = 2,
+        currency = "EUR",
+        symbol = "€",
+        invited = false,
+        link = "link",
+        pendingAmount = BigDecimal.ONE,
+        receivedAmount = BigDecimal.ZERO,
+        userStatus = ReferralResponse.UserStatus.REDEEMED,
+        minAmount = BigDecimal.ZERO,
+        status = PromotionsResponse.Status.ACTIVE,
+        amount = BigDecimal.ONE
       )
     api.userStatusResponse =
       Single.just(
@@ -271,9 +317,16 @@ class GamificationTest {
     local.userStatusResponse = Single.just(
       listOf(
         GamificationResponse(
-          "GAMIFICATION", 100, GamificationStatus.STANDARD, 15.0,
-          BigDecimal(25000.0), BigDecimal(5000.0), 4, BigDecimal(60000.0),
-          PromotionsResponse.Status.ACTIVE, false
+          id = "GAMIFICATION",
+          priority = 100,
+          gamificationStatus = GamificationStatus.STANDARD,
+          bonus = 15.0,
+          totalSpend = BigDecimal(25000.0),
+          totalEarned = BigDecimal(5000.0),
+          level = 4,
+          nextLevelAmount = BigDecimal(60000.0),
+          status = PromotionsResponse.Status.ACTIVE,
+          bundle = false
         )
       )
     )
@@ -290,9 +343,16 @@ class GamificationTest {
     local.userStatusResponse = Single.just(
       listOf(
         GamificationResponse(
-          "GAMIFICATION", 100, GamificationStatus.STANDARD, 15.0,
-          BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
-          PromotionsResponse.Status.ACTIVE, false
+          id = "GAMIFICATION",
+          priority = 100,
+          gamificationStatus = GamificationStatus.STANDARD,
+          bonus = 15.0,
+          totalSpend = BigDecimal(25000.0),
+          totalEarned = BigDecimal(5000.0),
+          level = 5,
+          nextLevelAmount = BigDecimal(60000.0),
+          status = PromotionsResponse.Status.ACTIVE,
+          bundle = false
         )
       )
     )
@@ -459,8 +519,16 @@ class GamificationTest {
   fun hasNewLevelNoNewLevel() {
     val userStatsGamification =
       GamificationResponse(
-        GAMIFICATION_ID, 100, GamificationStatus.STANDARD, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 0,
-        BigDecimal.TEN, PromotionsResponse.Status.ACTIVE, true
+        id = GAMIFICATION_ID,
+        priority = 100,
+        gamificationStatus = GamificationStatus.STANDARD,
+        bonus = 2.2,
+        totalSpend = BigDecimal.ONE,
+        totalEarned = BigDecimal.ZERO,
+        level = 0,
+        nextLevelAmount = BigDecimal.TEN,
+        status = PromotionsResponse.Status.ACTIVE,
+        bundle = true
       )
 
     local.lastShownLevelResponse = Single.just(0)
@@ -478,9 +546,16 @@ class GamificationTest {
   fun hasNewLevelNewLevel() {
     val userStatsGamification =
       GamificationResponse(
-        GAMIFICATION_ID, 100, GamificationStatus.STANDARD, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 0,
-        BigDecimal.TEN,
-        PromotionsResponse.Status.ACTIVE, true
+        id = GAMIFICATION_ID,
+        priority = 100,
+        gamificationStatus = GamificationStatus.STANDARD,
+        bonus = 2.2,
+        totalSpend = BigDecimal.ONE,
+        totalEarned = BigDecimal.ZERO,
+        level = 0,
+        nextLevelAmount = BigDecimal.TEN,
+        status = PromotionsResponse.Status.ACTIVE,
+        bundle = true
       )
 
     local.lastShownLevelResponse = Single.just(PromotionsGamificationStats.INVALID_LEVEL)

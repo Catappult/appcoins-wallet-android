@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -15,7 +14,7 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TopUpActivityLayoutBinding
@@ -24,6 +23,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.GooglePayTopupFragment
 import com.asfoundation.wallet.billing.paypal.PayPalTopupFragment
 import com.asfoundation.wallet.billing.true_layer.TrueLayerTopupFragment
+import com.asfoundation.wallet.gamification.UpdateUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -53,6 +53,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   @Inject
   lateinit var topUpInteractor: TopUpInteractor
+
+  @Inject
+  lateinit var updateUserStatsUseCase: UpdateUserStatsUseCase
 
   @Inject
   lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
@@ -97,14 +100,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
     presenter = TopUpActivityPresenter(
-      this,
-      topUpInteractor,
-      startVipReferralPollingUseCase,
-      AndroidSchedulers.mainThread(),
-      Schedulers.io(),
-      CompositeDisposable(),
-      logger,
-      displayChatUseCase
+      view = this,
+      topUpInteractor = topUpInteractor,
+      startVipReferralPollingUseCase = startVipReferralPollingUseCase,
+      viewScheduler = AndroidSchedulers.mainThread(),
+      networkScheduler = Schedulers.io(),
+      disposables = CompositeDisposable(),
+      logger = logger,
+      displayChatUseCase = displayChatUseCase,
+      updateUserStatsUseCase = updateUserStatsUseCase,
     )
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)

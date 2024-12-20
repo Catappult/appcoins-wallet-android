@@ -131,7 +131,7 @@ class GooglePayWebFragment : BasePageViewFragment() {
       override fun onAnimationStart(animation: Animator) = Unit
     })
     views.googlePayWebErrorLayout.layoutSupportIcn.setOnClickListener {
-      viewModel.showSupport(gamificationLevel)
+      viewModel.showSupport()
     }
   }
 

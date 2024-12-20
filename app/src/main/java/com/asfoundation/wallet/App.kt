@@ -230,8 +230,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   private fun initiateIntercom() {
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID)
-    Intercom.client()
-      .setInAppMessageVisibility(Intercom.Visibility.GONE)
+    Intercom.client().setInAppMessageVisibility(Intercom.Visibility.GONE)
   }
 
   private fun initializeWalletId() {

@@ -12,7 +12,6 @@ import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.router.Result;
-import com.asfoundation.wallet.router.TransactionsRouter;
 import com.asfoundation.wallet.router.TransferConfirmationRouter;
 import com.asfoundation.wallet.util.QRUri;
 import com.asfoundation.wallet.util.TransferParser;
@@ -33,19 +32,16 @@ public class SendViewModel extends BaseViewModel {
   private final TransferConfirmationRouter transferConfirmationRouter;
   private final TransferParser transferParser;
   private final CompositeDisposable disposables;
-  private final TransactionsRouter transactionsRouter;
   private TransactionBuilder transactionBuilder;
 
   SendViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
       FetchGasSettingsInteract fetchGasSettingsInteract,
-      TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser,
-      TransactionsRouter transactionsRouter) {
+      TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser) {
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchGasSettingsInteract = fetchGasSettingsInteract;
     this.transferConfirmationRouter = transferConfirmationRouter;
     this.transferParser = transferParser;
-    this.transactionsRouter = transactionsRouter;
-    disposables = new CompositeDisposable();
+    this.disposables = new CompositeDisposable();
   }
 
   @Override protected void onCleared() {

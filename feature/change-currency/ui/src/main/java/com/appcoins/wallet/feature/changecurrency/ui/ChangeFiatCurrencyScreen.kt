@@ -46,7 +46,7 @@ import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.common.theme.shapes
 import com.appcoins.wallet.ui.widgets.NoNetworkScreen
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
 import kotlinx.coroutines.launch
 import com.appcoins.wallet.ui.common.R as CommonR

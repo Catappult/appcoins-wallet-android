@@ -919,7 +919,7 @@ class PaymentMethodsPresenter(
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .flatMapCompletable { interactor.showSupport(cachedGamificationLevel) }
+      .flatMapCompletable { interactor.showSupport() }
       .subscribe({}, { it.printStackTrace() })
     )
   }

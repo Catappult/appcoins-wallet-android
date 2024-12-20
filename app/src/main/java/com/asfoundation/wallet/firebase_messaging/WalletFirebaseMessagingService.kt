@@ -41,7 +41,7 @@ class WalletFirebaseMessagingService : FirebaseMessagingService() {
 
     when {
       intercomNotification.isIntercomPush(remoteMessage) ->
-        intercomNotification.sendNotification()
+        intercomNotification.sendNotification(remoteMessage)
 
       else -> showNotification(remoteMessage)
     }

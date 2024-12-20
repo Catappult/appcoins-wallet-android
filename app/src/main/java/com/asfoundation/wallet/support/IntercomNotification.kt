@@ -34,52 +34,9 @@ class IntercomNotification @Inject constructor(
   private val application
     get() = context as Application
 
-  fun sendNotification() {
-    notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(application).build())
+  fun sendNotification(remoteMessage: RemoteMessage) {
+    intercomPushClient.handlePush(application, remoteMessage.data)
     saveBooleanNotificationToSharedPreferences(application)
-  }
-
-  private fun createNotification(context: Context): NotificationCompat.Builder {
-    val okPendingIntent = createNotificationClickIntent(context)
-    val dismissPendingIntent = createNotificationDismissIntent(context)
-    val builder: NotificationCompat.Builder
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      val importance = NotificationManager.IMPORTANCE_HIGH
-      val notificationChannel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance)
-      builder = NotificationCompat.Builder(context, CHANNEL_ID)
-      notificationManager.createNotificationChannel(notificationChannel)
-    } else {
-      builder = NotificationCompat.Builder(context, CHANNEL_ID)
-    }
-    return builder.setContentTitle(context.getString(R.string.support_new_message_title))
-      .setAutoCancel(true)
-      .setContentIntent(okPendingIntent)
-      .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
-      .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
-      .setContentText(context.getString(R.string.support_new_message_button))
-  }
-
-  private fun createNotificationClickIntent(context: Context): PendingIntent {
-    val intent = SupportNotificationBroadcastReceiver.newIntent(context)
-    intent.putExtra(ACTION_KEY, ACTION_CHECK_MESSAGES)
-    return PendingIntent.getActivity(
-      context,
-      0,
-      intent,
-      PendingIntent.FLAG_IMMUTABLE
-    )
-  }
-
-  private fun createNotificationDismissIntent(context: Context): PendingIntent {
-    val intent =
-      SupportNotificationBroadcastReceiver.newIntent(context)
-    intent.putExtra(ACTION_KEY, ACTION_DISMISS)
-    return PendingIntent.getActivity(
-      context,
-      1,
-      intent,
-      PendingIntent.FLAG_IMMUTABLE
-    )
   }
 
   fun sendTokenToIntercom(token: String) {

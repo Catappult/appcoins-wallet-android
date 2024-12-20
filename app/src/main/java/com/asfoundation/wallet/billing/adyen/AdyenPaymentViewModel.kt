@@ -226,10 +226,7 @@ class AdyenPaymentViewModel @Inject constructor(
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .flatMapCompletable {
-          adyenPaymentInteractor.showSupport(
-            paymentData.gamificationLevel,
-            cachedUid
-          )
+          adyenPaymentInteractor.showSupport(cachedUid)
         }
         .subscribe({}, { it.printStackTrace() })
     )
