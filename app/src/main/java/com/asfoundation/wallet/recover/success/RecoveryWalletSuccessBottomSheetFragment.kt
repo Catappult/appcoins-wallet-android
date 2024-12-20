@@ -1,14 +1,10 @@
 package com.asfoundation.wallet.recover.success
 
-
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
@@ -58,7 +54,7 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
     views.recoveryWalletBottomButton.setOnClickListener {
       if (requireArguments().getBoolean(IS_FROM_ONBOARDING)) {
-        restart(requireContext())
+        restart()
       } else {
         navigator.navigateBack()
         dismiss()
@@ -66,9 +62,12 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  private fun restart(context: Context) {
+  private fun restart() {
     lifecycleScope.launch {
-      AppUtils.restartApp(context)
+      AppUtils.restartApp(
+        activity = requireActivity(),
+        copyIntent = true
+      )
     }
   }
 
@@ -86,10 +85,4 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onSideEffect(sideEffect: SideEffect) = Unit
 
-  private fun navController(): NavController {
-    val navHostFragment =
-      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
-          as NavHostFragment
-    return navHostFragment.navController
-  }
 }

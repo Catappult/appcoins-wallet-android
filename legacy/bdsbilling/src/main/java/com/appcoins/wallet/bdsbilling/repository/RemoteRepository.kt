@@ -81,13 +81,17 @@ class RemoteRepository(
     skus: List<String>
   ): Single<SubscriptionsResponse> =
     if (skus.size <= SKUS_SUBS_DETAILS_REQUEST_LIMIT) {
-      subsApi.getSubscriptions(Locale.getDefault().toLanguageTag(), packageName, skus)
+      subsApi.getSubscriptions(
+        language = Locale.getDefault().toLanguageTag(),
+        domain = packageName,
+        skus = skus.joinToString(separator = ",")
+      )
     } else {
       Single.zip(
         subsApi.getSubscriptions(
           language = Locale.getDefault().toLanguageTag(),
           domain = packageName,
-          skus = skus.take(SKUS_SUBS_DETAILS_REQUEST_LIMIT)
+          skus = skus.take(SKUS_SUBS_DETAILS_REQUEST_LIMIT).joinToString(separator = ",")
         ), requestSkusDetailsSubs(packageName, skus.drop(SKUS_SUBS_DETAILS_REQUEST_LIMIT))
       ) { firstResponse, secondResponse -> firstResponse.merge(secondResponse) }
     }
@@ -466,7 +470,7 @@ class RemoteRepository(
     productName: String?,
     guestWalletId: String?
   ): Single<Transaction> =
-    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+    ewtObtainer.getEwtAuthentication(gateway == "appcoins_credits").subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         if (executingAppcTransaction.compareAndSet(false, true)) {
           brokerBdsApi.createTransaction(

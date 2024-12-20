@@ -45,15 +45,18 @@ class Gamification @Inject constructor(private val repository: PromotionsReposit
     packageName: String,
     amount: BigDecimal,
     promoCodeString: String?,
-    currency: String?
-  ): Single<ForecastBonus> =
-    repository.getForecastBonus(
+    currency: String?,
+    paymentMethodId: String?
+  ): Single<ForecastBonus> {
+    return repository.getForecastBonus(
       wallet = wallet,
       packageName = packageName,
       amount = amount,
       promoCodeString = promoCodeString,
-      currency = currency
+      currency = currency,
+      paymentMethodId = paymentMethodId
     )
+  }
 
   fun hasNewLevel(
     wallet: String, gamificationContext: GamificationContext,

@@ -540,6 +540,7 @@
   <string name="buy_button">Beli</string>
   <string name="copied_to_clipboard">Disalin ke papan klip</string>
   <string name="topup_button">Tambah Nilai</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">Kaedah pembayaran</string>
   <string name="credit_debit_card">Kad kredit/debit</string>
   <string name="paypal">PayPal</string>

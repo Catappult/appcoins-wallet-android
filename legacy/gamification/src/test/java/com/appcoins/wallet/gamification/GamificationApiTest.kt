@@ -33,8 +33,12 @@ class GamificationApiTest : GamificationApi {
   }
 
   override fun getForecastBonus(
-    wallet: String, packageName: String, amount: BigDecimal,
-    currency: String, promoCodeString: String?
+    wallet: String,
+    packageName: String,
+    amount: BigDecimal,
+    currency: String,
+    promoCodeString: String?,
+    paymentMethodId: String?
   ): Single<ForecastBonusResponse> {
     val aux = bonusResponse!!
     bonusResponse = null

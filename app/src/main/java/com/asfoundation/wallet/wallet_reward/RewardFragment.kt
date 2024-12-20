@@ -124,9 +124,11 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     arguments?.getString(EXTRA_GIFT_CARD)?.let {
       navigator.showGiftCardFragment(it)
+      arguments?.remove(EXTRA_GIFT_CARD)
     }
     arguments?.getString(EXTRA_PROMO_CODE)?.let {
       navigator.showPromoCodeFragment(it)
+      arguments?.remove(EXTRA_PROMO_CODE)
     }
   }
 
