@@ -13,6 +13,8 @@ import io.reactivex.Single
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
+import android.util.Base64
+import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64Url
 
 class CreateWebViewPaymentOspUseCase @Inject constructor(
   val inAppPurchaseInteractor: InAppPurchaseInteractor,
@@ -48,10 +50,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
 
         "$baseWebViewPaymentUrl?" +
             "referrer_url=${
-              URLEncoder.encode(
-                transaction.referrerUrl,
-                StandardCharsets.UTF_8.toString()
-              )
+              transaction.referrerUrl.convertToBase64Url()
             }" +
             "&country=$country" +
             "&address=${walletModel.address}" +

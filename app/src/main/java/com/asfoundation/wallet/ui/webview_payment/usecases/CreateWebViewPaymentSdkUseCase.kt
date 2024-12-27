@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.webview_payment.usecases
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64Url
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
@@ -59,10 +60,7 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
             "&type=${transaction.type}" +
             "&oem_id=${oemId ?: ""}" +
             "&reference=${
-              URLEncoder.encode(
-                transaction.orderReference ?: "",
-                StandardCharsets.UTF_8.toString()
-              )
+              transaction.referrerUrl.convertToBase64Url()
             }" +
             "&promo_code=${promoCode.code ?: ""}" +
             "&guest_id=${transaction.guestId ?: ""}" +
