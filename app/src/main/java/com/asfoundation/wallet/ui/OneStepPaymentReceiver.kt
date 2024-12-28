@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.airbnb.lottie.LottieAnimationView
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
@@ -18,7 +19,9 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
+import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
 import com.asfoundation.wallet.util.TransferParser
+import com.asfoundation.wallet.util.tuples.Quintuple
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -35,21 +38,15 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   @Inject
   lateinit var walletService: WalletService
-//
-//  @Inject
-//  lateinit var ewtObtainer: EwtAuthenticatorService
-//
-//  @Inject
-//  lateinit var getCountryCodeUseCase: GetCountryCodeUseCase
-//
-//  @Inject
-//  lateinit var addressService: AddressService
-//
-//  @Inject
-//  lateinit var rxSchedulers: RxSchedulers
 
   @Inject
   lateinit var createWebViewPaymentOspUseCase: CreateWebViewPaymentOspUseCase
+
+  @Inject
+  lateinit var rxSchedulers: RxSchedulers
+
+  @Inject
+  lateinit var isWebViewPaymentFlowUseCase: IsWebViewPaymentFlowUseCase
 
   @Inject
   lateinit var logger: Logger
@@ -92,12 +89,25 @@ class OneStepPaymentReceiver : BaseActivity() {
           } else {
             transferParser.parse(intent.dataString!!)
               .flatMap { transaction: TransactionBuilder ->
-                inAppPurchaseInteractor.isWalletFromBds(transaction.domain, transaction.toAddress())
-                  .doOnSuccess { isBds: Boolean ->
-                    // startOneStepTransfer(transaction, isBds) // TODO uncomment to use the old IAP, use payflow sdk api to direct to the correct flow.
-                  }
-                  .flatMap { isBds: Boolean ->
-                    startWebViewPayment(transaction)
+                Single.zip(
+                  isWebViewPaymentFlowUseCase(transaction).subscribeOn(rxSchedulers.io),
+                  inAppPurchaseInteractor.isWalletFromBds(
+                    transaction.domain,
+                    transaction.toAddress()
+                  )
+                    .subscribeOn(rxSchedulers.io),
+                ) { isWebPaymentFlow, isBds ->
+                  Pair(isWebPaymentFlow, isBds)
+                }
+                  .map {
+                    val isWebPaymentFlow = it.first
+                    val isBds = it.second
+                    if (isWebPaymentFlow.paymentMethods?.walletWebViewPayment != null) {
+                      startWebViewPayment(transaction)
+                    } else {
+                      startOneStepTransfer(transaction, isBds)
+                      Observable.just("")
+                    }
                   }
               }.toObservable()
           }

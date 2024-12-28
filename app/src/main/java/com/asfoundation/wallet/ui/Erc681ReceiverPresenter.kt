@@ -2,12 +2,14 @@ package com.asfoundation.wallet.ui
 
 import android.os.Bundle
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
+import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -25,6 +27,8 @@ internal class Erc681ReceiverPresenter(
   private val productName: String?,
   private val partnerAddressService: PartnerAddressService,
   private val createWebViewPaymentSdkUseCase: CreateWebViewPaymentSdkUseCase,
+  private val isWebViewPaymentFlowUseCase: IsWebViewPaymentFlowUseCase,
+  private val rxSchedulers: RxSchedulers,
 ) {
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
@@ -42,15 +46,25 @@ internal class Erc681ReceiverPresenter(
               }
               .flatMap { transactionBuilder ->
                 partnerAddressService.setOemIdFromSdk(transactionBuilder.oemIdSdk)
-                inAppPurchaseInteractor.isWalletFromBds(
-                  transactionBuilder.domain,
-                  transactionBuilder.toAddress()
-                )
-                  .doOnSuccess { isBds ->
-//                    view.startEipTransfer(transactionBuilder, isBds)
-                  }
-                  .flatMap { isBds: Boolean ->
-                    startWebViewPayment(transactionBuilder)
+                Single.zip(
+                  isWebViewPaymentFlowUseCase(transactionBuilder).subscribeOn(rxSchedulers.io),
+                  inAppPurchaseInteractor.isWalletFromBds(
+                    transactionBuilder.domain,
+                    transactionBuilder.toAddress()
+                  )
+                    .subscribeOn(rxSchedulers.io),
+                ) { isWebPaymentFlow, isBds ->
+                  Pair(isWebPaymentFlow, isBds)
+                }
+                  .map {
+                    val isWebPaymentFlow = it.first
+                    val isBds = it.second
+                    if (isWebPaymentFlow.paymentMethods?.walletWebViewPayment != null) {
+                      startWebViewPayment(transactionBuilder)
+                    } else {
+                      view.startEipTransfer(transactionBuilder, isBds)
+                      Observable.just("")
+                    }
                   }
               }
               .toObservable()

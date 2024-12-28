@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.asf.wallet.R
@@ -17,6 +18,7 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
+import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
 import com.asfoundation.wallet.util.TransferParser
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +47,12 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   lateinit var createWebViewPaymentSdkUseCase: CreateWebViewPaymentSdkUseCase
 
   @Inject
+  lateinit var rxSchedulers: RxSchedulers
+
+  @Inject
+  lateinit var isWebViewPaymentFlowUseCase: IsWebViewPaymentFlowUseCase
+
+  @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
   @Inject
@@ -65,16 +73,18 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     val productName = intent.extras?.getString(PRODUCT_NAME, "")
     presenter =
       Erc681ReceiverPresenter(
-        this,
-        transferParser,
-        inAppPurchaseInteractor,
-        walletService,
-        intent.dataString!!,
-        AndroidSchedulers.mainThread(),
-        CompositeDisposable(),
-        productName,
-        partnerAddressService,
-        createWebViewPaymentSdkUseCase
+        view = this,
+        transferParser = transferParser,
+        inAppPurchaseInteractor = inAppPurchaseInteractor,
+        walletService = walletService,
+        data = intent.dataString!!,
+        viewScheduler = AndroidSchedulers.mainThread(),
+        disposables = CompositeDisposable(),
+        productName = productName,
+        partnerAddressService = partnerAddressService,
+        createWebViewPaymentSdkUseCase = createWebViewPaymentSdkUseCase,
+        isWebViewPaymentFlowUseCase = isWebViewPaymentFlowUseCase,
+        rxSchedulers = rxSchedulers
       )
     presenter.present(savedInstanceState)
   }
