@@ -56,14 +56,14 @@ internal class Erc681ReceiverPresenter(
                 ) { isWebPaymentFlow, isBds ->
                   Pair(isWebPaymentFlow, isBds)
                 }
-                  .map {
+                  .flatMap {
                     val isWebPaymentFlow = it.first
                     val isBds = it.second
                     if (isWebPaymentFlow.paymentMethods?.walletWebViewPayment != null) {
                       startWebViewPayment(transactionBuilder)
                     } else {
                       view.startEipTransfer(transactionBuilder, isBds)
-                      Observable.just("")
+                      Single.just("")
                     }
                   }
               }

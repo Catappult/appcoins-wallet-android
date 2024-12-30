@@ -60,15 +60,12 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
             "&type=${transaction.type}" +
             "&oem_id=${oemId ?: ""}" +
             "&reference=${
-              transaction.referrerUrl.convertToBase64Url()
+              (transaction.orderReference ?: "").convertToBase64Url()
             }" +
             "&promo_code=${promoCode.code ?: ""}" +
             "&guest_id=${transaction.guestId ?: ""}" +
             "&metadata=${
-              URLEncoder.encode(
-                transaction.payload ?: "",
-                StandardCharsets.UTF_8.toString()
-              )
+              (transaction.payload ?: "").convertToBase64Url()
             }" +
             "&period=${transaction.subscriptionPeriod ?: ""}" +
             "&trial_period=${transaction.trialPeriod ?: ""}"
