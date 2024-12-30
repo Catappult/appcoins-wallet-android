@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.webview_payment.usecases
 
+import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -8,12 +9,9 @@ import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
-
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.tuples.Quintuple
 import io.reactivex.Single
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
 class CreateWebViewPaymentSdkUseCase @Inject constructor(
@@ -23,6 +21,7 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
   val getCountryCodeUseCase: GetCountryCodeUseCase,
   val addressService: AddressService,
   val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  val analytics: IndicativeAnalytics,
   val rxSchedulers: RxSchedulers
 ) {
 
@@ -34,7 +33,7 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
     return Single.zip(
       walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
       ewtObtainer.getEwtAuthenticationNoBearer()
-        .subscribeOn(rxSchedulers.io), // TODO confirmar wallet usada
+        .subscribeOn(rxSchedulers.io),
       getCountryCodeUseCase().subscribeOn(rxSchedulers.io),
       addressService.getAttribution(transaction?.domain ?: "").subscribeOn(rxSchedulers.io),
       getCurrentPromoCodeUseCase().subscribeOn(rxSchedulers.io),
@@ -68,7 +67,8 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
               (transaction.payload ?: "").convertToBase64Url()
             }" +
             "&period=${transaction.subscriptionPeriod ?: ""}" +
-            "&trial_period=${transaction.trialPeriod ?: ""}"
+            "&trial_period=${transaction.trialPeriod ?: ""}" +
+            "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}"
       }
   }
 

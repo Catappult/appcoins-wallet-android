@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui
 
 import android.os.Bundle
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.walletservices.WalletService
@@ -11,6 +13,7 @@ import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentO
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
 import com.asfoundation.wallet.util.TransferParser
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -29,7 +32,10 @@ internal class Erc681ReceiverPresenter(
   private val createWebViewPaymentSdkUseCase: CreateWebViewPaymentSdkUseCase,
   private val isWebViewPaymentFlowUseCase: IsWebViewPaymentFlowUseCase,
   private val rxSchedulers: RxSchedulers,
+  private val billingAnalytics: BillingAnalytics,
+  private var addressService: AddressService,
 ) {
+  private var firstImpression = true
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
       disposables.add(
@@ -46,6 +52,7 @@ internal class Erc681ReceiverPresenter(
               }
               .flatMap { transactionBuilder ->
                 partnerAddressService.setOemIdFromSdk(transactionBuilder.oemIdSdk)
+                handlePurchaseStartAnalytics(transactionBuilder)
                 Single.zip(
                   isWebViewPaymentFlowUseCase(transactionBuilder).subscribeOn(rxSchedulers.io),
                   inAppPurchaseInteractor.isWalletFromBds(
@@ -102,6 +109,29 @@ internal class Erc681ReceiverPresenter(
 
   fun pause() {
     disposables.clear()
+  }
+
+  private fun handlePurchaseStartAnalytics(transaction: TransactionBuilder?) {
+    disposables.add(
+      addressService.getAttribution(transaction?.domain ?: "")
+        .flatMapCompletable { attribution ->
+          Completable.fromAction {
+            if (firstImpression) {
+              billingAnalytics.sendPurchaseStartEvent(
+                packageName = transaction?.domain,
+                skuDetails = transaction?.skuId,
+                value = transaction?.amount().toString(),
+                transactionType = transaction?.type,
+                context = BillingAnalytics.WALLET_PAYMENT_METHOD,
+                oemId = attribution.oemId,
+              )
+              firstImpression = false
+            }
+          }
+        }
+        .subscribeOn(rxSchedulers.io)
+        .subscribe({}, { it.printStackTrace() })
+    )
   }
 
 }

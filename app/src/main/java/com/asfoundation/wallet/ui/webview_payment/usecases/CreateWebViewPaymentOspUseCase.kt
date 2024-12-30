@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.ui.webview_payment.usecases
 
+import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64Url
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
@@ -10,11 +12,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.tuples.Quintuple
 import io.reactivex.Single
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 import javax.inject.Inject
-import android.util.Base64
-import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64Url
 
 class CreateWebViewPaymentOspUseCase @Inject constructor(
   val inAppPurchaseInteractor: InAppPurchaseInteractor,
@@ -23,6 +21,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
   val getCountryCodeUseCase: GetCountryCodeUseCase,
   val addressService: AddressService,
   val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  val analytics: IndicativeAnalytics,
   val rxSchedulers: RxSchedulers
 ) {
 
@@ -63,7 +62,8 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
             "&type=${transaction.type}" +
             "&oem_id=${oemId ?: ""}" +
             "&reference=${transaction.orderReference ?: ""}" +
-            "&promo_code=${promoCode.code}"
+            "&promo_code=${promoCode.code}" +
+            "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}"
       }
   }
 

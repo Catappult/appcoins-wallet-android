@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -47,9 +48,6 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   lateinit var createWebViewPaymentSdkUseCase: CreateWebViewPaymentSdkUseCase
 
   @Inject
-  lateinit var rxSchedulers: RxSchedulers
-
-  @Inject
   lateinit var isWebViewPaymentFlowUseCase: IsWebViewPaymentFlowUseCase
 
   @Inject
@@ -57,6 +55,12 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
 
   @Inject
   lateinit var partnerAddressService: PartnerAddressService
+
+  @Inject
+  lateinit var rxSchedulers: RxSchedulers
+
+  @Inject
+  lateinit var billingAnalytics: BillingAnalytics
 
   private lateinit var presenter: Erc681ReceiverPresenter
 
@@ -84,7 +88,9 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         partnerAddressService = partnerAddressService,
         createWebViewPaymentSdkUseCase = createWebViewPaymentSdkUseCase,
         isWebViewPaymentFlowUseCase = isWebViewPaymentFlowUseCase,
-        rxSchedulers = rxSchedulers
+        rxSchedulers = rxSchedulers,
+        billingAnalytics = billingAnalytics,
+        addressService = partnerAddressService
       )
     presenter.present(savedInstanceState)
   }

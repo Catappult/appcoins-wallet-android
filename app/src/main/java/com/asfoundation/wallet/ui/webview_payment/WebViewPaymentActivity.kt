@@ -31,15 +31,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -54,6 +58,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   @Inject
   lateinit var supportInteractor: SupportInteractor
+
+  @Inject
+  lateinit var analytics: BillingAnalytics
 
   private val compositeDisposable = CompositeDisposable()
 
@@ -159,6 +166,12 @@ class WebViewPaymentActivity : AppCompatActivity() {
                 context = context,
                 intercomCallback = { showSupport(0) },
                 onPurchaseResultCallback = { webResult ->
+                  sendPaymentSuccessEvent(
+                    webResult?.uid ?: "",
+                    webResult?.paymentMethod ?: "",
+                    webResult?.isStoredCard ?: false,
+                    webResult?.wasCvcRequired ?: false
+                  )
                   createSuccessBundleAndFinish(
                     type = transactionBuilder.type, //"INAPP_UNMANAGED",
                     merchantName = transactionBuilder.domain, //"test",
@@ -243,11 +256,50 @@ class WebViewPaymentActivity : AppCompatActivity() {
     }
 
   fun finishActivity(data: Bundle) {
-//    savePreselectedPaymentMethod(data)
     data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
     setResult(Activity.RESULT_OK, Intent().putExtras(data))
     finish()
   }
+
+  private fun sendPaymentSuccessEvent(
+    uid: String,
+    paymentMethod: String,
+    isStoredCard: Boolean,
+    wasCvcRequired: Boolean
+  ) {
+    compositeDisposable.add(
+      Single.just(transactionBuilder)
+      .observeOn(rxSchedulers.io)
+      .doOnSuccess { transaction ->
+        val mappedPaymentType = mapPaymentToAnalytics(paymentMethod)
+        analytics.sendPaymentSuccessEvent(
+          packageName = transactionBuilder.domain,
+          skuDetails = transaction.skuId,
+          value = transaction.amount().toString(),
+          purchaseDetails = paymentMethod,
+          transactionType = transaction.type,
+          txId = uid,
+          valueUsd = transaction.amountUsd.toString(),
+          isStoredCard =
+          if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+            isStoredCard
+          else null,
+          wasCvcRequired =
+          if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+            wasCvcRequired
+          else null,
+        )
+      }
+      .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
+  private fun mapPaymentToAnalytics(paymentType: String): String =
+    if (paymentType == PaymentType.CARD.name) {
+      PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+    } else {
+      PaymentMethodsAnalytics.PAYMENT_METHOD_PP
+    }
 
   fun isDarkModeEnabled(context: Context): Boolean {
     return (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==

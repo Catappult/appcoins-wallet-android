@@ -2,9 +2,10 @@ package com.appcoins.wallet.core.analytics.analytics
 
 import android.content.Context
 import android.content.res.Configuration
-import com.indicative.client.android.Indicative
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
+import org.json.JSONArray
+import org.json.JSONObject
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -95,5 +96,34 @@ class IndicativeAnalytics @Inject constructor(
       else -> ORIENTATION_OTHER
     }
   }
+
+  fun getIndicativeSuperProperties(): String {
+    val labels = listOf(
+      AnalyticsLabels.APTOIDE_PACKAGE,
+      AnalyticsLabels.VERSION_CODE,
+      AnalyticsLabels.ENTRY_POINT,
+      AnalyticsLabels.USER_LEVEL,
+      AnalyticsLabels.HAS_GMS,
+      AnalyticsLabels.WALLET_ORIGIN,
+      AnalyticsLabels.OS_VERSION,
+      AnalyticsLabels.BRAND,
+      AnalyticsLabels.MODEL,
+      AnalyticsLabels.LANGUAGE,
+      AnalyticsLabels.IS_EMULATOR,
+      AnalyticsLabels.GAMES_HUB_OEMID,
+      AnalyticsLabels.PROMO_CODE,
+      AnalyticsLabels.FLAVOR,
+      AnalyticsLabels.THEME
+    )
+
+    val jsonArray = JSONArray().apply {
+      labels.forEach { label ->
+        put(JSONObject().apply { put(label, superProperties[label]) })
+      }
+    }
+
+    return jsonArray.toString()
+  }
+
 
 }
