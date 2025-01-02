@@ -569,6 +569,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
+  <string name="onboarding_title">Your tool to make in-app purchases</string>
+  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
+  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
   <string name="terms_and_conditions">Termos e Condições</string>
