@@ -5,6 +5,7 @@ import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64Url
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
@@ -25,7 +26,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
   val rxSchedulers: RxSchedulers
 ) {
 
-  val baseWebViewPaymentUrl = "https://wallet.dev.appcoins.io/iap"  //TODO from buildConfig
+  val baseWebViewPaymentUrl = HostProperties.WEBVIEW_PAYMENT_URL
 
   operator fun invoke(
     transaction: TransactionBuilder,

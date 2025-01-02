@@ -13,6 +13,7 @@ object HostProperties {
   const val APTOIDE_WEB_SERVICES_AB_TEST_HOST = "https://abtest.aptoide.com/api/v1/"
   const val FEEDBACK_ZENDESK_BASE_HOST = "https://aptoide.zendesk.com/api/v2/"
   val AMAZON_PAY_REDIRECT_BASE_URL = if (BuildConfig.DEBUG) AMAZON_PAY_REDIRECT_BASE_URL_DEV else AMAZON_PAY_REDIRECT_BASE_URL_PROD
+  val WEBVIEW_PAYMENT_URL = if (BuildConfig.DEBUG) WEBVIEW_PAYMENT_URL_DEV else WEBVIEW_PAYMENT_URL_PROD
 }
 
 private const val BASE_HOST_PROD = "https://api.catappult.io"
@@ -29,4 +30,5 @@ private const val TRANSACTION_DETAILS_HOST_MAIN = "https://appcexplorer.io/trans
 private const val TRANSACTION_DETAILS_HOST_ROPSTEN = "https://ropsten.appcexplorer.io/transaction/"
 private const val AMAZON_PAY_REDIRECT_BASE_URL_DEV = "https://apichain.dev.catappult.io/amazonpay/result"
 private const val AMAZON_PAY_REDIRECT_BASE_URL_PROD = "https://apichain.catappult.io/amazonpay/result"
-
+private const val WEBVIEW_PAYMENT_URL_PROD = "https://developers.catappult.io/iap"
+private const val WEBVIEW_PAYMENT_URL_DEV = "https://wallet.dev.appcoins.io/iap"
