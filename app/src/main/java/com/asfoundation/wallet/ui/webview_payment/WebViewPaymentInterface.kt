@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.webview_payment
 import android.content.Context
 import android.webkit.JavascriptInterface
 import android.widget.Toast
+import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentErrorResponse
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentResponse
 import com.google.gson.Gson
 
@@ -10,7 +11,8 @@ import com.google.gson.Gson
 class WebViewPaymentInterface(
   private val context: Context,
   private val intercomCallback: () -> Unit,
-  private val onPurchaseResultCallback: (WebViewPaymentResponse?) -> Unit
+  private val onPurchaseResultCallback: (WebViewPaymentResponse?) -> Unit,
+  private val onErrorCallback: (WebViewPaymentErrorResponse?) -> Unit
   ) {
 
   @JavascriptInterface
@@ -20,6 +22,11 @@ class WebViewPaymentInterface(
 
   @JavascriptInterface
   fun onPurchaseResult(result: String?) {
+    onPurchaseResultCallback(parsePurchaseResult(result))
+  }
+
+  @JavascriptInterface
+  fun onError(result: String?) {
     onPurchaseResultCallback(parsePurchaseResult(result))
   }
 

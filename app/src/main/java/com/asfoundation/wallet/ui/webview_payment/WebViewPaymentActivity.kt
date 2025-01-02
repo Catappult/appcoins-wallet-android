@@ -180,6 +180,13 @@ class WebViewPaymentActivity : AppCompatActivity() {
                     orderReference = webResult?.orderReference ?: "",
                     hash = webResult?.hash ?: ""
                   )
+                },
+                onErrorCallback = { webError ->
+                  sendPaymentErrorEvent(
+                    errorCode = webError?.errorCode ?: "",
+                    errorReason = webError?.errorDetails ?: "",
+                    paymentMethod = webError?.paymentMethod ?: ""
+                  )
                 }
               ),
               "WebViewPaymentInterface"
@@ -257,7 +264,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   fun finishActivity(data: Bundle) {
     data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
-    setResult(Activity.RESULT_OK, Intent().putExtras(data))
+    setResult(RESULT_OK, Intent().putExtras(data))
     finish()
   }
 
@@ -288,6 +295,29 @@ class WebViewPaymentActivity : AppCompatActivity() {
           if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
             wasCvcRequired
           else null,
+        )
+      }
+      .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
+  private fun sendPaymentErrorEvent(
+    errorCode: String,
+    errorReason: String,
+    paymentMethod: String
+  ) {
+    compositeDisposable.add(Single.just(transactionBuilder)
+      .observeOn(rxSchedulers.io)
+      .doOnSuccess { transaction ->
+        analytics.sendPaymentErrorWithDetailsAndRiskEvent(
+          packageName = transaction.domain,
+          skuDetails = transaction.skuId,
+          value = transaction.amount().toString(),
+          purchaseDetails = paymentMethod,
+          transactionType = transaction.type,
+          errorCode = errorCode,
+          errorDetails = errorReason,
+          riskRules = null
         )
       }
       .subscribe({}, { it.printStackTrace() })
