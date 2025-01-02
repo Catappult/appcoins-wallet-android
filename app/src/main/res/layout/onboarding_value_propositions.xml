@@ -7,45 +7,49 @@
     tools:background="@color/styleguide_blue"
     >
 
-  <ImageView
+  <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/onboarding_value1_icon"
       android:layout_width="@dimen/onboarding_value_proposition_image_size"
       android:layout_height="@dimen/onboarding_value_proposition_image_size"
-      android:src="@drawable/ic_onboarding_value1"
+      android:layout_marginBottom="@dimen/normal_margin"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/onboarding_animation1"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_value2_icon"
+      app:layout_constraintEnd_toStartOf="@id/onboarding_value1_body"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
 
-  <ImageView
+  <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/onboarding_value2_icon"
       android:layout_width="@dimen/onboarding_value_proposition_image_size"
       android:layout_height="@dimen/onboarding_value_proposition_image_size"
-      android:layout_marginTop="@dimen/onboarding_padding"
-      android:src="@drawable/ic_onboarding_value2"
+      android:layout_marginVertical="@dimen/normal_margin"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/onboarding_animation2"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_value3_icon"
+      app:layout_constraintEnd_toStartOf="@id/onboarding_value2_body"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/onboarding_value1_icon"
       />
-  <ImageView
+
+  <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/onboarding_value3_icon"
       android:layout_width="@dimen/onboarding_value_proposition_image_size"
       android:layout_height="@dimen/onboarding_value_proposition_image_size"
-      android:layout_marginTop="@dimen/onboarding_padding"
-      android:src="@drawable/ic_onboarding_value3"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/onboarding_animation3"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/onboarding_value3_body"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/onboarding_value2_icon"
-      />
-
-  <TextView
-      android:id="@+id/onboarding_value1_title"
-      style="@style/OnboardingValuesTitleTextStyle"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="27dp"
-      android:text="@string/intro_2_title"
-      app:layout_constraintBottom_toTopOf="@+id/onboarding_value1_body"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/onboarding_value1_icon"
-      app:layout_constraintTop_toTopOf="@+id/onboarding_value1_icon"
       />
 
   <TextView
@@ -53,50 +57,25 @@
       style="@style/OnboardingValuesBodyTextStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="27dp"
-      android:text="@string/intro_2_body"
+      android:layout_marginStart="@dimen/big_margin"
+      tools:text="@string/onboarding_bonus_title"
       app:layout_constraintBottom_toBottomOf="@+id/onboarding_value1_icon"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/onboarding_value1_icon"
-      app:layout_constraintTop_toBottomOf="@+id/onboarding_value1_title"
+      app:layout_constraintTop_toTopOf="@+id/onboarding_value1_icon"
       />
 
-  <TextView
-      android:id="@+id/onboarding_value2_title"
-      style="@style/OnboardingValuesTitleTextStyle"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="27dp"
-      android:text="@string/intro_3_title"
-      app:layout_constraintBottom_toTopOf="@+id/onboarding_value2_body"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/onboarding_value2_icon"
-      app:layout_constraintTop_toTopOf="@+id/onboarding_value2_icon"
-      />
   <TextView
       android:id="@+id/onboarding_value2_body"
       style="@style/OnboardingValuesBodyTextStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="27dp"
-      android:text="@string/intro_3_body"
+      android:layout_marginStart="@dimen/big_margin"
+      android:text="@string/onboarding_payment_methods_title"
       app:layout_constraintBottom_toBottomOf="@+id/onboarding_value2_icon"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/onboarding_value2_icon"
-      app:layout_constraintTop_toBottomOf="@+id/onboarding_value2_title"
-      />
-
-  <TextView
-      android:id="@+id/onboarding_value3_title"
-      style="@style/OnboardingValuesTitleTextStyle"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="27dp"
-      android:text="@string/intro_4_title"
-      app:layout_constraintBottom_toTopOf="@+id/onboarding_value3_body"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/onboarding_value3_icon"
-      app:layout_constraintTop_toTopOf="@+id/onboarding_value3_icon"
+      app:layout_constraintTop_toTopOf="@+id/onboarding_value2_icon"
       />
 
   <TextView
@@ -104,12 +83,12 @@
       style="@style/OnboardingValuesBodyTextStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="27dp"
-      android:text="@string/intro_4_body"
+      android:layout_marginStart="@dimen/big_margin"
+      android:text="@string/onboarding_vip_title"
       app:layout_constraintBottom_toBottomOf="@+id/onboarding_value3_icon"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/onboarding_value3_icon"
-      app:layout_constraintTop_toBottomOf="@+id/onboarding_value3_title"
+      app:layout_constraintTop_toTopOf="@+id/onboarding_value3_icon"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -94,6 +94,9 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    views.onboardingValuePropositions.onboardingValue1Body.text =
+      getString(R.string.onboarding_bonus_title, "20")
+
     setClickListeners()
     setStringWithLinks()
     handleRecoverGuestWallet()
@@ -275,13 +278,16 @@ class OnboardingFragment : BasePageViewFragment(),
     setLinkToString(spannableString, privacyPolicy, privacyPolicyUrl)
 
     views.onboardingTermsConditions.termsConditionsBody.text = spannableString
+    views.onboardingTermsConditions.termsConditionsBody.setTextColor(resources.getColor(R.color.styleguide_dark_grey, requireActivity().theme))
     views.onboardingTermsConditions.termsConditionsBody.isClickable = true
     views.onboardingTermsConditions.termsConditionsBody.movementMethod =
       LinkMovementMethod.getInstance()
   }
 
   private fun setLinkToString(
-    spannableString: SpannableString, highlightString: String, uri: Uri
+    spannableString: SpannableString,
+    highlightString: String,
+    uri: Uri
   ) {
     val clickableSpan = object : ClickableSpan() {
       override fun onClick(widget: View) {
@@ -289,7 +295,7 @@ class OnboardingFragment : BasePageViewFragment(),
       }
 
       override fun updateDrawState(ds: TextPaint) {
-        ds.color = ResourcesCompat.getColor(resources, R.color.styleguide_pink, null)
+        ds.color = ResourcesCompat.getColor(resources, R.color.styleguide_payments_background, null)
         ds.isUnderlineText = true
       }
     }
