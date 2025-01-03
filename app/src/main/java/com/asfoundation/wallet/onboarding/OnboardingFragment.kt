@@ -191,7 +191,7 @@ class OnboardingFragment : BasePageViewFragment(),
   private fun showRecoverGuestWallet() {
     views.loading.visibility = View.GONE
     views.onboardingContent.visibility = View.VISIBLE
-    views.onboardingAction.visibility = View.INVISIBLE
+    views.onboardingAction.visibility = View.GONE
     views.onboardingRecoverGuestWallet.visibility = View.VISIBLE
     views.onboardingRecoverText2.text = getString(
       R.string.monetary_amount_with_symbol, "$", "0.00"
@@ -212,11 +212,11 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun showVerifyGuestWallet() {
     views.onboardingContent.visibility = View.VISIBLE
-    views.onboardingRecoverGuestWallet.visibility = View.INVISIBLE
+    views.onboardingRecoverGuestWallet.visibility = View.GONE
     views.onboardingVerifyGuestWallet.visibility = View.VISIBLE
     views.loadingAnimation.visibility = View.INVISIBLE
     views.onboardingVerifyLaunchText.visibility = View.INVISIBLE
-    views.onboardingAction.visibility = View.INVISIBLE
+    views.onboardingAction.visibility = View.GONE
 
   }
 
@@ -243,7 +243,7 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingRecoverText2.visibility = View.VISIBLE
     views.onboardingRecoverText3.visibility = View.VISIBLE
     views.onboardingBonusImage.visibility = View.VISIBLE
-    views.bonusLoading.visibility = View.INVISIBLE
+    views.bonusLoading.visibility = View.GONE
   }
 
   private fun showValuesScreen() {
