@@ -18,8 +18,8 @@ object HostProperties {
 
 private const val BASE_HOST_PROD = "https://api.catappult.io"
 private const val BASE_HOST_DEV = "https://api.dev.catappult.io"
-private const val PAY_FLOW_HOST_PROD = "https://payflowsdk.dev.aptoide.com/api"
-private const val PAY_FLOW_HOST_DEV = "https://payflowsdk.aptoide.com/api"
+private const val PAY_FLOW_HOST_PROD = "https://payflowsdk.aptoide.com/api"
+private const val PAY_FLOW_HOST_DEV = "https://payflowsdk.dev.aptoide.com/api"
 private const val BACKEND_HOST_PROD = "https://apichain.catappult.io"
 private const val BACKEND_HOST_DEV = "https://apichain.dev.catappult.io"
 private const val BASE_HOST_SKILLS_PROD = "https://api.eskills.catappult.io"
