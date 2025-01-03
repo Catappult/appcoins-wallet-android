@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -81,6 +82,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay)
     setContent {
       MainContent(url)

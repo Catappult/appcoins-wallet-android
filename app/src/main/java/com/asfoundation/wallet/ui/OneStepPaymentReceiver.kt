@@ -23,7 +23,6 @@ import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
 import com.asfoundation.wallet.util.TransferParser
-import com.asfoundation.wallet.util.tuples.Quintuple
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
