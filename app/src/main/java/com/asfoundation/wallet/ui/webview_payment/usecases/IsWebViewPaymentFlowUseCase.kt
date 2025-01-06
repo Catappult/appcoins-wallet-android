@@ -21,8 +21,8 @@ class IsWebViewPaymentFlowUseCase @Inject constructor(
       .flatMap { attributionEntity ->
         payFlowRepository.getPayFlow(
           packageName = transaction.domain,
-          packageVercode = 123,  // TODO remove
-          oemid = attributionEntity.oemId ?: "",
+          packageVercode = 0,
+          oemid = attributionEntity.oemId,
         )
       }
   }
