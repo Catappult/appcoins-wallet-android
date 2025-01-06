@@ -24,10 +24,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -94,7 +96,11 @@ class WebViewPaymentActivity : AppCompatActivity() {
   fun MainContent(url: String) {
     Log.i("WebView", "starting url: $url")
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
     val webView = remember { WebView(context) }
+
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    val topSpacerHeight = if (isLandscape) 36.dp else 176.dp
 
     BackHandler(enabled = true) {
       if (webView?.canGoBack() == true) {
@@ -104,21 +110,25 @@ class WebViewPaymentActivity : AppCompatActivity() {
       }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+      modifier = Modifier
+        .fillMaxSize()
+        .padding(horizontal = if (isLandscape) 56.dp else 0.dp)
+    ) {
       Spacer(
         modifier = Modifier
-          .height(200.dp)
+          .height(topSpacerHeight)
       )
       Box(
         modifier = Modifier
           .fillMaxWidth()
-          .height(8.dp)
+          .height(12.dp)
           .background(
             color = if (isDarkModeEnabled(context))
               styleguide_blue_webview_payment
             else
               styleguide_light_grey,
-            shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+            shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
           )
       )
       AndroidView(
@@ -221,14 +231,14 @@ class WebViewPaymentActivity : AppCompatActivity() {
     purchaseUid: String,
     orderReference: String,
     hash: String
-  ) { // TODO obtain from web success page
+  ) {
     createSuccessBundleUseCase(
-      type = type, // "INAPP_UNMANAGED", //transactionBuilder.type,
-      merchantName = merchantName, //"test", //transactionBuilder.domain,
-      sku = sku, // "oilTest", //transactionBuilder.skuId,
-      purchaseUid = purchaseUid, // "1234", //purchaseUid,
-      orderReference = orderReference, // "1234", //orderReference,
-      hash = hash, //"1234", //hash,
+      type = type,
+      merchantName = merchantName,
+      sku = sku,
+      purchaseUid = purchaseUid,
+      orderReference = orderReference,
+      hash = hash,
       scheduler = rxSchedulers.io
     )
       .doOnSuccess {
@@ -238,9 +248,10 @@ class WebViewPaymentActivity : AppCompatActivity() {
       }
       .subscribeOn(rxSchedulers.main)
       .observeOn(rxSchedulers.main)
-//      .doOnError {
-//        finish(it.) // TODO handle error
-//      }
+      .doOnError {
+        // TODO handle error log
+        finish()
+      }
       .subscribe()
   }
 
