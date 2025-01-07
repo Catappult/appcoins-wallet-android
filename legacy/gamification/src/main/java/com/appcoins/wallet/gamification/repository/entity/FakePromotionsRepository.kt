@@ -19,7 +19,8 @@ class FakePromotionsRepository : PromotionsRepository {
 
   override fun getGamificationStats(
     wallet: String,
-    promoCodeString: String?
+    promoCodeString: String?,
+    offlineFirst: Boolean
   ): Observable<PromotionsGamificationStats> {
     TODO("Not yet implemented")
   }
@@ -37,7 +38,8 @@ class FakePromotionsRepository : PromotionsRepository {
     packageName: String,
     amount: BigDecimal,
     promoCodeString: String?,
-    currency: String?
+    currency: String?,
+    paymentMethodId: String?
   ): Single<ForecastBonus> {
     TODO("Not yet implemented")
   }

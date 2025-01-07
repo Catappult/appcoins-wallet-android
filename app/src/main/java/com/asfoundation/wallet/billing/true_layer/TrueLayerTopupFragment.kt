@@ -126,7 +126,7 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
       close()
     }
     views.trueLayerErrorLayout.layoutSupportIcn.setOnClickListener {
-      viewModel.showSupport(gamificationLevel)
+      viewModel.showSupport()
     }
   }
 

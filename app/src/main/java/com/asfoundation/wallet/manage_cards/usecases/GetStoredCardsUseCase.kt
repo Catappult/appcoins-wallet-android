@@ -22,20 +22,16 @@ class GetStoredCardsUseCase @Inject constructor(
     return Single.zip(
       walletService.getWalletAddress().subscribeOn(rxSchedulers.io),
       ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-    ) { walletModel, ewt ->
-      Pair(walletModel, ewt)
-    }
-      .flatMap { pair ->
-        val wallet = pair.first
-        val ewt = pair.second
+    ) { walletModel, ewt -> walletModel to ewt }
+      .flatMap { (walletModel, ewt) ->
         val currency = getCachedCurrencyUseCase()
         adyenPaymentRepository
           .getStoredCards(
-            AdyenPaymentRepository.Methods.CREDIT_CARD,
-            DEFAULT_REQUIRED_UNUSED_VALUE,
-            currency, // this shouldn't be dependent on the currency, the user should be able to see all cards listed. This limitation arises because we have 2 separate merchants
-            wallet,
-            ewt
+            methods = AdyenPaymentRepository.Methods.CREDIT_CARD,
+            value = DEFAULT_REQUIRED_UNUSED_VALUE,
+            currency = currency, // this shouldn't be dependent on the currency, the user should be able to see all cards listed. This limitation arises because we have 2 separate merchants
+            walletAddress = walletModel,
+            ewt = ewt
           )
       }
   }

@@ -112,7 +112,7 @@ class GooglePayTopupFragment : BasePageViewFragment() {
       close()
     }
     views.googlePayErrorLayout.layoutSupportIcn.setOnClickListener {
-      viewModel.showSupport(gamificationLevel)
+      viewModel.showSupport()
     }
   }
 

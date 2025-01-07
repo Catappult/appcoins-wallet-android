@@ -542,7 +542,11 @@ class PaymentMethodsPresenter(
         zip(
           getPaymentMethods(fiatValue)
             .subscribeOn(networkThread),
-          interactor.getEarningBonus(transaction.domain, fiatValue.amount, fiatValue.currency)
+          interactor.getEarningBonus(
+            packageName = transaction.domain,
+            amount = fiatValue.amount,
+            currency = fiatValue.currency,
+          )
             .subscribeOn(networkThread)
         ) { paymentMethods, bonus ->
           Pair(paymentMethods, bonus)
@@ -915,7 +919,7 @@ class PaymentMethodsPresenter(
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .flatMapCompletable { interactor.showSupport(cachedGamificationLevel) }
+      .flatMapCompletable { interactor.showSupport() }
       .subscribe({}, { it.printStackTrace() })
     )
   }

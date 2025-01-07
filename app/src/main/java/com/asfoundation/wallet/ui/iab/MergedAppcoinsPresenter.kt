@@ -212,7 +212,7 @@ class MergedAppcoinsPresenter(
   private fun handleSupportClicks() {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
       .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .flatMapCompletable { mergedAppcoinsInteractor.showSupport(gamificationLevel) }
+      .flatMapCompletable { mergedAppcoinsInteractor.showSupport() }
       .subscribe({}, { it.printStackTrace() })
     )
   }

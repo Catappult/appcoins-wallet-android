@@ -12,7 +12,8 @@ interface PromotionsRepository {
 
   fun getGamificationStats(
     wallet: String,
-    promoCodeString: String? = null
+    promoCodeString: String? = null,
+    offlineFirst: Boolean = false
   ): Observable<PromotionsGamificationStats>
 
   fun getGamificationLevel(wallet: String, promoCodeString: String?): Single<Int>
@@ -24,7 +25,8 @@ interface PromotionsRepository {
     packageName: String,
     amount: BigDecimal,
     promoCodeString: String?,
-    currency: String?
+    currency: String?,
+    paymentMethodId: String?
   ): Single<ForecastBonus>
 
   fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext): Single<Int>

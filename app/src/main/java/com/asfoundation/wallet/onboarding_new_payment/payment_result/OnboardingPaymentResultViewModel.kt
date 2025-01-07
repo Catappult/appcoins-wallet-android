@@ -253,8 +253,8 @@ class OnboardingPaymentResultViewModel @Inject constructor(
     sendSideEffect { OnboardingPaymentResultSideEffect.NavigateToExploreWallet }
   }
 
-  fun showSupport(gamificationLevel: Int) {
-    supportInteractor.showSupport(gamificationLevel, uid)
+  fun showSupport() {
+    supportInteractor.showSupport(uid)
       .scopedSubscribe()
   }
 

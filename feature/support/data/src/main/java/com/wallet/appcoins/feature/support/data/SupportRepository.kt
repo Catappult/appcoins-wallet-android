@@ -16,8 +16,8 @@ import io.intercom.android.sdk.IntercomSpace.Messages
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
 import io.intercom.android.sdk.push.IntercomPushClient
+import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
-import java.util.Locale
 import javax.inject.Inject
 
 
@@ -45,8 +45,6 @@ class SupportRepository @Inject constructor(
     private const val REGULAR_PAYMENT_ATTRIBUTE = "regular_payment"
   }
 
-  private var currentUser: SupportUser = SupportUser()
-
   private fun saveNewUser(walletAddress: String, level: Int) {
     val userAttributes = getDefaultUserAttributes(walletAddress, level)
 
@@ -57,11 +55,12 @@ class SupportRepository @Inject constructor(
     if (gpsAvailable) handleFirebaseToken()
 
     Intercom.client().loginIdentifiedUser(registration)
-    currentUser = SupportUser(walletAddress, level)
   }
 
   fun hasUnreadConversations() = getUnreadConversations() > 0
-  private fun getUnreadConversations() = Intercom.client().unreadConversationCount
+  private fun getUnreadConversations(): Int {
+    return Intercom.client().unreadConversationCount
+  }
 
   fun openIntercom(uid: String? = null) {
     val space = if (hasUnreadConversations()) Messages else Home
@@ -85,19 +84,18 @@ class SupportRepository @Inject constructor(
     }
   }
 
-  fun registerUser(level: Int, walletAddress: String) {
-    // force lowercase to make sure 2 users are not registered with the same wallet address, where
-    // one has uppercase letters (to be check summed), and the other does not
-    val address = walletAddress.lowercase(Locale.ROOT)
-
-    if (currentUser.gamificationLevel != level) Intercom.client()
-      .updateUser(getDefaultUserAttributes(address, level))
-
-    if (currentUser.userAddress != address) {
-      Intercom.client().logout()
-      saveNewUser(address, level)
+  fun updateUser(walletAddress: String, level: Int): Completable =
+    Completable.create {
+      Intercom.client().updateUser(getDefaultUserAttributes(walletAddress, level))
+      it.onComplete()
     }
-  }
+
+  fun changeUser(walletAddress: String, level: Int): Completable =
+    Completable.create {
+      Intercom.client().logout()
+      saveNewUser(walletAddress, level)
+      it.onComplete()
+    }
 
   private fun getDefaultUserAttributes(walletAddress: String, level: Int): UserAttributes {
     return UserAttributes.Builder().withName(walletAddress)

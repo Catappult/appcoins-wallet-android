@@ -7,6 +7,7 @@ import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.CreateWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetPrivateKeyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RegisterFirebaseTokenUseCase
 import io.reactivex.Observable
@@ -26,7 +27,8 @@ class AccountWalletService @Inject constructor(
   private val createWalletUseCase: CreateWalletUseCase,
   private val registerFirebaseTokenUseCase: RegisterFirebaseTokenUseCase,
   private val walletRepository: WalletRepositoryType,
-  private val syncScheduler: ExecutorScheduler
+  private val syncScheduler: ExecutorScheduler,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
 ) : WalletService {
 
   private val PRIVATE_RADIX = 16
@@ -76,14 +78,7 @@ class AccountWalletService @Inject constructor(
           .map { WalletAddressModel(wallet.address, it) }
       }
 
-  private fun find(): Single<Wallet> = walletRepository.getDefaultWallet()
-    .onErrorResumeNext {
-      walletRepository.fetchWallets()
-        .filter { it.isNotEmpty() }
-        .map { it[0] }
-        .flatMapCompletable { walletRepository.setDefaultWallet(it.address) }
-        .andThen(walletRepository.getDefaultWallet())
-    }
+  private fun find(): Single<Wallet> = getCurrentWalletUseCase()
 
   interface ContentNormalizer {
     fun normalize(content: String): String
