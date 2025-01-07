@@ -18,6 +18,7 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -103,8 +104,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
     val topSpacerHeight = if (isLandscape) 36.dp else 176.dp
 
     BackHandler(enabled = true) {
-      if (webView?.canGoBack() == true) {
-        webView?.goBack()
+      if (webView.canGoBack()) {
+        webView.goBack()
       } else {
         finish()
       }
@@ -118,11 +119,15 @@ class WebViewPaymentActivity : AppCompatActivity() {
       Spacer(
         modifier = Modifier
           .height(topSpacerHeight)
+          .fillMaxWidth()
+          .clickable {
+            finish()
+          }
       )
       Box(
         modifier = Modifier
           .fillMaxWidth()
-          .height(12.dp)
+          .height(17.dp)
           .background(
             color = if (isDarkModeEnabled(context))
               styleguide_blue_webview_payment
@@ -145,32 +150,14 @@ class WebViewPaymentActivity : AppCompatActivity() {
               override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
                 when {
                   clickUrl.contains(SUCCESS_SCHEMA) -> {
-//                    createSuccessBundleAndFinish() // TODO activate
                     finishActivity(Bundle().apply {
                       putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
                     })
                     return true
                   }
-
                 }
                 return false
               }
-
-//              override fun onPageFinished(view: WebView, url: String) {
-//                super.onPageFinished(view, url)
-//                if (!url.contains("/redirect")) {
-//                  val timeout = timeoutReference.getAndSet(null)
-//                  timeout?.cancel(false)
-//                  try {
-//                    binding.webviewProgressBar.visibility = View.GONE
-//                  } catch (exception: Exception) {
-//                    logger.log(TAG, exception)
-//                  }
-//                }
-//                if (url.contains(ASYNC_PAYMENT_FORM_SHOWN_SCHEMA)) {
-//                  asyncDetailsShown = true
-//                }
-//              }
             }
 
             addJavascriptInterface(
@@ -185,9 +172,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
                     webResult?.wasCvcRequired ?: false
                   )
                   createSuccessBundleAndFinish(
-                    type = transactionBuilder.type, //"INAPP_UNMANAGED",
-                    merchantName = transactionBuilder.domain, //"test",
-                    sku = transactionBuilder.skuId, //"oilTest",
+                    type = transactionBuilder.type,
+                    merchantName = transactionBuilder.domain,
+                    sku = transactionBuilder.skuId,
                     purchaseUid = webResult?.uid ?: "",
                     orderReference = webResult?.orderReference ?: "",
                     hash = webResult?.hash ?: ""
@@ -224,7 +211,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
     }
   }
 
-  fun createSuccessBundleAndFinish(
+  private fun createSuccessBundleAndFinish(
     type: String,
     merchantName: String,
     sku: String,

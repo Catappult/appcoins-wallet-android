@@ -116,13 +116,13 @@ class IndicativeAnalytics @Inject constructor(
       AnalyticsLabels.THEME
     )
 
-    val jsonArray = JSONArray().apply {
+    val jsonObject = JSONObject().apply {
       labels.forEach { label ->
-        put(JSONObject().apply { put(label, superProperties[label]) })
+        put(label, superProperties[label])
       }
     }
 
-    return jsonArray.toString()
+    return jsonObject.toString()
   }
 
 
