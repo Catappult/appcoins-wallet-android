@@ -18,14 +18,14 @@ import javax.inject.Singleton
 @Module
 class PayFlowApiModule {
 
-  private val PayFlowAUrl = "${HostProperties.PAY_FLOW_HOST}/"
+  private val PayFlowUrl = "${HostProperties.PAY_FLOW_HOST}/"
 
   @Singleton
   @Provides
   @PayFlowRetrofit
   fun providePayFlowRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit =
     Retrofit.Builder()
-      .baseUrl(PayFlowAUrl)
+      .baseUrl(PayFlowUrl)
       .client(client)
       .addConverterFactory(GsonConverterFactory.create())
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

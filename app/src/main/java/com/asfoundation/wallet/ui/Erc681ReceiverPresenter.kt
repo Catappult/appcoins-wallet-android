@@ -38,7 +38,7 @@ internal class Erc681ReceiverPresenter(
   private val logger: Logger,
 ) {
   private var firstImpression = true
-  private val TAG = "Erc681ReceiverPresenter"
+  private val TAG = this::class.java.simpleName
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
       disposables.add(

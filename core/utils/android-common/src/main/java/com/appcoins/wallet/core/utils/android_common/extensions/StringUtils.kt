@@ -11,6 +11,4 @@ object StringUtils {
       substring(0, 17) + "..."
     }
   }
-
-  fun String?.orEmpty() = this ?: ""
 }

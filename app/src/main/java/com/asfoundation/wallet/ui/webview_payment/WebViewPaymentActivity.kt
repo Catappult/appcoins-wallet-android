@@ -40,6 +40,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.PaymentMethodAnalyticsMapper
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
@@ -114,7 +115,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
   @SuppressLint("SetJavaScriptEnabled")
   @Composable
   fun MainContent(url: String) {
-    Log.i("WebView", "starting url: $url")
+    Log.d("WebView", "starting url: $url")
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
     val webView = remember { WebView(context) }
@@ -181,7 +182,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
             addJavascriptInterface(
               WebViewPaymentInterface(
-                intercomCallback = { showSupport(0) },
+                intercomCallback = { showSupport() },
                 onPurchaseResultCallback = { webResult ->
                   sendPaymentSuccessEvent(
                     webResult?.uid ?: "",
@@ -269,9 +270,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
     overridePendingTransition(R.anim.stay, R.anim.slide_out_bottom)
   }
 
-  fun showSupport(gamificationLevel: Int) {
+  fun showSupport() {
     compositeDisposable.add(
-      supportInteractor.showSupport(gamificationLevel).subscribe({}, {})
+      supportInteractor.showSupport().subscribe({}, {})
     )
   }
 
@@ -279,7 +280,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
     if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
       handleBackupNotifications(bundle)
       handlePerkNotifications(bundle)
-//      finishActivity(bundle)
     } else {
       Log.i(TAG, "finish: ${bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE)}")
       finishActivity(bundle)
@@ -301,7 +301,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
       Single.just(transactionBuilder)
         .observeOn(rxSchedulers.io)
         .doOnSuccess { transaction ->
-          val mappedPaymentType = mapPaymentToAnalytics(paymentMethod)
+          val mappedPaymentType = PaymentMethodAnalyticsMapper.mapPaymentToAnalytics(paymentMethod)
           analytics.sendPaymentSuccessEvent(
             packageName = transactionBuilder.domain,
             skuDetails = transaction.skuId,
@@ -393,7 +393,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
           transactionBuilder.domain,
           transactionBuilder.skuId,
           transactionBuilder.amount().toString(),
-          mapPaymentToAnalytics(paymentMethod),
+          PaymentMethodAnalyticsMapper.mapPaymentToAnalytics(paymentMethod),
           transactionBuilder.type
         )
       })
@@ -419,25 +419,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
   }
 
   private fun stopTimingForPurchaseEvent(success: Boolean, paymentMethod: String) {
-    val paymentMethodAnalytics = mapPaymentToAnalytics(paymentMethod)
+    val paymentMethodAnalytics = PaymentMethodAnalyticsMapper.mapPaymentToAnalytics(paymentMethod)
     paymentAnalytics.stopTimingForPurchaseEvent(paymentMethodAnalytics, success, false)
   }
-
-  private fun mapPaymentToAnalytics(paymentType: String): String =
-    when (paymentType) {
-      PaymentType.CARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
-      PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
-      PaymentType.PAYPALV2.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
-      PaymentType.GOOGLEPAY_WEB.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
-      PaymentType.AMAZONPAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_AMAZON_PAY
-      PaymentType.VKPAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_VKPAY
-      PaymentType.MI_PAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_MI_PAY
-      PaymentType.TRUE_LAYER.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_TRUE_LAYER
-      PaymentType.LOCAL_PAYMENTS.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_LOCAL
-      PaymentType.SANDBOX.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_SANDBOX
-      PaymentType.CHALLENGE_REWARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CHALLENGE_REWARD
-
-      else -> paymentType
-    }
 
 }
