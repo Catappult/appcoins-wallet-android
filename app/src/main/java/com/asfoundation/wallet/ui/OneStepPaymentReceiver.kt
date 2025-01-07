@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.airbnb.lottie.LottieAnimationView
@@ -129,6 +130,7 @@ class OneStepPaymentReceiver : BaseActivity() {
         }
         .subscribe({ }, { throwable: Throwable ->
           logger.log("OneStepPaymentReceiver", throwable)
+          Log.d("OneStepPaymentReceiver", "onCreate: ${throwable.message}")
           startOneStepWithError(IabActivity.ERROR_RECEIVER_NETWORK)
         })
     }
@@ -247,7 +249,9 @@ class OneStepPaymentReceiver : BaseActivity() {
           }
         }
         .subscribeOn(rxSchedulers.io)
-        .subscribe({}, { it.printStackTrace() })
+        .subscribe({}, {
+          it.printStackTrace()
+        })
     )
   }
 

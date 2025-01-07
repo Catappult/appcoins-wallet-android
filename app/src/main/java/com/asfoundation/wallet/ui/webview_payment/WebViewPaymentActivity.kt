@@ -90,6 +90,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
     const val TRANSACTION_BUILDER = "transactionBuilder"
     const val URL = "url"
+    private val TAG = "WebView"
   }
 
   private val url: String by lazy {
@@ -256,10 +257,10 @@ class WebViewPaymentActivity : AppCompatActivity() {
         .subscribeOn(rxSchedulers.io)
         .observeOn(rxSchedulers.io)
         .doOnError {
-          // TODO handle error log
+          Log.i(TAG, "createSuccessBundleAndFinish: ${it.message}")
           finish()
         }
-        .subscribe({}, {})
+        .subscribe({}, {Log.i(TAG, "createSuccessBundleAndFinish: ${it.message}")})
     )
   }
 
@@ -280,6 +281,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
       handlePerkNotifications(bundle)
 //      finishActivity(bundle)
     } else {
+      Log.i(TAG, "finish: ${bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE)}")
       finishActivity(bundle)
     }
 

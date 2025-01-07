@@ -90,7 +90,8 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         isWebViewPaymentFlowUseCase = isWebViewPaymentFlowUseCase,
         rxSchedulers = rxSchedulers,
         billingAnalytics = billingAnalytics,
-        addressService = partnerAddressService
+        addressService = partnerAddressService,
+        logger = logger
       )
     presenter.present(savedInstanceState)
   }

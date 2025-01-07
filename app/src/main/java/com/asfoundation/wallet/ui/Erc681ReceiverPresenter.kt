@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui
 
 import android.os.Bundle
+import android.util.Log
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
@@ -9,7 +10,6 @@ import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
 import com.asfoundation.wallet.util.TransferParser
@@ -18,6 +18,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 
 internal class Erc681ReceiverPresenter(
   private val view: Erc681ReceiverView,
@@ -34,8 +35,10 @@ internal class Erc681ReceiverPresenter(
   private val rxSchedulers: RxSchedulers,
   private val billingAnalytics: BillingAnalytics,
   private var addressService: AddressService,
+  private val logger: Logger,
 ) {
   private var firstImpression = true
+  private val TAG = "Erc681ReceiverPresenter"
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
       disposables.add(
@@ -78,7 +81,11 @@ internal class Erc681ReceiverPresenter(
 
           }
           // TODO this onError seems like a mistake. we need to investigate it further:
-          .subscribe({ }, { view.startApp(it) })
+          .subscribe({ }, {
+            Log.i(TAG, "Error in Erc681ReceiverPresenter: ${it.message}")
+            logger.log("Erc681ReceiverPresenter", it)
+            view.startApp(it)
+          })
       )
     }
   }

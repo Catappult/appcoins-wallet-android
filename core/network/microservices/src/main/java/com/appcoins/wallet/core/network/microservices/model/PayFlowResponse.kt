@@ -9,7 +9,13 @@ data class PayFlowResponse(
 
 data class PaymentMethods(
   @SerializedName("wallet_web_view_payment")
-  val walletWebViewPayment: WalletWebViewPayment?
+  val walletWebViewPayment: WalletWebViewPayment?,
+  @SerializedName("wallet_app")
+  val walletApp: WalletApp?
+)
+
+data class WalletApp(
+  val priority: Int?
 )
 
 data class WalletWebViewPayment(
