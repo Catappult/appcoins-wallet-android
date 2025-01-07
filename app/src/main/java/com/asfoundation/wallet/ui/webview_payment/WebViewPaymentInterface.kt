@@ -9,7 +9,6 @@ import com.google.gson.Gson
 
 
 class WebViewPaymentInterface(
-  private val context: Context,
   private val intercomCallback: () -> Unit,
   private val onPurchaseResultCallback: (WebViewPaymentResponse?) -> Unit,
   private val onErrorCallback: (WebViewPaymentErrorResponse?) -> Unit
@@ -27,12 +26,22 @@ class WebViewPaymentInterface(
 
   @JavascriptInterface
   fun onError(result: String?) {
-    onPurchaseResultCallback(parsePurchaseResult(result))
+    onErrorCallback(parseError(result))
   }
 
   private fun parsePurchaseResult(result: String?): WebViewPaymentResponse? {
     try {
       val responseModel = Gson().fromJson(result, WebViewPaymentResponse::class.java)
+      return responseModel
+    } catch (e: Exception) {
+      e.printStackTrace()
+      return null
+    }
+  }
+
+  private fun parseError(result: String?): WebViewPaymentErrorResponse? {
+    try {
+      val responseModel = Gson().fromJson(result, WebViewPaymentErrorResponse::class.java)
       return responseModel
     } catch (e: Exception) {
       e.printStackTrace()

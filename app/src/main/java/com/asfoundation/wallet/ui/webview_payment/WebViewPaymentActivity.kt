@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.webview_payment
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -37,18 +36,25 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
+import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
+import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
+import com.asfoundation.wallet.ui.iab.IabInteract
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -64,7 +70,19 @@ class WebViewPaymentActivity : AppCompatActivity() {
   lateinit var supportInteractor: SupportInteractor
 
   @Inject
+  lateinit var iabInteract: IabInteract
+
+  @Inject
+  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+
+  @Inject
+  lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
+
+  @Inject
   lateinit var analytics: BillingAnalytics
+
+  @Inject
+  lateinit var paymentAnalytics: PaymentMethodsAnalytics
 
   private val compositeDisposable = CompositeDisposable()
 
@@ -162,7 +180,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
             addJavascriptInterface(
               WebViewPaymentInterface(
-                context = context,
                 intercomCallback = { showSupport(0) },
                 onPurchaseResultCallback = { webResult ->
                   sendPaymentSuccessEvent(
@@ -177,7 +194,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
                     sku = transactionBuilder.skuId,
                     purchaseUid = webResult?.uid ?: "",
                     orderReference = webResult?.orderReference ?: "",
-                    hash = webResult?.hash ?: ""
+                    hash = webResult?.hash ?: "",
+                    paymentMethod = webResult?.paymentMethod ?: ""
                   )
                 },
                 onErrorCallback = { webError ->
@@ -217,29 +235,32 @@ class WebViewPaymentActivity : AppCompatActivity() {
     sku: String,
     purchaseUid: String,
     orderReference: String,
-    hash: String
+    hash: String,
+    paymentMethod: String
   ) {
-    createSuccessBundleUseCase(
-      type = type,
-      merchantName = merchantName,
-      sku = sku,
-      purchaseUid = purchaseUid,
-      orderReference = orderReference,
-      hash = hash,
-      scheduler = rxSchedulers.io
+    compositeDisposable.add(
+      createSuccessBundleUseCase(
+        type = type,
+        merchantName = merchantName,
+        sku = sku,
+        purchaseUid = purchaseUid,
+        orderReference = orderReference,
+        hash = hash,
+        scheduler = rxSchedulers.io
+      )
+        .doOnSuccess {
+          sendPaymentEvent(paymentMethod)
+          sendRevenueEvent()
+          finish(it.bundle)
+        }
+        .subscribeOn(rxSchedulers.io)
+        .observeOn(rxSchedulers.io)
+        .doOnError {
+          // TODO handle error log
+          finish()
+        }
+        .subscribe({}, {})
     )
-      .doOnSuccess {
-//        sendPaymentEvent(transactionBuilder)
-//        sendRevenueEvent(transactionBuilder)
-        finish(it.bundle)
-      }
-      .subscribeOn(rxSchedulers.main)
-      .observeOn(rxSchedulers.main)
-      .doOnError {
-        // TODO handle error log
-        finish()
-      }
-      .subscribe()
   }
 
   override fun finish() {
@@ -255,9 +276,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   fun finish(bundle: Bundle) =
     if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
-//      handleBackupNotifications(bundle)
-//      handlePerkNotifications(bundle)
-      finishActivity(bundle)
+      handleBackupNotifications(bundle)
+      handlePerkNotifications(bundle)
+//      finishActivity(bundle)
     } else {
       finishActivity(bundle)
     }
@@ -276,28 +297,28 @@ class WebViewPaymentActivity : AppCompatActivity() {
   ) {
     compositeDisposable.add(
       Single.just(transactionBuilder)
-      .observeOn(rxSchedulers.io)
-      .doOnSuccess { transaction ->
-        val mappedPaymentType = mapPaymentToAnalytics(paymentMethod)
-        analytics.sendPaymentSuccessEvent(
-          packageName = transactionBuilder.domain,
-          skuDetails = transaction.skuId,
-          value = transaction.amount().toString(),
-          purchaseDetails = paymentMethod,
-          transactionType = transaction.type,
-          txId = uid,
-          valueUsd = transaction.amountUsd.toString(),
-          isStoredCard =
-          if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
-            isStoredCard
-          else null,
-          wasCvcRequired =
-          if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
-            wasCvcRequired
-          else null,
-        )
-      }
-      .subscribe({}, { it.printStackTrace() })
+        .observeOn(rxSchedulers.io)
+        .doOnSuccess { transaction ->
+          val mappedPaymentType = mapPaymentToAnalytics(paymentMethod)
+          analytics.sendPaymentSuccessEvent(
+            packageName = transactionBuilder.domain,
+            skuDetails = transaction.skuId,
+            value = transaction.amount().toString(),
+            purchaseDetails = paymentMethod,
+            transactionType = transaction.type,
+            txId = uid,
+            valueUsd = transaction.amountUsd.toString(),
+            isStoredCard =
+            if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+              isStoredCard
+            else null,
+            wasCvcRequired =
+            if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+              wasCvcRequired
+            else null,
+          )
+        }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -324,16 +345,97 @@ class WebViewPaymentActivity : AppCompatActivity() {
     )
   }
 
-  private fun mapPaymentToAnalytics(paymentType: String): String =
-    if (paymentType == PaymentType.CARD.name) {
-      PaymentMethodsAnalytics.PAYMENT_METHOD_CC
-    } else {
-      PaymentMethodsAnalytics.PAYMENT_METHOD_PP
-    }
-
   fun isDarkModeEnabled(context: Context): Boolean {
     return (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
         Configuration.UI_MODE_NIGHT_YES
   }
+
+  fun handlePerkNotifications(bundle: Bundle) {
+    compositeDisposable.add(iabInteract.getWalletAddress()
+      .subscribeOn(rxSchedulers.io)
+      .observeOn(rxSchedulers.io)
+      .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
+      .doOnSuccess {
+        PerkBonusAndGamificationService.buildService(this, it.address)
+        finishActivity(bundle)
+      }
+      .doOnError { finishActivity(bundle) }
+      .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
+  fun handleBackupNotifications(bundle: Bundle) {
+    compositeDisposable.add(iabInteract.incrementAndValidateNotificationNeeded()
+      .subscribeOn(rxSchedulers.io)
+      .observeOn(rxSchedulers.io)
+      .doOnSuccess { notificationNeeded ->
+        if (notificationNeeded.isNeeded) {
+          BackupNotificationUtils.showBackupNotification(
+            context = this,
+            walletAddress = notificationNeeded.walletAddress
+          )
+        }
+        finishActivity(bundle)
+      }
+      .doOnError { finishActivity(bundle) }
+      .subscribe({ }, { it.printStackTrace() })
+    )
+  }
+
+  private fun sendPaymentEvent(paymentMethod: String) {
+    compositeDisposable.add(Single.just(transactionBuilder)
+      .subscribeOn(rxSchedulers.io)
+      .subscribe { transactionBuilder ->
+        stopTimingForPurchaseEvent(true, paymentMethod)
+        analytics.sendPaymentEvent(
+          transactionBuilder.domain,
+          transactionBuilder.skuId,
+          transactionBuilder.amount().toString(),
+          mapPaymentToAnalytics(paymentMethod),
+          transactionBuilder.type
+        )
+      })
+  }
+
+  private fun sendRevenueEvent() {
+    compositeDisposable.add(Single.just(transactionBuilder)
+      .doOnSuccess { transactionBuilder ->
+        analytics.sendRevenueEvent(
+          inAppPurchaseInteractor.convertToFiat(
+            transactionBuilder.amount().toDouble(),
+            BillingAnalytics.EVENT_REVENUE_CURRENCY
+          )
+            .subscribeOn(rxSchedulers.io)
+            .blockingGet()
+            .amount
+            .setScale(2, BigDecimal.ROUND_UP)
+            .toString()
+        )
+      }
+      .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
+  private fun stopTimingForPurchaseEvent(success: Boolean, paymentMethod: String) {
+    val paymentMethodAnalytics = mapPaymentToAnalytics(paymentMethod)
+    paymentAnalytics.stopTimingForPurchaseEvent(paymentMethodAnalytics, success, false)
+  }
+
+  private fun mapPaymentToAnalytics(paymentType: String): String =
+    when (paymentType) {
+      PaymentType.CARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+      PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
+      PaymentType.PAYPALV2.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
+      PaymentType.GOOGLEPAY_WEB.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
+      PaymentType.AMAZONPAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_AMAZON_PAY
+      PaymentType.VKPAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_VKPAY
+      PaymentType.MI_PAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_MI_PAY
+      PaymentType.TRUE_LAYER.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_TRUE_LAYER
+      PaymentType.LOCAL_PAYMENTS.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_LOCAL
+      PaymentType.SANDBOX.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_SANDBOX
+      PaymentType.CHALLENGE_REWARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CHALLENGE_REWARD
+
+      else -> paymentType
+    }
 
 }
