@@ -2,9 +2,9 @@ package com.appcoins.wallet.core.analytics.analytics
 
 import android.content.Context
 import android.content.res.Configuration
+import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
-import org.json.JSONArray
 import org.json.JSONObject
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -13,6 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class IndicativeAnalytics @Inject constructor(
   @ApplicationContext private val context: Context,
+  private val appStartPreferencesDataSource: AppStartPreferencesDataSource
 ) : AnalyticsSetup {
 
   var usrId: String = ""  // wallet address
@@ -121,6 +122,14 @@ class IndicativeAnalytics @Inject constructor(
         put(label, superProperties[label])
       }
     }
+
+    jsonObject.put(
+      AnalyticsLabels.PAYMENT_FUNNEL,
+      if (appStartPreferencesDataSource.getIsFirstPayment())
+        FIRST_PAYMENT
+      else
+        REGULAR_PAYMENT
+    )
 
     return jsonObject.toString()
   }

@@ -55,7 +55,6 @@ internal class Erc681ReceiverPresenter(
               }
               .flatMap { transactionBuilder ->
                 partnerAddressService.setOemIdFromSdk(transactionBuilder.oemIdSdk)
-                handlePurchaseStartAnalytics(transactionBuilder)
                 Single.zip(
                   isWebViewPaymentFlowUseCase(transactionBuilder).subscribeOn(rxSchedulers.io),
                   inAppPurchaseInteractor.isWalletFromBds(
@@ -70,6 +69,7 @@ internal class Erc681ReceiverPresenter(
                     val isWebPaymentFlow = it.first
                     val isBds = it.second
                     if (isWebPaymentFlow.paymentMethods?.walletWebViewPayment != null) {
+                      handlePurchaseStartAnalytics(transactionBuilder)
                       startWebViewPayment(transactionBuilder)
                     } else {
                       view.startEipTransfer(transactionBuilder, isBds)

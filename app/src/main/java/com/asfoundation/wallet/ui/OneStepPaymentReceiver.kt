@@ -104,7 +104,6 @@ class OneStepPaymentReceiver : BaseActivity() {
           } else {
             transferParser.parse(intent.dataString!!)
               .flatMap { transaction: TransactionBuilder ->
-                handlePurchaseStartAnalytics(transaction)
                 Single.zip(
                   isWebViewPaymentFlowUseCase(transaction).subscribeOn(rxSchedulers.io),
                   inAppPurchaseInteractor.isWalletFromBds(
@@ -119,6 +118,7 @@ class OneStepPaymentReceiver : BaseActivity() {
                     val isWebPaymentFlow = it.first
                     val isBds = it.second
                     if (isWebPaymentFlow.paymentMethods?.walletWebViewPayment != null) {
+                      handlePurchaseStartAnalytics(transaction)
                       startWebViewPayment(transaction)
                     } else {
                       startOneStepTransfer(transaction, isBds)
