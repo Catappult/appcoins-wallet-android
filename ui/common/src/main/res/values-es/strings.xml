@@ -532,15 +532,15 @@
   <string name="max">Max</string>
   <string name="amount">Cantidad</string>
   <string name="total_title">Total</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_payment_method_button">Añadir método de pago</string>
+  <string name="change_payment_method_button">Cambiar método de pago</string>
   <string name="add_card_button">Añadir tarjeta de crédito/débito</string>
-  <string name="add_paypal_button">Add paypal</string>
-  <string name="add_gift_card_button">Add gift card</string>
+  <string name="add_paypal_button">Añadir PayPal</string>
+  <string name="add_gift_card_button">Añadir tarjeta regalo</string>
   <string name="buy_button">Comprar</string>
   <string name="copied_to_clipboard">Copiado al portapapeles</string>
   <string name="topup_button">Recargar</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Gana un %s%% extra de bonus</string>
   <string name="payment_method">Método de pago</string>
   <string name="credit_debit_card">Tarjeta de crédito/débito</string>
   <string name="paypal">PayPal</string>
@@ -569,10 +569,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">La herramienta para compras in-app</string>
+  <string name="onboarding_bonus_title">Recibe hasta un %s%% de tus compras in-app en AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Usa tarjeta bancaria, PayPal y tus métodos de pago favoritos.</string>
+  <string name="onboarding_vip_title">Hazte miembro VIP y recibe soporte y ofertas premium.</string>
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
   <string name="terms_and_conditions">Términos y Condiciones</string>
@@ -739,13 +739,13 @@
   <string name="purchase_bank_transer_secure_body">Transferencia segura directamente de tu banco.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">Estamos esperando que los fondos lleguen de tu banco.</string>
   <!--New Purchase flow-->
-  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
-  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
+  <string name="purchase_bonus_title">Bonus: %s en AppCoins Credits</string>
+  <string name="purchase_use_appc_partially_body">Usa tus AppCoins Credits para pagar en parta o la totalidad. Los AppCoins Credits se aplicarán primero.</string>
   <string name="purchase_subtotal">Subtotal</string>
   <string name="purchase_taxes">Impuestos</string>
-  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_using_appcoins_body">Usando %s en AppCoins Credits</string>
   <string name="purchase_bonus_bot_available_body">Bonus no disponible con este método de pago.</string>
-  <string name="purchase_promo_code_button">Do you have a promo code?</string>
+  <string name="purchase_promo_code_button">¿Tienes un código promocional?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Dirección</string>
   <string name="purchase_address_address_field">Dirección</string>
