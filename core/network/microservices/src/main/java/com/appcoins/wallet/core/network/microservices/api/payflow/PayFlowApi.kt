@@ -10,7 +10,6 @@ interface PayFlowApi {
   @GET("v2/payment_flow")
   fun getPayFlow(
     @Query("package") packageName: String,
-    @Query("package_vercode") packageVercode: Int?,
     @Query("oemid") oemid: String?,
   ): Single<PayFlowResponse>
 

@@ -121,7 +121,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
     val webView = remember { WebView(context) }
 
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-    val topSpacerHeight = if (isLandscape) 36.dp else 176.dp
 
     BackHandler(enabled = true) {
       if (webView.canGoBack()) {
@@ -136,14 +135,22 @@ class WebViewPaymentActivity : AppCompatActivity() {
         .fillMaxSize()
         .padding(horizontal = if (isLandscape) 56.dp else 0.dp)
     ) {
-      Spacer(
-        modifier = Modifier
-          .height(topSpacerHeight)
-          .fillMaxWidth()
-          .clickable {
-            finish()
-          }
-      )
+      if (isLandscape) {
+        Spacer(
+          modifier = Modifier
+            .height(36.dp)
+            .fillMaxWidth()
+            .clickable { finish() }
+        )
+      } else {
+        Spacer(
+          modifier = Modifier
+            .fillMaxWidth()
+            .weight(0.2f)
+            .clickable { finish() }
+        )
+      }
+
       Box(
         modifier = Modifier
           .fillMaxWidth()
@@ -159,6 +166,10 @@ class WebViewPaymentActivity : AppCompatActivity() {
       AndroidView(
         modifier = Modifier
           .fillMaxWidth()
+          .weight(
+            if (isLandscape) 1f
+            else 0.8f
+          )
           .background(styleguide_light_grey),
         factory = {
           webView.apply {

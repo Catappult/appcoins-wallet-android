@@ -16,12 +16,10 @@ class PayFlowRepository @Inject constructor(
 
   fun getPayFlow(
     packageName: String,
-    packageVercode: Int?,
     oemid: String?,
   ): Single<PayFlowResponse> {
     return payFlowApi.getPayFlow(
       packageName = packageName,
-      packageVercode = packageVercode,
       oemid = oemid?.takeIf { it.isNotEmpty() },
     )
       .subscribeOn(rxSchedulers.io)
