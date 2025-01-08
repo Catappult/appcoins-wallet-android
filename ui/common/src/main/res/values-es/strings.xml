@@ -744,7 +744,7 @@
   <string name="purchase_subtotal">Subtotal</string>
   <string name="purchase_taxes">Impuestos</string>
   <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
-  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
+  <string name="purchase_bonus_bot_available_body">Bonus no disponible con este método de pago.</string>
   <string name="purchase_promo_code_button">Do you have a promo code?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Dirección</string>
