@@ -22,7 +22,7 @@ class PayFlowRepository @Inject constructor(
     return payFlowApi.getPayFlow(
       packageName = packageName,
       packageVercode = packageVercode,
-      oemid = if (oemid.isNullOrEmpty()) null else oemid,
+      oemid = oemid?.takeIf { it.isNotEmpty() },
     )
       .subscribeOn(rxSchedulers.io)
       .doOnSuccess { registerEventIfInvalid(it) }

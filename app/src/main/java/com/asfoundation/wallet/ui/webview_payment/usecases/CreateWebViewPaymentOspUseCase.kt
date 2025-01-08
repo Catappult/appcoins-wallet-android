@@ -33,8 +33,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
   ): Single<String> {
     return Single.zip(
       walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
-      ewtObtainer.getEwtAuthenticationNoBearer()
-        .subscribeOn(rxSchedulers.io), // TODO confirmar wallet usada
+      ewtObtainer.getEwtAuthenticationNoBearer().subscribeOn(rxSchedulers.io),
       getCountryCodeUseCase().subscribeOn(rxSchedulers.io),
       addressService.getAttribution(transaction?.domain ?: "").subscribeOn(rxSchedulers.io),
       getCurrentPromoCodeUseCase().subscribeOn(rxSchedulers.io),
