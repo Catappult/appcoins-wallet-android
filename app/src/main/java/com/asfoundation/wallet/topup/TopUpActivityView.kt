@@ -59,8 +59,6 @@ interface TopUpActivityView {
 
   fun navigateToChallengeReward()
 
-  fun navigateToVkPayPayment(topUpData: TopUpPaymentData)
-
   fun navigateToGooglePay(paymentType: PaymentType, data: TopUpPaymentData)
 
   fun navigateToTrueLayer(paymentType: PaymentType, data: TopUpPaymentData)

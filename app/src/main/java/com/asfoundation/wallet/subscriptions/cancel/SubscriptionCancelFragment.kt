@@ -12,8 +12,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentSubscriptionCancelBinding
-import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestOptions
@@ -124,7 +124,7 @@ class SubscriptionCancelFragment : BottomSheetDialogFragment(), SubscriptionCanc
     }
 
     context?.let {
-      GlideApp.with(it)
+      Glide.with(it)
         .asBitmap()
         .load(appIcon)
         .apply { RequestOptions().dontTransform() }
