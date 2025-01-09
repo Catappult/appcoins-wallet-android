@@ -68,6 +68,10 @@ fun String.convertToBase64(): String {
   return Base64.encodeToString(this.toByteArray(), Base64.NO_WRAP)
 }
 
+fun String.convertToBase64Url(): String {
+  return Base64.encodeToString(this.toByteArray(Charsets.UTF_8), Base64.DEFAULT)
+}
+
 fun String?.isEmailValid(): Boolean {
   return !this.isNullOrBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(this)
     .matches()

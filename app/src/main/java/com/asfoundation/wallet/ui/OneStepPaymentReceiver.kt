@@ -1,11 +1,16 @@
 package com.asfoundation.wallet.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.airbnb.lottie.LottieAnimationView
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
@@ -15,11 +20,17 @@ import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
+import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
+import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
 import com.asfoundation.wallet.util.TransferParser
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.util.Locale
 import javax.inject.Inject
@@ -31,6 +42,25 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   @Inject
   lateinit var walletService: WalletService
+
+  @Inject
+  lateinit var addressService: AddressService
+
+  @Inject
+  lateinit var billingAnalytics: BillingAnalytics
+
+  lateinit var compositeDisposable: CompositeDisposable
+
+  private var firstImpression = true
+
+  @Inject
+  lateinit var createWebViewPaymentOspUseCase: CreateWebViewPaymentOspUseCase
+
+  @Inject
+  lateinit var rxSchedulers: RxSchedulers
+
+  @Inject
+  lateinit var isWebViewPaymentFlowUseCase: IsWebViewPaymentFlowUseCase
 
   @Inject
   lateinit var logger: Logger
@@ -51,7 +81,6 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   companion object {
     const val REQUEST_CODE = 234
-    private const val ESKILLS_URI_KEY = "ESKILLS_URI"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +91,7 @@ class OneStepPaymentReceiver : BaseActivity() {
     walletCreationAnimation = findViewById(R.id.create_wallet_animation)
     walletCreationText = findViewById(R.id.create_wallet_text)
     partnerAddressService.setOemIdFromSdk("")
+    compositeDisposable = CompositeDisposable()
     if (savedInstanceState == null) {
       disposable = handleWalletCreationIfNeeded()
         .takeUntil { it != WalletGetterStatus.CREATING.toString() }
@@ -74,20 +104,39 @@ class OneStepPaymentReceiver : BaseActivity() {
           } else {
             transferParser.parse(intent.dataString!!)
               .flatMap { transaction: TransactionBuilder ->
-                inAppPurchaseInteractor.isWalletFromBds(transaction.domain, transaction.toAddress())
-                  .doOnSuccess { isBds: Boolean ->
-                    startOneStepTransfer(transaction, isBds)
+                Single.zip(
+                  isWebViewPaymentFlowUseCase(transaction).subscribeOn(rxSchedulers.io),
+                  inAppPurchaseInteractor.isWalletFromBds(
+                    transaction.domain,
+                    transaction.toAddress()
+                  )
+                    .subscribeOn(rxSchedulers.io),
+                ) { isWebPaymentFlow, isBds ->
+                  Pair(isWebPaymentFlow, isBds)
+                }
+                  .flatMap {
+                    val isWebPaymentFlow = it.first
+                    val isBds = it.second
+                    if (isWebPaymentFlow.paymentMethods?.walletWebViewPayment != null) {
+                      handlePurchaseStartAnalytics(transaction)
+                      startWebViewPayment(transaction)
+                    } else {
+                      startOneStepTransfer(transaction, isBds)
+                      Single.just("")
+                    }
                   }
               }.toObservable()
           }
         }
         .subscribe({ }, { throwable: Throwable ->
           logger.log("OneStepPaymentReceiver", throwable)
+          Log.d("OneStepPaymentReceiver", "onCreate: ${throwable.message}")
           startOneStepWithError(IabActivity.ERROR_RECEIVER_NETWORK)
         })
     }
   }
 
+  @SuppressLint("UnsafeIntentLaunch")
   @Suppress("DEPRECATION")
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
@@ -112,11 +161,29 @@ class OneStepPaymentReceiver : BaseActivity() {
     startActivityForResult(intent, REQUEST_CODE)
   }
 
+  private fun startWebViewPayment(
+    transaction: TransactionBuilder,
+  ): Single<String> {
+    return createWebViewPaymentOspUseCase(transaction)
+      .doOnSuccess { url ->
+        launchWebViewPayment(url, transaction)
+      }
+  }
+
   private fun startOneStepWithError(errorFromReceiver: String?) {
     val intent =
       newIntent(this, intent, errorFromReceiver)
     @Suppress("DEPRECATION")
     startActivityForResult(intent, REQUEST_CODE)
+  }
+
+  private fun launchWebViewPayment(url: String, transaction: TransactionBuilder) {
+    val intentWebView = Intent(this, WebViewPaymentActivity::class.java).apply {
+      putExtra(WebViewPaymentActivity.URL, url)
+      putExtra(WebViewPaymentActivity.TRANSACTION_BUILDER, transaction)
+    }
+    @Suppress("DEPRECATION")
+    startActivityForResult(intentWebView, REQUEST_CODE)
   }
 
   override fun onPause() {
@@ -162,4 +229,30 @@ class OneStepPaymentReceiver : BaseActivity() {
     walletCreationText!!.visibility = View.VISIBLE
     walletCreationAnimation!!.playAnimation()
   }
+
+  private fun handlePurchaseStartAnalytics(transaction: TransactionBuilder?) {
+    compositeDisposable.add(
+      addressService.getAttribution(transaction?.domain ?: "")
+        .flatMapCompletable { attribution ->
+          Completable.fromAction {
+            if (firstImpression) {
+              billingAnalytics.sendPurchaseStartEvent(
+                packageName = transaction?.domain,
+                skuDetails = transaction?.skuId,
+                value = transaction?.amount().toString(),
+                transactionType = transaction?.type,
+                context = BillingAnalytics.WALLET_PAYMENT_METHOD,
+                oemId = attribution.oemId,
+              )
+              firstImpression = false
+            }
+          }
+        }
+        .subscribeOn(rxSchedulers.io)
+        .subscribe({}, {
+          it.printStackTrace()
+        })
+    )
+  }
+
 }

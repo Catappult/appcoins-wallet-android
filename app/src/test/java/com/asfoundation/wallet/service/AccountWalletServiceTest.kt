@@ -39,6 +39,8 @@ class AccountWalletServiceTest {
   @Mock
   lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
 
+  private lateinit var getPrivateKeyUseCase: GetPrivateKeyUseCase
+
   @Mock
   lateinit var createWalletUseCase: CreateWalletUseCase
 
@@ -51,11 +53,6 @@ class AccountWalletServiceTest {
   @Mock
   lateinit var syncScheduler: ExecutorScheduler
 
-  private val getPrivateKeyUseCase = GetPrivateKeyUseCase(
-    accountKeyService = accountKeyService,
-    passwordStore = passwordStore
-  )
-
   private lateinit var accountWalletService: AccountWalletService
 
   companion object {
@@ -67,10 +64,14 @@ class AccountWalletServiceTest {
 
   @Before
   fun setUp() {
-    `when`(walletRepositoryType.getDefaultWallet()).thenReturn(Single.just(Wallet(ADDRESS)))
     `when`(passwordStore.getPassword(any())).thenReturn(Single.just(PASSWORD))
     `when`(accountKeyService.exportAccount(any(), any(), any())).thenReturn(Single.just(KEYSTORE))
     `when`(getCurrentWalletUseCase()).thenReturn(Single.just(Wallet(ADDRESS)))
+
+    getPrivateKeyUseCase = GetPrivateKeyUseCase(
+      accountKeyService = accountKeyService,
+      passwordStore = passwordStore
+    )
 
     accountWalletService = AccountWalletService(
       passwordStore = passwordStore,

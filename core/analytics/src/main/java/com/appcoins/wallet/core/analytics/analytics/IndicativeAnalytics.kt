@@ -2,9 +2,10 @@ package com.appcoins.wallet.core.analytics.analytics
 
 import android.content.Context
 import android.content.res.Configuration
-import com.indicative.client.android.Indicative
+import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
+import org.json.JSONObject
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,6 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class IndicativeAnalytics @Inject constructor(
   @ApplicationContext private val context: Context,
+  private val appStartPreferencesDataSource: AppStartPreferencesDataSource
 ) : AnalyticsSetup {
 
   var usrId: String = ""  // wallet address
@@ -95,5 +97,42 @@ class IndicativeAnalytics @Inject constructor(
       else -> ORIENTATION_OTHER
     }
   }
+
+  fun getIndicativeSuperProperties(): String {
+    val labels = listOf(
+      AnalyticsLabels.APTOIDE_PACKAGE,
+      AnalyticsLabels.VERSION_CODE,
+      AnalyticsLabels.ENTRY_POINT,
+      AnalyticsLabels.USER_LEVEL,
+      AnalyticsLabels.HAS_GMS,
+      AnalyticsLabels.WALLET_ORIGIN,
+      AnalyticsLabels.OS_VERSION,
+      AnalyticsLabels.BRAND,
+      AnalyticsLabels.MODEL,
+      AnalyticsLabels.LANGUAGE,
+      AnalyticsLabels.IS_EMULATOR,
+      AnalyticsLabels.GAMES_HUB_OEMID,
+      AnalyticsLabels.PROMO_CODE,
+      AnalyticsLabels.FLAVOR,
+      AnalyticsLabels.THEME
+    )
+
+    val jsonObject = JSONObject().apply {
+      labels.forEach { label ->
+        put(label, superProperties[label])
+      }
+    }
+
+    jsonObject.put(
+      AnalyticsLabels.PAYMENT_FUNNEL,
+      if (appStartPreferencesDataSource.getIsFirstPayment())
+        FIRST_PAYMENT
+      else
+        REGULAR_PAYMENT
+    )
+
+    return jsonObject.toString()
+  }
+
 
 }

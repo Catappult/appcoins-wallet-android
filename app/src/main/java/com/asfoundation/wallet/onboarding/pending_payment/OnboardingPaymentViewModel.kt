@@ -18,6 +18,7 @@ import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCas
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetEarningBonusUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetOnboardingTransactionBuilderUseCase
+import com.asfoundation.wallet.util.tuples.Quadruple
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import java.io.Serializable
@@ -128,10 +129,6 @@ class OnboardingPaymentViewModel @Inject constructor(
   fun setOnboardingCompleted() {
     setOnboardingCompletedUseCase()
   }
-}
-
-data class Quadruple<A,B,C,D>(var first: A, var second: B, var third: C, var fourth: D): Serializable {
-  override fun toString(): String = "($first, $second, $third, $fourth)"
 }
 
 data class TransactionContent(
