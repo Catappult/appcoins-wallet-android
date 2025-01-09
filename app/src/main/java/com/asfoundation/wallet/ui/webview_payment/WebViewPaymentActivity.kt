@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -42,7 +45,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.PaymentMethodAnalyticsMapper
 import com.asfoundation.wallet.backup.BackupNotificationUtils
-import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
@@ -107,8 +109,24 @@ class WebViewPaymentActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay)
+    setKeyboardListener()
     setContent {
       MainContent(url)
+    }
+  }
+
+  var isPortraitSpaceForWeb = mutableStateOf(false)
+  fun setKeyboardListener() {
+    val decorView = window.decorView
+    decorView.viewTreeObserver.addOnGlobalLayoutListener {
+      val rect = Rect()
+      decorView.getWindowVisibleDisplayFrame(rect)
+      val ratio = (rect.height() * 0.8f) / rect.width()
+      if (ratio > 1.05) {
+        isPortraitSpaceForWeb.value = true
+      } else {
+        isPortraitSpaceForWeb.value = false
+      }
     }
   }
 
@@ -146,7 +164,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
         Spacer(
           modifier = Modifier
             .fillMaxWidth()
-            .weight(0.2f)
+            .weight(if (isPortraitSpaceForWeb.value) 0.2f else 0.02f)
             .clickable { finish() }
         )
       }
@@ -154,7 +172,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
       Box(
         modifier = Modifier
           .fillMaxWidth()
-          .height(17.dp)
+          .height(16.dp)
           .background(
             color = if (isDarkModeEnabled(context))
               styleguide_blue_webview_payment
@@ -167,8 +185,13 @@ class WebViewPaymentActivity : AppCompatActivity() {
         modifier = Modifier
           .fillMaxWidth()
           .weight(
-            if (isLandscape) 1f
-            else 0.8f
+            if (isLandscape)
+              1f
+            else
+              if (isPortraitSpaceForWeb.value)
+                0.8f
+              else
+                0.98f
           )
           .background(styleguide_light_grey),
         factory = {
@@ -272,7 +295,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
           Log.i(TAG, "createSuccessBundleAndFinish: ${it.message}")
           finish()
         }
-        .subscribe({}, {Log.i(TAG, "createSuccessBundleAndFinish: ${it.message}")})
+        .subscribe({}, { Log.i(TAG, "createSuccessBundleAndFinish: ${it.message}") })
     )
   }
 
