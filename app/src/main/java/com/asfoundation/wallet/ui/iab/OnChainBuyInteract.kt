@@ -22,8 +22,8 @@ class OnChainBuyInteract @Inject constructor(
   private val walletVerificationInteractor: WalletVerificationInteractor
 ) {
 
-  fun showSupport(gamificationLevel: Int): Completable {
-    return supportInteractor.showSupport(gamificationLevel)
+  fun showSupport(): Completable {
+    return supportInteractor.showSupport()
   }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()

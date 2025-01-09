@@ -15,7 +15,7 @@ class AddTrueLayerPaymentMessageUseCase @Inject constructor(
     return paymentMethods.map { method ->
       if (method.id == PaymentType.TRUE_LAYER.subTypes[0])
         method.copy(
-          message = context.resources.getString(R.string.purchase_bank_transer_secure_body)
+          message = context.resources.getString(R.string.extra_bonus_title, "2")
         )
       else
         method

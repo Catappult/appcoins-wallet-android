@@ -39,8 +39,8 @@ class PaymentMethodsInteractor @Inject constructor(
 
   private var uid: String? = null
 
-  fun showSupport(gamificationLevel: Int): Completable {
-    return supportInteractor.showSupport(gamificationLevel, uid)
+  fun showSupport(): Completable {
+    return supportInteractor.showSupport(uid)
   }
 
   fun isBonusActiveAndValid() = gamificationInteractor.isBonusActiveAndValid()
@@ -51,11 +51,18 @@ class PaymentMethodsInteractor @Inject constructor(
   fun getEarningBonus(
     packageName: String,
     amount: BigDecimal,
-    currency: String?
+    currency: String?,
+    paymentMethodId: String? = null
   ): Single<ForecastBonusAndLevel> {
     return getCurrentPromoCodeUseCase()
       .flatMap {
-        gamificationInteractor.getEarningBonus(packageName, amount, it.code, currency)
+        gamificationInteractor.getEarningBonus(
+          packageName = packageName,
+          amount = amount,
+          promoCodeString = it.code,
+          currency = currency,
+          paymentMethodId = paymentMethodId
+        )
       }
   }
 

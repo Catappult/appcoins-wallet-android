@@ -6,20 +6,17 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetCurrentWalletUseCase @Inject constructor(
-  private val walletRepository: WalletRepositoryType
+  private val walletRepository: WalletRepositoryType,
+  private val setActiveWalletUseCase: SetActiveWalletUseCase,
 ) {
 
   operator fun invoke(): Single<Wallet> {
     return walletRepository.getDefaultWallet()
       .onErrorResumeNext {
         walletRepository.fetchWallets()
-          .filter { wallets -> wallets.isNotEmpty() }
-          .map { wallets: Array<Wallet> ->
-            wallets[0]
-          }
-          .flatMapCompletable { wallet: Wallet ->
-            walletRepository.setDefaultWallet(wallet.address)
-          }
+          .filter { it.isNotEmpty() }
+          .map { it.first() }
+          .flatMapCompletable { setActiveWalletUseCase(it.address) }
           .andThen(walletRepository.getDefaultWallet())
       }
   }

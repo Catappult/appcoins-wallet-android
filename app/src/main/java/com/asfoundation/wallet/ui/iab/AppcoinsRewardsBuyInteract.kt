@@ -24,8 +24,8 @@ class AppcoinsRewardsBuyInteract @Inject constructor(
       .flatMap { walletVerificationInteractor.isAtLeastOneVerified(it.address, it.signedAddress) }
       .onErrorReturn { true }
 
-  fun showSupport(gamificationLevel: Int): Completable {
-    return supportInteractor.showSupport(gamificationLevel)
+  fun showSupport(): Completable {
+    return supportInteractor.showSupport()
   }
 
   fun removeAsyncLocalPayment() = inAppPurchaseInteractor.removeAsyncLocalPayment()

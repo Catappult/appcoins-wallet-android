@@ -17,8 +17,8 @@ class MergedAppcoinsInteractor @Inject constructor(
   private val fingerprintPreferences: FingerprintPreferencesDataSource
 ) {
 
-  fun showSupport(gamificationLevel: Int): Completable {
-    return supportInteractor.showSupport(gamificationLevel)
+  fun showSupport(): Completable {
+    return supportInteractor.showSupport()
   }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()

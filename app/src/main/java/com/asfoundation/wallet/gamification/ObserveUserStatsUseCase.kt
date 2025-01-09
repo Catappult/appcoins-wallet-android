@@ -2,26 +2,30 @@ package com.asfoundation.wallet.gamification
 
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
-import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
-class ObserveUserStatsUseCase
-@Inject
-constructor(
+class ObserveUserStatsUseCase @Inject constructor(
   private val gamification: Gamification,
-  private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
+  private val walletRepository: WalletRepositoryType,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
-  operator fun invoke(): Observable<PromotionsGamificationStats> {
-    return getCurrentPromoCodeUseCase()
-      .flatMapObservable { promoCode ->
-        findDefaultWalletUseCase().flatMapObservable {
-          gamification.getUserStats(it.address, promoCode.code)
-        }
+  operator fun invoke(offlineFirst: Boolean = false): Observable<PromotionsGamificationStats> {
+    return Single.zip(
+      getCurrentPromoCodeUseCase(),
+      walletRepository.getDefaultWallet()
+    ) { promoCode, wallet -> wallet to promoCode }
+      .flatMapObservable { (wallet, promoCode) ->
+        gamification.getUserStats(
+          wallet = wallet.address,
+          promoCodeString = promoCode.code,
+          offlineFirst = offlineFirst
+        )
       }
       .onErrorReturn {
         PromotionsGamificationStats(

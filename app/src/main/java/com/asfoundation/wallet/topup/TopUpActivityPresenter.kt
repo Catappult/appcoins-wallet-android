@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asf.wallet.R
+import com.asfoundation.wallet.gamification.UpdateUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit
 class TopUpActivityPresenter(
   private val view: TopUpActivityView,
   private val topUpInteractor: TopUpInteractor,
+  private val updateUserStatsUseCase: UpdateUserStatsUseCase,
   private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
   private val viewScheduler: Scheduler,
   private val networkScheduler: Scheduler,
@@ -88,16 +90,18 @@ class TopUpActivityPresenter(
   }
 
   fun handlePerkNotifications(bundle: Bundle) {
-    disposables.add(topUpInteractor.getWalletAddress()
-      .subscribeOn(networkScheduler)
-      .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
-      .observeOn(viewScheduler)
-      .doOnSuccess {
-        view.launchPerkBonusAndGamificationService(it.address)
-        view.finishActivity(bundle)
-      }
-      .doOnError { view.finishActivity(bundle) }
-      .subscribe({}, { it.printStackTrace() })
+    disposables.add(
+      updateUserStatsUseCase()
+        .andThen(topUpInteractor.getWalletAddress())
+        .subscribeOn(networkScheduler)
+        .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          view.launchPerkBonusAndGamificationService(it.address)
+          view.finishActivity(bundle)
+        }
+        .doOnError { view.finishActivity(bundle) }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 

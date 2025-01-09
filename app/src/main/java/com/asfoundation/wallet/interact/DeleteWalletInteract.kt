@@ -5,6 +5,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletInfoRepository
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RegisterFirebaseTokenUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetActiveWalletUseCase
 import com.appcoins.wallet.sharedpreferences.BackupSystemNotificationPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
@@ -23,6 +24,7 @@ class DeleteWalletInteract @Inject constructor(
   private val fingerprintPreferences: FingerprintPreferencesDataSource,
   private val walletInfoRepository: WalletInfoRepository,
   private val registerFirebaseTokenUseCase: RegisterFirebaseTokenUseCase,
+  private val setActiveWalletUseCase: SetActiveWalletUseCase,
 ) {
 
   fun delete(address: String): Completable = passwordStore.getPassword(address)
@@ -43,9 +45,9 @@ class DeleteWalletInteract @Inject constructor(
     .andThen(setNewWallet())
 
   private fun setNewWallet(): Completable = walletRepository.fetchWallets()
-    .filter(Array<Wallet>::isNotEmpty)
-    .map { it[0] }
-    .flatMapCompletable { walletRepository.setDefaultWallet(it.address) }
+    .filter { it.isNotEmpty() }
+    .map { it.first() }
+    .flatMapCompletable { setActiveWalletUseCase(it) }
 
   fun hasAuthenticationPermission() = fingerprintPreferences.hasAuthenticationPermission()
 }
