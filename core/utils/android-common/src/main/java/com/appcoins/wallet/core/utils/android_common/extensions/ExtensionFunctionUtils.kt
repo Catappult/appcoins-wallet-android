@@ -69,7 +69,10 @@ fun String.convertToBase64(): String {
 }
 
 fun String.convertToBase64Url(): String {
-  return Base64.encodeToString(this.toByteArray(Charsets.UTF_8), Base64.DEFAULT)
+  return Base64.encodeToString(
+    this.toByteArray(Charsets.UTF_8),
+    Base64.URL_SAFE or Base64.NO_WRAP or Base64.NO_PADDING
+  )
 }
 
 fun String?.isEmailValid(): Boolean {
