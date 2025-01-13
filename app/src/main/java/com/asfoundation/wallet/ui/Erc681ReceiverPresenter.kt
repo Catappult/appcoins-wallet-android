@@ -68,7 +68,10 @@ internal class Erc681ReceiverPresenter(
                   .flatMap {
                     val isWebPaymentFlow = it.first
                     val isBds = it.second
-                    if (isWebPaymentFlow.paymentMethods?.walletWebViewPayment != null) {
+                    if (
+                      isWebPaymentFlow.paymentMethods?.walletWebViewPayment != null &&
+                      !transactionBuilder.type.equals("INAPP_SUBSCRIPTION", ignoreCase = true)
+                      ) {
                       handlePurchaseStartAnalytics(transactionBuilder)
                       startWebViewPayment(transactionBuilder)
                     } else {
