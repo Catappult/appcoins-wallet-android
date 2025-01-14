@@ -1,11 +1,13 @@
 package com.asfoundation.wallet.ui.webview_payment
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Rect
+import android.net.Uri.parse
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -28,7 +30,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -88,6 +89,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
   lateinit var paymentAnalytics: PaymentMethodsAnalytics
 
   private val compositeDisposable = CompositeDisposable()
+
+  private var shouldAllowExternalApps = true
 
   companion object {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
@@ -201,22 +204,32 @@ class WebViewPaymentActivity : AppCompatActivity() {
             settings.domStorageEnabled = true
             settings.useWideViewPort = true
             webViewClient = object : WebViewClient() {
-              override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
-                when {
-                  clickUrl.contains(SUCCESS_SCHEMA) -> {
-                    finishActivity(Bundle().apply {
-                      putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-                    })
-                    return true
+              override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                if (url.isNullOrEmpty()) return false
+                return if (shouldAllowExternalApps) {
+                  if (url.startsWith("http://") || url.startsWith("https://")) {
+                    false
+                  } else {
+                    try {
+                      val intent = Intent(Intent.ACTION_VIEW, parse(url))
+                      view?.context?.startActivity(intent)
+                      true
+                    } catch (e: ActivityNotFoundException) {
+                      true
+                    }
                   }
+                } else {
+                  return false
                 }
-                return false
               }
             }
 
             addJavascriptInterface(
               WebViewPaymentInterface(
                 intercomCallback = { showSupport() },
+                allowExternalAppsCallback = {
+                  shouldAllowExternalApps = it
+                },
                 onPurchaseResultCallback = { webResult ->
                   sendPaymentSuccessEvent(
                     webResult?.uid ?: "",

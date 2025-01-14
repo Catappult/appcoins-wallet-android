@@ -9,7 +9,6 @@ import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
-import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.tuples.Quintuple
@@ -56,9 +55,9 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
             "&payment_channel=wallet_app" +
             "&token=${ewt}" +
             "&origin=BDS" +
-            "&product=${transaction.skuId}" +
-            "&domain=${transaction.domain}" +
-            "&type=${transaction.type}" +
+            "&product=${transaction.skuId ?: ""}" +
+            "&domain=${transaction.domain ?: ""}" +
+            "&type=${transaction.type ?: ""}" +
             "&oem_id=${oemId ?: ""}" +
             "&reference=${
               (transaction.orderReference ?: "").convertToBase64Url()

@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.ui.webview_payment
 
-import android.content.Context
 import android.webkit.JavascriptInterface
-import android.widget.Toast
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentErrorResponse
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentResponse
 import com.google.gson.Gson
@@ -10,13 +8,19 @@ import com.google.gson.Gson
 
 class WebViewPaymentInterface(
   private val intercomCallback: () -> Unit,
+  private val allowExternalAppsCallback: (allow: Boolean) -> Unit,
   private val onPurchaseResultCallback: (WebViewPaymentResponse?) -> Unit,
-  private val onErrorCallback: (WebViewPaymentErrorResponse?) -> Unit
-  ) {
+  private val onErrorCallback: (WebViewPaymentErrorResponse?) -> Unit,
+) {
 
   @JavascriptInterface
   fun openIntercom() {
     intercomCallback()
+  }
+
+  @JavascriptInterface
+  fun allowExternalApps(allow: Boolean) {
+    allowExternalAppsCallback(allow)
   }
 
   @JavascriptInterface
