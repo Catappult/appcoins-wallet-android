@@ -365,6 +365,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
             if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
               wasCvcRequired
             else null,
+            isWebViewPayment = true,
           )
         }
         .subscribe({}, { it.printStackTrace() })
@@ -387,7 +388,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
           transactionType = transaction.type,
           errorCode = errorCode,
           errorDetails = errorReason,
-          riskRules = null
+          riskRules = null,
+          isWebViewPayment = true,
         )
       }
       .subscribe({}, { it.printStackTrace() })

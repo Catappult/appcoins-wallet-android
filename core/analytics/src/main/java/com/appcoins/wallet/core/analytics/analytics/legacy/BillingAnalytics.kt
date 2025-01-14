@@ -292,7 +292,8 @@ class BillingAnalytics @Inject constructor(
     errorCode: String,
     errorDetails: String?,
     riskRules: String?,
-    isOnboardingPayment: Boolean
+    isOnboardingPayment: Boolean,
+    isWebViewPayment:Boolean,
   ) {
     val eventData = createConclusionWalletEventMap(
       packageName = packageName,
@@ -307,6 +308,7 @@ class BillingAnalytics @Inject constructor(
       this[EVENT_ERROR_CODE] = errorCode
       errorDetails?.let { this[EVENT_ERROR_DETAILS] = it }
       riskRules?.let { this[EVENT_CODE_RISK_RULES] = it }
+      this[EVENT_PAYMENT_CHANNEL] = if (isWebViewPayment) WEBVIEW else APPCOINS_WALLET
     }
 
     analytics.logEvent(
@@ -328,6 +330,7 @@ class BillingAnalytics @Inject constructor(
     valueUsd: String,
     isStoredCard: Boolean?,
     wasCvcRequired: Boolean?,
+    isWebViewPayment:Boolean,
   ) {
     val eventData: MutableMap<String, Any?> = createConclusionWalletEventMap(
       packageName = packageName,
@@ -358,6 +361,7 @@ class BillingAnalytics @Inject constructor(
     }
 
     eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
+    eventData[EVENT_PAYMENT_CHANNEL] = if (isWebViewPayment) WEBVIEW else APPCOINS_WALLET
     analytics.logEvent(
       eventData,
       WALLET_PAYMENT_CONCLUSION,
@@ -401,7 +405,8 @@ class BillingAnalytics @Inject constructor(
     context: String,
     oemId: String?,
     purchaseDetails: String?,
-    isOnboardingPayment: Boolean
+    isOnboardingPayment: Boolean,
+    isWebViewPayment: Boolean,
   ) {
     val eventData = mutableMapOf<String, Any?>(
       EVENT_PACKAGE_NAME to packageName,
@@ -410,6 +415,7 @@ class BillingAnalytics @Inject constructor(
       EVENT_TRANSACTION_TYPE to transactionType,
       EVENT_CONTEXT to context,
       EVENT_OEMID to (oemId ?: ""),
+      EVENT_PAYMENT_CHANNEL to if (isWebViewPayment) WEBVIEW else APPCOINS_WALLET,
     ).apply {
       purchaseDetails?.let { this[EVENT_PAYMENT_METHOD] = it }
       if (isOnboardingPayment) this[EVENT_ONBOARDING_PAYMENT] = true
@@ -545,6 +551,9 @@ class BillingAnalytics @Inject constructor(
     private const val EVENT_STORED_CARD_CVC_REQUIRED = "stored_card_cvc_required"
     private const val EVENT_STORED_CARD_CVC_NOT_REQUIRED = "stored_card_cvc_not_required"
     private const val EVENT_NEW_CARD = "new_card"
+    private const val EVENT_PAYMENT_CHANNEL = "payment_channel"
+    private const val WEBVIEW = "appcoins_wallet_android_webview"
+    private const val APPCOINS_WALLET = "appcoins_wallet_android"
     const val ACTION_BUY = "buy"
     const val ACTION_NEXT = "next"
     const val ACTION_CANCEL = "cancel"

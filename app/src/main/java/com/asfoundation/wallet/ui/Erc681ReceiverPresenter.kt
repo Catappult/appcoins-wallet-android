@@ -134,6 +134,7 @@ internal class Erc681ReceiverPresenter(
                 transactionType = transaction?.type,
                 context = BillingAnalytics.WALLET_PAYMENT_METHOD,
                 oemId = attribution.oemId,
+                isWebViewPayment = true,
               )
               firstImpression = false
             }
