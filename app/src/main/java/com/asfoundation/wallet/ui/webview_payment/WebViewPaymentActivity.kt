@@ -203,6 +203,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             settings.useWideViewPort = true
+            CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
+            settings.databaseEnabled = true
+
             webViewClient = object : WebViewClient() {
               override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 if (url.isNullOrEmpty()) return false
