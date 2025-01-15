@@ -18,6 +18,7 @@ import com.appcoins.wallet.core.utils.android_common.AppUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletDialogLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -78,8 +79,13 @@ class CreateWalletDialogFragment : DialogFragment(),
         if (requireArguments().getBoolean(IS_FROM_ONBOARDING)) {
           if (requireArguments().getBoolean(IS_PAYMENT))
             navigator.navigateBack()
-          else
-            restart()
+          else {
+            showSuccess()
+            lifecycleScope.launch {
+              delay(700)
+              restart()
+            }
+          }
 
         } else {
           views.createWalletLoading.addAnimatorListener(object : Animator.AnimatorListener {
@@ -107,6 +113,14 @@ class CreateWalletDialogFragment : DialogFragment(),
         copyIntent = true
       )
     }
+  }
+
+  private fun showSuccess() {
+    views.createWalletLoading.visibility = View.GONE
+    views.createWalletText.visibility = View.GONE
+    views.successAnimation.visibility = View.VISIBLE
+    views.successText.visibility = View.VISIBLE
+    views.successAnimation.playAnimation()
   }
 
   override fun onSideEffect(sideEffect: CreateWalletSideEffect) = Unit
