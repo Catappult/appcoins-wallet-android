@@ -57,12 +57,12 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
             "&payment_channel=wallet_app" +
             "&token=${ewt}" +
             "&origin=BDS" +
-            "&product=${transaction.skuId}" +
-            "&domain=${transaction.domain}" +
-            "&type=${transaction.type}" +
+            "&product=${transaction.skuId ?: ""}" +
+            "&domain=${transaction.domain ?: ""}" +
+            "&type=${transaction.type ?: ""}" +
             "&oem_id=${oemId ?: ""}" +
             "&reference=${transaction.orderReference ?: ""}" +
-            "&promo_code=${promoCode.code}" +
+            "&promo_code=${promoCode.code ?: ""}" +
             "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}"
       }
   }

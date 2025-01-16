@@ -102,7 +102,8 @@ interface EventSender {
     errorCode: String,
     errorDetails: String?,
     riskRules: String?,
-    isOnboardingPayment: Boolean = false
+    isOnboardingPayment: Boolean = false,
+    isWebViewPayment: Boolean = false
   )
 
   fun sendPaymentSuccessEvent(
@@ -116,6 +117,7 @@ interface EventSender {
     valueUsd: String,
     isStoredCard: Boolean? = null,
     wasCvcRequired: Boolean? = null,
+    isWebViewPayment: Boolean = false,
   )
 
   fun sendPaymentPendingEvent(
@@ -135,7 +137,8 @@ interface EventSender {
     context: String,
     oemId: String?,
     purchaseDetails: String? = null,
-    isOnboardingPayment: Boolean = false
+    isOnboardingPayment: Boolean = false,
+    isWebViewPayment: Boolean = false,
   )
 
   fun sendPaypalUrlEvent(
