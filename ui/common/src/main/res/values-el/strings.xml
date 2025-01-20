@@ -541,6 +541,7 @@
   <string name="copied_to_clipboard">Αντιγράφηκε στο πρόχειρο</string>
   <string name="topup_button">Φόρτιση</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">Μέθοδος πληρωμής</string>
   <string name="credit_debit_card">Πιστωτική/χρεωστική κάρτα</string>
   <string name="paypal">PayPal</string>
@@ -908,9 +909,10 @@ Wallets</item>
   <string name="remove_wallet_extra_confirmation_title">Είστε σίγουροι;</string>
   <string name="remove_wallet_extra_confirmation_body">Θυμηθείτε ότι χωρίς αντίγραφο ασφαλείας θα χάσετε τα χρήματα και το επίπεδο bonus σας.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Μεταφορά</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Μεταφορά Χρημάτων</string>
   <string name="transfer_send_tab_title">Αποστολή</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">Λήψη</string>
   <string name="transfer_send_body">Σαρώστε ή εισαγάγετε τη διεύθυνση wallet του φίλου σας.</string>
   <string name="transfer_send_recipient_title">Διεύθυνση Wallet</string>
@@ -919,6 +921,8 @@ Wallets</item>
   <string name="transfer_send_current_balance_title">Τρέχον Υπόλοιπο:</string>
   <string name="transfer_send_button">Αποστολή</string>
   <string name="transfer_receive_body">Κοινοποιήστε τη διεύθυνση του wallet σας για να λάβετε χρήματα.</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Έχετε ένα νέο μήνυμα!</string>
   <string name="support_new_message_button">Πατήστε για άνοιγμα</string>
