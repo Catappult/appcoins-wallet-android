@@ -541,6 +541,7 @@
   <string name="copied_to_clipboard">クリップボードにコピーされました</string>
   <string name="topup_button">トップアップ</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">支払方法</string>
   <string name="credit_debit_card">クレジット/デビットカード</string>
   <string name="paypal">PayPal</string>
@@ -905,9 +906,10 @@
   <string name="remove_wallet_extra_confirmation_title">本当に良いですか？</string>
   <string name="remove_wallet_extra_confirmation_body">バックアップがないと、資金もボーナスレベルも失ってしまうのでご注意ください</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">移動</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">資金の移動</string>
   <string name="transfer_send_tab_title">送信する</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">受信する</string>
   <string name="transfer_send_body">スキャンまたはあなたの友人のウォレットのアドレスを入力します。</string>
   <string name="transfer_send_recipient_title">ウォレット・アドレス</string>
@@ -916,6 +918,8 @@
   <string name="transfer_send_current_balance_title">現在の残高：</string>
   <string name="transfer_send_button">送信</string>
   <string name="transfer_receive_body">資金を受け取るにはウォレットのアドレスを共有してください。</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">新しいメッセージを受け取りました！</string>
   <string name="support_new_message_button">タップして開く</string>
