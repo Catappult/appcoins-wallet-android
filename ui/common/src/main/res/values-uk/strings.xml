@@ -543,6 +543,7 @@
   <string name="copied_to_clipboard">Скопійовано до буфера обміну</string>
   <string name="topup_button">Поповнити</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">Спосіб оплати</string>
   <string name="credit_debit_card">Кредитна/дебетова карта</string>
   <string name="paypal">PayPal</string>
@@ -913,9 +914,10 @@
   <string name="remove_wallet_extra_confirmation_title">Ви впевнені?</string>
   <string name="remove_wallet_extra_confirmation_body">Пам\'ятайте, що без резервної копії ви втратите свої кошти та бонусний рівень.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Переведення</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Переказ коштів</string>
   <string name="transfer_send_tab_title">Надіслати</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">Отримати</string>
   <string name="transfer_send_body">Відскануйте або введіть адресу гаманця вашого друга.</string>
   <string name="transfer_send_recipient_title">Адреса гаманця</string>
@@ -924,6 +926,8 @@
   <string name="transfer_send_current_balance_title">Поточний баланс:</string>
   <string name="transfer_send_button">Надіслати</string>
   <string name="transfer_receive_body">Поділіться адресою гаманця, щоб отримати кошти.</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Ви отримали нове повідомлення!</string>
   <string name="support_new_message_button">Торкніться, щоб відкрити</string>
