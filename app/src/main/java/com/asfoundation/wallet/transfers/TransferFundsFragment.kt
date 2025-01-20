@@ -19,12 +19,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -45,6 +47,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
@@ -54,6 +57,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -63,16 +67,16 @@ import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_new
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
-import com.appcoins.wallet.ui.widgets.top_bar.ScreenTitle
-import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletTextField
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_wallets.ManageWalletFragment
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Error
@@ -130,22 +134,55 @@ class TransferFundsFragment : BasePageViewFragment() {
   @Composable
   fun TransferFundsView() {
     Scaffold(
-      topBar = { Surface { TopBar(onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) } },
+      topBar = {
+        Surface {
+          TopBar(
+            onClickSupport = { viewModel.displayChat() },
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
+          )
+        }
+      },
       containerColor = styleguide_blue,
+      bottomBar = {
+        Row (
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp),
+        ) {
+          SendButton()
+        }
+      }
     ) { padding ->
       Column(
         modifier =
         Modifier
           .padding(padding)
-          .padding(horizontal = 16.dp)
-          .verticalScroll(rememberScrollState())
           .fillMaxHeight(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
       ) {
-        ScreenTitle(stringResource(R.string.transfer_button))
-        NavigationTransfer()
-        Spacer(Modifier.height(8.dp))
-        CenterContent()
+//        ScreenTitle(stringResource(R.string.transfer_button))
+        Card(
+          colors = CardDefaults.cardColors(styleguide_blue_secondary),
+          modifier =
+          Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp, bottom = 0.dp, start = 16.dp, end = 16.dp)
+            .clip(shape = RoundedCornerShape(24.dp))
+        ) {
+          Column(
+            modifier =
+            Modifier
+              .padding(8.dp)
+              .verticalScroll(rememberScrollState())
+              .fillMaxHeight(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+          ) {
+            NavigationTransfer()
+            Spacer(Modifier.height(8.dp))
+            CenterContent()
+          }
+        }
       }
     }
   }
@@ -155,18 +192,25 @@ class TransferFundsFragment : BasePageViewFragment() {
     Row(
       modifier =
       Modifier
-        .background(shape = CircleShape, color = styleguide_blue_secondary)
-        .padding(horizontal = 4.dp)
+        .fillMaxWidth()
+        .background(shape = CircleShape, color = styleguide_blue)
+        .padding(4.dp),
+      horizontalArrangement = Arrangement.SpaceEvenly
     ) {
       viewModel.transferNavigationItems().forEach { item ->
         val selected = viewModel.clickedTransferItem.value == item.destination.ordinal
         ButtonWithText(
           label = stringResource(item.label),
-          backgroundColor = if (selected) styleguide_pink else styleguide_blue_secondary,
+          backgroundColor = if (selected) styleguide_grey_new else styleguide_blue,
           labelColor = if (selected) styleguide_white else styleguide_medium_grey,
           onClick = { viewModel.clickedTransferItem.value = item.destination.ordinal },
           fragmentName = fragmentName,
-          buttonsAnalytics = buttonsAnalytics)
+          buttonsAnalytics = buttonsAnalytics,
+          modifier =
+          Modifier
+            .weight(1f)
+            .height(40.dp)
+        )
       }
     }
   }
@@ -181,13 +225,13 @@ class TransferFundsFragment : BasePageViewFragment() {
         ) {
           when (viewModel.clickedTransferItem.value ?: SEND.ordinal) {
             SEND.ordinal -> {
-              Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                NavigationCurrencies()
+              Column(verticalArrangement = Arrangement.spacedBy(0.dp)) {
+//                NavigationCurrencies()
                 CurrentBalance(uiState.walletInfo.walletBalance)
+                Separator()
                 AddressTextField()
-                AmountTextField()
+                AmountTextField(uiState.walletInfo.walletBalance)
               }
-              SendButton()
             }
 
             RECEIVE.ordinal -> {
@@ -305,27 +349,47 @@ class TransferFundsFragment : BasePageViewFragment() {
 
   @Composable
   fun CurrentBalance(walletBalance: WalletBalance) {
-    val balance =
-      when (viewModel.clickedCurrencyItem.value) {
-        CurrencyDestinations.APPC.ordinal -> walletBalance.appcBalance.token
-        CurrencyDestinations.ETHEREUM.ordinal -> walletBalance.ethBalance.token
-        CurrencyDestinations.APPC_C.ordinal -> walletBalance.creditsBalance.token
-        else -> walletBalance.creditsBalance.token
-      }
-    Text(
-      modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp),
-      text =
-      stringResource(
-        id = R.string.p2p_send_current_balance_message,
-        balance.amount.toString().formatMoney() ?: "",
-        balance.symbol
-      ),
-      style = MaterialTheme.typography.bodyLarge,
-      color = styleguide_light_grey,
-      fontWeight = FontWeight.Bold,
-      maxLines = 1,
-      overflow = TextOverflow.Ellipsis
+    val balance = walletBalance.creditsOnlyFiat
+    Column (
+      modifier = Modifier.padding(bottom = 24.dp),
+    ){
+      Text(
+        modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 0.dp, bottom = 4.dp),
+        text = stringResource(R.string.aptoide_balance),
+        style = MaterialTheme.typography.bodySmall,
+        color = styleguide_dark_grey,
+        fontSize = 10.sp
+      )
+      Text(
+        modifier = Modifier.padding(horizontal = 8.dp),
+        text = "${balance.symbol}${
+          balance.amount.toString().formatMoney() ?: ""
+        } ${balance.currency}",
+        style = MaterialTheme.typography.bodyLarge,
+        color = styleguide_light_grey,
+        fontWeight = FontWeight.Bold,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        fontSize = 26.sp,
+      )
+    }
+  }
+
+  @Composable
+  fun Separator() {
+    Spacer(
+      modifier =
+      Modifier
+        .fillMaxWidth()
+        .height(1.dp)
+        .background(styleguide_grey_new)
     )
+  }
+
+  @Preview
+  @Composable
+  fun TransferFundsScreen() {
+    TransferFundsView()
   }
 
   @Preview
@@ -333,47 +397,84 @@ class TransferFundsFragment : BasePageViewFragment() {
   fun AddressTextField() {
     var address by rememberSaveable { addressTextValue }
     Text(
-      modifier = Modifier.padding(horizontal = 8.dp),
-      text = stringResource(R.string.p2p_send_body),
+      modifier = Modifier
+        .padding(start = 16.dp, end = 16.dp, top = 24.dp, bottom = 8.dp),
+      text = stringResource(R.string.transfer_send_to_title),
       style = MaterialTheme.typography.bodySmall,
+      fontSize = 14.sp,
       color = styleguide_light_grey
     )
     Row {
       WalletTextField(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(horizontal = 8.dp),
         value = address,
         placeHolder = stringResource(R.string.hint_recipient_address),
-        backgroundColor = styleguide_blue_secondary,
+        backgroundColor = styleguide_blue,
         keyboardType = KeyboardType.Ascii,
-        roundedCornerShape = RoundedCornerShape(8.dp),
+        roundedCornerShape = RoundedCornerShape(16.dp),
         trailingIcon = {
           VectorIconButton(
-            painter = painterResource(R.drawable.ic_qrcode),
+            painter = painterResource(R.drawable.qr_code2),
             contentDescription = R.string.scan_qr,
             onClick = { transferNavigator.showQrCodeScreen() },
-            paddingIcon = 4.dp,
-            background = styleguide_blue_secondary,
+            paddingIcon = 6.dp,
             fragmentName = fragmentName,
             buttonsAnalytics = buttonsAnalytics
           )
-        }) { newAddress ->
+        }
+      ) { newAddress ->
         address = newAddress
         viewModel.currentAddedAddress = newAddress
       }
     }
   }
 
-  @Preview
   @Composable
-  fun AmountTextField() {
+  fun AmountTextField(walletBalance: WalletBalance) {
+    val balance = walletBalance.creditsOnlyFiat
     var amount by rememberSaveable { mutableStateOf("") }
+    Text(
+      modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp),
+      text = stringResource(R.string.transfer_send_amount_title),
+      style = MaterialTheme.typography.bodySmall,
+      fontSize = 14.sp,
+      color = styleguide_light_grey
+    )
     WalletTextField(
-      modifier = Modifier.fillMaxWidth(),
-      amount,
-      stringResource(R.string.hint_amount),
-      backgroundColor = styleguide_blue_secondary,
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(start = 8.dp, end = 8.dp, top = 0.dp, bottom = 16.dp),
+      value = amount,
+      placeHolder = "${balance.symbol}0.00 ${balance.currency}",
+      backgroundColor = styleguide_blue,
       keyboardType = KeyboardType.Decimal,
-      roundedCornerShape = RoundedCornerShape(8.dp)
+      roundedCornerShape = RoundedCornerShape(16.dp),
+      trailingIcon = {
+        Card(
+          colors = CardDefaults.cardColors(styleguide_blue_secondary),
+          modifier = Modifier
+            .defaultMinSize(minWidth = 28.dp, minHeight = 20.dp)
+            .padding(top = 2.dp, bottom = 2.dp, start = 2.dp, end = 2.dp)
+            .clip(shape = RoundedCornerShape(3.dp))
+            .clickable {
+              amount = balance.amount.toString()
+              viewModel.currentAddedAmount = balance.amount.toString()
+            }
+        ) {
+          Row {
+            Text(
+              modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+              text = stringResource(R.string.max),
+              style = MaterialTheme.typography.bodySmall,
+              fontSize = 10.sp,
+              color = styleguide_light_grey
+            )
+          }
+
+        }
+      },
     ) { newAmount ->
       amount = newAmount
       viewModel.currentAddedAmount = newAmount
