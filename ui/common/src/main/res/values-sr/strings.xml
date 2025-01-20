@@ -541,6 +541,7 @@
   <string name="copied_to_clipboard">Kopirano u ostavu</string>
   <string name="topup_button">Dopunite</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">Način plaćanja</string>
   <string name="credit_debit_card">Kreditna/debitna kartica</string>
   <string name="paypal">PayPal</string>
@@ -909,9 +910,10 @@
   <string name="remove_wallet_extra_confirmation_title">Jeste li sigurni?</string>
   <string name="remove_wallet_extra_confirmation_body">Zapamtite da ćete bez rezerne kopije izgubiti svoja sredstva i bonus nivo.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Prenos</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Prenesite sredstva</string>
   <string name="transfer_send_tab_title">Pošalji</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">Primite</string>
   <string name="transfer_send_body">Skenirajte ili unesite adresu novčanika svog prijatelja.</string>
   <string name="transfer_send_recipient_title">Adresa novčanika</string>
@@ -920,6 +922,8 @@
   <string name="transfer_send_current_balance_title">Trenutno stanje:</string>
   <string name="transfer_send_button">Pošaljite</string>
   <string name="transfer_receive_body">Podelite adresu svog novčanika da biste dobili sredstva.</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Dobili ste novu poruku!</string>
   <string name="support_new_message_button">Dodirnite da otvorite</string>
