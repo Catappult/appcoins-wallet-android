@@ -541,6 +541,7 @@
   <string name="copied_to_clipboard">Copiato negli appunti</string>
   <string name="topup_button">Ricarica</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">Metodo di pagamento</string>
   <string name="credit_debit_card">Carta di credito/debito</string>
   <string name="paypal">PayPal</string>
@@ -907,9 +908,10 @@
   <string name="remove_wallet_extra_confirmation_title">Sei sicuro?</string>
   <string name="remove_wallet_extra_confirmation_body">Ricorda che, senza un backup, perderai i tuoi fondi e il livello bonus.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Trasferimento</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Trasferisci fondi</string>
   <string name="transfer_send_tab_title">Invia</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">Ricevi</string>
   <string name="transfer_send_body">Scansiona o inserisci l\'indirizzo del wallet del tuo amico.</string>
   <string name="transfer_send_recipient_title">Indirizzo wallet</string>
@@ -918,6 +920,8 @@
   <string name="transfer_send_current_balance_title">Saldo attuale:</string>
   <string name="transfer_send_button">Invia</string>
   <string name="transfer_receive_body">Condividi l\'indirizzo del tuo wallet per ricevere fondi.</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Hai un nuovo messaggio!</string>
   <string name="support_new_message_button">Premi per aprire</string>
