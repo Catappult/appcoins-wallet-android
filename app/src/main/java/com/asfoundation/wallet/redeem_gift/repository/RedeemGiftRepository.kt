@@ -11,8 +11,8 @@ class RedeemGiftRepository @Inject constructor(
   private val rxSchedulers: RxSchedulers
 ) {
 
-  fun redeemGift(giftCode: String, ewt: String): Single<RedeemCode> {
-    return redeemGiftApi.redeemGiftCode(giftCode, ewt)
+  fun redeemGift(giftCode: String): Single<RedeemCode> {
+    return redeemGiftApi.redeemGiftCode(giftCode)
       .subscribeOn(rxSchedulers.io)
       .andThen(Single.just(SuccessfulRedeem as RedeemCode))
       .onErrorReturn { mapper.map(it) }

@@ -41,3 +41,15 @@ annotation class DefaultHttpClient
   AnnotationTarget.VALUE_PARAMETER
 )
 annotation class ShortTimeoutHttpClient
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class RenewJwtRetrofit
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class RenewJwtBackendUrl
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class RenewJwtHttpClient

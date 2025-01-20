@@ -52,8 +52,10 @@ class SandboxViewModel @Inject constructor(
   val viewScheduler = rxSchedulers.main
 
   fun startPayment(
-    amount: BigDecimal, currency: String,
-    transactionBuilder: TransactionBuilder, origin: String?
+    amount: BigDecimal,
+    currency: String,
+    transactionBuilder: TransactionBuilder,
+    origin: String?
   ) {
     sendPaymentConfirmationEvent(transactionBuilder)
     compositeDisposable.add(
@@ -67,7 +69,6 @@ class SandboxViewModel @Inject constructor(
         sku = transactionBuilder.skuId,
         callbackUrl = transactionBuilder.callbackUrl,
         transactionType = transactionBuilder.type,
-        developerWallet = transactionBuilder.toAddress(),
         referrerUrl = transactionBuilder.referrerUrl,
         guestWalletId = transactionBuilder.guestWalletId
       )

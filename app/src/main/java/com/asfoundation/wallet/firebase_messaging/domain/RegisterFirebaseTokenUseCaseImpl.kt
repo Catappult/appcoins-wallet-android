@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.firebase_messaging.domain
 
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.network.base.JwtAuthenticatorService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RegisterFirebaseTokenUseCase
@@ -16,14 +16,18 @@ class RegisterFirebaseTokenUseCaseImpl @Inject constructor(
   private val walletRepository: WalletRepositoryType,
   private val repository: FirebaseMessagingRepository,
   private val firebaseMessaging: FirebaseMessaging,
-  private val ewtAuthenticatorService: EwtAuthenticatorService,
+  private val jwtAuthenticatorService: JwtAuthenticatorService,
 ) : RegisterFirebaseTokenUseCase, RegisterFirebaseTokenForWalletsUseCase {
 
-  override suspend fun registerFirebaseTokenForAllWallets(token: String, retry: Int, maxRetries: Int) {
+  override suspend fun registerFirebaseTokenForAllWallets(
+    token: String,
+    retry: Int,
+    maxRetries: Int
+  ) {
     try {
       walletRepository.fetchWallets()
         .flattenAsObservable { it.toList() }
-        .map { ewtAuthenticatorService.getEwtAuthentication(it.address) }
+        .flatMapSingle { jwtAuthenticatorService.getJwtAuthenticationWithAddress(it.address) }
         .flatMapCompletable { repository.registerToken(it, token) }
         .doOnError { throw RegisterFirebaseMessagingError(it) }
         .await()
@@ -33,24 +37,41 @@ class RegisterFirebaseTokenUseCaseImpl @Inject constructor(
   }
 
   override fun registerFirebaseToken(wallet: Wallet): Single<Wallet> =
-    Single.create { emitter ->
-      firebaseMessaging.token
-        .addOnSuccessListener(emitter::onSuccess)
-        .addOnFailureListener(emitter::onError)
-    }
-      .map { ewtAuthenticatorService.getEwtAuthentication(wallet.address) to it }
-      .flatMapCompletable { repository.registerToken(it.first, it.second) }
+    Single.zip(
+      Single.create { emitter ->
+        firebaseMessaging.token
+          .addOnSuccessListener(emitter::onSuccess)
+          .addOnFailureListener(emitter::onError)
+      },
+      jwtAuthenticatorService.getJwtAuthenticationWithAddress(wallet.address)
+    ) { token, jwt -> token to jwt }
+      .flatMapCompletable { (token, jwt) ->
+        repository.registerToken(
+          jwt = jwt,
+          token = token
+        )
+      }
       .onErrorComplete()
       .andThen(Single.just(wallet))
 
   override fun unregisterFirebaseToken(wallet: Wallet): Completable =
-    Single.create { emitter ->
-      firebaseMessaging.token
-        .addOnSuccessListener(emitter::onSuccess)
-        .addOnFailureListener(emitter::onError)
-    }
-      .map { ewtAuthenticatorService.getEwtAuthentication(wallet.address) to it }
-      .flatMapCompletable { repository.unregisterToken(it.first, it.second) }
+    Single.zip(
+      Single.create { emitter ->
+        firebaseMessaging.token
+          .addOnSuccessListener(emitter::onSuccess)
+          .addOnFailureListener(emitter::onError)
+      },
+      jwtAuthenticatorService.getJwtAuthenticationWithAddress(wallet.address)
+    ) { token, jwt -> token to jwt }
+      .flatMapCompletable { (token, jwt) ->
+        repository.unregisterToken(
+          jwt = jwt,
+          token = token
+        )
+      }
+      .doOnError { it.printStackTrace() }
       .onErrorComplete()
 
 }
+
+
