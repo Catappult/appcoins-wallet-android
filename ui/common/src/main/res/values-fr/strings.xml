@@ -541,6 +541,7 @@
   <string name="copied_to_clipboard">Copié dans le presse-papiers</string>
   <string name="topup_button">Recharger</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">Payment method</string>
   <string name="credit_debit_card">Carte de crédit/débit</string>
   <string name="paypal">PayPal</string>
@@ -907,9 +908,10 @@
   <string name="remove_wallet_extra_confirmation_title">Etes-vous sûr ?</string>
   <string name="remove_wallet_extra_confirmation_body">N\'oubliez pas que, sans sauvegarde, vous perdrez vos fonds et votre niveau de bonus.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Transfert</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Transférer des fonds</string>
   <string name="transfer_send_tab_title">Envoyer</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">Recevoir</string>
   <string name="transfer_send_body">Scanner ou entrer l\'adresse du portefeuille de votre ami.</string>
   <string name="transfer_send_recipient_title">Adresse du portefeuille</string>
@@ -918,6 +920,8 @@
   <string name="transfer_send_current_balance_title">Solde actuel :</string>
   <string name="transfer_send_button">Envoyer</string>
   <string name="transfer_receive_body">Partagez l\'adresse de votre portefeuille pour recevoir des fonds.</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Vous avez un nouveau message !</string>
   <string name="support_new_message_button">Cliquez pour ouvrir</string>
