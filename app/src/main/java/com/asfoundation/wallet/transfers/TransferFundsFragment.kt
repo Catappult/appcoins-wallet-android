@@ -26,7 +26,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,6 +33,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -58,11 +59,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ShareCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
+import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -145,12 +148,17 @@ class TransferFundsFragment : BasePageViewFragment() {
       },
       containerColor = styleguide_blue,
       bottomBar = {
-        Row (
-          modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp),
+        if (
+          viewModel.uiState.collectAsState().value is Success &&
+          (viewModel.clickedTransferItem.value ?: SEND.ordinal) == SEND.ordinal
         ) {
-          SendButton()
+          Row(
+            modifier = Modifier
+              .fillMaxWidth()
+              .padding(start = 16.dp, end = 16.dp),
+          ) {
+            SendButton()
+          }
         }
       }
     ) { padding ->
@@ -350,9 +358,9 @@ class TransferFundsFragment : BasePageViewFragment() {
   @Composable
   fun CurrentBalance(walletBalance: WalletBalance) {
     val balance = walletBalance.creditsOnlyFiat
-    Column (
+    Column(
       modifier = Modifier.padding(bottom = 24.dp),
-    ){
+    ) {
       Text(
         modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 0.dp, bottom = 4.dp),
         text = stringResource(R.string.aptoide_balance),
@@ -485,25 +493,10 @@ class TransferFundsFragment : BasePageViewFragment() {
   fun QrCodeCard(address: String) {
     Card(colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)) {
       Column(
-        modifier = Modifier.padding(24.dp),
+        modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Text(
-          text = "My wallet address",
-          style = MaterialTheme.typography.bodyLarge,
-          color = styleguide_light_grey,
-          fontWeight = FontWeight.Medium
-        )
-        Text(
-          modifier = Modifier.padding(bottom = 8.dp),
-          text = address,
-          style = MaterialTheme.typography.bodySmall,
-          color = styleguide_dark_grey,
-          fontWeight = FontWeight.Bold,
-          maxLines = 1,
-          overflow = TextOverflow.Ellipsis
-        )
         Image(
           modifier =
           Modifier
@@ -514,15 +507,67 @@ class TransferFundsFragment : BasePageViewFragment() {
           contentDescription = stringResource(R.string.scan_qr)
         )
         Spacer(Modifier.height(8.dp))
-        ButtonWithText(
-          label = stringResource(R.string.wallet_view_copy_button),
-          onClick = { copyAddressToClipBoard(address) },
-          labelColor = styleguide_light_grey,
-          outlineColor = styleguide_light_grey,
-          buttonType = ButtonType.LARGE,
-          fragmentName = fragmentName,
-          buttonsAnalytics = buttonsAnalytics
-        )
+        Card(
+          colors = CardDefaults.cardColors(styleguide_blue),
+          modifier =
+          Modifier
+            .fillMaxWidth()
+            .padding(top = 0.dp, bottom = 0.dp, start = 0.dp, end = 0.dp)
+            .clip(shape = RoundedCornerShape(16.dp))
+        ) {
+          Column {
+            Text(
+              modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
+              text = stringResource(R.string.transfer_public_wallet_address_title),
+              style = MaterialTheme.typography.bodySmall,
+              fontSize = 10.sp,
+              color = styleguide_dark_grey
+            )
+            Row(
+              modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 8.dp),
+              verticalAlignment = Alignment.Top
+            ) {
+              Text(
+                modifier = Modifier
+                  .weight(1f),
+                text = address.masked(
+                  nStartChars = 7,
+                  nEndChars = 7
+                ),
+                style = MaterialTheme.typography.bodySmall,
+                fontSize = 14.sp,
+                color = styleguide_light_grey,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+              )
+
+              IconButton(
+                onClick = { shareAddress(address) },
+                modifier = Modifier.size(32.dp),
+              ) {
+                Icon(
+                  painter = painterResource(R.drawable.ic_export),
+                  contentDescription = stringResource(R.string.wallet_view_share_button),
+                  tint = styleguide_white,
+                  modifier = Modifier.size(16.dp)
+                )
+              }
+              IconButton(
+                onClick = { copyAddressToClipBoard(address) },
+                modifier = Modifier.size(32.dp),
+              ) {
+                Icon(
+                  painter = painterResource(R.drawable.ic_copy_2),
+                  contentDescription = stringResource(R.string.copy),
+                  tint = styleguide_white,
+                  modifier = Modifier.size(16.dp)
+                )
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -569,6 +614,13 @@ class TransferFundsFragment : BasePageViewFragment() {
     clipboard.setPrimaryClip(clip)
     Toast.makeText(context, R.string.copied_to_clipboard, LENGTH_SHORT).show()
   }
+
+  private fun shareAddress(walletAddress: String) =
+    ShareCompat.IntentBuilder(requireActivity())
+      .setText(walletAddress)
+      .setType("text/plain")
+      .setChooserTitle(resources.getString(R.string.share_via))
+      .startChooser()
 
   private fun createQRImage(address: String): Bitmap? {
     return try {
