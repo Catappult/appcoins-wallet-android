@@ -28,17 +28,20 @@
       android:id="@+id/onboarding_content_scroll_view"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_marginBottom="@dimen/half_large_margin"
       android:fillViewport="true"
-      app:layout_constraintBottom_toTopOf="@id/onboarding_action"
+      android:clipToPadding="false"
+      app:layout_constraintBottom_toTopOf="@id/barrier_bottom_views"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.120000005"
+      app:layout_constraintVertical_weight="1"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/onboarding_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/onboarding_content"
+        android:paddingBottom="@dimen/mid_margin"
         android:visibility="gone"
         tools:visibility="visible"
         >
@@ -47,14 +50,29 @@
           android:id="@+id/onboarding_wallet_icon"
           android:layout_width="@dimen/onboarding_icon_size"
           android:layout_height="@dimen/onboarding_icon_size"
+          android:layout_marginHorizontal="@dimen/mid_margin"
           android:layout_marginTop="@dimen/onboarding_container_margin_top"
           android:importantForAccessibility="no"
           android:src="@drawable/white_app_ic_with_text"
-          app:layout_constraintBottom_toTopOf="@id/onboarding_value_propositions"
+          app:layout_constraintBottom_toTopOf="@id/onboarding_label"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           app:tint="@color/styleguide_pink"
+          />
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/onboarding_label"
+          style="@style/OnboardingWelcomeSubtitleTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="@dimen/mid_margin"
+          android:layout_marginTop="16dp"
+          android:text="@string/onboarding_title"
+          app:layout_constraintBottom_toTopOf="@id/onboarding_value_propositions"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon"
           />
 
       <include
@@ -62,25 +80,36 @@
           layout="@layout/onboarding_value_propositions"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/half_large_margin"
-          android:layout_marginTop="@dimen/onboarding_container_margin_top"
+          android:layout_marginHorizontal="@dimen/mid_margin"
+          android:layout_marginTop="48dp"
           android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon"
-          app:tint="@color/styleguide_white"
+          app:layout_constraintTop_toBottomOf="@id/onboarding_label"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
+
+  <androidx.constraintlayout.widget.Barrier
+      android:id="@+id/barrier_bottom_views"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:barrierDirection="top"
+      app:constraint_referenced_ids="onboarding_action, onboarding_verify_guest_wallet, onboarding_recover_guest_wallet"
+      />
+
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/onboarding_action"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="@dimen/half_large_margin"
-      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginHorizontal="@dimen/mid_margin"
+      android:layout_marginBottom="@dimen/mid_margin"
       android:visibility="gone"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_content_scroll_view"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/barrier_bottom_views"
       tools:visibility="visible"
       >
 
@@ -90,6 +119,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/onboarding_terms_conditions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <include
@@ -97,8 +130,10 @@
         layout="@layout/onboarding_terms_conditions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/half_large_margin"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/onboarding_buttons"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
@@ -107,23 +142,24 @@
       android:id="@+id/onboarding_verify_guest_wallet"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="16dp"
-      android:layout_marginBottom="16dp"
+      android:layout_marginHorizontal="@dimen/mid_margin"
+      android:layout_marginBottom="@dimen/mid_margin"
       android:backgroundTint="@color/styleguide_blue_secondary"
-      android:visibility="invisible"
+      android:visibility="gone"
       app:cardCornerRadius="16dp"
+      app:cardElevation="0dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_content_scroll_view"
+      app:layout_constraintTop_toBottomOf="@id/barrier_bottom_views"
       tools:visibility="gone"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginVertical="16dp"
+        android:layout_marginHorizontal="@dimen/big_margin"
+        android:layout_marginVertical="@dimen/big_margin"
         >
 
       <TextView
@@ -133,9 +169,9 @@
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="16dp"
           android:layout_marginBottom="16dp"
-          android:textSize="14sp"
           android:gravity="center"
           android:text="@string/onboarding_verification_body"
+          android:textSize="14sp"
           app:layout_constraintBottom_toTopOf="@id/onboarding_guest_verify_button"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -152,6 +188,7 @@
           app:layout_constraintBottom_toTopOf="@id/or_text"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/onboarding_verify_text"
           tools:visibility="visible"
           />
 
@@ -177,6 +214,7 @@
           app:layout_constraintBottom_toTopOf="@id/onboarding_guest_launch_button"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/onboarding_guest_verify_button"
           tools:visibility="visible"
           />
 
@@ -201,6 +239,7 @@
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/or_text"
           tools:visibility="visible"
           />
 
@@ -243,18 +282,18 @@
   <androidx.cardview.widget.CardView
       android:id="@+id/onboarding_recover_guest_wallet"
       android:layout_width="match_parent"
-      android:layout_height="200dp"
-      android:layout_marginHorizontal="16dp"
-      android:layout_marginBottom="16dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/mid_margin"
+      android:layout_marginBottom="@dimen/mid_margin"
       android:backgroundTint="@color/styleguide_blue_secondary"
-      android:minHeight="200dp"
       android:visibility="gone"
+      app:cardElevation="0dp"
       app:cardCornerRadius="16dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_content_scroll_view"
-      tools:visibility="invisible"
+      app:layout_constraintTop_toBottomOf="@id/barrier_bottom_views"
+      tools:visibility="gone"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout

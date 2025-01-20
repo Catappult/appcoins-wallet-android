@@ -30,4 +30,30 @@
       android:text="@string/provide_wallet_creating_wallet_header"
       android:textColor="@color/styleguide_light_grey"
       />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/success_animation"
+      android:layout_width="96dp"
+      android:layout_height="96dp"
+      android:layout_gravity="center"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/success_animation"
+      android:visibility="gone"
+      />
+
+  <TextView
+      android:id="@+id/success_text"
+      style="@style/TextS"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="28dp"
+      android:gravity="center"
+      android:text="@string/transaction_status_success"
+      android:textColor="@color/styleguide_light_grey"
+      android:visibility="gone"
+      />
+
+
 </LinearLayout>

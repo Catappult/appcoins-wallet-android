@@ -1,150 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
     tools:background="@color/styleguide_blue"
     >
 
-  <LinearLayout
-      android:id="@+id/onboarding_value1"
+  <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="15dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_weight="1"
       android:gravity="center"
       android:orientation="vertical"
-      app:layout_constraintEnd_toStartOf="@id/onboarding_value2"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
       >
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/onboarding_value1_icon"
         android:layout_width="@dimen/onboarding_value_proposition_image_size_land"
         android:layout_height="@dimen/onboarding_value_proposition_image_size_land"
-        android:src="@drawable/ic_onboarding_value1"
+        app:lottie_autoPlay="true"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/onboarding_animation1"
         />
 
-    <LinearLayout
-        android:id="@+id/onboarding_value1_text_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/onboarding_value1_body"
+        style="@style/OnboardingValuesBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        >
+        android:textAlignment="center"
+        tools:text="@string/onboarding_bonus_title"
+        />
 
-      <TextView
-          android:id="@+id/onboarding_value1_title"
-          style="@style/OnboardingValuesTitleTextStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/intro_2_title"
-          />
-      <TextView
-          android:id="@+id/onboarding_value1_body"
-          style="@style/OnboardingValuesBodyTextStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="5dp"
-          android:text="@string/intro_2_body"
-          android:textAlignment="center"
-          />
-    </LinearLayout>
-  </LinearLayout>
+  </androidx.appcompat.widget.LinearLayoutCompat>
 
-  <LinearLayout
-      android:id="@+id/onboarding_value2"
+  <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="15dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_weight="1"
       android:gravity="center"
       android:orientation="vertical"
-      app:layout_constraintEnd_toStartOf="@id/onboarding_value3"
-      app:layout_constraintStart_toEndOf="@id/onboarding_value1"
-      app:layout_constraintTop_toTopOf="parent"
       >
-
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/onboarding_value2_icon"
         android:layout_width="@dimen/onboarding_value_proposition_image_size_land"
         android:layout_height="@dimen/onboarding_value_proposition_image_size_land"
-        android:src="@drawable/ic_onboarding_value2"
+        app:lottie_autoPlay="true"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/onboarding_animation2"
         />
 
-    <LinearLayout
-        android:id="@+id/onboarding_value2_text_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/onboarding_value2_body"
+        style="@style/OnboardingValuesBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        >
-      <TextView
-          android:id="@+id/onboarding_value2_title"
-          style="@style/OnboardingValuesTitleTextStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/intro_3_title"
-          />
-      <TextView
-          android:id="@+id/onboarding_value2_body"
-          style="@style/OnboardingValuesBodyTextStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="5dp"
-          android:text="@string/intro_3_body"
-          android:textAlignment="center"
-          />
-    </LinearLayout>
+        android:text="@string/onboarding_payment_methods_title"
+        android:textAlignment="center"
+        />
+  </androidx.appcompat.widget.LinearLayoutCompat>
 
-  </LinearLayout>
-
-  <LinearLayout
-      android:id="@+id/onboarding_value3"
+  <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="15dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_weight="1"
       android:gravity="center"
       android:orientation="vertical"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/onboarding_value2"
-      app:layout_constraintTop_toTopOf="parent"
       >
-
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/onboarding_value3_icon"
         android:layout_width="@dimen/onboarding_value_proposition_image_size_land"
         android:layout_height="@dimen/onboarding_value_proposition_image_size_land"
-        android:src="@drawable/ic_onboarding_value3"
+        app:lottie_autoPlay="true"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/onboarding_animation3"
         />
-    <LinearLayout
-        android:id="@+id/onboarding_value3_text_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+    <TextView
+        android:id="@+id/onboarding_value3_body"
+        style="@style/OnboardingValuesBodyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        >
-      <TextView
-          android:id="@+id/onboarding_value3_title"
-          style="@style/OnboardingValuesTitleTextStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/intro_4_title"
-          />
-
-      <TextView
-          android:id="@+id/onboarding_value3_body"
-          style="@style/OnboardingValuesBodyTextStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="5dp"
-          android:text="@string/intro_4_body"
-          android:textAlignment="center"
-          />
-    </LinearLayout>
-  </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="@string/onboarding_vip_title"
+        android:textAlignment="center"
+        />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>
