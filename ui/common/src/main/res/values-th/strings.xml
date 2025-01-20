@@ -541,6 +541,7 @@
   <string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด</string>
   <string name="topup_button">เติม</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">วิธีการชำระเงิน</string>
   <string name="credit_debit_card">บัตรเครดิต/เดบิต</string>
   <string name="paypal">Paypal</string>
@@ -907,9 +908,10 @@
   <string name="remove_wallet_extra_confirmation_title">คุณมั่นใจใช่ไหม?</string>
   <string name="remove_wallet_extra_confirmation_body">โปรดจำไว้ว่าหากไม่มีการสำรองข้อมูล คุณจะสูญเสียเงินและระดับโบนัส</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">โอน</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">โอนเงิน</string>
   <string name="transfer_send_tab_title">ส่ง</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">ได้รับ</string>
   <string name="transfer_send_body">แสกนหรือใส่ที่อยู่กระเป๋าสตางค์ของเพื่อน</string>
   <string name="transfer_send_recipient_title">ที่อยู่กระเป๋าสตางค์</string>
@@ -918,6 +920,8 @@
   <string name="transfer_send_current_balance_title">ยอดคงเหลือปัจจุบัน:</string>
   <string name="transfer_send_button">ส่ง</string>
   <string name="transfer_receive_body">แบ่งปันที่อยู่กระเป๋าสตางค์ของคุณเพื่อรับเงิน</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">คุณได้รับข้อความใหม่!</string>
   <string name="support_new_message_button">แตะเพื่อเปิด</string>
