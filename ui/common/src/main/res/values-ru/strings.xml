@@ -541,6 +541,7 @@
   <string name="copied_to_clipboard">Скопировано в буфер</string>
   <string name="topup_button">Пополнить</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">Способ оплаты</string>
   <string name="credit_debit_card">Кредитная/дебитовая карта</string>
   <string name="paypal">PayPal</string>
@@ -911,9 +912,10 @@
   <string name="remove_wallet_extra_confirmation_title">Вы уверены?</string>
   <string name="remove_wallet_extra_confirmation_body">Помните, что без резервной копии вы потеряете свои средства и бонусный уровень.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Перевод</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Перевести средства</string>
   <string name="transfer_send_tab_title">Отправить</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">Получить</string>
   <string name="transfer_send_body">Сканируйте или введите адрес кошелька вашего друга.</string>
   <string name="transfer_send_recipient_title">Адрес кошелька</string>
@@ -922,6 +924,8 @@
   <string name="transfer_send_current_balance_title">Текущий баланс:</string>
   <string name="transfer_send_button">Отправить</string>
   <string name="transfer_receive_body">Поделитесь адресом своего кошелька, чтобы получить средства.</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">У вас новое сообщение!</string>
   <string name="support_new_message_button">Нажмите, чтобы открыть</string>
