@@ -34,6 +34,11 @@ class EwtAuthenticatorService(
     return Single.just(getEwtAuthentication(address))
   }
 
+  fun getEwtAuthenticationNoBearer(): Single<String> {
+    return getEwtAuthentication()
+      .map { it.replace("Bearer ", "") }
+  }
+
   @Synchronized
   fun getEwtAuthentication(address: String): String {
     return if (shouldBuildEwtAuth(address))

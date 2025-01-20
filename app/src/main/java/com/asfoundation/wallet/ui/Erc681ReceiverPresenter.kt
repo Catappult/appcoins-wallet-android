@@ -1,14 +1,24 @@
 package com.asfoundation.wallet.ui
 
 import android.os.Bundle
+import android.util.Log
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
+import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
 import com.asfoundation.wallet.util.TransferParser
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 
 internal class Erc681ReceiverPresenter(
   private val view: Erc681ReceiverView,
@@ -20,7 +30,15 @@ internal class Erc681ReceiverPresenter(
   private var disposables: CompositeDisposable,
   private val productName: String?,
   private val partnerAddressService: PartnerAddressService,
+  private val createWebViewPaymentSdkUseCase: CreateWebViewPaymentSdkUseCase,
+  private val isWebViewPaymentFlowUseCase: IsWebViewPaymentFlowUseCase,
+  private val rxSchedulers: RxSchedulers,
+  private val billingAnalytics: BillingAnalytics,
+  private var addressService: AddressService,
+  private val logger: Logger,
 ) {
+  private var firstImpression = true
+  private val TAG = this::class.java.simpleName
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
       disposables.add(
@@ -37,19 +55,51 @@ internal class Erc681ReceiverPresenter(
               }
               .flatMap { transactionBuilder ->
                 partnerAddressService.setOemIdFromSdk(transactionBuilder.oemIdSdk)
-                inAppPurchaseInteractor.isWalletFromBds(
-                  transactionBuilder.domain,
-                  transactionBuilder.toAddress()
-                )
-                  .doOnSuccess { isBds -> view.startEipTransfer(transactionBuilder, isBds) }
+                Single.zip(
+                  isWebViewPaymentFlowUseCase(transactionBuilder).subscribeOn(rxSchedulers.io),
+                  inAppPurchaseInteractor.isWalletFromBds(
+                    transactionBuilder.domain,
+                    transactionBuilder.toAddress()
+                  )
+                    .subscribeOn(rxSchedulers.io),
+                ) { isWebPaymentFlow, isBds ->
+                  Pair(isWebPaymentFlow, isBds)
+                }
+                  .flatMap {
+                    val isWebPaymentFlow = it.first
+                    val isBds = it.second
+                    if (
+                      isWebPaymentFlow.paymentMethods?.walletWebViewPayment != null &&
+                      !transactionBuilder.type.equals("INAPP_SUBSCRIPTION", ignoreCase = true)
+                      ) {
+                      handlePurchaseStartAnalytics(transactionBuilder)
+                      startWebViewPayment(transactionBuilder)
+                    } else {
+                      view.startEipTransfer(transactionBuilder, isBds)
+                      Single.just("")
+                    }
+                  }
               }
               .toObservable()
 
           }
           // TODO this onError seems like a mistake. we need to investigate it further:
-          .subscribe({ }, { view.startApp(it) })
+          .subscribe({ }, {
+            Log.i(TAG, "Error in Erc681ReceiverPresenter: ${it.message}")
+            logger.log("Erc681ReceiverPresenter", it)
+            view.startApp(it)
+          })
       )
     }
+  }
+
+  private fun startWebViewPayment(
+    transaction: TransactionBuilder,
+  ): Single<String> {
+    return createWebViewPaymentSdkUseCase(transaction)
+      .doOnSuccess { url ->
+        view.launchWebViewPayment(url, transaction)
+      }
   }
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {
@@ -69,6 +119,30 @@ internal class Erc681ReceiverPresenter(
 
   fun pause() {
     disposables.clear()
+  }
+
+  private fun handlePurchaseStartAnalytics(transaction: TransactionBuilder?) {
+    disposables.add(
+      addressService.getAttribution(transaction?.domain ?: "")
+        .flatMapCompletable { attribution ->
+          Completable.fromAction {
+            if (firstImpression) {
+              billingAnalytics.sendPurchaseStartEvent(
+                packageName = transaction?.domain,
+                skuDetails = transaction?.skuId,
+                value = transaction?.amount().toString(),
+                transactionType = transaction?.type,
+                context = BillingAnalytics.WALLET_PAYMENT_METHOD,
+                oemId = attribution.oemId,
+                isWebViewPayment = true,
+              )
+              firstImpression = false
+            }
+          }
+        }
+        .subscribeOn(rxSchedulers.io)
+        .subscribe({}, { it.printStackTrace() })
+    )
   }
 
 }

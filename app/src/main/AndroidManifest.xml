@@ -30,7 +30,7 @@
     <package android:name="id.dana" />
     <package android:name="com.dti.folderlauncher" />
     <package android:name="com.android.chrome" />
-    <package android:name="com.amazon.mShop.android.shopping"/>
+    <package android:name="com.amazon.mShop.android.shopping" />
   </queries>
 
   <application
@@ -265,8 +265,7 @@
         android:name="com.asfoundation.wallet.billing.amazonPay.AmazonPayReturnActivity"
         android:exported="true"
         android:launchMode="singleTask"
-        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
-    </activity>
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"></activity>
 
     <activity
         android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
@@ -336,6 +335,11 @@
       </intent-filter>
     </activity>
 
+    <activity
+        android:name="com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity"
+        android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
+        android:windowSoftInputMode="adjustResize" />
+
     <service
         android:name="com.asfoundation.wallet.transactions.PerkBonusAndGamificationService"
         android:exported="false" />
@@ -361,19 +365,20 @@
         android:exported="false" />
 
     <!-- for manual configuration, we this meta-data and two providers for sentry https://docs.sentry.io/platforms/android/configuration/manual-init/ -->
-    <meta-data android:name="io.sentry.auto-init" android:value="false" tools:replace="android:value"/>
+    <meta-data
+        android:name="io.sentry.auto-init"
+        android:value="false"
+        tools:replace="android:value" />
 
     <provider
         android:name="io.sentry.android.core.SentryInitProvider"
         android:authorities="${applicationId}.SentryInitProvider"
-        tools:node="remove"
-        />
+        tools:node="remove" />
 
     <provider
         android:name="io.sentry.android.core.SentryPerformanceProvider"
         android:authorities="${applicationId}.SentryPerformanceProvider"
-        tools:node="remove"
-        />
+        tools:node="remove" />
 
     <!-- SENTRY SECTION -->
 
