@@ -39,7 +39,7 @@ class RenewJwtInterceptor @Inject constructor(
         sessionManager.isAccessTokenExpired() ||
         sessionManager.getAccessToken().isNullOrEmpty() ||
         sessionManager.getAccessTokenAddress() != walletRepository.getDefaultWalletAddress()
-        ) {
+      ) {
         renewToken()
       }
     }
@@ -76,10 +76,15 @@ class RenewJwtInterceptor @Inject constructor(
       val endDate = ewtAuthenticatorService.getSessionEndDate()
 
       if (ewt != null && endDate != null) {
-        val response = renewJwtApi.renewJwt(ewt = ewt).blockingGet()
+        val response = renewJwtApi.renewJwt(ewt = ewt)
+          .doOnSuccess {
+            Log.d("HTTP_TRACE", "Response body:  ${it.jwt}")
+          }
+          .doOnError {
+            Log.e("HTTP_TRACE", "Response body:  cause: ${it.cause} ; message: ${it.message}")
+          }
+          .blockingGet()
         val token = response.jwt
-
-        Log.d(this::class.java.simpleName, token)
         sessionManager.updateAccessToken(token, activeWallet, endDate)
       }
     } catch (e: Throwable) {
@@ -87,4 +92,5 @@ class RenewJwtInterceptor @Inject constructor(
       e.printStackTrace()
     }
   }
+
 }
