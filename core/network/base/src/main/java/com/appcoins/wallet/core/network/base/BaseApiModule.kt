@@ -43,8 +43,8 @@ class BaseApiModule {
     return OkHttpClient.Builder()
       .addInterceptor(UserAgentInterceptor(context, commonsPreferencesDataSource))
       .addInterceptor(MagnesHeaderInterceptor(context))
-      .addInterceptor(logInterceptor)
       .addInterceptor(renewJwtInterceptor)
+      .addInterceptor(logInterceptor)
       .build()
   }
 
