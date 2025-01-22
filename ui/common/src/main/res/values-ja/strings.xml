@@ -1385,6 +1385,12 @@
   <string name="mail_list_confirmation_email_body">こんにちは！\n\nAppCoinsメーリングリストにご参加いただきありがとうございます。下のボタンをクリックしてメールアドレスを確認してください：</string>
   <string name="mail_list_confirmation_email_button">メールの確認</string>
   <string name="mail_list_confirmation_email_signature">ありがとうございました。\nAppCoinsチーム</string>
+  <!-- Rebranding -->
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
