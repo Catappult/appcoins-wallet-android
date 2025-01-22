@@ -1,6 +1,8 @@
 package com.appcoins.wallet.core.network.base.interceptors
 
+import android.util.Log
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.network.base.WalletRepository
 import com.appcoins.wallet.core.network.base.compat.RenewJwtApi
 import com.appcoins.wallet.core.network.base.session.SessionManager
 import okhttp3.Interceptor
@@ -14,6 +16,7 @@ class RenewJwtInterceptor @Inject constructor(
   private val ewtAuthenticatorService: EwtAuthenticatorService,
   private val renewJwtApi: RenewJwtApi,
   private val sessionManager: SessionManager,
+  private val walletRepository: WalletRepository
 ) : Interceptor {
 
   private companion object {
@@ -31,7 +34,12 @@ class RenewJwtInterceptor @Inject constructor(
     val originalRequest = chain.request()
 
     lock.withLock {
-      if (sessionManager.isAccessTokenExpired()) {
+
+      if (
+        sessionManager.isAccessTokenExpired() ||
+        sessionManager.getAccessToken().isNullOrEmpty() ||
+        sessionManager.getAccessTokenAddress() != walletRepository.getDefaultWalletAddress()
+        ) {
         renewToken()
       }
     }
@@ -62,16 +70,20 @@ class RenewJwtInterceptor @Inject constructor(
   private fun renewToken() {
     try {
       // it needs to be inside a try catch because we might not have a default wallet. for example on first run
+      Log.d(this::class.java.simpleName, "Renewing token")
       val ewt = ewtAuthenticatorService.getEwtAuthentication().blockingGet()
+      val activeWallet = walletRepository.getDefaultWalletAddress()
       val endDate = ewtAuthenticatorService.getSessionEndDate()
 
       if (ewt != null && endDate != null) {
         val response = renewJwtApi.renewJwt(ewt = ewt).blockingGet()
         val token = response.jwt
 
-        sessionManager.updateAccessToken(token, endDate)
+        Log.d(this::class.java.simpleName, token)
+        sessionManager.updateAccessToken(token, activeWallet, endDate)
       }
     } catch (e: Throwable) {
+      Log.e(this::class.java.simpleName, "Error renewing token")
       e.printStackTrace()
     }
   }

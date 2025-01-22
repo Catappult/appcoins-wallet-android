@@ -7,6 +7,7 @@ import javax.inject.Singleton
 class SessionManager @Inject constructor() {
 
   private var accessToken: String? = null
+  private var accessTokenAddress: String? = null
   private var accessTokenExpirationTime: Long? = null
 
   fun isAccessTokenExpired(): Boolean {
@@ -14,10 +15,13 @@ class SessionManager @Inject constructor() {
     return accessTokenExpirationTime?.let { currentTimeMillis >= it } ?: true
   }
 
-  fun updateAccessToken(token: String, expiresIn: Long) {
+  fun updateAccessToken(token: String, address: String, expiresIn: Long) {
     accessToken = token
+    accessTokenAddress = address
     accessTokenExpirationTime = expiresIn
   }
 
   fun getAccessToken() = accessToken
+
+  fun getAccessTokenAddress() = accessTokenAddress
 }
