@@ -79,6 +79,7 @@ class EwtAuthenticatorService(
     val payload = replaceInvalidCharacters(getPayload(address, currentUnixTime))
     val signedContent = Single.just(address)
       .flatMap { wallet -> getPrivateKeyUseCase(wallet).map { signUseCase(payload, it) } }
+      .onErrorReturn { "" }
       .blockingGet()
     return "Bearer $header.$payload.$signedContent".replace("[\n\r]", "")
   }
