@@ -13,6 +13,7 @@ class JwtAuthenticatorService @Inject constructor(
 
   fun getJwtAuthenticationWithAddress(address: String): Single<String> {
     return Single.just(ewtAuthenticatorService.getEwtAuthentication(address))
+      .onErrorReturn { "" }
       .flatMap { jwtRepository.getJwtFrom(it) }
       .map { it.jwt }
   }
