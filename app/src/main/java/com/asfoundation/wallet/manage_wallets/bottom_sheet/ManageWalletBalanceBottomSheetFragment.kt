@@ -55,21 +55,6 @@ class ManageWalletBalanceBottomSheetFragment : BottomSheetDialogFragment(),
         .toString()
         .formatMoney(it.creditsOnlyFiat.symbol, "")
         ?: ""
-      views.totalBalanceValueAppcc.text = "${
-        it.creditsBalance.token.amount.toString().formatMoney()
-      } ${it.creditsBalance.token.symbol}"
-
-      views.titleBalanceAppcValue.text = "${
-        it.appcBalance.token.amount.toString().formatMoney()
-      } ${it.appcBalance.token.symbol}"
-
-      views.titleBalanceAppcCreditsValue.text = "${
-        it.creditsBalance.token.amount.toString().formatMoney()
-      } ${it.creditsBalance.token.symbol}"
-
-      views.titleBalanceEthereumValue.text = "${
-        it.ethBalance.token.amount.toString().formatMoney()
-      } ${it.ethBalance.token.symbol}"
     }
   }
 
