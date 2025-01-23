@@ -6,17 +6,30 @@
     android:layout_height="match_parent"
     android:background="@color/styleguide_blue"
     >
+
+  <include
+      android:id="@+id/top_bar"
+      layout="@layout/topup_bar_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:elevation="2dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/top_guide_line"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.3"
+      app:layout_constraintGuide_percent="0.20"
       />
+
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/transfer_success_animation"
-      android:layout_width="120dp"
-      android:layout_height="120dp"
+      android:layout_width="160dp"
+      android:layout_height="160dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@+id/top_guide_line"
@@ -27,20 +40,35 @@
       />
 
   <TextView
-      android:id="@+id/transfer_success_message"
-      style="@style/TextAppearance.AppCompat.Headline.Roboto.Medium"
+      android:id="@+id/transfer_done_message"
+      style="@style/TextL"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="32dp"
-      android:layout_marginTop="26dp"
+      android:layout_marginTop="12dp"
       android:layout_marginEnd="32dp"
       android:gravity="center"
-      android:text="@string/p2p_send_confirmation_message"
-      android:textColor="@color/styleguide_payments_main_text"
-
+      android:text="@string/done"
+      android:textColor="@color/styleguide_light_grey"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/transfer_success_animation"
+      app:layout_constraintVertical_bias="0"
+      />
+  <TextView
+      android:id="@+id/transfer_success_message"
+      style="@style/TextM"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="32dp"
+      android:layout_marginTop="12dp"
+      android:layout_marginEnd="32dp"
+      android:gravity="center"
+      android:text="@string/p2p_send_confirmation_message"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/transfer_done_message"
       app:layout_constraintVertical_bias="0"
       />
 
@@ -49,10 +77,11 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="32dp"
-      android:layout_marginTop="16dp"
+      android:layout_marginTop="0dp"
       android:layout_marginEnd="32dp"
       android:gravity="center"
       android:textColor="@color/styleguide_dark_grey"
+      android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/transfer_success_message"
@@ -64,9 +93,9 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/large_button_height"
       android:layout_alignParentBottom="true"
-      android:layout_margin="32dp"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="@dimen/big_margin"
       app:buttonText="@string/got_it_button"
       app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"

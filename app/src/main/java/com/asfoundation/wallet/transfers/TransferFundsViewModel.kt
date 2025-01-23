@@ -114,24 +114,6 @@ constructor(
       Currency.APPC_C ->
         _uiState.value =
           UiState.SuccessAppcCreditsTransfer(walletAddress, amount, currency)
-
-      Currency.APPC ->
-        transferInteractor
-          .find()
-          .doOnSuccess {
-            _uiState.value =
-              UiState.NavigateToOpenAppcConfirmationView(it.address, walletAddress, amount)
-          }
-          .subscribe()
-
-      Currency.ETH ->
-        transferInteractor
-          .find()
-          .doOnSuccess {
-            _uiState.value =
-              UiState.NavigateToOpenEthConfirmationView(it.address, walletAddress, amount)
-          }
-          .subscribe()
     }
   }
 
@@ -147,9 +129,6 @@ constructor(
         packageName,
         guestWalletId,
       )
-
-      Currency.ETH -> transferInteractor.validateEthTransferData(data.walletAddress, data.amount)
-      Currency.APPC -> transferInteractor.validateAppcTransferData(data.walletAddress, data.amount)
     }
   }
 
@@ -190,24 +169,6 @@ constructor(
       )
     )
 
-  fun currencyNavigationItems() =
-    listOf(
-      CurrencyNavigationItem(
-        destination = CurrencyDestinations.APPC_C,
-        label = R.string.p2p_send_currency_appc_c,
-        selected = true
-      ),
-      CurrencyNavigationItem(
-        destination = CurrencyDestinations.APPC,
-        label = R.string.p2p_send_currency_appc,
-        selected = false
-      ),
-      CurrencyNavigationItem(
-        destination = CurrencyDestinations.ETHEREUM,
-        label = R.string.p2p_send_currency_eth,
-        selected = false
-      )
-    )
 
   sealed class UiState {
     object Idle : UiState()
@@ -225,18 +186,6 @@ constructor(
       val amount: BigDecimal,
       val currency: Currency
     ) : UiState()
-
-    data class NavigateToOpenAppcConfirmationView(
-      val walletAddress: String,
-      val toWalletAddress: String,
-      val amount: BigDecimal
-    ) : UiState()
-
-    data class NavigateToOpenEthConfirmationView(
-      val walletAddress: String,
-      val toWalletAddress: String,
-      val amount: BigDecimal
-    ) : UiState()
   }
 
   data class TransferData(
@@ -247,7 +196,5 @@ constructor(
 
   enum class Currency(val token: String) {
     APPC_C("APPC-C"),
-    APPC("APPC"),
-    ETH("ETH")
   }
 }

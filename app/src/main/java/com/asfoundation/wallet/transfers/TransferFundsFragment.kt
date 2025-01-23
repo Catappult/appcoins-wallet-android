@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -86,8 +87,6 @@ import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Error
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.InvalidAmountError
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.InvalidWalletAddressError
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Loading
-import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NavigateToOpenAppcConfirmationView
-import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NavigateToOpenEthConfirmationView
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NavigateToWalletBlocked
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NoNetworkError
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NotEnoughFundsError
@@ -125,6 +124,7 @@ class TransferFundsFragment : BasePageViewFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     return ComposeView(requireContext()).apply { setContent { TransferFundsView() } }
   }
 
@@ -234,7 +234,6 @@ class TransferFundsFragment : BasePageViewFragment() {
           when (viewModel.clickedTransferItem.value ?: SEND.ordinal) {
             SEND.ordinal -> {
               Column(verticalArrangement = Arrangement.spacedBy(0.dp)) {
-//                NavigationCurrencies()
                 CurrentBalance(uiState.walletInfo.walletBalance)
                 Separator()
                 AddressTextField()
@@ -256,24 +255,6 @@ class TransferFundsFragment : BasePageViewFragment() {
           currency = uiState.currency,
           mainNavController = navController()
         )
-
-      is NavigateToOpenAppcConfirmationView -> {
-        transferNavigator.openAppcConfirmationView(
-          walletAddress = uiState.walletAddress,
-          toWalletAddress = uiState.toWalletAddress,
-          amount = uiState.amount
-        )
-        navController().popBackStack()
-      }
-
-      is NavigateToOpenEthConfirmationView -> {
-        transferNavigator.openEthConfirmationView(
-          walletAddress = uiState.walletAddress,
-          toWalletAddress = uiState.toWalletAddress,
-          amount = uiState.amount
-        )
-        navController().popBackStack()
-      }
 
       NavigateToWalletBlocked -> transferNavigator.showWalletBlocked()
       Loading -> Loading()
@@ -321,37 +302,6 @@ class TransferFundsFragment : BasePageViewFragment() {
       verticalArrangement = Arrangement.Center
     ) {
       CircularProgressIndicator()
-    }
-  }
-
-  @Composable
-  fun NavigationCurrencies() {
-    Row(
-      modifier = Modifier.background(shape = CircleShape, color = styleguide_blue_secondary),
-      horizontalArrangement = Arrangement.SpaceEvenly
-    ) {
-      viewModel.currencyNavigationItems().forEach { item ->
-        Box(
-          modifier =
-          Modifier.clickable {
-            viewModel.clickedCurrencyItem.value = item.destination.ordinal
-          },
-          contentAlignment = Alignment.Center
-        ) {
-          val selected = viewModel.clickedCurrencyItem.value == item.destination.ordinal
-          ButtonWithText(
-            label = stringResource(item.label),
-            backgroundColor =
-            if (selected) styleguide_pink else styleguide_blue_secondary,
-            labelColor = if (selected) styleguide_white else styleguide_medium_grey,
-            onClick = { viewModel.clickedCurrencyItem.value = item.destination.ordinal },
-            textStyle = MaterialTheme.typography.bodySmall,
-            buttonType = ButtonType.DEFAULT,
-            fragmentName = fragmentName,
-            buttonsAnalytics = buttonsAnalytics
-          )
-        }
-      }
     }
   }
 
@@ -583,8 +533,6 @@ class TransferFundsFragment : BasePageViewFragment() {
           ) {
             val currency =
               when (viewModel.clickedCurrencyItem.value) {
-                CurrencyDestinations.APPC.ordinal -> TransferFundsViewModel.Currency.APPC
-                CurrencyDestinations.ETHEREUM.ordinal -> TransferFundsViewModel.Currency.ETH
                 CurrencyDestinations.APPC_C.ordinal -> TransferFundsViewModel.Currency.APPC_C
                 else -> TransferFundsViewModel.Currency.APPC_C
               }
