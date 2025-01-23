@@ -494,7 +494,7 @@
   <string name="do_it_later_button">Позже</string>
   <string name="connection_error_title">Отсутствует сетевое подключение</string>
   <string name="connection_error_body">Кажется, вы не подключены к интернету. Проверьте ваше подключение и попробуйте снова!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">или</string>
   <string name="share_via">Поделиться через:</string>
   <string name="password">Пароль</string>
   <string name="repeat_password">Повторите пароль</string>
@@ -532,21 +532,21 @@
   <string name="max">Максимум</string>
   <string name="amount">Сумма</string>
   <string name="total_title">Всего</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_payment_method_button">Добавить способ оплаты</string>
+  <string name="change_payment_method_button">Изменить способ оплаты</string>
   <string name="add_card_button">Добавить кредитную/дебитовую карту</string>
-  <string name="add_paypal_button">Add paypal</string>
-  <string name="add_gift_card_button">Add gift card</string>
+  <string name="add_paypal_button">Добавить paypal</string>
+  <string name="add_gift_card_button">Добавить подарочную карту</string>
   <string name="buy_button">Купить</string>
   <string name="copied_to_clipboard">Скопировано в буфер</string>
   <string name="topup_button">Пополнить</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
-  <string name="aptoide_balance">Aptoide balance</string>
+  <string name="extra_bonus_title">Получите дополнительный %s%% бонус</string>
+  <string name="aptoide_balance">Aptoide баланс</string>
   <string name="payment_method">Способ оплаты</string>
   <string name="credit_debit_card">Кредитная/дебитовая карта</string>
   <string name="paypal">PayPal</string>
   <string name="appc">Кредиты AppCoins</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Простой банковский перевод</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -570,10 +570,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Ваш инструмент для совершения покупок в приложении</string>
+  <string name="onboarding_bonus_title">Получайте до %s%% от ваших покупок в приложении в виде AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Используйте банковскую карту, PayPal и ваши любимые способы оплаты.</string>
+  <string name="onboarding_vip_title">Станьте VIP-участником, чтобы получать премиум-поддержку и эксклюзивные предложения.</string>
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования и политику конфиденциальности, чтобы продолжить</string>
   <string name="terms_and_conditions">Условия и ограничения</string>
@@ -721,7 +721,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Используя этот способ оплаты, вы платите комиссию за обработку и НДС.</string>
   <string name="purchase_fee_included_body">сборы включены</string>
   <string name="purchase_error_one_wallet_generic">Возникла проблема с вашим платежом через Wallet One. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Возникла проблема с вашим платежом. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
   <string name="purchase_payment_method_top_ups_only">Доступно только для пополнения счета.</string>
   <string name="purchase_payment_method_minimum_amount">Только для покупок больше %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Недоступно для этой покупки.</string>
@@ -732,23 +732,23 @@
     <item quantity="one">It may take up to %s day.</item>
     <item quantity="few">It may take up to %s days.</item>
     <item quantity="many">It may take up to %s days.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="other">Это может занять до %s дней.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_disclaimer">Ваш банк обрабатывает вашу транзакцию, и это может занять до 2 дней. Если вся информация указана правильно, %s в AppCoins Credits будет зачислено на ваш кошелек.</string>
+  <string name="purchase_bank_transfer_success_1">%s в AppCoins Credits будет зачислено на ваш кошелек.</string>
+  <string name="purchase_bank_transfer_success_2">Ваш банк может обработать это в течение 2 дней.</string>
+  <string name="purchase_bank_transfer_success_bonus">Вы получите бонус в размере %s в AppCoins Credits.</string>
   <string name="purchase_error_taking_long_body">Ой, это заняло больше времени, чем обычно...</string>
-  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transer_secure_body">Безопасный перевод напрямую с вашего банка.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Мы ожидаем поступления средств от вашего банка.</string>
   <!--New Purchase flow-->
-  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
-  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
-  <string name="purchase_subtotal">Subtotal</string>
-  <string name="purchase_taxes">Taxes</string>
-  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_bonus_title">Бонус: %s в AppCoins Credits</string>
+  <string name="purchase_use_appc_partially_body">Используйте свои AppCoins Credits для оплаты - частично или полностью. В первую очередь будут использованы AppCoins Credits.</string>
+  <string name="purchase_subtotal">Стоимость</string>
+  <string name="purchase_taxes">Налоги</string>
+  <string name="purchase_using_appcoins_body">Используя %s в AppCoins Credits</string>
   <string name="purchase_bonus_bot_available_body">Бонус недоступен при данном способе оплаты.</string>
-  <string name="purchase_promo_code_button">Do you have a promo code?</string>
+  <string name="purchase_promo_code_button">У вас есть промокод?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
@@ -912,10 +912,10 @@
   <string name="remove_wallet_extra_confirmation_title">Вы уверены?</string>
   <string name="remove_wallet_extra_confirmation_body">Помните, что без резервной копии вы потеряете свои средства и бонусный уровень.</string>
   <!--Tranfer-->
-  <string name="transfer_bottom_navigation">Transfer</string>
+  <string name="transfer_bottom_navigation">Перевод</string>
   <string name="transfer_title">Перевести средства</string>
   <string name="transfer_send_tab_title">Отправить</string>
-  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_to_title">Отправить</string>
   <string name="transfer_receive_tab_title">Получить</string>
   <string name="transfer_send_body">Сканируйте или введите адрес кошелька вашего друга.</string>
   <string name="transfer_send_recipient_title">Адрес кошелька</string>
@@ -924,8 +924,8 @@
   <string name="transfer_send_current_balance_title">Текущий баланс:</string>
   <string name="transfer_send_button">Отправить</string>
   <string name="transfer_receive_body">Поделитесь адресом своего кошелька, чтобы получить средства.</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
-  <string name="transfer_error_invalid_address">Invalid wallet address</string>
+  <string name="transfer_public_wallet_address_title">Мой публичный адрес кошелька</string>
+  <string name="transfer_error_invalid_address">Недопустимый адрес кошелька</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">У вас новое сообщение!</string>
   <string name="support_new_message_button">Нажмите, чтобы открыть</string>
@@ -1319,7 +1319,7 @@
   <string name="vip_program_promo_code_tag">Промо-код</string>
   <string name="vip_program_referral_page_title">Реферальная программа VIP</string>
   <string name="vip_program_referral_page_body">Поделитесь этим промо-кодом со своим сообществом и друзьями, чтобы каждый мог зарабатывать, играя. За каждую совершенную ими покупку в приложении <b>вы и ваши друзья будете получать бонус %1$s%%</b> в дополнение к другим активным акциям. <b>Действует до %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Поделитесь этим кодом с друзьями, и вы оба получите бонус в размере %s%% за все совершенные ими покупки.</string>
   <string name="vip_program_referral_page_share_title">Поделитесь этим кодом с друзьями</string>
   <string name="vip_program_referral_page_only_app_title">Только для покупок в</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s заработано от %3$s рефералов</string>
@@ -1332,7 +1332,7 @@
   <string name="vip_program_referral_notification_title">Доступен реферальный VIP-код!</string>
   <string name="vip_program_referral_notification_body">Поделитесь своим кодом со своим сообществом, чтобы вы все зарабатывали, играя!</string>
   <string name="vip_program_title_vip_offer">VIP-предложение</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Вы не можете использовать свой собственный VIP-код. Поделитесь им с друзьями!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Добро пожаловать в AppCoins Wallet</string>
   <string name="intro_welcome_body">Пополните свой кошелек или совершите покупку в любом приложении или игре, совместимом с AppCoins.</string>
@@ -1428,11 +1428,11 @@
   <string name="mail_list_confirmation_email_button">Confirm email</string>
   <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins Wallet скоро станет Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet становится Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> Мы работаем над захватывающим обновлением нашего бренда и общей атмосферы. Следите за новостями, чтобы открыть для себя любимые функции и награды в совершенно новом облике!</string>
+  <string name="rebranding_post_title">AppCoins Wallet - теперь Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Откройте для себя ваши любимые функции и награды с совершенно новым изображением. Надеемся, вам понравится!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
