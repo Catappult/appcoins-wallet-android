@@ -56,6 +56,7 @@ public class CreditsRemoteRepository
       @NotNull String toWallet,
       @NotNull String walletAddress,
       @NotNull BigDecimal amount,
+      @NotNull String currency,
       @NotNull String origin,
       @NotNull String type,
       @NotNull String packageName,
@@ -69,6 +70,7 @@ public class CreditsRemoteRepository
         walletAddress,
         packageName,
         amount,
+        currency,
         guestWalletId
     );
   }

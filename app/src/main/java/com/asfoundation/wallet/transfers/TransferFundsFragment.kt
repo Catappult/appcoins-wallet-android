@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -93,7 +93,6 @@ import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NotEnoug
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Success
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.UnknownError
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
-import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.RECEIVE
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.SEND
 import com.asfoundation.wallet.ui.transact.TransferFragmentNavigator
@@ -531,19 +530,23 @@ class TransferFundsFragment : BasePageViewFragment() {
           if (viewModel.currentAddedAmount.isNotEmpty() &&
             viewModel.currentAddedAddress.isNotEmpty()
           ) {
-            val currency =
-              when (viewModel.clickedCurrencyItem.value) {
-                CurrencyDestinations.APPC_C.ordinal -> TransferFundsViewModel.Currency.APPC_C
-                else -> TransferFundsViewModel.Currency.APPC_C
-              }
-            viewModel.onClickSend(
-              TransferFundsViewModel.TransferData(
-                walletAddress = viewModel.currentAddedAddress,
-                currency = currency,
-                amount = viewModel.currentAddedAmount.toBigDecimal(),
-              ),
-              requireContext().packageName
-            )
+            try {
+              val userCurrency =
+                (viewModel.uiState.value as Success).walletInfo.walletBalance.creditsOnlyFiat.currency
+              viewModel.onClickSend(
+                TransferFundsViewModel.TransferData(
+                  walletAddress = viewModel.currentAddedAddress,
+                  currency = userCurrency,
+                  amount = viewModel.currentAddedAmount.toBigDecimal(),
+                ),
+                requireContext().packageName
+              )
+            } catch (e: Exception) {
+              Log.d(
+                TransferFundsFragment::class.java.simpleName,
+                "Send transfer error: ${e.message}"
+              )
+            }
           }
         },
         backgroundColor = styleguide_pink,
