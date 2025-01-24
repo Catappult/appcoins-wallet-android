@@ -494,7 +494,7 @@
   <string name="do_it_later_button">Plus tard</string>
   <string name="connection_error_title">Pas de connexion internet</string>
   <string name="connection_error_body">On dirait que vous n\'êtes pas connecté à Internet. Vérifiez votre connexion et réessayez !</string>
-  <string name="common_or">or</string>
+  <string name="common_or">ou</string>
   <string name="share_via">Partager via :</string>
   <string name="password">Mot de passe</string>
   <string name="repeat_password">Répéter le mot de passe</string>
@@ -532,21 +532,21 @@
   <string name="max">Max</string>
   <string name="amount">Montant</string>
   <string name="total_title">Total</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_payment_method_button">Ajouter une méthode de paiement</string>
+  <string name="change_payment_method_button">Changer la méthode de paiement</string>
   <string name="add_card_button">Ajouter une carte de crédit/débit</string>
-  <string name="add_paypal_button">Add paypal</string>
-  <string name="add_gift_card_button">Add gift card</string>
+  <string name="add_paypal_button">Ajouter PayPal</string>
+  <string name="add_gift_card_button">Ajouter une carte cadeau</string>
   <string name="buy_button">Acheter</string>
   <string name="copied_to_clipboard">Copié dans le presse-papiers</string>
   <string name="topup_button">Recharger</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
-  <string name="aptoide_balance">Aptoide balance</string>
-  <string name="payment_method">Payment method</string>
+  <string name="extra_bonus_title">Obtenir un bonus supplémentaire de  %s%%</string>
+  <string name="aptoide_balance">Solde Aptoide</string>
+  <string name="payment_method">Mode de paiement</string>
   <string name="credit_debit_card">Carte de crédit/débit</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Virement bancaire facile</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -570,10 +570,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Votre outil pour les achats in-app</string>
+  <string name="onboarding_bonus_title">Obtenez jusqu\'à %s%% de vos achats in-app en AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Utilisez la carte bancaire, PayPal et vos méthodes de paiement préférées.</string>
+  <string name="onboarding_vip_title">Devenez membre VIP pour bénéficier d’une assistance et d’offres premium.</string>
   <string name="terms_and_conditions_tickbox">J\'accepte les %1$s et %2$s du portefeuille AppCoins.</string>
   <string name="terms_and_conditions_error">Veuillez accepter nos Termes et Conditions et la Politique de Confidentialité afin de poursuivre</string>
   <string name="terms_and_conditions">Termes et Conditions</string>
@@ -631,9 +631,9 @@
   <string name="verified_tag">Vérifié</string>
   <string name="unferified_tag">Portefeuille non vérifié</string>
   <string name="verification_wallets_verify_button">Vérifier</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Vérifié avec PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Vérifié avec la carte de crédit/débit.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Vérifié avec la carte de crédit/débit et PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Plus qu\'une étape !</string>
   <string name="paypal_verification_home_one_step_card_body">Saisissez le code envoyé à votre adresse électronique pour vérifier votre compte PayPal.</string>
@@ -721,7 +721,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Avec ce mode de paiement, vous payez des frais de traitement et de la TVA.</string>
   <string name="purchase_fee_included_body">frais inclus</string>
   <string name="purchase_error_one_wallet_generic">Il y a eu un problème avec votre paiement Wallet One. Veuillez réessayer ou utiliser une autre méthode de paiement.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Il y a eu un problème avec votre paiement. Veuillez réessayer ou utiliser une autre méthode de paiement.</string>
   <string name="purchase_payment_method_top_ups_only">Uniquement disponible pour les recharges.</string>
   <string name="purchase_payment_method_minimum_amount">Uniquement pour les achats supérieurs à %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Non disponible pour cet achat.</string>
@@ -729,24 +729,24 @@
   <string name="purchase_legal_disclaimer">En procédant au paiement, vous acceptez et consentez à ce que le contenu vous soit fourni contre paiement et vous perdez ainsi votre droit de rétractation.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Le bonus est en AppCoins Credits.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Cela peut prendre jusqu\'à %s jour.</item>
+    <item quantity="other">Cela peut prendre jusqu\'à %s jours.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_disclaimer">Votre banque traite votre transaction et cela peut prendre jusqu\'à 2 jours. Si toutes les informations sont correctes, %s en AppCoins Credits seront déposés dans votre portefeuille.</string>
+  <string name="purchase_bank_transfer_success_1">%s en AppCoins Credits seront déposés dans votre portefeuille.</string>
+  <string name="purchase_bank_transfer_success_2">Le traitement de votre banque peut prendre jusqu\'à 2 jours.</string>
+  <string name="purchase_bank_transfer_success_bonus">Vous recevrez un bonus de %s en AppCoins Credits.</string>
   <string name="purchase_error_taking_long_body">Oups, ça prend plus de temps que d\'habitude...</string>
-  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transer_secure_body">Virement sécurisé directement depuis votre banque.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Nous attendons l\'arrivée des fonds de votre banque.</string>
   <!--New Purchase flow-->
-  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
-  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
-  <string name="purchase_subtotal">Subtotal</string>
+  <string name="purchase_bonus_title">Bonus: %s en AppCoins Credits</string>
+  <string name="purchase_use_appc_partially_body">Utilisez vos AppCoins Credits pour payer - en partie ou en totalité. Les AppCoins Credits seront appliqués en premier.</string>
+  <string name="purchase_subtotal">Sous-Total</string>
   <string name="purchase_taxes">Taxes</string>
-  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_using_appcoins_body">Utiliser %s des AppCoins Credits</string>
   <string name="purchase_bonus_bot_available_body">Bonus non disponible avec ce mode de paiement.</string>
-  <string name="purchase_promo_code_button">Do you have a promo code?</string>
+  <string name="purchase_promo_code_button">Avez-vous un code promotion ?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresse de facturation</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -908,10 +908,10 @@
   <string name="remove_wallet_extra_confirmation_title">Etes-vous sûr ?</string>
   <string name="remove_wallet_extra_confirmation_body">N\'oubliez pas que, sans sauvegarde, vous perdrez vos fonds et votre niveau de bonus.</string>
   <!--Tranfer-->
-  <string name="transfer_bottom_navigation">Transfer</string>
+  <string name="transfer_bottom_navigation">Virement</string>
   <string name="transfer_title">Transférer des fonds</string>
   <string name="transfer_send_tab_title">Envoyer</string>
-  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_to_title">Envoyer à</string>
   <string name="transfer_receive_tab_title">Recevoir</string>
   <string name="transfer_send_body">Scanner ou entrer l\'adresse du portefeuille de votre ami.</string>
   <string name="transfer_send_recipient_title">Adresse du portefeuille</string>
@@ -920,8 +920,8 @@
   <string name="transfer_send_current_balance_title">Solde actuel :</string>
   <string name="transfer_send_button">Envoyer</string>
   <string name="transfer_receive_body">Partagez l\'adresse de votre portefeuille pour recevoir des fonds.</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
-  <string name="transfer_error_invalid_address">Invalid wallet address</string>
+  <string name="transfer_public_wallet_address_title">Mon adresse de portefeuille public</string>
+  <string name="transfer_error_invalid_address">Adresse du portefeuille non valide</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Vous avez un nouveau message !</string>
   <string name="support_new_message_button">Cliquez pour ouvrir</string>
@@ -1299,7 +1299,7 @@
   <string name="vip_program_promo_code_tag">Code Promo</string>
   <string name="vip_program_referral_page_title">Programme de parrainage VIP</string>
   <string name="vip_program_referral_page_body">Partagez ce code promo avec votre communauté et vos amis pour que tout le monde puisse gagner en jouant. Pour chaque achat in-app, <b>vous et vos amis recevrez %1$s%% de bonus</b> en plus des autres promotions actives. <b>Valable jusqu\'à %2$s</b> !</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Partagez ce code avec vos amis et vous recevrez tous les deux un bonus de %s%% sur tous les achats qu\'ils effectueront.</string>
   <string name="vip_program_referral_page_share_title">Partagez ce code avec vos amis</string>
   <string name="vip_program_referral_page_only_app_title">Uniquement pour les achats sur</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s gagnés avec %3$s références</string>
@@ -1312,7 +1312,7 @@
   <string name="vip_program_referral_notification_title">Code de parrainage VIP disponible !</string>
   <string name="vip_program_referral_notification_body">Partagez votre code avec votre communauté pour tous gagner en jouant !</string>
   <string name="vip_program_title_vip_offer">Offre VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Vous ne pouvez pas utiliser votre propre code VIP. Partagez-le avec vos amis !</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Bienvenue sur AppCoins Wallet</string>
   <string name="intro_welcome_body">Rechargez votre portefeuille ou faites un achat dans n\'importe quelle application ou jeu compatible avec AppCoins.</string>
@@ -1400,11 +1400,11 @@
   <string name="mail_list_confirmation_email_button">Confirmer le courriel</string>
   <string name="mail_list_confirmation_email_signature">Merci, \nL\'équipe d\'AppCoins</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebranding_disclaimer_short_title">Le portefeuille AppCoins devient bientôt Aptoide Wallet !</string>
+  <string name="rebranding_disclaimer_long_title">Le portefeuille AppCoins devient Aptoide Wallet !</string>
+  <string name="rebranding_disclaimer_long_body"> Nous sommes en pleine transformation passionnante pour redéfinir notre marque et notre identité. Restez connectés pour retrouver vos fonctionnalités et récompenses préférées dans une toute nouvelle présentation !</string>
+  <string name="rebranding_post_title">Le portefeuille AppCoins est désormais Aptoide Wallet !</string>
+  <string name="rebrandinh_post_body">Découvrez vos fonctionnalités et récompenses préférées avec une toute nouvelle présentation. Nous espérons que cela vous plaira !</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
