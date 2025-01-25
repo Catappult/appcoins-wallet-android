@@ -41,7 +41,7 @@
   <string name="title_delete_account">हे वॉलेट नक्की मिटवायचे आहे का?</string>
   <string name="twitter">X</string>
   <string name="telegram">टेलिग्राम ग्रुप</string>
-  <string name="discord">Discord</string>
+  <string name="discord">मतभेद</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">समुदाय</string>
   <string name="title_opensource">ओपन सोर्स डेव्हलपमेंट</string>
@@ -494,7 +494,7 @@
   <string name="do_it_later_button">नंतर करा</string>
   <string name="connection_error_title">इंटरनेट कनेक्शन नाही</string>
   <string name="connection_error_body">आपण इंटरनेटशी जुडलेले नाहीत अस दिसतय. कनेक्शन तपासुन पुन्हा प्रयत्न करा!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">किंवा</string>
   <string name="share_via">द्वारे सामायिक करा:</string>
   <string name="password">पासवर्ड</string>
   <string name="repeat_password">पासवर्ड परत लिहा</string>
@@ -532,21 +532,21 @@
   <string name="max">कमाल</string>
   <string name="amount">रक्कम</string>
   <string name="total_title">एकुण</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_payment_method_button">पेमेंट पद्धत जोडा</string>
+  <string name="change_payment_method_button">पेमेंट पद्धत बदला</string>
   <string name="add_card_button">क्रेडीट/डेबीट कार्ड जोडा</string>
-  <string name="add_paypal_button">Add paypal</string>
-  <string name="add_gift_card_button">Add gift card</string>
+  <string name="add_paypal_button">पेपाल जोडा</string>
+  <string name="add_gift_card_button">गिफ्ट कार्ड जोडा</string>
   <string name="buy_button">खरेदी करा</string>
   <string name="copied_to_clipboard">क्लिपबोर्डवर कॉपी करा</string>
   <string name="topup_button">भरणा करा</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
-  <string name="aptoide_balance">Aptoide balance</string>
+  <string name="extra_bonus_title">%s%% बोनस</string>
+  <string name="aptoide_balance">उपलब्ध शिल्लक</string>
   <string name="payment_method">पेमेंट पद्धत</string>
   <string name="credit_debit_card">क्रेडीट/डेबीट कार्ड</string>
   <string name="paypal">पेपाल</string>
   <string name="appc">अॅपकॉइन्स क्रेडीटस</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">सोपी बँक ट्रांसफर</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">गुगल पे</string>
@@ -570,10 +570,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">अॅपमधील खरेदीसाठी आपले टूल</string>
+  <string name="onboarding_bonus_title">अॅपमधील खरेदीवर %s%% अॅपकॉईन्स क्रेडीटस् मध्ये मिळवा.</string>
+  <string name="onboarding_payment_methods_title">बँक कार्ड, पेपाल आणि आपल्या आवडत्या पेमेंट पद्धती वापरा.</string>
+  <string name="onboarding_vip_title">अधिमूल्य समर्थन आणि ऑफर्स मिळविण्यासाठी व्हीआयपी सदस्य व्हा.</string>
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
   <string name="terms_and_conditions">अटी आणि शर्ती</string>
@@ -631,9 +631,9 @@
   <string name="verified_tag">तपासले</string>
   <string name="unferified_tag">असत्यापित वॉलेट</string>
   <string name="verification_wallets_verify_button">सत्यापित करा</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">पेपाल सत्यापित झाले.</string>
+  <string name="verification_verified_credit_debit_card_body">क्रेडीट/डेबीट कार्ड सत्यापित झाले.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">क्रेडीट/डेबीट कार्ड आणि पेपाल सत्यापित झाले.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">एकच चरण दूर!</string>
   <string name="paypal_verification_home_one_step_card_body">आपल्या पेपाल खात्यास सत्यापित करण्यासाठी आपल्या ईमेल पत्त्यावर पाठविलेला कोड इथे प्रविष्ट करा.</string>
@@ -721,7 +721,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">ह्या पेमेंट पद्धतीत आपण प्रक्रिया शुल्क आणि वॅटही भराल.</string>
   <string name="purchase_fee_included_body">शुल्क समावेशीत</string>
   <string name="purchase_error_one_wallet_generic">आपल्या वॉलेट वन पेमेंटमध्ये काही समस्या आलीय. कृपया पुन्हा प्रयत्न करा वा वेगळी पेमेंट पद्धत वापरा.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">आपल्या पेपाल पेमेंटमध्ये समस्या आली आहे. कृपया पुन्हा प्रयत्न करा वा वेगळी पेमेंट पद्धत वापरा.</string>
   <string name="purchase_payment_method_top_ups_only">फक्त टॉप-अपसाठीच उपलब्ध.</string>
   <string name="purchase_payment_method_minimum_amount">%s वरील खरेदीसाठीच.</string>
   <string name="purchase_payment_method_not_availble_generic">ह्या खरेदीसाठी उपलब्ध नाही.</string>
@@ -730,23 +730,23 @@
   <string name="purchase_bonus_in_appc_disclaimer">बोनस हा अॅपकॉइन्स क्रेडीटसच्या रुपात आहे.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
     <item quantity="one">It may take up to %s day.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="other">ह्यास कदाचित %s दिवस लागतील.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_disclaimer">आपली बँक ह्याची प्रक्रिय करीत आहे आणि ह्याच कदाचित २ दिवस लागू शकतात. जर सगळी माहिती अचूक असेल, तर अॅपकॉईन्स क्रेडीस् वॉलेटमध्ये %s जमा होतील.</string>
+  <string name="purchase_bank_transfer_success_1">%s अॅपकॉईन्स क्रेडीटस आपल्या वॉलेटमध्ये जमा केले जातील.</string>
+  <string name="purchase_bank_transfer_success_2">ह्याची प्रक्रिया करण्यासाठी बँकेस कदाचित २ दिवस लागू शकतील.</string>
+  <string name="purchase_bank_transfer_success_bonus">आपणांस अॅपकॉईन्स क्रेडीटसमध्ये %s बोनस मिळेल.</string>
   <string name="purchase_error_taking_long_body">अरेरे, नेहमीपेक्षा जास्तच वेळ लागतोय...</string>
-  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transer_secure_body">थेट आपल्या बँकेतुन सुरक्षित हस्तांतरण करा.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">आपल्या बँकेतुन पैसे येण्याची आम्ही वाट पहात आहोत.</string>
   <!--New Purchase flow-->
-  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
-  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
-  <string name="purchase_subtotal">Subtotal</string>
-  <string name="purchase_taxes">Taxes</string>
-  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
-  <string name="purchase_bonus_bot_available_body">Bonus not available with this payment method.</string>
-  <string name="purchase_promo_code_button">Do you have a promo code?</string>
+  <string name="purchase_bonus_title">बोनस: अॅपकॉईन्स क्रेडीटस् मध्ये %s</string>
+  <string name="purchase_use_appc_partially_body">पूर्ण वा अर्ध पेमेंटसाठी अॅपकॉईन्स क्रेडीटस वापरा. अॅपकॉईन्स क्रेडीटस प्रथम वापरली जातील.</string>
+  <string name="purchase_subtotal">उपबेरीज</string>
+  <string name="purchase_taxes">कर</string>
+  <string name="purchase_using_appcoins_body">अॅपकॉईन्स क्रेडीमधील %s वापरले जातायत</string>
+  <string name="purchase_bonus_bot_available_body">ह्या पेमेंट पद्धतीसह बोनस उपलब्ध नाही.</string>
+  <string name="purchase_promo_code_button">प्रोमो कोड आहे का?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>
@@ -912,10 +912,10 @@
   <string name="remove_wallet_extra_confirmation_title">नक्की?</string>
   <string name="remove_wallet_extra_confirmation_body">लक्षात असु द्यात, बॅकअप शिवाय, आपले पैसे आणि बोनस पातळी आपण गमावाल.</string>
   <!--Tranfer-->
-  <string name="transfer_bottom_navigation">Transfer</string>
+  <string name="transfer_bottom_navigation">हस्तांतरण</string>
   <string name="transfer_title">रक्कम हस्तांतरीत करा</string>
   <string name="transfer_send_tab_title">पाठवा</string>
-  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_to_title">ह्यांना पाठवा</string>
   <string name="transfer_receive_tab_title">मिळवा</string>
   <string name="transfer_send_body">आपल्या स्नेह्याचा वॉलेट पत्ता स्कॅन करा किंवा भरा.</string>
   <string name="transfer_send_recipient_title">वॉलेट पत्ता</string>
@@ -924,8 +924,8 @@
   <string name="transfer_send_current_balance_title">सद्य शिल्लक:</string>
   <string name="transfer_send_button">पाठवा</string>
   <string name="transfer_receive_body">रक्कम मिळविण्यासाठी आपल्या वॉलेटचा पत्ता सामायिक करा.</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
-  <string name="transfer_error_invalid_address">Invalid wallet address</string>
+  <string name="transfer_public_wallet_address_title">माझा पब्लिक वॉलेट पत्ता</string>
+  <string name="transfer_error_invalid_address">अवैध वॉलेट पत्ता</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">आपल्यासाठी नविन संदेश आहे!</string>
   <string name="support_new_message_button">उघडण्यासाठी टॅप करा</string>
@@ -1320,7 +1320,7 @@
   <string name="vip_program_promo_code_tag">प्रोमो कोड</string>
   <string name="vip_program_referral_page_title">व्हीआयपी संदर्भ कार्यक्रम</string>
   <string name="vip_program_referral_page_body">सर्वानी खेळतानाच पैसे कमावण्यासाठी हा प्रोमो कोड आपल्या समुदायात आणि मित्रांसह सामायिक करा. सर्वांनीच अॅपमधील खरेदी करताना, इतर अॅक्टिव्ह प्रमोशनच्या व्यतिरिक्त दोघांनाही म्हणजेच <b>आपण आणि आपल्या मित्रांनाही %1$s%% बोनस</b> मिळेल. <b>%2$sपर्यंत वैध</b>!</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">हा कोड आपल्या मित्रांसह सामायिक करा आणि आपल्या दोघांनाही त्यांच्या सर्व खरेदीवर %s%% बोनस मिळेल.</string>
   <string name="vip_program_referral_page_share_title">हा कोड आपल्या मित्रांसह सामायिक करा</string>
   <string name="vip_program_referral_page_only_app_title">फक्त वरील खरेदीवर</string>
   <string name="vip_program_referral_page_earned_body">%3$s संदर्भातुन %1$s%2$s कमावले</string>
@@ -1333,7 +1333,7 @@
   <string name="vip_program_referral_notification_title">व्हीआयपी संदर्भ कोड उपलब्ध!</string>
   <string name="vip_program_referral_notification_body">आपला कोड आपल्या समुदायात सामायिक करा म्हणजे खेळताना आपण कमवाल!</string>
   <string name="vip_program_title_vip_offer">व्हीआयपी ऑफर</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">स्वत: चा व्हीआयपी कोड वापरु शकत नाही. मित्रांसह सामायिक करा!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">अॅपकॉईन्स वॉलेटमध्ये स्वागत आहे</string>
   <string name="intro_welcome_body">वॉलेटमध्ये भर घाला किंवा अॅप वा खेळाशी सुसंगत कोणत्याही अॅपकॉईन्सची खरेदी करा.</string>
