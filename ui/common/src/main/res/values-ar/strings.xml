@@ -532,10 +532,10 @@
   <string name="max">حد أقصى</string>
   <string name="amount">المبلغ</string>
   <string name="total_title">المجموع</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_payment_method_button">إضافة وسيلة دفع</string>
+  <string name="change_payment_method_button">تغيير وسيلة الدفع</string>
   <string name="add_card_button">أضف بطاقة ائتمان/دفع مسبق</string>
-  <string name="add_paypal_button">Add paypal</string>
+  <string name="add_paypal_button">إضافة PayPal</string>
   <string name="add_gift_card_button">Add gift card</string>
   <string name="buy_button">شراء</string>
   <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
