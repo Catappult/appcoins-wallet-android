@@ -732,20 +732,20 @@
     <item quantity="other">최대 %s일이 걸릴 수 있습니다.</item>
   </plurals>
   <string name="purchase_bank_transfer_success_disclaimer">귀하의 은행에서 거래를 처리 중이며 최대 2일이 소요될 수 있습니다. 모든 정보가 정확하다면 AppCoines 크레딧의 %s이 지갑에 입금됩니다.</string>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_1">AppCoins 크레딧의 %s가 지갑에 입금됩니다.</string>
+  <string name="purchase_bank_transfer_success_2">은행에서 처리하는 데 최대 2일이 걸릴 수 있습니다.</string>
+  <string name="purchase_bank_transfer_success_bonus">AppCoins 크레딧에서 %s의 보너스를 받게 됩니다.</string>
   <string name="purchase_error_taking_long_body">이런, 예상보다 시간이 오래 걸리고 있네요...</string>
-  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transer_secure_body">은행에서 직접 이체를 안전하게 보호하세요.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">귀하의 은행에서 자금이 도착하기를 기다리고 있습니다.</string>
   <!--New Purchase flow-->
-  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
-  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
-  <string name="purchase_subtotal">Subtotal</string>
-  <string name="purchase_taxes">Taxes</string>
-  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_bonus_title">보너스: AppCoins 크레딧의 %s</string>
+  <string name="purchase_use_appc_partially_body">AppCoins 크레딧을 사용하여 부분적으로 또는 전액 결제할 수 있습니다. AppCoins 크레딧이 먼저 적용됩니다.</string>
+  <string name="purchase_subtotal">소계</string>
+  <string name="purchase_taxes">세금</string>
+  <string name="purchase_using_appcoins_body">AppCoins 크레딧에서 %s 사용하기</string>
   <string name="purchase_bonus_bot_available_body">이 결제 수단에서는 보너스를 사용할 수 없습니다.</string>
-  <string name="purchase_promo_code_button">Do you have a promo code?</string>
+  <string name="purchase_promo_code_button">프로모션 코드가 있나요?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -906,10 +906,10 @@
   <string name="remove_wallet_extra_confirmation_title">확실한가요?</string>
   <string name="remove_wallet_extra_confirmation_body">백업이 없으면 자금과 보너스 레벨이 손실된다는 점을 기억하십시오.</string>
   <!--Tranfer-->
-  <string name="transfer_bottom_navigation">Transfer</string>
+  <string name="transfer_bottom_navigation">전송</string>
   <string name="transfer_title">자금 전송</string>
   <string name="transfer_send_tab_title">전송</string>
-  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_to_title">전송</string>
   <string name="transfer_receive_tab_title">수신</string>
   <string name="transfer_send_body">스캔하거나 친구의 지갑 주소를 입력하세요.</string>
   <string name="transfer_send_recipient_title">지갑 주소</string>
@@ -918,8 +918,8 @@
   <string name="transfer_send_current_balance_title">현재 잔액:</string>
   <string name="transfer_send_button">전송</string>
   <string name="transfer_receive_body">자본 수신을 위해 지갑 주소를 공유하세요.</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
-  <string name="transfer_error_invalid_address">Invalid wallet address</string>
+  <string name="transfer_public_wallet_address_title">내 공용 지갑 주소</string>
+  <string name="transfer_error_invalid_address">잘못된 지갑 주소입니다</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">새로운 메시지를 받았습니다!</string>
   <string name="support_new_message_button">탭하여 오픈</string>
@@ -1289,7 +1289,7 @@
   <string name="vip_program_promo_code_tag">프로모션 코드</string>
   <string name="vip_program_referral_page_title">VIP 소개 프로그램</string>
   <string name="vip_program_referral_page_body">이 프로모션 코드를 커뮤니티 및 친구들과 공유하여 모든 사람이 게임을 하면서 얻을 수 있도록 하세요. 앱 내에서 구매할 때마다 <b>귀하와 귀하의 친구들은 다른 프로모션 외에도 %1$s% 보너스를 받게 됩니다.</b> <b> %2$s까지 유효합니다!</b></string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">이 코드를 친구들과 공유하면 두 사람 모두 구매 시 %s%%의 보너스를 받을 수 있습니다.</string>
   <string name="vip_program_referral_page_share_title">친구에게 이 코드를 공유하기</string>
   <string name="vip_program_referral_page_only_app_title">다음에서 구매하는 경우에만 해당</string>
   <string name="vip_program_referral_page_earned_body">%3$s 소개에서 %1$s%2$s 획득</string>
@@ -1302,7 +1302,7 @@
   <string name="vip_program_referral_notification_title">VIP 소개 코드 사용 가능!</string>
   <string name="vip_program_referral_notification_body">커뮤니티와 코드를 공유하여 게임을 하면서 돈을 벌 수 있습니다!</string>
   <string name="vip_program_title_vip_offer">VIP 제안</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">귀하 본인의 VIP 코드를 사용할 수 없습니다. 친구들과 공유하세요!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoins 지갑에 오신 것을 환영합니다</string>
   <string name="intro_welcome_body">AppCoins과 호환되는 앱이나 게임에서 지갑을 충전하거나 구매하세요.</string>
@@ -1386,11 +1386,11 @@
   <string name="mail_list_confirmation_email_button">이메일 확인</string>
   <string name="mail_list_confirmation_email_signature">감사합니다.\nAppCoins 팀</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins 지갑이 곧 Aptoide 지갑이 될 예정입니다!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins 지갑이 곧 Aptoide 지갑이 될 예정입니다!</string>
+  <string name="rebranding_disclaimer_long_body"> 저희는 브랜드와 느낌을 흥미롭게 재설계하기 위해 노력하고 있습니다. 완전히 새로운 이미지로 여러분이 좋아하는 기능과 보상을 발견할 수 있도록 계속 지켜봐 주세요!</string>
+  <string name="rebranding_post_title">AppCoins 지갑이 이제 Aptoide 지갑이 되었습니다!</string>
+  <string name="rebrandinh_post_body">완전히 새로운 이미지로 좋아하는 기능과 보상을 찾아보세요. 마음에 드시길 바랍니다!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
