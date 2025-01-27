@@ -916,7 +916,6 @@
   <string name="remove_wallet_extra_confirmation_title">هل أنت متيقّن؟</string>
   <string name="remove_wallet_extra_confirmation_body">تذكر، دون نسخ احتياطي، ستخسر أموالك ومستوى مكافآتك.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">تحويل</string>
   <string name="transfer_title">تحويل الأموال</string>
   <string name="transfer_send_tab_title">إرسال</string>
   <string name="transfer_receive_tab_title">استقبال</string>
