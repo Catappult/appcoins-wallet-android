@@ -4,13 +4,13 @@ msgstr ""
 "X-Crowdin-Project: appcoins\n"
 "X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: de\n"
-"X-Crowdin-File: /[Catappult.appcoins-wallet-android] dev/ui/common/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 14253\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] feature.remove-unused-resources/ui/common/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 15556\n"
 "Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2024-09-24 14:04\n"
+"PO-Revision-Date: 2025-01-27 20:41\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Weil du das nächste Level erreicht hast."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Erhalte einen Bonus von {0}% für alle deine Einkäufe {1}, außer bei der Verwendung von AppCoins Credits."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -85,7 +85,7 @@ msgstr "Wegen deines ersten Einkaufs des Tages bei {0}."
 #. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} AppCoins Credits Bonus!"
+msgstr ""
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
