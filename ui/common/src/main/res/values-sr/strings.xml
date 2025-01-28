@@ -739,15 +739,15 @@
   <string name="purchase_bank_transfer_success_bonus">Dobićete bonus od %s u AppCoins Credits.</string>
   <string name="purchase_error_taking_long_body">Ups, traje duže nego inače...</string>
   <string name="purchase_bank_transer_secure_body">Obezbedite direktan prenos iz vaše banke.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Čekamo da stignu sredstva iz vaše banke.</string>
   <!--New Purchase flow-->
-  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
-  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
-  <string name="purchase_subtotal">Subtotal</string>
+  <string name="purchase_bonus_title">Bonus: %s u AppCoins Credits</string>
+  <string name="purchase_use_appc_partially_body">Iskoristite svoje AppCoins Credits da platite - delimično ili u celosti. AppCoins Credits će se prvo primeniti.</string>
+  <string name="purchase_subtotal">Međuzbir</string>
   <string name="purchase_taxes">Porezi</string>
-  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_using_appcoins_body">Koristi se %s u AppCoins Credits</string>
   <string name="purchase_bonus_bot_available_body">Bonus nije dostupan uz ovaj način plaćanja.</string>
-  <string name="purchase_promo_code_button">Do you have a promo code?</string>
+  <string name="purchase_promo_code_button">Da li imate promo kod?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresa za naplatu</string>
   <string name="purchase_address_address_field">Adresa</string>
@@ -910,10 +910,10 @@
   <string name="remove_wallet_extra_confirmation_title">Jeste li sigurni?</string>
   <string name="remove_wallet_extra_confirmation_body">Zapamtite da ćete bez rezerne kopije izgubiti svoja sredstva i bonus nivo.</string>
   <!--Tranfer-->
-  <string name="transfer_bottom_navigation">Transfer</string>
+  <string name="transfer_bottom_navigation">Prenos</string>
   <string name="transfer_title">Prenesite sredstva</string>
   <string name="transfer_send_tab_title">Pošalji</string>
-  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_to_title">Pošaljite</string>
   <string name="transfer_receive_tab_title">Primite</string>
   <string name="transfer_send_body">Skenirajte ili unesite adresu novčanika svog prijatelja.</string>
   <string name="transfer_send_recipient_title">Adresa novčanika</string>
@@ -922,8 +922,8 @@
   <string name="transfer_send_current_balance_title">Trenutno stanje:</string>
   <string name="transfer_send_button">Pošaljite</string>
   <string name="transfer_receive_body">Podelite adresu svog novčanika da biste dobili sredstva.</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
-  <string name="transfer_error_invalid_address">Invalid wallet address</string>
+  <string name="transfer_public_wallet_address_title">Javna adresa mog novčanika</string>
+  <string name="transfer_error_invalid_address">Neispravna adresa novčanika</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Dobili ste novu poruku!</string>
   <string name="support_new_message_button">Dodirnite da otvorite</string>
@@ -1309,7 +1309,7 @@
   <string name="vip_program_promo_code_tag">Promo kod</string>
   <string name="vip_program_referral_page_title">VIP program za preporuku</string>
   <string name="vip_program_referral_page_body">Podelite ovaj promo kod sa svojom zajednicom ili prijateljima kako bi svi mogli da zarade dok se igraju. Za svaku kupovinu u aplikaciji koju obave, i <b>vi i vaši prijatelji ćete dobiti %1$s%% bonusa</b> povrh ostalih aktivnih promocija. <b>Važi do %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Podelite ovaj kod sa svojim prijateljima i tako ćete oboje dobiti %s%% bonusa u svim kupovinama u aplikacijama koje oni obave.</string>
   <string name="vip_program_referral_page_share_title">Podelite ovaj promo kod sa svojim prijateljima</string>
   <string name="vip_program_referral_page_only_app_title">Samo za kupovine u</string>
   <string name="vip_program_referral_page_earned_body">Osvojeno %1$s%2$s zahvaljujući %3$s preporuka</string>
@@ -1322,7 +1322,7 @@
   <string name="vip_program_referral_notification_title">Dostupan je VIP kod za preporuku!</string>
   <string name="vip_program_referral_notification_body">Podelite kod sa svojom zajednicom da biste mogli da zarađujete dok se igrate!</string>
   <string name="vip_program_title_vip_offer">VIP ponuda</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Ne možete koristiti sopstveni VIP kod. Podelite ga sa prijateljima!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Dobro došli u AppCoins Wallet</string>
   <string name="intro_welcome_body">Dopunite svoj novčanik ili obavite kupovinu u bilo kojoj aplikaciji ili igri kompatibilnim sa AppCoins.</string>
@@ -1414,11 +1414,11 @@
   <string name="mail_list_confirmation_email_button">Confirm email</string>
   <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins Wallet uskoro postaje Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet postaje Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> Radimo na uzbudljivom redizajnu našeg brenda i utiska. Ostanite u toku i otkrijte omiljene funkcije i nagrade uz potpuno novi izgled!</string>
+  <string name="rebranding_post_title">AppCoins Wallet je sada Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Otkrijte omiljene funkcije i nagrade uz potpuno novi izgled. Nadamo se da će vam se dopasti!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
