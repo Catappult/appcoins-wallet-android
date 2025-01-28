@@ -729,8 +729,8 @@
   <string name="purchase_legal_disclaimer">Ako nastavite sa ovim plaćanjem, saglasni ste sa i pristajete da dobijete sadržaj nakon plaćanja i tako izgubite svoja prava na povlačenje.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonus je u AppCoins Credits.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="few">It may take up to %s days.</item>
+    <item quantity="one">Može trajati do %s dan.</item>
+    <item quantity="few">Može trajati do %s dana.</item>
     <item quantity="other">Može trajati do %s dana.</item>
   </plurals>
   <string name="purchase_bank_transfer_success_disclaimer">Vaša banka obrađuje transakciju i to može potrajati do 2 dana. Ako su sve informacije tačne, na vaš novčanik će biti uplaćeno %s u AppCoins Credits.</string>
