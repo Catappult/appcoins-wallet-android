@@ -1,6 +1,7 @@
 package com.appcoins.wallet.core.network.flagr
 
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
+import com.appcoins.wallet.core.network.flagr.api.FlagrNetworkApi
 import com.appcoins.wallet.core.network.flagr.model.FlagrRequest
 import com.appcoins.wallet.core.network.flagr.model.FlagrResponse
 import com.appcoins.wallet.core.utils.properties.HostProperties
@@ -40,14 +41,8 @@ class RetrofitFlagrNetwork {
   @Provides
   fun providesFlagrApi(
     @Named("flagr-default") retrofit: Retrofit
-  ): RetrofitFlagrNetworkApi {
-    return retrofit.create(RetrofitFlagrNetworkApi::class.java)
+  ): FlagrNetworkApi {
+    return retrofit.create(FlagrNetworkApi::class.java)
   }
 
-  interface RetrofitFlagrNetworkApi {
-    @POST("evaluation")
-    fun getFeatureFlag(
-      @Body request: FlagrRequest,
-    ): Single<FlagrResponse>
-  }
 }

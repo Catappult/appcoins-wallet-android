@@ -3,6 +3,7 @@ package com.asfoundation.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
@@ -50,6 +51,7 @@ import com.asfoundation.wallet.home.usecases.GetLastShownUserLevelUseCase
 import com.asfoundation.wallet.home.usecases.GetLevelsUseCase
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import com.asfoundation.wallet.home.usecases.ShouldOpenRatingDialogUseCase
+import com.asfoundation.wallet.home.usecases.ShowRebrandingBannerFlagUseCase
 import com.asfoundation.wallet.home.usecases.UpdateLastShownUserLevelUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
@@ -100,7 +102,8 @@ data class HomeState(
   val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
   val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
-  val hasBackup: Async<Boolean> = Async.Uninitialized
+  val hasBackup: Async<Boolean> = Async.Uninitialized,
+  val showRebrandingBanner: Async<Boolean> = Async.Uninitialized
 ) : ViewState
 
 data class PromotionsState(
@@ -139,7 +142,8 @@ constructor(
   private val postUserEmailUseCase: PostUserEmailUseCase,
   private val emailPreferencesDataSource: EmailPreferencesDataSource,
   private val emailAnalytics: EmailAnalytics,
-  private val getImpressionUseCase: GetImpressionUseCase
+  private val getImpressionUseCase: GetImpressionUseCase,
+  private val showRebrandingBannerFlagUseCase: ShowRebrandingBannerFlagUseCase,
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private lateinit var defaultCurrency: String
@@ -147,6 +151,7 @@ constructor(
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val showBackup = mutableStateOf(false)
+  val showRebrandingBanner = mutableStateOf(false)
   val newWallet = mutableStateOf(false)
   val isLoadingTransactions = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
@@ -176,6 +181,7 @@ constructor(
     verifyUserLevel()
     handleRateUsDialogVisibility()
     fetchPromotions()
+    handleRebrandingBanner()
   }
 
   private fun handleWalletData() {
@@ -214,7 +220,7 @@ constructor(
     return Observable.mergeDelayError(
       observeBalance(),
       updateTransactions(model).subscribeOn(rxSchedulers.io),
-      observeBackup()
+      observeBackup(),
     )
       .map {}
       .doOnError {
@@ -488,6 +494,16 @@ constructor(
       .repeatableScopedSubscribe(PromotionsState::promotionsModelAsync.name) { e ->
         e.printStackTrace()
       }
+  }
+
+  private fun handleRebrandingBanner() {
+    showRebrandingBannerFlagUseCase()
+      .subscribeOn(rxSchedulers.io)
+      .asAsyncToState(HomeState::showRebrandingBanner) {
+        Log.d(TAG, "handleRebrandingBanner: $it")
+        copy(showRebrandingBanner = it)
+      }
+      .scopedSubscribe { e -> e.printStackTrace() }
   }
 
   fun isLoadingOrIdleBalanceState(): Boolean {

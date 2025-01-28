@@ -17,7 +17,7 @@ class FeatureFlagsRepository @Inject constructor(
         entityType = "user",
         entityContext = EmptyContext(),
         enableDebug = true,
-        flagID = 7,
+        flagID = 9,
         flagKey = flagKey,
         flagTags = listOf(),
         flagTagsOperator = "ANY"
