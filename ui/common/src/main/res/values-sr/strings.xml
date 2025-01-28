@@ -494,7 +494,7 @@
   <string name="do_it_later_button">Pokušaj kasnije</string>
   <string name="connection_error_title">Nema internet veze</string>
   <string name="connection_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">ili</string>
   <string name="share_via">Podeli preko:</string>
   <string name="password">Lozinka</string>
   <string name="repeat_password">Ponovite lozinku</string>
@@ -532,21 +532,21 @@
   <string name="max">Maks.</string>
   <string name="amount">Iznos</string>
   <string name="total_title">Ukupno</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_payment_method_button">Dodajte način plaćanja</string>
+  <string name="change_payment_method_button">Promenite način plaćanja</string>
   <string name="add_card_button">Dodajte kreditnudebitnu karticu</string>
-  <string name="add_paypal_button">Add paypal</string>
-  <string name="add_gift_card_button">Add gift card</string>
+  <string name="add_paypal_button">Dodajte paypal</string>
+  <string name="add_gift_card_button">Dodajte poklon-karticu</string>
   <string name="buy_button">Kupi</string>
   <string name="copied_to_clipboard">Kopirano u ostavu</string>
   <string name="topup_button">Dopunite</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
-  <string name="aptoide_balance">Aptoide balance</string>
+  <string name="extra_bonus_title">Osvojite dodatni bonus od %s%%</string>
+  <string name="aptoide_balance">Aptoide stanje</string>
   <string name="payment_method">Način plaćanja</string>
   <string name="credit_debit_card">Kreditna/debitna kartica</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Jednostavan transfer putem banke</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -570,10 +570,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Vaš alat za kupovine u aplikacijama</string>
+  <string name="onboarding_bonus_title">Osvojite do %s%% od kupovina u aplikacijama u vidu AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Koristite bankovnu karticu, PayPal i svoje omiljene načine plaćanja.</string>
+  <string name="onboarding_vip_title">Postanite VIP član kako biste dobili vrhunsku podršku i ponude.</string>
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
   <string name="terms_and_conditions">Uslovi i odredbe</string>
@@ -721,7 +721,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Preko ovog načina plaćanja platićete naknadu za obradu i PDV.</string>
   <string name="purchase_fee_included_body">naknade su uključene</string>
   <string name="purchase_error_one_wallet_generic">Došlo je do problema sa vašim Wallet One plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Došlo je do problema sa vašim plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
   <string name="purchase_payment_method_top_ups_only">Dostupno samo za dopune.</string>
   <string name="purchase_payment_method_minimum_amount">Samo za kupovine iznad %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Nije dostupno za ovu kupovinu.</string>
@@ -731,14 +731,14 @@
   <plurals name="purchase_bank_transfer_time_disclaimer">
     <item quantity="one">It may take up to %s day.</item>
     <item quantity="few">It may take up to %s days.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="other">Može trajati do %s dana.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_disclaimer">Vaša banka obrađuje transakciju i to može potrajati do 2 dana. Ako su sve informacije tačne, na vaš novčanik će biti uplaćeno %s u AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_1">%s u AppCoins Credits će biti uplaćen na vaš novčanik.</string>
+  <string name="purchase_bank_transfer_success_2">Može biti potrebno do 2 dana da vaša banka to obradi.</string>
+  <string name="purchase_bank_transfer_success_bonus">Dobićete bonus od %s u AppCoins Credits.</string>
   <string name="purchase_error_taking_long_body">Ups, traje duže nego inače...</string>
-  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
+  <string name="purchase_bank_transer_secure_body">Obezbedite direktan prenos iz vaše banke.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
   <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
