@@ -572,8 +572,8 @@
   <!--Onboarding-->
   <string name="onboarding_title">Alat Anda untuk pembelian dalam aplikasi</string>
   <string name="onboarding_bonus_title">Dapatkan hingga %s%% Kredit AppCoins dari pembelian dalam aplikasi Anda.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_payment_methods_title">Gunakan kartu bank, PayPal, dan metode pembayaran favorit Anda.</string>
+  <string name="onboarding_vip_title">Jadilah anggota VIP untuk mendapatkan dukungan dan penawaran premium.</string>
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
   <string name="terms_and_conditions">Syarat dan Ketentuan</string>
@@ -631,9 +631,9 @@
   <string name="verified_tag">Terverifikasi</string>
   <string name="unferified_tag">Dompet belum diverifikasi</string>
   <string name="verification_wallets_verify_button">Verifikasi</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Diverifikasi dengan PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Diverifikasi dengan kartu kredit/debit.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Diverifikasi dengan kartu kredit/debit dan PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Tinggal selangkah lagi!</string>
   <string name="paypal_verification_home_one_step_card_body">Masukkan kode yang dikirimkan ke alamat email Anda untuk memverifikasi akun PayPal Anda.</string>
@@ -721,7 +721,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Dengan metode pembayaran ini, Anda akan membayar biaya pemrosesan dan PPN.</string>
   <string name="purchase_fee_included_body">sudah termasuk biaya</string>
   <string name="purchase_error_one_wallet_generic">Terjadi masalah dengan pembayaran Wallet One Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Terjadi masalah dengan pembayaran Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>
   <string name="purchase_payment_method_top_ups_only">Hanya tersedia untuk isi ulang.</string>
   <string name="purchase_payment_method_minimum_amount">Hanya untuk pembelian di atas %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Tidak tersedia pada pembelian ini.</string>
@@ -729,23 +729,23 @@
   <string name="purchase_legal_disclaimer">Dengan melanjutkan pembayaran, Anda menyetujui untuk diberikan konten setelah pembayaran, sehingga Anda kehilangan hak penarikan.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonus berupa Kredit AppCoins.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="other">Mungkin memerlukan waktu hingga %s hari.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_disclaimer">Bank Anda sedang memproses transaksi Anda dan mungkin memerlukan waktu hingga 2 hari. Jika semua informasi benar, Kredit AppCoins sebesar %s akan disetorkan ke dompet Anda.</string>
+  <string name="purchase_bank_transfer_success_1">Kredit AppCoins sebesar %s akan dimasukkan ke dompet Anda.</string>
+  <string name="purchase_bank_transfer_success_2">Mungkin bank Anda memerlukan waktu hingga 2 hari untuk memprosesnya.</string>
+  <string name="purchase_bank_transfer_success_bonus">Anda akan menerima bonus berupa Kredit AppCoins sebesar %s.</string>
   <string name="purchase_error_taking_long_body">Ups, butuh waktu lebih lama dari biasanya...</string>
-  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transer_secure_body">Transfer aman langsung dari bank Anda.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Kami sedang menunggu masuknya dana dari bank Anda.</string>
   <!--New Purchase flow-->
-  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
-  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
+  <string name="purchase_bonus_title">Bonus: Kredit AppCoins sebesar %s</string>
+  <string name="purchase_use_appc_partially_body">Gunakan Kredit AppCoins Anda untuk membayar - sebagian atau seluruhnya. Kredit AppCoins akan digunakan terlebih dahulu.</string>
   <string name="purchase_subtotal">Subtotal</string>
-  <string name="purchase_taxes">Taxes</string>
-  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_taxes">Pajak</string>
+  <string name="purchase_using_appcoins_body">Menggunakan Kredit AppCoins sebesar %s</string>
   <string name="purchase_bonus_bot_available_body">Bonus tidak tersedia dengan metode pembayaran ini.</string>
-  <string name="purchase_promo_code_button">Do you have a promo code?</string>
+  <string name="purchase_promo_code_button">Apakah Anda punya kode promo?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -909,7 +909,7 @@
   <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Transfer Dana</string>
   <string name="transfer_send_tab_title">Kirim</string>
-  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_to_title">Kirim ke</string>
   <string name="transfer_receive_tab_title">Terima</string>
   <string name="transfer_send_body">Pindai atau masukkan alamat dompet teman Anda.</string>
   <string name="transfer_send_recipient_title">Alamat Dompet</string>
@@ -918,8 +918,8 @@
   <string name="transfer_send_current_balance_title">Saldo Saat Ini:</string>
   <string name="transfer_send_button">Kirim</string>
   <string name="transfer_receive_body">Bagikan alamat dompet Anda untuk menerima dana.</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
-  <string name="transfer_error_invalid_address">Invalid wallet address</string>
+  <string name="transfer_public_wallet_address_title">Alamat dompet umum saya</string>
+  <string name="transfer_error_invalid_address">Alamat dompet tidak valid</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Anda menerima pesan baru!</string>
   <string name="support_new_message_button">Ketuk untuk membuka</string>
@@ -1289,7 +1289,7 @@
   <string name="vip_program_promo_code_tag">Kode promo</string>
   <string name="vip_program_referral_page_title">Program Referral VIP</string>
   <string name="vip_program_referral_page_body">Bagikan kode promo ini dengan komunitas dan teman Anda agar semua orang bisa memperoleh penghasilan saat bermain. Untuk setiap pembelian dalam aplikasi yang mereka lakukan, <b>Anda dan teman Anda akan menerima bonus sebesar %1$s%%</b>, di samping promosi aktif lainnya, selama sebulan penuh. <b>Berlaku sampai %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Bagikan kode ini dengan teman-teman Anda, agar Anda semua memperoleh bonus %s%% di semua pembelian yang dilakukan.</string>
   <string name="vip_program_referral_page_share_title">Bagikan kode ini dengan teman Anda</string>
   <string name="vip_program_referral_page_only_app_title">Hanya untuk pembelian di</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s diperoleh dari %3$s referral</string>
@@ -1302,7 +1302,7 @@
   <string name="vip_program_referral_notification_title">Kode Referensi VIP Tersedia!</string>
   <string name="vip_program_referral_notification_body">Bagikan kode Anda dengan komunitas sehingga Anda semua memperoleh penghasilan saat bermain!</string>
   <string name="vip_program_title_vip_offer">Penawaran VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Anda tidak bisa menggunakan kode VIP Anda sendiri. Bagikan dengan teman-teman Anda!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Selamat Datang di Dompet AppCoins</string>
   <string name="intro_welcome_body">Isi ulang dompet Anda atau lakukan pembelian di aplikasi atau game yang kompatibel dengan AppCoins.</string>
@@ -1386,11 +1386,11 @@
   <string name="mail_list_confirmation_email_button">Konfirmasi email</string>
   <string name="mail_list_confirmation_email_signature">Salam,\nTim AppCoins</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebranding_disclaimer_short_title">Dompet AppCoins akan segera menjadi Dompet Aptoide!</string>
+  <string name="rebranding_disclaimer_long_title">Dompet AppCoins akan menjadi Dompet Aptoide!</string>
+  <string name="rebranding_disclaimer_long_body">Kami sedang mengerjakan desain ulang yang menarik untuk merek dan aura produk kami. Pantau terus untuk menemukan fitur dan hadiah favorit Anda dengan citra yang benar-benar baru!</string>
+  <string name="rebranding_post_title">Dompet AppCoins sekarang menjadi Dompet Aptoide!</string>
+  <string name="rebrandinh_post_body">Temukan fitur dan hadiah favorit Anda dengan tampilan yang benar-benar baru. Semoga Anda menyukainya!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
