@@ -377,7 +377,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
               )
             }
             Text(
-              text = stringResource(R.string.rebranding_disclaimer_short_title),
+              text = stringResource(R.string.rebranding_disclaimer_shortest_title),
               modifier = Modifier
                 .weight(1f)
                 .padding(start = 8.dp),
