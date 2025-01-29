@@ -541,6 +541,7 @@
   <string name="copied_to_clipboard">ਕਲਿੱਪਬੋਰਡ ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
   <string name="topup_button">ਟੋਪ ਅੱਪ</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">ਭੁਗਤਾਨ ਦੇ ਢੰਗ</string>
   <string name="credit_debit_card">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ</string>
   <string name="paypal">ਪੇਪਾਲ</string>
@@ -907,9 +908,10 @@
   <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
   <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">ਟ੍ਰਾਂਸਫਰ</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">ਕੂੰਜੀ ਦਾ ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transfer_send_tab_title">ਭੇਜੋ</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="transfer_send_body">ਆਪਣੇ ਦੋਸਤ ਦੇ ਬਟੂਏ ਦਾ ਪਤਾ ਸਕੈਨ ਕਰੋ ਜਾਂ ਭਰੋ|</string>
   <string name="transfer_send_recipient_title">ਬਟੂਏ ਦਾ ਪਤਾ</string>
@@ -918,6 +920,8 @@
   <string name="transfer_send_current_balance_title">ਮੌਜੂਦਾ ਬਕਾਇਆ:</string>
   <string name="transfer_send_button">ਭੇਜੋ</string>
   <string name="transfer_receive_body">ਪੈਸੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦਾ ਪਤਾ ਸਾਂਝਾ ਕਰੋ|</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">ਤੁਹਾਨੂੰ ਇੱਕ ਨਵਾਂ ਮੈਸਜ ਆਇਆ ਹੈ!</string>
   <string name="support_new_message_button">ਖੋਲ੍ਹਣ ਲਈ ਟੈਪ ਕਰੋ</string>
@@ -1395,6 +1399,12 @@
   <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
   <string name="mail_list_confirmation_email_button">Confirm email</string>
   <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <!-- Rebranding -->
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

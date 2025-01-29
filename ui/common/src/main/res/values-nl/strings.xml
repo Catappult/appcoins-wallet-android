@@ -541,6 +541,7 @@
   <string name="copied_to_clipboard">Naar klembord gekopieerd</string>
   <string name="topup_button">Opwaarderen</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">Betalingsmethode</string>
   <string name="credit_debit_card">Creditcard/betaalkaart</string>
   <string name="paypal">PayPal</string>
@@ -907,9 +908,10 @@
   <string name="remove_wallet_extra_confirmation_title">Weet je het zeker?</string>
   <string name="remove_wallet_extra_confirmation_body">Houd er rekening mee dat je saldo en bonusniveau verloren gaan als je geen back-up hebt.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Overschrijven</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Saldo overschrijven</string>
   <string name="transfer_send_tab_title">Verzend</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">Ontvangen</string>
   <string name="transfer_send_body">Wallet-adres van je vriend of vriendin scannen of invoeren.</string>
   <string name="transfer_send_recipient_title">Wallet-adres</string>
@@ -918,6 +920,8 @@
   <string name="transfer_send_current_balance_title">Huidige saldo:</string>
   <string name="transfer_send_button">Sturen</string>
   <string name="transfer_receive_body">Deel je wallet-adres om saldo te ontvangen.</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Je hebt een nieuw bericht!</string>
   <string name="support_new_message_button">Tik om te openen</string>
@@ -1395,6 +1399,12 @@
   <string name="mail_list_confirmation_email_body">Hallo!\n\nBedankt voor je aanmelding voor de AppCoins-mailinglijst. Bevestig je e-mailadres door op de onderstaande knop te klikken:</string>
   <string name="mail_list_confirmation_email_button">E-mailadres bevestigen</string>
   <string name="mail_list_confirmation_email_signature">Vriendelijke groet,\nHet AppCoins-team</string>
+  <!-- Rebranding -->
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
