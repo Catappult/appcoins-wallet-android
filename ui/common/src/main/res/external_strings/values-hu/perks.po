@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Hungarian\n"
 "Language: hu_HU\n"
-"PO-Revision-Date: 2025-01-29 14:52\n"
+"PO-Revision-Date: 2025-01-29 18:41\n"
 
 #. Card Title
 #:
@@ -125,10 +125,10 @@ msgstr "Élvezd ki a {0}% bónuszt minden vásárlás után."
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "Szerezz {0}% extra bónuszt minden egyszerű banki átutalással történő feltöltésnél."
 
 #. Payment Method - Title - Bank Transfer
 #:
 msgid "Easy bank transfer"
-msgstr ""
+msgstr "Egyszerű banki átutalás"
 
