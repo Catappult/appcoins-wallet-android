@@ -272,7 +272,7 @@
   <string name="discover_button">Découvrir</string>
   <string name="connection_error_title">Pas de connexion internet</string>
   <string name="connection_error_body">On dirait que vous n\'êtes pas connecté à Internet. Vérifiez votre connexion et réessayez !</string>
-  <string name="common_or">or</string>
+  <string name="common_or">ou</string>
   <string name="share_via">Partager via :</string>
   <string name="password">Mot de passe</string>
   <string name="repeat_password">Répéter le mot de passe</string>
@@ -301,12 +301,12 @@
   <string name="buy_button">Acheter</string>
   <string name="copied_to_clipboard">Copié dans le presse-papiers</string>
   <string name="topup_button">Recharger</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
-  <string name="payment_method">Payment method</string>
+  <string name="extra_bonus_title">Obtenir un bonus supplémentaire de  %s%%</string>
+  <string name="payment_method">Mode de paiement</string>
   <string name="credit_debit_card">Carte de crédit/débit</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Virement bancaire facile</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -330,10 +330,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Votre outil pour les achats in-app</string>
+  <string name="onboarding_bonus_title">Obtenez jusqu\'à %s%% de vos achats in-app en AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Utilisez la carte bancaire, PayPal et vos méthodes de paiement préférées.</string>
+  <string name="onboarding_vip_title">Devenez membre VIP pour bénéficier d’une assistance et d’offres premium.</string>
   <string name="terms_and_conditions">Termes et Conditions</string>
   <string name="privacy_policy">Politique de confidentialité</string>
   <string name="existent_wallet">J\'ai déjà un portefeuille</string>
@@ -359,9 +359,9 @@
   <string name="verification_verify_paypal_description">Une transaction minimale de %s sera effectuée pour confirmer votre compte. Elle sera remboursée immédiatement.</string>
   <string name="verification_settings_card_verified_title">Carte vérifiée</string>
   <string name="verification_error_attempts_reached">Il semble que vous ayez atteint la limite de tentatives. Veuillez patienter pour réessayer.</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Vérifié avec PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Vérifié avec la carte de crédit/débit.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Vérifié avec la carte de crédit/débit et PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Plus qu\'une étape !</string>
   <string name="paypal_verification_home_one_step_card_body">Saisissez le code envoyé à votre adresse électronique pour vérifier votre compte PayPal.</string>
@@ -421,18 +421,18 @@
   <string name="purchase_success_bonus_received_title">%s bonus reçu.</string>
   <string name="purchase_making_purchase_title">Faire des achats&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Avec ce mode de paiement, vous payez des frais de traitement et de la TVA.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Il y a eu un problème avec votre paiement. Veuillez réessayer ou utiliser une autre méthode de paiement.</string>
   <string name="purchase_error_no_method_available_body">Pour l\'instant, aucun moyen de paiement n\'est disponible pour effectuer cet achat dans votre région. Restez informé !</string>
   <string name="purchase_legal_disclaimer">En procédant au paiement, vous acceptez et consentez à ce que le contenu vous soit fourni contre paiement et vous perdez ainsi votre droit de rétractation.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Le bonus est en AppCoins Credits.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Cela peut prendre jusqu\'à %s jour.</item>
+    <item quantity="other">Cela peut prendre jusqu\'à %s jours.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_success_1">%s en AppCoins Credits seront déposés dans votre portefeuille.</string>
+  <string name="purchase_bank_transfer_success_2">Le traitement de votre banque peut prendre jusqu\'à 2 jours.</string>
+  <string name="purchase_bank_transfer_success_bonus">Vous recevrez un bonus de %s en AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Nous attendons l\'arrivée des fonds de votre banque.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -740,7 +740,7 @@
   <string name="vip_program_referral_button_title">Programme de parrainage VIP</string>
   <string name="vip_program_referral_button_body">%s%% de Bonus pour vous et vos amis.</string>
   <string name="vip_program_referral_page_title">Programme de parrainage VIP</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Partagez ce code avec vos amis et vous recevrez tous les deux un bonus de %s%% sur tous les achats qu\'ils effectueront.</string>
   <string name="vip_program_referral_page_share_title">Partagez ce code avec vos amis</string>
   <string name="vip_program_referral_page_only_app_title">Uniquement pour les achats sur</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s gagnés avec %3$s références</string>
@@ -749,7 +749,7 @@
   <string name="vip_program_referral_notification_title">Code de parrainage VIP disponible !</string>
   <string name="vip_program_referral_notification_body">Partagez votre code avec votre communauté pour tous gagner en jouant !</string>
   <string name="vip_program_title_vip_offer">Offre VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Vous ne pouvez pas utiliser votre propre code VIP. Partagez-le avec vos amis !</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Bienvenue sur AppCoins Wallet</string>
   <string name="intro_welcome_body">Rechargez votre portefeuille ou faites un achat dans n\'importe quelle application ou jeu compatible avec AppCoins.</string>
