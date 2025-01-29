@@ -541,6 +541,7 @@
   <string name="copied_to_clipboard">Panoya kopyalandı</string>
   <string name="topup_button">Yükle</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">Ödeme yöntemi</string>
   <string name="credit_debit_card">Kredi/banka kartı</string>
   <string name="paypal">PayPal</string>
@@ -907,9 +908,10 @@
   <string name="remove_wallet_extra_confirmation_title">Emin misin?</string>
   <string name="remove_wallet_extra_confirmation_body">Unutma, yedekleme olmazsa paranı ve bonus seviyeni kaybedebilirsin.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Transfer et</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Fon Transfer Et</string>
   <string name="transfer_send_tab_title">Gönder</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">Al</string>
   <string name="transfer_send_body">Arkadaşınızın cüzdan adresini tarayın veya girin.</string>
   <string name="transfer_send_recipient_title">Cüzdan Adresi</string>
@@ -918,6 +920,8 @@
   <string name="transfer_send_current_balance_title">Mevcut Bakiye:</string>
   <string name="transfer_send_button">Gönder</string>
   <string name="transfer_receive_body">Fon almak için cüzdan adresinizi paylaşın.</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Yeni bir mesajınız var!</string>
   <string name="support_new_message_button">Açmak için dokunun</string>
@@ -1395,6 +1399,13 @@
   <string name="mail_list_confirmation_email_body">Merhaba!\n\nAppCoins posta listesine katıldığın için teşekkürler. Lütfen aşağıdaki butona tıklayarak e-posta adresini doğrula:</string>
   <string name="mail_list_confirmation_email_button">E-postayı doğrula</string>
   <string name="mail_list_confirmation_email_signature">Teşekkürler,\nAppCoins Ekibi</string>
+  <!-- Rebranding -->
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

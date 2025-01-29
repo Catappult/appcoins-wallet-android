@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2024-09-24 14:04\n"
+"PO-Revision-Date: 2025-01-29 14:52\n"
 
 #. Card Title
 #:
@@ -121,4 +121,14 @@ msgstr "Yeni Özellik Mevcut"
 #:
 msgid "Enjoy {0}% bonus in every purchase."
 msgstr "Her satın alma işleminde {0}% bonusun tadını çıkar."
+
+#. Card - Title - Bank Transfer
+#:
+msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
+msgstr ""
+
+#. Payment Method - Title - Bank Transfer
+#:
+msgid "Easy bank transfer"
+msgstr ""
 

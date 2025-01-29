@@ -494,7 +494,7 @@
   <string name="do_it_later_button">Để sau</string>
   <string name="connection_error_title">Không có kết nối Internet</string>
   <string name="connection_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">hoặc</string>
   <string name="share_via">Chia sẻ qua:</string>
   <string name="password">Mật khẩu</string>
   <string name="repeat_password">Lặp lại mật khẩu</string>
@@ -532,20 +532,21 @@
   <string name="max">Tối đa</string>
   <string name="amount">Số tiền</string>
   <string name="total_title">Tổng cộng</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_payment_method_button">Thêm phương thức thanh toán</string>
+  <string name="change_payment_method_button">Thay đổi phương thức thanh toán</string>
   <string name="add_card_button">Thêm thẻ tín dụng / ghi nợ</string>
-  <string name="add_paypal_button">Add paypal</string>
-  <string name="add_gift_card_button">Add gift card</string>
+  <string name="add_paypal_button">Thêm paypal</string>
+  <string name="add_gift_card_button">Thêm thẻ quà tặng</string>
   <string name="buy_button">Mua</string>
   <string name="copied_to_clipboard">Đã sao chép vào khay nhớ tạm</string>
   <string name="topup_button">Nạp tiền</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Nhận thêm %s%% tiền thưởng</string>
+  <string name="aptoide_balance">Số dư Aptoide</string>
   <string name="payment_method">Phương thức thanh toán</string>
   <string name="credit_debit_card">Thẻ tín dụng/ghi nợ</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Chuyển khoản ngân hàng dễ dàng</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -569,10 +570,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Công cụ của bạn để thực hiện mua hàng trong ứng dụng</string>
+  <string name="onboarding_bonus_title">Nhận đến %s%% các giao dịch mua trong ứng dụng của bạn bằng AppCoins Credit.</string>
+  <string name="onboarding_payment_methods_title">Sử dụng thẻ ngân hàng, PayPal và phương thức thanh toán ưa thích của bạn.</string>
+  <string name="onboarding_vip_title">Trở thành thành viên VIP để nhận được hỗ trợ và các ưu đãi cao cấp.</string>
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
   <string name="terms_and_conditions">Điều khoản và Điều kiện</string>
@@ -630,9 +631,9 @@
   <string name="verified_tag">Đã xác minh</string>
   <string name="unferified_tag">Ví chưa xác minh</string>
   <string name="verification_wallets_verify_button">Xác minh</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Đã xác minh bằng PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Đã xác minh bằng thẻ tín dụng/thẻ ghi nợ.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Đã xác minh bằng thẻ tín dụng/thẻ ghi nợ và PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Một bước nữa thôi!</string>
   <string name="paypal_verification_home_one_step_card_body">Nhập mã được gửi đến địa chỉ email để xác minh tài khoản PayPal của bạn.</string>
@@ -720,7 +721,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Với phương thức thanh toán này, bạn sẽ phải trả phí xử lý và VAT.</string>
   <string name="purchase_fee_included_body">đã bao gồm phí</string>
   <string name="purchase_error_one_wallet_generic">Đã xảy ra sự cố với khoản thanh toán Wallet One của bạn. Vui lòng thử lại hoặc sử dụng phương thức thanh toán khác.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Đã xảy ra lỗi với thanh toán của bạn. Vui lòng thử lại hoặc sử dụng phương thức thanh toán khác.</string>
   <string name="purchase_payment_method_top_ups_only">Chỉ khả dụng để nạp tiền.</string>
   <string name="purchase_payment_method_minimum_amount">Chỉ dành cho các giao dịch mua trên %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Không khả dụng trong giao dịch mua này.</string>
@@ -728,23 +729,23 @@
   <string name="purchase_legal_disclaimer">Bằng cách tiếp tục thanh toán, bạn đồng ý và đồng thuận được cung cấp nội dung khi thanh toán và do đó mất quyền rút tiền.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Phần thưởng được tính bằng AppCoins Credits.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="other">Có thể mất đến %s ngày.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_disclaimer">Ngân hàng đang xử lý giao dịch của bạn và có thể mất đến 2 ngày. Nếu tất cả thông tin đều chính xác, %s bằng AppCoins Credit sẽ được gửi vào ví của bạn.</string>
+  <string name="purchase_bank_transfer_success_1">%s bằng AppCoins Credit sẽ được gửi vào ví của bạn.</string>
+  <string name="purchase_bank_transfer_success_2">Ngân hàng của bạn có thể mất đến 2 ngày để xử lý.</string>
+  <string name="purchase_bank_transfer_success_bonus">Bạn sẽ nhận được phần thưởng là %s bằng AppCoins Credit.</string>
   <string name="purchase_error_taking_long_body">Rất tiếc, việc này mất nhiều thời gian hơn bình thường...</string>
-  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transer_secure_body">Chuyển khoản an toàn trực tiếp từ ngân hàng của bạn.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Chúng tôi đang chờ tiền từ ngân hàng của bạn.</string>
   <!--New Purchase flow-->
-  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
-  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
-  <string name="purchase_subtotal">Subtotal</string>
-  <string name="purchase_taxes">Taxes</string>
-  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_bonus_title">Tiền thưởng: %s bằng AppCoins Credit</string>
+  <string name="purchase_use_appc_partially_body">Sử dụng AppCoins Credit của bạn để thanh toán - một phần hoặc toàn bộ. AppCoins Credit sẽ được áp dụng trước.</string>
+  <string name="purchase_subtotal">Tổng phụ</string>
+  <string name="purchase_taxes">Thuế</string>
+  <string name="purchase_using_appcoins_body">Sử dụng %s bằng AppCoins Credit</string>
   <string name="purchase_bonus_bot_available_body">Tiền thưởng không khả dụng với phương thức thanh toán này.</string>
-  <string name="purchase_promo_code_button">Do you have a promo code?</string>
+  <string name="purchase_promo_code_button">Bạn có mã khuyến mãi không?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>
@@ -905,9 +906,10 @@
   <string name="remove_wallet_extra_confirmation_title">Bạn chắc chứ?</string>
   <string name="remove_wallet_extra_confirmation_body">Hãy nhớ rằng nếu không có bản sao lưu, bạn sẽ mất tiền và mức thưởng.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Chuyển khoản</string>
+  <string name="transfer_bottom_navigation">Chuyển khoản</string>
   <string name="transfer_title">Chuyển khoản</string>
   <string name="transfer_send_tab_title">Gửi</string>
+  <string name="transfer_send_to_title">Gửi đến</string>
   <string name="transfer_receive_tab_title">Nhận</string>
   <string name="transfer_send_body">Quét hoặc nhập địa chỉ ví bạn bè của bạn.</string>
   <string name="transfer_send_recipient_title">Địa chỉ ví</string>
@@ -916,6 +918,8 @@
   <string name="transfer_send_current_balance_title">Số dư hiện tại:</string>
   <string name="transfer_send_button">Gửi</string>
   <string name="transfer_receive_body">Chia sẻ địa chỉ ví của bạn để nhận tiền.</string>
+  <string name="transfer_public_wallet_address_title">Địa chỉ ví công khai của tôi</string>
+  <string name="transfer_error_invalid_address">Địa chỉ ví không hợp lệ</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Bạn có một tin nhắn mới!</string>
   <string name="support_new_message_button">Nhấp để mở</string>
@@ -1285,7 +1289,7 @@
   <string name="vip_program_promo_code_tag">Mã khuyến mãi</string>
   <string name="vip_program_referral_page_title">Chương trình giới thiệu VIP</string>
   <string name="vip_program_referral_page_body">Chia sẻ mã khuyến mãi này với cộng đồng và bạn bè của bạn để mọi người cùng kiếm tiền khi chơi. Đối với mỗi lần mua hàng trong ứng dụng mà họ thực hiện, cả <b>bạn và bạn bè của bạn sẽ nhận được %1$s%% tiền thưởng</b> cùng với các chương trình khuyến mãi khác. <b>Có hiệu lực đến %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Chia sẻ mã này với bạn bè và cả hai bạn sẽ nhận được %s%% tiền thưởng trong mọi giao dịch mua hàng của họ.</string>
   <string name="vip_program_referral_page_share_title">Chia sẻ mã này với bạn bè của mình</string>
   <string name="vip_program_referral_page_only_app_title">Chỉ dành cho mua hàng trên</string>
   <string name="vip_program_referral_page_earned_body">Nhận được %1$s%2$s từ %3$s giới thiệu</string>
@@ -1298,7 +1302,7 @@
   <string name="vip_program_referral_notification_title">Mã giới thiệu VIP khả dụng!</string>
   <string name="vip_program_referral_notification_body">Chia sẻ mã với cộng đồng để tất cả các bạn đều nhận được tiền khi chơi!</string>
   <string name="vip_program_title_vip_offer">Ưu đãi VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Bạn không thể sử dụng mã VIP của riêng mình. Hãy chia sẻ với bạn bè!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Chào mừng bạn đến với Ví AppCoins</string>
   <string name="intro_welcome_body">Nạp tiền vào ví của bạn hoặc mua hàng trong bất kỳ ứng dụng hoặc trò chơi nào tương thích với AppCoins.</string>
@@ -1381,6 +1385,13 @@
   <string name="mail_list_confirmation_email_body">Xin chào!\n\nCảm ơn bạn đã tham gia danh sách gửi thư của AppCoins. Vui lòng xác nhận địa chỉ email của mình bằng cách nhấp vào nút bên dưới:</string>
   <string name="mail_list_confirmation_email_button">Xác nhận email</string>
   <string name="mail_list_confirmation_email_signature">Chúc mừng,\nĐội ngũ AppCoins</string>
+  <!-- Rebranding -->
+  <string name="rebranding_disclaimer_short_title">Ví AppCoins sẽ sớm trở thành Ví Aptoide!</string>
+  <string name="rebranding_disclaimer_long_title">Ví AppCoins sắp trở thành Ví Aptoide!</string>
+  <string name="rebranding_disclaimer_shortest_title">Chúng tôi đang trở thành Ví Aptoide!</string>
+  <string name="rebranding_disclaimer_long_body"> Chúng tôi đang thực hiện một cuộc tái thiết kế đầy thú vị cho thương hiệu và cảm xúc của mình. Hãy theo dõi để khám phá các tính năng và phần thưởng yêu thích của bạn với hình ảnh hoàn toàn mới!</string>
+  <string name="rebranding_post_title">Ví AppCoins hiện là Ví Aptoide!</string>
+  <string name="rebrandinh_post_body">Khám phá các tính năng và phần thưởng yêu thích của bạn với hình ảnh hoàn toàn mới. Chúng tôi hy vọng bạn thích nó!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

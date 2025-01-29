@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Vietnamese\n"
 "Language: vi_VN\n"
-"PO-Revision-Date: 2024-09-24 14:05\n"
+"PO-Revision-Date: 2025-01-29 17:26\n"
 
 #. Card Title
 #:
@@ -121,4 +121,14 @@ msgstr "Đặc quyền mới khả dụng"
 #:
 msgid "Enjoy {0}% bonus in every purchase."
 msgstr "Tận hưởng {0}% tiền thưởng trong mỗi lần mua."
+
+#. Card - Title - Bank Transfer
+#:
+msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
+msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các lần nạp tiền bằng chuyển khoản ngân hàng dễ dàng."
+
+#. Payment Method - Title - Bank Transfer
+#:
+msgid "Easy bank transfer"
+msgstr "Chuyển khoản ngân hàng dễ dàng"
 
