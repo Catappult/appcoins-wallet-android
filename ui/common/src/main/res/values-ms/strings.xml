@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Dompet AppCoins</string>
+  <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">Hantar %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">Dompet Saya</string>
@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">FAQ</string>
   <string name="low_storage_error">Tidak cukup ruang simpanan</string>
-  <string name="no_camera_permission">AppCoins BDS Wallet memerlukan kebenaran untuk mengakses kamera anda untuk mengimbas kod QR.</string>
+  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
   <string name="no_camera_available">Tiada kamera!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format kod bar tidak sah: %s</string>
@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">Buka kunci skrin</string>
   <string name="unlock_screen_prompt_android">Sila buka kunci peranti Android anda untuk teruskan.</string>
   <string name="root_title">KESELAMATAN PERANTI TERJEJAS</string>
-  <string name="root_body">Sebarang aplikasi yang di\'root\' boleh mengakses data rantaian kunci Appcoins Wallet dan mencuri dompet anda! Hapuskan dompet ini dengan segera dan tetapkan ia semula pada peranti yang selamat.</string>
+  <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
   <string name="action_buy">Beli</string>
   <string name="empty"></string>
   <string name="try_again">Cuba lagi</string>
@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">Kod QR tidak mengandungi alamat yang sah</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">Dompet dicipta!</string>
-  <string name="intro_agree_terms_and_conditions_body">Dengan memasuki Dompet AppCoins, anda setuju dengan %1$s dan %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_get_started_button">Lancarkan dompet</string>
   <!-- New Intro -->
   <!-- Intro from game -->
@@ -114,7 +114,7 @@
   <string name="error_already_added">Sudah ditambah</string>
   <string name="error_export">Gagal mengeksport dompet</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">Kami mengembangkan projek Trust Wallet for Android untuk memacu pembangunan dompet AppCoins. Kami menganggap ia sebagai alternatif terbaik dengan mempertimbangkan fungsi-fungsi yang telah dilaksanakan. Kami mengembangkannya dengan harapan agar perlaksanaannya dapat memberikan manfaat dan hasil yang dinilai sebagai relevan.</string>
+  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transaksi sedang berlangsung</string>
   <string name="activity_aib_loading_message">Ini akan mengambil masa sebentar…</string>
@@ -205,29 +205,29 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Beli Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s dalam Kredit AppCoins</string>
+  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
   <string name="gamification_purchase_body">Anda boleh gunakan bonus ini dalam pembelian anda yang seterusnya.</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Diterima</string>
   <string name="gamification_leveled_up_notification_body">Tahniah! Kini anda akan dapat %s bonus bagi setiap pembelian!</string>
   <string name="gamification_how_max_level_notification_title">Anda Berjaya!</string>
   <string name="gamification_how_max_level_body">Anda telah capai tahap tertinggi: Bonus %s bagi setiap pembelian!</string>
   <string name="gamification_level_up_notification_title">Sikit lagi!</string>
-  <string name="gamification_level_up_notification_body">Belanja sebanyak %s AppCoins untuk capai tahap seterusnya.</string>
-  <string name="gamification_bonus_plus_perk_body">Nikmati %1$s bonus dan %2$s ekstra Kredit AppCoins.</string>
+  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk berikan alamat dompet anda kepada %s.</string>
+  <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_always_allow_button">Sentiasa izin</string>
   <string name="provide_wallet_allow_once_button">Izin sekali</string>
-  <string name="provide_wallet_create_body">Anda perlukan alamat dompet! Ikuti langkah-langkh ini untuk menciptanya dalam Dompet AppCoins.</string>
+  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the Aptoide Wallet.</string>
   <string name="provide_wallet_create_wallet_button">Cipta</string>
   <string name="provide_wallet_creating_wallet_header">Menyediakan dompet anda&#8230;</string>
   <string name="provide_wallet_created_header">Alamat dompet dicipta!</string>
-  <string name="provide_wallet_empty_state">Anda belum izinkan Dompet AppCoins untuk berikan alamat anda kepada mana-mana aplikasi.</string>
+  <string name="provide_wallet_empty_state">You haven\'t allowed Aptoide Wallet to provide your address to any other app yet.</string>
   <string name="provide_wallet_status">Izinkan akses kepada alamat dompet</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">Tambah Nilai</string>
-  <string name="topup_completed_1">%s dalam Kredit AppCoins</string>
+  <string name="topup_completed_1">%s in Aptoide balance</string>
   <string name="topup_completed_2_with_bonus">telah didepositkan ke akaun anda... Dengan bonus sekali!</string>
   <string name="topup_completed_2_without_bonus">telah dimasukkan ke akaun anda.</string>
   <string name="topup_minimum_value">Tambah nilai minimum ialah %s</string>
@@ -238,7 +238,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">Ethereum ialah mata wang kripto yang digunakan dalam AppCoins. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga, ia sangat popular!</string>
   <string name="balance_appcoins_body">AppCoins ialah mata wang kripto untuk ekonomi aplikasi. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga dan menggunakannya untuk membeli item dalam aplikasi.</string>
-  <string name="balance_appccreditos_body">Token untuk membeli item dalam aplikasi! Tambah nilai Kredit AppCoins daripada dompet anda atau dapatkannya secara percuma dengan menggunakan aplikasi. Ia juga boleh dipindahkan antara rakan!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">Dompet baru</string>
   <string name="my_wallets_action_recover_wallet">Dapatkan semula dompet</string>
   <string name="my_wallets_action_backup_wallet">Dompet sandaran</string>
@@ -260,6 +260,7 @@
   <string name="p2p_send_current_balance_message">Baki semasa: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Dana tidak cukup</string>
   <string name="p2p_send_confirmation_header">Butiran Pindahan</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Oops</string>
   <string name="error_general">Sesuatu tidak kena</string>
@@ -305,7 +306,7 @@
   <string name="payment_method">Kaedah pembayaran</string>
   <string name="credit_debit_card">Kad kredit/debit</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Kredit AppCoins</string>
+  <string name="appc">Aptoide balance</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -331,7 +332,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
+  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
   <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
   <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
   <string name="terms_and_conditions">Terma dan Syarat</string>
@@ -340,6 +341,7 @@
   <string name="onboarding_verification_body">Sahkan kaedah pembayaran anda untuk selesaikan pembelian anda.</string>
   <!--Home-->
   <!--Tokens-->
+  <string name="aptoide_balance_name">Aptoide balance</string>
   <!--Settings-->
   <string name="title_redeem">Tebus Kad Hadiah</string>
   <string name="settings_item_support">Hubungi Pasukan Sokongan</string>
@@ -376,16 +378,16 @@
   <string name="purchase_appcoins_noavailable_body">Anda tidak mempunyai AppCoins atau Ether yang cukup untuk pembelian ini.</string>
   <string name="purchase_no_eth_body">Anda tidak cukup ETH untuk bayar gas.</string>
   <string name="purchase_no_appcoins_body">Anda tidak cukup AppCoins untuk lengkapkan pembelian ini.</string>
-  <string name="purchase_appcoins_credits_noavailable_body">Anda tidak cukup Kredit AppCoins, cuba tambah nilai!</string>
-  <string name="purchase_appcoins_credits_default_body">Anda telah memperoleh Kredit AppCoins yang cukup untuk pembelian ini. Berseronoklah!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">Peroleh dana dengan mencuba aplikasi</string>
   <string name="purchase_poa_view_title">Tak Ada Dana? Jangan Risau!</string>
-  <string name="purchase_poa_view_body">Cuba aplikasi selama 2 minit dan dapatkan ganjaran Kredit AppCoins untuk buat pembelian!</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
   <string name="purchase_current_balance_body">Baki semasa:</string>
-  <string name="purchase_current_balance_appcc_body">%s dalam Kredit AppCoins.</string>
+  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
   <string name="purchase_current_balance_appc_eth_body">%s dalam AppCoins dan Ether.</string>
-  <string name="purchase_wallet_blocked_title">Baki Kredit AppCoins anda disekat</string>
-  <string name="purchase_wallet_blocked_body">Disebabkan sejarah transaksi yang luar biasa, baki Kredit AppCoins anda telah disekat. Anda masih boleh membuat bayaran dan transaksi menggunakan kaedah lain kecuali Kredit AppCoins.\n\nJika anda percaya bahawa ini ialah kesilapan, hubungi kami di:</string>
+  <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
+  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
   <string name="purchase_card_error_general_1">Ada masalah dengan kad anda. Sila cuba semula dengan kad atau kaedah pembayaran lain.</string>
   <string name="purchase_card_error_general_2">Transaksi telah ditolak oleh bank anda. Sila cuba semula dengan kad atau kaedah pembayaran lain.</string>
   <string name="purchase_card_error_no_funds">Nampaknya dana anda tidak cukup atau ada had pada kad anda. Sila cuba semula dengan kad atau kaedah pembayaran lain.</string>
@@ -424,31 +426,31 @@
   <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_error_no_method_available_body">Pada masa ini, belum ada kaedah bayaran yang tersedia untuk lengkapkan pembelian ini di rantau anda. Terus ikuti perkembangan!</string>
   <string name="purchase_legal_disclaimer">Dengan teruskan bayaran, anda bersetuju dan mengizinkan supaya kandungan diberikan setelah pembayaran dibuat dan setelah itu, hilang hak untuk tarik diri.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">Bonus dalam Kredit AppCoins.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
     <item quantity="other">It may take up to %s days.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
   <string name="async_steps_title">Langkah Seterusnya</string>
   <string name="async_steps_1_no_notification">Lengkapkan pembayaran anda dengan %s.</string>
-  <string name="async_steps_2_no_notification">Setelah anda terima Kredit AppCoins, kembali ke permainan dan buat pembelian menggunakan Kredit AppCoins sebagai kaedah pembayaran.</string>
-  <string name="async_steps_2_toptup_no_notification">Setelah anda terima Kredit AppCoins, gunakan ia untuk buat pembelian dalam permainan kegemaran anda!</string>
+  <string name="async_steps_2_no_notification">Once you receive the Aptoide balance, go back to the game and make the purchase using Aptoide balance as a payment method.</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide balance, use it to make purchases in your favorite games!</string>
   <!--Referral Program-->
   <string name="referral_verification_title">Sahkan Kaedah Bayaran</string>
   <string name="referral_view_verify_button">Sahkan kaedah bayaran</string>
   <!--Promotions-->
   <!--Update-->
   <string name="update_wallet_purchase_title">Anda perlu kemas kini!</string>
-  <string name="update_wallet_purchase_body">Kemas kini Dompet AppCoins untuk lengkapkan pembelian ini.</string>
-  <string name="update_wallet_hard_body">Nampaknya, anda menggunakan versi Dompet AppCoins yang lama. Sila kemas kini untuk menikmati pengalaman dan keselamatan terbaik.</string>
+  <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
+  <string name="update_wallet_hard_body">It seems you\'re using an old version of the Aptoide Wallet. Please update it to guarantee the best experience and security.</string>
   <string name="update_wallet_soft_title">Jangan ketinggalan!</string>
-  <string name="update_wallet_soft_body">Memastikan Dompet AppCoins sentiasa dikemas kini menjamin pengalaman terbaik.</string>
+  <string name="update_wallet_soft_body">Keeping the Aptoide Wallet updated guarantees the best experience.</string>
   <string name="update_button">Kemas kini</string>
   <string name="update_backup_title">Jangan hilang dana anda!</string>
   <string name="update_backup_body">Sandarkan dompet anda sebelum kemas kini.</string>
@@ -538,7 +540,7 @@
   <string name="subscriptions_details_cancelled_body">Dibatalkan - Luput pada %s</string>
   <string name="subscriptions_expiration_body">Luput pada %s</string>
   <string name="subscriptions_canceled_body">Dibatalkan</string>
-  <string name="subscriptions_details_disclaimer">Nilai dalam AppCoins mungkin berubah pada pembayaran seterusnya kerana kadar pertukaran wang.</string>
+  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
   <string name="subscriptions_manage_button">Urus langganan</string>
   <string name="subscriptions_cancel_button">Batal langganan</string>
   <string name="subscriptions_renew_subscription_button">Baharui langganan</string>
@@ -564,13 +566,13 @@
   <string name="gamif_spent">Jumlah dibelanjakan untuk capai tahap ini</string>
   <string name="gamif_show_previous">Papar pencapaian terdahulu</string>
   <string name="gamif_hide_previous">Sorok pencapaian terdahulu</string>
-  <string name="gamif_next_goals">Belanja %s AppCoins untuk capai tahap seterusnya</string>
+  <string name="gamif_next_goals">Spend %s to reach next level</string>
   <string name="gamif_achievement_start">Pengembaraan anda bermula</string>
   <string name="gamif_achievement_start_sub">Anda telah berlepas dari Bumi!</string>
   <string name="gamif_achievement_reach">Anda sudah tiba di %s</string>
   <string name="gamif_card_start">Anda masih di Bumi</string>
   <string name="gamif_card_title">Anda berada di %s</string>
-  <string name="gamif_card_body">Belanja sebanyak %s AppCoins untuk capai tahap seterusnya.</string>
+  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
   <string name="gamif_bonus">Bonus %s%%</string>
   <string name="gamif_quote_earth">\"Dunia ini satu-satunya tempat yang kita miliki bersama\" – Wendell Berry</string>
   <string name="gamif_placeholder_moon">Bulan</string>
@@ -634,8 +636,8 @@
   <string name="perks_title">Promosi</string>
   <string name="promotion_ends_short_title">Promosi tamat dalam masa</string>
   <string name="perks_available_soon_short">Akan tersedia</string>
-  <string name="perks_notification">Anda baru saja terima %s Kredit AppCoins sebagai Bonus</string>
-  <string name="perks_purchases_disclaimer_body">Semua pembelian dan tambah nilai yang dibuat dengan sebarang kaedah bayaran selain Kredit AppCoins akan melayakkan anda untuk meningkatkan tahap anda dan menerima ganjaran.</string>
+  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Kunci Biometrik</string>
   <string name="fingerprint_failed_title">Pengesahan gagal!</string>
@@ -644,7 +646,7 @@
   <string name="fingerprint_authentication_required_body">Sila gunakan jari atau kata laluan anda untuk teruskan.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Seronok guna Dompet AppCoins?</string>
+  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
   <string name="rate_us_no">Tak sangat</string>
   <string name="rate_us_yes">Ya!</string>
   <string name="rate_us_improve_title">Apa yang boleh kami baiki?</string>
@@ -652,10 +654,10 @@
   <string name="rate_us_improve_field__empty_error">Tulis sesuatu</string>
   <string name="rate_us_possitive_thanks_title">Terima kasih!</string>
   <string name="rate_us_possitive_thanks_body">Kami berbesar hati anda suka dengan aplikasi kami. Boleh bantu kami dengan beri rating di gedung aplikasi?</string>
-  <string name="rate_us_possitive_rate_button">Nilai Dompet AppCoins</string>
+  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
   <string name="rate_us_possitive_done_title">Terima kasih atas maklum balas anda!</string>
   <string name="rate_us_back_title">Nak bantu kami?</string>
-  <string name="rate_us_back_body">Nilai Dompet AppCoins di gedung aplikasi supaya kami boleh tambah baik.</string>
+  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">Semak kod pada butiran transaksi</string>
   <string name="card_verification_code_body">Kod unik akan terpapar pada rumusan transaksi yang disediakan oleh pengeluar kad anda.</string>
@@ -706,7 +708,6 @@
   <string name="promo_code_success_body_specific_app">Anda akan dapat bonus ekstra sebanyak %1$s%% bagi semua pembelian dalam %2$s.</string>
   <string name="promo_code_error_not_available">Kod promo ini tidak lagi tersedia.</string>
   <string name="promo_code_error_invalid_user">Alamak! Kod ini tidak boleh digunakan.</string>
-  <!--AppCoins Info Page-->
   <!-- Gift Card -->
   <string name="gift_card_title">Tebus kod kad hadiah anda.</string>
   <string name="gift_card_field">Kod kad di sini...</string>
@@ -722,7 +723,7 @@
   <string name="mywallet_backup_again_button">Sandar semula</string>
   <string name="mywallet_choose_name_field">Nama dompet di sini...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Tahniah! Anda sudah pasang Dompet AppCoins.</string>
+  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
   <string name="onboarding_1st_body">Kembali ke permainan untuk lengkapkan pembelian anda.</string>
   <string name="onboarding_1st_back_to_game_button">Kembali ke permainan</string>
   <string name="onboarding_1st_explore_wallet_button">Atau terokai Dompet</string>
@@ -748,8 +749,8 @@
   <string name="vip_program_title_vip_offer">Tawaran VIP</string>
   <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Selamat datang ke Dompet AppCoins</string>
-  <string name="intro_welcome_body">Tambah nilai dompet anda atau buat pembelian dalam aplikasi atau permainan yang serasi dengan AppCoins.</string>
+  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
   <string name="intro_active_promotions_header">Promosi Aktif</string>
   <string name="topup_home_button">Tambah Nilai</string>
   <string name="intro_home_button">Utama</string>
@@ -773,9 +774,9 @@
   <string name="rewards_promo_code_card_body">Gunakan kod promo untuk dapat tawaran istimewa!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktif</string>
-  <string name="home_appcoins_compatible_games_title">Permainan Serasi AppCoins</string>
+  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Buat pembelian pertama anda dalam permainan serasi AppCoins dan dapatkan bonus bagi setiap pembelian.</string>
+  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
   <string name="rewards_bonus_every_purchase_title">Bonus %s%% untuk setiap pembelian</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">Urus Dompet</string>
@@ -791,15 +792,21 @@
   <string name="verify_card_view_title_2">Masukkan butiran kad bank anda</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Ganjaran Cabaran</string>
-  <string name="challenge_reward_card_body">Selesaikan cabaran untuk dapat Kredit AppCoins.</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Nikmati %s berbentuk Kredit AppCoins dalam dompet anda</string>
+  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">Ikuti Kami!</string>
   <string name="mail_list_card_body">Sertai senarai mel kami untuk dapat kemas kini eksklusif dan peluang menangi kad hadiah.</string>
   <string name="mail_list_card_confirmation_title">Sahkan E-mel Anda</string>
   <string name="mail_list_card_confirmation_body">Kami telah hantar e-mel ke %s</string>
   <!-- Rebranding -->
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
