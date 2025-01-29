@@ -2,14 +2,14 @@
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
   <string name="iab_wallet_not_installed_popup_body">Para comprar este item, você primeiro precisa obter a %s.</string>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="appcoins_wallet">Aptoide Wallet</string>
   <string name="iab_wallet_not_installed_popup_close_button">FECHAR</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">Você precisa da AppCoins Wallet para fazer esta compra. Faça o download na Aptoide ou na Play Store e retorne para completar sua compra!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the Aptoide Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
   <string name="iap_wallet_and_appstore_not_installed_popup_button">ENTENDI!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">Você precisa da AppCoins Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">Para receber recompensas, você precisa da AppCoins Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">You need the Aptoide Wallet!</string>
+  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the Aptoide Wallet.</string>
   <!-- SDK - Pay as a guest-->
   <string name="iab_pay_as_guest_title">Pagar como convidado</string>
   <string name="iab_pay_as_guest_credit_card">Cartão de Crédito</string>
@@ -21,14 +21,14 @@
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">ALTERAR CARTÃO</string>
-  <string name="iab_pay_with_wallet_title">Pagar com a AppCoins Wallet</string>
+  <string name="iab_pay_with_wallet_title">Pay with the Aptoide Wallet</string>
   <string name="iab_pay_with_wallet_reward_title">Receba até %s%% de Bônus!</string>
   <string name="iab_pay_with_wallet_reward_body">Você receberá %s nesta compra.</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">Você receberá um Bônus nesta compra.</string>
   <string name="iab_best_deal">MELHOR NEGÓCIO</string>
   <string name="iab_purchase_done_title">PRONTO!</string>
-  <string name="iab_purchase_done_reward_title">Na próxima vez, receba até %s%% de Bônus com a AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Na próxima vez, ganhe um Bônus com a AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% bonus with the Aptoide Wallet!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a bonus with the Aptoide Wallet!</string>
   <string name="iab_purchase_done_reward_body">Você deixou de receber %s nesta compra.</string>
   <string name="iab_purchase_done_title_long">Compra concluída!</string>
   <string name="iab_purchase_change_payment_method_button">OUTROS MÉTODOS DE PAGAMENTO</string>
