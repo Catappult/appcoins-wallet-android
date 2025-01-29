@@ -4,13 +4,13 @@ msgstr ""
 "X-Crowdin-Project: appcoins\n"
 "X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: pt-BR\n"
-"X-Crowdin-File: /[Catappult.appcoins-wallet-android] dev/ui/common/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 14253\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] feature.remove-unused-resources/ui/common/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 15556\n"
 "Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2024-09-24 14:05\n"
+"PO-Revision-Date: 2025-01-27 20:41\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Porque você passou de nível."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Receba um Bônus extra de {0}% em todas as suas compras em {1}, exceto quando utilizar Créditos AppCoins."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
