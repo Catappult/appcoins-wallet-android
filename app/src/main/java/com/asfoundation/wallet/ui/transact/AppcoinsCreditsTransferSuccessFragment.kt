@@ -61,7 +61,7 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
     val amount = getSerializableExtra<BigDecimal>(AMOUNT_SENT_KEY)!!
     val currency = requireArguments().getString(CURRENCY_KEY)!!
     val toAddress = requireArguments().getString(TO_ADDRESS_KEY)!!
-    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     presenter = AppcoinsCreditsTransactSuccessPresenter(
       view = this,
       amount = amount,
