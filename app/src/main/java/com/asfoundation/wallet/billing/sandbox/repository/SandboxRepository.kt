@@ -2,7 +2,6 @@ package com.asfoundation.wallet.billing.sandbox.repository
 
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.broker.SandboxApi
 import com.appcoins.wallet.core.network.microservices.model.SandboxPayment
@@ -19,66 +18,68 @@ class SandboxRepository @Inject constructor(
   private val brokerBdsApi: BrokerBdsApi,
   private val adyenResponseMapper: AdyenResponseMapper,
   private val logger: Logger,
-  private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
-
-  ) {
+) {
 
   fun createTransaction(
     value: String,
-    currency: String, reference: String?, walletAddress: String,
-    origin: String?, packageName: String?, metadata: String?, sku: String?,
-    callbackUrl: String?, transactionType: String, developerWallet: String?,
-    entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
+    currency: String,
+    reference: String?,
+    walletAddress: String,
+    origin: String?,
+    packageName: String?,
+    metadata: String?,
+    sku: String?,
+    callbackUrl: String?,
+    transactionType: String,
+    entityOemId: String?,
+    entityDomain: String?,
+    entityPromoCode: String?,
     userWallet: String?,
     referrerUrl: String?,
     guestWalletId: String?
-  ): Single<SandboxTransaction> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMap { ewt ->
-        sandboxApi.createTransaction(
-          walletAddress = walletAddress,
-          authorization = ewt,
-          sandboxPayment = SandboxPayment(
-            callbackUrl = callbackUrl,
-            domain = packageName,
-            metadata = metadata,
-            origin = origin,
-            sku = sku,
-            reference = reference,
-            type = transactionType,
-            currency = currency,
-            value = value,
-            entityOemId = entityOemId,
-            entityDomain = entityDomain,
-            entityPromoCode = entityPromoCode,
-            user = userWallet,
-            referrerUrl = referrerUrl,
-            guestWalletId = guestWalletId
-          )
+  ): Single<SandboxTransaction> =
+    sandboxApi.createTransaction(
+      walletAddress = walletAddress,
+      sandboxPayment = SandboxPayment(
+        callbackUrl = callbackUrl,
+        domain = packageName,
+        metadata = metadata,
+        origin = origin,
+        sku = sku,
+        reference = reference,
+        type = transactionType,
+        currency = currency,
+        value = value,
+        entityOemId = entityOemId,
+        entityDomain = entityDomain,
+        entityPromoCode = entityPromoCode,
+        user = userWallet,
+        referrerUrl = referrerUrl,
+        guestWalletId = guestWalletId
+      )
+    )
+      .subscribeOn(rxSchedulers.io)
+      .map { response: SandboxResponse ->
+        SandboxTransaction(
+          uid = response.uid,
+          hash = response.hash,
+          status = response.status,
+          validity = response.mapValidity()
         )
-          .map { response: SandboxResponse ->
-            SandboxTransaction(
-              response.uid,
-              response.hash,
-              response.status,
-              response.mapValidity()
-            )
-          }
-          .onErrorReturn {
-            val httpException = (it as? HttpException)
-            val errorCode = httpException?.code()
-            val errorContent = httpException?.response()?.errorBody()?.string()
-            handleCreateTransactionErrorCodes(errorCode, errorContent)
-          }
       }
-  }
+      .onErrorReturn {
+        val httpException = (it as? HttpException)
+        val errorCode = httpException?.code()
+        val errorContent = httpException?.response()?.errorBody()?.string()
+        handleCreateTransactionErrorCodes(errorCode, errorContent)
+      }
 
   fun getTransaction(
     uid: String, walletAddress: String,
     signedWalletAddress: String
-  ): Single<PaymentModel> {
-    return brokerBdsApi.getAppcoinsTransaction(
+  ): Single<PaymentModel> =
+    brokerBdsApi.getAppcoinsTransaction(
       uId = uid,
       walletAddress = walletAddress,
       walletSignature = signedWalletAddress
@@ -88,7 +89,6 @@ class SandboxRepository @Inject constructor(
         logger.log("AdyenPaymentRepository", it)
         adyenResponseMapper.mapPaymentModelError(it)
       }
-  }
 
   private fun handleCreateTransactionErrorCodes(
     errorCode: Int?,
@@ -99,13 +99,12 @@ class SandboxRepository @Inject constructor(
       else -> SandboxTransaction.SandboxValidityState.ERROR
     }
     return SandboxTransaction(
-      null,
-      null,
-      null,
-      validity,
-      errorCode.toString(),
-      errorContent ?: ""
+      uid = null,
+      hash = null,
+      status = null,
+      validity = validity,
+      errorCode = errorCode.toString(),
+      errorMessage = errorContent ?: ""
     )
   }
-
 }

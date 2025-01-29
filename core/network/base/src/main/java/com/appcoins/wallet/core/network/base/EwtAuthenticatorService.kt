@@ -30,6 +30,11 @@ class EwtAuthenticatorService(
       .map { wallet -> getEwtAuthentication(wallet) }
   }
 
+  fun getSessionEndDate(): Long? {
+    val address = walletRepository.getDefaultWalletAddress()
+    return cachedAuth[address]?.second
+  }
+
   fun getEwtAuthenticationWithAddress(address: String): Single<String> {
     return Single.just(getEwtAuthentication(address))
   }
@@ -50,7 +55,8 @@ class EwtAuthenticatorService(
 
   @Synchronized
   fun getNewEwtAuthentication(address: String): String {
-    val currentUnixTime = System.currentTimeMillis() / 1000L
+    val currentTime = System.currentTimeMillis()
+    val currentUnixTime = currentTime / 1000L
     val ewtString = buildEwtString(address, currentUnixTime)
     cachedAuth[address] = Pair(ewtString, currentUnixTime + TTL_IN_SECONDS)
     return ewtString
@@ -73,6 +79,7 @@ class EwtAuthenticatorService(
     val payload = replaceInvalidCharacters(getPayload(address, currentUnixTime))
     val signedContent = Single.just(address)
       .flatMap { wallet -> getPrivateKeyUseCase(wallet).map { signUseCase(payload, it) } }
+      .onErrorReturn { "" }
       .blockingGet()
     return "Bearer $header.$payload.$signedContent".replace("[\n\r]", "")
   }

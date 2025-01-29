@@ -10,33 +10,27 @@ interface AdyenApi {
   @POST("8.20241204/gateways/adyen_v2/transactions")
   fun makeAdyenPayment(
     @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
     @Body payment: PaymentDetails
   ): Single<AdyenTransactionResponse>
 
   @GET("8.20230501/gateways/adyen_v2/payment-methods")
   fun loadPaymentInfo(
     @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
     @Query("price.value") value: String,
     @Query("price.currency") currency: String,
     @Query("method") methods: String
   ): Single<PaymentMethodsResponse>
 
-
   @GET("8.20240524/gateways/adyen_v2/transactions/{uid}")
   fun getTransaction(
     @Path("uid") uid: String,
     @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String
   ): Single<TransactionResponse>
-
 
   @Headers("Content-Type: application/json;format=product_token")
   @POST("8.20240524/gateways/adyen_v2/transactions")
   fun makeTokenPayment(
     @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
     @Body payment: TokenPayment
   ): Single<AdyenTransactionResponse>
 
@@ -44,7 +38,6 @@ interface AdyenApi {
   fun submitRedirect(
     @Path("uid") uid: String,
     @Query("wallet.address") address: String,
-    @Header("authorization") authorization: String,
     @Body payment: AdyenPayment
   ): Single<AdyenTransactionResponse>
 

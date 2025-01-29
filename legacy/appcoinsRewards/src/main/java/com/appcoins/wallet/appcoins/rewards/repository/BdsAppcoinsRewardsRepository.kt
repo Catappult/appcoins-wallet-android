@@ -6,34 +6,65 @@ import io.reactivex.Single
 import retrofit2.HttpException
 import java.math.BigDecimal
 
-class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepository) :
-  AppcoinsRewardsRepository {
+class BdsAppcoinsRewardsRepository(
+  private val remoteRepository: RemoteRepository
+) : AppcoinsRewardsRepository {
+
   override fun sendCredits(
-    toAddress: String, walletAddress: String, signature: String,
+    toAddress: String,
+    walletAddress: String,
+    signature: String,
     amount: BigDecimal,
-    origin: String, type: String,
+    origin: String,
+    type: String,
     packageName: String,
     guestWalletId: String?
   ): Single<Pair<AppcoinsRewardsRepository.Status, Transaction>> {
     return remoteRepository.sendCredits(
-      toAddress, walletAddress, signature, amount, origin, type,
-      packageName, guestWalletId
+      toWallet = toAddress,
+      walletAddress = walletAddress,
+      amount = amount,
+      origin = origin,
+      type = type,
+      packageName = packageName,
+      guestWalletId = guestWalletId
     )
       .map { Pair(AppcoinsRewardsRepository.Status.SUCCESS, it) }
       .onErrorReturn { Pair(map(it), Transaction.notFound()) }
   }
 
   override fun pay(
-    walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
-    sku: String?, type: String, entityOemId: String?,
-    entityDomain: String?, packageName: String, payload: String?, callback: String?,
-    orderReference: String?, referrerUrl: String?, productToken: String?, guestWalletId: String?
-  )
-      : Single<Transaction> {
+    walletAddress: String,
+    signature: String,
+    amount: BigDecimal,
+    origin: String?,
+    sku: String?,
+    type: String,
+    entityOemId: String?,
+    entityDomain: String?,
+    packageName: String,
+    payload: String?,
+    callback: String?,
+    orderReference: String?,
+    referrerUrl: String?,
+    productToken: String?,
+    guestWalletId: String?
+  ): Single<Transaction> {
     return remoteRepository.pay(
-      walletAddress, signature, amount, origin, sku,
-      type, entityOemId, entityDomain, packageName, payload, callback,
-      orderReference, referrerUrl, productToken, guestWalletId
+      walletAddress = walletAddress,
+      signature = signature,
+      amount = amount,
+      origin = origin,
+      sku = sku,
+      type = type,
+      entityOemId = entityOemId,
+      entityDomain = entityDomain,
+      packageName = packageName,
+      payload = payload,
+      callback = callback,
+      orderReference = orderReference,
+      referrerUrl = referrerUrl,
+      guestWalletId = guestWalletId
     )
   }
 

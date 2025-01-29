@@ -9,9 +9,8 @@ class EmailRepository @Inject constructor(
   private val rxSchedulers: RxSchedulers
 ) {
 
-
-  fun postUserEmail(ewt: String, email: String): Completable {
-    return emailApi.postUserEmail(ewt, WalletEmailRequest(email)).subscribeOn(rxSchedulers.io)
+  fun postUserEmail(email: String): Completable {
+    return emailApi.postUserEmail(WalletEmailRequest(email)).subscribeOn(rxSchedulers.io)
   }
 
 }

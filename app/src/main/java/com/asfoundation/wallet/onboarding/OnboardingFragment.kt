@@ -94,6 +94,9 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    views.onboardingValuePropositions.onboardingValue1Body.text =
+      getString(R.string.onboarding_bonus_title, "20")
+
     setClickListeners()
     setStringWithLinks()
     handleRecoverGuestWallet()
@@ -188,7 +191,7 @@ class OnboardingFragment : BasePageViewFragment(),
   private fun showRecoverGuestWallet() {
     views.loading.visibility = View.GONE
     views.onboardingContent.visibility = View.VISIBLE
-    views.onboardingAction.visibility = View.INVISIBLE
+    views.onboardingAction.visibility = View.GONE
     views.onboardingRecoverGuestWallet.visibility = View.VISIBLE
     views.onboardingRecoverText2.text = getString(
       R.string.monetary_amount_with_symbol, "$", "0.00"
@@ -209,11 +212,11 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun showVerifyGuestWallet() {
     views.onboardingContent.visibility = View.VISIBLE
-    views.onboardingRecoverGuestWallet.visibility = View.INVISIBLE
+    views.onboardingRecoverGuestWallet.visibility = View.GONE
     views.onboardingVerifyGuestWallet.visibility = View.VISIBLE
     views.loadingAnimation.visibility = View.INVISIBLE
     views.onboardingVerifyLaunchText.visibility = View.INVISIBLE
-    views.onboardingAction.visibility = View.INVISIBLE
+    views.onboardingAction.visibility = View.GONE
 
   }
 
@@ -240,7 +243,7 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingRecoverText2.visibility = View.VISIBLE
     views.onboardingRecoverText3.visibility = View.VISIBLE
     views.onboardingBonusImage.visibility = View.VISIBLE
-    views.bonusLoading.visibility = View.INVISIBLE
+    views.bonusLoading.visibility = View.GONE
   }
 
   private fun showValuesScreen() {
@@ -275,13 +278,16 @@ class OnboardingFragment : BasePageViewFragment(),
     setLinkToString(spannableString, privacyPolicy, privacyPolicyUrl)
 
     views.onboardingTermsConditions.termsConditionsBody.text = spannableString
+    views.onboardingTermsConditions.termsConditionsBody.setTextColor(resources.getColor(R.color.styleguide_dark_grey, requireActivity().theme))
     views.onboardingTermsConditions.termsConditionsBody.isClickable = true
     views.onboardingTermsConditions.termsConditionsBody.movementMethod =
       LinkMovementMethod.getInstance()
   }
 
   private fun setLinkToString(
-    spannableString: SpannableString, highlightString: String, uri: Uri
+    spannableString: SpannableString,
+    highlightString: String,
+    uri: Uri
   ) {
     val clickableSpan = object : ClickableSpan() {
       override fun onClick(widget: View) {
@@ -289,7 +295,7 @@ class OnboardingFragment : BasePageViewFragment(),
       }
 
       override fun updateDrawState(ds: TextPaint) {
-        ds.color = ResourcesCompat.getColor(resources, R.color.styleguide_pink, null)
+        ds.color = ResourcesCompat.getColor(resources, R.color.styleguide_payments_background, null)
         ds.isUnderlineText = true
       }
     }

@@ -3,7 +3,6 @@ package com.asfoundation.wallet.di.temp_gradle_modules
 import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
@@ -29,7 +28,6 @@ class BdsBillingModule {
     inappApi: InappBillingApi,
     walletService: WalletService,
     subscriptionBillingApi: SubscriptionBillingApi,
-    ewtObtainer: EwtAuthenticatorService,
     rxSchedulers: RxSchedulers,
     fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
   ): BillingPaymentProofSubmission =
@@ -38,7 +36,6 @@ class BdsBillingModule {
       .setInappApi(inappApi)
       .setWalletService(walletService)
       .setSubscriptionBillingService(subscriptionBillingApi)
-      .setEwtObtainer(ewtObtainer)
       .setRxSchedulers(rxSchedulers)
       .setFiatCurrenciesPreferencesDataSource(fiatCurrenciesPreferencesDataSource)
       .build()
@@ -51,7 +48,12 @@ class BdsBillingModule {
     bdsRepository: BdsRepository,
     partnerAddressService: PartnerAddressService
   ): Billing =
-    BdsBilling(bdsRepository, walletService, BillingThrowableCodeMapper(), partnerAddressService)
+    BdsBilling(
+      repository = bdsRepository,
+      walletService = walletService,
+      errorMapper = BillingThrowableCodeMapper(),
+      partnerAddressService = partnerAddressService
+    )
 
   @Singleton
   @Provides
@@ -59,18 +61,16 @@ class BdsBillingModule {
     subscriptionBillingApi: SubscriptionBillingApi,
     brokerBdsApi: BrokerBdsApi,
     inappApi: InappBillingApi,
-    ewtObtainer: EwtAuthenticatorService,
     rxSchedulers: RxSchedulers,
     fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
   ): RemoteRepository =
     RemoteRepository(
-      brokerBdsApi,
-      inappApi,
-      BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-      subscriptionBillingApi,
-      ewtObtainer,
-      rxSchedulers,
-      fiatCurrenciesPreferencesDataSource
+      brokerBdsApi = brokerBdsApi,
+      inappApi = inappApi,
+      responseMapper = BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
+      subsApi = subscriptionBillingApi,
+      rxSchedulers = rxSchedulers,
+      fiatCurrenciesPreferences = fiatCurrenciesPreferencesDataSource
     )
 
   @Singleton

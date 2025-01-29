@@ -24,13 +24,28 @@
       app:lottie_rawRes="@raw/loading_dark_animation"
       />
 
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/onboarding_label"
+      style="@style/OnboardingWelcomeSubtitleTextStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/mid_margin"
+      android:layout_marginTop="16dp"
+      android:text="@string/onboarding_title"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/onboarding_content"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:visibility="gone"
       app:layout_constraintBottom_toTopOf="@id/onboarding_action"
       app:layout_constraintTop_toTopOf="parent"
-      android:visibility="gone"
+      app:layout_constraintVertical_bias="0.666666"
       tools:visibility="visible"
       >
 
@@ -54,8 +69,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/half_large_margin"
-      app:layout_constraintBottom_toBottomOf="parent"
       android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
       tools:visibility="visible"
       >
 
@@ -64,7 +79,8 @@
         layout="@layout/onboarding_terms_conditions"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/half_large_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/big_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/onboarding_buttons"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -268,6 +284,7 @@
               android:layout_marginStart="12dp"
               android:layout_marginTop="8dp"
               android:layout_marginBottom="8dp"
+              android:contentDescription="@null"
               android:src="@drawable/ic_guest_wallet_bonus"
               app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintStart_toStartOf="parent"

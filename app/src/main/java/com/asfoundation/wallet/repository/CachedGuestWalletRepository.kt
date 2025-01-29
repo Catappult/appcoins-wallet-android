@@ -31,8 +31,8 @@ class CachedGuestWalletRepository @Inject constructor(
     }.onErrorReturn { null }
   }
 
-  fun deleteCachedGuestWallet(ewt: String): Completable {
-    return api.deleteCachedGuestWallet(ewt)
+  fun deleteCachedGuestWallet(): Completable {
+    return api.deleteCachedGuestWallet()
       .onErrorComplete()
   }
 

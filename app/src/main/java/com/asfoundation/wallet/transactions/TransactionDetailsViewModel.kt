@@ -2,7 +2,6 @@ package com.asfoundation.wallet.transactions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.base.call_adapter.ApiException
 import com.appcoins.wallet.core.network.base.call_adapter.ApiFailure
 import com.appcoins.wallet.core.network.base.call_adapter.ApiSuccess
@@ -22,11 +21,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TransactionDetailsViewModel
-@Inject
-constructor(
+class TransactionDetailsViewModel @Inject constructor(
   private val displayChatUseCase: DisplayChatUseCase,
-  private val ewtAuthenticatorService: EwtAuthenticatorService,
   private val getInvoiceByIdUseCase: GetInvoiceByIdUseCase,
   private val logger: Logger
 ) : ViewModel() {
@@ -47,32 +43,27 @@ constructor(
   }
 
   fun downloadInvoice(invoiceId: String) {
-    ewtAuthenticatorService
-      .getEwtAuthentication()
-      .doOnSuccess { ewt ->
-        viewModelScope.launch {
-          getInvoiceByIdUseCase(invoiceId, ewt)
-            .catch { logger.log(tag, it) }
-            .collect { result ->
-              when (result) {
-                is ApiSuccess -> {
-                  _invoiceState.value = InvoiceSuccess(result.data.url, invoiceId)
-                }
-
-                is ApiException -> {
-                  _invoiceState.value = ApiError
-                  logger.log(tag, result.e)
-                }
-
-                is ApiFailure -> {
-                  _invoiceState.value = ApiError
-                  logger.log(tag, "${result.code}  ${result.message}")
-                }
-              }
+    viewModelScope.launch {
+      getInvoiceByIdUseCase(invoiceId)
+        .catch { logger.log(tag, it) }
+        .collect { result ->
+          when (result) {
+            is ApiSuccess -> {
+              _invoiceState.value = InvoiceSuccess(result.data.url, invoiceId)
             }
+
+            is ApiException -> {
+              _invoiceState.value = ApiError
+              logger.log(tag, result.e)
+            }
+
+            is ApiFailure -> {
+              _invoiceState.value = ApiError
+              logger.log(tag, "${result.code}  ${result.message}")
+            }
+          }
         }
-      }
-      .subscribe()
+    }
   }
 
   sealed class UiState {
