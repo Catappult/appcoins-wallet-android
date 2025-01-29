@@ -1388,6 +1388,7 @@
   <!-- Rebranding -->
   <string name="rebranding_disclaimer_short_title">AppCoins 지갑이 곧 Aptoide 지갑이 될 예정입니다!</string>
   <string name="rebranding_disclaimer_long_title">AppCoins 지갑이 곧 Aptoide 지갑이 될 예정입니다!</string>
+  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> 저희는 브랜드와 느낌을 흥미롭게 재설계하기 위해 노력하고 있습니다. 완전히 새로운 이미지로 여러분이 좋아하는 기능과 보상을 발견할 수 있도록 계속 지켜봐 주세요!</string>
   <string name="rebranding_post_title">AppCoins 지갑이 이제 Aptoide 지갑이 되었습니다!</string>
   <string name="rebrandinh_post_body">완전히 새로운 이미지로 좋아하는 기능과 보상을 찾아보세요. 마음에 드시길 바랍니다!</string>

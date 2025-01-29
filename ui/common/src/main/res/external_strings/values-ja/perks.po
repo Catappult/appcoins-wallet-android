@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2024-09-24 14:04\n"
+"PO-Revision-Date: 2025-01-29 14:52\n"
 
 #. Card Title
 #:
@@ -121,4 +121,14 @@ msgstr "新しい特典が利用できます"
 #:
 msgid "Enjoy {0}% bonus in every purchase."
 msgstr "購入のたびに{0}% ボーナスをゲット."
+
+#. Card - Title - Bank Transfer
+#:
+msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
+msgstr ""
+
+#. Payment Method - Title - Bank Transfer
+#:
+msgid "Easy bank transfer"
+msgstr ""
 
