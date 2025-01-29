@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2025-01-29 12:27\n"
+"PO-Revision-Date: 2025-01-29 17:25\n"
 
 #. Card Title
 #:
-msgid "Earn AppCoins Credits!"
-msgstr "AppCoinsクレジットを獲得！"
+msgid "Earn Aptoide balance!"
+msgstr ""
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "AppCoinsクレジットを除く{1} でのすべての購入で、さらに{0}%のボーナスを受け取ることができます。"
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr ""
 
 #. Card - Purchase Promotion.
 #:
-msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "{0} で購入すると、{1} AppCoinsクレジットを受け取ることができます。"
+msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
+msgstr ""
 
 #. Receipt - Purchase Promotion.
 #:
@@ -34,8 +34,8 @@ msgstr "{0} で購入したため"
 
 #. Card - Expenditure per days Promotion.
 #:
-msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "{2} 日以内に{0} {1} を使うと、{3} AppCoinsクレジットがもらえます。"
+msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
+msgstr ""
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -44,8 +44,8 @@ msgstr "過去{2} 日間で{0} {1} 以上の支出があったため。"
 
 #. Card - Next Level Promotion.
 #:
-msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "次のレベルに到達すると、{0} AppCoins Creditsを獲得できます！"
+msgid "Reach the next level and receive {0} in Aptoide balance!"
+msgstr ""
 
 #. Receipt - Expenditure bonus.
 #:
@@ -54,8 +54,8 @@ msgstr "次のレベルに到達！"
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "AppCoinsクレジットを除く{1} でのすべての購入で、さらに{0}%のボーナスを受け取ることができます。"
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -64,8 +64,8 @@ msgstr "すべての購入に対しさらに{0}%のボーナスを獲得。"
 
 #. Card - First purchase.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "初回購入時に、AppCoinsクレジットを除く{0}%の追加ボーナスを{1} で受け取ることができます。"
+msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
+msgstr ""
 
 #. Receipt - First Purchase.
 #:
@@ -74,8 +74,8 @@ msgstr "{0} での初めて購入により"
 
 #. Card - First purchase of the day.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "AppCoins Creditsを除く、{1} でのその日の最初の購入で{0}%の追加ボーナスを受け取ることができます。"
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
+msgstr ""
 
 #. Receipt - First Purchase of the day.
 #:
@@ -84,13 +84,13 @@ msgstr "{0} 日以内での最初の購入により"
 
 #. Title for bonus receipts.
 #:
-msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} AppCoinsクレジットボーナス!"
+msgid "+{0} Bonus in Aptoide balance!"
+msgstr ""
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr "{3} で{1} {2} を使うと、{0} のAppCoinsクレジットが追加でもらえます。"
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in {3}."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -99,18 +99,18 @@ msgstr "{2} で {0} {1} 使ったため"
 
 #. Card - Expendidure in any game.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "AppCoinsアプリで{1}{2} 使うと、さらに{0} AppCoinsクレジットを受け取ることができます。"
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in compatible apps."
+msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
-msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "AppCoinsのアプリで{0} {1} を使ったため"
+msgid "Because you spent {0} {1} in compatible apps."
+msgstr ""
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "AppCoinsクレジットを除くすべての購入で、さらに{0}%のボーナスを受け取ることができます。"
+msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
+msgstr ""
 
 #. Card - Title - Common
 #:
@@ -121,4 +121,14 @@ msgstr "新しい特典が利用できます"
 #:
 msgid "Enjoy {0}% bonus in every purchase."
 msgstr "購入のたびに{0}% ボーナスをゲット."
+
+#. Card - Title - Bank Transfer
+#:
+msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
+msgstr ""
+
+#. Payment Method - Title - Bank Transfer
+#:
+msgid "Easy bank transfer"
+msgstr ""
 
