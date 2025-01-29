@@ -272,7 +272,7 @@
   <string name="discover_button">Temukan</string>
   <string name="connection_error_title">Tidak ada koneksi Internet</string>
   <string name="connection_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">atau</string>
   <string name="share_via">Bagikan melalui:</string>
   <string name="password">Kata Sandi</string>
   <string name="repeat_password">Ulangi kata sandi</string>
@@ -301,12 +301,12 @@
   <string name="buy_button">Beli</string>
   <string name="copied_to_clipboard">Disalin ke clipboard</string>
   <string name="topup_button">Isi Ulang</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Dapatkan bonus tambahan %s%%</string>
   <string name="payment_method">Cara pembayaran</string>
   <string name="credit_debit_card">Kartu kredit/debit</string>
   <string name="paypal">PayPal</string>
   <string name="appc">Kredit AppCoins</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Transfer bank mudah</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -330,10 +330,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Alat Anda untuk pembelian dalam aplikasi</string>
+  <string name="onboarding_bonus_title">Dapatkan hingga %s%% Kredit AppCoins dari pembelian dalam aplikasi Anda.</string>
+  <string name="onboarding_payment_methods_title">Gunakan kartu bank, PayPal, dan metode pembayaran favorit Anda.</string>
+  <string name="onboarding_vip_title">Jadilah anggota VIP untuk mendapatkan dukungan dan penawaran premium.</string>
   <string name="terms_and_conditions">Syarat dan Ketentuan</string>
   <string name="privacy_policy">Kebijakan Privasi</string>
   <string name="existent_wallet">Saya sudah punya dompet</string>
@@ -359,9 +359,9 @@
   <string name="verification_verify_paypal_description">Transaksi sebesar %s akan dilakukan untuk mengonfirmasi akun Anda. Dana tersebut akan segera dikembalikan.</string>
   <string name="verification_settings_card_verified_title">Kartu Terverifikasi</string>
   <string name="verification_error_attempts_reached">Sepertinya Anda sudah mencapai batas percobaan. Harap tunggu untuk mencoba lagi.</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Diverifikasi dengan PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Diverifikasi dengan kartu kredit/debit.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Diverifikasi dengan kartu kredit/debit dan PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Tinggal selangkah lagi!</string>
   <string name="paypal_verification_home_one_step_card_body">Masukkan kode yang dikirimkan ke alamat email Anda untuk memverifikasi akun PayPal Anda.</string>
@@ -421,17 +421,17 @@
   <string name="purchase_success_bonus_received_title">Bonus %s diterima.</string>
   <string name="purchase_making_purchase_title">Melakukan pembelian&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Dengan metode pembayaran ini, Anda akan membayar biaya pemrosesan dan PPN.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Terjadi masalah dengan pembayaran Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>
   <string name="purchase_error_no_method_available_body">Saat ini, tidak tersedia metode pembayaran di wilayah Anda untuk menyelesaikan pembelian ini. Pantau terus!</string>
   <string name="purchase_legal_disclaimer">Dengan melanjutkan pembayaran, Anda menyetujui untuk diberikan konten setelah pembayaran, sehingga Anda kehilangan hak penarikan.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonus berupa Kredit AppCoins.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="other">Mungkin memerlukan waktu hingga %s hari.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_success_1">Kredit AppCoins sebesar %s akan dimasukkan ke dompet Anda.</string>
+  <string name="purchase_bank_transfer_success_2">Mungkin bank Anda memerlukan waktu hingga 2 hari untuk memprosesnya.</string>
+  <string name="purchase_bank_transfer_success_bonus">Anda akan menerima bonus berupa Kredit AppCoins sebesar %s.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Kami sedang menunggu masuknya dana dari bank Anda.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -737,7 +737,7 @@
   <string name="vip_program_referral_button_title">Program Referral VIP</string>
   <string name="vip_program_referral_button_body">Bonus %s%% untuk Anda dan teman.</string>
   <string name="vip_program_referral_page_title">Program Referral VIP</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Bagikan kode ini dengan teman-teman Anda, agar Anda semua memperoleh bonus %s%% di semua pembelian yang dilakukan.</string>
   <string name="vip_program_referral_page_share_title">Bagikan kode ini dengan teman Anda</string>
   <string name="vip_program_referral_page_only_app_title">Hanya untuk pembelian di</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s diperoleh dari %3$s referral</string>
@@ -746,7 +746,7 @@
   <string name="vip_program_referral_notification_title">Kode Referensi VIP Tersedia!</string>
   <string name="vip_program_referral_notification_body">Bagikan kode Anda dengan komunitas sehingga Anda semua memperoleh penghasilan saat bermain!</string>
   <string name="vip_program_title_vip_offer">Penawaran VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Anda tidak bisa menggunakan kode VIP Anda sendiri. Bagikan dengan teman-teman Anda!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Selamat Datang di Dompet AppCoins</string>
   <string name="intro_welcome_body">Isi ulang dompet Anda atau lakukan pembelian di aplikasi atau game yang kompatibel dengan AppCoins.</string>
