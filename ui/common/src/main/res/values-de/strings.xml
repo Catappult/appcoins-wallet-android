@@ -301,7 +301,7 @@
   <string name="buy_button">Kaufen</string>
   <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
   <string name="topup_button">Aufladen</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Erhalte einen zusätzlichen Bonus von %s%%</string>
   <string name="payment_method">Zahlungsmethode</string>
   <string name="credit_debit_card">Kredit-/Debitkarte</string>
   <string name="paypal">PayPal</string>
@@ -330,10 +330,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Dein Tool für In-App-Käufe</string>
+  <string name="onboarding_bonus_title">Erhalte bis zu %s % deiner In-App-Käufe als AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Verwende eine Bankkarte, PayPal und deine bevorzugten Zahlungsmethoden.</string>
+  <string name="onboarding_vip_title">Werde VIP-Mitglied, um Premium-Support und -Angebote zu erhalten.</string>
   <string name="terms_and_conditions">Allgemeine Geschäftsbedingungen</string>
   <string name="privacy_policy">Datenschutzrichtlinie</string>
   <string name="existent_wallet">Ich habe bereits eine Wallet</string>

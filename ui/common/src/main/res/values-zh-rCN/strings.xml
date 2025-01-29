@@ -272,7 +272,7 @@
   <string name="discover_button">发现</string>
   <string name="connection_error_title">无网络连接</string>
   <string name="connection_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
-  <string name="common_or">or</string>
+  <string name="common_or">或</string>
   <string name="share_via">分享方式：</string>
   <string name="password">密码</string>
   <string name="repeat_password">重复密码</string>
@@ -301,12 +301,12 @@
   <string name="buy_button">购买</string>
   <string name="copied_to_clipboard">已复制到剪贴板</string>
   <string name="topup_button">充值</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
-  <string name="payment_method">Payment method</string>
+  <string name="extra_bonus_title">额外获得 %s%% 奖金</string>
+  <string name="payment_method">付款方式</string>
   <string name="credit_debit_card">信用卡/借记卡</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins积金</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">便捷银行转账</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -330,10 +330,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">您的应用内购买工具</string>
+  <string name="onboarding_bonus_title">最多可获得 %s%% 的应用内购买奖金，以 AppCoins 积分形式返还。</string>
+  <string name="onboarding_payment_methods_title">使用银行卡、PayPa l和您最喜欢的付款方式。</string>
+  <string name="onboarding_vip_title">成为 VIP 会员，尊享高级支持服务和专属优惠。</string>
   <string name="terms_and_conditions">条款与条件</string>
   <string name="privacy_policy">隐私政策</string>
   <string name="existent_wallet">我已经有钱包了</string>
@@ -359,9 +359,9 @@
   <string name="verification_verify_paypal_description">我们将进行%s的交易以确认您的账户。我们会立即退款。</string>
   <string name="verification_settings_card_verified_title">已验证卡</string>
   <string name="verification_error_attempts_reached">您似乎已达到尝试次数限制。请稍后重试。</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">已验证 PayPal。</string>
+  <string name="verification_verified_credit_debit_card_body">已验证信用卡/借记卡。</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">已验证信用卡/借记卡和 PayPal。</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">还剩最后一步啦！</string>
   <string name="paypal_verification_home_one_step_card_body">请输入发送至您的电子邮箱的验证码来验证您的PayPal账户。</string>
@@ -421,17 +421,17 @@
   <string name="purchase_success_bonus_received_title">%s 奖金已收到。</string>
   <string name="purchase_making_purchase_title">购买中&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">若您使用这种付款方式，则您需要支付一笔手续费和增值税。</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">您的付款方式在支付时出现问题。请重试或使用其他付款方式。</string>
   <string name="purchase_error_no_method_available_body">目前，在您所在的地区没有付款方式可以完成此购买。请继续关注我们的更新！</string>
   <string name="purchase_legal_disclaimer">如果您继续付款，即表示您同意且无任何异议在付款后继续获得所提供的内容，并因此失去您的撤回权。</string>
   <string name="purchase_bonus_in_appc_disclaimer">奖励：AppCoins 积分形式。</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="other">本过程可能需要最多 %s 天。</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_success_1">%s 的 AppCoins 积分将存入您的钱包。</string>
+  <string name="purchase_bank_transfer_success_2">您的银行可能需要最多 2 天时间来处理。</string>
+  <string name="purchase_bank_transfer_success_bonus">您将获得 %s 的 AppCoins 积分奖励。</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">我们正在等待您的银行转入资金。</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -737,7 +737,7 @@
   <string name="vip_program_referral_button_title">VIP引荐计划</string>
   <string name="vip_program_referral_button_body">你和好友可获得%s%%奖金</string>
   <string name="vip_program_referral_page_title">VIP引荐计划</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">将此代码分享给您的朋友，您和您的朋友都将在他们的所有购买中获得 %s%% 的奖励。</string>
   <string name="vip_program_referral_page_share_title">与好友分享此代码</string>
   <string name="vip_program_referral_page_only_app_title">该应用内购买促销活动仅适用于：</string>
   <string name="vip_program_referral_page_earned_body">从%3$s此引荐中已赚取%1$s%2$s</string>
@@ -746,7 +746,7 @@
   <string name="vip_program_referral_notification_title">VIP引荐代码可用！</string>
   <string name="vip_program_referral_notification_body">与社区分享该代码，这样大家就都可以一边游玩一边赚钱了！</string>
   <string name="vip_program_title_vip_offer">VIP 礼包</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">您无法使用自己的 VIP 优惠码，请将它分享给您的朋友吧！</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">欢迎来到AppCoins钱包</string>
   <string name="intro_welcome_body">在任何兼容AppCoins的应用或游戏中为钱包充值或进行购买。</string>

@@ -272,7 +272,7 @@
   <string name="discover_button">Узнать</string>
   <string name="connection_error_title">Отсутствует сетевое подключение</string>
   <string name="connection_error_body">Кажется, вы не подключены к интернету. Проверьте ваше подключение и попробуйте снова!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">или</string>
   <string name="share_via">Поделиться через:</string>
   <string name="password">Пароль</string>
   <string name="repeat_password">Повторите пароль</string>
@@ -301,12 +301,12 @@
   <string name="buy_button">Купить</string>
   <string name="copied_to_clipboard">Скопировано в буфер</string>
   <string name="topup_button">Пополнить</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Получите дополнительный %s%% бонус</string>
   <string name="payment_method">Способ оплаты</string>
   <string name="credit_debit_card">Кредитная/дебитовая карта</string>
   <string name="paypal">PayPal</string>
   <string name="appc">Кредиты AppCoins</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Простой банковский перевод</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -330,10 +330,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Ваш инструмент для совершения покупок в приложении</string>
+  <string name="onboarding_bonus_title">Получайте до %s%% от ваших покупок в приложении в виде AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Используйте банковскую карту, PayPal и ваши любимые способы оплаты.</string>
+  <string name="onboarding_vip_title">Станьте VIP-участником, чтобы получать премиум-поддержку и эксклюзивные предложения.</string>
   <string name="terms_and_conditions">Условия и ограничения</string>
   <string name="privacy_policy">Политика конфиденциальности</string>
   <string name="existent_wallet">У меня уже есть кошелек</string>
@@ -421,20 +421,20 @@
   <string name="purchase_success_bonus_received_title">Бонус в %s получен.</string>
   <string name="purchase_making_purchase_title">Покупка&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Используя этот способ оплаты, вы платите комиссию за обработку и НДС.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Возникла проблема с вашим платежом. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
   <string name="purchase_error_no_method_available_body">На данный момент в вашем регионе нет доступных способов оплаты для совершения этой покупки. Следите за обновлениями!</string>
   <string name="purchase_legal_disclaimer">Продолжая оплату, вы соглашаетесь и соглашаетесь на предоставление контента после оплаты и тем самым теряете право на отказ.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Бонус вы получаете в кредитах AppCoins.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
     <item quantity="one">It may take up to %s day.</item>
-    <item quantity="few">It may take up to %s days.</item>
-    <item quantity="many">It may take up to %s days.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="few">Это может занять до %s дней.</item>
+    <item quantity="many">Это может занять до %s дней.</item>
+    <item quantity="other">Это может занять до %s дней.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_success_1">%s в AppCoins Credits будет зачислено на ваш кошелек.</string>
+  <string name="purchase_bank_transfer_success_2">Ваш банк может обработать это в течение 2 дней.</string>
+  <string name="purchase_bank_transfer_success_bonus">Вы получите бонус в размере %s в AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Мы ожидаем поступления средств от вашего банка.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -746,7 +746,7 @@
   <string name="vip_program_referral_button_title">Реферальная программа VIP</string>
   <string name="vip_program_referral_button_body">%s%% Бонус для вас и ваших друзей.</string>
   <string name="vip_program_referral_page_title">Реферальная программа VIP</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Поделитесь этим кодом с друзьями, и вы оба получите бонус в размере %s%% за все совершенные ими покупки.</string>
   <string name="vip_program_referral_page_share_title">Поделитесь этим кодом с друзьями</string>
   <string name="vip_program_referral_page_only_app_title">Только для покупок в</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s заработано от %3$s рефералов</string>
@@ -755,7 +755,7 @@
   <string name="vip_program_referral_notification_title">Доступен реферальный VIP-код!</string>
   <string name="vip_program_referral_notification_body">Поделитесь своим кодом со своим сообществом, чтобы вы все зарабатывали, играя!</string>
   <string name="vip_program_title_vip_offer">VIP-предложение</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Вы не можете использовать свой собственный VIP-код. Поделитесь им с друзьями!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Добро пожаловать в AppCoins Wallet</string>
   <string name="intro_welcome_body">Пополните свой кошелек или совершите покупку в любом приложении или игре, совместимом с AppCoins.</string>

@@ -272,7 +272,7 @@
   <string name="discover_button">알아보기</string>
   <string name="connection_error_title">인터넷 연결 안 됨</string>
   <string name="connection_error_body">인터넷에 연결되지 않은 것 같습니다. 인터넷 연결을 확인하시고 다시 시도해 주세요!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">또는</string>
   <string name="share_via">다음을 통해 공유:</string>
   <string name="password">비밀번호</string>
   <string name="repeat_password">비밀번호 재확인</string>
@@ -301,12 +301,12 @@
   <string name="buy_button">구매</string>
   <string name="copied_to_clipboard">클립보드에 복사되었습니다</string>
   <string name="topup_button">충전</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">추가 %s%% 보너스 받기</string>
   <string name="payment_method">지불 방법</string>
   <string name="credit_debit_card">신용/직불 카드</string>
   <string name="paypal">페이팔</string>
   <string name="appc">AppCoins 크레디트</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">간편한 은행 송금</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">구글 페이</string>
@@ -330,10 +330,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">인앱 구매를 위한 도구</string>
+  <string name="onboarding_bonus_title">앱 내 구매의 최대 %s%를 AppCoins 크레딧으로 적립하세요.</string>
+  <string name="onboarding_payment_methods_title">직불 카드, PayPal 및 선호하는 결제 수단을 사용하세요.</string>
+  <string name="onboarding_vip_title">VIP 회원이 되어 프리미엄 지원과 혜택을 받으세요.</string>
   <string name="terms_and_conditions">이용약관</string>
   <string name="privacy_policy">개인정보 보호정책</string>
   <string name="existent_wallet">지갑은 이미 있어요</string>
@@ -359,9 +359,9 @@
   <string name="verification_verify_paypal_description">계정을 확인하기 위해 %s의 거래가 이루어지지만 즉시 환불됩니다.</string>
   <string name="verification_settings_card_verified_title">카드 검증됨</string>
   <string name="verification_error_attempts_reached">최대 시도 횟수를 초과했습니다. 다시 시도해 주세요.</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">PayPal로 확인되었습니다.</string>
+  <string name="verification_verified_credit_debit_card_body">신용/직불 카드로 확인되었습니다.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">신용/직불 카드 및 PayPal로 확인되었습니다.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">한 단계만 더!</string>
   <string name="paypal_verification_home_one_step_card_body">이메일 주소로 전송된 코드를 입력하여 페이팔 계정을 확인합니다.</string>
@@ -421,17 +421,17 @@
   <string name="purchase_success_bonus_received_title">%s 보너스 받음.</string>
   <string name="purchase_making_purchase_title">구매하기&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">이 결제 방법을 사용하면 처리 수수료와 VAT를 지불하게 됩니다.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">결제에 문제가 발생했습니다. 다시 시도하거나 다른 결제 방법을 사용해 주세요.</string>
   <string name="purchase_error_no_method_available_body">현재 귀하의 지역에서는 이 구매를 완료하는 데 사용할 수 있는 결제 방법이 없습니다. 계속 지켜봐 주시기 바랍니다!</string>
   <string name="purchase_legal_disclaimer">결제를 진행하면 결제 시 콘텐츠 제공에 동의하는 것으로 간주되며 이에 따라 철회 권리가 상실됩니다.</string>
   <string name="purchase_bonus_in_appc_disclaimer">보너스는 AppCoins 크레딧에 있습니다.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="other">최대 %s일이 걸릴 수 있습니다.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_success_1">AppCoins 크레딧의 %s가 지갑에 입금됩니다.</string>
+  <string name="purchase_bank_transfer_success_2">은행에서 처리하는 데 최대 2일이 걸릴 수 있습니다.</string>
+  <string name="purchase_bank_transfer_success_bonus">AppCoins 크레딧에서 %s의 보너스를 받게 됩니다.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">귀하의 은행에서 자금이 도착하기를 기다리고 있습니다.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -737,7 +737,7 @@
   <string name="vip_program_referral_button_title">VIP 소개 프로그램</string>
   <string name="vip_program_referral_button_body">당신과 친구를 위한 %s%% 보너스.</string>
   <string name="vip_program_referral_page_title">VIP 소개 프로그램</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">이 코드를 친구들과 공유하면 두 사람 모두 구매 시 %s%%의 보너스를 받을 수 있습니다.</string>
   <string name="vip_program_referral_page_share_title">친구에게 이 코드를 공유하기</string>
   <string name="vip_program_referral_page_only_app_title">다음에서 구매하는 경우에만 해당</string>
   <string name="vip_program_referral_page_earned_body">%3$s 소개에서 %1$s%2$s 획득</string>
@@ -746,7 +746,7 @@
   <string name="vip_program_referral_notification_title">VIP 소개 코드 사용 가능!</string>
   <string name="vip_program_referral_notification_body">커뮤니티와 코드를 공유하여 게임을 하면서 돈을 벌 수 있습니다!</string>
   <string name="vip_program_title_vip_offer">VIP 제안</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">귀하 본인의 VIP 코드를 사용할 수 없습니다. 친구들과 공유하세요!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoins 지갑에 오신 것을 환영합니다</string>
   <string name="intro_welcome_body">AppCoins과 호환되는 앱이나 게임에서 지갑을 충전하거나 구매하세요.</string>

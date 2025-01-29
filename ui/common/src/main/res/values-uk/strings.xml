@@ -274,7 +274,7 @@
   <string name="discover_button">Відкрити</string>
   <string name="connection_error_title">Немає підключення до Інтернету</string>
   <string name="connection_error_body">Здається, ви не підключені до Інтернету. Перевірте з’єднання та спробуйте ще раз!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">або</string>
   <string name="share_via">Поділитися через:</string>
   <string name="password">Пароль</string>
   <string name="repeat_password">Повторити пароль</string>
@@ -303,12 +303,12 @@
   <string name="buy_button">Купити</string>
   <string name="copied_to_clipboard">Скопійовано до буфера обміну</string>
   <string name="topup_button">Поповнити</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Отримайте додатковий бонус %s%%</string>
   <string name="payment_method">Спосіб оплати</string>
   <string name="credit_debit_card">Кредитна/дебетова карта</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Простий банківський переказ</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -332,10 +332,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Ваш інструмент для покупок у додатку</string>
+  <string name="onboarding_bonus_title">Отримуйте до %s%% від ваших покупок у додатку в AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Використовуйте банківську картку, PayPal та інші улюблені способи оплати.</string>
+  <string name="onboarding_vip_title">Станьте VIP-учасником, щоб отримати преміум-підтримку та пропозиції.</string>
   <string name="terms_and_conditions">Правила та умови</string>
   <string name="privacy_policy">Політика конфіденційності</string>
   <string name="existent_wallet">У мене вже є гаманець</string>
@@ -361,9 +361,9 @@
   <string name="verification_verify_paypal_description">Для підтвердження вашого облікового запису буде здійснено транзакцію в розмірі %s. Кошти буде повернено негайно.</string>
   <string name="verification_settings_card_verified_title">Картка підтверджена</string>
   <string name="verification_error_attempts_reached">Здається, ви досягли ліміту спроб. Зачекайте, щоб спробувати ще раз.</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Підтверджено з PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Підтверджено з кредитною/дебетовою карткою.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Підтверджено з кредитною/дебетовою карткою та PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Залишився один крок!</string>
   <string name="paypal_verification_home_one_step_card_body">Введіть код, надісланий на вашу електронну адресу, щоб підтвердити ваш обліковий запис PayPal.</string>
@@ -423,20 +423,20 @@
   <string name="purchase_success_bonus_received_title">%s бонус отримано.</string>
   <string name="purchase_making_purchase_title">Здійснення покупки&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">При цьому способі оплати ви сплачуєте комісію за обробку та ПДВ.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Виникла проблема з вашим платежем. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
   <string name="purchase_error_no_method_available_body">Зараз у вашому регіоні немає доступних методів оплати для завершення цієї покупки. Стежте за новинами!</string>
   <string name="purchase_legal_disclaimer">Продовжуючи оплату, ви погоджуєтесь на отримання контенту після оплати та, таким чином, втрачаєте право на відкликання.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Бонус надається в AppCoins Credits.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="few">It may take up to %s days.</item>
-    <item quantity="many">It may take up to %s days.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Це може зайняти до %s дня.</item>
+    <item quantity="few">Це може зайняти до %s днів.</item>
+    <item quantity="many">Це може зайняти до %s днів.</item>
+    <item quantity="other">Це може зайняти до %s днів.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_success_1">%s в AppCoins Credits будуть зараховані на ваш гаманець.</string>
+  <string name="purchase_bank_transfer_success_2">Обробка вашим банком може зайняти до 2 днів.</string>
+  <string name="purchase_bank_transfer_success_bonus">Ви отримаєте бонус %s в AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Ми чекаємо на надходження коштів з вашого банку.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -748,7 +748,7 @@
   <string name="vip_program_referral_button_title">VIP реферальна програма</string>
   <string name="vip_program_referral_button_body">%s%% Бонус для вас і ваших друзів.</string>
   <string name="vip_program_referral_page_title">VIP реферальна програма</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Поділіться цим кодом з другом, і ви обидва отримаєте бонус %s%% за всі його покупки.</string>
   <string name="vip_program_referral_page_share_title">Поділіться цим кодом з друзями</string>
   <string name="vip_program_referral_page_only_app_title">Тільки для покупок у</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s отримано від %3$s рефералів</string>
@@ -757,7 +757,7 @@
   <string name="vip_program_referral_notification_title">Доступний реферальний VIP-код!</string>
   <string name="vip_program_referral_notification_body">Поділіться своїм кодом зі своєю спільнотою, щоб ви всі заробляли, граючи!</string>
   <string name="vip_program_title_vip_offer">VIP-пропозиція</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Не можна використовувати власний VIP-код. Поділіться ним з друзями!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Ласкаво просимо до AppCoins Wallet</string>
   <string name="intro_welcome_body">Поповніть гаманець або здійсніть покупку в будь-якому додатку чи грі, що підтримує AppCoins.</string>

@@ -272,7 +272,7 @@
   <string name="discover_button">Otkrij</string>
   <string name="connection_error_title">Nema internet veze</string>
   <string name="connection_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">ili</string>
   <string name="share_via">Podeli preko:</string>
   <string name="password">Lozinka</string>
   <string name="repeat_password">Ponovite lozinku</string>
@@ -301,12 +301,12 @@
   <string name="buy_button">Kupi</string>
   <string name="copied_to_clipboard">Kopirano u ostavu</string>
   <string name="topup_button">Dopunite</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Osvojite dodatni bonus od %s%%</string>
   <string name="payment_method">Način plaćanja</string>
   <string name="credit_debit_card">Kreditna/debitna kartica</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Jednostavan transfer putem banke</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -330,10 +330,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Vaš alat za kupovine u aplikacijama</string>
+  <string name="onboarding_bonus_title">Osvojite do %s%% od kupovina u aplikacijama u vidu AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Koristite bankovnu karticu, PayPal i svoje omiljene načine plaćanja.</string>
+  <string name="onboarding_vip_title">Postanite VIP član kako biste dobili vrhunsku podršku i ponude.</string>
   <string name="terms_and_conditions">Uslovi i odredbe</string>
   <string name="privacy_policy">Smernice za privatnost</string>
   <string name="existent_wallet">Već imam novčanik</string>
@@ -421,19 +421,19 @@
   <string name="purchase_success_bonus_received_title">Dobijen bonus od %s.</string>
   <string name="purchase_making_purchase_title">Obavljanje kupovine&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Preko ovog načina plaćanja platićete naknadu za obradu i PDV.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Došlo je do problema sa vašim plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
   <string name="purchase_error_no_method_available_body">Trenutno nema dostupnih načina plaćanja kako bi se dovršila ova kupovina u vašem regionu. Budite u toku!</string>
   <string name="purchase_legal_disclaimer">Ako nastavite sa ovim plaćanjem, saglasni ste sa i pristajete da dobijete sadržaj nakon plaćanja i tako izgubite svoja prava na povlačenje.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonus je u AppCoins Credits.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="few">It may take up to %s days.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Može trajati do %s dan.</item>
+    <item quantity="few">Može trajati do %s dana.</item>
+    <item quantity="other">Može trajati do %s dana.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_success_1">%s u AppCoins Credits će biti uplaćen na vaš novčanik.</string>
+  <string name="purchase_bank_transfer_success_2">Može biti potrebno do 2 dana da vaša banka to obradi.</string>
+  <string name="purchase_bank_transfer_success_bonus">Dobićete bonus od %s u AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Čekamo da stignu sredstva iz vaše banke.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -743,7 +743,7 @@
   <string name="vip_program_referral_button_title">VIP program za preporuku</string>
   <string name="vip_program_referral_button_body">%s%% bonusa za vas i vaše prijatelje.</string>
   <string name="vip_program_referral_page_title">VIP program za preporuku</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Podelite ovaj kod sa svojim prijateljima i tako ćete oboje dobiti %s%% bonusa u svim kupovinama u aplikacijama koje oni obave.</string>
   <string name="vip_program_referral_page_share_title">Podelite ovaj promo kod sa svojim prijateljima</string>
   <string name="vip_program_referral_page_only_app_title">Samo za kupovine u</string>
   <string name="vip_program_referral_page_earned_body">Osvojeno %1$s%2$s zahvaljujući %3$s preporuka</string>
@@ -752,7 +752,7 @@
   <string name="vip_program_referral_notification_title">Dostupan je VIP kod za preporuku!</string>
   <string name="vip_program_referral_notification_body">Podelite kod sa svojom zajednicom da biste mogli da zarađujete dok se igrate!</string>
   <string name="vip_program_title_vip_offer">VIP ponuda</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Ne možete koristiti sopstveni VIP kod. Podelite ga sa prijateljima!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Dobro došli u AppCoins Wallet</string>
   <string name="intro_welcome_body">Dopunite svoj novčanik ili obavite kupovinu u bilo kojoj aplikaciji ili igri kompatibilnim sa AppCoins.</string>

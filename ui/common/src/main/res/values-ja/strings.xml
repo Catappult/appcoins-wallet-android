@@ -272,7 +272,7 @@
   <string name="discover_button">発見する</string>
   <string name="connection_error_title">インターネット接続なし</string>
   <string name="connection_error_body">インターネットに接続されていないようです。接続を確認して、もう一度試してみてください</string>
-  <string name="common_or">or</string>
+  <string name="common_or">もしｋは</string>
   <string name="share_via">共有：</string>
   <string name="password">パスワード</string>
   <string name="repeat_password">パスワードを再入力</string>
@@ -301,12 +301,12 @@
   <string name="buy_button">購入</string>
   <string name="copied_to_clipboard">クリップボードにコピーされました</string>
   <string name="topup_button">トップアップ</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">さらに%s%のボーナスを獲得</string>
   <string name="payment_method">支払方法</string>
   <string name="credit_debit_card">クレジット/デビットカード</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoinsクレジット</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">簡単な銀行送金</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -330,10 +330,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">アプリ内購入ツール</string>
+  <string name="onboarding_bonus_title">アプリ内課金の最大%s%をAppCoinsクレジットで獲得できます。</string>
+  <string name="onboarding_payment_methods_title">銀行カード、PayPal、お好きな支払い方法をご利用ください。</string>
+  <string name="onboarding_vip_title">VIP会員になると、プレミアムサポートや特典が受けられます。</string>
   <string name="terms_and_conditions">利用規約</string>
   <string name="privacy_policy">プライバシー ポリシー</string>
   <string name="existent_wallet">ウォレットをすでに持っています</string>
@@ -359,9 +359,9 @@
   <string name="verification_verify_paypal_description">アカウントの確認のため、%sの取引が行われます。すぐに返金されます。</string>
   <string name="verification_settings_card_verified_title">カード認証済み</string>
   <string name="verification_error_attempts_reached">試行回数の上限に達しました。しばらく待って再試行してください。</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">PayPalで認証済み。</string>
+  <string name="verification_verified_credit_debit_card_body">クレジットカード/デビットカードで認証済み。</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">クレジットカード/デビットカードとPayPalで認証済み。</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">あと一歩！</string>
   <string name="paypal_verification_home_one_step_card_body">お客様のEメールアドレスに送信されたコードを入力し、PayPalアカウントを確認してください。</string>
@@ -421,17 +421,17 @@
   <string name="purchase_success_bonus_received_title">%sのボーナスを受取り済</string>
   <string name="purchase_making_purchase_title">購入中：&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">この支払い方法では、手数料と付加価値税を支払うことになります。</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">お支払いに問題が発生しました。再度お試しいただくか、別のお支払い方法をご利用ください。</string>
   <string name="purchase_error_no_method_available_body">現時点では、お住まいの地域でこの購入を完了するための支払い方法はありません。ご期待ください！</string>
   <string name="purchase_legal_disclaimer">お支払いを完了することにより、お支払いと同時にコンテンツが提供されることに同意し、承諾したものとみなされます。</string>
   <string name="purchase_bonus_in_appc_disclaimer">ボーナスはAppCoinsクレジットで支払われます。</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="other">最長で%s日かかる場合があります。</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_success_1">%sのAppCoinsクレジットがお客様のウォレットに入金されます。</string>
+  <string name="purchase_bank_transfer_success_2">銀行の処理に最大2日かかる場合があります。</string>
+  <string name="purchase_bank_transfer_success_bonus">%sのAppCoinsクレジットのボーナスをお受け取りいただけます。</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">お客様の銀行から資金が到着するのを待っています。</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -737,7 +737,7 @@
   <string name="vip_program_referral_button_title">VIP紹介プログラム</string>
   <string name="vip_program_referral_button_body">自分にも友達にも%s%%ボーナス</string>
   <string name="vip_program_referral_page_title">VIP紹介プログラム</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">このコードをお友達と共有すると、そのお友達が購入した金額に対して%s%%のボーナスが加算されます。</string>
   <string name="vip_program_referral_page_share_title">このコードを友達にシェア</string>
   <string name="vip_program_referral_page_only_app_title">次でのご購入に限ります</string>
   <string name="vip_program_referral_page_earned_body">%3$sの紹介から%1$s%2$s を得ました</string>
@@ -746,7 +746,7 @@
   <string name="vip_program_referral_notification_title">VIP紹介コードが利用可能です！</string>
   <string name="vip_program_referral_notification_body">あなたのコードをコミュニティで共有し、遊びながら収入を得ることができます！</string>
   <string name="vip_program_title_vip_offer">VIPオファー</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">自分のVIPコードは使用できません。お友達と共有しましょう！</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoinsウォレットへようこそ</string>
   <string name="intro_welcome_body">AppCoinに対応したアプリやゲームで、ウォレットにチャージしたり、購入することができます。</string>
