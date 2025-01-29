@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -201,9 +202,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       if(viewModel.showRebrandingBanner.value) {
         RebrandingBanner()
       }
-      UserEmailCard()
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
+      UserEmailCard()
       val listState = rememberLazyListState()
       LaunchedEffect(listState) {
         snapshotFlow { listState.isScrollInProgress }
@@ -350,53 +351,63 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   @Composable
   fun RebrandingBanner() {
-    Card(
-      colors = CardDefaults.cardColors(WalletColors.styleguide_rebranding_blue),
-      modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-      Column {
-        Row(
-          horizontalArrangement = Arrangement.SpaceBetween,
-          verticalAlignment = Alignment.CenterVertically,
-          modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
-        ){
-          Card (
-            colors = CardDefaults.cardColors(WalletColors.styleguide_rebranding_orange),
-            shape = MaterialTheme.shapes.extraSmall
+    val showRebrandBanner =
+      remember { mutableStateOf(viewModel.isShowRebrandingBanner()) }
+
+    if(showRebrandBanner.value == true) {
+      Card(
+        colors = CardDefaults.cardColors(WalletColors.styleguide_rebranding_blue),
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+      ) {
+        Column {
+          Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
           ) {
+            Card(
+              colors = CardDefaults.cardColors(WalletColors.styleguide_rebranding_orange),
+              shape = MaterialTheme.shapes.extraSmall
+            ) {
+              Text(
+                text = stringResource(R.string.promotions_new),
+                style = MaterialTheme.typography.bodySmall,
+                color = WalletColors.styleguide_white,
+                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+              )
+            }
             Text(
-              text = stringResource(R.string.promotions_new),
-              style = MaterialTheme.typography.bodySmall,
-              color = WalletColors.styleguide_white,
-              modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+              text = stringResource(R.string.rebranding_disclaimer_short_title),
+              modifier = Modifier
+                .weight(1f)
+                .padding(start = 8.dp),
+              style = MaterialTheme.typography.bodyMedium,
+              fontWeight = FontWeight.Bold,
+              color = WalletColors.styleguide_light_grey,
+              maxLines = 1,
+              overflow = TextOverflow.Ellipsis,
+            )
+            Icon(
+              painter = painterResource(id = R.drawable.ic_reb_cross),
+              contentDescription = "Close",
+              tint = WalletColors.styleguide_rebranding_subtext,
+              modifier = Modifier
+                .padding(start = 8.dp)
+                .clickable {
+                  viewModel.saveShowRebrandingBanner(false)
+                  showRebrandBanner.value = false
+                }
             )
           }
+
           Text(
-            text = stringResource(R.string.rebranding_disclaimer_short_title),
-            modifier = Modifier
-              .weight(1f)
-              .padding(start = 8.dp),
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Bold,
-            color = WalletColors.styleguide_light_grey,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-          )
-          Icon(
-            painter = painterResource(id = R.drawable.ic_reb_cross),
-            contentDescription = "Close",
-            tint = WalletColors.styleguide_rebranding_subtext,
-            modifier = Modifier.padding(start = 8.dp)
+            text = stringResource(R.string.rebranding_disclaimer_long_body),
+            modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp),
+            style = MaterialTheme.typography.bodySmall,
+            fontSize = 13.sp,
+            color = WalletColors.styleguide_light_grey
           )
         }
-
-        Text(
-          text = stringResource(R.string.rebranding_disclaimer_long_body),
-          modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp),
-          style = MaterialTheme.typography.bodySmall,
-          fontSize = 13.sp,
-          color = WalletColors.styleguide_light_grey
-        )
       }
     }
   }

@@ -33,7 +33,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
-import com.appcoins.wallet.sharedpreferences.EmailPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.HomePreferencesDataSource
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
 import com.appcoins.wallet.ui.widgets.R
@@ -140,7 +140,7 @@ constructor(
   private val rxSchedulers: RxSchedulers,
   private val logger: Logger,
   private val postUserEmailUseCase: PostUserEmailUseCase,
-  private val emailPreferencesDataSource: EmailPreferencesDataSource,
+  private val homePreferencesDataSource: HomePreferencesDataSource,
   private val emailAnalytics: EmailAnalytics,
   private val getImpressionUseCase: GetImpressionUseCase,
   private val showRebrandingBannerFlagUseCase: ShowRebrandingBannerFlagUseCase,
@@ -258,19 +258,27 @@ constructor(
   }
 
   private fun hasWalletEmailPreferencesData(): Boolean {
-    return !emailPreferencesDataSource.getWalletEmail().isNullOrEmpty()
+    return !homePreferencesDataSource.getWalletEmail().isNullOrEmpty()
   }
 
   fun getWalletEmailPreferencesData(): String {
-    return emailPreferencesDataSource.getWalletEmail().toString()
+    return homePreferencesDataSource.getWalletEmail().toString()
   }
 
   fun saveHideWalletEmailCardPreferencesData(hasEmailSaved: Boolean) {
-    emailPreferencesDataSource.saveHideWalletEmailCard(hasEmailSaved)
+    homePreferencesDataSource.saveHideWalletEmailCard(hasEmailSaved)
   }
 
   fun isHideWalletEmailCardPreferencesData(): Boolean {
-    return emailPreferencesDataSource.isHideWalletEmailCard()
+    return homePreferencesDataSource.isHideWalletEmailCard()
+  }
+
+  fun saveShowRebrandingBanner(showRebrandingBanner: Boolean) {
+    homePreferencesDataSource.saveShowRebrandingBanner(showRebrandingBanner)
+  }
+
+  fun isShowRebrandingBanner(): Boolean {
+    return homePreferencesDataSource.isShowRebrandingBanner()
   }
 
   fun getImpression() {
