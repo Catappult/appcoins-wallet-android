@@ -546,7 +546,7 @@
   <string name="credit_debit_card">Card de credit/debit</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
-  <string name="bank_transfer">Transfer bancar ușor</string>
+  <string name="bank_transfer">Transfer bancar simplu</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -570,7 +570,7 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Instrumentul tău pentru a face achiziții în aplicație</string>
+  <string name="onboarding_title">Instrumentul tău pentru a face achiziții în aplicații</string>
   <string name="onboarding_bonus_title">Primești până la %s%% din achizițiile tale în aplicații în AppCoins Credits.</string>
   <string name="onboarding_payment_methods_title">Utilizează un card bancar, PayPal și metodele tale de plată preferate.</string>
   <string name="onboarding_vip_title">Devino un membru VIP pentru a primi asistență premium și oferte.</string>
