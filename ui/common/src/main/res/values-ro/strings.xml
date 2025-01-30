@@ -494,7 +494,7 @@
   <string name="do_it_later_button">Amână</string>
   <string name="connection_error_title">Fără conexiune la internet</string>
   <string name="connection_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">sau</string>
   <string name="share_via">Distribuie via:</string>
   <string name="password">Parolă</string>
   <string name="repeat_password">Repetă parola</string>
@@ -532,21 +532,21 @@
   <string name="max">Maxim</string>
   <string name="amount">Sumă</string>
   <string name="total_title">Total</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_payment_method_button">Adaugă metodă de plată</string>
+  <string name="change_payment_method_button">Modifică metoda de plată</string>
   <string name="add_card_button">Adaugă card de credit/debit</string>
-  <string name="add_paypal_button">Add paypal</string>
-  <string name="add_gift_card_button">Add gift card</string>
+  <string name="add_paypal_button">Adaugă PayPal</string>
+  <string name="add_gift_card_button">Adaugă card cadou</string>
   <string name="buy_button">Cumpără</string>
   <string name="copied_to_clipboard">Copiat pe clipboard</string>
   <string name="topup_button">Alimentează</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
-  <string name="aptoide_balance">Aptoide balance</string>
+  <string name="extra_bonus_title">Primești un bonus extra de %s%%</string>
+  <string name="aptoide_balance">Balanță Aptoide</string>
   <string name="payment_method">Metoda de plată</string>
   <string name="credit_debit_card">Card de credit/debit</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Transfer bancar ușor</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -570,10 +570,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Instrumentul tău pentru a face achiziții în aplicație</string>
+  <string name="onboarding_bonus_title">Primești până la %s%% din achizițiile tale în aplicații în AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Utilizează un card bancar, PayPal și metodele tale de plată preferate.</string>
+  <string name="onboarding_vip_title">Devino un membru VIP pentru a primi asistență premium și oferte.</string>
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
   <string name="terms_and_conditions">Termenii și condițiile</string>
@@ -631,9 +631,9 @@
   <string name="verified_tag">Verificat</string>
   <string name="unferified_tag">Portofel neverificat</string>
   <string name="verification_wallets_verify_button">Verifică</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Verificat cu PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verificat cu card de credit/debit.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verificat cu card de credit/debit și PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Mai ai un pas!</string>
   <string name="paypal_verification_home_one_step_card_body">Introdu codul trimis la adresa ta de e-mail pentru a-ți verifica contul PayPal.</string>
@@ -721,7 +721,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Cu această metodă de plată vei plăti o taxă de procesare și TVA.</string>
   <string name="purchase_fee_included_body">taxe incluse</string>
   <string name="purchase_error_one_wallet_generic">Am întâmpinat o problemă cu plata ta Wallet One. Încearcă din nou sau folosește o metodă de plată diferită.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Am întâmpinat o problemă cu plata ta. Încearcă din nou sau folosește o metodă de plată diferită.</string>
   <string name="purchase_payment_method_top_ups_only">Disponibilă doar pentru alimentări.</string>
   <string name="purchase_payment_method_minimum_amount">Disponibilă doar pentru achizițiile peste %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Nedisponibilă pentru această achiziție.</string>
