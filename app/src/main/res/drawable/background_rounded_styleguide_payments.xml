@@ -4,12 +4,24 @@
     <shape
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
-      <solid android:color="@color/styleguide_blue_secondary" />
+      <solid android:color="@color/styleguide_rebranding_blue" />
       <corners
           android:bottomLeftRadius="0dp"
           android:bottomRightRadius="0dp"
           android:topLeftRadius="0dp"
           android:topRightRadius="0dp" />
+    </shape>
+  </item>
+  <item>
+    <shape
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+      <solid android:color="@color/styleguide_blue_secondary" />
+      <corners
+          android:bottomLeftRadius="0dp"
+          android:bottomRightRadius="0dp"
+          android:topLeftRadius="13dp"
+          android:topRightRadius="13dp" />
     </shape>
   </item>
   <item>
