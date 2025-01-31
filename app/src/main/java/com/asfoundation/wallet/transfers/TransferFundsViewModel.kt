@@ -16,7 +16,6 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.main.nav_bar.CurrencyNavigationItem
 import com.asfoundation.wallet.main.nav_bar.TransferNavigationItem
 import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
@@ -43,7 +42,6 @@ constructor(
   var uiState: StateFlow<UiState> = _uiState
 
   val clickedTransferItem: MutableState<Int?> = mutableStateOf(null)
-  val clickedCurrencyItem: MutableState<Int> = mutableStateOf(CurrencyDestinations.APPC_C.ordinal)
 
   var currentAddedAddress: String = ""
   var currentAddedAmount: String = ""
@@ -70,7 +68,7 @@ constructor(
   }
 
   fun onClickSend(data: TransferData, packageName: String) {
-    shouldBlockTransfer(data.currency)
+    shouldBlockTransfer()
       .doOnSubscribe { _uiState.value = UiState.Loading }
       .flatMapCompletable { shouldBlock ->
         if (shouldBlock) {
@@ -92,7 +90,7 @@ constructor(
   }
 
   private fun handleTransferResult(
-    currency: Currency,
+    currency: String,
     status: AppcoinsRewardsRepository.Status,
     walletAddress: String,
     amount: BigDecimal
@@ -101,7 +99,6 @@ constructor(
       API_ERROR,
       UNKNOWN_ERROR,
       NO_INTERNET -> _uiState.value = UiState.UnknownError
-
       SUCCESS -> handleSuccess(currency, walletAddress, amount)
       INVALID_AMOUNT -> _uiState.value = UiState.InvalidAmountError
       INVALID_WALLET_ADDRESS -> _uiState.value = UiState.InvalidWalletAddressError
@@ -109,30 +106,8 @@ constructor(
     }
   }
 
-  private fun handleSuccess(currency: Currency, walletAddress: String, amount: BigDecimal) {
-    when (currency) {
-      Currency.APPC_C ->
-        _uiState.value =
-          UiState.SuccessAppcCreditsTransfer(walletAddress, amount, currency)
-
-      Currency.APPC ->
-        transferInteractor
-          .find()
-          .doOnSuccess {
-            _uiState.value =
-              UiState.NavigateToOpenAppcConfirmationView(it.address, walletAddress, amount)
-          }
-          .subscribe()
-
-      Currency.ETH ->
-        transferInteractor
-          .find()
-          .doOnSuccess {
-            _uiState.value =
-              UiState.NavigateToOpenEthConfirmationView(it.address, walletAddress, amount)
-          }
-          .subscribe()
-    }
+  private fun handleSuccess(currency: String, walletAddress: String, amount: BigDecimal) {
+    _uiState.value = UiState.SuccessAppcCreditsTransfer(walletAddress, amount, currency)
   }
 
   private fun makeTransaction(
@@ -140,40 +115,39 @@ constructor(
     packageName: String,
     guestWalletId: String?
   ): Single<AppcoinsRewardsRepository.Status> {
-    return when (data.currency) {
-      Currency.APPC_C -> handleCreditsTransfer(
-        data.walletAddress,
-        data.amount,
-        packageName,
-        guestWalletId,
-      )
-
-      Currency.ETH -> transferInteractor.validateEthTransferData(data.walletAddress, data.amount)
-      Currency.APPC -> transferInteractor.validateAppcTransferData(data.walletAddress, data.amount)
-    }
+    return handleCreditsTransfer(
+      walletAddress = data.walletAddress,
+      amount = data.amount,
+      currency = data.currency,
+      packageName = packageName,
+      guestWalletId = guestWalletId,
+    )
   }
 
   private fun handleCreditsTransfer(
     walletAddress: String,
     amount: BigDecimal,
+    currency: String,
     packageName: String,
     guestWalletId: String?
   ): Single<AppcoinsRewardsRepository.Status> {
     return Single.zip(
       Single.timer(1, TimeUnit.SECONDS),
-      transferInteractor.transferCredits(walletAddress, amount, packageName, guestWalletId)
+      transferInteractor.transferCredits(
+        toWallet = walletAddress,
+        amount = amount,
+        currency = currency,
+        packageName = packageName,
+        guestWalletId = guestWalletId
+      )
     ) { _: Long,
         status: AppcoinsRewardsRepository.Status ->
       status
     }
   }
 
-  private fun shouldBlockTransfer(currency: Currency): Single<Boolean> {
-    return if (currency == Currency.APPC_C) {
-      transferInteractor.isWalletBlocked()
-    } else {
-      Single.just(false)
-    }
+  private fun shouldBlockTransfer(): Single<Boolean> {
+    return transferInteractor.isWalletBlocked()
   }
 
   fun transferNavigationItems() =
@@ -190,24 +164,6 @@ constructor(
       )
     )
 
-  fun currencyNavigationItems() =
-    listOf(
-      CurrencyNavigationItem(
-        destination = CurrencyDestinations.APPC_C,
-        label = R.string.p2p_send_currency_appc_c,
-        selected = true
-      ),
-      CurrencyNavigationItem(
-        destination = CurrencyDestinations.APPC,
-        label = R.string.p2p_send_currency_appc,
-        selected = false
-      ),
-      CurrencyNavigationItem(
-        destination = CurrencyDestinations.ETHEREUM,
-        label = R.string.p2p_send_currency_eth,
-        selected = false
-      )
-    )
 
   sealed class UiState {
     object Idle : UiState()
@@ -223,31 +179,14 @@ constructor(
     data class SuccessAppcCreditsTransfer(
       val walletAddress: String,
       val amount: BigDecimal,
-      val currency: Currency
-    ) : UiState()
-
-    data class NavigateToOpenAppcConfirmationView(
-      val walletAddress: String,
-      val toWalletAddress: String,
-      val amount: BigDecimal
-    ) : UiState()
-
-    data class NavigateToOpenEthConfirmationView(
-      val walletAddress: String,
-      val toWalletAddress: String,
-      val amount: BigDecimal
+      val currency: String
     ) : UiState()
   }
 
   data class TransferData(
     val walletAddress: String,
-    val currency: Currency,
+    val currency: String,
     val amount: BigDecimal
   ) : Serializable
 
-  enum class Currency(val token: String) {
-    APPC_C("APPC-C"),
-    APPC("APPC"),
-    ETH("ETH")
-  }
 }

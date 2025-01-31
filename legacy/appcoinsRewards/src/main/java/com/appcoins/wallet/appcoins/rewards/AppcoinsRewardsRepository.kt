@@ -13,9 +13,15 @@ interface AppcoinsRewardsRepository {
   ): Single<Transaction>
 
   fun sendCredits(
-    toAddress: String, walletAddress: String, signature: String, amount: BigDecimal,
+    toAddress: String,
+    walletAddress: String,
+    signature: String,
+    amount: BigDecimal,
+    currency: String,
     origin: String,
-    type: String, packageName: String, guestWalletId: String?
+    type: String,
+    packageName: String,
+    guestWalletId: String?
   ): Single<Pair<Status, Transaction>>
 
   enum class Status {

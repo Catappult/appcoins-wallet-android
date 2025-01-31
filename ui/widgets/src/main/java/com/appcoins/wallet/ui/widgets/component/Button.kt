@@ -102,7 +102,7 @@ fun ButtonWithText(
   textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
   enabled: Boolean = true,
   fragmentName: String,
-  buttonsAnalytics: ButtonsAnalytics?
+  buttonsAnalytics: ButtonsAnalytics?,
 ) {
   val isButtonEnabled = remember { mutableStateOf(true) }
   val scope = rememberCoroutineScope()

@@ -105,6 +105,7 @@ fun VectorIconButton(
   contentDescription: Int,
   onClick: () -> Unit,
   paddingIcon: Dp = 8.dp,
+  iconSize: Dp = 32.dp,
   background: Color = WalletColors.styleguide_blue,
   fragmentName: String,
   buttonsAnalytics: ButtonsAnalytics?
@@ -120,7 +121,7 @@ fun VectorIconButton(
       tint = Color.White,
       modifier =
       Modifier
-        .size(32.dp)
+        .size(iconSize)
         .background(background, shape = RoundedCornerShape(8.dp))
         .padding(paddingIcon)
     )

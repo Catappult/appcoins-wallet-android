@@ -151,7 +151,7 @@ class AppcoinsRewards(
     amount + sku + packageName
 
   fun sendCredits(
-    toWallet: String, amount: BigDecimal,
+    toWallet: String, amount: BigDecimal, currency: String,
     packageName: String, guestWalletId: String?
   ): Single<AppcoinsRewardsRepository.Status> {
     return walletService.getWalletAddress()
@@ -159,7 +159,7 @@ class AppcoinsRewards(
         walletService.signContent(walletAddress)
           .flatMap { signature ->
             repository.sendCredits(
-              toWallet, walletAddress, signature, amount, "BDS",
+              toWallet, walletAddress, signature, amount, currency, "BDS",
               "TRANSFER", packageName, guestWalletId
             )
           }.map { statusAndTransaction ->

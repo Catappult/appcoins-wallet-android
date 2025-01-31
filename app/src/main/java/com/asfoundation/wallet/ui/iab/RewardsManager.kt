@@ -103,9 +103,9 @@ class RewardsManager @Inject constructor(
   }
 
   fun sendCredits(
-    toWallet: String, amount: BigDecimal,
+    toWallet: String, amount: BigDecimal, currency: String,
     packageName: String, guestWalletId: String?
   ): Single<AppcoinsRewardsRepository.Status> {
-    return appcoinsRewards.sendCredits(toWallet, amount, packageName, guestWalletId)
+    return appcoinsRewards.sendCredits(toWallet, amount, currency, packageName, guestWalletId)
   }
 }
