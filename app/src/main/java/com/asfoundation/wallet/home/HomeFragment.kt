@@ -363,7 +363,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
           ) {
             Card(
               colors = CardDefaults.cardColors(WalletColors.styleguide_rebranding_orange),
@@ -376,19 +376,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                 modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
               )
             }
-            Text(
-              text = stringResource(R.string.rebranding_disclaimer_shortest_title),
-              modifier = Modifier
-                .weight(1f)
-                .padding(start = 8.dp),
-              style = MaterialTheme.typography.bodyMedium,
-              fontWeight = FontWeight.Bold,
-              color = WalletColors.styleguide_light_grey,
-              maxLines = 1,
-              overflow = TextOverflow.Ellipsis,
-            )
+            Spacer(modifier = Modifier.weight(1f))
             Icon(
-              painter = painterResource(id = R.drawable.ic_reb_cross),
+              painter = painterResource(id = R.drawable.ic_reb_cross_purple),
               contentDescription = "Close",
               tint = WalletColors.styleguide_rebranding_subtext,
               modifier = Modifier
@@ -401,11 +391,24 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           }
 
           Text(
+            text = stringResource(R.string.rebranding_disclaimer_short_title),
+            modifier = Modifier
+              .padding(start = 16.dp, bottom = 8.dp, end = 16.dp),
+            fontWeight = FontWeight(600),
+            fontSize = 14.sp,
+            color = WalletColors.styleguide_light_grey,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+          )
+
+          Text(
             text = stringResource(R.string.rebranding_disclaimer_long_body),
             modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp),
             style = MaterialTheme.typography.bodySmall,
-            fontSize = 13.sp,
-            color = WalletColors.styleguide_light_grey
+            lineHeight = 16.sp,
+            fontSize = 12.sp,
+            fontWeight = FontWeight(400),
+            color = WalletColors.styleguide_rebranding_subtext
           )
         }
       }

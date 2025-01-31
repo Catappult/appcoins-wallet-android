@@ -4,11 +4,11 @@
 
   <solid android:color="@color/styleguide_rebranding_orange" />
 
-  <corners android:radius="4dp" />
+  <corners android:radius="5dp" />
 
   <padding
       android:bottom="2dp"
-      android:left="5dp"
-      android:right="5dp"
+      android:left="6dp"
+      android:right="6dp"
       android:top="2dp" />
 </shape>
