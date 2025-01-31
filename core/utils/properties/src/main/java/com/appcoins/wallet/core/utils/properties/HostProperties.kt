@@ -14,6 +14,7 @@ object HostProperties {
   const val FEEDBACK_ZENDESK_BASE_HOST = "https://aptoide.zendesk.com/api/v2/"
   val AMAZON_PAY_REDIRECT_BASE_URL = if (BuildConfig.DEBUG) AMAZON_PAY_REDIRECT_BASE_URL_DEV else AMAZON_PAY_REDIRECT_BASE_URL_PROD
   val WEBVIEW_PAYMENT_URL = if (BuildConfig.DEBUG) WEBVIEW_PAYMENT_URL_DEV else WEBVIEW_PAYMENT_URL_PROD
+  const val FLAGR_BASE_HOST = "https://flagr.aptoide.com/api/v1/"
 }
 
 private const val BASE_HOST_PROD = "https://api.catappult.io"
