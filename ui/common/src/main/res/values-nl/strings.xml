@@ -494,7 +494,7 @@
   <string name="do_it_later_button">Later doen</string>
   <string name="connection_error_title">Geen internetverbinding</string>
   <string name="connection_error_body">Het lijkt erop dat je niet met internet bent verbonden. Controleer je verbinding en probeer het opnieuw!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">of</string>
   <string name="share_via">Delen via:</string>
   <string name="password">Wachtwoord</string>
   <string name="repeat_password">Wachtwoord herhalen</string>
@@ -1403,9 +1403,9 @@
   <string name="rebranding_disclaimer_short_title">De AppCoins Wallet wordt binnenkort de Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_title">De AppCoins Wallet wordt de Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_shortest_title">We worden de Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebranding_disclaimer_long_body"> We werken aan een geweldig nieuw design om je een nog betere ervaring te bieden. Blijf ons volgen om je favoriete functies en beloningen in een compleet nieuw jasje te ontdekken!</string>
+  <string name="rebranding_post_title">De AppCoins Wallet heet nu de Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Ontdek je favoriete functies en beloningen in een compleet nieuw jasje. We hopen dat je net zo enthousiast bent als wij!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
