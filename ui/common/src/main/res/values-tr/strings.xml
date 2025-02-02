@@ -494,7 +494,7 @@
   <string name="do_it_later_button">Daha sonra yapın</string>
   <string name="connection_error_title">İnternet bağlantısı yok</string>
   <string name="connection_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">veya</string>
   <string name="share_via">Şu yolla paylaş:</string>
   <string name="password">Şifre</string>
   <string name="repeat_password">Şifreyi tekrarlayın</string>
@@ -532,21 +532,21 @@
   <string name="max">Maks</string>
   <string name="amount">Tutar</string>
   <string name="total_title">Toplam</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_payment_method_button">Ödeme yöntemi ekle</string>
+  <string name="change_payment_method_button">Ödeme yöntemini değiştir</string>
   <string name="add_card_button">Kredi/banka kartı ekle</string>
-  <string name="add_paypal_button">Add paypal</string>
-  <string name="add_gift_card_button">Add gift card</string>
+  <string name="add_paypal_button">PayPal ekle</string>
+  <string name="add_gift_card_button">Hediye kartı ekle</string>
   <string name="buy_button">Satın Al</string>
   <string name="copied_to_clipboard">Panoya kopyalandı</string>
   <string name="topup_button">Yükle</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
-  <string name="aptoide_balance">Aptoide balance</string>
+  <string name="extra_bonus_title">İlave %s%% bonus kazan</string>
+  <string name="aptoide_balance">Aptoide bakiyesi</string>
   <string name="payment_method">Ödeme yöntemi</string>
   <string name="credit_debit_card">Kredi/banka kartı</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Kredileri</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Kolay banka havalesi</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -570,10 +570,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
+  <string name="onboarding_title">Uygulama içi alışveriş aracın</string>
   <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_payment_methods_title">Banka kartı, PayPal ve en sevdiğin ödeme yöntemlerini kullan.</string>
+  <string name="onboarding_vip_title">Ayrıcalıklı destek ve teklifler almak için VIP üye ol.</string>
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
   <string name="terms_and_conditions">Şartlar ve Koşullar</string>
@@ -631,9 +631,9 @@
   <string name="verified_tag">Doğrulanmış</string>
   <string name="unferified_tag">Doğrulanmamış cüzdan</string>
   <string name="verification_wallets_verify_button">Doğrula</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">PayPal ile doğrulandı.</string>
+  <string name="verification_verified_credit_debit_card_body">Kredi/banka kartı ile doğrulandı.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Kredi/banka kartı ve PayPal ile doğrulandı.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Son bir adım!</string>
   <string name="paypal_verification_home_one_step_card_body">PayPal hesabını doğrulamak için e-posta adresine gönderilen kodu gir.</string>
@@ -721,7 +721,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Bu ödeme yöntemiyle işlme ücreti ve KDV ödersin.</string>
   <string name="purchase_fee_included_body">ücretler dahil</string>
   <string name="purchase_error_one_wallet_generic">Wallet One ödemenle ilgili bir sorun meydana geldi. Lütfen tekrar dene veya farklı bir ödeme yöntemi kullan.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Ödemenle ilgili bir sorun oluştu. Lütfen tekrar dene veya farklı bir ödeme yöntemi kullan.</string>
   <string name="purchase_payment_method_top_ups_only">Yalnızca yüklemelerde kullanılabilir.</string>
   <string name="purchase_payment_method_minimum_amount">Yalnızca %s altındaki satın alma işlemleri için.</string>
   <string name="purchase_payment_method_not_availble_generic">Bu satın alma işleminde kullanılamaz.</string>
@@ -729,24 +729,24 @@
   <string name="purchase_legal_disclaimer">Ödeme işlemine devam ederek, ödeme sonrası içeriğin sağlanmasını kabul etmiş ve onaylamış olursun ve cayma hakkını kaybedersin.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonus, AppCoins Kredisi cinsindendir.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Bu işlem %s gün sürebilir.</item>
+    <item quantity="other">Bu işlem %s gün sürebilir.</item>
   </plurals>
   <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_1">%s AppCoins Kredisi cüzdanına eklenecek.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_bonus">%s bonus AppCoins Kredisi alacaksın.</string>
   <string name="purchase_error_taking_long_body">Hay aksi, normalden daha uzun sürüyor...</string>
-  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transer_secure_body">Doğrudan bankandan güvenli havale.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Paranın bankandan gelmesini bekliyoruz.</string>
   <!--New Purchase flow-->
-  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
+  <string name="purchase_bonus_title">Bonus: %s AppCoins Kredisi</string>
   <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
-  <string name="purchase_subtotal">Subtotal</string>
-  <string name="purchase_taxes">Taxes</string>
+  <string name="purchase_subtotal">Ara toplam</string>
+  <string name="purchase_taxes">Vergiler</string>
   <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
   <string name="purchase_bonus_bot_available_body">Bonus bu ödeme yöntemiyle kullanılamıyor.</string>
-  <string name="purchase_promo_code_button">Do you have a promo code?</string>
+  <string name="purchase_promo_code_button">Promosyon kodun var mı?</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -911,7 +911,7 @@
   <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Fon Transfer Et</string>
   <string name="transfer_send_tab_title">Gönder</string>
-  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_to_title">Gönder</string>
   <string name="transfer_receive_tab_title">Al</string>
   <string name="transfer_send_body">Arkadaşınızın cüzdan adresini tarayın veya girin.</string>
   <string name="transfer_send_recipient_title">Cüzdan Adresi</string>
@@ -920,8 +920,8 @@
   <string name="transfer_send_current_balance_title">Mevcut Bakiye:</string>
   <string name="transfer_send_button">Gönder</string>
   <string name="transfer_receive_body">Fon almak için cüzdan adresinizi paylaşın.</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
-  <string name="transfer_error_invalid_address">Invalid wallet address</string>
+  <string name="transfer_public_wallet_address_title">Herkese açık cüzdan adresim</string>
+  <string name="transfer_error_invalid_address">Geçersiz cüzdan adresi</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Yeni bir mesajınız var!</string>
   <string name="support_new_message_button">Açmak için dokunun</string>
@@ -1400,11 +1400,11 @@
   <string name="mail_list_confirmation_email_button">E-postayı doğrula</string>
   <string name="mail_list_confirmation_email_signature">Teşekkürler,\nAppCoins Ekibi</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins Wallet yakında Aptoide Wallet oluyor!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet Aptoide Wallet oluyor!</string>
   <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebranding_post_title">AppCoins Wallet artık Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
