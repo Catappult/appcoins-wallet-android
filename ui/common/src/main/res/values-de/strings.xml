@@ -379,7 +379,7 @@
   <string name="purchase_no_eth_body">Deine ETH reichen für die Bezahlung der Gasgebühren nicht aus.</string>
   <string name="purchase_no_appcoins_body">Deine AppCoins reichen für den Abschluss dieses Einkaufs nicht aus.</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">Verdiene Guthaben durch das Testen von Apps</string>
   <string name="purchase_poa_view_title">Keine Einzahlungen, keine Sorgen!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
