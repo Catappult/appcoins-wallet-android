@@ -379,7 +379,7 @@
   <string name="purchase_no_eth_body">इंधनाचे मूल्य देण्याइतके इटीएच आपल्याकडे नाहीत.</string>
   <string name="purchase_no_appcoins_body">ही खरेदी पूर्ण करण्यासाठी आपल्याकडे पुरेशा अँपकॉइन्स नाहीत.</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">अॅप वापरुन निधी जमा करा</string>
   <string name="purchase_poa_view_title">निधी नाही, काळजी नाही!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
