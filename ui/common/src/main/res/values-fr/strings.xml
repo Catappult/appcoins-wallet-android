@@ -379,7 +379,7 @@
   <string name="purchase_no_eth_body">Vous n\'avez pas assez d\'ETH pour payer.</string>
   <string name="purchase_no_appcoins_body">Vous n\'avez pas assez d\'AppCoins pour effectuer cet achat.</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">Gagnez de l\'argent en essayant des applications</string>
   <string name="purchase_poa_view_title">Pas d\'argent, pas de soucis !</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
