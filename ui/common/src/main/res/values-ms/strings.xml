@@ -546,7 +546,7 @@
   <string name="credit_debit_card">Kad kredit/debit</string>
   <string name="paypal">PayPal</string>
   <string name="appc">Kredit AppCoins</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Pindahan bank mudah</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -570,10 +570,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Alat anda untuk beli dalam aplikasi</string>
+  <string name="onboarding_bonus_title">Peroleh bonus sehingga %s%% dalam bentuk Kredit AppCoins bila beli dalam aplikasi.</string>
+  <string name="onboarding_payment_methods_title">Gunakan kad bank, PayPal, dan kaedah pembayaran kegemaran anda.</string>
+  <string name="onboarding_vip_title">Jadi ahli VIP untuk dapatkan sokongan dan tawaran premium.</string>
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
   <string name="terms_and_conditions">Terma dan Syarat</string>
@@ -721,7 +721,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Dengan kaedah bayaran ini, anda akan bayar caj pemprosesan dan VAT.</string>
   <string name="purchase_fee_included_body">termasuk yuran</string>
   <string name="purchase_error_one_wallet_generic">Ada masalah dengan pembayaran Wallet One anda. Sila cuba lagi atau guna kaedah bayaran yang lain.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Ada masalah dengan pembayaran anda. Sila cuba lagi atau guna kaedah bayaran yang lain.</string>
   <string name="purchase_payment_method_top_ups_only">Hanya tersedia untuk tambah nilai.</string>
   <string name="purchase_payment_method_minimum_amount">Hanya untuk pembelian melebihi %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Tidak tersedia untuk pembelian ini.</string>
@@ -729,7 +729,7 @@
   <string name="purchase_legal_disclaimer">Dengan teruskan bayaran, anda bersetuju dan mengizinkan supaya kandungan diberikan setelah pembayaran dibuat dan setelah itu, hilang hak untuk tarik diri.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonus dalam Kredit AppCoins.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="other">Ia mungkin ambil masa selama %s hari.</item>
   </plurals>
   <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
