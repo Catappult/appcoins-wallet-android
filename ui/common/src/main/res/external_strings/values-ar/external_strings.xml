@@ -21,7 +21,7 @@
   <string name="iab_card_cvv">رمز التحقق</string>
   <string name="iab_card_cvv_cvc">رمز التحقق</string>
   <string name="iab_change_card_button">تغيير البطاقة</string>
-  <string name="iab_pay_with_wallet_title">Pay with the Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
   <string name="iab_pay_with_wallet_reward_title">احصل على مكافأة حتى %s%%!</string>
   <string name="iab_pay_with_wallet_reward_body">ستحصل على %s على عملية الشراء هذه.</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">ستتلقى مكافأة على كل عملية شراء.</string>
