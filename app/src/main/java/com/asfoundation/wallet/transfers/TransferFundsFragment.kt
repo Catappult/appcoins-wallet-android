@@ -27,13 +27,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -77,6 +77,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
 import com.appcoins.wallet.ui.widgets.VectorIconButton
+import com.appcoins.wallet.ui.widgets.component.Animation
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletTextField
@@ -141,7 +142,8 @@ class TransferFundsFragment : BasePageViewFragment() {
           TopBar(
             onClickSupport = { viewModel.displayChat() },
             fragmentName = fragmentName,
-            buttonsAnalytics = buttonsAnalytics
+            buttonsAnalytics = buttonsAnalytics,
+            title = stringResource(R.string.transfer_button),
           )
         }
       },
@@ -168,7 +170,6 @@ class TransferFundsFragment : BasePageViewFragment() {
           .fillMaxHeight(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
       ) {
-//        ScreenTitle(stringResource(R.string.transfer_button))
         Card(
           colors = CardDefaults.cardColors(styleguide_blue_secondary),
           modifier =
@@ -300,7 +301,14 @@ class TransferFundsFragment : BasePageViewFragment() {
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.Center
     ) {
-      CircularProgressIndicator()
+//      CircularProgressIndicator()
+      Spacer(Modifier.height(32.dp))
+      Animation(
+        modifier = Modifier
+          .size(120.dp),
+        animationRes = R.raw.loading_wallet
+      )
+      Spacer(Modifier.height(48.dp))
     }
   }
 
@@ -404,10 +412,11 @@ class TransferFundsFragment : BasePageViewFragment() {
         .fillMaxWidth()
         .padding(start = 8.dp, end = 8.dp, top = 0.dp, bottom = 16.dp),
       value = amount,
-      placeHolder = "${balance.symbol}0.00 ${balance.currency}",
+      placeHolder = "${balance.symbol}0.00",
       backgroundColor = styleguide_blue,
       keyboardType = KeyboardType.Decimal,
       roundedCornerShape = RoundedCornerShape(16.dp),
+      currencySymbol = balance.symbol,
       trailingIcon = {
         Card(
           colors = CardDefaults.cardColors(styleguide_blue_secondary),
@@ -442,26 +451,25 @@ class TransferFundsFragment : BasePageViewFragment() {
   fun QrCodeCard(address: String) {
     Card(colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)) {
       Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.padding(bottom = 8.dp, start = 8.dp, end = 8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
         Image(
           modifier =
           Modifier
-            .background(color = styleguide_white, shape = RoundedCornerShape(16.dp))
-            .size(200.dp)
+            .background(color = styleguide_white, shape = RoundedCornerShape(24.dp))
+            .size(230.dp)
             .padding(8.dp),
           bitmap = createQRImage(address)!!.asImageBitmap(),
           contentDescription = stringResource(R.string.scan_qr)
         )
-        Spacer(Modifier.height(8.dp))
         Card(
           colors = CardDefaults.cardColors(styleguide_blue),
           modifier =
           Modifier
             .fillMaxWidth()
-            .padding(top = 0.dp, bottom = 0.dp, start = 0.dp, end = 0.dp)
+            .padding(top = 16.dp, bottom = 0.dp, start = 0.dp, end = 0.dp)
             .clip(shape = RoundedCornerShape(16.dp))
         ) {
           Column {
@@ -475,14 +483,14 @@ class TransferFundsFragment : BasePageViewFragment() {
             Row(
               modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 8.dp),
-              verticalAlignment = Alignment.Top
+                .padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 16.dp),
+              verticalAlignment = Alignment.CenterVertically
             ) {
               Text(
                 modifier = Modifier
                   .weight(1f),
                 text = address.masked(
-                  nStartChars = 7,
+                  nStartChars = 20,
                   nEndChars = 7
                 ),
                 style = MaterialTheme.typography.bodySmall,
@@ -494,7 +502,10 @@ class TransferFundsFragment : BasePageViewFragment() {
 
               IconButton(
                 onClick = { shareAddress(address) },
-                modifier = Modifier.size(32.dp),
+                modifier = Modifier
+                  .clip(RoundedCornerShape(4.dp))
+                  .background(styleguide_blue_secondary)
+                  .size(22.dp),
               ) {
                 Icon(
                   painter = painterResource(R.drawable.ic_export),
@@ -503,9 +514,13 @@ class TransferFundsFragment : BasePageViewFragment() {
                   modifier = Modifier.size(16.dp)
                 )
               }
+              Spacer(Modifier.width(8.dp))
               IconButton(
                 onClick = { copyAddressToClipBoard(address) },
-                modifier = Modifier.size(32.dp),
+                modifier = Modifier
+                  .clip(RoundedCornerShape(4.dp))
+                  .background(styleguide_blue_secondary)
+                  .size(22.dp),
               ) {
                 Icon(
                   painter = painterResource(R.drawable.ic_copy_2),

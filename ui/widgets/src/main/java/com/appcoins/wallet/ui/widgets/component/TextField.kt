@@ -88,7 +88,8 @@ fun WalletTextField(
   trailingIcon: @Composable (() -> Unit)? = null,
   keyboardType: KeyboardType = KeyboardType.Text,
   roundedCornerShape: RoundedCornerShape,
-  onValueChange: (String) -> Unit
+  currencySymbol: String? = null,
+  onValueChange: (String) -> Unit,
 ) {
   TextField(
     value = value,
@@ -101,6 +102,9 @@ fun WalletTextField(
       }
     },
     modifier = modifier,
+    visualTransformation = if (currencySymbol != null) {
+      CurrencyVisualTransformation(currencySymbol)
+    } else VisualTransformation.None,
     singleLine = true,
     shape = roundedCornerShape,
     colors =

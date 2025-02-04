@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
@@ -84,10 +85,10 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
     binding.topBar.composeView.apply {
       setContent {
         TopBar(
-          isMainBar = false,
           onClickSupport = { displayChatUseCase() },
           fragmentName = this::class.java.simpleName,
-          buttonsAnalytics = buttonsAnalytics
+          buttonsAnalytics = buttonsAnalytics,
+          title = stringResource(R.string.transfer_button),
         )
       }
     }
