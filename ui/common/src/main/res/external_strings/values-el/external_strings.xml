@@ -21,7 +21,7 @@
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">ΑΛΛΑΓΗ ΚΑΡΤΑΣ</string>
-  <string name="iab_pay_with_wallet_title">Pay with the Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
   <string name="iab_pay_with_wallet_reward_title">Λάβετε έως %s%% Bonus!</string>
   <string name="iab_pay_with_wallet_reward_body">Θα λάβετε %s με αυτήν την αγορά.</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">Θα λάβετε ένα Bonus σε αυτήν την αγορά.</string>
