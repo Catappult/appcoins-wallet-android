@@ -379,7 +379,7 @@
   <string name="purchase_no_eth_body">您的ETH不足，无法支付汽油费用。</string>
   <string name="purchase_no_appcoins_body">您的AppCoins不足，无法完成此购买。</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">通过使用应用来赢得资金</string>
   <string name="purchase_poa_view_title">没有资金，也不用愁！</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
