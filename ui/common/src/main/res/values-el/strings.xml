@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">Αποστολή %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">Τα Wallet Μου</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Τρέχον υπόλοιπο: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Τα χρήματα δεν επαρκούν</string>
   <string name="p2p_send_confirmation_header">Λεπτομέρειες Μεταφοράς</string>
-  <string name="p2p_send_currency_appc_c">Υπόλοιπο Aptoide</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Ωχ</string>
   <string name="error_general">Κάτι πήγε στραβά</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">Μέθοδος πληρωμής</string>
   <string name="credit_debit_card">Πιστωτική/χρεωστική κάρτα</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Υπόλοιπο Aptoide</string>
+  <string name="appc">Aptoide balance</string>
   <string name="bank_transfer">Εύκολη τραπεζική μεταφορά</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">Επαληθεύστε τη μέθοδο πληρωμής σας για να ολοκληρώσετε την αγορά σας.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Υπόλοιπο Aptoide</string>
+  <string name="aptoide_balance_name">Aptoide balance</string>
   <!--Settings-->
   <string name="title_redeem">Εξαργύρωση Δωροκάρτας</string>
   <string name="settings_item_support">Επικοινωνήστε με την Ομάδα Υποστήριξης</string>
@@ -808,11 +808,11 @@
   <string name="mail_list_card_confirmation_title">Επιβεβαιώστε το e-mail σας</string>
   <string name="mail_list_card_confirmation_body">Στείλαμε ένα e-mail στο %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">Το AppCoins Wallet σύντομα θα γίνει Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">Το AppCoins Wallet γίνεται Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">Γινόμαστε Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body">Εργαζόμαστε σε έναν συναρπαστικό επανασχεδιασμό της επωνυμίας και της εμπειρίας μας. Μείνετε συντονισμένοι για να ανακαλύψετε τα αγαπημένα σας χαρακτηριστικά και ανταμοιβές με μια ολοκαίνουργια εμφάνιση!</string>
-  <string name="rebranding_post_title">Το AppCoins Wallet είναι τώρα το Aptoide Wallet!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Ανακαλύψτε τα αγαπημένα σας χαρακτηριστικά και ανταμοιβές με μια ολοκαίνουργια εμφάνιση! Ελπίζουμε να σας αρέσει!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
