@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">Gửi %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">Ví của tôi</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Số dư hiện tại: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Không đủ tiền</string>
   <string name="p2p_send_confirmation_header">Chi tiết chuyển khoản</string>
-  <string name="p2p_send_currency_appc_c">AppCoins Credits</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Rất tiếc</string>
   <string name="error_general">Đã xảy ra lỗi</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">Phương thức thanh toán</string>
   <string name="credit_debit_card">Thẻ tín dụng/ghi nợ</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">AppCoins Credits</string>
+  <string name="appc">Aptoide balance</string>
   <string name="bank_transfer">Chuyển khoản ngân hàng dễ dàng</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">Xác minh phương thức thanh toán của bạn để hoàn tất giao dịch mua hàng.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">AppCoins Credits</string>
+  <string name="aptoide_balance_name">Aptoide balance</string>
   <!--Settings-->
   <string name="title_redeem">Đổi thẻ quà tặng</string>
   <string name="settings_item_support">Liên hệ với Đội ngũ Hỗ trợ</string>
@@ -801,11 +801,11 @@
   <string name="mail_list_card_confirmation_title">Xác nhận email của bạn</string>
   <string name="mail_list_card_confirmation_body">Chúng tôi đã gửi email tới %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">Ví AppCoins sẽ sớm trở thành Ví Aptoide!</string>
-  <string name="rebranding_disclaimer_long_title">Ví AppCoins sắp trở thành Ví Aptoide!</string>
-  <string name="rebranding_disclaimer_shortest_title">Chúng tôi đang trở thành Ví Aptoide!</string>
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> Chúng tôi đang thực hiện một cuộc tái thiết kế đầy thú vị cho thương hiệu và cảm xúc của mình. Hãy theo dõi để khám phá các tính năng và phần thưởng yêu thích của bạn với hình ảnh hoàn toàn mới!</string>
-  <string name="rebranding_post_title">Ví AppCoins hiện là Ví Aptoide!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Khám phá các tính năng và phần thưởng yêu thích của bạn với hình ảnh hoàn toàn mới. Chúng tôi hy vọng bạn thích nó!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
