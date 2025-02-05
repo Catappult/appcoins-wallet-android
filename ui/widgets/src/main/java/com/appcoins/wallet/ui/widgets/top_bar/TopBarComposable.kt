@@ -17,9 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
@@ -70,7 +73,8 @@ fun TopBar(
   onClickSupport: () -> Unit = {},
   onClickBack: (() -> Unit)? = null,
   fragmentName: String,
-  buttonsAnalytics: ButtonsAnalytics?
+  buttonsAnalytics: ButtonsAnalytics?,
+  title: String? = null
 ) {
   val viewModel = hiltViewModel<TopBarComposableViewModel>()
   val hasNotificationBadge by viewModel.uiState.collectAsState()
@@ -85,7 +89,21 @@ fun TopBar(
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
-    BackButton(onClickBack, fragmentName, buttonsAnalytics)
+    Row(
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.Start
+    ) {
+      BackButton(onClickBack, fragmentName, buttonsAnalytics)
+      title?.let {
+        Text(
+          text = title,
+          modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
+          fontSize = 22.sp,
+          fontWeight = FontWeight(500),
+          color = WalletColors.styleguide_light_grey,
+        )
+      }
+    }
     SupportButton(onClickSupport, hasNotificationBadge, fragmentName, buttonsAnalytics)
   }
 }

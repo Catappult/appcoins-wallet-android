@@ -41,6 +41,7 @@ class AppcoinsRewardsTest {
     private const val UNITY_ORIGIN = "UNITY"
     private const val UNKNOWN_ORIGIN = "unknown"
     private val PRICE = BigDecimal("1700000000000000000")
+    private const val EUR = "EUR"
     private const val UID = "UID"
 
   }
@@ -62,6 +63,7 @@ class AppcoinsRewardsTest {
         toWallet = "",
         walletAddress = USER_ADDRESS,
         amount = PRICE,
+        currency = EUR,
         origin = BDS_ORIGIN,
         type = TYPE_TRANSFER,
         packageName = PACKAGE_NAME,
@@ -455,6 +457,7 @@ class AppcoinsRewardsTest {
     val test = appcoinsRewards.sendCredits(
       toWallet = "",
       amount = PRICE,
+      currency = EUR,
       packageName = PACKAGE_NAME,
       guestWalletId = null
     )
@@ -472,6 +475,7 @@ class AppcoinsRewardsTest {
         toWallet = "",
         walletAddress = USER_ADDRESS,
         amount = PRICE,
+        currency = EUR,
         origin = BDS_ORIGIN,
         type = TYPE_TRANSFER,
         packageName = PACKAGE_NAME,
@@ -487,6 +491,7 @@ class AppcoinsRewardsTest {
     val test = appcoinsRewards.sendCredits(
       toWallet = "",
       amount = PRICE,
+      currency = EUR,
       packageName = PACKAGE_NAME,
       guestWalletId = null
     )
@@ -504,6 +509,7 @@ class AppcoinsRewardsTest {
         toWallet = "",
         walletAddress = USER_ADDRESS,
         amount = PRICE,
+        currency = EUR,
         origin = BDS_ORIGIN,
         type = TYPE_TRANSFER,
         packageName = PACKAGE_NAME,
@@ -515,6 +521,7 @@ class AppcoinsRewardsTest {
     val test = appcoinsRewards.sendCredits(
       toWallet = "",
       amount = PRICE,
+      currency = EUR,
       packageName = PACKAGE_NAME,
       guestWalletId = null
     )

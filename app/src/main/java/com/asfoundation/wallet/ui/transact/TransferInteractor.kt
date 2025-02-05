@@ -4,6 +4,7 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.asfoundation.wallet.promotions.usecases.ConvertToLocalFiatUseCase
 import com.asfoundation.wallet.ui.iab.RewardsManager
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Single
@@ -16,22 +17,23 @@ class TransferInteractor @Inject constructor(
   private val transactionDataValidator: TransactionDataValidator,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val findDefaultWalletInteract: FindDefaultWalletInteract,
-  private val walletBlockedInteract: WalletBlockedInteract
+  private val walletBlockedInteract: WalletBlockedInteract,
+  private val convertToLocalFiatUseCase: ConvertToLocalFiatUseCase,
 ) {
 
   fun transferCredits(
-    toWallet: String, amount: BigDecimal,
+    toWallet: String, amount: BigDecimal, currency: String,
     packageName: String, guestWalletId: String?
   ): Single<AppcoinsRewardsRepository.Status> {
     return getWalletInfoUseCase(null, cached = false)
       .map { walletInfo ->
-        val creditsAmount = walletInfo.walletBalance.creditsBalance.token.amount
-        transactionDataValidator.validateData(toWallet, amount, creditsAmount)
+        val fiatBalanceAmount = walletInfo.walletBalance.creditsBalance.fiat.amount
+        transactionDataValidator.validateData(toWallet, amount, fiatBalanceAmount)
       }
       .flatMap {
         val validateStatus = validateData(it)
         if (validateStatus == AppcoinsRewardsRepository.Status.SUCCESS) {
-          return@flatMap rewardsManager.sendCredits(toWallet, amount, packageName, guestWalletId)
+          return@flatMap rewardsManager.sendCredits(toWallet, amount, currency, packageName, guestWalletId)
         }
         return@flatMap Single.just(validateStatus)
       }
