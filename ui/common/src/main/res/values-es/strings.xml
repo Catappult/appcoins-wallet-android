@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Aptoide Wallet</string>
+  <string name="app_name">AppCoins Wallet</string>
   <string name="title_send_with_token">Enviar %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">Mis Wallets</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Saldo actual: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">No tienes suficientes fondos</string>
   <string name="p2p_send_confirmation_header">Detalles de la transferencia</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">AppCoins Credits</string>
   <!--Common-->
   <string name="oops_title">Ups</string>
   <string name="error_general">Algo salió mal</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">Método de pago</string>
   <string name="credit_debit_card">Tarjeta de crédito/débito</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
+  <string name="appc">AppCoins Credits</string>
   <string name="bank_transfer">Transferencia bancaria segura</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">Verifica tu método de pago para completar la compra.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">AppCoins Credits</string>
   <!--Settings-->
   <string name="title_redeem">Canjear Tarjeta Regalo</string>
   <string name="settings_item_support">Contacta con nosotros</string>
