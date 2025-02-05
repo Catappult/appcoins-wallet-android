@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Aptoide Wallet</string>
+  <string name="app_name">AppCoins Wallet</string>
   <string name="title_send_with_token">%s भेजें</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">My Wallets</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">वर्तमान शेष: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">पर्याप्त राशि नहीं</string>
   <string name="p2p_send_confirmation_header">अंतरण विवरण</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">AppCoins Credits</string>
   <!--Common-->
   <string name="oops_title">Oops</string>
   <string name="error_general">कुछ गलत हो गया</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">Payment method</string>
   <string name="credit_debit_card">क्रेडिट या डेबिट कार्ड</string>
   <string name="paypal">पेपैल</string>
-  <string name="appc">Aptoide balance</string>
+  <string name="appc">AppCoins Credits</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">AppCoins Credits</string>
   <!--Settings-->
   <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Contact Support Team</string>
@@ -471,7 +471,7 @@
   <string name="backup_body">हम आपकी निजी कुंजी या अन्य एक्सेस विधि को स्टोर नहीं करते हैं। अपने वॉलेट बैकअप (कीस्टोर) को सुरक्षित रखना महत्वपूर्ण है।</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_button">Back up wallet</string>
+  <string name="backup_button">वॉलेट का बैकअप लें</string>
   <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Save it on your email</string>
   <string name="backup_ready_email_button">Send to email</string>
@@ -509,7 +509,7 @@
   <!--Remove Wallet-->
   <string name="remove_wallet_title">वॉलेट हटाएँ</string>
   <string name="remove_wallet_body">हम इसे हटाने से पहले वॉलेट का बैकअप लेने की अनुशंसा करते हैं। बैकअप नहीं लिए जाने पर आप इसे फिर से उपयोग नहीं कर पाएंगे।</string>
-  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_backup_button">वॉलेट का बैकअप लें</string>
   <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_no_button">No, go back</string>
   <string name="remove_wallet_yes_button">Yes, remove wallet</string>
