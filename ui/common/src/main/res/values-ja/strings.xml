@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins ウォレット</string>
+  <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">%s を送信します。</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">マイ・ウオレット</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">現在の残高: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">十分な資金がありません</string>
   <string name="p2p_send_confirmation_header">転送の詳細</string>
-  <string name="p2p_send_currency_appc_c">AppCoinsクレジット</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">おっと</string>
   <string name="error_general">エラーが起こりました</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">支払方法</string>
   <string name="credit_debit_card">クレジット/デビットカード</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">AppCoinsクレジット</string>
+  <string name="appc">Aptoide balance</string>
   <string name="bank_transfer">簡単な銀行送金</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">購入を完了するには支払い方法を確認してください。</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">AppCoinsクレジット</string>
+  <string name="aptoide_balance_name">Aptoide balance</string>
   <!--Settings-->
   <string name="title_redeem">ギフトカードの交換</string>
   <string name="settings_item_support">サポートチームへのお問い合わせ</string>
