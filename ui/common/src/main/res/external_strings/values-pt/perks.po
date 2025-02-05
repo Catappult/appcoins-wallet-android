@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2025-01-29 17:25\n"
+"PO-Revision-Date: 2025-02-05 15:03\n"
 
 #. Card Title
 #:
@@ -125,10 +125,10 @@ msgstr "Aproveita um bónus de {0}% em cada compra."
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "Recebe {0}% de bónus extra em todas as recargas efetuadas através de transferência easy bank."
 
 #. Payment Method - Title - Bank Transfer
 #:
 msgid "Easy bank transfer"
-msgstr ""
+msgstr "Transferência easy bank"
 
