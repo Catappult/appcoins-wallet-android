@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">अॅपकॉइन्स वॉलेट</string>
+  <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">पाठवा %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">माझे वॉलेट्स</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">सद्य शिल्लक: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">पुरेसे पैसे नाहीत</string>
   <string name="p2p_send_confirmation_header">हस्तांतरण तपशील</string>
-  <string name="p2p_send_currency_appc_c">अॅपकॉइन्स क्रेडीटस</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">अरेरे</string>
   <string name="error_general">काहीतरी चूक झाली</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">पेमेंट पद्धत</string>
   <string name="credit_debit_card">क्रेडीट/डेबीट कार्ड</string>
   <string name="paypal">पेपाल</string>
-  <string name="appc">अॅपकॉइन्स क्रेडीटस</string>
+  <string name="appc">Aptoide balance</string>
   <string name="bank_transfer">सोपी बँक ट्रांसफर</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">आपली खरेदी पूर्ण करण्यासाठी आपली पेमेंट पद्धत सत्यापित करा.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">अॅपकॉइन्स क्रेडीटस</string>
+  <string name="aptoide_balance_name">Aptoide balance</string>
   <!--Settings-->
   <string name="title_redeem">गिफ्ट कार्ड रिडीम करा</string>
   <string name="settings_item_support">समर्थन गटाशी संपर्क साधा</string>
