@@ -227,4 +227,6 @@ interface IabView {
   fun handleConnectionObserver()
 
   var webViewResultCode: String?
+
+  fun showRebrandingBanner()
 }

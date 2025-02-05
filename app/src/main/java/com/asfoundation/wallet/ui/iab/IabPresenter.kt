@@ -14,6 +14,7 @@ import com.asfoundation.wallet.di.NetworkDispatcher
 import com.asfoundation.wallet.di.ViewDispatcher
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.gamification.UpdateUserStatsUseCase
+import com.asfoundation.wallet.home.usecases.ShowRebrandingBannerFlagUseCase
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
@@ -39,6 +40,7 @@ class IabPresenter @Inject constructor(
   private val getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase,
   private val setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase,
   private val logger: Logger,
+  private val showRebrandingBannerFlagUseCase: ShowRebrandingBannerFlagUseCase,
 ) {
 
   private lateinit var view: IabView
@@ -56,6 +58,7 @@ class IabPresenter @Inject constructor(
     this.view = view
     this.transaction = transaction
     this.errorFromReceiver = errorFromReceiver
+    shouldShowRebrandingBanner()
   }
 
   fun present(savedInstanceState: Bundle?) {
@@ -179,6 +182,20 @@ class IabPresenter @Inject constructor(
       }
       .doOnSuccess { view.showUpdateRequiredView() }
       .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
+  private fun shouldShowRebrandingBanner() {
+    disposable.add(
+      showRebrandingBannerFlagUseCase()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it) {
+            view.showRebrandingBanner()
+          }
+        }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 

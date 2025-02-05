@@ -11,7 +11,7 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.backup.data.result.BackupResult
 import com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
 import com.appcoins.wallet.feature.backup.data.use_cases.SendBackupToEmailUseCase
-import com.appcoins.wallet.sharedpreferences.EmailPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.HomePreferencesDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -30,7 +30,7 @@ constructor(
   private val sendBackupToEmailUseCase: SendBackupToEmailUseCase,
   private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
   private val postUserEmailUseCase: PostUserEmailUseCase,
-  private val emailPreferencesDataSource: EmailPreferencesDataSource,
+  private val homePreferencesDataSource: HomePreferencesDataSource,
   private val logger: Logger,
 ) : BaseViewModel<BackupSaveOptionsState, BackupSaveOptionsSideEffect>(initialState()) {
 
