@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">ส่ง %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">กระเป๋าเงินของฉัน</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">ยอดคงเหลือปัจจุบัน: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">เงินไม่พอ</string>
   <string name="p2p_send_confirmation_header">รายละเอียดโอน</string>
-  <string name="p2p_send_currency_appc_c">Aptoide คงเหลือ</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">อุ๊ปส์</string>
   <string name="error_general">มีบางสิ่งที่ผิด</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">วิธีการชำระเงิน</string>
   <string name="credit_debit_card">บัตรเครดิต/เดบิต</string>
   <string name="paypal">Paypal</string>
-  <string name="appc">Aptoide คงเหลือ</string>
+  <string name="appc">Aptoide balance</string>
   <string name="bank_transfer">โอนเงินผ่านธนาคารง่ายๆ</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide คงเหลือ</string>
+  <string name="aptoide_balance_name">Aptoide balance</string>
   <!--Settings-->
   <string name="title_redeem">แลกบัตรของขวัญ</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
