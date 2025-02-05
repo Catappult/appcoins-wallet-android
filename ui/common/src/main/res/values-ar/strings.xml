@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">إرسال %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">مَحافظي</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">الرصيد الحالي: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">رصيد غير كافٍ</string>
   <string name="p2p_send_confirmation_header">بيانات التحويل</string>
-  <string name="p2p_send_currency_appc_c">AppCoins Credits</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">يييي</string>
   <string name="error_general">حدث خطأ</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">وسيلة الدفع</string>
   <string name="credit_debit_card">بطاقة ائتمان/مسبقة الدفع</string>
   <string name="paypal">بايبال</string>
-  <string name="appc">AppCoins Credits</string>
+  <string name="appc">Aptoide balance</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">وثق وسيلة الدفع لديك لإتمام عملية الشراء.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">AppCoins Credits</string>
+  <string name="aptoide_balance_name">Aptoide balance</string>
   <!--Settings-->
   <string name="title_redeem">تحرير بطاقة هدية</string>
   <string name="settings_item_support">تواصل مع فريق الدعم</string>
@@ -836,11 +836,11 @@
   <string name="mail_list_card_confirmation_title">تأكيد بريدك الإلكتروني</string>
   <string name="mail_list_card_confirmation_body">أرسلنا بريدًا إلكترونيًا إلى %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">AppCoins Wallet ستصبح قريبًا Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">AppCoins Wallet ستتحول إلى Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> نحن نعمل على إعادة تصميم لعلامتنا وواجهتها. تابعنا لتعرف وتكتشف المزايا والجوائز المفضلة لديك بحُلّتها الجديدة كليًّا!</string>
-  <string name="rebranding_post_title">AppCoins Wallet صارت الآن Aptoide Wallet!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">اكتشف المزايا والجوائز التي تفضّلها بشكلها الجديد. نتمنى أن تنال إعجابك!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
