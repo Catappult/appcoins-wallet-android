@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Aptoide Wallet</string>
+  <string name="app_name">AppCoins Wallet</string>
   <string name="title_send_with_token">ส่ง %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">กระเป๋าเงินของฉัน</string>
@@ -186,7 +186,7 @@
   <string name="transaction_rejected_body">การซื้อนี้ถูกปฏิเสธ\nสำหรับข้อมูลเพิ่มเติม โปรดติดต่อฝ่ายสนับสนุน</string>
   <string name="transaction_reverted_body">การซื้อนี้ถูกเปลี่ยนกลับ\nสำหรับข้อมูลเพิ่มเติม โปรดติดต่อฝ่ายสนับสนุน</string>
   <string name="transaction_status_rejected">ปฏิเสธ</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">รายละเอียดธุรกรรม</string>
   <string name="transaction_details_txid">เลขที่ภาษี</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">ยอดคงเหลือปัจจุบัน: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">เงินไม่พอ</string>
   <string name="p2p_send_confirmation_header">รายละเอียดโอน</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">Aptoide คงเหลือ</string>
   <!--Common-->
   <string name="oops_title">อุ๊ปส์</string>
   <string name="error_general">มีบางสิ่งที่ผิด</string>
@@ -273,7 +273,7 @@
   <string name="discover_button">เปิด</string>
   <string name="connection_error_title">ไม่มีการเชื่อมต่ออินเตอร์เน็ต</string>
   <string name="connection_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">หรือ</string>
   <string name="share_via">แชร์ไปยัง:</string>
   <string name="password">รหัสผ่าน</string>
   <string name="repeat_password">รหัสผ่านซ้ำ</string>
@@ -297,17 +297,17 @@
   <string name="ending_in_title">สิ้นสุดภายใน:</string>
   <string name="send_button">ส่ง</string>
   <string name="continue_button">ต่อ</string>
-  <string name="start_again_button">Start again</string>
-  <string name="total_title">Total</string>
+  <string name="start_again_button">เริ่มต้นอีกครั้ง</string>
+  <string name="total_title">รวม</string>
   <string name="buy_button">ซื้อ</string>
   <string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด</string>
   <string name="topup_button">เติม</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">รับโบนัส %s%% เพิ่มเติม</string>
   <string name="payment_method">วิธีการชำระเงิน</string>
   <string name="credit_debit_card">บัตรเครดิต/เดบิต</string>
   <string name="paypal">Paypal</string>
-  <string name="appc">Aptoide balance</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="appc">Aptoide คงเหลือ</string>
+  <string name="bank_transfer">โอนเงินผ่านธนาคารง่ายๆ</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -331,9 +331,9 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
+  <string name="onboarding_title">เครื่องมือของคุณในการซื้อในแอป</string>
   <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
+  <string name="onboarding_payment_methods_title">ใช้บัตรธนาคาร PayPal และวิธีการชำระเงินที่คุณชื่นชอบ</string>
   <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
   <string name="terms_and_conditions">ข้อกำหนดและเงื่อนไข</string>
   <string name="privacy_policy">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Aptoide คงเหลือ</string>
   <!--Settings-->
   <string name="title_redeem">แลกบัตรของขวัญ</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
@@ -424,7 +424,7 @@
   <string name="purchase_making_purchase_title">กำลังทำการซื้อ&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
   <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
+  <string name="purchase_error_no_method_available_body">ในขณะนี้ ยังไม่มีวิธีการชำระเงินสำหรับการซื้อให้เสร็จสมบูรณ์ในภูมิภาคของคุณ คอยติดตาม!</string>
   <string name="purchase_legal_disclaimer">ในการดำเนินการชำระเงิน แสดงว่าคุณตกลงและยินยอมที่จะจัดหาเนื้อหาเมื่อชำระเงิน และทำให้เสียสิทธิ์ในการเพิกถอน</string>
   <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
@@ -779,8 +779,8 @@
   <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
   <string name="rewards_bonus_every_purchase_title">โบนัส %s%% ในทุกการซื้อ</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">จัดการวอลเล็ต</string>
+  <string name="manage_wallet_view_title">จัดการวอลเล็ต</string>
   <string name="manage_wallet_wallet_changed_title">เปลี่ยนวอลเล็ต</string>
   <string name="manage_wallet_change_active_wallet_title">คุณต้องการเลือกกระเป๋าเงินใบนี้หรือไม่?</string>
   <string name="manage_wallet_set_a_name_button">ตั้งชื่อวอลเล็ตของคุณ</string>
