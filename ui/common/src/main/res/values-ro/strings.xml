@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">Trimite %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">Portofelele mele</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Sold curent: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Fonduri insuficiente</string>
   <string name="p2p_send_confirmation_header">Detalii transfer</string>
-  <string name="p2p_send_currency_appc_c">Balanță Aptoide</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Ups</string>
   <string name="error_general">Ceva nu a mers cum trebuie</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">Metoda de plată</string>
   <string name="credit_debit_card">Card de credit/debit</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Balanță Aptoide</string>
+  <string name="appc">Aptoide balance</string>
   <string name="bank_transfer">Transfer bancar simplu</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">Verifică-ți metoda de plată pentru a-ți finaliza achiziția.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Balanță Aptoide</string>
+  <string name="aptoide_balance_name">Aptoide balance</string>
   <!--Settings-->
   <string name="title_redeem">Revendică Card Cadou</string>
   <string name="settings_item_support">Contactează echipa de asistență</string>
@@ -815,11 +815,11 @@
   <string name="mail_list_card_confirmation_title">Confirmă adresa ta de e-mail</string>
   <string name="mail_list_card_confirmation_body">Ți-am trimis un e-mail la %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">AppCoins Wallet va deveni în curând Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">AppCoins Wallet devine Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">Devenim Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> Lucrăm la o reinventare a brandului și identității noastre. Fii pe fază pentru a descoperi funcțiile și recompensele tale preferate cu un aspect nou-nouț!</string>
-  <string name="rebranding_post_title">AppCoins Wallet este acum Aptoide Wallet!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Descoperă funcțiile și recompensele tale preferate cu un aspect nou-nouț! Sperăm că o să îți placă ce vezi!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
