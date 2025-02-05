@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Aptoide Wallet</string>
+  <string name="app_name">AppCoins Wallet</string>
   <string name="title_send_with_token">Trimite %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">Portofelele mele</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Sold curent: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Fonduri insuficiente</string>
   <string name="p2p_send_confirmation_header">Detalii transfer</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">Balanță Aptoide</string>
   <!--Common-->
   <string name="oops_title">Ups</string>
   <string name="error_general">Ceva nu a mers cum trebuie</string>
@@ -273,7 +273,7 @@
   <string name="discover_button">Descoperă</string>
   <string name="connection_error_title">Fără conexiune la internet</string>
   <string name="connection_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">sau</string>
   <string name="share_via">Distribuie via:</string>
   <string name="password">Parolă</string>
   <string name="repeat_password">Repetă parola</string>
@@ -302,12 +302,12 @@
   <string name="buy_button">Cumpără</string>
   <string name="copied_to_clipboard">Copiat pe clipboard</string>
   <string name="topup_button">Alimentează</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Primești un bonus extra de %s%%</string>
   <string name="payment_method">Metoda de plată</string>
   <string name="credit_debit_card">Card de credit/debit</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="appc">Balanță Aptoide</string>
+  <string name="bank_transfer">Transfer bancar simplu</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -331,17 +331,17 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
+  <string name="onboarding_title">Instrumentul tău pentru a face achiziții în aplicații</string>
   <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_payment_methods_title">Utilizează un card bancar, PayPal și metodele tale de plată preferate.</string>
+  <string name="onboarding_vip_title">Devino un membru VIP pentru a primi asistență premium și oferte.</string>
   <string name="terms_and_conditions">Termenii și condițiile</string>
   <string name="privacy_policy">Politica de confidențialitate</string>
   <string name="existent_wallet">Am deja un portofel</string>
   <string name="onboarding_verification_body">Verifică-ți metoda de plată pentru a-ți finaliza achiziția.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Balanță Aptoide</string>
   <!--Settings-->
   <string name="title_redeem">Revendică Card Cadou</string>
   <string name="settings_item_support">Contactează echipa de asistență</string>
@@ -361,9 +361,9 @@
   <string name="verification_verify_paypal_description">Va fi efectuată o tranzacție de %s pentru a-ți confirma contul. Suma va fi rambursată imediat.</string>
   <string name="verification_settings_card_verified_title">Card verificat</string>
   <string name="verification_error_attempts_reached">Se pare că ai atins limita maximă de încercări. Așteaptă ca să încerci din nou.</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Verificat cu PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verificat cu card de credit/debit.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verificat cu card de credit/debit și PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Mai ai un pas!</string>
   <string name="paypal_verification_home_one_step_card_body">Introdu codul trimis la adresa ta de e-mail pentru a-ți verifica contul PayPal.</string>
@@ -423,19 +423,19 @@
   <string name="purchase_success_bonus_received_title">%s bonus primit.</string>
   <string name="purchase_making_purchase_title">Se efectuează achiziția&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Cu această metodă de plată vei plăti o taxă de procesare și TVA.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Am întâmpinat o problemă cu plata ta. Încearcă din nou sau folosește o metodă de plată diferită.</string>
   <string name="purchase_error_no_method_available_body">Momentan, nu există metode de plată disponibile pentru a finaliza această achiziție în regiunea ta. Fii pe fază!</string>
   <string name="purchase_legal_disclaimer">Continuând cu efectuarea acestei plăți, ești de acord să ți se furnizeze conținutul în urma plății și, prin urmare, îți pierzi dreptul de retragere.</string>
   <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="few">It may take up to %s days.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Este posibil să dureze până la %s zi.</item>
+    <item quantity="few">Este posibil să dureze până la %s zile.</item>
+    <item quantity="other">Este posibil să dureze până la %s zile.</item>
   </plurals>
   <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
+  <string name="purchase_bank_transfer_success_2">Este posibil ca procesarea tranzacției de către bancă să dureze până la 2 zile.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Așteptăm să ajungă fondurile de la banca ta.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -630,9 +630,9 @@
   <string name="manage_cards_error_details">Ești sigur că detaliile cardului tău sunt corecte? Te rugăm să încerci din nou!</string>
   <string name="manage_cards_select_title">Selectează card de plată</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="card_added_title">Card adăugat</string>
+  <string name="card_removed">Card eliminat</string>
+  <string name="manage_cards_update_disclaimer_1">Pentru a actualiza sau elimina carduri accesează:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_title">Promoții</string>
@@ -641,7 +641,7 @@
   <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
   <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometric Lock</string>
+  <string name="fingerprint_settings">Blocare biometrică</string>
   <string name="fingerprint_failed_title">Autentificare eșuată!</string>
   <string name="fingerprint_failed_body">Încearcă din nou în %s secunde.</string>
   <string name="fingerprint_authentication_required_title">Autentificare necesară!</string>
@@ -744,16 +744,16 @@
   <string name="vip_program_referral_button_title">Program de referință VIP</string>
   <string name="vip_program_referral_button_body">Bonus %s%% pentru tine și prietenii tăi.</string>
   <string name="vip_program_referral_page_title">Program de referință VIP</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Distribuie acest cod prietenilor tăi și atât tu, cât și ei veți primi un bonus de %s%% la toate achizițiile pe care le vor face.</string>
   <string name="vip_program_referral_page_share_title">Distribuie acest cod prietenilor tăi</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">Doar pentru achiziții în</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s câștigați din %3$s referințe</string>
   <string name="vip_program_max_bonus_body">Ai atins limitele sistemului solar.</string>
   <string name="vip_program_max_bonus_short">Bonus de %s%% la fiecare achiziție.</string>
   <string name="vip_program_referral_notification_title">Cod de recomandare VIP disponibil!</string>
   <string name="vip_program_referral_notification_body">Distribuie codul tău în comunitatea ta și toată lumea va câștiga în timp ce se joacă!</string>
   <string name="vip_program_title_vip_offer">Ofertă VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Nu poți folosi propriul tău cod VIP. Distribuie-l prietenilor tăi!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
   <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
@@ -793,15 +793,15 @@
   <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
   <string name="rewards_bonus_every_purchase_title">bonus de %s%% la fiecare achiziție</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Gestionează portofele</string>
+  <string name="manage_wallet_view_title">Gestionează portofele</string>
   <string name="manage_wallet_wallet_changed_title">Portofel modificat</string>
   <string name="manage_wallet_change_active_wallet_title">Vrei să selectezi acest portofel?</string>
   <string name="manage_wallet_set_a_name_button">Alege un nume pentru portofelul tău</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verifică o metodă de plată</string>
   <string name="verify_card_verified">Metodă de plată verificată!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">Verifică cardul de credit/debit</string>
   <string name="verify_card_view_disclaimer">Vom debita %s de pe cardul tău și vom rambursa suma imediat ce confirmi codul.</string>
   <string name="verify_card_view_title_2">Introdu detaliile cardului tău bancar</string>
   <!-- Challenge Reward -->
@@ -810,17 +810,17 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
+  <string name="mail_list_card_title">Fii pe fază!</string>
+  <string name="mail_list_card_body">Abonează-te la newsletter-ul nostru pentru a primi noutăți exclusive și o șansă să câștigi un card cadou.</string>
+  <string name="mail_list_card_confirmation_title">Confirmă adresa ta de e-mail</string>
+  <string name="mail_list_card_confirmation_body">Ți-am trimis un e-mail la %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins Wallet va deveni în curând Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet devine Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">Devenim Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> Lucrăm la o reinventare a brandului și identității noastre. Fii pe fază pentru a descoperi funcțiile și recompensele tale preferate cu un aspect nou-nouț!</string>
+  <string name="rebranding_post_title">AppCoins Wallet este acum Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Descoperă funcțiile și recompensele tale preferate cu un aspect nou-nouț! Sperăm că o să îți placă ce vezi!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
