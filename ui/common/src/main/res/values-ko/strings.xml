@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins 지갑</string>
+  <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">%s 전송</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">내 지갑</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">현재 잔액: %1$s%2$s</string>
   <string name="p2p_send_error_not_enough_funds">자금 부족</string>
   <string name="p2p_send_confirmation_header">세부 전송정보</string>
-  <string name="p2p_send_currency_appc_c">AppCoins 크레디트</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">이런</string>
   <string name="error_general">무엇인가 잘못 되었습니다</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">지불 방법</string>
   <string name="credit_debit_card">신용/직불 카드</string>
   <string name="paypal">페이팔</string>
-  <string name="appc">AppCoins 크레디트</string>
+  <string name="appc">Aptoide balance</string>
   <string name="bank_transfer">간편한 은행 송금</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">구매를 완료하려면 결제 수단을 확인하세요.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">AppCoins 크레디트</string>
+  <string name="aptoide_balance_name">Aptoide balance</string>
   <!--Settings-->
   <string name="title_redeem">기프트 카드 리딤</string>
   <string name="settings_item_support">지원 팀으로 연락하기</string>
@@ -801,11 +801,11 @@
   <string name="mail_list_card_confirmation_title">이메일을 확인해주세요</string>
   <string name="mail_list_card_confirmation_body">%s에게 이메일을 보냈습니다</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">AppCoins 지갑이 곧 Aptoide 지갑이 될 예정입니다!</string>
-  <string name="rebranding_disclaimer_long_title">AppCoins 지갑이 곧 Aptoide 지갑이 될 예정입니다!</string>
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> 저희는 브랜드와 느낌을 흥미롭게 재설계하기 위해 노력하고 있습니다. 완전히 새로운 이미지로 여러분이 좋아하는 기능과 보상을 발견할 수 있도록 계속 지켜봐 주세요!</string>
-  <string name="rebranding_post_title">AppCoins 지갑이 이제 Aptoide 지갑이 되었습니다!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">완전히 새로운 이미지로 좋아하는 기능과 보상을 찾아보세요. 마음에 드시길 바랍니다!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
