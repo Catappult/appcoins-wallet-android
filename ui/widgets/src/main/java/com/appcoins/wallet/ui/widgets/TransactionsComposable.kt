@@ -64,7 +64,6 @@ fun TransactionCard(
   title: String,
   description: String?,
   amount: String?,
-  convertedAmount: String?,
   subIcon: Int?,
   onClick: () -> Unit,
   textDecoration: TextDecoration,
@@ -124,16 +123,6 @@ fun TransactionCard(
                   styleguide_dark_grey
                 else
                   styleguide_light_grey,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                textDecoration = textDecoration
-              )
-            if (convertedAmount != null)
-              Text(
-                text = convertedAmount,
-                color = styleguide_dark_grey,
-                style = MaterialTheme.typography.bodySmall,
-                textAlign = TextAlign.End,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 textDecoration = textDecoration
@@ -207,9 +196,8 @@ fun TransactionDetailHeader(
   icon: Int?,
   appIcon: String?,
   amount: String?,
-  convertedAmount: String?,
   subIcon: Int?,
-  type: String?,
+  name: String?,
   textDecoration: TextDecoration,
   description: String?
 ) {
@@ -233,19 +221,9 @@ fun TransactionDetailHeader(
             overflow = TextOverflow.Ellipsis,
             textDecoration = textDecoration
           )
-        if (convertedAmount != null)
+        if (name != null)
           Text(
-            text = convertedAmount,
-            color = styleguide_dark_grey,
-            style = MaterialTheme.typography.bodySmall,
-            textAlign = TextAlign.End,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            textDecoration = textDecoration
-          )
-        if (type != null)
-          Text(
-            text = type,
+            text = name,
             color = styleguide_light_grey,
             style = MaterialTheme.typography.bodySmall,
             maxLines = 2,
@@ -538,9 +516,8 @@ fun PreviewTransactionCardHeader() {
   TransactionDetailHeader(
     icon = null,
     appIcon = null,
-    type = "Purchase Refund",
+    name = "Trivial Drive",
     amount = "-€12,21238745674839837456.73",
-    convertedAmount = "-12,5000.00 APPC-C",
     subIcon = R.drawable.ic_transaction_rejected_mini,
     textDecoration = TextDecoration.LineThrough,
     description = "The Bonus of 10% you received on Mar, 14 2022 has been reverted."
@@ -576,7 +553,6 @@ fun PreviewTransactionCard() {
     title = "Reverted Purchase Bonus test used to verify UI",
     description = "AppCoins Trivial demo sample used to test the UI",
     amount = "-€12,21238745674839837456.73",
-    convertedAmount = "-12,5000000000000000000.00 APPC-C",
     subIcon = R.drawable.ic_transaction_rejected_mini,
     {},
     TextDecoration.LineThrough,
