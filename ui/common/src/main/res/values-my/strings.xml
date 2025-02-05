@@ -379,7 +379,7 @@
   <string name="purchase_no_eth_body">ဂက္စ္အတြက္ ေပးေခ်ရန္ သင့္တြင္ ETH လံုေလာက္စြာ မရွိပါ။</string>
   <string name="purchase_no_appcoins_body">ဤ၀ယ္ယူမႈအတြက္ သင့္္တြင္ AppCoins လံုေလာက္စြာ မရွိပါ။</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">အက္ပ္မ်ားကို စမ္းသံုးျခင္းျဖင့္ ေငြေၾကးမ်ားကို ရယူလိုက္ပါ</string>
   <string name="purchase_poa_view_title">ေငြေၾကးမရွိဘူးလား၊ စိတ္မပူပါနဲ႔။</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>

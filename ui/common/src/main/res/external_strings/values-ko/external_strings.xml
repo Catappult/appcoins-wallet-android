@@ -21,7 +21,7 @@
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">카드 변경</string>
-  <string name="iab_pay_with_wallet_title">Pay with the Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
   <string name="iab_pay_with_wallet_reward_title">최대 %s%% 보너스</string>
   <string name="iab_pay_with_wallet_reward_body">이 구매에서 %s를 받게됩니다.</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">이 구매에 보너스를 받게 됩니다.</string>

@@ -21,7 +21,7 @@
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">ЗМІНИ КАРТКУ</string>
-  <string name="iab_pay_with_wallet_title">Pay with the Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
   <string name="iab_pay_with_wallet_reward_title">Отримайте бонус до %s%%!</string>
   <string name="iab_pay_with_wallet_reward_body">Ви отримаєте %s за цю покупку.</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">Ви отримаєте бонус за цю покупку.</string>

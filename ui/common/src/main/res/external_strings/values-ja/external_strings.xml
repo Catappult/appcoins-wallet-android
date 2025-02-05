@@ -21,7 +21,7 @@
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">カードの変更</string>
-  <string name="iab_pay_with_wallet_title">Pay with the Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
   <string name="iab_pay_with_wallet_reward_title">最大 %s%% のボーナスをゲット!</string>
   <string name="iab_pay_with_wallet_reward_body">この購入で%s 受け取り</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">今回の購入ではボーナスを受け取ることができます。</string>

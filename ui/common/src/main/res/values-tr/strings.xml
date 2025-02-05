@@ -379,7 +379,7 @@
   <string name="purchase_no_eth_body">Benzin ücretini ödemek için yeterince ETH\'niz yok.</string>
   <string name="purchase_no_appcoins_body">Bu satın alma işlemini tamamlamak için yeterli AppCoins\'iniz yok.</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">Uygulamaları deneyerek fon kazan</string>
   <string name="purchase_poa_view_title">Fon Yoksa Sorun Değil!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>

@@ -379,7 +379,7 @@
   <string name="purchase_no_eth_body">ਤੁਹਾਡੇ ਕੋਲ ਗੈਸ ਦਾ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਲੋੜੀਂਦੀ ਈਟੀਐਚ ਨਹੀਂ ਹੈ|</string>
   <string name="purchase_no_appcoins_body">ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਲੋੜੀਂਦੇ ਐਪ ਸਿੱਕੇ ਨਹੀਂ ਹਨ</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">ਐਪਾਂ ਇਸਤੇਮਾਲ ਕਰ ਕੇ ਪੂੰਜੀ ਕਮਾਓ</string>
   <string name="purchase_poa_view_title">ਕੋਈ ਪੂੰਜੀ ਨਹੀਂ, ਕੋਈ ਚਿੰਤਾ ਨਹੀਂ!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>

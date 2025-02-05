@@ -21,7 +21,7 @@
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">更改卡片</string>
-  <string name="iab_pay_with_wallet_title">Pay with the Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
   <string name="iab_pay_with_wallet_reward_title">獲得高達%s%% 獎勵！</string>
   <string name="iab_pay_with_wallet_reward_body">您將在此購買中獲得%s 獎勵。</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">您將在此購買中獲得獎勵。</string>

@@ -379,7 +379,7 @@
   <string name="purchase_no_eth_body">이 가스 지불을 위한 ETH이 부족합니다.</string>
   <string name="purchase_no_appcoins_body">이 구매를 하기 위한 AppCoins가 부족합니다.</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">앱을 사용하여 자금을 획득하세요</string>
   <string name="purchase_poa_view_title">자금이 없습니다, 걱정 마세요!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>

@@ -379,7 +379,7 @@
   <string name="purchase_no_eth_body">Δεν έχετε αρκετά ETH για την πληρωμή του gas.</string>
   <string name="purchase_no_appcoins_body">Δεν έχετε αρκετά AppCoins για την ολοκλήρωση αυτής της αγοράς.</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">Κερδίστε χρήματα δοκιμάζοντας εφαρμογές</string>
   <string name="purchase_poa_view_title">Δεν έχετε χρήματα; Κανένα πρόβλημα!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>

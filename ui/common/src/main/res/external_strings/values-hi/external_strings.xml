@@ -21,7 +21,7 @@
   <string name="iab_card_cvv">सीवीवी</string>
   <string name="iab_card_cvv_cvc">सीवीसी/सीवीवी</string>
   <string name="iab_change_card_button">कार्ड बदलें</string>
-  <string name="iab_pay_with_wallet_title">Pay with the Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
   <string name="iab_pay_with_wallet_reward_title">%s%% तक बोनस पाएँ!</string>
   <string name="iab_pay_with_wallet_reward_body">आप इस खरीद पर %s प्राप्त करेंगे।</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">आप इस खरीद पर बोनस प्राप्त करेंगे।</string>
