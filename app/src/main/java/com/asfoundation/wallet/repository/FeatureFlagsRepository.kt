@@ -10,14 +10,14 @@ class FeatureFlagsRepository @Inject constructor(
   private val api: FlagrNetworkApi,
 ) {
 
-  fun getFeatureFlag(flagKey: String): Single<Boolean> {
+  fun getFeatureFlag(flagKey: String, flagId: Int): Single<Boolean> {
     return api.getFeatureFlag(
       FlagrRequest(
         entityID = "",
         entityType = "user",
         entityContext = EmptyContext(),
         enableDebug = true,
-        flagID = 9,
+        flagID = flagId,
         flagKey = flagKey,
         flagTags = listOf(),
         flagTagsOperator = "ANY"

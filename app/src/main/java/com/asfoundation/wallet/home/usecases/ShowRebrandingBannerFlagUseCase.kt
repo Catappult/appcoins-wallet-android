@@ -9,9 +9,10 @@ class ShowRebrandingBannerFlagUseCase @Inject constructor(
 ) {
 
   val rebrandingFlag = "kv35ms9qmawk6nw19"
+  val flagId = 9
 
   operator fun invoke(): Single<Boolean> {
-    return featureFlagsRepository.getFeatureFlag(rebrandingFlag)
+    return featureFlagsRepository.getFeatureFlag(rebrandingFlag, flagId)
   }
 
 }
