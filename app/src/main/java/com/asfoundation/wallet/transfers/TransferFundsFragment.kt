@@ -421,8 +421,8 @@ class TransferFundsFragment : BasePageViewFragment() {
         Card(
           colors = CardDefaults.cardColors(styleguide_blue_secondary),
           modifier = Modifier
-            .defaultMinSize(minWidth = 28.dp, minHeight = 20.dp)
-            .padding(top = 2.dp, bottom = 2.dp, start = 2.dp, end = 2.dp)
+            .defaultMinSize(minWidth = 32.dp, minHeight = 24.dp)
+            .padding(top = 4.dp, bottom = 4.dp, start = 4.dp, end = 8.dp)
             .clip(shape = RoundedCornerShape(3.dp))
             .clickable {
               amount = balance.amount.toString()
@@ -431,7 +431,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         ) {
           Row {
             Text(
-              modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+              modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
               text = stringResource(R.string.max),
               style = MaterialTheme.typography.bodySmall,
               fontSize = 10.sp,
