@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/adyen_credit_card_root"
-    android:layout_width="@dimen/payment_methods_width_landscape"
+    android:layout_width="592dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
@@ -14,7 +14,7 @@
 
   <RelativeLayout
       android:id="@+id/main_view"
-      android:layout_width="@dimen/payment_methods_width_landscape"
+      android:layout_width="592dp"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:animateLayoutChanges="true"
