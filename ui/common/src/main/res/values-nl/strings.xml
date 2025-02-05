@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Aptoide Wallet</string>
+  <string name="app_name">AppCoins Wallet</string>
   <string name="title_send_with_token">%s verzenden</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">Mijn wallets</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Huidig saldo: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Onvoldoende saldo</string>
   <string name="p2p_send_confirmation_header">Gegevens voor overdracht</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">Aptoide-saldo</string>
   <!--Common-->
   <string name="oops_title">Oeps</string>
   <string name="error_general">Er iets fout gegaan</string>
@@ -273,7 +273,7 @@
   <string name="discover_button">Ontdekken</string>
   <string name="connection_error_title">Geen internetverbinding</string>
   <string name="connection_error_body">Het lijkt erop dat je niet met internet bent verbonden. Controleer je verbinding en probeer het opnieuw!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">of</string>
   <string name="share_via">Delen via:</string>
   <string name="password">Wachtwoord</string>
   <string name="repeat_password">Wachtwoord herhalen</string>
@@ -302,12 +302,12 @@
   <string name="buy_button">Kopen</string>
   <string name="copied_to_clipboard">Naar klembord gekopieerd</string>
   <string name="topup_button">Opwaarderen</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Krijg %s%% extra bonus</string>
   <string name="payment_method">Betalingsmethode</string>
   <string name="credit_debit_card">Creditcard/betaalkaart</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="appc">Aptoide-saldo</string>
+  <string name="bank_transfer">Eenvoudige bankoverschrijving</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -331,17 +331,17 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
+  <string name="onboarding_title">Jouw tool voor in-app aankopen</string>
   <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_payment_methods_title">Gebruik een bankpas, PayPal en je favoriete betaalmethoden.</string>
+  <string name="onboarding_vip_title">Word VIP-lid en krijg premium ondersteuning en aanbiedingen.</string>
   <string name="terms_and_conditions">Algemene voorwaarden</string>
   <string name="privacy_policy">Privacybeleid</string>
   <string name="existent_wallet">Ik heb al een wallet</string>
   <string name="onboarding_verification_body">Verifieer je betaalmethode om je aankoop te voltooien.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Aptoide-saldo</string>
   <!--Settings-->
   <string name="title_redeem">Cadeaubon inwisselen</string>
   <string name="settings_item_support">Neem contact op met support</string>
@@ -361,9 +361,9 @@
   <string name="verification_verify_paypal_description">Er wordt een transactie van %s uitgevoerd om je account te verifiëren. Dit bedrag wordt meteen terugbetaald.</string>
   <string name="verification_settings_card_verified_title">Kaart is geverifieerd</string>
   <string name="verification_error_attempts_reached">Het lijkt erop dat je het maximale aantal pogingen hebt bereikt. Wacht even en probeer het opnieuw.</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Geverifieerd via PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Geverifieerd via creditcard/bankpas.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Geverifieerd via creditcard/bankpas en PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Nog één stap!</string>
   <string name="paypal_verification_home_one_step_card_body">Voer de code in die je per e-mail hebt ontvangen om je PayPal-account te verifiëren.</string>
@@ -423,18 +423,18 @@
   <string name="purchase_success_bonus_received_title">%s bonus ontvangen.</string>
   <string name="purchase_making_purchase_title">Aankoop verwerken&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Met deze betaalmethode betaal je verwerkingskosten en btw.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Er is een probleem opgetreden met je betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
   <string name="purchase_error_no_method_available_body">Op dit moment zijn er in jouw regio geen betaalmethoden beschikbaar om deze aankoop te voltooien. Blijf ons volgen voor updates!</string>
   <string name="purchase_legal_disclaimer">Door de betaling uit te voeren, ga je ermee akkoord dat de content na betaling aan je wordt geleverd en je daarmee je herroepingsrecht verliest.</string>
   <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Dit kan tot %s dag duren.</item>
+    <item quantity="other">Dit kan tot %s dagen duren.</item>
   </plurals>
   <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
+  <string name="purchase_bank_transfer_success_2">Het kan tot 2 dagen duren voordat je bank de transactie verwerkt.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">We wachten tot we het bedrag van je bank hebben ontvangen.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -741,7 +741,7 @@
   <string name="vip_program_referral_button_title">VIP-verwijzingsprogramma</string>
   <string name="vip_program_referral_button_body">%s%% bonus voor jou en je vrienden.</string>
   <string name="vip_program_referral_page_title">VIP-verwijzingsprogramma</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Deel deze code met vrienden en krijg allebei %s%% bonus bij elke aankoop die vrienden doen.</string>
   <string name="vip_program_referral_page_share_title">Deel deze code met je vrienden</string>
   <string name="vip_program_referral_page_only_app_title">Alleen voor aankopen in</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s verdiend met %3$s verwijzingen</string>
@@ -750,7 +750,7 @@
   <string name="vip_program_referral_notification_title">VIP-verwijzingscode beschikbaar!</string>
   <string name="vip_program_referral_notification_body">Deel je code met de community, zodat iedereen tijdens het spelen AppCoins kan verdienen!</string>
   <string name="vip_program_title_vip_offer">VIP-aanbieding</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Je kunt je eigen VIP-code niet gebruiken. Deel deze met je vrienden!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
   <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
@@ -808,12 +808,12 @@
   <string name="mail_list_card_confirmation_title">Bevestig je e-mailadres</string>
   <string name="mail_list_card_confirmation_body">We hebben een e-mail verzonden naar %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebranding_disclaimer_short_title">De AppCoins Wallet wordt binnenkort de Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">De AppCoins Wallet wordt de Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">We worden de Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> We werken aan een geweldig nieuw design om je een nog betere ervaring te bieden. Blijf ons volgen om je favoriete functies en beloningen in een compleet nieuw jasje te ontdekken!</string>
+  <string name="rebranding_post_title">De AppCoins Wallet heet nu de Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Ontdek je favoriete functies en beloningen in een compleet nieuw jasje. We hopen dat je net zo enthousiast bent als wij!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
