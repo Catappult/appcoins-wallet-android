@@ -50,7 +50,6 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
@@ -132,9 +131,9 @@ fun TransactionCard(
                 )
                 if (textDecoration == TextDecoration.LineThrough) {
                   Canvas(modifier = Modifier.matchParentSize()) {
-                    val textHeight = size.height / 2
+                    val textHeight = size.height / 1.90f
                     drawLine(
-                      color = Color.Red,
+                      color = styleguide_red,
                       start = Offset(0f, textHeight),
                       end = Offset(size.width, textHeight),
                       strokeWidth = 1.5.dp.toPx()
@@ -238,7 +237,7 @@ fun TransactionDetailHeader(
             )
             if (textDecoration == TextDecoration.LineThrough) {
               Canvas(modifier = Modifier.matchParentSize()) {
-                val textHeight = size.height / 2
+                val textHeight = size.height / 1.8f
                 drawLine(
                   color = styleguide_red,
                   start = Offset(0f, textHeight),
