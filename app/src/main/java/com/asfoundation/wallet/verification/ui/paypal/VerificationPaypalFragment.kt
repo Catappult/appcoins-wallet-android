@@ -122,7 +122,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   private fun PayPalVerificationScreen() {
     Scaffold(
       topBar = { TopBar(onClickSupport = { viewModel.launchChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) },
-      containerColor = WalletColors.styleguide_blue
+      containerColor = WalletColors.styleguide_dark
     ) { padding ->
       Column(modifier = Modifier.padding(padding)) {
         ScreenTitle(stringResource(R.string.paypal_verification_header))
@@ -223,7 +223,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         label = stringResource(id = R.string.continue_button),
         onClick = onVerificationClick,
         labelColor = WalletColors.styleguide_white,
-        backgroundColor = WalletColors.styleguide_pink,
+        backgroundColor = WalletColors.styleguide_primary,
         buttonType = ButtonType.LARGE,
         fragmentName = fragmentName,
         buttonsAnalytics = buttonsAnalytics
@@ -381,7 +381,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         analytics.sendInsertCodeScreenEvent(action = RESEND)
         onVerificationClick()
       }) {
-        Text(stringResource(id = R.string.start_again_button), color = WalletColors.styleguide_pink)
+        Text(stringResource(id = R.string.start_again_button), color = WalletColors.styleguide_primary)
       }
 
     }
@@ -419,7 +419,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
             analytics.sendInsertCodeScreenEvent(action = SEND)
           },
           labelColor = WalletColors.styleguide_white,
-          backgroundColor = WalletColors.styleguide_pink,
+          backgroundColor = WalletColors.styleguide_primary,
           buttonType = ButtonType.LARGE,
           enabled = code.hasFourDigits(),
           fragmentName = fragmentName,
@@ -472,7 +472,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
           navigator.navigateBack()
         },
         labelColor = WalletColors.styleguide_white,
-        backgroundColor = WalletColors.styleguide_pink,
+        backgroundColor = WalletColors.styleguide_primary,
         buttonType = ButtonType.LARGE,
         fragmentName = fragmentName,
         buttonsAnalytics = buttonsAnalytics

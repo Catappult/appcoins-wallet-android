@@ -38,9 +38,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
 import com.appcoins.wallet.ui.widgets.NoNetworkSnackBar
 import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
@@ -127,7 +127,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
       if (expanded()) {
         ConnectionAlert(isConnected = connectionObserver)
         Card(
-          colors = CardDefaults.cardColors(containerColor = styleguide_blue),
+          colors = CardDefaults.cardColors(containerColor = styleguide_dark),
           modifier = Modifier
             .padding(8.dp)
             .clip(CircleShape)
@@ -136,9 +136,9 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
             modifier =
             Modifier
               .padding(vertical = 4.dp, horizontal = 8.dp)
-              .background(shape = CircleShape, color = styleguide_blue)
+              .background(shape = CircleShape, color = styleguide_dark)
           ) {
-            NavigationItems(styleguide_blue)
+            NavigationItems(styleguide_dark)
           }
         }
       } else {
@@ -148,7 +148,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
             modifier = Modifier
               .fillMaxWidth()
               .height(64.dp)
-              .background(styleguide_blue, RectangleShape)
+              .background(styleguide_dark, RectangleShape)
           ) {
             Row(
               horizontalArrangement = Arrangement.SpaceEvenly,
@@ -156,7 +156,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
               modifier = Modifier
                 .fillMaxSize()
             ) {
-              NavigationItems(styleguide_blue)
+              NavigationItems(styleguide_dark)
             }
           }
         }
@@ -171,7 +171,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
       ButtonWithIcon(
         icon = item.icon,
         label = item.label,
-        backgroundColor = if (selected) styleguide_pink else background,
+        backgroundColor = if (selected) styleguide_primary else background,
         labelColor = if (selected) styleguide_white else styleguide_medium_grey,
         iconColor = if (selected) styleguide_white else styleguide_medium_grey,
         iconSize = 24.dp,

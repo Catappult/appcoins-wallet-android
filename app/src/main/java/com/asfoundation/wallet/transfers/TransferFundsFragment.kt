@@ -68,13 +68,13 @@ import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_new
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
 import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.component.Animation
@@ -147,7 +147,7 @@ class TransferFundsFragment : BasePageViewFragment() {
           )
         }
       },
-      containerColor = styleguide_blue,
+      containerColor = styleguide_dark,
       bottomBar = {
         if (
           viewModel.uiState.collectAsState().value is Success &&
@@ -171,7 +171,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         verticalArrangement = Arrangement.spacedBy(16.dp)
       ) {
         Card(
-          colors = CardDefaults.cardColors(styleguide_blue_secondary),
+          colors = CardDefaults.cardColors(styleguide_dark_secondary),
           modifier =
           Modifier
             .fillMaxWidth()
@@ -201,7 +201,7 @@ class TransferFundsFragment : BasePageViewFragment() {
       modifier =
       Modifier
         .fillMaxWidth()
-        .background(shape = CircleShape, color = styleguide_blue)
+        .background(shape = CircleShape, color = styleguide_dark)
         .padding(4.dp),
       horizontalArrangement = Arrangement.SpaceEvenly
     ) {
@@ -209,7 +209,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         val selected = viewModel.clickedTransferItem.value == item.destination.ordinal
         ButtonWithText(
           label = stringResource(item.label),
-          backgroundColor = if (selected) styleguide_grey_new else styleguide_blue,
+          backgroundColor = if (selected) styleguide_grey_new else styleguide_dark,
           labelColor = if (selected) styleguide_white else styleguide_medium_grey,
           onClick = { viewModel.clickedTransferItem.value = item.destination.ordinal },
           fragmentName = fragmentName,
@@ -376,7 +376,7 @@ class TransferFundsFragment : BasePageViewFragment() {
           .padding(horizontal = 8.dp),
         value = address,
         placeHolder = stringResource(R.string.hint_recipient_address),
-        backgroundColor = styleguide_blue,
+        backgroundColor = styleguide_dark,
         keyboardType = KeyboardType.Ascii,
         roundedCornerShape = RoundedCornerShape(16.dp),
         trailingIcon = {
@@ -413,13 +413,13 @@ class TransferFundsFragment : BasePageViewFragment() {
         .padding(start = 8.dp, end = 8.dp, top = 0.dp, bottom = 16.dp),
       value = amount,
       placeHolder = "${balance.symbol}0.00",
-      backgroundColor = styleguide_blue,
+      backgroundColor = styleguide_dark,
       keyboardType = KeyboardType.Decimal,
       roundedCornerShape = RoundedCornerShape(16.dp),
       currencySymbol = balance.symbol,
       trailingIcon = {
         Card(
-          colors = CardDefaults.cardColors(styleguide_blue_secondary),
+          colors = CardDefaults.cardColors(styleguide_dark_secondary),
           modifier = Modifier
             .defaultMinSize(minWidth = 32.dp, minHeight = 24.dp)
             .padding(top = 4.dp, bottom = 4.dp, start = 4.dp, end = 8.dp)
@@ -449,7 +449,7 @@ class TransferFundsFragment : BasePageViewFragment() {
 
   @Composable
   fun QrCodeCard(address: String) {
-    Card(colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)) {
+    Card(colors = CardDefaults.cardColors(containerColor = styleguide_dark_secondary)) {
       Column(
         modifier = Modifier.padding(bottom = 8.dp, start = 8.dp, end = 8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -465,7 +465,7 @@ class TransferFundsFragment : BasePageViewFragment() {
           contentDescription = stringResource(R.string.scan_qr)
         )
         Card(
-          colors = CardDefaults.cardColors(styleguide_blue),
+          colors = CardDefaults.cardColors(styleguide_dark),
           modifier =
           Modifier
             .fillMaxWidth()
@@ -504,7 +504,7 @@ class TransferFundsFragment : BasePageViewFragment() {
                 onClick = { shareAddress(address) },
                 modifier = Modifier
                   .clip(RoundedCornerShape(4.dp))
-                  .background(styleguide_blue_secondary)
+                  .background(styleguide_dark_secondary)
                   .size(22.dp),
               ) {
                 Icon(
@@ -519,7 +519,7 @@ class TransferFundsFragment : BasePageViewFragment() {
                 onClick = { copyAddressToClipBoard(address) },
                 modifier = Modifier
                   .clip(RoundedCornerShape(4.dp))
-                  .background(styleguide_blue_secondary)
+                  .background(styleguide_dark_secondary)
                   .size(22.dp),
               ) {
                 Icon(
@@ -564,7 +564,7 @@ class TransferFundsFragment : BasePageViewFragment() {
             }
           }
         },
-        backgroundColor = styleguide_pink,
+        backgroundColor = styleguide_primary,
         labelColor = styleguide_light_grey,
         buttonType = ButtonType.LARGE,
         fragmentName = fragmentName,

@@ -76,7 +76,7 @@ fun GamificationHeader(
         onClick()
       },
     shape = RoundedCornerShape(8.dp),
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
   ) {
     Column(
       modifier = Modifier.padding(start = 16.dp, top = 8.dp),
@@ -261,8 +261,8 @@ fun GamificationHeaderNoPurchases() {
       .fillMaxWidth()
       .height(170.dp),
     shape = RoundedCornerShape(8.dp),
-    border = BorderStroke(1.dp, WalletColors.styleguide_pink),
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    border = BorderStroke(1.dp, WalletColors.styleguide_primary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
   ) {
     Column(
       modifier = Modifier.fillMaxSize(),
@@ -296,7 +296,7 @@ fun GamificationHeaderPartner(bonusPerkDescription: String) {
       .padding(top = 16.dp)
       .fillMaxWidth(),
     shape = RoundedCornerShape(8.dp),
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
   ) {
     Row( // Bottom main content
       modifier = Modifier
@@ -329,7 +329,7 @@ fun GamificationHeaderPartner(bonusPerkDescription: String) {
 fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long, startDateTime: Long) {
   val referralAvailable = isVipReferralAlreadyAvailable(startDateTime)
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
     modifier = Modifier
       .fillMaxSize()
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
@@ -425,7 +425,7 @@ fun VipReferralCountDownTimer(
 @Composable
 fun SkeletonLoadingGamificationCard() {
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
     modifier = Modifier
       .fillMaxWidth()
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)

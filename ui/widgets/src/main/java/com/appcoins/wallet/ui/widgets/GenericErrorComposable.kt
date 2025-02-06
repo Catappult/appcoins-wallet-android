@@ -57,13 +57,13 @@ fun GenericError(
     )
     Text(
       text = stringResource(id = R.string.error_general),
-      color = if (isDarkTheme) WalletColors.styleguide_white else WalletColors.styleguide_blue,
+      color = if (isDarkTheme) WalletColors.styleguide_white else WalletColors.styleguide_dark,
       fontSize = 16.sp,
       fontWeight = FontWeight.Bold,
     )
     Text(
       text = message,
-      color = if (isDarkTheme) WalletColors.styleguide_white else WalletColors.styleguide_blue,
+      color = if (isDarkTheme) WalletColors.styleguide_white else WalletColors.styleguide_dark,
       fontSize = 14.sp,
       modifier = Modifier
         .padding(top = 8.dp, bottom = 16.dp)
@@ -88,7 +88,7 @@ fun GenericError(
       label = stringResource(R.string.try_again),
       onClick = onTryAgain,
       labelColor =  WalletColors.styleguide_white,
-      backgroundColor = WalletColors.styleguide_pink,
+      backgroundColor = WalletColors.styleguide_primary,
       buttonType = ButtonType.LARGE,
       fragmentName = fragmentName,
       buttonsAnalytics = buttonAnalytics

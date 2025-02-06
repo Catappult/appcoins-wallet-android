@@ -59,7 +59,7 @@ fun WelcomeEmailCard(
       .fillMaxWidth()
       .padding(horizontal = 16.dp)
       .padding(bottom = 0.dp, top = 16.dp)
-      .background(WalletColors.styleguide_blue_secondary, shape = RoundedCornerShape(16.dp))
+      .background(WalletColors.styleguide_dark_secondary, shape = RoundedCornerShape(16.dp))
   ) {
     Column(
       modifier = Modifier
@@ -109,7 +109,7 @@ fun WelcomeEmailCard(
           horizontalArrangement = Arrangement.spacedBy(4.dp),
           verticalAlignment = Alignment.CenterVertically,
           modifier = Modifier.fillMaxWidth()
-            .background(color = WalletColors.styleguide_blue, shape = RoundedCornerShape(24.dp))
+            .background(color = WalletColors.styleguide_dark, shape = RoundedCornerShape(24.dp))
             .border(
               border = if (isError) BorderStroke(
                 width = 1.dp,
@@ -125,7 +125,7 @@ fun WelcomeEmailCard(
               .testTag("EmailTextField"),
             email.value,
             stringResource(R.string.email_here_field),
-            backgroundColor = WalletColors.styleguide_blue,
+            backgroundColor = WalletColors.styleguide_dark,
             keyboardType = KeyboardType.Email,
             roundedCornerShape = RoundedCornerShape(24.dp)
           ) { newEmail ->
@@ -134,7 +134,7 @@ fun WelcomeEmailCard(
           ButtonWithText(
             label = stringResource(id = com.appcoins.wallet.ui.common.R.string.send_button),
             onClick = { onSendClick() },
-            backgroundColor = WalletColors.styleguide_pink,
+            backgroundColor = WalletColors.styleguide_primary,
             labelColor = WalletColors.styleguide_light_grey,
             buttonType = ButtonType.DEFAULT,
             enabled = true,

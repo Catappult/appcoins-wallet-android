@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.fragment.app.Fragment
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.BalanceValue
@@ -48,7 +47,7 @@ fun BalanceCardExpanded(
   buttonsAnalytics: ButtonsAnalytics?
 ) {
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
     modifier = Modifier
       .fillMaxWidth()
       .padding(16.dp)
@@ -75,9 +74,9 @@ fun BalanceCardExpanded(
                 icon = R.drawable.ic_transfer,
                 label = R.string.transfer_button,
                 onClick = onClickTransfer,
-                backgroundColor = WalletColors.styleguide_blue,
+                backgroundColor = WalletColors.styleguide_dark,
                 labelColor = WalletColors.styleguide_white,
-                iconColor = WalletColors.styleguide_pink,
+                iconColor = WalletColors.styleguide_primary,
                 iconSize = 14.dp,
                 fragmentName = fragmentName,
                 buttonsAnalytics = buttonsAnalytics
@@ -87,7 +86,7 @@ fun BalanceCardExpanded(
                 icon = R.drawable.ic_plus_v3,
                 label = R.string.top_up_button,
                 onClick = onClickTopUp,
-                backgroundColor = WalletColors.styleguide_pink,
+                backgroundColor = WalletColors.styleguide_primary,
                 labelColor = WalletColors.styleguide_white,
                 iconColor = WalletColors.styleguide_white,
                 fragmentName = fragmentName,
@@ -111,7 +110,7 @@ fun BalanceCardExpanded(
               .fillMaxWidth()
               .absolutePadding(top = 4.dp, bottom = 4.dp)
               .size(1.dp),
-            color = WalletColors.styleguide_blue,
+            color = WalletColors.styleguide_dark,
             content = {})
           Column(modifier = Modifier.padding(16.dp)) { BackupAlertCardExpanded(onClickBackup, fragmentName, buttonsAnalytics) }
         }
@@ -152,7 +151,7 @@ private fun BalanceCardNewUserExpanded(onClickTopUp: () -> Unit, fragmentName: S
       icon = R.drawable.ic_plus_v3,
       label = R.string.top_up_button,
       onClick = onClickTopUp,
-      backgroundColor = WalletColors.styleguide_pink,
+      backgroundColor = WalletColors.styleguide_primary,
       labelColor = WalletColors.styleguide_white,
       iconColor = WalletColors.styleguide_white,
       fragmentName = fragmentName,
@@ -164,7 +163,7 @@ private fun BalanceCardNewUserExpanded(onClickTopUp: () -> Unit, fragmentName: S
 @Composable
 fun SkeletonLoadingBalanceCardExpanded() {
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
     modifier =
     Modifier
       .fillMaxWidth()

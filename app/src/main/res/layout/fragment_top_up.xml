@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/styleguide_blue"
+    android:background="@color/styleguide_dark"
     android:theme="@style/AdyenMaterialAppTheme"
     >
   <ScrollView
@@ -350,7 +350,7 @@
       android:id="@+id/bottom_separator"
       android:layout_width="match_parent"
       android:layout_height="1dp"
-      android:background="@color/styleguide_blue_secondary"
+      android:background="@color/styleguide_dark_secondary"
       android:visibility="gone"
       app:layout_constraintBottom_toTopOf="@id/rv_default_values"
       app:layout_constraintEnd_toEndOf="parent"

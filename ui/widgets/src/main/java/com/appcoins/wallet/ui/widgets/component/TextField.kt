@@ -65,10 +65,10 @@ fun WalletTextFieldCustom(value: String, hintText: Int? = null, onValueChange: (
     shape = RoundedCornerShape(8.dp),
     colors =
     TextFieldDefaults.colors(
-      focusedContainerColor = WalletColors.styleguide_blue_secondary,
-      unfocusedContainerColor = WalletColors.styleguide_blue_secondary,
-      focusedIndicatorColor = WalletColors.styleguide_blue,
-      unfocusedIndicatorColor = WalletColors.styleguide_blue,
+      focusedContainerColor = WalletColors.styleguide_dark_secondary,
+      unfocusedContainerColor = WalletColors.styleguide_dark_secondary,
+      focusedIndicatorColor = WalletColors.styleguide_dark,
+      unfocusedIndicatorColor = WalletColors.styleguide_dark,
       focusedTextColor = WalletColors.styleguide_light_grey,
       unfocusedTextColor = WalletColors.styleguide_light_grey,
       cursorColor = WalletColors.styleguide_light_grey
@@ -84,7 +84,7 @@ fun WalletTextField(
   modifier: Modifier,
   value: String,
   placeHolder: String,
-  backgroundColor: Color = WalletColors.styleguide_blue,
+  backgroundColor: Color = WalletColors.styleguide_dark,
   trailingIcon: @Composable (() -> Unit)? = null,
   keyboardType: KeyboardType = KeyboardType.Text,
   roundedCornerShape: RoundedCornerShape,
@@ -141,10 +141,10 @@ fun WalletTextFieldPassword(value: String, hintText: Int? = null, onValueChange:
     shape = RoundedCornerShape(8.dp),
     colors =
     TextFieldDefaults.colors(
-      focusedContainerColor = WalletColors.styleguide_blue,
-      unfocusedContainerColor = WalletColors.styleguide_blue,
-      focusedIndicatorColor = WalletColors.styleguide_blue,
-      unfocusedIndicatorColor = WalletColors.styleguide_blue,
+      focusedContainerColor = WalletColors.styleguide_dark,
+      unfocusedContainerColor = WalletColors.styleguide_dark,
+      focusedIndicatorColor = WalletColors.styleguide_dark,
+      unfocusedIndicatorColor = WalletColors.styleguide_dark,
       focusedTextColor = WalletColors.styleguide_light_grey,
       unfocusedTextColor = WalletColors.styleguide_light_grey,
       cursorColor = WalletColors.styleguide_light_grey
@@ -249,10 +249,10 @@ fun WalletCodeTextFieldItem(
       ),
     colors =
     TextFieldDefaults.colors(
-      unfocusedContainerColor = WalletColors.styleguide_blue,
-      focusedContainerColor = WalletColors.styleguide_blue,
-      focusedIndicatorColor = WalletColors.styleguide_blue,
-      unfocusedIndicatorColor = WalletColors.styleguide_blue,
+      unfocusedContainerColor = WalletColors.styleguide_dark,
+      focusedContainerColor = WalletColors.styleguide_dark,
+      focusedIndicatorColor = WalletColors.styleguide_dark,
+      unfocusedIndicatorColor = WalletColors.styleguide_dark,
       cursorColor = WalletColors.styleguide_light_grey
     ),
     shape = RoundedCornerShape(8.dp),

@@ -73,10 +73,10 @@ import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStat
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
 import com.appcoins.wallet.ui.widgets.BackupAlertCard
 import com.appcoins.wallet.ui.widgets.top_bar.ScreenTitle
 import com.appcoins.wallet.ui.widgets.top_bar.TopBar
@@ -141,7 +141,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       topBar = {
         Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) }
       },
-      containerColor = styleguide_blue,
+      containerColor = styleguide_dark,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is Success -> {
@@ -190,7 +190,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
       items(inactiveWallets) { wallet ->
         Card(
-          colors = CardDefaults.cardColors(styleguide_blue_secondary),
+          colors = CardDefaults.cardColors(styleguide_dark_secondary),
           modifier = Modifier
             .padding(bottom = 16.dp)
             .padding(horizontal = 16.dp),
@@ -213,8 +213,8 @@ class ManageWalletFragment : BasePageViewFragment() {
     Column(horizontalAlignment = End, modifier = Modifier.padding(16.dp)) {
       ActiveWalletIndicator()
       Card(
-        colors = CardDefaults.cardColors(styleguide_blue_secondary),
-        border = BorderStroke(1.dp, styleguide_pink),
+        colors = CardDefaults.cardColors(styleguide_dark_secondary),
+        border = BorderStroke(1.dp, styleguide_primary),
         shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp, topStart = 16.dp)
       ) {
         BoxWithConstraints {
@@ -390,11 +390,11 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @Composable
   fun ActiveWalletIndicator() {
-    Surface(color = styleguide_pink, shape = RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp)) {
+    Surface(color = styleguide_primary, shape = RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp)) {
       Text(
         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
         text = stringResource(R.string.wallets_active_wallet_title),
-        color = styleguide_blue,
+        color = styleguide_dark,
         style = MaterialTheme.typography.bodySmall
       )
     }
@@ -407,7 +407,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         .fillMaxWidth()
         .padding(vertical = 24.dp)
         .height(1.dp),
-      color = styleguide_blue,
+      color = styleguide_dark,
       content = {})
   }
 
@@ -492,7 +492,7 @@ class ManageWalletFragment : BasePageViewFragment() {
           myWalletsNavigator.navigateToManageWalletBottomSheet(inactiveWalletsQuantity == 0)
         },
         paddingIcon = 4.dp,
-        background = styleguide_blue_secondary,
+        background = styleguide_dark_secondary,
         fragmentName = fragmentName,
         buttonsAnalytics = buttonsAnalytics
       )

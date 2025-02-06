@@ -11,7 +11,7 @@
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/styleguide_blue"
+      android:background="@color/styleguide_dark"
       >
 
     <LinearLayout
@@ -61,9 +61,9 @@
           android:layout_marginStart="16dp"
           android:layout_marginTop="26dp"
           android:layout_marginEnd="16dp"
-          android:progressBackgroundTint="@color/styleguide_pink"
-          android:secondaryProgressTint="@color/styleguide_pink"
-          android:thumbTint="@color/styleguide_pink"
+          android:progressBackgroundTint="@color/styleguide_primary"
+          android:secondaryProgressTint="@color/styleguide_primary"
+          android:thumbTint="@color/styleguide_primary"
           />
 
       <TextView
@@ -116,9 +116,9 @@
           android:layout_marginStart="16dp"
           android:layout_marginTop="26dp"
           android:layout_marginEnd="16dp"
-          android:progressBackgroundTint="@color/styleguide_pink"
-          android:secondaryProgressTint="@color/styleguide_pink"
-          android:thumbTint="@color/styleguide_pink"
+          android:progressBackgroundTint="@color/styleguide_primary"
+          android:secondaryProgressTint="@color/styleguide_primary"
+          android:thumbTint="@color/styleguide_primary"
           />
 
       <TextView

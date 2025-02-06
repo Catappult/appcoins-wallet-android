@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +29,7 @@ import androidx.fragment.app.viewModels
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.properties.HostProperties
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark
 import com.appcoins.wallet.ui.widgets.GenericError
 import com.appcoins.wallet.ui.widgets.component.Animation
 import com.asf.wallet.R
@@ -95,7 +94,7 @@ class AmazonPayTopUpFragment : BasePageViewFragment() {
   @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
   fun MainContent() {
     Scaffold(
-      containerColor = styleguide_blue,
+      containerColor = styleguide_dark,
     ) { _ ->
       when (viewModel.uiState.collectAsState().value) {
         is UiState.Success -> {

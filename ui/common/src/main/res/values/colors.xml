@@ -3,9 +3,9 @@
   <!-- Style guide in https://xd.adobe.com/view/66e0db6b-b2df-40db-9fec-7b456002bd70-33b3/ -->
 
   <!-- Main style guide colors -->
-  <color name="styleguide_pink">#FF6381</color>
-  <color name="styleguide_blue">#1A1A24</color>
-  <color name="styleguide_blue_secondary">#242333</color>
+  <color name="styleguide_primary">#EE5D41</color>
+  <color name="styleguide_dark">#171717</color>
+  <color name="styleguide_dark_secondary">#212121</color>
   <color name="styleguide_dark_grey">#8E93A1</color>
   <color name="styleguide_dark_grey_old">#4A4A4A</color>
   <color name="styleguide_medium_grey">#C9C9C9</color>
@@ -60,11 +60,11 @@
   <color name="styleguide_dark_grey_transparent_50">#804A4A4A</color>
 
   <!-- Default Android colors -->
-  <color name="colorPrimary">@color/styleguide_blue</color> <!-- App bar -->
-  <color name="colorPrimaryDark">@color/styleguide_blue</color> <!-- App bar dark -->
-  <color name="colorAccent">@color/styleguide_pink</color> <!-- Default UI controls -->
+  <color name="colorPrimary">@color/styleguide_dark</color> <!-- App bar -->
+  <color name="colorPrimaryDark">@color/styleguide_dark</color> <!-- App bar dark -->
+  <color name="colorAccent">@color/styleguide_primary</color> <!-- Default UI controls -->
   <!-- Default text color -->
-  <color name="statusBarColor">@color/styleguide_blue</color> <!-- Android system status bar -->
+  <color name="statusBarColor">@color/styleguide_dark</color> <!-- Android system status bar -->
   <!-- Android controls -->
 
   <!-- Still used, but to be replaced -->

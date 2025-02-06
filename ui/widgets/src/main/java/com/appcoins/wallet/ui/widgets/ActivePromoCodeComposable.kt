@@ -56,7 +56,7 @@ fun ActivePromoCodeComposable(
       modifier = Modifier
         .align(Alignment.End)
         .clip(RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp))
-        .background(WalletColors.styleguide_pink)
+        .background(WalletColors.styleguide_primary)
     ) {
       Text(
         text = stringResource(id = R.string.promo_code_settings_title),
@@ -71,10 +71,10 @@ fun ActivePromoCodeComposable(
       )
     }
     Surface(
-      color = WalletColors.styleguide_blue_secondary,
+      color = WalletColors.styleguide_dark_secondary,
       modifier = Modifier
         .border(
-          border = BorderStroke(2.dp, WalletColors.styleguide_pink),
+          border = BorderStroke(2.dp, WalletColors.styleguide_primary),
           shape = RoundedCornerShape(
             bottomEnd = 16.dp,
             bottomStart = 16.dp,

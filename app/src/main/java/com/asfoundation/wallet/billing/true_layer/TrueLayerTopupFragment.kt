@@ -210,13 +210,13 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     }
 
     val universalColorPalette = DarkColorDefaults.copy(
-      primary = WalletColors.styleguide_pink,
+      primary = WalletColors.styleguide_primary,
       onPrimary = WalletColors.styleguide_white,
       secondary = WalletColors.styleguide_light_grey,
-      background = WalletColors.styleguide_blue,
-      surface = WalletColors.styleguide_blue,
+      background = WalletColors.styleguide_dark,
+      surface = WalletColors.styleguide_dark,
       onSurface = WalletColors.styleguide_white,
-      surfaceVariant = WalletColors.styleguide_blue,
+      surfaceVariant = WalletColors.styleguide_dark,
       onSurfaceVariant = WalletColors.styleguide_white,
     )
 

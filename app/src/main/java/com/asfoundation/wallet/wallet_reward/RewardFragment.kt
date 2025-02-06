@@ -159,7 +159,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           )
         }
       },
-      containerColor = WalletColors.styleguide_blue,
+      containerColor = WalletColors.styleguide_dark,
       modifier = modifier
     ) { padding ->
       RewardScreenContent(padding = padding)

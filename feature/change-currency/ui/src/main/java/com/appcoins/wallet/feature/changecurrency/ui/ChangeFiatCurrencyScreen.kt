@@ -172,7 +172,7 @@ private fun CurrencyItem(
 
   Card(
     shape = shapes.large,
-    border = if (isSelected) BorderStroke(1.dp, WalletColors.styleguide_pink) else null,
+    border = if (isSelected) BorderStroke(1.dp, WalletColors.styleguide_primary) else null,
     modifier = Modifier
       .fillMaxWidth()
       .padding(top = 8.dp),
@@ -212,7 +212,7 @@ private fun CurrencyItem(
         chosenCurrency = null
       },
       sheetState = bottomSheetState,
-      containerColor = WalletColors.styleguide_blue
+      containerColor = WalletColors.styleguide_dark
     ) {
       chosenCurrency?.let {
         ChooseCurrencyRoute(

@@ -20,7 +20,7 @@
       android:id="@+id/settings_container_view"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:background="@color/styleguide_blue"
+      android:background="@color/styleguide_dark"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

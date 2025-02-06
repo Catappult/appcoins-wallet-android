@@ -30,7 +30,7 @@ import androidx.core.text.HtmlCompat.FROM_HTML_MODE_COMPACT
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
@@ -94,7 +94,7 @@ fun BackupSuccessScreenCard(saveOnDevice: Boolean) {
   Card(
     shape = RoundedCornerShape(14.dp),
     modifier = Modifier.padding(bottom = 48.dp, start = 16.dp, end = 16.dp),
-    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
+    colors = CardDefaults.cardColors(containerColor = styleguide_dark_secondary)
   ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -171,7 +171,7 @@ fun BackupSuccessButton(onGotItClick: () -> Unit, fragmentName: String, buttonsA
     ButtonWithText(
       label = stringResource(id = R.string.got_it_button),
       onClick = { onGotItClick() },
-      backgroundColor = WalletColors.styleguide_pink,
+      backgroundColor = WalletColors.styleguide_primary,
       labelColor = WalletColors.styleguide_light_grey,
       buttonType = ButtonType.LARGE,
       fragmentName = fragmentName,

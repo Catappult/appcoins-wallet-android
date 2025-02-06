@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="@color/styleguide_blue"
+    android:background="@color/styleguide_dark"
     android:clickable="true"
     android:focusable="true"
     >
@@ -15,7 +15,7 @@
       android:layout_marginHorizontal="16dp"
       android:layout_marginBottom="4dp"
       android:foreground="?android:attr/selectableItemBackground"
-      app:cardBackgroundColor="@color/styleguide_blue"
+      app:cardBackgroundColor="@color/styleguide_dark"
       app:cardCornerRadius="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/styleguide_blue_secondary"
+        android:background="@color/styleguide_dark_secondary"
         >
 
       <ImageView
@@ -38,7 +38,7 @@
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:tint="@color/styleguide_pink"
+          app:tint="@color/styleguide_primary"
           />
 
       <TextView

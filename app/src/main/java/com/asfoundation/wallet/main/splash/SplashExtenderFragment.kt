@@ -116,7 +116,7 @@ class SplashExtenderFragment : BasePageViewFragment() {
     Column(
       modifier =
       Modifier
-        .background(color = WalletColors.styleguide_blue)
+        .background(color = WalletColors.styleguide_dark)
         .verticalScroll(rememberScrollState())
         .height(IntrinsicSize.Max),
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -177,7 +177,7 @@ class SplashExtenderFragment : BasePageViewFragment() {
         ButtonWithText(
           label = stringResource(R.string.got_it_button),
           onClick = onClick,
-          labelColor = WalletColors.styleguide_blue,
+          labelColor = WalletColors.styleguide_dark,
           backgroundColor = WalletColors.styleguide_vip_yellow,
           buttonType = ButtonType.LARGE,
           fragmentName = fragmentName,

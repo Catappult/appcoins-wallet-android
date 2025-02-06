@@ -3,10 +3,10 @@ package com.appcoins.wallet.ui.common.theme
 import androidx.compose.ui.graphics.Color
 
 object WalletColors {
-  val styleguide_blue = Color(0xFF1A1A24)
-  val styleguide_blue_secondary = Color(0xFF242333)
+  val styleguide_dark = Color(0xFF171717)
+  val styleguide_dark_secondary = Color(0xFF212121)
   val styleguide_blue_webview_payment = Color(0xFF282934)
-  val styleguide_pink = Color(0xFFFF6381)
+  val styleguide_primary = Color(0xFFEE5D41)
 
   val styleguide_white = Color(0xFFFFFFFF)
   val styleguide_black = Color(0xFF000000)

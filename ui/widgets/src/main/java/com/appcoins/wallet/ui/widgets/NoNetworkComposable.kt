@@ -91,7 +91,7 @@ fun NoNetworkSnackBar() {
   Row(
     modifier = Modifier
       .fillMaxWidth()
-      .background(WalletColors.styleguide_pink),
+      .background(WalletColors.styleguide_primary),
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.Center
   ) {
@@ -104,16 +104,16 @@ fun NoNetworkCard() {
   Card(
     colors =
     CardDefaults.cardColors(
-      containerColor = WalletColors.styleguide_pink.copy(alpha = 0.15f)
+      containerColor = WalletColors.styleguide_primary.copy(alpha = 0.15f)
     ),
     shape = CircleShape
   ) {
-    NoNetworkMessage(mainColor = WalletColors.styleguide_pink)
+    NoNetworkMessage(mainColor = WalletColors.styleguide_primary)
   }
 }
 
 @Composable
-fun NoNetworkMessage(mainColor: Color = WalletColors.styleguide_blue) {
+fun NoNetworkMessage(mainColor: Color = WalletColors.styleguide_dark) {
   Row(modifier = Modifier.padding(8.dp)) {
     Icon(
       painter = painterResource(id = R.drawable.ic_no_internet),

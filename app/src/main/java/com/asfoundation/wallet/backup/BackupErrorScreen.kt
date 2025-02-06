@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
@@ -89,7 +89,7 @@ fun BackupDialogCard(onCancelBackup: () -> Unit, onClickBack: () -> Unit, fragme
     modifier = Modifier
       .fillMaxWidth()
       .padding(horizontal = 16.dp),
-    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
+    colors = CardDefaults.cardColors(containerColor = styleguide_dark_secondary)
   ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -131,7 +131,7 @@ fun BackupDialogCard(onCancelBackup: () -> Unit, onClickBack: () -> Unit, fragme
       ButtonWithText(
         label = stringResource(id = R.string.try_again),
         onClick = { onClickBack() },
-        backgroundColor = WalletColors.styleguide_pink,
+        backgroundColor = WalletColors.styleguide_primary,
         labelColor = WalletColors.styleguide_white,
         buttonType = ButtonType.DEFAULT,
         fragmentName = fragmentName,

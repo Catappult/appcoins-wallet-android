@@ -44,7 +44,7 @@
       android:layout_alignParentBottom="true"
       android:layout_marginTop="16dp"
       android:visibility="gone"
-      app:buttonColor="@color/styleguide_pink"
+      app:buttonColor="@color/styleguide_primary"
       app:buttonText="@string/referral_view_verify_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

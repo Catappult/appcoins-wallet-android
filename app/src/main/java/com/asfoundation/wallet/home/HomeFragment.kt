@@ -21,9 +21,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -171,7 +168,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           )
         }
       },
-      containerColor = WalletColors.styleguide_blue,
+      containerColor = WalletColors.styleguide_dark,
       modifier = modifier
     ) { padding ->
       HomeScreenContent(padding = padding)
@@ -252,7 +249,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
               fontWeight = FontWeight.Bold,
               color = WalletColors.styleguide_dark_grey
             )
-            Card(colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)) {
+            Card(colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary)) {
               TransactionsList(transactionsState.transactions)
             }
           }
@@ -456,7 +453,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         onClick = { viewModel.onSeeAllTransactionsClick() }) {
         Text(
           text = stringResource(R.string.see_all_button),
-          color = WalletColors.styleguide_pink,
+          color = WalletColors.styleguide_primary,
           style = MaterialTheme.typography.bodyMedium,
         )
       }
@@ -515,7 +512,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
       alertDialog
         .getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
-        .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_pink, null))
+        .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_primary, null))
     }
   }
 

@@ -97,7 +97,7 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
   fun VipReferralProgramScreen() {
     Scaffold(
       topBar = { Surface { TopBar(onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) } },
-      containerColor = WalletColors.styleguide_blue,
+      containerColor = WalletColors.styleguide_dark,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is UiState.Success -> {
@@ -198,7 +198,7 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
       modifier = Modifier
         .widthIn(max = 480.dp)
         .fillMaxWidth(),
-      colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
+      colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_dark_secondary)
     ) {
       Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         VipReferralCountDownTimer(
@@ -284,7 +284,7 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
       modifier = Modifier
         .fillMaxWidth()
         .padding(top = 16.dp),
-      colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary),
+      colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_dark_secondary),
       shape =
       RoundedCornerShape(
         bottomStart = 16.dp, topStart = 16.dp, bottomEnd = 32.dp, topEnd = 32.dp
@@ -306,7 +306,7 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
         ButtonWithText(
           label = stringResource(R.string.wallet_view_share_button),
           onClick = onClick,
-          labelColor = WalletColors.styleguide_blue,
+          labelColor = WalletColors.styleguide_dark,
           backgroundColor = WalletColors.styleguide_vip_yellow,
           fragmentName = fragmentName,
           buttonsAnalytics = buttonsAnalytics
