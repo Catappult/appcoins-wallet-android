@@ -320,7 +320,7 @@ class TransferFundsFragment : BasePageViewFragment() {
     ) {
       Text(
         modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 0.dp, bottom = 4.dp),
-        text = stringResource(R.string.aptoide_balance),
+        text = stringResource(R.string.appc),  //TODO: change to R.string.aptoide_balance when rebranding is released.
         style = MaterialTheme.typography.bodySmall,
         color = styleguide_dark_grey,
         fontSize = 10.sp
