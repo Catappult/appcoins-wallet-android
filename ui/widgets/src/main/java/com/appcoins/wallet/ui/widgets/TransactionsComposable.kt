@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -55,6 +57,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_green
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_red
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -114,19 +117,31 @@ fun TransactionCard(
             modifier = Modifier.fillMaxWidth(0.9f)
           ) {
             if (amount != null)
-              Text(
-                text = amount,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.End,
-                color = if (isPending)
-                  styleguide_dark_grey
-                else
-                  styleguide_light_grey,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                textDecoration = textDecoration
-              )
+              Box {
+                Text(
+                  text = amount,
+                  fontWeight = FontWeight.Bold,
+                  style = MaterialTheme.typography.bodyMedium,
+                  textAlign = TextAlign.End,
+                  color = if (isPending)
+                    styleguide_dark_grey
+                  else
+                    styleguide_light_grey,
+                  maxLines = 1,
+                  overflow = TextOverflow.Ellipsis
+                )
+                if (textDecoration == TextDecoration.LineThrough) {
+                  Canvas(modifier = Modifier.matchParentSize()) {
+                    val textHeight = size.height / 2
+                    drawLine(
+                      color = Color.Red,
+                      start = Offset(0f, textHeight),
+                      end = Offset(size.width, textHeight),
+                      strokeWidth = 1.5.dp.toPx()
+                    )
+                  }
+                }
+              }
           }
         }
       }
@@ -211,16 +226,28 @@ fun TransactionDetailHeader(
     ) {
       Column(horizontalAlignment = Alignment.Start, modifier = Modifier.fillMaxWidth(0.8f)) {
         if (amount != null)
-          Text(
-            text = amount,
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.headlineSmall,
-            textAlign = TextAlign.End,
-            color = styleguide_light_grey,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            textDecoration = textDecoration
-          )
+          Box {
+            Text(
+              text = amount,
+              fontWeight = FontWeight.Bold,
+              style = MaterialTheme.typography.headlineSmall,
+              textAlign = TextAlign.End,
+              color = styleguide_light_grey,
+              maxLines = 1,
+              overflow = TextOverflow.Ellipsis
+            )
+            if (textDecoration == TextDecoration.LineThrough) {
+              Canvas(modifier = Modifier.matchParentSize()) {
+                val textHeight = size.height / 2
+                drawLine(
+                  color = styleguide_red,
+                  start = Offset(0f, textHeight),
+                  end = Offset(size.width, textHeight),
+                  strokeWidth = 1.5.dp.toPx()
+                )
+              }
+            }
+          }
         if (name != null)
           Text(
             text = name,
