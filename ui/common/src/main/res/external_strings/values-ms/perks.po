@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Malay\n"
 "Language: ms_MY\n"
-"PO-Revision-Date: 2025-01-29 17:26\n"
+"PO-Revision-Date: 2025-02-05 15:03\n"
 
 #. Card Title
 #:
@@ -125,10 +125,10 @@ msgstr "Nikmati bonus {0}% bagi setiap pembelian."
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "Dapatkan bonus ekstra {0}% bagi semua tambah nilai yang dibuat dengan pindahan bank mudah."
 
 #. Payment Method - Title - Bank Transfer
 #:
 msgid "Easy bank transfer"
-msgstr ""
+msgstr "Pindahan bank mudah"
 

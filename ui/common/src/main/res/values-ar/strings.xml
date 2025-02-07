@@ -302,12 +302,12 @@
   <string name="buy_button">شراء</string>
   <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
   <string name="topup_button">إضافة</string>
-  <string name="extra_bonus_title">احصل على %s%% إضافية</string>
+  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="payment_method">وسيلة الدفع</string>
   <string name="credit_debit_card">بطاقة ائتمان/مسبقة الدفع</string>
   <string name="paypal">بايبال</string>
   <string name="appc">Aptoide balance</string>
-  <string name="bank_transfer">تحويل بنكي سهل</string>
+  <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -331,10 +331,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">أداتك للمشتريات داخل التطبيقات</string>
+  <string name="onboarding_title">Your tool to make in-app purchases</string>
   <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
-  <string name="onboarding_payment_methods_title">استخدم بطاقة مصرفية، PayPal، ووسيلة الدفع المفضلة لديك.</string>
-  <string name="onboarding_vip_title">كن عضوًا في VIP لتحصل على دعم وعروض استثنائية.</string>
+  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
+  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
   <string name="terms_and_conditions">القواعد والشروط</string>
   <string name="privacy_policy">سياسة الخصوصية</string>
   <string name="existent_wallet">لدي محفظة فعلًا</string>
@@ -423,22 +423,22 @@
   <string name="purchase_success_bonus_received_title">تلقيت %s مكافأة.</string>
   <string name="purchase_making_purchase_title">الشراء&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">مع وسيلة الدفع هذه ستدفع عمولة تشغيل وضريبة.</string>
-  <string name="purchase_error_open_banking_wallet_generic">حدثت مشكلة مع مدفوعاتك. يرجى المحاولة ثانية أو استخدام وسيلة دفع مختلفة.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_error_no_method_available_body">حتى اللحظة، لا تتوفر وسائل دفع لإتمام عملية الشراء الحالية في منطقتك. تابع لتعرف التحديثات في هذا الأمر!</string>
   <string name="purchase_legal_disclaimer">بمتابعة استخدام وسيلة الدفع هذه، أنت توافق وتُدرك أنه سيتم تزويدك بالمحتوى مقابل الدفع، وبهذا تفقد حقك في الانسحاب.</string>
   <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="zero">قد يستغرق الأمر %s يومًا.</item>
-    <item quantity="one">قد يستغرق الأمر %s يومًا.</item>
-    <item quantity="two">قد يستغرق الأمر يومين.</item>
-    <item quantity="few">قد يستغرق الأمر %s أيام.</item>
-    <item quantity="many">قد يستغرق الأمر %s يومًا.</item>
-    <item quantity="other">قد يستغرق الأمر %s يومًا.</item>
+    <item quantity="zero">It may take up to %s days.</item>
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="two">It may take up to %s days.</item>
+    <item quantity="few">It may take up to %s days.</item>
+    <item quantity="many">It may take up to %s days.</item>
+    <item quantity="other">It may take up to %s days.</item>
   </plurals>
   <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">قد يستغرق الأمر حتى يومين ليعمل مصرفك على الدفعة.</string>
+  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">نحن بانتظار المال ليص من حسابك المصرفي.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -753,7 +753,7 @@
   <string name="vip_program_referral_button_title">برنامج الإحالة VIP</string>
   <string name="vip_program_referral_button_body">%s%% مكافأة لك ولأصدقائك.</string>
   <string name="vip_program_referral_page_title">برنامج الإحالة VIP</string>
-  <string name="vip_program_referral_page_body_2">شارك هذا الرمز مع أصدقائك وسيحصل كلاكما على مكافأة %s%% على كل المشتريات التي يقومون بها.</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">شارك هذا الرمز مع أصدقائك</string>
   <string name="vip_program_referral_page_only_app_title">فقط للمشتريات على</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s كسبتها من إحالات %3$s</string>
@@ -762,7 +762,7 @@
   <string name="vip_program_referral_notification_title">يتوفر رمز إحالة VIP!</string>
   <string name="vip_program_referral_notification_body">شارك رمزك مع مجتمعك لتكسبوا جميعًا بينما تلعبون!</string>
   <string name="vip_program_title_vip_offer">عرض VIP</string>
-  <string name="vip_program_code_error_body">لا يمكنك أنت استخدام رمزك الترويجي الـ VIP. شاركه مع أصدقائك!</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
   <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
@@ -839,9 +839,9 @@
   <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
+  <string name="rebranding_disclaimer_long_body"> نحن نعمل على إعادة تصميم لعلامتنا وواجهتها. تابعنا لتعرف وتكتشف المزايا والجوائز المفضلة لديك بحُلّتها الجديدة كليًّا!</string>
   <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebrandinh_post_body">اكتشف المزايا والجوائز التي تفضّلها بشكلها الجديد. نتمنى أن تنال إعجابك!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

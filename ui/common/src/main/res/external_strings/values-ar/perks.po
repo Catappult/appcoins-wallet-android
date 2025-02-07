@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Arabic\n"
 "Language: ar_SA\n"
-"PO-Revision-Date: 2025-01-29 17:25\n"
+"PO-Revision-Date: 2025-02-05 15:03\n"
 
 #. Card Title
 #:
@@ -130,5 +130,5 @@ msgstr ""
 #. Payment Method - Title - Bank Transfer
 #:
 msgid "Easy bank transfer"
-msgstr ""
+msgstr "تحويل بنكي سهل"
 

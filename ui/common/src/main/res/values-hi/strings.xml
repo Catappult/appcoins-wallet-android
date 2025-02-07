@@ -471,7 +471,7 @@
   <string name="backup_body">हम आपकी निजी कुंजी या अन्य एक्सेस विधि को स्टोर नहीं करते हैं। अपने वॉलेट बैकअप (कीस्टोर) को सुरक्षित रखना महत्वपूर्ण है।</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_button">Back up wallet</string>
+  <string name="backup_button">वॉलेट का बैकअप लें</string>
   <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Save it on your email</string>
   <string name="backup_ready_email_button">Send to email</string>
@@ -509,7 +509,7 @@
   <!--Remove Wallet-->
   <string name="remove_wallet_title">वॉलेट हटाएँ</string>
   <string name="remove_wallet_body">हम इसे हटाने से पहले वॉलेट का बैकअप लेने की अनुशंसा करते हैं। बैकअप नहीं लिए जाने पर आप इसे फिर से उपयोग नहीं कर पाएंगे।</string>
-  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_backup_button">वॉलेट का बैकअप लें</string>
   <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_no_button">No, go back</string>
   <string name="remove_wallet_yes_button">Yes, remove wallet</string>

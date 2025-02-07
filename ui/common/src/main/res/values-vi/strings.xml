@@ -273,7 +273,7 @@
   <string name="discover_button">Khám phá</string>
   <string name="connection_error_title">Không có kết nối Internet</string>
   <string name="connection_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">hoặc</string>
   <string name="share_via">Chia sẻ qua:</string>
   <string name="password">Mật khẩu</string>
   <string name="repeat_password">Lặp lại mật khẩu</string>
@@ -302,12 +302,12 @@
   <string name="buy_button">Mua</string>
   <string name="copied_to_clipboard">Đã sao chép vào khay nhớ tạm</string>
   <string name="topup_button">Nạp tiền</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Nhận thêm %s%% tiền thưởng</string>
   <string name="payment_method">Phương thức thanh toán</string>
   <string name="credit_debit_card">Thẻ tín dụng/ghi nợ</string>
   <string name="paypal">PayPal</string>
   <string name="appc">Aptoide balance</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Chuyển khoản ngân hàng dễ dàng</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -331,10 +331,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
+  <string name="onboarding_title">Công cụ của bạn để thực hiện mua hàng trong ứng dụng</string>
   <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_payment_methods_title">Sử dụng thẻ ngân hàng, PayPal và phương thức thanh toán ưa thích của bạn.</string>
+  <string name="onboarding_vip_title">Trở thành thành viên VIP để nhận được hỗ trợ và các ưu đãi cao cấp.</string>
   <string name="terms_and_conditions">Điều khoản và Điều kiện</string>
   <string name="privacy_policy">Chính sách riêng tư</string>
   <string name="existent_wallet">Tôi đã có một ví rồi</string>
@@ -361,9 +361,9 @@
   <string name="verification_verify_paypal_description">Một giao dịch %s sẽ được thực hiện để xác nhận tài khoản của bạn. Nó cũng sẽ được hoàn trả ngay lập tức.</string>
   <string name="verification_settings_card_verified_title">Đã xác minh thẻ</string>
   <string name="verification_error_attempts_reached">Có vẻ như bạn đã đạt đến giới hạn số lần thử. Vui lòng chờ để thử lại.</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Đã xác minh bằng PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Đã xác minh bằng thẻ tín dụng/thẻ ghi nợ.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Đã xác minh bằng thẻ tín dụng/thẻ ghi nợ và PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Một bước nữa thôi!</string>
   <string name="paypal_verification_home_one_step_card_body">Nhập mã được gửi đến địa chỉ email để xác minh tài khoản PayPal của bạn.</string>
@@ -423,17 +423,17 @@
   <string name="purchase_success_bonus_received_title">%s tiền thưởng đã nhận.</string>
   <string name="purchase_making_purchase_title">Thực hiện mua hàng&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Với phương thức thanh toán này, bạn sẽ phải trả phí xử lý và VAT.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Đã xảy ra lỗi với thanh toán của bạn. Vui lòng thử lại hoặc sử dụng phương thức thanh toán khác.</string>
   <string name="purchase_error_no_method_available_body">Hiện tại, không có phương thức thanh toán nào khả dụng để hoàn tất giao dịch mua này tại khu vực của bạn. Hãy theo dõi thêm!</string>
   <string name="purchase_legal_disclaimer">Bằng cách tiếp tục thanh toán, bạn đồng ý và đồng thuận được cung cấp nội dung khi thanh toán và do đó mất quyền rút tiền.</string>
   <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="other">Có thể mất đến %s ngày.</item>
   </plurals>
   <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
+  <string name="purchase_bank_transfer_success_2">Ngân hàng của bạn có thể mất đến 2 ngày để xử lý.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Chúng tôi đang chờ tiền từ ngân hàng của bạn.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -738,7 +738,7 @@
   <string name="vip_program_referral_button_title">Chương trình giới thiệu VIP</string>
   <string name="vip_program_referral_button_body">%s%% phần thưởng cho bạn và bạn bè của bạn.</string>
   <string name="vip_program_referral_page_title">Chương trình giới thiệu VIP</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Chia sẻ mã này với bạn bè và cả hai bạn sẽ nhận được %s%% tiền thưởng trong mọi giao dịch mua hàng của họ.</string>
   <string name="vip_program_referral_page_share_title">Chia sẻ mã này với bạn bè của mình</string>
   <string name="vip_program_referral_page_only_app_title">Chỉ dành cho mua hàng trên</string>
   <string name="vip_program_referral_page_earned_body">Nhận được %1$s%2$s từ %3$s giới thiệu</string>
@@ -747,7 +747,7 @@
   <string name="vip_program_referral_notification_title">Mã giới thiệu VIP khả dụng!</string>
   <string name="vip_program_referral_notification_body">Chia sẻ mã với cộng đồng để tất cả các bạn đều nhận được tiền khi chơi!</string>
   <string name="vip_program_title_vip_offer">Ưu đãi VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Bạn không thể sử dụng mã VIP của riêng mình. Hãy chia sẻ với bạn bè!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
   <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
@@ -804,9 +804,9 @@
   <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
+  <string name="rebranding_disclaimer_long_body"> Chúng tôi đang thực hiện một cuộc tái thiết kế đầy thú vị cho thương hiệu và cảm xúc của mình. Hãy theo dõi để khám phá các tính năng và phần thưởng yêu thích của bạn với hình ảnh hoàn toàn mới!</string>
   <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebrandinh_post_body">Khám phá các tính năng và phần thưởng yêu thích của bạn với hình ảnh hoàn toàn mới. Chúng tôi hy vọng bạn thích nó!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

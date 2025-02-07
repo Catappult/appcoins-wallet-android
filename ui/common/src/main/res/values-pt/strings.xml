@@ -273,7 +273,7 @@
   <string name="discover_button">Explorar</string>
   <string name="connection_error_title">Sem ligação à Internet</string>
   <string name="connection_error_body">Parece que não estás ligado à Internet. Por favor verifica a ligação e tenta novamente!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">ou</string>
   <string name="share_via">Partilhar via:</string>
   <string name="password">Password</string>
   <string name="repeat_password">Repetir password</string>
@@ -302,12 +302,12 @@
   <string name="buy_button">Comprar</string>
   <string name="copied_to_clipboard">Copiado para a área de transferência</string>
   <string name="topup_button">Carregar</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Recebe um bónus extra de %s%%</string>
   <string name="payment_method">Método de pagamento</string>
   <string name="credit_debit_card">Cartão de crédito/débito</string>
   <string name="paypal">PayPal</string>
   <string name="appc">Aptoide balance</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Transferência easy bank</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -331,10 +331,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
+  <string name="onboarding_title">A tua ferramenta para fazer compras na app</string>
   <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_payment_methods_title">Usa um cartão bancário, PayPal, e os teus métodos de pagamento favoritos.</string>
+  <string name="onboarding_vip_title">Torna-te um membro VIP para receberes apoio e ofertas premium.</string>
   <string name="terms_and_conditions">Termos e Condições</string>
   <string name="privacy_policy">Política de Privacidade</string>
   <string name="existent_wallet">Já tenho uma wallet</string>
@@ -361,9 +361,9 @@
   <string name="verification_verify_paypal_description">Será feita uma transação de %s para confirmar a tua conta. Será reembolsada imediatamente.</string>
   <string name="verification_settings_card_verified_title">Cartão Verificado</string>
   <string name="verification_error_attempts_reached">Parece que atingiste o limite de tentativas. Aguarda para tentar novamente.</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Verificado com o PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verificado com o cartão de crédito/débito.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verificado com o cartão de crédito/débito e o PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">A um passo de distância!</string>
   <string name="paypal_verification_home_one_step_card_body">Insere o código enviado para o teu email para verificar a tua conta PayPal.</string>
@@ -423,18 +423,18 @@
   <string name="purchase_success_bonus_received_title">%s de bónus recebido.</string>
   <string name="purchase_making_purchase_title">Efetuar a compra&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Com este método de pagamento irás pagar uma taxa de processamento mais IVA.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Ocorreu um problema com o teu pagamento. Tenta novamente ou utiliza um método de pagamento diferente.</string>
   <string name="purchase_error_no_method_available_body">De momento não existem métodos de pagamento disponíveis para concluir esta compra na tua região. Fica atento!</string>
   <string name="purchase_legal_disclaimer">Ao efetuares o pagamento, aceitas e consentes que te sejam fornecidos os conteúdos mediante pagamento, perdendo assim o teu direito de rescisão.</string>
   <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Pode demorar até %s dia.</item>
+    <item quantity="other">Pode demorar até %s dias.</item>
   </plurals>
   <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
+  <string name="purchase_bank_transfer_success_2">Pode demorar até 2 dias a ser processado pelo teu banco.</string>
   <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Estamos a aguardar que os fundos cheguem do teu banco.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
@@ -741,7 +741,7 @@
   <string name="vip_program_referral_button_title">Programa de Referência VIP</string>
   <string name="vip_program_referral_button_body">%s%% de Bónus para ti e para os teus amigos.</string>
   <string name="vip_program_referral_page_title">Programa de Referência VIP</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Partilha este código com os teus amigos, e ambos irão receber um bónus de %s%% em todas as compras que fizerem.</string>
   <string name="vip_program_referral_page_share_title">Partilha este código com os teus amigos</string>
   <string name="vip_program_referral_page_only_app_title">Apenas para compras em</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s ganhos de %3$s referências</string>
@@ -750,7 +750,7 @@
   <string name="vip_program_referral_notification_title">Código de Recomendação VIP Disponível!</string>
   <string name="vip_program_referral_notification_body">Partilha o teu código com a tua comunidade para que todos ganhem enquanto jogam!</string>
   <string name="vip_program_title_vip_offer">Oferta VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Não podes utilizar o teu próprio código VIP. Partilha-o com os teus amigos!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
   <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
@@ -811,9 +811,9 @@
   <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
+  <string name="rebranding_disclaimer_long_body"> Estamos a trabalhar numa reformulação emocionante da nossa marca e da nossa experiência. Fica atento para descobrires as tuas opções e recompensas favoritas, com uma imagem completamente nova!</string>
   <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebrandinh_post_body">Descobre as tuas opções e recompensas favoritas, com uma imagem completamente nova. Esperamos que gostes!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
