@@ -11,6 +11,7 @@ class WebViewPaymentInterface(
   private val allowExternalAppsCallback: (allow: Boolean) -> Unit,
   private val onPurchaseResultCallback: (WebViewPaymentResponse?) -> Unit,
   private val onErrorCallback: (WebViewPaymentErrorResponse?) -> Unit,
+  private val resizeCallback: (height: String?) -> Unit
 ) {
 
   @JavascriptInterface
@@ -31,6 +32,11 @@ class WebViewPaymentInterface(
   @JavascriptInterface
   fun onError(result: String?) {
     onErrorCallback(parseError(result))
+  }
+
+  @JavascriptInterface
+  fun resize(result: String?) {
+    resizeCallback(result)
   }
 
   private fun parsePurchaseResult(result: String?): WebViewPaymentResponse? {
