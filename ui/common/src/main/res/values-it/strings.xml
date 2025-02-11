@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">Domande frequenti</string>
   <string name="low_storage_error">Spazio di archiviazione non sufficiente</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">Aptoide Wallet ha bisogno della tua autorizzazione per accedere alla fotocamera e scansionare i codici QR.</string>
   <string name="no_camera_available">Nessuna fotocamera disponibile!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato codice a barre non valido: %s</string>
@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">Sblocca lo schermo</string>
   <string name="unlock_screen_prompt_android">Sblocca il dispositivo Android per continuare.</string>
   <string name="root_title">SICUREZZA DISPOSITIVO COMPROMESSA</string>
-  <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Qualsiasi app \'con permesso di root\' può accedere ai dati portachiavi di Aptoide Wallet e rubare il tuo portafoglio! Cancella immediatamente questo portafoglio e ripristinalo su un dispositivo sicuro.</string>
   <string name="action_buy">Acquista</string>
   <string name="empty"></string>
   <string name="try_again">Riprova</string>
@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">Il codice QR non contiene un indirizzo valido</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">Wallet creato!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Accedendo all\'Aptoide Wallet acconsenti ai %1$s e %2$s.</string>
   <string name="intro_get_started_button">Lancia il wallet</string>
   <!-- New Intro -->
   <!-- Intro from game -->
@@ -114,7 +114,7 @@
   <string name="error_already_added">Già aggiunto</string>
   <string name="error_export">Impossibile esportare il portafoglio</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">Abbiamo creato il fork Trust Wallet per Android per portare avanti lo sviluppo dell\'Aptoide Wallet. L\'abbiamo ritenuta la migliore alternativa per quanto riguarda le funzionalità già implementate. Abbiamo creato il fork con l\'intento di contribuire con implementazioni e lavori considerati rilevanti.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transazione in corso</string>
   <string name="activity_aib_loading_message">Potrebbe volerci un po\'…</string>
@@ -205,7 +205,7 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Bonus acquisti:</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">%s in saldo Aptoide</string>
   <string name="gamification_purchase_body">Potrai usare questo bonus al tuo prossimo acquisto.</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus ricevuto</string>
   <string name="gamification_leveled_up_notification_body">Congratulazioni, d\'ora in poi riceverai un bonus di %s a ogni acquisto!</string>
