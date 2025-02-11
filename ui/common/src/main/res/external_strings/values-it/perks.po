@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2025-02-05 15:03\n"
+"PO-Revision-Date: 2025-02-11 21:17\n"
 
 #. Card Title
 #:
 msgid "Earn Aptoide balance!"
-msgstr ""
+msgstr "Guadagna saldo Aptoide!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Ricevi un bonus extra del {0}% su tutti i tuoi acquisti su {1}, tranne quelli effettuati con saldo Aptoide."
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
-msgstr ""
+msgstr "Effettua un acquisto in {0} e ricevi {1} in saldo Aptoide."
 
 #. Receipt - Purchase Promotion.
 #:
@@ -35,7 +35,7 @@ msgstr "Grazie al tuo acquisto in {0}."
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
-msgstr ""
+msgstr "Spendi {0} {1} in {2} giorni e ricevi {3} in saldo Aptoide."
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -45,7 +45,7 @@ msgstr "Grazie al tuo acquisto di più di {0} {1} negli ultimi {2} giorni."
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} in Aptoide balance!"
-msgstr ""
+msgstr "Raggiungi il livello successivo e ricevi {0} in saldo Aptoide!"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -55,7 +55,7 @@ msgstr "Grazie al raggiungimento del livello successivo."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Ricevi un bonus extra del {0}% su tutti i tuoi acquisti su {1}, tranne quelli effettuati con saldo Aptoide."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -65,7 +65,7 @@ msgstr "Ricevi un bonus extra del {0}% su tutti i tuoi acquisti."
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Ricevi un bonus extra del {0}% sul tuo primo acquisto, tranne quelli in saldo Aptoide, in {1}"
 
 #. Receipt - First Purchase.
 #:
@@ -75,7 +75,7 @@ msgstr "Grazie al tuo primo acquisto in {0}."
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Ricevi un bonus extra del {0}% sul tuo primo acquisto della giornata, tranne quelli in saldo Aptoide, in {1}"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -85,12 +85,12 @@ msgstr "Grazie al tuo primo acquisto della giornata in {0}."
 #. Title for bonus receipts.
 #:
 msgid "+{0} Bonus in Aptoide balance!"
-msgstr ""
+msgstr "+{0} bonus in saldo Aptoide!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in {3}."
-msgstr ""
+msgstr "Ricevi {0} extra in saldo Aptoide spendendo {1} {2} in {3}."
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -100,17 +100,17 @@ msgstr "Grazie alla tua spesa di {0} {1} in {2}."
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in compatible apps."
-msgstr ""
+msgstr "Ricevi {0} extra in saldo Aptoide spendendo {1} {2} in app compatibili."
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in compatible apps."
-msgstr ""
+msgstr "Grazie alla tua spesa di {0} {1} in app compatibili."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
-msgstr ""
+msgstr "Ricevi un bonus extra del {0}% su tutti i tuoi acquisti, tranne quelli effettuati con saldo Aptoide."
 
 #. Card - Title - Common
 #:
@@ -125,7 +125,7 @@ msgstr "Sfrutta {0}% di bonus su ogni acquisto."
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "Ricevi un bonus extra del {0}% su tutte le ricariche effettuate con semplici bonifici bancari."
 
 #. Payment Method - Title - Bank Transfer
 #:
