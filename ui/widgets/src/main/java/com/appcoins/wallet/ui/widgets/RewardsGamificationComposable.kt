@@ -47,9 +47,10 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_blue
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_blue_background
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_orange
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_vip_yellow
 
 @Composable
@@ -76,7 +77,7 @@ fun GamificationHeader(
         onClick()
       },
     shape = RoundedCornerShape(8.dp),
-    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
+    colors = CardDefaults.cardColors(styleguide_dark_secondary),
   ) {
     Column(
       modifier = Modifier.padding(start = 16.dp, top = 8.dp),
@@ -171,7 +172,7 @@ fun GamificationBottomBar(bonusValue: String) {
     modifier = Modifier
       .fillMaxWidth()
       .height(48.dp)
-      .background(styleguide_grey_blue_background)
+      .background(styleguide_dark_secondary)
       .padding(horizontal = 16.dp),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
@@ -261,8 +262,8 @@ fun GamificationHeaderNoPurchases() {
       .fillMaxWidth()
       .height(170.dp),
     shape = RoundedCornerShape(8.dp),
-    border = BorderStroke(1.dp, WalletColors.styleguide_primary),
-    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
+    border = BorderStroke(1.dp, styleguide_primary),
+    colors = CardDefaults.cardColors(styleguide_dark_secondary),
   ) {
     Column(
       modifier = Modifier.fillMaxSize(),
@@ -296,7 +297,7 @@ fun GamificationHeaderPartner(bonusPerkDescription: String) {
       .padding(top = 16.dp)
       .fillMaxWidth(),
     shape = RoundedCornerShape(8.dp),
-    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
+    colors = CardDefaults.cardColors(styleguide_dark_secondary),
   ) {
     Row( // Bottom main content
       modifier = Modifier
@@ -329,7 +330,7 @@ fun GamificationHeaderPartner(bonusPerkDescription: String) {
 fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long, startDateTime: Long) {
   val referralAvailable = isVipReferralAlreadyAvailable(startDateTime)
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
+    colors = CardDefaults.cardColors(styleguide_dark_secondary),
     modifier = Modifier
       .fillMaxSize()
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
@@ -425,7 +426,7 @@ fun VipReferralCountDownTimer(
 @Composable
 fun SkeletonLoadingGamificationCard() {
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
+    colors = CardDefaults.cardColors(styleguide_dark_secondary),
     modifier = Modifier
       .fillMaxWidth()
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)

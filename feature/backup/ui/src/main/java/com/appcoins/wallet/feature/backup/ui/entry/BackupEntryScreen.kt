@@ -3,6 +3,7 @@ package com.appcoins.wallet.feature.backup.ui.entry
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -132,7 +133,7 @@ fun BackupEntryScreen(
     ModalBottomSheet(
       onDismissRequest = dismissBottomSheet,
       sheetState = bottomSheetState,
-      containerColor = styleguide_dark_secondary
+      containerColor = styleguide_dark
     ) {
       BackupDialogCardAlertBottomSheet(
         onCancelClick = {
@@ -158,6 +159,7 @@ fun BackupEntryScreen(
         Modifier
           .fillMaxSize(1f)
           .padding(scaffoldPadding)
+          .background(styleguide_dark)
           .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.Start,
       ) {

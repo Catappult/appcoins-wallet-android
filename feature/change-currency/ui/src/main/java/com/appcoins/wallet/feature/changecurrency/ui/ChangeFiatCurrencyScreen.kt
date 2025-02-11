@@ -1,6 +1,7 @@
 package com.appcoins.wallet.feature.changecurrency.ui
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -42,6 +43,8 @@ import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.feature.changecurrency.ui.bottomsheet.ChooseCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.common.theme.shapes
@@ -85,6 +88,7 @@ fun ChangeFiatCurrencyScreen(
   Column(
     modifier = Modifier
       .fillMaxSize()
+      .background(styleguide_dark)
       .padding(scaffoldPadding)
   ) {
     when (changeFiatCurrencyState.changeFiatCurrencyAsync) {
@@ -183,6 +187,7 @@ private fun CurrencyItem(
     Row(
       modifier = Modifier
         .fillMaxWidth()
+        .background(styleguide_dark_secondary)
         .padding(16.dp),
       verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -212,7 +217,7 @@ private fun CurrencyItem(
         chosenCurrency = null
       },
       sheetState = bottomSheetState,
-      containerColor = WalletColors.styleguide_dark
+      containerColor = styleguide_dark
     ) {
       chosenCurrency?.let {
         ChooseCurrencyRoute(

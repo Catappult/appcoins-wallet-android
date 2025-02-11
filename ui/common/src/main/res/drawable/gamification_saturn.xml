@@ -112,19 +112,19 @@
       android:fillColor="#bdc3c7"
       android:pathData="M92.13,40.63c-8.44,15.47 -28.75,17.72 -28.75,17.72a1.16,1.16 99.01,0 1,-1.11 -0.48L59.11,53.53L84.73,34.93C87.66,38.46 90.35,40.02 92.13,40.63Z" />
   <path
-      android:fillColor="#ff5b88"
+      android:fillColor="#EE5D41"
       android:pathData="M95.59,27.03C93.63,24.34 85.76,25.33 81.59,26.11c0.04,1.88 0.69,4.94 3.14,8.82 2.93,3.53 5.63,5.09 7.42,5.71C94.17,36.91 97.55,29.73 95.59,27.03Z" />
   <path
-      android:fillColor="#e54974"
+      android:fillColor="#EE5D41"
       android:pathData="M95.59,27.03L84.72,34.93c2.93,3.53 5.63,5.09 7.42,5.71C94.17,36.91 97.55,29.73 95.59,27.03Z" />
   <path
-      android:fillColor="#ff5b88"
+      android:fillColor="#EE5D41"
       android:pathData="M64.07,38.89l-6.11,8.94a0.45,0.45 99.01,0 1,-0.79 0s-3.42,-5.92 -8.58,-2.17c0,0 -0.44,0.35 -0.73,-0.06L46.32,43.48a1.15,1.15 99.01,0 1,-0.06 -1.16S53.42,30.13 64.07,38.89Z" />
   <path
-      android:fillColor="#e54974"
+      android:fillColor="#EE5D41"
       android:pathData="M74.57,53.34 L64.18,56.39A0.45,0.45 99.01,0 0,63.94 57.14s4.57,5.08 -0.59,8.83c0,0 -0.47,0.31 -0.17,0.71l1.54,2.12a1.15,1.15 99.01,0 0,1.09 0.41S79.61,66.18 74.57,53.34Z" />
   <path
-      android:fillColor="#ff5b88"
+      android:fillColor="#EE5D41"
       android:pathData="M73.4,35.02a6.54,6.54 99.01,1 0,7.69 10.59a6.54,6.54 99.01,1 0,-7.69 -10.59z" />
   <path
       android:fillColor="#111055"
@@ -140,9 +140,9 @@
       android:pathData="M72.66,37.72 L82.41,39.26A5.23,5.23 99.01,0 0,81.85 37.75L73.66,36.46A5.22,5.22 99.01,0 0,72.66 37.72Z"
       android:strokeAlpha="0.566" />
   <path
-      android:fillColor="#ff5b88"
+      android:fillColor="#EE5D41"
       android:pathData="M69.08,45.77A0.69,0.69 99.01,0 0,68.12 45.62L55.43,54.84a0.69,0.69 99.01,0 0,-0.15 0.97l0.24,0.34L69.33,46.11Z" />
   <path
-      android:fillColor="#e54974"
+      android:fillColor="#EE5D41"
       android:pathData="M69.49,46.34L69.33,46.11L55.52,56.14L55.68,56.37a0.69,0.69 99.01,0 0,0.97 0.15L69.34,47.31A0.69,0.69 99.01,0 0,69.49 46.34Z" />
 </vector>

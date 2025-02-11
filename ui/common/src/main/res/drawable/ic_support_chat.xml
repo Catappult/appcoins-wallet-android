@@ -9,11 +9,11 @@
       <clip-path android:pathData="M-42.45,167.66L190.41,167.66L190.41,-246.31L-42.45,-246.31Z" />
       <path
           android:fillAlpha="0"
-          android:fillColor="#ff6381"
+          android:fillColor="#EE5D41"
           android:pathData="M-24.34,-153.81L172.3,-153.81L172.3,77.75L-24.34,77.75Z"
           android:strokeAlpha="0" />
       <path
-          android:fillColor="#ff6381"
+          android:fillColor="#EE5D41"
           android:pathData="M-24.34,-153.81L172.3,-153.81L172.3,77.75L-24.34,77.75Z" />
     </group>
   </group>
@@ -41,11 +41,11 @@
       <clip-path android:pathData="M-14.29,140.57L179.13,140.57L179.13,-203.28L-14.29,-203.28Z" />
       <path
           android:fillAlpha="0"
-          android:fillColor="#ff6381"
+          android:fillColor="#EE5D41"
           android:pathData="M0.76,-126.45L164.09,-126.45L164.09,65.89L0.76,65.89Z"
           android:strokeAlpha="0" />
       <path
-          android:fillColor="#ff6381"
+          android:fillColor="#EE5D41"
           android:pathData="M0.76,-126.45L164.09,-126.45L164.09,65.89L0.76,65.89Z" />
     </group>
   </group>
