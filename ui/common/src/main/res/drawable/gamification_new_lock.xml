@@ -12,7 +12,7 @@
         <group>
           <clip-path android:pathData="M0,29L22.1,29v-29L0,0Z" />
           <path
-              android:fillColor="#ff6381"
+              android:fillColor="#EE5D41"
               android:pathData="M-6.905,-6.905L28.995,-6.905v42.81L-6.905,35.905Z" />
         </group>
         <group>
@@ -24,10 +24,10 @@
               <group>
                 <clip-path android:pathData="M0,29L22.1,29v-29L0,0Z" />
                 <path
-                    android:fillColor="#ff6381"
+                    android:fillColor="#EE5D41"
                     android:pathData="M-6.905,-6.905L28.995,-6.905v42.81L-6.905,35.905Z" />
                 <path
-                    android:fillColor="#ff6381"
+                    android:fillColor="#EE5D41"
                     android:pathData="M-12.429,-8.286L34.523,-8.286v46.952L-12.429,38.666Z" />
               </group>
             </group>

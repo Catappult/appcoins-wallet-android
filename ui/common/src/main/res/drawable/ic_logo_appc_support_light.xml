@@ -9,11 +9,11 @@
       <clip-path android:pathData="M-46.433,183.408L208.293,183.408L208.293,-269.438L-46.433,-269.438Z" />
       <path
           android:fillAlpha="0"
-          android:fillColor="#ff6381"
+          android:fillColor="#EE5D41"
           android:pathData="M-26.621,-168.255h215.1L188.479,85.056h-215.1Z"
           android:strokeAlpha="0" />
       <path
-          android:fillColor="#ff6381"
+          android:fillColor="#EE5D41"
           android:pathData="M-26.621,-168.255h215.1L188.479,85.056h-215.1Z" />
     </group>
   </group>
