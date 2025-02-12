@@ -22,7 +22,6 @@ import javax.inject.Inject
 class TransferFragmentNavigator @Inject constructor(
   private val fragmentManager: FragmentManager,
   private val fragment: Fragment,
-  private val defaultTokenProvider: DefaultTokenProvider
 ) {
 
   companion object {
@@ -30,66 +29,15 @@ class TransferFragmentNavigator @Inject constructor(
     const val BARCODE_READER_REQUEST_CODE = 1
   }
 
-  fun openAppcConfirmationView(
-    walletAddress: String, toWalletAddress: String,
-    amount: BigDecimal
-  ) {
-    defaultTokenProvider.defaultToken.doOnSuccess {
-      with(TransactionBuilder(it)) {
-        amount(amount)
-        toAddress(toWalletAddress)
-        fromAddress(walletAddress)
-        openConfirmation(this)
-      }
-    }.subscribe()
-  }
-
-  fun openEthConfirmationView(
-    walletAddress: String, toWalletAddress: String,
-    amount: BigDecimal
-  ) {
-    val transaction = TransactionBuilder(TokenInfo(null, "Ethereum", "ETH", 18))
-    transaction.amount(amount)
-    transaction.toAddress(toWalletAddress)
-    transaction.fromAddress(walletAddress)
-    openConfirmation(transaction)
-  }
-
-  fun openAppcCreditsConfirmationView(
-    walletAddress: String,
-    amount: BigDecimal,
-    currency: TransferFragmentView.Currency
-  ): Completable {
-    return Completable.fromAction {
-      val currencyName = when (currency) {
-        TransferFragmentView.Currency.APPC_C -> fragment.getString(
-          R.string.p2p_send_currency_appc_c
-        )
-
-        TransferFragmentView.Currency.APPC -> fragment.getString(R.string.p2p_send_currency_appc)
-        TransferFragmentView.Currency.ETH -> fragment.getString(R.string.p2p_send_currency_eth)
-      }
-      fragmentManager.beginTransaction()
-        .replace(
-          R.id.fragment_container,
-          AppcoinsCreditsTransferSuccessFragment.newInstance(
-            amount, currencyName,
-            walletAddress
-          )
-        )
-        .commit()
-    }
-  }
-
   fun openSuccessView(
     walletAddress: String,
     amount: BigDecimal,
-    currency: TransferFundsViewModel.Currency,
+    currency: String,
     mainNavController: NavController
   ) {
     val bundle = Bundle()
     bundle.putSerializable(AppcoinsCreditsTransferSuccessFragment.AMOUNT_SENT_KEY, amount)
-    bundle.putString(AppcoinsCreditsTransferSuccessFragment.CURRENCY_KEY, currency.token)
+    bundle.putString(AppcoinsCreditsTransferSuccessFragment.CURRENCY_KEY, currency)
     bundle.putString(AppcoinsCreditsTransferSuccessFragment.TO_ADDRESS_KEY, walletAddress)
     mainNavController.navigate(
       resId = R.id.action_navigate_to_success_transfer,

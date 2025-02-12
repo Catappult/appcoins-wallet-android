@@ -494,7 +494,7 @@
   <string name="do_it_later_button">Αργότερα</string>
   <string name="connection_error_title">Δεν υπάρχει σύνδεση στο Ίντερνετ</string>
   <string name="connection_error_body">Φαίνεται ότι δεν έχετε συνδεθεί στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και προσπαθήστε ξανά!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">ή</string>
   <string name="share_via">Κοινοποίηση μέσω:</string>
   <string name="password">Κωδικός πρόσβασης</string>
   <string name="repeat_password">Επανάληψη κωδικού πρόσβασης</string>
@@ -532,20 +532,21 @@
   <string name="max">Μέγιστο</string>
   <string name="amount">Ποσό</string>
   <string name="total_title">Σύνολο</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_payment_method_button">Προσθήκη μεθόδου πληρωμής</string>
+  <string name="change_payment_method_button">Αλλαγή μεθόδου πληρωμής</string>
   <string name="add_card_button">Προσθήκη πιστωτικής/χρεωστικής κάρτας</string>
-  <string name="add_paypal_button">Add paypal</string>
-  <string name="add_gift_card_button">Add gift card</string>
+  <string name="add_paypal_button">Προσθήκη PayPal</string>
+  <string name="add_gift_card_button">Προσθήκη κάρτας δώρου</string>
   <string name="buy_button">Αγορά</string>
   <string name="copied_to_clipboard">Αντιγράφηκε στο πρόχειρο</string>
   <string name="topup_button">Φόρτιση</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">Λάβετε ένα επιπρόσθετο bonus %s%%</string>
+  <string name="aptoide_balance">Υπόλοιπο Aptoide</string>
   <string name="payment_method">Μέθοδος πληρωμής</string>
   <string name="credit_debit_card">Πιστωτική/χρεωστική κάρτα</string>
   <string name="paypal">PayPal</string>
   <string name="appc">AppCoins Credits</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">Εύκολη τραπεζική μεταφορά</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -569,10 +570,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Το εργαλείο σας για αγορές εντός εφαρμογών</string>
+  <string name="onboarding_bonus_title">Λάβετε έως %s%% των αγορών σας εντός εφαρμογών σε AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">Χρησιμοποιήστε τραπεζική κάρτα, PayPal και τις αγαπημένες σας μεθόδους πληρωμής.</string>
+  <string name="onboarding_vip_title">Γίνετε μέλος VIP για να λαμβάνετε premium υποστήριξη και προσφορές.</string>
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
   <string name="terms_and_conditions">Όροι και Προϋποθέσεις</string>
@@ -630,9 +631,9 @@
   <string name="verified_tag">Επαληθευμένο</string>
   <string name="unferified_tag">Μη επαληθευμένο wallet</string>
   <string name="verification_wallets_verify_button">Επαλήθευση</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Επαληθευμένο μέσω PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Επαληθευμένο μέσω πιστωτικής/χρεωστικής κάρτας.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Επαληθευμένο μέσω πιστωτικής/χρεωστικής κάρτας και PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Ένα βήμα ακόμα!</string>
   <string name="paypal_verification_home_one_step_card_body">Εισαγάγετε τον κωδικό που στάλθηκε στη διεύθυνση e-mail σας για να επιβεβαιώσετε τον λογαριασμό σας στο Paypal.</string>
@@ -720,7 +721,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Με αυτήν τη μέθοδο πληρωμής θα πληρώσετε ένα τέλος επεξεργασίας συν ΦΠΑ.</string>
   <string name="purchase_fee_included_body">περιλαμβάνονται χρεώσεις</string>
   <string name="purchase_error_one_wallet_generic">Υπήρξε ένα πρόβλημα με την πληρωμή σας μέσω Wallet One. Παρακαλούμε δοκιμάστε ξανά, ή χρησιμοποιήστε μία διαφορετική μέθοδο πληρωμής.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Υπήρξε ένα πρόβλημα με την πληρωμή σας. Παρακαλούμε δοκιμάστε ξανά, ή χρησιμοποιήστε μία διαφορετική μέθοδο πληρωμής.</string>
   <string name="purchase_payment_method_top_ups_only">Διαθέσιμο μόνο για φόρτιση.</string>
   <string name="purchase_payment_method_minimum_amount">Μόνο για αγορές άνω των %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Μη διαθέσιμο σ\' αυτήν την αγορά.</string>
@@ -728,24 +729,24 @@
   <string name="purchase_legal_disclaimer">Προχωρώντας με την πληρωμή, συμφωνείτε και δίνετε τη συγκατάθεσή σας για να παραλάβετε το περιεχόμενο κατά την πληρωμή, και ως εκ τούτου χάνετε το δικαίωμα υπαναχώρησής σας.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Το bonus είναι σε AppCoins Credits.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Μπορεί να διαρκέσει έως %s μέρα.</item>
+    <item quantity="other">Μπορεί να διαρκέσει έως %s μέρες.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_disclaimer">Η τράπεζά σας επεξεργάζεται τη συναλλαγή σας και αυτό μπορεί να διαρκέσει έως 2 ημέρες. Εάν όλες οι πληροφορίες είναι σωστές, %s σε AppCoins Credits θα προστεθούν στο wallet σας.</string>
+  <string name="purchase_bank_transfer_success_1">%s AppCoins Credits θα προστεθούν στο wallet σας.</string>
+  <string name="purchase_bank_transfer_success_2">Η τράπεζά σας μπορεί να χρειαστεί έως 2 ημέρες για να την επεξεργαστεί.</string>
+  <string name="purchase_bank_transfer_success_bonus">Θα λάβετε ένα bonus %s σε AppCoins Credits.</string>
   <string name="purchase_error_taking_long_body">Ωχ, διαρκεί περισσότερο απ\' ό,τι συνήθως...</string>
-  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transer_secure_body">Ασφαλής μεταφορά απευθείας από την τράπεζά σας.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Περιμένουμε να φτάσουν τα χρήματα από την τράπεζά σας.</string>
   <!--New Purchase flow-->
-  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
-  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
-  <string name="purchase_subtotal">Subtotal</string>
+  <string name="purchase_bonus_title">Bonus: %s σε AppCoins Credits</string>
+  <string name="purchase_use_appc_partially_body">Χρησιμοποιήστε τα AppCoins Credits για πληρωμή – μερικώς ή εξ ολοκλήρου. Τα AppCoins Credits θα εφαρμοστούν πρώτα.</string>
+  <string name="purchase_subtotal">Υποσύνολο</string>
   <string name="purchase_taxes">Φόροι</string>
-  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_using_appcoins_body">Χρήση %s σε AppCoins Credits</string>
   <string name="purchase_bonus_bot_available_body">Το μπόνους δεν είναι διαθέσιμο με αυτόν τον τρόπο πληρωμής.</string>
-  <string name="purchase_promo_code_button">Do you have a promo code?</string>
+  <string name="purchase_promo_code_button">Έχετε κωδικό προσφοράς;</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
   <string name="purchase_address_address_field">Διεύθυνση</string>
@@ -908,9 +909,10 @@ Wallets</item>
   <string name="remove_wallet_extra_confirmation_title">Είστε σίγουροι;</string>
   <string name="remove_wallet_extra_confirmation_body">Θυμηθείτε ότι χωρίς αντίγραφο ασφαλείας θα χάσετε τα χρήματα και το επίπεδο bonus σας.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Μεταφορά</string>
+  <string name="transfer_bottom_navigation">Μεταφορά</string>
   <string name="transfer_title">Μεταφορά Χρημάτων</string>
   <string name="transfer_send_tab_title">Αποστολή</string>
+  <string name="transfer_send_to_title">Αποστολή σε</string>
   <string name="transfer_receive_tab_title">Λήψη</string>
   <string name="transfer_send_body">Σαρώστε ή εισαγάγετε τη διεύθυνση wallet του φίλου σας.</string>
   <string name="transfer_send_recipient_title">Διεύθυνση Wallet</string>
@@ -919,6 +921,8 @@ Wallets</item>
   <string name="transfer_send_current_balance_title">Τρέχον Υπόλοιπο:</string>
   <string name="transfer_send_button">Αποστολή</string>
   <string name="transfer_receive_body">Κοινοποιήστε τη διεύθυνση του wallet σας για να λάβετε χρήματα.</string>
+  <string name="transfer_public_wallet_address_title">Η δημόσια διεύθυνση wallet μου</string>
+  <string name="transfer_error_invalid_address">Μη έγκυρη διεύθυνση wallet</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Έχετε ένα νέο μήνυμα!</string>
   <string name="support_new_message_button">Πατήστε για άνοιγμα</string>
@@ -1296,7 +1300,7 @@ Wallets</item>
   <string name="vip_program_promo_code_tag">Κωδικός προσφοράς</string>
   <string name="vip_program_referral_page_title">VIP Πρόγραμμα Σύστασης</string>
   <string name="vip_program_referral_page_body">Μοιραστείτε αυτόν τον κωδικό προσφοράς με την κοινότητα και τους φίλους σας για να κερδίσουν όλοι ενώ παίζουν. Για κάθε αγορά εντός της εφαρμογής που θα κάνουν, τόσο <b>εσείς όσο και οι φίλοι σας θα λάβετε %1$s%% μπόνους</b> επιπρόσθετα από άλλες ενεργές προσφορές. <b>Ισχύει έως %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Μοιραστείτε αυτόν τον κωδικό με τους φίλους σας και θα λάβετε και εσείς και αυτοί ένα μπόνους %s%% σε όλες τις αγορές που πραγματοποιούν.</string>
   <string name="vip_program_referral_page_share_title">Μοιραστείτε αυτόν τον κωδικό με τους φίλους σας</string>
   <string name="vip_program_referral_page_only_app_title">Μόνο για αγορές στο</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s αποκτήθηκαν από %3$s συστάσεις</string>
@@ -1309,7 +1313,7 @@ Wallets</item>
   <string name="vip_program_referral_notification_title">Διαθέσιμος Κωδικός Σύστασης VIP!</string>
   <string name="vip_program_referral_notification_body">Μοιραστείτε τον κωδικό σας με την κοινότητά σας, ώστε να κερδίσετε όλοι ενώ παίζετε!</string>
   <string name="vip_program_title_vip_offer">Προσφορά VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Δεν μπορείτε να χρησιμοποιήσετε τον δικό σας κωδικό VIP. Μοιραστείτε τον με τους φίλους σας!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Καλώς ήρθατε στο AppCoins Wallet</string>
   <string name="intro_welcome_body">Φορτίστε το wallet σας ή κάντε μία αγορά σε οποιαδήποτε συμβατή εφαρμογή ή παιχνίδι.</string>
@@ -1396,6 +1400,13 @@ Wallets</item>
   <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
   <string name="mail_list_confirmation_email_button">Confirm email</string>
   <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <!-- Rebranding -->
+  <string name="rebranding_disclaimer_short_title">Το AppCoins Wallet σύντομα θα γίνει Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">Το AppCoins Wallet γίνεται Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">Γινόμαστε Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body">Εργαζόμαστε σε έναν συναρπαστικό επανασχεδιασμό της επωνυμίας και της εμπειρίας μας. Μείνετε συντονισμένοι για να ανακαλύψετε τα αγαπημένα σας χαρακτηριστικά και ανταμοιβές με μια ολοκαίνουργια εμφάνιση!</string>
+  <string name="rebranding_post_title">Το AppCoins Wallet είναι τώρα το Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Ανακαλύψτε τα αγαπημένα σας χαρακτηριστικά και ανταμοιβές με μια ολοκαίνουργια εμφάνιση! Ελπίζουμε να σας αρέσει!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

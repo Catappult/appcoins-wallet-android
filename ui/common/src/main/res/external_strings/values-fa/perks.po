@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
-"PO-Revision-Date: 2024-09-24 14:05\n"
+"PO-Revision-Date: 2025-02-02 11:48\n"
 
 #. Card Title
 #:
@@ -121,4 +121,14 @@ msgstr "نسخه جدید موجود است"
 #:
 msgid "Enjoy {0}% bonus in every purchase."
 msgstr "از {0}% پاداش برای هر خرید لذت ببرید."
+
+#. Card - Title - Bank Transfer
+#:
+msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
+msgstr "{0}% بونوس بیشتر در همه شارژهایی که با ارسال بانکی ساده انجام می‌دهید، بدست آورید."
+
+#. Payment Method - Title - Bank Transfer
+#:
+msgid "Easy bank transfer"
+msgstr "ارسال بانکی ساده"
 

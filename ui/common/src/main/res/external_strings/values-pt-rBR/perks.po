@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2024-09-24 14:05\n"
+"PO-Revision-Date: 2025-01-30 01:56\n"
 
 #. Card Title
 #:
@@ -121,4 +121,14 @@ msgstr "Novo Perk Disponível"
 #:
 msgid "Enjoy {0}% bonus in every purchase."
 msgstr "Aproveite um bônus de {0}% a cada compra."
+
+#. Card - Title - Bank Transfer
+#:
+msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
+msgstr "Receba {0}% de bônus extra em todas as recargas feitas com transferência bancária fácil."
+
+#. Payment Method - Title - Bank Transfer
+#:
+msgid "Easy bank transfer"
+msgstr "Transferência bancária fácil"
 

@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2024-09-24 14:04\n"
+"PO-Revision-Date: 2025-02-01 20:36\n"
 
 #. Card Title
 #:
@@ -121,4 +121,14 @@ msgstr "Nieuw voordeel beschikbaar"
 #:
 msgid "Enjoy {0}% bonus in every purchase."
 msgstr "Geniet van een bonus van {0}% bij elke aankoop."
+
+#. Card - Title - Bank Transfer
+#:
+msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
+msgstr "Krijg {0}% extra bonus bij alle opwaarderingen via een eenvoudige bankoverschrijving."
+
+#. Payment Method - Title - Bank Transfer
+#:
+msgid "Easy bank transfer"
+msgstr "Eenvoudige bankoverschrijving"
 

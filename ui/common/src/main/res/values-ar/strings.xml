@@ -532,20 +532,21 @@
   <string name="max">حد أقصى</string>
   <string name="amount">المبلغ</string>
   <string name="total_title">المجموع</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="add_payment_method_button">إضافة وسيلة دفع</string>
+  <string name="change_payment_method_button">تغيير وسيلة الدفع</string>
   <string name="add_card_button">أضف بطاقة ائتمان/دفع مسبق</string>
-  <string name="add_paypal_button">Add paypal</string>
-  <string name="add_gift_card_button">Add gift card</string>
+  <string name="add_paypal_button">إضافة PayPal</string>
+  <string name="add_gift_card_button">إضافة بطاقة هدية</string>
   <string name="buy_button">شراء</string>
   <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
   <string name="topup_button">إضافة</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">احصل على %s%% إضافية</string>
+  <string name="aptoide_balance">Aptoide balance</string>
   <string name="payment_method">وسيلة الدفع</string>
   <string name="credit_debit_card">بطاقة ائتمان/مسبقة الدفع</string>
   <string name="paypal">بايبال</string>
   <string name="appc">أرصدة AppCoins</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">تحويل بنكي سهل</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -569,10 +570,10 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">أداتك للمشتريات داخل التطبيقات</string>
+  <string name="onboarding_bonus_title">احصل على %s%% من قيمة مشترياتك داخل التطبيق برصيد AppCoins Credits.</string>
+  <string name="onboarding_payment_methods_title">استخدم بطاقة مصرفية، PayPal، ووسيلة الدفع المفضلة لديك.</string>
+  <string name="onboarding_vip_title">كن عضوًا في VIP لتحصل على دعم وعروض استثنائية.</string>
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
   <string name="terms_and_conditions">القواعد والشروط</string>
@@ -721,7 +722,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">مع وسيلة الدفع هذه ستدفع عمولة تشغيل وضريبة.</string>
   <string name="purchase_fee_included_body">شامل العمولة</string>
   <string name="purchase_error_one_wallet_generic">حدثت مشكلة في الدفع مع محفظتك Wallet One. يرجى إعادة المحاولة أو استخدام وسيلة دفع أخرى.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">حدثت مشكلة مع مدفوعاتك. يرجى المحاولة ثانية أو استخدام وسيلة دفع مختلفة.</string>
   <string name="purchase_payment_method_top_ups_only">متوفرة فقط لإضافة رصيد.</string>
   <string name="purchase_payment_method_minimum_amount">فقط للمشتريات فوق %s.</string>
   <string name="purchase_payment_method_not_availble_generic">غير متوفرة في عملية الشراء الحالية.</string>
@@ -729,28 +730,28 @@
   <string name="purchase_legal_disclaimer">بمتابعة استخدام وسيلة الدفع هذه، أنت توافق وتُدرك أنه سيتم تزويدك بالمحتوى مقابل الدفع، وبهذا تفقد حقك في الانسحاب.</string>
   <string name="purchase_bonus_in_appc_disclaimer">المكافأة عبارة عن AppCoins Credits.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="zero">It may take up to %s days.</item>
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="two">It may take up to %s days.</item>
-    <item quantity="few">It may take up to %s days.</item>
-    <item quantity="many">It may take up to %s days.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="zero">قد يستغر الأمر %s يومًا.</item>
+    <item quantity="one">قد يستغرق الأمر %s يومًا.</item>
+    <item quantity="two">قد يستغرق الأمر يومين.</item>
+    <item quantity="few">قد يستغرق الأمر %s أيام.</item>
+    <item quantity="many">قد يستغرق الأمر %s يومًا.</item>
+    <item quantity="other">قد يستغرق الأمر %s يومًا.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction and it may take up to 2 days. If all the information is correct, %s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_1">%s in AppCoins Credits will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in AppCoins Credits.</string>
+  <string name="purchase_bank_transfer_success_disclaimer">المصرف الذي تتعامل معه يعمل على التحويل وقد يستغرق يومين. إذا كانت كل المعلومات صحيحة، سيتم إضافة %s إلى رصيد AppCoins Credits في محفظتك.</string>
+  <string name="purchase_bank_transfer_success_1">سيتم إضافة %s إلى حساب AppCoins Credits في محفظتك.</string>
+  <string name="purchase_bank_transfer_success_2">قد يستغرق الأمر حتى يومين ليعمل مصرفك على الدفعة.</string>
+  <string name="purchase_bank_transfer_success_bonus">ستتلقى مكافأة قدرها %s في رصيد AppCoins Credits.</string>
   <string name="purchase_error_taking_long_body">ييي، هذا يستغرق وقتًا أطول من المعتاد...</string>
-  <string name="purchase_bank_transer_secure_body">Secure transfer directly from your bank.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transer_secure_body">تحويل آمن من مصرفك مباشرة.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">نحن بانتظار المال ليص من حسابك المصرفي.</string>
   <!--New Purchase flow-->
-  <string name="purchase_bonus_title">Bonus: %s in AppCoins Credits</string>
-  <string name="purchase_use_appc_partially_body">Use your AppCoins Credits to pay - in part, or in full. AppCoins Credits will be applied first.</string>
-  <string name="purchase_subtotal">Subtotal</string>
+  <string name="purchase_bonus_title">مكافأة: %s في رصيد AppCoins Credits</string>
+  <string name="purchase_use_appc_partially_body">استخدم رصيد AppCoins Credits لتدفع - بالتقسيط، أو المبلغ الكامل. سيتم تطبيق رصيد AppCoins Credits أولًا.</string>
+  <string name="purchase_subtotal">المجموع</string>
   <string name="purchase_taxes">الضرايب</string>
-  <string name="purchase_using_appcoins_body">Using %s in AppCoins Credits</string>
+  <string name="purchase_using_appcoins_body">باستخدام %s برصيد AppCoins Credits</string>
   <string name="purchase_bonus_bot_available_body">المكافأة غير متوفرة مع وسيلة الدفع هذه.</string>
-  <string name="purchase_promo_code_button">Do you have a promo code?</string>
+  <string name="purchase_promo_code_button">هل لديك رمز ترويجي؟</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -916,9 +917,10 @@
   <string name="remove_wallet_extra_confirmation_title">هل أنت متيقّن؟</string>
   <string name="remove_wallet_extra_confirmation_body">تذكر، دون نسخ احتياطي، ستخسر أموالك ومستوى مكافآتك.</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">تحويل</string>
+  <string name="transfer_bottom_navigation">تحويل</string>
   <string name="transfer_title">تحويل الأموال</string>
   <string name="transfer_send_tab_title">إرسال</string>
+  <string name="transfer_send_to_title">أرسل إلى</string>
   <string name="transfer_receive_tab_title">استقبال</string>
   <string name="transfer_send_body">مسح أو إدخال عنوان محفظة صديقك.</string>
   <string name="transfer_send_recipient_title">عنوان المحفظة</string>
@@ -927,6 +929,8 @@
   <string name="transfer_send_current_balance_title">الرصيد الحالي:</string>
   <string name="transfer_send_button">إرسال</string>
   <string name="transfer_receive_body">شارك عنوان محفظتك لاستقبال الأموال.</string>
+  <string name="transfer_public_wallet_address_title">عنوان محفظتي العامة</string>
+  <string name="transfer_error_invalid_address">عنوان محفظة غير صالح</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">وصلتك رسالة جديدة!</string>
   <string name="support_new_message_button">اضغط للفتح</string>
@@ -1336,7 +1340,7 @@
   <string name="vip_program_promo_code_tag">رمز ترويجي</string>
   <string name="vip_program_referral_page_title">برنامج الإحالة VIP</string>
   <string name="vip_program_referral_page_body">شارك هذا الرمز الترويجي مع مجتمعك وأصدقائك ومع الجميع لتكسب وأنت تلعب. في كل عملية شراء يقومون بها داخل التطبيق، كلاكما <b>أنت وصديقك ستكسبان %1$s%% مكافأة</b> إضافية مع أي رموز ترويجية أخرى. <b>صالح لغاية %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">شارك هذا الرمز مع أصدقائك وسيحصل كلاكما على مكافأة %s%% على كل المشتريات التي يقومون بها.</string>
   <string name="vip_program_referral_page_share_title">شارك هذا الرمز مع أصدقائك</string>
   <string name="vip_program_referral_page_only_app_title">فقط للمشتريات على</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s كسبتها من إحالات %3$s</string>
@@ -1349,7 +1353,7 @@
   <string name="vip_program_referral_notification_title">يتوفر رمز إحالة VIP!</string>
   <string name="vip_program_referral_notification_body">شارك رمزك مع مجتمعك لتكسبوا جميعًا بينما تلعبون!</string>
   <string name="vip_program_title_vip_offer">عرض VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">لا يمكنك أنت استخدام رمزك الترويجي الـ VIP. شاركه مع أصدقائك!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">أهلا بك بمحفظة AppCoins Wallet</string>
   <string name="intro_welcome_body">أضف إلى المحفظة أو أجرِ عملية شراء في أي تطبيق أو لُعبة تتوافق مع AppCoins.</string>
@@ -1452,6 +1456,13 @@
   <string name="mail_list_confirmation_email_body">مرحبا!\n\nشكرًا لانضمامك إلى قائمة AppCoins البريدية. يرجى تأكيد بريدك الإلكتروني بالنقر على الزر أدناه:</string>
   <string name="mail_list_confirmation_email_button">تأكيد البريد الإلكتروني</string>
   <string name="mail_list_confirmation_email_signature">تهانينا،\nفريق AppCoins</string>
+  <!-- Rebranding -->
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> نحن نعمل على إعادة تصميم لعلامتنا وواجهتها. تابعنا لتعرف وتكتشف المزايا والجوائز المفضلة لديك بحُلّتها الجديدة كليًّا!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">اكتشف المزايا والجوائز التي تفضّلها بشكلها الجديد. نتمنى أن تنال إعجابك!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

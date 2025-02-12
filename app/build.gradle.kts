@@ -12,8 +12,8 @@ android {
   namespace = "com.asf.wallet"
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 346
-    versionName = "3.37.1"
+    versionCode = 348
+    versionName = "3.38.0"
   }
 }
 
@@ -35,6 +35,7 @@ dependencies {
   implementation(project(":core:network:bds"))
   implementation(project(":core:network:microservices"))
   implementation(project(":core:network:zendesk"))
+  implementation(project(":core:network:flagr"))
   implementation(project(":core:walletServices"))
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))

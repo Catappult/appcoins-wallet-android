@@ -328,7 +328,7 @@
   <string name="transaction_rejected_body">การซื้อนี้ถูกปฏิเสธ\nสำหรับข้อมูลเพิ่มเติม โปรดติดต่อฝ่ายสนับสนุน</string>
   <string name="transaction_reverted_body">การซื้อนี้ถูกเปลี่ยนกลับ\nสำหรับข้อมูลเพิ่มเติม โปรดติดต่อฝ่ายสนับสนุน</string>
   <string name="transaction_status_rejected">ปฏิเสธ</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">รายละเอียดธุรกรรม</string>
   <string name="transaction_details_txid">เลขที่ภาษี</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
@@ -441,7 +441,7 @@
   <string name="topup_no_method_available_title">ไม่มีวิธีการชำระเงิน!</string>
   <string name="topup_no_method_available_body">ไม่มีวิธีการชำระเงินที่สามารถเติมเงินในประเทศของคุณได้ในขณะนี้ คอยติดตาม!</string>
   <string name="topup_bonus_amount_body">รับโบนัส %s ด้วยการเติมเงินนี้</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">%s ถูกฝากเข้าบัญชีของคุณด้วยเครดิต AppCoins.</string>
   <!--Balance-->
   <string name="balance_title">ยอดคงเหลือ</string>
   <string name="balance_total_body">ยอดดุลรวมใน %s</string>
@@ -494,7 +494,7 @@
   <string name="do_it_later_button">ทำภายหลัง</string>
   <string name="connection_error_title">ไม่มีการเชื่อมต่ออินเตอร์เน็ต</string>
   <string name="connection_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">หรือ</string>
   <string name="share_via">แชร์ไปยัง:</string>
   <string name="password">รหัสผ่าน</string>
   <string name="repeat_password">รหัสผ่านซ้ำ</string>
@@ -528,24 +528,25 @@
   <string name="resend_button">ส่งใหม่</string>
   <string name="continue_button">ต่อ</string>
   <string name="card_expired_tag">หมดอายุ</string>
-  <string name="start_again_button">Start again</string>
-  <string name="max">Max</string>
+  <string name="start_again_button">เริ่มต้นอีกครั้ง</string>
+  <string name="max">สูงสุด</string>
   <string name="amount">จำนวน</string>
-  <string name="total_title">Total</string>
-  <string name="add_payment_method_button">Add payment method</string>
-  <string name="change_payment_method_button">Change payment method</string>
+  <string name="total_title">รวม</string>
+  <string name="add_payment_method_button">เพิ่มวิธีการชำระเงิน</string>
+  <string name="change_payment_method_button">เปลี่ยนวิธีชำระเงิน</string>
   <string name="add_card_button">เพิ่มบัตรเครดิต/เดบิต</string>
-  <string name="add_paypal_button">Add paypal</string>
-  <string name="add_gift_card_button">Add gift card</string>
+  <string name="add_paypal_button">เพิ่ม paypal</string>
+  <string name="add_gift_card_button">เพิ่มบัตรของขวัญ</string>
   <string name="buy_button">ซื้อ</string>
   <string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด</string>
   <string name="topup_button">เติม</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">รับโบนัส %s%% เพิ่มเติม</string>
+  <string name="aptoide_balance">Aptoide คงเหลือ</string>
   <string name="payment_method">วิธีการชำระเงิน</string>
   <string name="credit_debit_card">บัตรเครดิต/เดบิต</string>
   <string name="paypal">Paypal</string>
   <string name="appc">เครดิต AppCoins</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="bank_transfer">โอนเงินผ่านธนาคารง่ายๆ</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -569,9 +570,9 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
+  <string name="onboarding_title">เครื่องมือของคุณในการซื้อในแอป</string>
+  <string name="onboarding_bonus_title">รับมากถึง %s%% ของการซื้อในแอปของคุณด้วยเครดิต AppCoins</string>
+  <string name="onboarding_payment_methods_title">ใช้บัตรธนาคาร PayPal และวิธีการชำระเงินที่คุณชื่นชอบ</string>
   <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -907,9 +908,10 @@
   <string name="remove_wallet_extra_confirmation_title">คุณมั่นใจใช่ไหม?</string>
   <string name="remove_wallet_extra_confirmation_body">โปรดจำไว้ว่าหากไม่มีการสำรองข้อมูล คุณจะสูญเสียเงินและระดับโบนัส</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">โอน</string>
+  <string name="transfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">โอนเงิน</string>
   <string name="transfer_send_tab_title">ส่ง</string>
+  <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_receive_tab_title">ได้รับ</string>
   <string name="transfer_send_body">แสกนหรือใส่ที่อยู่กระเป๋าสตางค์ของเพื่อน</string>
   <string name="transfer_send_recipient_title">ที่อยู่กระเป๋าสตางค์</string>
@@ -918,6 +920,8 @@
   <string name="transfer_send_current_balance_title">ยอดคงเหลือปัจจุบัน:</string>
   <string name="transfer_send_button">ส่ง</string>
   <string name="transfer_receive_body">แบ่งปันที่อยู่กระเป๋าสตางค์ของคุณเพื่อรับเงิน</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_error_invalid_address">Invalid wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">คุณได้รับข้อความใหม่!</string>
   <string name="support_new_message_button">แตะเพื่อเปิด</string>
@@ -1338,8 +1342,8 @@
   <string name="rewards_make_first_purchase_body">ทำการสั่งซื้อครั้งแรกของคุณในเกมที่รองรับ AppCoins และปลดล็อกโบนัสในทุกการซื้อ</string>
   <string name="rewards_bonus_every_purchase_title">โบนัส %s%% ในทุกการซื้อ</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">จัดการวอลเล็ต</string>
+  <string name="manage_wallet_view_title">จัดการวอลเล็ต</string>
   <string name="manage_wallet_wallet_changed_title">เปลี่ยนวอลเล็ต</string>
   <string name="manage_wallet_change_active_wallet_title">คุณต้องการเลือกกระเป๋าเงินใบนี้หรือไม่?</string>
   <string name="manage_wallet_change_wallet_name_title">เปลี่ยนชื่อวอลเล็ต</string>
@@ -1383,6 +1387,13 @@
   <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
   <string name="mail_list_confirmation_email_button">Confirm email</string>
   <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <!-- Rebranding -->
+  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
+  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

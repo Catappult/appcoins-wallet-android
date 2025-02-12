@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2024-09-24 14:04\n"
+"PO-Revision-Date: 2025-01-29 14:52\n"
 
 #. Card Title
 #:
@@ -121,4 +121,14 @@ msgstr "새로운 혜택을 사용할 수 있습니다"
 #:
 msgid "Enjoy {0}% bonus in every purchase."
 msgstr "모든 구매에서 {0}% 보너스를 받으세요."
+
+#. Card - Title - Bank Transfer
+#:
+msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
+msgstr ""
+
+#. Payment Method - Title - Bank Transfer
+#:
+msgid "Easy bank transfer"
+msgstr ""
 

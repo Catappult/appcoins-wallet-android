@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
-"PO-Revision-Date: 2024-09-24 14:05\n"
+"PO-Revision-Date: 2025-02-01 08:41\n"
 
 #. Card Title
 #:
@@ -121,4 +121,14 @@ msgstr "มีสิทธิพิเศษใหม่"
 #:
 msgid "Enjoy {0}% bonus in every purchase."
 msgstr "เพลิดเพลินกับโบนัส {0}% ในการซื้อทุกครั้ง."
+
+#. Card - Title - Bank Transfer
+#:
+msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
+msgstr "รับโบนัสพิเศษ {0}% ในการเติมเงินทั้งหมดด้วยการโอนเงินผ่านธนาคารอย่างง่ายดาย"
+
+#. Payment Method - Title - Bank Transfer
+#:
+msgid "Easy bank transfer"
+msgstr "โอนเงินผ่านธนาคารง่ายๆ"
 
