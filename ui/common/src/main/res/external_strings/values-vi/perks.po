@@ -10,12 +10,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Vietnamese\n"
 "Language: vi_VN\n"
-"PO-Revision-Date: 2025-02-05 15:03\n"
+"PO-Revision-Date: 2025-02-12 14:11\n"
 
 #. Card Title
 #:
 msgid "Earn Aptoide balance!"
-msgstr ""
+msgstr "Kiếm số dư Aptoide!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
@@ -30,7 +30,7 @@ msgstr ""
 #. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr "Bởi vì bạn đã mua hàng trong{0}."
+msgstr "Bởi vì bạn đã mua hàng trong {0}."
 
 #. Card - Expenditure per days Promotion.
 #:
