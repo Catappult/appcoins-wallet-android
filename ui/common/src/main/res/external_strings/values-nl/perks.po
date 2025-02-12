@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2025-02-12 20:51\n"
+"PO-Revision-Date: 2025-02-12 23:49\n"
 
 #. Card Title
 #:
@@ -65,7 +65,7 @@ msgstr "Krijg een extra bonus van {0}% bij al je aankopen."
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
-msgstr "Krijg een extra bonus van {0}% voor je eerste aankoop in {1}, met uitzondering van Aptoide-tegoed."
+msgstr "Krijg een extra bonus van {0}% voor je eerste aankoop in {1}, behalve als je Aptoide-tegoed gebruikt."
 
 #. Receipt - First Purchase.
 #:
@@ -75,7 +75,7 @@ msgstr "Vanwege je eerste aankoop in {0}."
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
-msgstr "Krijg een extra bonus van {0}% voor je eerste aankoop van de dag in {1}, met uitzondering van Aptoide-tegoed."
+msgstr "Krijg een extra bonus van {0}% voor je eerste aankoop van de dag in {1}, behalve als je Aptoide-tegoed gebruikt."
 
 #. Receipt - First Purchase of the day.
 #:
