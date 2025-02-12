@@ -397,8 +397,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             fontWeight = FontWeight(600),
             fontSize = 14.sp,
             color = WalletColors.styleguide_light_grey,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
           )
 
           Text(
