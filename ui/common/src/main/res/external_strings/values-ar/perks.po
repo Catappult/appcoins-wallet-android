@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Arabic\n"
 "Language: ar_SA\n"
-"PO-Revision-Date: 2025-02-12 18:31\n"
+"PO-Revision-Date: 2025-02-12 19:48\n"
 
 #. Card Title
 #:
@@ -125,7 +125,7 @@ msgstr "استمتع بـ {0}% مكافأة لكل عملية شراء."
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "احصل على {0}٪ إضافية كلما أضفت إلى رصيدك بتحويل بنكي بسيط."
 
 #. Payment Method - Title - Bank Transfer
 #:
