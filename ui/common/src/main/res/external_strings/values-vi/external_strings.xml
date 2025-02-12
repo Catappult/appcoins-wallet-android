@@ -5,11 +5,11 @@
   <string name="appcoins_wallet">Aptoide Wallet</string>
   <string name="iab_wallet_not_installed_popup_close_button">ĐÓNG</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the Aptoide Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">Bạn cần có Aptoide Wallet để thực hiện giao dịch mua này. Tải xuống từ Cửa hàng Aptoide hoặc Play Store, và sau đó quay lại hoàn tất giao dịch mua của mình!</string>
   <string name="iap_wallet_and_appstore_not_installed_popup_button">TÔI HIỂU!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the Aptoide Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the Aptoide Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">Bạn cần có Aptoide Wallet!</string>
+  <string name="poa_wallet_not_installed_notification_body">Để nhận phần thưởng, bạn cần có Aptoide Wallet.</string>
   <!-- SDK - Pay as a guest-->
   <string name="iab_pay_as_guest_title">Thanh toán như khách</string>
   <string name="iab_pay_as_guest_credit_card">Thẻ tín dụng</string>
@@ -21,14 +21,14 @@
   <string name="iab_card_cvv">MÃ CVV</string>
   <string name="iab_card_cvv_cvc">MÃ CVC/CVV</string>
   <string name="iab_change_card_button">THAY ĐỔI THẺ</string>
-  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">Thanh toán bằng Aptoide Wallet</string>
   <string name="iab_pay_with_wallet_reward_title">Nhận lên đến %s%% tiền thưởng!</string>
   <string name="iab_pay_with_wallet_reward_body">Bạn sẽ nhận được %s trên giao dịch mua này.</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">Bạn sẽ nhận được một phần tiền thưởng trên giao dịch mua này.</string>
   <string name="iab_best_deal">ƯU ĐÃI TỐT NHẤT</string>
   <string name="iab_purchase_done_title">HOÀN TẤT!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% bonus with the Aptoide Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a bonus with the Aptoide Wallet!</string>
+  <string name="iab_purchase_done_reward_title">Lần tới, nhận tiền thưởng lên đến %s%% bằng Aptoide Wallet!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Lần tới, nhận tiền thưởng bằng Aptoide Wallet!</string>
   <string name="iab_purchase_done_reward_body">Bạn đã nhận được %s trên giao dịch mua này.</string>
   <string name="iab_purchase_done_title_long">Giao dịch mua đã hoàn tất!</string>
   <string name="iab_purchase_change_payment_method_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
@@ -49,10 +49,10 @@
   <string name="purchase_card_error_general_2">Giao dịch đã bị ngân hàng của bạn từ chối. Vui lòng thử với một thẻ khác hoặc liên hệ ngay với chúng tôi.</string>
   <string name="purchase_card_error_no_funds">Có vẻ như bạn không còn đủ tiền hoặc đã đạt đến hạn mức thẻ của mình. Vui lòng thử lại bằng một thẻ khác.</string>
   <string name="purchase_card_error_expired">Có vẻ như thẻ của bạn đã hết hạn. Hãy thử lại bằng một thẻ khác.</string>
-  <string name="purchase_card_error_invalid_details">Bạn có chắc rằng số thẻ của mình đúng không? Vui lòng kiểm tra và thử lại lần nữa.</string>
-  <string name="purchase_card_error_not_supported">Loại thẻ của bạn chưa được hỗ trợ. Hãy thử lại bằng một thẻ khác.</string>
-  <string name="purchase_card_error_security">Bạn có chắc chắn thông tin bảo mật đúng không? Vui lòng thử lại lần nữa.</string>
+  <string name="purchase_card_error_invalid_details">Bạn chắc chắn số thẻ của mình là đúng? Vui lòng kiểm tra và thử lại lần nữa.</string>
+  <string name="purchase_card_error_not_supported">Loại thẻ của bạn hiện chưa được hỗ trợ. Hãy thử lại bằng một thẻ khác.</string>
+  <string name="purchase_card_error_security">Bạn chắc chắn thông tin bảo mật là đúng? Vui lòng thử lại lần nữa.</string>
   <string name="purchase_card_error_wrong_CVV">Mã CVV/CVC của bạn có vẻ như không đúng. Vui lòng thử lại lần nữa.</string>
-  <string name="purchase_card_error_CVV">CVV/CVC sai</string>
+  <string name="purchase_card_error_CVV">Mã CVV/CVC sai</string>
   <string name="error_contac_us_body">Nếu vấn đề vẫn không được khắc phục, vui lòng liên hệ ngay với chúng tôi.</string>
 </resources>
