@@ -25,6 +25,10 @@ import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -93,7 +97,10 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         addressService = partnerAddressService,
         logger = logger
       )
-    presenter.present(savedInstanceState)
+    CoroutineScope(Dispatchers.Main).launch {
+      presenter.present(savedInstanceState)
+    }
+
   }
 
   @Suppress("DEPRECATION")
