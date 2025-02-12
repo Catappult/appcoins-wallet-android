@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Aptoide Wallet</string>
+  <string name="app_name">Aptoide वॉलेट</string>
   <string name="title_send_with_token">पाठवा %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">माझे वॉलेट्स</string>
@@ -20,7 +20,7 @@
   <string name="vip">व्हीआयपी</string>
   <string name="faq">एफएक्यूज</string>
   <string name="low_storage_error">पुरेसे स्टोरेज नाही</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">Aptoide वॉलेटला आपल्या कॅमेर्‍याद्वारे क्यूआर कोड स्कॅन करण्यासाठी परवानगी हवीय.</string>
   <string name="no_camera_available">कॅमेरा उपलब्ध नाही!</string>
   <string name="ok">ठीक आहे</string>
   <string name="barcode_error_format">अवैध बारकोड फोरमॅट: %s</string>
@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">स्क्रीन अनलॉक करा</string>
   <string name="unlock_screen_prompt_android">पुढे चालू ठेवण्यासाठी कृपया आपले अँड्रॉइड डिव्हाइस अनलॉक करा.</string>
   <string name="root_title">डिव्हाइसची सुरक्षा काँप्रोमाइझ्ड झाली</string>
-  <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">कोणतेही \'रुटेड\' अॅप आपल्या Aptoide वॉलेट्या कीचेन डेटामध्ये प्रवेश मिळवु शकतात आणि आपले वॉलेट चोरले जाऊ शकते! हे वॉलेट लगेच वाईप करा आणि सुरक्षित डिव्हाईसवर रिस्टोर करा.</string>
   <string name="action_buy">खरेदी करा</string>
   <string name="empty"></string>
   <string name="try_again">पुन्हा प्रयत्न करा</string>
@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">क्युआर कोडमध्ये वैध पत्ता नाही</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">वॉलेट बनविले!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Aptoide वॉलेटमध्ये प्रवेश करुन आपण %1$s आणि %2$s शी सहमत आहात.</string>
   <string name="intro_get_started_button">वॉलेट सुरु करा</string>
   <!-- New Intro -->
   <!-- Intro from game -->
