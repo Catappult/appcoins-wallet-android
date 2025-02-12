@@ -114,7 +114,7 @@
   <string name="error_already_added">आधीच जोडले आहे</string>
   <string name="error_export">वॉलेट एक्सपोर्ट करण्यात अयशस्वी</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">Aptoide वॉलेट विकसनास बूटस्ट्रॅप करण्यासाठी आम्ही अँड्रॉइड प्रोजेक्टच्या ट्रस्ट वॉलेटला फोर्क केलेय. आधीच अंमलात आणलेल्या कार्यक्षमतेसाठी आम्हास हा सर्वोत्तम पर्याय जाणवला. अशा अंमलबजावणीने परतफेड आणि संबंधित मानले जाणारे कार्य अशा उद्देशाने आम्ही फोर्क केले.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">व्यवहार होत आहे</string>
   <string name="activity_aib_loading_message">ह्याला कदाचित थोडा वेळ लागेल…</string>
@@ -205,29 +205,29 @@
   <string name="gamification_how_table_a2">%s एपीपीसी</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">खरेदी बोनस:</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">Aptoide बॅलन्समध्ये %s</string>
   <string name="gamification_purchase_body">आपल्या पुढच्या खरेदीत आपण हा बोनस वापरु शकता.</string>
   <string name="gamification_purchase_completed_bonus_received">बोनस मिळाला</string>
   <string name="gamification_leveled_up_notification_body">अभिनंदन, आता प्रत्येक खरेदीवर आपल्याला %s बोनस मिळेल!</string>
   <string name="gamification_how_max_level_notification_title">आपण पोचलात!</string>
   <string name="gamification_how_max_level_body">आपण सर्वोच्च पातळीवर पोचलात: %s प्रत्येक खरेदीवर बोनस!</string>
   <string name="gamification_level_up_notification_title">झालच की!</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
+  <string name="gamification_level_up_notification_body">पुढच्या पातळीवर पोचण्यासाठी %1$s%2$s अधिक खर्च करा.</string>
+  <string name="gamification_bonus_plus_perk_body">अतिरिक्त %1$s बोनसचा आणि %2$s Aptoide बॅलन्सचा आनंद घ्या.</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">%s ला आपला वॉलेट पत्ता देण्याची Aptoide वॉलेटला परवानगी द्या.</string>
   <string name="provide_wallet_always_allow_button">नेहमीच परवानगी द्या</string>
   <string name="provide_wallet_allow_once_button">एकदाच परवानगी द्या</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the Aptoide Wallet.</string>
+  <string name="provide_wallet_create_body">आपणांस वॉलेट पत्ता आवश्यक आहे! Aptoide वॉलेटमध्ये निर्मिती करण्यासाठी पुढील चरण करा.</string>
   <string name="provide_wallet_create_wallet_button">निर्माण करा</string>
   <string name="provide_wallet_creating_wallet_header">आपले वॉलेट&#8230; तयार करीत आहे</string>
   <string name="provide_wallet_created_header">वॉलेट पत्ता तयार केला!</string>
-  <string name="provide_wallet_empty_state">You haven\'t allowed Aptoide Wallet to provide your address to any other app yet.</string>
+  <string name="provide_wallet_empty_state">आपण आपला पत्ता इतर कोणत्याही अॅपला देण्याची परवानगी Aptoide वॉलेटला अजुनतरी दिलेली नाही.</string>
   <string name="provide_wallet_status">वॉलेट पत्त्यात प्रवेश द्या</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">भरणा करा</string>
-  <string name="topup_completed_1">%s in Aptoide balance</string>
+  <string name="topup_completed_1">Aptoide बॅलन्समध्ये %s</string>
   <string name="topup_completed_2_with_bonus">आपल्या खात्यात जमा केले गेले... बोनससह!</string>
   <string name="topup_completed_2_without_bonus">आम्ही आपल्या खत्यात जमा केले.</string>
   <string name="topup_minimum_value">किमान टॉप-अप मूल्य %s आहे</string>
@@ -238,7 +238,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">अॅपकॉइन्स इथेरियम क्रिप्टोकरंसीवर आधारीत आहे. आपण ह्याचा विनिमय बहुतेक एक्सचेंजमध्ये करु शकता, हे फार लोकप्रिय आहे!</string>
   <string name="balance_appcoins_body">अॅप इकॉनॉमीसाठी अॅपकॉइन्स ही क्रिप्टोकरंसी आहे. आपण ह्याचा विनिमय पुष्कळशा एक्सचेंजेसवर करु शकता आणि अॅपमधील वस्तु खरेदीसाठी करु शकता.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">अॅपमधील वस्तू खरेदी करण्याचे टोकन! Aptoide बॅलन्स टॉप अप करा किंवा अॅप वापरुन मोफत मिळवा. मित्रांमध्ये ह्याचे हस्तांतरणही केले जाऊ शकते!</string>
   <string name="my_wallets_action_new_wallet">नविन वॉलेट</string>
   <string name="my_wallets_action_recover_wallet">वॉलेट परत मिळवा</string>
   <string name="my_wallets_action_backup_wallet">वॉलेट बॅकअप करा</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">सद्य शिल्लक: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">पुरेसे पैसे नाहीत</string>
   <string name="p2p_send_confirmation_header">हस्तांतरण तपशील</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">Aptoide बॅलन्स</string>
   <!--Common-->
   <string name="oops_title">अरेरे</string>
   <string name="error_general">काहीतरी चूक झाली</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">पेमेंट पद्धत</string>
   <string name="credit_debit_card">क्रेडीट/डेबीट कार्ड</string>
   <string name="paypal">पेपाल</string>
-  <string name="appc">Aptoide balance</string>
+  <string name="appc">Aptoide बॅलन्स</string>
   <string name="bank_transfer">सोपी बँक ट्रांसफर</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -332,7 +332,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">अॅपमधील खरेदीसाठी आपले टूल</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
+  <string name="onboarding_bonus_title">अॅपमधील खरेदीवर %s%% आपल्या Aptoide बॅलन्समध्ये मिळवा.</string>
   <string name="onboarding_payment_methods_title">बँक कार्ड, पेपाल आणि आपल्या आवडत्या पेमेंट पद्धती वापरा.</string>
   <string name="onboarding_vip_title">अधिमूल्य समर्थन आणि ऑफर्स मिळविण्यासाठी व्हीआयपी सदस्य व्हा.</string>
   <string name="terms_and_conditions">अटी आणि शर्ती</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">आपली खरेदी पूर्ण करण्यासाठी आपली पेमेंट पद्धत सत्यापित करा.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Aptoide बॅलन्स</string>
   <!--Settings-->
   <string name="title_redeem">गिफ्ट कार्ड रिडीम करा</string>
   <string name="settings_item_support">समर्थन गटाशी संपर्क साधा</string>
@@ -378,16 +378,16 @@
   <string name="purchase_appcoins_noavailable_body">ही खरेदी करण्यासाठी आपल्याकडे पुरेशा अँपकॉइन्स किंवा इथर नाहीय.</string>
   <string name="purchase_no_eth_body">इंधनाचे मूल्य देण्याइतके इटीएच आपल्याकडे नाहीत.</string>
   <string name="purchase_no_appcoins_body">ही खरेदी पूर्ण करण्यासाठी आपल्याकडे पुरेशा अँपकॉइन्स नाहीत.</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">आपल्याकडे पुरेसा Aptoide बॅलन्स नाहीये, टॉप अप करा!</string>
+  <string name="purchase_appcoins_credits_default_body">ह्या खरेदीसाठी आपल्याकडे पुरेसा Aptoide बॅलन्स आहे. मजा घ्या!</string>
   <string name="purchase_poa_item">अॅप वापरुन निधी जमा करा</string>
   <string name="purchase_poa_view_title">निधी नाही, काळजी नाही!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
+  <string name="purchase_poa_view_body">एखादे अॅप २ मिनिटांसाठी वापरा आणि खरेदी करण्यासाठी Aptoide बॅलन्स क्रेडीटसमध्ये बक्षिस मिळवा!</string>
   <string name="purchase_current_balance_body">सद्य शिल्लक:</string>
-  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
+  <string name="purchase_current_balance_appcc_body">Aptoide बॅलन्समध्ये %s.</string>
   <string name="purchase_current_balance_appc_eth_body">%s अॅपकॉइन्स आणि इथर.</string>
-  <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_wallet_blocked_title">आपला Aptoide बॅलन्स ब्लॉक केलाय</string>
+  <string name="purchase_wallet_blocked_body">विचित्र व्यवहार इतिहासामुळे आपला Aptoide बॅलन्स ब्लॉक केलाय. तरीही आपण Aptoide बॅलन्सच्या अपवादासह इतर पद्धतींनी आपली पेमेंटस आणि व्यवहार चालू ठेऊ शकता.\n\nजर ही चूक वाटत असेल तर आमच्याशी पुढीलवर संपर्क साधा:</string>
   <string name="purchase_card_error_general_1">आपल्या कार्डात समस्या आलीय. कृपया वेगळ कार्ड वा पेमेंट पद्धत वापरुन प्रयत्न करा.</string>
   <string name="purchase_card_error_general_2">आपल्या बँकेने हा व्यवहार नाकारलाय. कृपया वेगळ्या कार्ड वा पेमेंट पद्धतीसह प्रयत्न करा.</string>
   <string name="purchase_card_error_no_funds">असे दिसतेय कि आपल्याकडे पुरेसे पैसे नाहीत किंवा आपल्या कार्डावर लिमिट आहे. कृपया वेगळे कार्ड किंवा पेमेंट पद्धत वापरुन प्रयत्न करा.</string>
@@ -426,32 +426,32 @@
   <string name="purchase_error_open_banking_wallet_generic">आपल्या पेपाल पेमेंटमध्ये समस्या आली आहे. कृपया पुन्हा प्रयत्न करा वा वेगळी पेमेंट पद्धत वापरा.</string>
   <string name="purchase_error_no_method_available_body">ह्या क्षणीतरी, आपल्या भागात ही खरेदी पूर्ण करण्यासाठी कोणतीही पेमेंट पद्धत उपलब्ध नाही. येत रहा!</string>
   <string name="purchase_legal_disclaimer">पेमेंट करण्याने आपण पैसे भरल्यानंतर सामग्री मिळविण्यास आपली मान्यता आणि सहमती देत आहात आणि त्याद्वारे आपला मागे घेण्याचा हक्क गमावीत आहात.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Aptoide बॅलन्समध्ये बोनस आहे.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="one">ह्यास कदाचित %s दिवस लागेल.</item>
     <item quantity="other">ह्यास कदाचित %s दिवस लागतील.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_1">%s Aptoide बॅलन्स आपल्या वॉलेटमध्ये जमा केला जाईल.</string>
   <string name="purchase_bank_transfer_success_2">ह्याची प्रक्रिया करण्यासाठी बँकेस कदाचित २ दिवस लागू शकतील.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
+  <string name="purchase_bank_transfer_success_bonus">आपणांस Aptoide बॅलन्समध्ये %s बोनस मिळेल.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">आपल्या बँकेतुन पैसे येण्याची आम्ही वाट पहात आहोत.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
   <string name="async_steps_title">पुढचे चरण</string>
   <string name="async_steps_1_no_notification">%s सह आपले पेमेंट पूर्ण करा.</string>
-  <string name="async_steps_2_no_notification">Once you receive the Aptoide balance, go back to the game and make the purchase using Aptoide balance as a payment method.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide balance, use it to make purchases in your favorite games!</string>
+  <string name="async_steps_2_no_notification">Aptoide बॅलन्स मिळाल्यानंतर खेळात परत जा आणि Aptoide बॅलन्सला पेमेंट पद्धत म्हणुन वापरुन खरेदी करा.</string>
+  <string name="async_steps_2_toptup_no_notification">एकदा का आपल्याला Aptoide बॅलन्स मिळाला, कि मग आपल्या आवडत्या खेळातील खरेदीसाठी त्याचा वापर करा!</string>
   <!--Referral Program-->
   <string name="referral_verification_title">पेमेंट पद्धत सत्यापित करा</string>
   <string name="referral_view_verify_button">पेमेंट पद्धत सत्यापित करा</string>
   <!--Promotions-->
   <!--Update-->
   <string name="update_wallet_purchase_title">आपल्याला अद्यतनाची गरज आहे!</string>
-  <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
-  <string name="update_wallet_hard_body">It seems you\'re using an old version of the Aptoide Wallet. Please update it to guarantee the best experience and security.</string>
+  <string name="update_wallet_purchase_body">ही खरेदी पूर्ण करण्यासाठी Aptoide बॅलन्स अद्यतन करा.</string>
+  <string name="update_wallet_hard_body">Aptoide वॉलेटची जुनी आवृत्ती आपण वापरत आहात असे दिसतेय. उत्कृष्ट अनुभव आणि सु्रक्षेच्या हमीसाठी कृपया अद्यतन करा.</string>
   <string name="update_wallet_soft_title">मागे राहू नका!</string>
-  <string name="update_wallet_soft_body">Keeping the Aptoide Wallet updated guarantees the best experience.</string>
+  <string name="update_wallet_soft_body">Aptoide वॉलेट अद्यतन करीत रहाण्याने उत्कृष्ट अनुभवाची हमी मिळते.</string>
   <string name="update_button">अद्यतन</string>
   <string name="update_backup_title">आपले पैसे घालवु नका!</string>
   <string name="update_backup_body">अद्यतनित करण्यापूर्वी आपले वॉलेट बॅक अप करा.</string>
@@ -541,7 +541,7 @@
   <string name="subscriptions_details_cancelled_body">रद्द केले - ह्याची कालबाह्यता %s ला आहे</string>
   <string name="subscriptions_expiration_body">ह्याची कालबाह्यता %s ला आहे</string>
   <string name="subscriptions_canceled_body">रद्द केले</string>
-  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
+  <string name="subscriptions_details_disclaimer">चलन विनिमय दरामुळे आपल्या पुढील पेमेंटचे मूल्य बदलु शकते.</string>
   <string name="subscriptions_manage_button">सदस्यत्वाचे व्यवस्थापन करा</string>
   <string name="subscriptions_cancel_button">सदस्यत्व रद्द करा</string>
   <string name="subscriptions_renew_subscription_button">सदस्यत्वाचे नविनीकरण करा</string>
@@ -567,13 +567,13 @@
   <string name="gamif_spent">ह्या पातळीवर पोचण्यासाठी खर्च केलेली रक्कम</string>
   <string name="gamif_show_previous">आधीची कामगिरी दाखवा</string>
   <string name="gamif_hide_previous">आधीची कामगिरी दृष्टीआड करा</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">पुढील पातळीवर जाण्यासाठी %s खर्च करा</string>
   <string name="gamif_achievement_start">आपण आपला प्रवास सुरु केलायत</string>
   <string name="gamif_achievement_start_sub">आत्ताच तर पृथ्वी सोडली!</string>
   <string name="gamif_achievement_reach">आपण %s वर पोचलायत</string>
   <string name="gamif_card_start">आपण अजुनही पृथ्वीवरच आहात</string>
   <string name="gamif_card_title">आपण %s वर आहात</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">पुढच्या पातळीवर पोचण्यासाठी %s अधिक खर्च करा.</string>
   <string name="gamif_bonus">%s%% बोनस</string>
   <string name="gamif_quote_earth">\"आपल्या सगळ्यांना जोडणारी पृथ्वीच आहे\" - वेंडेल बेरी</string>
   <string name="gamif_placeholder_moon">चंद्र</string>
@@ -637,8 +637,8 @@
   <string name="perks_title">प्रमोशन्स</string>
   <string name="promotion_ends_short_title">प्रमोशन संपत आहे</string>
   <string name="perks_available_soon_short">लवकरच उपलब्ध होईल</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_notification">आपल्याला आत्ताच %s Aptoide बॅलन्समध्ये बोनस म्हणुन मिळालेत</string>
+  <string name="perks_purchases_disclaimer_body">Aptoide बॅलन्स व्यतिरिक्त कोणतीही पेमेंट पद्धत वापरुन केलेल्या सर्व खरेदी आणि टॉपअप्समुळे आपली पातळी वाढविण्यास आणि बक्षिस मिळण्यास पात्र व्हाल.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">बायोमेट्रीक लॉक</string>
   <string name="fingerprint_failed_title">प्रमाणीकरण अयशस्वी!</string>
@@ -647,7 +647,7 @@
   <string name="fingerprint_authentication_required_body">चालू ठेवण्यासाठी कृपया आपले बोट किंवा पासवर्ड वापरा.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
+  <string name="rate_us_question_title">Aptoide वॉलेटची मजा येतेय?</string>
   <string name="rate_us_no">खरतर नाही</string>
   <string name="rate_us_yes">होय!</string>
   <string name="rate_us_improve_title">आम्ही काय सुधारणा करु शकतो?</string>
@@ -655,10 +655,10 @@
   <string name="rate_us_improve_field__empty_error">कृपया काहीतरी लिहा</string>
   <string name="rate_us_possitive_thanks_title">धन्यवाद!</string>
   <string name="rate_us_possitive_thanks_body">आपल्याला आमचे अॅप आवडले ह्याचा आम्हाला आनंद आहे. आम्हाला अॅप स्टोरवर रेटिंग देऊन मदत कराल का?</string>
-  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
+  <string name="rate_us_possitive_rate_button">Aptoide वॉलेटला रेट करा</string>
   <string name="rate_us_possitive_done_title">आपल्या अभिप्रायाबद्दल धन्यवाद!</string>
   <string name="rate_us_back_title">आम्हाला मदत कराल?</string>
-  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">Aptoide वॉलेटला अॅपस्टोरमध्ये रेटकरा म्हणजे आम्ही ह्यात सुधारणा करु शकु.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">व्यवहार तपशीलात कोड तपासा</string>
   <string name="card_verification_code_body">आपण पुरविलेल्या कार्ड व्यवहार तपशीलात एक अनोखा कोड दिसेल.</string>
@@ -726,7 +726,7 @@
   <string name="mywallet_backup_again_button">पुन्हा बॅक अप करा</string>
   <string name="mywallet_choose_name_field">वॉलेटचे नाव इथे...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
+  <string name="onboarding_1st_title">अभिनंदन! आपण Aptoide वॉलेट इंस्टॉल केलेत.</string>
   <string name="onboarding_1st_body">आपली खरेदी पूर्ण करण्यासाठी खेळात परत जा.</string>
   <string name="onboarding_1st_back_to_game_button">खेळात परत जा</string>
   <string name="onboarding_1st_explore_wallet_button">किंवा वॉलेट शोधा</string>
@@ -752,8 +752,8 @@
   <string name="vip_program_title_vip_offer">व्हीआयपी ऑफर</string>
   <string name="vip_program_code_error_body">स्वत: चा व्हीआयपी कोड वापरु शकत नाही. मित्रांसह सामायिक करा!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
+  <string name="intro_welcome_header">Aptoide वॉलेटमध्ये स्वागत आहे</string>
+  <string name="intro_welcome_body">वॉलेटमध्ये भर घाला किंवा अॅप वा खेळाशी सुसंगत कोणतीही खरेदी करा.</string>
   <string name="intro_active_promotions_header">सक्रिय प्रमोशन्स</string>
   <string name="topup_home_button">भरणा करा</string>
   <string name="intro_home_button">मुख्य पृष्ठ</string>
@@ -781,9 +781,9 @@
   <string name="rewards_promo_code_card_body">खास सूट मिळविण्यासाठी प्रोमो कोड वापरा!</string>
   <string name="rewards_promo_code_status">स्थिती:</string>
   <string name="rewards_promo_code_status_active">सक्रिय</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">बक्षिसांसहचे खेळ</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_make_first_purchase_body">सुसंगत खेळातील आपली पहिली खरेदी करा आणि प्रत्येक खरेदीवर बोनस मिळवा.</string>
   <string name="rewards_bonus_every_purchase_title">प्रत्येक खरेदीवर %s%%</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">वॉलेटस् व्यवस्थापन</string>
@@ -799,21 +799,21 @@
   <string name="verify_card_view_title_2">आपल्या बँक कार्डाचे तपशील भरा</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">आव्हान बक्षिस</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Aptoide बॅलन्स मिळविण्यासाठी आव्हान पूर्ण करा.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">आपल्या वॉलेटमध्ये जमा झालेल्या %s Aptoide बॅलन्सचा आनंद लुटा</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">येत रहा!</string>
   <string name="mail_list_card_body">निवडक अद्यतने आणि गिफ्ट कार्ड जिंकण्याचा मोका मिळण्यासाठी आमच्या मेलिंग लिस्टमध्ये सामिल व्हा.</string>
   <string name="mail_list_card_confirmation_title">आपली ईमेल पुष्टी करा</string>
   <string name="mail_list_card_confirmation_body">आम्ही %s वर ईमेल पाठवली आहे</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebranding_disclaimer_short_title">अॅपकॉईन्स वॉलेट आता लवकरच Aptoide वॉलेट होत आहे!</string>
+  <string name="rebranding_disclaimer_long_title">अॅपकॉईन्स वॉलेट आता लवकरच Aptoide वॉलेट होत आहे!</string>
+  <string name="rebranding_disclaimer_shortest_title">आम्ही आता Aptoide वॉलेट होत आहोत!</string>
+  <string name="rebranding_disclaimer_long_body"> आमच्या ब्रँड आणि फिलिंगच्या एक्सायटिंग रिडिझाईनवर आम्ही काम करत आहोत. आपली आवडती वैशिष्ट्ये आणि बक्षिसे संपूर्णपणे नव्या रुपात मिळविण्यासाठी येत रहा!</string>
+  <string name="rebranding_post_title">अॅपकॉईन्स वॉलेट आता झालेय Aptoide वॉलेट!</string>
+  <string name="rebrandinh_post_body">आपली आवडती वैशिष्ट्ये आणि बक्षिसे आता संपूर्णपणे नव्या रुपात. आशा आहे आपणांस आवडतील!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
