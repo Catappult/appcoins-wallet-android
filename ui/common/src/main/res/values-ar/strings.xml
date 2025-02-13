@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Aptoide Wallet</string>
+  <string name="app_name">محفظة Aptoide</string>
   <string name="title_send_with_token">إرسال %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">مَحافظي</string>
@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">أسئلة شائعة</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">محفظة Aptoide تحتاج الإذن للوصول إلى الكاميرا لمسح رموز QR.</string>
   <string name="no_camera_available">الكاميرا غير متوفرة!</string>
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">إلغاء قفل الشاشة</string>
   <string name="unlock_screen_prompt_android">يرجى إلغاء قفل جهاز الأندرويد الخاص بك للمتابعة.</string>
   <string name="root_title">أمان الجهاز معرض خطر</string>
-  <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">أي تطبيق مُروّت يمكنه أن يصل إلى بيانات keychain لمحفظة Aptoide وأن يسرق محفظتك! امسح هذه المحفظة في الحال واستعدها على جهاز آمن.</string>
   <string name="action_buy">شراء</string>
   <string name="empty"></string>
   <string name="try_again">حاول مرة أخرى</string>
@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">شيفرة QR لا تحتوي على عنوان صالح</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">تم إنشاء المحفظة!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">بدخولك محفظة Aptoide، أنت توافق على %1$s و %2$s.</string>
   <string name="intro_get_started_button">إطلاق المحفظة</string>
   <!-- New Intro -->
   <!-- Intro from game -->
@@ -114,7 +114,7 @@
   <string name="error_already_added">تمت الإضافة مسبقًا</string>
   <string name="error_export">فشل في تصدير المحفظة</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">لقد أجرينا تشعيبًا لمحفظة Trust من أجل مشروع أندرويد للتمهيد لتطوير محفظة Aptoide. واعتمدناها كأفضل بديل بخصوص ما يتعلق بالوظائف التي نفذناها مسبقًا. وقد عملنا على تشعيبها بقصد المساهمة في العمليات التنفيذية والأعمال التي رأينا أنها ذات صلة.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">التحويل قيد التنفيذ</string>
   <string name="activity_aib_loading_message">قد يستغرق هذا بعض الوقت…</string>
@@ -205,29 +205,29 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">مكافأة للمشتريات:</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">%s في رصيد Aptoide</string>
   <string name="gamification_purchase_body">يمكنك استخدام هذه المكافأة في عملية الشراء القادمة.</string>
   <string name="gamification_purchase_completed_bonus_received">تلقيت مكافأة</string>
   <string name="gamification_leveled_up_notification_body">مبروك، ستحصل الآن على مكافأة %s على كل عملية شراء!</string>
   <string name="gamification_how_max_level_notification_title">لقد فعلتها!</string>
   <string name="gamification_how_max_level_body">لقد وصلت أعلى مستوى: %s مكافأة على كل عملية شراء!</string>
   <string name="gamification_level_up_notification_title">كدت تصل!</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
+  <string name="gamification_level_up_notification_body">أنفق %1$s %2$s إضافية لتصل إلى المستوى التالي.</string>
+  <string name="gamification_bonus_plus_perk_body">تمتع بـ %1$s مكافأة و %2$s إضافية في رصيد Aptoide.</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">اسمح لمحفظة Aptoide بمنح عنوان محفظتك لـ %s.</string>
   <string name="provide_wallet_always_allow_button">السماح دائمًا</string>
   <string name="provide_wallet_allow_once_button">السماح مرة واحدة</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the Aptoide Wallet.</string>
+  <string name="provide_wallet_create_body">أنت بحاجة إلى عنوان محفظة! اتبع هذه الخطوات لإنشاء عنوان في محفظة Aptoide.</string>
   <string name="provide_wallet_create_wallet_button">إنشاء</string>
   <string name="provide_wallet_creating_wallet_header">جاري تحضير محفظتك&#8230;</string>
   <string name="provide_wallet_created_header">تم إنشاء عنوان محفظة!</string>
-  <string name="provide_wallet_empty_state">You haven\'t allowed Aptoide Wallet to provide your address to any other app yet.</string>
+  <string name="provide_wallet_empty_state">أنت لم تسمح لمحفظة Aptoide بمنح عنوانك لآي تطبيق آخر حتى الآن.</string>
   <string name="provide_wallet_status">اسمح بالوصول إلى عنوان محفظتك</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">تعبئة</string>
-  <string name="topup_completed_1">%s in Aptoide balance</string>
+  <string name="topup_completed_1">%s في رصيد Aptoide</string>
   <string name="topup_completed_2_with_bonus">أُودعت في حسابك... إضافة إلى مكافأة!</string>
   <string name="topup_completed_2_without_bonus">أُودِعَتْ في حسابك.</string>
   <string name="topup_minimum_value">أقل قيمة يمكن إضافتها هي %s</string>
@@ -238,7 +238,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">الإيثيريوم هي عملة مشفرة تعتمد عليها عملة AppCoins. يمكنك بيعها وشراؤها في معظم التبادلات، إن استخدامها شائع جدًّا!</string>
   <string name="balance_appcoins_body">AppCoins هي عملة مشفرة من أجل العمليات الاقتصادية في التطبيق. يمكنك بيعها وشراؤها في عدة تبادلات واستخدامها لشراء العناصر داخل التطبيقات.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">التوكن لشراء العناصر داخل التطبيقات! أضف مبلغًا إلى رصيد Aptoide أو احصل عليه مجانًا باستخدام التطبيقات الأخرى. يمكنك أيضًا تبادلها مع الأصدقاء!</string>
   <string name="my_wallets_action_new_wallet">محفظة جديدة</string>
   <string name="my_wallets_action_recover_wallet">استعادة المحفظة</string>
   <string name="my_wallets_action_backup_wallet">محفظة احتياطية</string>
