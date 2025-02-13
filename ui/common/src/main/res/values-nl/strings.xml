@@ -541,7 +541,7 @@
   <string name="subscriptions_details_cancelled_body">Geannuleerd - dit verloopt op %s</string>
   <string name="subscriptions_expiration_body">Dit verloopt op %s</string>
   <string name="subscriptions_canceled_body">Geannuleerd</string>
-  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
+  <string name="subscriptions_details_disclaimer">De waarde van je volgende betaling kan verschillen vanwege de wisselkoers.</string>
   <string name="subscriptions_manage_button">Abonnementen beheren</string>
   <string name="subscriptions_cancel_button">Abonnement annuleren</string>
   <string name="subscriptions_renew_subscription_button">Abonnement vernieuwen</string>
@@ -567,13 +567,13 @@
   <string name="gamif_spent">Bedrag besteed om dit niveau te bereiken</string>
   <string name="gamif_show_previous">Eerdere prestaties tonen</string>
   <string name="gamif_hide_previous">Eerdere prestaties verbergen</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">Besteed %s om het volgende niveau te bereiken</string>
   <string name="gamif_achievement_start">Je bent je reis begonnen</string>
   <string name="gamif_achievement_start_sub">Je hebt de aarde verlaten!</string>
   <string name="gamif_achievement_reach">Je hebt %s bereikt</string>
   <string name="gamif_card_start">Je bent nog steeds op aarde</string>
   <string name="gamif_card_title">Je bent op %s</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">Besteed nog %s om het volgende niveau te bereiken.</string>
   <string name="gamif_bonus">%s%% bonus</string>
   <string name="gamif_quote_earth">\"De aarde is wat we allemaal gemeen hebben\" – Wendell Berry</string>
   <string name="gamif_placeholder_moon">de maan</string>
@@ -637,8 +637,8 @@
   <string name="perks_title">Acties</string>
   <string name="promotion_ends_short_title">Actie eindigt over</string>
   <string name="perks_available_soon_short">Binnenkort beschikbaar</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_notification">Je hebt zojuist een bonus van %s in Aptoide-tegoed ontvangen</string>
+  <string name="perks_purchases_disclaimer_body">Behalve Aptoide-tegoed komen alle betaalmethoden voor het uitvoeren van aankopen en opwaarderingen in aanmerking om je niveau te verhogen en beloningen te ontvangen.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Biometrische vergrendeling</string>
   <string name="fingerprint_failed_title">Authenticatie is mislukt!</string>
@@ -647,7 +647,7 @@
   <string name="fingerprint_authentication_required_body">Gebruik je vingerafdruk of wachtwoord om door te gaan.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
+  <string name="rate_us_question_title">Geniet je van de Aptoide Wallet?</string>
   <string name="rate_us_no">Niet echt</string>
   <string name="rate_us_yes">Ja!</string>
   <string name="rate_us_improve_title">Wat kunnen we verbeteren?</string>
@@ -655,10 +655,10 @@
   <string name="rate_us_improve_field__empty_error">Schrijf een bericht</string>
   <string name="rate_us_possitive_thanks_title">Bedankt!</string>
   <string name="rate_us_possitive_thanks_body">We zijn blij dat je van onze app geniet. Wil je ons helpen door ons in de App Store te beoordelen?</string>
-  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
+  <string name="rate_us_possitive_rate_button">Beoordeel de Aptoide Wallet</string>
   <string name="rate_us_possitive_done_title">Bedankt voor je feedback!</string>
   <string name="rate_us_back_title">Wil je ons helpen?</string>
-  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">Beoordeel de Aptoide Wallet in de App Store zodat we de wallet kunnen verbeteren.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">Controleer de code via de transactiegegevens</string>
   <string name="card_verification_code_body">Het transactieoverzicht dat wordt verstrekt door de uitgever van je kaart bevat een unieke code.</string>
@@ -726,7 +726,7 @@
   <string name="mywallet_backup_again_button">Opnieuw een back-up maken</string>
   <string name="mywallet_choose_name_field">Voer hier de naam van je wallet in...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
+  <string name="onboarding_1st_title">Gefeliciteerd! Je hebt de Aptoide Wallet geïnstalleerd.</string>
   <string name="onboarding_1st_body">Ga terug naar de game om je aankoop te voltooien.</string>
   <string name="onboarding_1st_back_to_game_button">Ga terug naar de game</string>
   <string name="onboarding_1st_explore_wallet_button">Of ontdek de wallet</string>
@@ -748,12 +748,12 @@
   <string name="vip_program_max_bonus_body">Je hebt de grens van het zonnestelsel bereikt.</string>
   <string name="vip_program_max_bonus_short">%s%% bonus bij elke aankoop.</string>
   <string name="vip_program_referral_notification_title">VIP-verwijzingscode beschikbaar!</string>
-  <string name="vip_program_referral_notification_body">Deel je code met de community, zodat iedereen tijdens het spelen AppCoins kan verdienen!</string>
+  <string name="vip_program_referral_notification_body">Deel je code met de community, zodat iedereen tijdens het spelen Aptoide-tegoed kan verdienen!</string>
   <string name="vip_program_title_vip_offer">VIP-aanbieding</string>
   <string name="vip_program_code_error_body">Je kunt je eigen VIP-code niet gebruiken. Deel deze met je vrienden!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
+  <string name="intro_welcome_header">Welkom bij de Aptoide Wallet</string>
+  <string name="intro_welcome_body">Voeg saldo toe aan je wallet of doe een aankoop in een app of game die Aptoide-tegoed ondersteunt.</string>
   <string name="intro_active_promotions_header">Huidige acties</string>
   <string name="topup_home_button">Opwaarderen</string>
   <string name="intro_home_button">Start</string>
@@ -781,9 +781,9 @@
   <string name="rewards_promo_code_card_body">Gebruik een actiecode om speciale aanbiedingen te krijgen!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Actief</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">Games met beloningen</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_make_first_purchase_body">Doe je eerste aankoop in een game die Aptoide-tegoed ondersteunt en krijg een bonus bij elke aankoop.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% bonus bij elke aankoop</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">Wallets beheren</string>
@@ -799,20 +799,20 @@
   <string name="verify_card_view_title_2">Voer je bankpasgegevens in</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Beloning voor uitdaging</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Voltooi een uitdaging om Aptoide-tegoed te krijgen.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">Geniet van %s in Aptoide-tegoed in je wallet</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">Blijf op de hoogte!</string>
   <string name="mail_list_card_body">Meld je aan voor onze mailinglijst om exclusieve updates te ontvangen en kans te maken op een cadeaubon.</string>
   <string name="mail_list_card_confirmation_title">Bevestig je e-mailadres</string>
   <string name="mail_list_card_confirmation_body">We hebben een e-mail verzonden naar %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">De AppCoins Wallet wordt binnenkort de Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">De AppCoins Wallet wordt de Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">Dit wordt de Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> We werken aan een geweldig nieuw design om je een nog betere ervaring te bieden. Blijf ons volgen om je favoriete functies en beloningen in een compleet nieuw jasje te ontdekken!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebranding_post_title">De AppCoins Wallet heet nu de Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Ontdek je favoriete functies en beloningen in een compleet nieuw jasje. We hopen dat je net zo enthousiast bent als wij!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
