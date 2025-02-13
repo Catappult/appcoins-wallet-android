@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Aptoide Wallet</string>
+  <string name="app_name">Aptoide  지갑</string>
   <string name="title_send_with_token">%s 전송</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">내 지갑</string>
@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">자주묻는 질문</string>
   <string name="low_storage_error">저장 공간이 부족합니다</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">Aptoide 지갑은 QR 코드 스캔을 위해 카메라 접근 권한이 필요합니다.</string>
   <string name="no_camera_available">카메라를 사용할 수 없습니다!</string>
   <string name="ok">확인</string>
   <string name="barcode_error_format">잘못된 바코드 형식: %s</string>
@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">화면 잠금해제</string>
   <string name="unlock_screen_prompt_android">계속하기 위해서 안드로이드를 잠금해제하십시오.</string>
   <string name="root_title">손상된 장치 보안</string>
-  <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">\'rooted\' 앱은 Aptoide 지갑 키체인 데이터에 접근할 수 있으며 지갑을 도난 당할 수 있습니다! 이 지갑을 즉시 삭제하시고 보안 장치에 복원하세요.</string>
   <string name="action_buy">구매</string>
   <string name="empty"></string>
   <string name="try_again">다시 시도하십시오</string>
