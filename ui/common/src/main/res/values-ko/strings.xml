@@ -750,7 +750,7 @@
   <string name="vip_program_code_error_body">귀하 본인의 VIP 코드를 사용할 수 없습니다. 친구들과 공유하세요!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Aptoide 지갑에 오신 것을 환영합니다</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
+  <string name="intro_welcome_body">지갑을 채우거나 호환되는 앱이나 게임에서 구매하세요.</string>
   <string name="intro_active_promotions_header">활성 프로모션</string>
   <string name="topup_home_button">충전</string>
   <string name="intro_home_button">홈</string>
@@ -774,9 +774,9 @@
   <string name="rewards_promo_code_card_body">프로모션 코드를 사용하여 특별한 혜택을 누리십시오!</string>
   <string name="rewards_promo_code_status">상태:</string>
   <string name="rewards_promo_code_status_active">활성</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">보상이 있는 게임</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_make_first_purchase_body">호환되는 게임에서 첫 구매를 하고 모든 구매 시 보너스 잠금을 해제합니다.</string>
   <string name="rewards_bonus_every_purchase_title">모든 구매에서 %s%% 보너스</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">지갑 관리</string>
@@ -792,20 +792,20 @@
   <string name="verify_card_view_title_2">은행 카드 상세를 입력하세요</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">보상 도전</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Aptoide 잔액을 획득을 위하여 도전을 완료하세요.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">지갑에서 Aptoide 잔액의 %s을(를) 즐기세요</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">계속 지켜봐 주시기 바랍니다!</string>
   <string name="mail_list_card_body">메일링 리스트에 가입하여 독점 업데이트를 받고 기프트 카드를 받을 수 있는 기회를 얻으세요.</string>
   <string name="mail_list_card_confirmation_title">이메일을 확인해주세요</string>
   <string name="mail_list_card_confirmation_body">%s에게 이메일을 보냈습니다</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins 지갑이 곧 Aptoide 지갑이 될 예정입니다!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins 지갑이 Aptoide 지갑이 될 예정입니다!</string>
+  <string name="rebranding_disclaimer_shortest_title">Aptoide 지갑이 되어가고 있습니다!</string>
   <string name="rebranding_disclaimer_long_body"> 저희는 브랜드와 느낌을 흥미롭게 재설계하기 위해 노력하고 있습니다. 완전히 새로운 이미지로 여러분이 좋아하는 기능과 보상을 발견할 수 있도록 계속 지켜봐 주세요!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebranding_post_title">AppCoins 지갑이 이제 Aptoide 지갑이 되었습니다!</string>
   <string name="rebrandinh_post_body">완전히 새로운 이미지로 좋아하는 기능과 보상을 찾아보세요. 마음에 드시길 바랍니다!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
