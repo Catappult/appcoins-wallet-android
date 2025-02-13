@@ -10,12 +10,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Hungarian\n"
 "Language: hu_HU\n"
-"PO-Revision-Date: 2025-01-29 17:25\n"
+"PO-Revision-Date: 2025-02-13 14:09\n"
 
 #. Card Title
 #:
 msgid "Earn Aptoide balance!"
-msgstr ""
+msgstr "Szerezz Aptoide egyenleget!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
