@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">QR 코드에 유효한 주소가 없습니다</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">지갑이 생성되었습니다!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Aptoide 지갑에 들어가는 것은 %1$s와 %2$s에 동의하는 것입니다.</string>
   <string name="intro_get_started_button">지갑 실행</string>
   <!-- New Intro -->
   <!-- Intro from game -->
@@ -114,7 +114,7 @@
   <string name="error_already_added">이미 추가되었습니다</string>
   <string name="error_export">지갑 내보내기 실패</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">우리는 Aptoide 지갑 개발을 부트스트랩하기 위해 안드로이드용 Trust 지갑 프로젝트를 시작했습니다. 우리는 이미 구현된 기능에 관한 최고의 대안이라고 생각했습니다. 우리는 관련성이 있다고 판단되는 구현과 작업에 기여하기 위해 이 프로젝트를 시작했습니다.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">진행중인 트랜잭션</string>
   <string name="activity_aib_loading_message">이것은 시간이 좀 걸릴 수 있습니다...</string>
@@ -205,29 +205,29 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">보너스 구매</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">Aptoide 잔액의 %s</string>
   <string name="gamification_purchase_body">다음 구매에서 이 보너스를 사용하실 수 있습니다.</string>
   <string name="gamification_purchase_completed_bonus_received">받은 보너스</string>
   <string name="gamification_leveled_up_notification_body">축하합니다. 매 구매 시마다 %s 보너스를 받게 됩니다.!</string>
   <string name="gamification_how_max_level_notification_title">해내셨습니다!</string>
   <string name="gamification_how_max_level_body">최고 레벨에 도달하셨습니다: 구매 시마다 %s 보너스를 받습니다!</string>
   <string name="gamification_level_up_notification_title">거의 다 왔습니다!</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
+  <string name="gamification_level_up_notification_body">다음 단계에 도달하려면 %1$s %2$s를 더 사용하세요.</string>
+  <string name="gamification_bonus_plus_perk_body">Aptoide 잔액에서 %1$s 보너스와 %2$s를 추가로 즐기세요.</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">Aptoide 지갑이 %s에게 지갑 주소를 제공하도록 허용합니다.</string>
   <string name="provide_wallet_always_allow_button">항상 허용</string>
   <string name="provide_wallet_allow_once_button">한 번 허용</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the Aptoide Wallet.</string>
+  <string name="provide_wallet_create_body">지갑 주소가 필요합니다! 다음 단계를 따라 Aptoide 지갑에 주소를 만드세요.</string>
   <string name="provide_wallet_create_wallet_button">생성</string>
   <string name="provide_wallet_creating_wallet_header">지갑 준비하기&#8230;</string>
   <string name="provide_wallet_created_header">지갑 주소 생성 됨!</string>
-  <string name="provide_wallet_empty_state">You haven\'t allowed Aptoide Wallet to provide your address to any other app yet.</string>
+  <string name="provide_wallet_empty_state">아직 Aptoide 지갑이 다른 앱에 주소를 제공하는 것을 허용하지 않았습니다.</string>
   <string name="provide_wallet_status">지갑 주소로 접근 허용</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">충전</string>
-  <string name="topup_completed_1">%s in Aptoide balance</string>
+  <string name="topup_completed_1">Aptoide 잔액의 %s</string>
   <string name="topup_completed_2_with_bonus">귀하의 계정에 입금되었습니다... 보너스도 같이요!</string>
   <string name="topup_completed_2_without_bonus">귀하의 계정에 입금되었습니다.</string>
   <string name="topup_minimum_value">최소 탑-업 레벨은 %s 입니다</string>
@@ -238,7 +238,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">이더리움은 AppCoins의 기반이 되는 암호화폐입니다. 대부분의 거래소에서 매수와 매도를 하실 수 있는 매우 인기있는 암호화폐입니다.</string>
   <string name="balance_appcoins_body">AppCoins 은 앱 경제를 위한 암호화폐 입니다. 몇 개의 거래소에서 매수와 매도를 할 수 있으며 AppCoins로 앱내 아이템을 구매 할 수 있습니다.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">앱 내 아이템을 구매할 수 있는 토큰입니다! 앱을 사용하여 Aptoide 잔액을 충전하거나 무료로 받을 수 있습니다. 친구 간에도 이체할 수 있습니다!</string>
   <string name="my_wallets_action_new_wallet">새로운 지갑</string>
   <string name="my_wallets_action_recover_wallet">지갑 복구</string>
   <string name="my_wallets_action_backup_wallet">지갑 백업하기</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">현재 잔액: %1$s%2$s</string>
   <string name="p2p_send_error_not_enough_funds">자금 부족</string>
   <string name="p2p_send_confirmation_header">세부 전송정보</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">Aptoide 잔액</string>
   <!--Common-->
   <string name="oops_title">이런</string>
   <string name="error_general">무엇인가 잘못 되었습니다</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">지불 방법</string>
   <string name="credit_debit_card">신용/직불 카드</string>
   <string name="paypal">페이팔</string>
-  <string name="appc">Aptoide balance</string>
+  <string name="appc">Aptoide 잔액</string>
   <string name="bank_transfer">간편한 은행 송금</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -332,7 +332,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">인앱 구매를 위한 도구</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
+  <string name="onboarding_bonus_title">앱 내 구매의 최대 %s%를 Aptoide 잔액으로 적립하세요.</string>
   <string name="onboarding_payment_methods_title">직불 카드, PayPal 및 선호하는 결제 수단을 사용하세요.</string>
   <string name="onboarding_vip_title">VIP 회원이 되어 프리미엄 지원과 혜택을 받으세요.</string>
   <string name="terms_and_conditions">이용약관</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">구매를 완료하려면 결제 수단을 확인하세요.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Aptoide 잔액</string>
   <!--Settings-->
   <string name="title_redeem">기프트 카드 리딤</string>
   <string name="settings_item_support">지원 팀으로 연락하기</string>
@@ -378,16 +378,16 @@
   <string name="purchase_appcoins_noavailable_body">이 구매를 하기 위한 AppCoins 또는 이더리움이 부족합니다.</string>
   <string name="purchase_no_eth_body">이 가스 지불을 위한 ETH이 부족합니다.</string>
   <string name="purchase_no_appcoins_body">이 구매를 하기 위한 AppCoins가 부족합니다.</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Aptoide 잔액이 충분하지 않으니 보충해 보세요!</string>
+  <string name="purchase_appcoins_credits_default_body">이번 구매를 위해 충분한 Aptoide 잔액을 얻었습니다. 즐기세요!</string>
   <string name="purchase_poa_item">앱을 사용하여 자금을 획득하세요</string>
   <string name="purchase_poa_view_title">자금이 없습니다, 걱정 마세요!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
+  <string name="purchase_poa_view_body">앱을 2분 동안 사용해보고 Aptoide 잔액 크레딧으로 보상을 받아 구매하세요!</string>
   <string name="purchase_current_balance_body">현재 잔액:</string>
-  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
+  <string name="purchase_current_balance_appcc_body">Aptoide 잔액의 %s.</string>
   <string name="purchase_current_balance_appc_eth_body">AppCoins와 이더리움으로 %s</string>
-  <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_wallet_blocked_title">Aptoide 잔액이 차단되었습니다</string>
+  <string name="purchase_wallet_blocked_body">비정상적인 거래 내역으로 인해 Aptoide 잔액이 차단되었습니다. Aptoide 잔액을 제외한 다른 방법으로도 결제 및 거래를 할 수 있습니다.\n\n이 사항이 잘못되었다고 생각되면, 저희에게 연락해 주세요:</string>
   <string name="purchase_card_error_general_1">카드에 문제가 있습니다. 다른 카드 또는 결제 방법으로 시도하세요.</string>
   <string name="purchase_card_error_general_2">은행에서 거래가 거부되었습니다. 다른 카드 또는 결제 방법으로 시도하세요.</string>
   <string name="purchase_card_error_no_funds">자금이 부족하거나 카드 한도를 초과한 것 같습니다. 다른 카드 또는 결제 방법으로 시도해 보세요.</string>
@@ -426,31 +426,31 @@
   <string name="purchase_error_open_banking_wallet_generic">결제에 문제가 발생했습니다. 다시 시도하거나 다른 결제 방법을 사용해 주세요.</string>
   <string name="purchase_error_no_method_available_body">현재 귀하의 지역에서는 이 구매를 완료하는 데 사용할 수 있는 결제 방법이 없습니다. 계속 지켜봐 주시기 바랍니다!</string>
   <string name="purchase_legal_disclaimer">결제를 진행하면 결제 시 콘텐츠 제공에 동의하는 것으로 간주되며 이에 따라 철회 권리가 상실됩니다.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">보너스는 Aptoide 잔액에 있습니다.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
     <item quantity="other">최대 %s일이 걸릴 수 있습니다.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_1">Aptoide 잔액의 %s이 지갑에 입금됩니다.</string>
   <string name="purchase_bank_transfer_success_2">은행에서 처리하는 데 최대 2일이 걸릴 수 있습니다.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
+  <string name="purchase_bank_transfer_success_bonus">Aptoide 잔액에서 %s의 보너스를 받게 됩니다.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">귀하의 은행에서 자금이 도착하기를 기다리고 있습니다.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
   <string name="async_steps_title">다음 단계</string>
   <string name="async_steps_1_no_notification">%s로 지불을 완료하세요.</string>
-  <string name="async_steps_2_no_notification">Once you receive the Aptoide balance, go back to the game and make the purchase using Aptoide balance as a payment method.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide balance, use it to make purchases in your favorite games!</string>
+  <string name="async_steps_2_no_notification">Aptoide 잔액을 받으면 게임으로 돌아가서 Aptoide 잔액을 결제 수단으로 사용하여 구매하세요.</string>
+  <string name="async_steps_2_toptup_no_notification">Aptoide 잔액을 받으면 좋아하는 게임을 구매하는 데 사용하세요!</string>
   <!--Referral Program-->
   <string name="referral_verification_title">지불 방식 검증</string>
   <string name="referral_view_verify_button">지불 방식 검증</string>
   <!--Promotions-->
   <!--Update-->
   <string name="update_wallet_purchase_title">업데이트가 필요합니다!</string>
-  <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
-  <string name="update_wallet_hard_body">It seems you\'re using an old version of the Aptoide Wallet. Please update it to guarantee the best experience and security.</string>
+  <string name="update_wallet_purchase_body">Aptoide 지갑을 업데이트하여 구매를 완료하세요.</string>
+  <string name="update_wallet_hard_body">오래된 버전의 Aptoide 지갑을 사용하고 계신 것 같습니다. 최고의 경험과 보안을 보장할 수 있도록 업데이트해 주세요.</string>
   <string name="update_wallet_soft_title">뒤처지지 마세요!</string>
-  <string name="update_wallet_soft_body">Keeping the Aptoide Wallet updated guarantees the best experience.</string>
+  <string name="update_wallet_soft_body">최신의 Aptoide 지갑을 유지하여 최고의 경험을 보장받으세요.</string>
   <string name="update_button">업데이트</string>
   <string name="update_backup_title">자본을 놓치지 마세요!</string>
   <string name="update_backup_body">업데이트 하시기 전에 지갑을 백업하세요.</string>
@@ -540,7 +540,7 @@
   <string name="subscriptions_details_cancelled_body">취소됨 - %s에 만료됩니다</string>
   <string name="subscriptions_expiration_body">%s에 만료됩니다</string>
   <string name="subscriptions_canceled_body">취소됨</string>
-  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
+  <string name="subscriptions_details_disclaimer">다음 결제 금액은 환율에 따라 달라질 수 있습니다.</string>
   <string name="subscriptions_manage_button">구독 관리</string>
   <string name="subscriptions_cancel_button">구독 취소</string>
   <string name="subscriptions_renew_subscription_button">가입 갱신</string>
@@ -566,13 +566,13 @@
   <string name="gamif_spent">이 단계에 도달하기 위해 사용한 금액</string>
   <string name="gamif_show_previous">이전 달성기록 표시</string>
   <string name="gamif_hide_previous">이전 달성기록 숨기기</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">다음 레벨에 도달하려면 %s를 사용하세요</string>
   <string name="gamif_achievement_start">여정을 시작했습니다</string>
   <string name="gamif_achievement_start_sub">방금 지구를 출발했습니다!</string>
   <string name="gamif_achievement_reach">%s에 도착했습니다</string>
   <string name="gamif_card_start">아직 지구에 있습니다</string>
   <string name="gamif_card_title">%s에 있습니다</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">다음 단계에 도달하려면 %s 를 더 사용하세요.</string>
   <string name="gamif_bonus">%s%% 보너스</string>
   <string name="gamif_quote_earth">\"지구는 평범한 사람들이 있는 곳이다\" - Wendell Berry</string>
   <string name="gamif_placeholder_moon">달</string>
@@ -636,8 +636,8 @@
   <string name="perks_title">프로모션</string>
   <string name="promotion_ends_short_title">프로모션 종료 시간</string>
   <string name="perks_available_soon_short">곧 사용할 수 있습니다</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_notification">방금 Aptoide 잔액의 %s을 보너스로 받았습니다</string>
+  <string name="perks_purchases_disclaimer_body">Aptoide 잔액을 제외한 모든 결제 수단으로 결제한 모든 구매 및 보충은 레벨을 높이고 보상을 받을 수 있습니다.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">생체 인식 잠금</string>
   <string name="fingerprint_failed_title">인증 실패!</string>
@@ -646,7 +646,7 @@
   <string name="fingerprint_authentication_required_body">지문 또는 비밀번호를 사용하여 계속해 주세요.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
+  <string name="rate_us_question_title">Aptoide 지갑을 잘 사용하고 계시나요?</string>
   <string name="rate_us_no">전혀</string>
   <string name="rate_us_yes">네!</string>
   <string name="rate_us_improve_title">무엇을 개선해야 할까요?</string>
@@ -654,10 +654,10 @@
   <string name="rate_us_improve_field__empty_error">입력해 주세요</string>
   <string name="rate_us_possitive_thanks_title">감사합니다!</string>
   <string name="rate_us_possitive_thanks_body">앱을 좋아하신다니 기쁩니다. 앱 스토어에서 평가해 주실 수 있나요?</string>
-  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
+  <string name="rate_us_possitive_rate_button">Aptoide 지갑 평가</string>
   <string name="rate_us_possitive_done_title">의견 주셔서 감사합니다!</string>
   <string name="rate_us_back_title">도와주시겠어요?</string>
-  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">앱 스토어에서 Aptoide 지갑을 평가하여 개선할 수 있습니다.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">거래 상세에서 이 코드를 확인하세요</string>
   <string name="card_verification_code_body">카드 발급사에서 제공한 거래 요약정보에 이 유일한 코드가 표시됩니다.</string>
@@ -723,7 +723,7 @@
   <string name="mywallet_backup_again_button">다시 백업하기</string>
   <string name="mywallet_choose_name_field">여기에 지갑 이름 입력...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
+  <string name="onboarding_1st_title">축하합니다! Aptoide 지갑이 설치되었습니다.</string>
   <string name="onboarding_1st_body">구매 완료를 위해서 게임으로 돌아가세요.</string>
   <string name="onboarding_1st_back_to_game_button">게임으로 돌아가기</string>
   <string name="onboarding_1st_explore_wallet_button">또는 지갑 탐색</string>
@@ -749,7 +749,7 @@
   <string name="vip_program_title_vip_offer">VIP 제안</string>
   <string name="vip_program_code_error_body">귀하 본인의 VIP 코드를 사용할 수 없습니다. 친구들과 공유하세요!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
+  <string name="intro_welcome_header">Aptoide 지갑에 오신 것을 환영합니다</string>
   <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
   <string name="intro_active_promotions_header">활성 프로모션</string>
   <string name="topup_home_button">충전</string>
