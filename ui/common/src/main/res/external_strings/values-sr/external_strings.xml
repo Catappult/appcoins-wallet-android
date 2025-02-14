@@ -28,7 +28,7 @@
   <string name="iab_best_deal">NAJBOLJA PONUDA</string>
   <string name="iab_purchase_done_title">GOTOVO!</string>
   <string name="iab_purchase_done_reward_title">Sledeći put ostvarite do %s%% Bonusa pomoću aplikacije Aptoide Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a bonus with the Aptoide Wallet!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Sledeći put ostvarite Bonus pomoću aplikacije Aptoide Wallet!</string>
   <string name="iab_purchase_done_reward_body">Mogli ste da dobijete %s za ovu kupovinu.</string>
   <string name="iab_purchase_done_title_long">Kupovina je dovršena!</string>
   <string name="iab_purchase_change_payment_method_button">JOŠ NAČINA PLAĆANJA</string>
