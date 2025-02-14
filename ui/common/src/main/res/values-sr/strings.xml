@@ -755,8 +755,8 @@
   <string name="vip_program_title_vip_offer">VIP ponuda</string>
   <string name="vip_program_code_error_body">Ne možete koristiti sopstveni VIP kod. Podelite ga sa prijateljima!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
+  <string name="intro_welcome_header">Dobro došli u Aptoide Wallet</string>
+  <string name="intro_welcome_body">Dopunite svoj novčanik ili obavite kupovinu u bilo kojoj kompatibilnoj aplikaciji ili igri.</string>
   <string name="intro_active_promotions_header">Aktivne promocije</string>
   <string name="topup_home_button">Dopunite</string>
   <string name="intro_home_button">Početna stranica</string>
@@ -788,9 +788,9 @@
   <string name="rewards_promo_code_card_body">Iskoristite promo kod kako bi dobili posebne ponude!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktivne</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">Igre sa nagradama</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_make_first_purchase_body">Napravite prvu kupovinu u kompatibilnoj igri i otključajte bonus prilikom svake kupovine.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% bonusa za svaku kupovinu</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">Upravljajte novčanicima</string>
@@ -806,20 +806,20 @@
   <string name="verify_card_view_title_2">Unesite detalje o bankovnoj kartici</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Nagrada za izazov</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Dovršite izazov da biste dobili Aptoide bilans.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">Uživajte u %s u Aptoide bilansu u vašem novčaniku</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">Budite u toku!</string>
   <string name="mail_list_card_body">Pridružite se našoj mejling listi i dobijte ekskluzivna ažuriranja i šansu da osvojite poklon karticu.</string>
   <string name="mail_list_card_confirmation_title">Potvrdite adresu svoje e-pošte</string>
   <string name="mail_list_card_confirmation_body">Poslali smo e-poštu na %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins Wallet uskoro postaje Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet postaje Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">Postajemo Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> Radimo na uzbudljivom redizajnu našeg brenda i utiska. Ostanite u toku i otkrijte omiljene funkcije i nagrade uz potpuno novi izgled!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebranding_post_title">AppCoins Wallet je sada Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Otkrijte omiljene funkcije i nagrade uz potpuno novi izgled. Nadamo se da će vam se dopasti!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
