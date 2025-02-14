@@ -332,7 +332,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">您的应用内购买工具</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
+  <string name="onboarding_bonus_title">最多可获得 %s%% 的应用内购买奖金，以 Aptoide 余额形式返还。</string>
   <string name="onboarding_payment_methods_title">使用银行卡、PayPa l和您最喜欢的付款方式。</string>
   <string name="onboarding_vip_title">成为 VIP 会员，尊享高级支持服务和专属优惠。</string>
   <string name="terms_and_conditions">条款与条件</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">请您验证付款方式，以完成购买。</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Aptoide 余额</string>
   <!--Settings-->
   <string name="title_redeem">兑换礼品卡</string>
   <string name="settings_item_support">联系支持团队</string>
@@ -378,15 +378,15 @@
   <string name="purchase_appcoins_noavailable_body">你的AppCoins或以太币不足，无法进行此购买。</string>
   <string name="purchase_no_eth_body">您的ETH不足，无法支付汽油费用。</string>
   <string name="purchase_no_appcoins_body">您的AppCoins不足，无法完成此购买。</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">您的 Aptoide 余额不足，请尝试充值！</string>
+  <string name="purchase_appcoins_credits_default_body">您的 Aptoide 余额已足够完成此次购买，尽情享受吧！</string>
   <string name="purchase_poa_item">通过使用应用来赢得资金</string>
   <string name="purchase_poa_view_title">没有资金，也不用愁！</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
+  <string name="purchase_poa_view_body">试用应用 2 分钟，即可获得 Aptoide 余额奖励，用于您的购买！</string>
   <string name="purchase_current_balance_body">当前余额：</string>
-  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
+  <string name="purchase_current_balance_appcc_body">%s 的 Aptoide 余额。</string>
   <string name="purchase_current_balance_appc_eth_body">%s的AppCoins和以太币。</string>
-  <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
+  <string name="purchase_wallet_blocked_title">您的 Aptoide 余额已被锁定</string>
   <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
   <string name="purchase_card_error_general_1">你的卡有问题。请尝试使用不同的卡或付款方式。</string>
   <string name="purchase_card_error_general_2">交易已被你的银行拒绝。请尝试使用其他卡或与付款方式。</string>
