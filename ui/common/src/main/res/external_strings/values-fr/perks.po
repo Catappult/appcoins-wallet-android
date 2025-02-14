@@ -10,12 +10,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2025-01-29 17:25\n"
+"PO-Revision-Date: 2025-02-14 12:19\n"
 
 #. Card Title
 #:
 msgid "Earn Aptoide balance!"
-msgstr ""
+msgstr "Gagnez des Aptoide balance !"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
