@@ -442,17 +442,17 @@
   <string name="async_steps_title">Dalji koraci</string>
   <string name="async_steps_1_no_notification">Dovršite plaćanje pomoću načina plaćanja %s.</string>
   <string name="async_steps_2_no_notification">Kada budete dobili Aptoide bilans, vratite se u igru i obavite kupovinu koristeći Aptoide bilans kao način plaćanja.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide balance, use it to make purchases in your favorite games!</string>
+  <string name="async_steps_2_toptup_no_notification">Kada dobijete Aptoide bilans, upotrebite ga za kupovine u omiljenim igrama!</string>
   <!--Referral Program-->
   <string name="referral_verification_title">Potvrdite način plaćanja</string>
   <string name="referral_view_verify_button">Potvrdite način plaćanja</string>
   <!--Promotions-->
   <!--Update-->
   <string name="update_wallet_purchase_title">Potrebno je ažuriranje!</string>
-  <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
-  <string name="update_wallet_hard_body">It seems you\'re using an old version of the Aptoide Wallet. Please update it to guarantee the best experience and security.</string>
+  <string name="update_wallet_purchase_body">Ažurirajte Aptoide bilans da biste obavili ovu kupovinu.</string>
+  <string name="update_wallet_hard_body">Izgleda da koristite staru verziju aplikacije Aptoide bilans. Ažurirajte je za najbolji korisnički doživljaj i bezbednost.</string>
   <string name="update_wallet_soft_title">Ne zaostajte!</string>
-  <string name="update_wallet_soft_body">Keeping the Aptoide Wallet updated guarantees the best experience.</string>
+  <string name="update_wallet_soft_body">Ažurirani Aptoide bilans garantuje vam najbolji korisnički doživljaj.</string>
   <string name="update_button">Ažuriraj</string>
   <string name="update_backup_title">Nemojte izgubiti svoja sredstva!</string>
   <string name="update_backup_body">Napravite rezervnu kopiju novčanika pre ažuriranja.</string>
@@ -542,7 +542,7 @@
   <string name="subscriptions_details_cancelled_body">Otkazano – ističe: %s</string>
   <string name="subscriptions_expiration_body">Ističe: %s</string>
   <string name="subscriptions_canceled_body">Otkazano</string>
-  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
+  <string name="subscriptions_details_disclaimer">Vrednost vaše sledeće uplate može varirati usled kursne liste.</string>
   <string name="subscriptions_manage_button">Upravljanje pretplatom</string>
   <string name="subscriptions_cancel_button">Otkaži pretplatu</string>
   <string name="subscriptions_renew_subscription_button">Obnovi pretplatu</string>
@@ -568,13 +568,13 @@
   <string name="gamif_spent">potrošeno za dostizanje ovog nivoa</string>
   <string name="gamif_show_previous">Prikaži prethodna dostignuća</string>
   <string name="gamif_hide_previous">Sakrij prethodna dostignuća</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">Potrošite %s da biste dostigli sledeći nivo</string>
   <string name="gamif_achievement_start">Započeli ste putovanje</string>
   <string name="gamif_achievement_start_sub">Krenuli ste sa Zemlje!</string>
   <string name="gamif_achievement_reach">Stigli ste na %s</string>
   <string name="gamif_card_start">Još ste na Zemlji</string>
   <string name="gamif_card_title">Vaša lokacija je %s</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">Potrošite još %s da biste dostigli sledeći nivo.</string>
   <string name="gamif_bonus">%s%% bonusa</string>
   <string name="gamif_quote_earth">„Ono što nam je svima zajedničko jeste Zemlja“, Vendel Beri</string>
   <string name="gamif_placeholder_moon">Mesec</string>
@@ -638,8 +638,8 @@
   <string name="perks_title">Promocije</string>
   <string name="promotion_ends_short_title">Promocija se završava za</string>
   <string name="perks_available_soon_short">Dostupno uskoro</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_notification">Upravo ste dobili %s u Aptoide bilansu kao Bonus</string>
+  <string name="perks_purchases_disclaimer_body">Sve kupovine i dopune obavljene uz pomoć bilo kog načina plaćanja osim u Aptoide bilansu se kvalifikuju za povećanje nivoa i dobijanje nagrada.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Biometrijsko zaključavanje</string>
   <string name="fingerprint_failed_title">Potvrda autentičnosti nije uspela!</string>
@@ -648,7 +648,7 @@
   <string name="fingerprint_authentication_required_body">Upotrebite otisak prsta ili lozinku da biste nastavili.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
+  <string name="rate_us_question_title">Da li uživate koristeći Aptoide bilans?</string>
   <string name="rate_us_no">Ne baš</string>
   <string name="rate_us_yes">Da!</string>
   <string name="rate_us_improve_title">Šta možemo da unapreditmo?</string>
@@ -656,10 +656,10 @@
   <string name="rate_us_improve_field__empty_error">Napišite nešto</string>
   <string name="rate_us_possitive_thanks_title">Hvala!</string>
   <string name="rate_us_possitive_thanks_body">Drago nam je da vam se dopada naša aplikacija. Možete li nam pomoći tako što ćete je oceniti u app store?</string>
-  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
+  <string name="rate_us_possitive_rate_button">Ocenite aplikaciju Aptoide bilans</string>
   <string name="rate_us_possitive_done_title">Hvala vam na povratnim informacijama!</string>
   <string name="rate_us_back_title">Želite da nam pomognete?</string>
-  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">Ocenite Aptoide bilans u prodavnici aplikacija kako bismo mogli da je unapredimo.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">Proverite kod u detaljima transakcije</string>
   <string name="card_verification_code_body">Pojaviće se jedinstven kod u sažetku transakcije koju pruža izdavalac vaše kartice.</string>
@@ -729,7 +729,7 @@
   <string name="mywallet_backup_again_button">Ponovo napravi rezervnu kopiju</string>
   <string name="mywallet_choose_name_field">Naziv novčanika ovde...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
+  <string name="onboarding_1st_title">Čestitamo! Instalirali ste Aptoide bilans.</string>
   <string name="onboarding_1st_body">Vratite se u igru da biste dovršili svoju kupovinu.</string>
   <string name="onboarding_1st_back_to_game_button">Vratite se u igru</string>
   <string name="onboarding_1st_explore_wallet_button">Ili istražite Wallet</string>
