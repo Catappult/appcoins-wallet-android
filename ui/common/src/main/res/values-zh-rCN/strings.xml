@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">常见问题</string>
   <string name="low_storage_error">存储空间不足</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">Aptoide Wallet 需要获取您的相机权限，以便扫描二维码。</string>
   <string name="no_camera_available">摄像头不可用！</string>
   <string name="ok">确定</string>
   <string name="barcode_error_format">无效条形码格式：%s</string>
@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">解锁屏幕</string>
   <string name="unlock_screen_prompt_android">请解锁您的Android设备以继续。</string>
   <string name="root_title">设备安全弱</string>
-  <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">任何“已获取 root 权限”的应用都可能访问 Aptoide Wallet 的密钥库数据并盗取您的钱包！请立即移除此钱包，并在安全设备上恢复。</string>
   <string name="action_buy">购买</string>
   <string name="empty"></string>
   <string name="try_again">重试</string>
@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">二维码没有包含有效地址</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">钱包已创建！</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">进入 Aptoide Wallet，即表示您同意 %1$s 以及 %2$s。</string>
   <string name="intro_get_started_button">启动钱包</string>
   <!-- New Intro -->
   <!-- Intro from game -->
@@ -114,7 +114,7 @@
   <string name="error_already_added">已添加</string>
   <string name="error_export">无法导出钱包</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">我们基于 Trust Wallet 的安卓 (Android) 项目进行分叉，以推动 Aptoide Wallet 的开发。我们之所以选择它，是因为其现有功能最符合我们的需求。同时，我们也希望在分叉过程中优化并扩展其功能，并将有价值的成果回馈社区。</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">交易进行中</string>
   <string name="activity_aib_loading_message">可能需要一点时间..…</string>
@@ -205,29 +205,29 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">购买奖励：</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">%s 的 Aptoide 余额</string>
   <string name="gamification_purchase_body">你可以在下次购买中使用此奖金。</string>
   <string name="gamification_purchase_completed_bonus_received">奖金已收到</string>
   <string name="gamification_leveled_up_notification_body">恭喜，现在你将在每次购买时获得%s奖金！</string>
   <string name="gamification_how_max_level_notification_title">您成功了！</string>
   <string name="gamification_how_max_level_body">您已达到最高等级：每次购买均可获得%s的奖励！</string>
   <string name="gamification_level_up_notification_title">离成功不远了！</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
+  <string name="gamification_level_up_notification_body">只需再消费 %1$s%2$s ，即可进入下一级别！</string>
+  <string name="gamification_bonus_plus_perk_body">享受 %1$s 奖金，并额外获得 %2$s 的 Aptoide 余额。</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">允许 Aptoide Wallet 向 %s 提供您的钱包地址。</string>
   <string name="provide_wallet_always_allow_button">始终允许</string>
   <string name="provide_wallet_allow_once_button">允许一次</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the Aptoide Wallet.</string>
+  <string name="provide_wallet_create_body">您需要一个钱包地址！请按照以下步骤在 Aptoide Wallet 中创建一个钱包地址。</string>
   <string name="provide_wallet_create_wallet_button">创建</string>
   <string name="provide_wallet_creating_wallet_header">准备你的钱包&#8230;</string>
   <string name="provide_wallet_created_header">钱包地址已创建！</string>
-  <string name="provide_wallet_empty_state">You haven\'t allowed Aptoide Wallet to provide your address to any other app yet.</string>
+  <string name="provide_wallet_empty_state">您尚未允许 Aptoide Wallet 向任何其他应用提供您的地址。</string>
   <string name="provide_wallet_status">允许访问钱包地址</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">充值</string>
-  <string name="topup_completed_1">%s in Aptoide balance</string>
+  <string name="topup_completed_1">%s 的 Aptoide 余额</string>
   <string name="topup_completed_2_with_bonus">已存入你的帐户...奖金也已存入！</string>
   <string name="topup_completed_2_without_bonus">已存入你的帐户。</string>
   <string name="topup_minimum_value">最低充值额为%s</string>
@@ -238,7 +238,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">以太币是AppCoins采用的加密货币。你可以在大多数交易平台交易以太币，以太币是现今非常热门的加密货币！</string>
   <string name="balance_appcoins_body">AppCoins是应用经济的加密货币。你可以在多个交易平台交易，用它来购买应用内物品。</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">用于购买应用内物品的代币！充值 Aptoide 余额，或通过使用应用免费获取。好友之间亦可使用它进行转账或交易！</string>
   <string name="my_wallets_action_new_wallet">新钱包</string>
   <string name="my_wallets_action_recover_wallet">恢复钱包</string>
   <string name="my_wallets_action_backup_wallet">备份钱包</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">当前余额：%1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">资金不足</string>
   <string name="p2p_send_confirmation_header">转账详情</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">Aptoide 余额</string>
   <!--Common-->
   <string name="oops_title">哎呀</string>
   <string name="error_general">出现错误</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">付款方式</string>
   <string name="credit_debit_card">信用卡/借记卡</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
+  <string name="appc">Aptoide 余额</string>
   <string name="bank_transfer">便捷银行转账</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
