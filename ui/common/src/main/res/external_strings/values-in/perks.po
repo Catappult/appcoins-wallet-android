@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2025-02-15 06:47\n"
+"PO-Revision-Date: 2025-02-15 09:31\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Karena Anda sudah meraih level berikutnya."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Dapatkan Bonus tambahan sebesar {0}% pada semua pembelian Anda di {1}, kecuali saat Anda menggunakan saldo Aptoide."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -65,7 +65,7 @@ msgstr "Dapatkan Bonus tambahan sebesar {0} pada semua pembelian Anda."
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Dapatkan Bonus tambahan sebesar {0}% pada pembelian pertama Anda, kecuali saldo Aptoide, di {1}"
 
 #. Receipt - First Purchase.
 #:
@@ -75,7 +75,7 @@ msgstr "Karena pembelian pertama Anda di {0}."
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Dapatkan Bonus tambahan sebesar {0}% pada pembelian pertama Anda di suatu hari kecuali saldo Aptoide, di {1}"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -85,7 +85,7 @@ msgstr "Karena pembelian pertama Anda hari ini di {0}."
 #. Title for bonus receipts.
 #:
 msgid "+{0} Bonus in Aptoide balance!"
-msgstr ""
+msgstr "Bonus berupa saldo Aptoide sebesar +{0}!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
@@ -105,12 +105,12 @@ msgstr ""
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in compatible apps."
-msgstr ""
+msgstr "Karena Anda membelanjakan {0} sebesar {1} di aplikasi yang kompatibel."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
-msgstr ""
+msgstr "Dapatkan Bonus tambahan sebesar {0}% pada semua pembelian Anda, kecuali saat Anda menggunakan saldo Aptoide."
 
 #. Card - Title - Common
 #:
@@ -125,7 +125,7 @@ msgstr "Nikmati bonus {0}% di setiap pembelian."
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "Dapatkan bonus tambahan sebesar {0}% di semua pengisian ulang dengan transfer bank yang mudah."
 
 #. Payment Method - Title - Bank Transfer
 #:
