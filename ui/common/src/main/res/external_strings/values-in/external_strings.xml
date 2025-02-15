@@ -8,8 +8,8 @@
   <string name="iap_wallet_and_appstore_not_installed_popup_body">Anda membutuhkan Aptoide Wallet untuk melakukan pembelian ini. Unduh Aptoide Wallet dari Aptoide atau Play Store, lalu kembali untuk menyelesaikan pembelian Anda!</string>
   <string name="iap_wallet_and_appstore_not_installed_popup_button">MENGERTI!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the Aptoide Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the Aptoide Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">Anda membutuhkan Aptoide Wallet!</string>
+  <string name="poa_wallet_not_installed_notification_body">Untuk mendapatkan hadiah, Anda membutuhkan Aptoide Wallet.</string>
   <!-- SDK - Pay as a guest-->
   <string name="iab_pay_as_guest_title">Bayar sebagai tamu</string>
   <string name="iab_pay_as_guest_credit_card">Kartu Kredit</string>
@@ -21,14 +21,14 @@
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">GANTI KARTU</string>
-  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">Bayar dengan Aptoide Wallet</string>
   <string name="iab_pay_with_wallet_reward_title">Dapatkan Bonus hingga %s%%!</string>
   <string name="iab_pay_with_wallet_reward_body">Anda akan menerima %s pada pembelian ini.</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">Anda akan menerima Bonus pada pembelian ini.</string>
   <string name="iab_best_deal">PENAWARAN TERBAIK</string>
   <string name="iab_purchase_done_title">SELESAI!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% bonus with the Aptoide Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a bonus with the Aptoide Wallet!</string>
+  <string name="iab_purchase_done_reward_title">Lain kali, dapatkan bonus hingga %s%% dengan Aptoide Wallet!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Lain kali, dapatkan bonus dengan Aptoide Wallet!</string>
   <string name="iab_purchase_done_reward_body">Anda sebenarnya bisa menerima %s pada pembelian ini.</string>
   <string name="iab_purchase_done_title_long">Pembelian selesai!</string>
   <string name="iab_purchase_change_payment_method_button">METODE PEMBAYARAN LAINNYA</string>
