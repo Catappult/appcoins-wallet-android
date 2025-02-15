@@ -215,19 +215,19 @@
   <string name="gamification_level_up_notification_body">Belanjakan %1$s %2$s lagi untuk mencapai level berikutnya.</string>
   <string name="gamification_bonus_plus_perk_body">Nikmati bonus sebesar %1$s dan saldo Aptoide tambahan sebesar %2$s.</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">Izinkan Aptoide Wallet untuk menginformasikan alamat dompet Anda ke %s.</string>
   <string name="provide_wallet_always_allow_button">Izinkan selamanya</string>
   <string name="provide_wallet_allow_once_button">Izinkan sekali</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the Aptoide Wallet.</string>
+  <string name="provide_wallet_create_body">Anda membutuhkan alamat dompet! Ikuti langkah-langkah berikut ini untuk membuatnya di Aptoide Wallet.</string>
   <string name="provide_wallet_create_wallet_button">Buat</string>
   <string name="provide_wallet_creating_wallet_header">Mempersiapkan dompet&#8230;</string>
   <string name="provide_wallet_created_header">Alamat dompet sudah dibuat!</string>
-  <string name="provide_wallet_empty_state">You haven\'t allowed Aptoide Wallet to provide your address to any other app yet.</string>
+  <string name="provide_wallet_empty_state">Anda belum mengiizinkan Aptoide Wallet untuk menginformasikan alamat Anda ke aplikasi lain.</string>
   <string name="provide_wallet_status">Izinkan akses ke alamat dompet</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">Isi Ulang</string>
-  <string name="topup_completed_1">%s in Aptoide balance</string>
+  <string name="topup_completed_1">Saldo Aptoide sebesar %s</string>
   <string name="topup_completed_2_with_bonus">disimpan di akun Anda... Bersama dengan bonus!</string>
   <string name="topup_completed_2_without_bonus">disimpan ke akun Anda.</string>
   <string name="topup_minimum_value">Nilai isi ulang minimal adalah %s</string>
