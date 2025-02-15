@@ -387,7 +387,7 @@
   <string name="purchase_current_balance_appcc_body">%s 的 Aptoide 余额。</string>
   <string name="purchase_current_balance_appc_eth_body">%s的AppCoins和以太币。</string>
   <string name="purchase_wallet_blocked_title">您的 Aptoide 余额已被锁定</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_wallet_blocked_body">由于交易记录异常，您的 Aptoide 余额已被锁定。但您仍然可以使用除 Aptoide 余额以外的其他方式进行付款和交易。\n\n如果您认为这其中存在错误，请通过以下方式与我们联系：</string>
   <string name="purchase_card_error_general_1">你的卡有问题。请尝试使用不同的卡或付款方式。</string>
   <string name="purchase_card_error_general_2">交易已被你的银行拒绝。请尝试使用其他卡或与付款方式。</string>
   <string name="purchase_card_error_no_funds">你的卡似乎资金不足或存在限制。请尝试使用其他卡或付款方式。</string>
@@ -426,31 +426,31 @@
   <string name="purchase_error_open_banking_wallet_generic">您的付款方式在支付时出现问题。请重试或使用其他付款方式。</string>
   <string name="purchase_error_no_method_available_body">目前，在您所在的地区没有付款方式可以完成此购买。请继续关注我们的更新！</string>
   <string name="purchase_legal_disclaimer">如果您继续付款，即表示您同意且无任何异议在付款后继续获得所提供的内容，并因此失去您的撤回权。</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">奖金以 Aptoide 余额形式发放。</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
     <item quantity="other">本过程可能需要最多 %s 天。</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_1">%s 的 Aptoide 余额将存入您的钱包。</string>
   <string name="purchase_bank_transfer_success_2">您的银行可能需要最多 2 天时间来处理。</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
+  <string name="purchase_bank_transfer_success_bonus">您将获得 %s 的 Aptoide 余额奖励。</string>
   <string name="purchase_bank_transfer_pending_disclaimer">我们正在等待您的银行转入资金。</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
   <string name="async_steps_title">后续步骤</string>
   <string name="async_steps_1_no_notification">使用%s完成付款。</string>
-  <string name="async_steps_2_no_notification">Once you receive the Aptoide balance, go back to the game and make the purchase using Aptoide balance as a payment method.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide balance, use it to make purchases in your favorite games!</string>
+  <string name="async_steps_2_no_notification"> 收到 Aptoide 余额后，请返回游戏，并使用 Aptoide 余额作为支付方式进行购买。</string>
+  <string name="async_steps_2_toptup_no_notification">当您收到 Aptoide 余额后，便可在您喜爱的游戏中使用它进行消费！</string>
   <!--Referral Program-->
   <string name="referral_verification_title">验证支付方式</string>
   <string name="referral_view_verify_button">验证支付方式</string>
   <!--Promotions-->
   <!--Update-->
   <string name="update_wallet_purchase_title">你需要更新！</string>
-  <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
-  <string name="update_wallet_hard_body">It seems you\'re using an old version of the Aptoide Wallet. Please update it to guarantee the best experience and security.</string>
+  <string name="update_wallet_purchase_body">更新 Aptoide Wallet 以完成此购买。</string>
+  <string name="update_wallet_hard_body">您似乎正在使用旧版本的 Aptoide Wallet。请更新至最新版本，以获得最佳的使用体验和安全性。</string>
   <string name="update_wallet_soft_title">不要落在后面！</string>
-  <string name="update_wallet_soft_body">Keeping the Aptoide Wallet updated guarantees the best experience.</string>
+  <string name="update_wallet_soft_body">及时更新 Aptoide Wallet，可确保获得最佳的使用体验。</string>
   <string name="update_button">更新</string>
   <string name="update_backup_title">不要损失资金！</string>
   <string name="update_backup_body">请在更新前备份钱包。</string>
@@ -540,7 +540,7 @@
   <string name="subscriptions_details_cancelled_body">已取消——到期日期%s</string>
   <string name="subscriptions_expiration_body">到期日期%s</string>
   <string name="subscriptions_canceled_body">已取消</string>
-  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
+  <string name="subscriptions_details_disclaimer">您的下次付款金额可能会因汇率变化而有所不同。</string>
   <string name="subscriptions_manage_button">管理订购</string>
   <string name="subscriptions_cancel_button">取消订购</string>
   <string name="subscriptions_renew_subscription_button">更新订购</string>
@@ -566,13 +566,13 @@
   <string name="gamif_spent">为达到此等级已花费的金额</string>
   <string name="gamif_show_previous">显示以前的成就</string>
   <string name="gamif_hide_previous">隐藏以前的成就</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">只需消费 %s，即可进入下一级别</string>
   <string name="gamif_achievement_start">您已开始旅程</string>
   <string name="gamif_achievement_start_sub">刚刚离开地球！</string>
   <string name="gamif_achievement_reach">您到达了 %s</string>
   <string name="gamif_card_start">您还在地球上</string>
   <string name="gamif_card_title">您目前在 %s</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">只需再消费 %s ，即可进入下一级别！</string>
   <string name="gamif_bonus">%s%% 奖金</string>
   <string name="gamif_quote_earth">“地球是我们大家共有的家园”– Wendell Berry</string>
   <string name="gamif_placeholder_moon">月球</string>
@@ -636,8 +636,8 @@
   <string name="perks_title">促销</string>
   <string name="promotion_ends_short_title">距离优惠结束还有</string>
   <string name="perks_available_soon_short">即将推出</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_notification">您刚刚获得 %s 的 Aptoide 余额奖金</string>
+  <string name="perks_purchases_disclaimer_body">使用除 Aptoide 余额外的任何支付方式进行购买或充值，都将帮助您提升等级并解锁奖励。</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">生物识别锁</string>
   <string name="fingerprint_failed_title">身份验证失败！</string>
@@ -646,7 +646,7 @@
   <string name="fingerprint_authentication_required_body">请使用指纹或密码以继续。</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
+  <string name="rate_us_question_title">喜欢 Aptoide Wallet 吗？</string>
   <string name="rate_us_no">不太喜欢</string>
   <string name="rate_us_yes">喜欢！</string>
   <string name="rate_us_improve_title">我们可以改进什么？</string>
@@ -654,10 +654,10 @@
   <string name="rate_us_improve_field__empty_error">请输入内容</string>
   <string name="rate_us_possitive_thanks_title">谢谢！</string>
   <string name="rate_us_possitive_thanks_body">很高兴您喜欢我们的应用。您能帮忙在应用商店上给我们评分吗？</string>
-  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
+  <string name="rate_us_possitive_rate_button">给 Aptoide Wallet 评分</string>
   <string name="rate_us_possitive_done_title">感谢您的反馈！</string>
   <string name="rate_us_back_title">想帮助我们吗？</string>
-  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">请在应用商店为 Aptoide Wallet 评分，您的反馈将帮助我们不断优化！</string>
   <!--Card verification-->
   <string name="card_verification_code_title">在交易详细信息中查看代码</string>
   <string name="card_verification_code_body">一个唯一代码将出现在发卡银行提供的交易摘要中。</string>
@@ -723,7 +723,7 @@
   <string name="mywallet_backup_again_button">再次备份</string>
   <string name="mywallet_choose_name_field">钱包名称在这里输入......</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
+  <string name="onboarding_1st_title">恭喜！您已安装 Aptoide Wallet 钱包。</string>
   <string name="onboarding_1st_body">返回游戏以完成购买。</string>
   <string name="onboarding_1st_back_to_game_button">返回游戏</string>
   <string name="onboarding_1st_explore_wallet_button">或探索钱包</string>
@@ -749,8 +749,8 @@
   <string name="vip_program_title_vip_offer">VIP 礼包</string>
   <string name="vip_program_code_error_body">您无法使用自己的 VIP 优惠码，请将它分享给您的朋友吧！</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
+  <string name="intro_welcome_header">欢迎来到 Aptoide Wallet</string>
+  <string name="intro_welcome_body">在任何兼容 Aptoide Wallet 的应用或游戏中为钱包充值或进行购买。</string>
   <string name="intro_active_promotions_header">进行中的优惠活动</string>
   <string name="topup_home_button">充值</string>
   <string name="intro_home_button">主页</string>
@@ -774,9 +774,9 @@
   <string name="rewards_promo_code_card_body">输入促销码，以获得特别优惠！</string>
   <string name="rewards_promo_code_status">状态:</string>
   <string name="rewards_promo_code_status_active">激活</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">可领取奖励的游戏</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_make_first_purchase_body">在与 Aptoide Wallet 兼容的游戏中进行首次购买，并在每次购买中解锁奖金。</string>
   <string name="rewards_bonus_every_purchase_title">每一次购买都将获得%s%%的奖金</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">钱包管理</string>
@@ -792,20 +792,20 @@
   <string name="verify_card_view_title_2">输入您的银行卡信息</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">挑战奖励</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">完成挑战，获得 Aptoide 余额。</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">在您的钱包中享用 %s 的 Aptoide 余额</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">敬请期待！</string>
   <string name="mail_list_card_body">加入我们的邮件列表，获得独家更新，并有机会赢得礼品卡。</string>
   <string name="mail_list_card_confirmation_title">确认您的电子邮件地址</string>
   <string name="mail_list_card_confirmation_body">我们已发送邮件至%s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins Wallet 即将更名为 Aptoide Wallet！</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet 正在更名为 Aptoide Wallet！</string>
+  <string name="rebranding_disclaimer_shortest_title">我们即将更名为 Aptoide Wallet！</string>
   <string name="rebranding_disclaimer_long_body">我们正在焕新品牌形象，为您带来全新的视觉享受与优质体验。敬请期待，在焕然一新的平台中探索您喜爱的功能和奖励！</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebranding_post_title">AppCoins Wallet 现已更名为 Aptoide Wallet！</string>
   <string name="rebrandinh_post_body">为您呈现全新的视觉盛宴，带您发现更多喜爱的功能和奖励。相信您会喜欢！</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
