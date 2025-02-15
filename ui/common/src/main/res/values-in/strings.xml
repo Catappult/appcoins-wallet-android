@@ -540,7 +540,7 @@
   <string name="subscriptions_details_cancelled_body">Dibatalkan - Kedaluwarsa pada %s</string>
   <string name="subscriptions_expiration_body">Kedaluwarsa pada %s</string>
   <string name="subscriptions_canceled_body">Dibatalkan</string>
-  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
+  <string name="subscriptions_details_disclaimer">Nilai pembayaran Anda berikutnya mungkin akan bervariasi tergantung nilai kurs.</string>
   <string name="subscriptions_manage_button">Kelola langganan</string>
   <string name="subscriptions_cancel_button">Batalkan langganan</string>
   <string name="subscriptions_renew_subscription_button">Perbarui langganan</string>
@@ -774,7 +774,7 @@
   <string name="rewards_promo_code_card_body">Gunakan kode promo untuk mendapatkan penawaran khusus!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktif</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">Game Berhadiah</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Lakukan pembelian pertama di game yang kompatibel dan dapatkan bonus di setiap pembelian.</string>
   <string name="rewards_bonus_every_purchase_title">Bonus %s%% untuk setiap pembelian</string>
@@ -792,20 +792,20 @@
   <string name="verify_card_view_title_2">Masukkan detail kartu bank Anda</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Hadiah Tantangan</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Selesaikan tantangan untuk mendapatkan saldo Aptoide.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">Nikmati saldo Aptoide sebesar %s di dompet Anda</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">Pantau Terus!</string>
   <string name="mail_list_card_body">Bergabunglah dengan milis kami untuk mendapatkan pembaruan eksklusif dan kesempatan memenangkan kartu hadiah.</string>
   <string name="mail_list_card_confirmation_title">Konfirmasi Email Anda</string>
   <string name="mail_list_card_confirmation_body">Kami sudahh mengirim email ke %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins Wallet akan segera berganti menjadi Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet kini menjadi Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">Sekarang kami menjadi Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body">Kami sedang mengerjakan desain ulang yang menarik untuk merek dan aura produk kami. Pantau terus untuk menemukan fitur dan hadiah favorit Anda dengan citra yang benar-benar baru!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebranding_post_title">AppCoins Wallet sekarang menjadi Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Temukan fitur dan hadiah favorit Anda dengan tampilan yang benar-benar baru. Semoga Anda menyukainya!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
