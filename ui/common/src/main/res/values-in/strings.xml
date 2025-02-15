@@ -114,7 +114,7 @@
   <string name="error_already_added">Sudah ditambahkan</string>
   <string name="error_export">Gagal mengekspor dompet</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">Kami mengembangkan Trust Wallet untuk proyek Android demi membantu pengembangan Aptoide Wallet. Kami menganggapnya sebagai alternatif terbaik dalam hal fungsionalitas yang telah dilaksanakan. Kami mengembangkannya dengan maksud berkontribusi dalam bentuk penerapan dan karya yang dianggap relevan.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transaksi sedang berlangsung</string>
   <string name="activity_aib_loading_message">Ini mungkin memakan waktu…</string>
@@ -205,15 +205,15 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Bonus Pembelian:</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">Saldo Aptoide sebesar %s</string>
   <string name="gamification_purchase_body">Anda bisa menggunakan bonus ini di pembelian berikutnya.</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Diterima</string>
   <string name="gamification_leveled_up_notification_body">Selamat, Anda sekarang akan mendapatkan bonus %s di setiap pembelian!</string>
   <string name="gamification_how_max_level_notification_title">Anda Berhasil!</string>
   <string name="gamification_how_max_level_body">Anda sudah mencapai level tertinggi: %s Bonus di setiap pembelian!</string>
   <string name="gamification_level_up_notification_title">Hampir sampai!</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
+  <string name="gamification_level_up_notification_body">Belanjakan %1$s %2$s lagi untuk mencapai level berikutnya.</string>
+  <string name="gamification_bonus_plus_perk_body">Nikmati bonus sebesar %1$s dan saldo Aptoide tambahan sebesar %2$s.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_always_allow_button">Izinkan selamanya</string>
