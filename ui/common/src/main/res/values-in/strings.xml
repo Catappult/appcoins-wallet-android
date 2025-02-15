@@ -238,7 +238,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">Ethereum adalah mata uang kripto yang menjadi landasan AppCoins. Anda dapat memperjualbelikannya di mayoritas bursa, Ethereum itu sangat populer!</string>
   <string name="balance_appcoins_body">AppCoins adalah mata uang kripto bagi perekonomian aplikasi. Anda dapat memperjualbelikannya di beberapa bursa dan menggunakannya untuk membeli item in-app.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">Token untuk membeli barang in-app! Isi ulang saldo Aptoide atau dapatkan secara gratis dengan menggunakan aplikasi. Token juga dapat ditransfer dari dan ke sesama teman!</string>
   <string name="my_wallets_action_new_wallet">Dompet baru</string>
   <string name="my_wallets_action_recover_wallet">Pulihkan dompet</string>
   <string name="my_wallets_action_backup_wallet">Cadangkan dompet</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Saldo: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Dana tidak cukup</string>
   <string name="p2p_send_confirmation_header">Rincian Transfer</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">Saldo Aptoide</string>
   <!--Common-->
   <string name="oops_title">Ups</string>
   <string name="error_general">Ada kesalahan</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">Cara pembayaran</string>
   <string name="credit_debit_card">Kartu kredit/debit</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
+  <string name="appc">Saldo Aptoide</string>
   <string name="bank_transfer">Transfer bank mudah</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -332,7 +332,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">Alat Anda untuk pembelian dalam aplikasi</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
+  <string name="onboarding_bonus_title">Dapatkan bonus berupa saldo Aptoide hingga %s%% dari pembelian in-app Anda.</string>
   <string name="onboarding_payment_methods_title">Gunakan kartu bank, PayPal, dan metode pembayaran favorit Anda.</string>
   <string name="onboarding_vip_title">Jadilah anggota VIP untuk mendapatkan dukungan dan penawaran premium.</string>
   <string name="terms_and_conditions">Syarat dan Ketentuan</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">Verifikasi metode pembayaran Anda untuk menyelesaikan pembelian.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Saldo Aptoide</string>
   <!--Settings-->
   <string name="title_redeem">Tukarkan Kartu Hadiah</string>
   <string name="settings_item_support">Hubungi Tim Dukungan</string>
@@ -378,16 +378,16 @@
   <string name="purchase_appcoins_noavailable_body">AppCoin atau Ether yang Anda miliki tidak cukup untuk pembelian ini.</string>
   <string name="purchase_no_eth_body">ETH Anda tidak cukup untuk membayar gas.</string>
   <string name="purchase_no_appcoins_body">AppCoin Anda tidak cukup untuk menyelesaikan pembelian ini.</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Saldo Aptoide Anda tidak cukup, coba isi ulang!</string>
+  <string name="purchase_appcoins_credits_default_body">Anda mendapatkan saldo Aptoide yang cukup untuk pembelian ini. Nikmatilah!</string>
   <string name="purchase_poa_item">Hasilkan dana dengan mencoba aplikasi</string>
   <string name="purchase_poa_view_title">Tidak Ada Dana, Tidak Perlu Khawatir!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
+  <string name="purchase_poa_view_body">Coba aplikasi selama 2 menit dan dapatkan hadiah berupa saldo Aptoide untuk melakukan pembelian!</string>
   <string name="purchase_current_balance_body">Saldo saat ini:</string>
-  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
+  <string name="purchase_current_balance_appcc_body">Saldo Aptoide sebesar %s.</string>
   <string name="purchase_current_balance_appc_eth_body">%s dalam AppCoins dan Ether.</string>
-  <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_wallet_blocked_title">Saldo Aptoide Anda diblokir</string>
+  <string name="purchase_wallet_blocked_body">Sehubungan dengan riwayat transaksi yang tidak biasa, saldo Aptoide Anda sudah diblokir. Anda akan tetap bisa melakukan pembayaran dan transaksi dengan metode lain kecuali saldo Aptoide.\n\nJika Anda yakin ini karena adanya kesalahan, hubungi kami di:</string>
   <string name="purchase_card_error_general_1">Ada masalah dengan kartu Anda. Silakan coba dengan kartu atau metode pembayaran lain.</string>
   <string name="purchase_card_error_general_2">Transaksi ditolak oleh bank Anda. Silakan coba dengan kartu atau metode pembayaran lain.</string>
   <string name="purchase_card_error_no_funds">Sepertinya dana yang Anda miliki tidak cukup atau kartu Anda dibatasi. Silakan coba kartu atau metode pembayaran lain.</string>
@@ -426,31 +426,31 @@
   <string name="purchase_error_open_banking_wallet_generic">Terjadi masalah dengan pembayaran Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>
   <string name="purchase_error_no_method_available_body">Saat ini, tidak tersedia metode pembayaran di wilayah Anda untuk menyelesaikan pembelian ini. Pantau terus!</string>
   <string name="purchase_legal_disclaimer">Dengan melanjutkan pembayaran, Anda menyetujui untuk diberikan konten setelah pembayaran, sehingga Anda kehilangan hak penarikan.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Bonusnya berupa saldo Aptoide.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
     <item quantity="other">Mungkin memerlukan waktu hingga %s hari.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_1">Saldo Aptoide sebesar %s akan dimasukkan ke dompet Anda.</string>
   <string name="purchase_bank_transfer_success_2">Mungkin bank Anda memerlukan waktu hingga 2 hari untuk memprosesnya.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
+  <string name="purchase_bank_transfer_success_bonus">Anda akan menerima bonus berupa saldo Aptoide sebesar %s.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">Kami sedang menunggu masuknya dana dari bank Anda.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
   <string name="async_steps_title">Langkah Selanjutnya</string>
   <string name="async_steps_1_no_notification">Selesaikan pembayaran Anda dengan %s.</string>
-  <string name="async_steps_2_no_notification">Once you receive the Aptoide balance, go back to the game and make the purchase using Aptoide balance as a payment method.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide balance, use it to make purchases in your favorite games!</string>
+  <string name="async_steps_2_no_notification">Setelah Anda menerima saldo Aptoide, kembali ke permainan dan lakukan pembelian dengan saldo Aptoide sebagai metode pembayaran.</string>
+  <string name="async_steps_2_toptup_no_notification">Setelah Anda menerima saldo Aptoide, gunakan untuk melakukan pembelian di game favorit Anda!</string>
   <!--Referral Program-->
   <string name="referral_verification_title">Verifikasi Metode Pembayaran</string>
   <string name="referral_view_verify_button">Verifikasi metode pembayaran</string>
   <!--Promotions-->
   <!--Update-->
   <string name="update_wallet_purchase_title">Anda perlu memperbarui!</string>
-  <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
-  <string name="update_wallet_hard_body">It seems you\'re using an old version of the Aptoide Wallet. Please update it to guarantee the best experience and security.</string>
+  <string name="update_wallet_purchase_body">Perbarui Aptoide Wallet untuk menyelesaikan pembelian ini.</string>
+  <string name="update_wallet_hard_body">Sepertinya Anda menggunakan versi Aptoide Wallet yang lama. Silakan perbarui demi menjamin pengalaman dan keamanan terbaik.</string>
   <string name="update_wallet_soft_title">Jangan ketinggalan!</string>
-  <string name="update_wallet_soft_body">Keeping the Aptoide Wallet updated guarantees the best experience.</string>
+  <string name="update_wallet_soft_body">Dengan selalu memperbarui Aptoide Wallet, Anda dijamin mendapatkan pengalaman terbaik.</string>
   <string name="update_button">Perbarui</string>
   <string name="update_backup_title">Jangan sampai dana Anda hilang!</string>
   <string name="update_backup_body">Cadangkan dompet Anda sebelum memperbarui.</string>
@@ -566,13 +566,13 @@
   <string name="gamif_spent">Jumlah yang dihabiskan untuk mencapai level ini</string>
   <string name="gamif_show_previous">Tampilkan pencapaian sebelumnya</string>
   <string name="gamif_hide_previous">Sembunyikan pencapaian sebelumnya</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">Belanjakan %s untuk mencapai level berikutnya</string>
   <string name="gamif_achievement_start">Anda memulai perjalanan Anda</string>
   <string name="gamif_achievement_start_sub">Baru saja meninggalkan Bumi!</string>
   <string name="gamif_achievement_reach">Anda sampai ke %s</string>
   <string name="gamif_card_start">Anda masih berada di Bumi</string>
   <string name="gamif_card_title">Anda berada di %s</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">Belanjakan %s lagi untuk mencapai level berikutnya.</string>
   <string name="gamif_bonus">Bonus %s%%</string>
   <string name="gamif_quote_earth">\"Bumi adalah persamaan yang kita semua miliki\" – Wendell Berry</string>
   <string name="gamif_placeholder_moon">Bulan</string>
@@ -636,8 +636,8 @@
   <string name="perks_title">Promosi</string>
   <string name="promotion_ends_short_title">Promosi akan berakhir dalam</string>
   <string name="perks_available_soon_short">Segera hadir</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_notification">Anda baru saja menerima Bonus berupa saldo Aptoide sebesar %s</string>
+  <string name="perks_purchases_disclaimer_body">Semua pembelian dan pengisian ulang dengan metode pembayaran selain saldo Aptoide akan memenuhi syarat untuk meningkatkan level Anda dan menerima hadiah.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Otentikasi gagal!</string>
@@ -646,7 +646,7 @@
   <string name="fingerprint_authentication_required_body">Silakan gunakan jari atau kata sandi Anda untuk melanjutkan.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
+  <string name="rate_us_question_title">Menyukai Aptoide Wallet?</string>
   <string name="rate_us_no">Kurang suka</string>
   <string name="rate_us_yes">Ya!</string>
   <string name="rate_us_improve_title">Apa yang bisa kami tingkatkan?</string>
@@ -654,10 +654,10 @@
   <string name="rate_us_improve_field__empty_error">Silakan tulis sesuatu</string>
   <string name="rate_us_possitive_thanks_title">Terima kasih!</string>
   <string name="rate_us_possitive_thanks_body">Kami senang Anda menyukai aplikasi kami. Bisakah Anda membantu kami dengan memberi nilai untuk kami di toko aplikasi?</string>
-  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
+  <string name="rate_us_possitive_rate_button">Beri Nilai Aptoide Wallet</string>
   <string name="rate_us_possitive_done_title">Terima kasih atas umpan balik Anda!</string>
   <string name="rate_us_back_title">Ingin membantu kami?</string>
-  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">Beri nilai Aptoide Wallet di toko aplikasi agar kami bisa meningkatkannya.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">Periksa kode di rincian transaksi</string>
   <string name="card_verification_code_body">Kode unik akan muncul pada ringkasan transaksi yang diberikan oleh penerbit kartu Anda.</string>
@@ -723,7 +723,7 @@
   <string name="mywallet_backup_again_button">Cadangkan lagi</string>
   <string name="mywallet_choose_name_field">Tulis nama dompet disini...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
+  <string name="onboarding_1st_title">Selamat! Anda sudah menginstal Aptoide Wallet.</string>
   <string name="onboarding_1st_body">Kembali ke game untuk menyelesaikan pembelian.</string>
   <string name="onboarding_1st_back_to_game_button">Kembali ke game</string>
   <string name="onboarding_1st_explore_wallet_button">Atau jelajahi Dompet</string>
@@ -749,8 +749,8 @@
   <string name="vip_program_title_vip_offer">Penawaran VIP</string>
   <string name="vip_program_code_error_body">Anda tidak bisa menggunakan kode VIP Anda sendiri. Bagikan dengan teman-teman Anda!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
+  <string name="intro_welcome_header">Selamat Datang di Aptoide Wallet</string>
+  <string name="intro_welcome_body">Isi ulang dompet Anda atau lakukan pembelian di aplikasi atau game yang kompatibel.</string>
   <string name="intro_active_promotions_header">Promosi Aktif</string>
   <string name="topup_home_button">Isi Ulang</string>
   <string name="intro_home_button">Beranda</string>
@@ -776,7 +776,7 @@
   <string name="rewards_promo_code_status_active">Aktif</string>
   <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_make_first_purchase_body">Lakukan pembelian pertama di game yang kompatibel dan dapatkan bonus di setiap pembelian.</string>
   <string name="rewards_bonus_every_purchase_title">Bonus %s%% untuk setiap pembelian</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">Kelola Dompet</string>
