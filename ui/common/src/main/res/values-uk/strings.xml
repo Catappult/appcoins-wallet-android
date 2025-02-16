@@ -642,7 +642,7 @@
   <string name="promotion_ends_short_title">Акція закінчується через</string>
   <string name="perks_available_soon_short">Буде доступна найближчим часом</string>
   <string name="perks_notification">Ви щойно отримали бонус %s у вигляді балансу Aptoide</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Усі покупки та поповнення балансу, зроблені за допомогою будь-якого способу оплати, окрім балансу Aptoide, будуть враховуватися для підвищення вашого рівня та отримання винагороди.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Біометричний замок</string>
   <string name="fingerprint_failed_title">Помилка автентифікації!</string>
@@ -651,7 +651,7 @@
   <string name="fingerprint_authentication_required_body">Скористайтеся відбитком пальця або паролем, щоб продовжити.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
+  <string name="rate_us_question_title">Подобається Aptoide Wallet?</string>
   <string name="rate_us_no">Не зовсім</string>
   <string name="rate_us_yes">Так!</string>
   <string name="rate_us_improve_title">Що ми можемо покращити?</string>
@@ -659,10 +659,10 @@
   <string name="rate_us_improve_field__empty_error">Будь ласка, напишіть щось</string>
   <string name="rate_us_possitive_thanks_title">Дякуємо!</string>
   <string name="rate_us_possitive_thanks_body">Ми раді, що вам подобається наш додаток. Чи можете ви допомогти нам, оцінивши нас в app store?</string>
-  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
+  <string name="rate_us_possitive_rate_button">Оцініть Aptoide Wallet</string>
   <string name="rate_us_possitive_done_title">Дякуємо за ваш відгук!</string>
   <string name="rate_us_back_title">Хочеш нам допомогти?</string>
-  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">Оцініть Aptoide Wallet в магазині додатків, щоб ми могли вдосконалити його.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">Перевірте код в деталях транзакції</string>
   <string name="card_verification_code_body">Унікальний код з’явиться в підсумку транзакції, наданому емітентом вашої картки.</string>
@@ -734,7 +734,7 @@
   <string name="mywallet_backup_again_button">Повторіть резервне копіювання</string>
   <string name="mywallet_choose_name_field">Назва гаманця тут...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
+  <string name="onboarding_1st_title">Вітаємо! Ви встановили Aptoide Wallet.</string>
   <string name="onboarding_1st_body">Поверніться до гри, щоб завершити покупку.</string>
   <string name="onboarding_1st_back_to_game_button">Повернутися до гри</string>
   <string name="onboarding_1st_explore_wallet_button">Або перевірте Гаманець</string>
@@ -760,8 +760,8 @@
   <string name="vip_program_title_vip_offer">VIP-пропозиція</string>
   <string name="vip_program_code_error_body">Не можна використовувати власний VIP-код. Поділіться ним з друзями!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
+  <string name="intro_welcome_header">Ласкаво просимо до Aptoide Wallet</string>
+  <string name="intro_welcome_body">Поповніть гаманець або зробіть покупку в будь-якому сумісному додатку або грі.</string>
   <string name="intro_active_promotions_header">Активні акції</string>
   <string name="topup_home_button">Поповнити</string>
   <string name="intro_home_button">На домашню</string>
@@ -797,9 +797,9 @@
   <string name="rewards_promo_code_card_body">Скористайтеся промокодом, аби отримати спеціальні пропозиції!</string>
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активний</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">Ігри з винагородами</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_make_first_purchase_body">Зробіть першу покупку у сумісній грі та отримуйте бонус за кожну наступну покупку.</string>
   <string name="rewards_bonus_every_purchase_title">Бонус %s%% у кожній покупці</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">Керувати гаманцями</string>
