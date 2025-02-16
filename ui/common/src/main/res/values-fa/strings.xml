@@ -382,12 +382,12 @@
   <string name="purchase_appcoins_credits_default_body">به مقدار کافی Aptoide balance برای این خرید دریافت‌ خواهید کرد. لذت ببرید!</string>
   <string name="purchase_poa_item">از طریق امتحان اپلیکیشن‌ها کسب درآمد کنید</string>
   <string name="purchase_poa_view_title">بدون درآمد، نگران نباشید!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
+  <string name="purchase_poa_view_body">اپلیکیشنی را برای 2 دقیقه امتحان کنید و پاداشی در اعتبار Aptoide balance بدست آورید تا بتوانید خرید کنید!</string>
   <string name="purchase_current_balance_body">تراز فعلی:</string>
-  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
+  <string name="purchase_current_balance_appcc_body">%s در Aptoide balance.</string>
   <string name="purchase_current_balance_appc_eth_body">%s در AppCoins و Ether.</string>
-  <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_wallet_blocked_title">Aptoide balance شما مسدود است</string>
+  <string name="purchase_wallet_blocked_body">با توجه به تاریخچه تراکنش‌های غیرعادی، Aptoide balance شما مسدود شده است. کماکان قادر به انجام تراکنش‌ها و پرداخت با سایر روش‌ها به جز Aptoide balance هستید.\n\n اگر اعتقاد دارید که اشتباهی رخ داده‌ است، با ما تماس بگیرید از طریق:</string>
   <string name="purchase_card_error_general_1">مشکلی با کارت شما بود. لطفا با کارت یا روش پرداخت دیگری مجددا امتحان کنید.</string>
   <string name="purchase_card_error_general_2">تراکنش از طرف بانک شما رد شده است. لطفا با کارت یا روش پرداخت دیگری مجددا امتحان کنید.</string>
   <string name="purchase_card_error_no_funds">به نظر می‌رسد موجودی کارت شما کافی نیست و یا محدودیتی در کارت شما وجود دارد. لطفا با کارت یا روش پرداخت دیگری مجددا امتحان کنید.</string>
@@ -426,32 +426,32 @@
   <string name="purchase_error_open_banking_wallet_generic">مشکلی با پرداخت شما وجود دارد. لطفا مجددا امتحان کنید یا یک روش دیگر پرداخت را استفاده کنید.</string>
   <string name="purchase_error_no_method_available_body">هیچ روش پرداختی در حال حاضر برای تکمیل این خرید در منطقه شما موجود نیست. در تماس بمانید!</string>
   <string name="purchase_legal_disclaimer">با پردازش این پرداخت، موافقت و اجازه خود را با محتوا در قبال پرداخت اعلام می‌کنید و در نتیجه حق خود را برای برداشت از حساب از دست می‌دهید.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">بونوس در Aptoide balance است.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
     <item quantity="one">می‌تواند تا %s روز طول بکشد.</item>
     <item quantity="other">می‌تواند تا %s روز طول بکشد.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_1">%s در Aptoide balance به کیف پول شما اضافه می شود.</string>
   <string name="purchase_bank_transfer_success_2">می‌تواند تا دو روز طول بکشد تا بانک شما آن را پردازش کند.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
+  <string name="purchase_bank_transfer_success_bonus">شما یک بونوس %s در Aptoide balance دریافت خواهید کرد.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">منتظر ورود مبلغ از بانک شما هستیم.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
   <string name="async_steps_title">قدم‌های بعدی</string>
   <string name="async_steps_1_no_notification">پرداخت خود را با %s تکمیل کنید.</string>
-  <string name="async_steps_2_no_notification">Once you receive the Aptoide balance, go back to the game and make the purchase using Aptoide balance as a payment method.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide balance, use it to make purchases in your favorite games!</string>
+  <string name="async_steps_2_no_notification">هر زمان که Aptoide balance را دریافت کردید، به بازی برگردید و خرید را با استفاده از Aptoide balance به عنوان روش پرداخت تکمیل کنید.</string>
+  <string name="async_steps_2_toptup_no_notification">زمانی که Aptoide balance دریافت کنید، می‌توانید از آن برای خرید در بازی‌های مورد علاقه خود استفاده کنید!</string>
   <!--Referral Program-->
   <string name="referral_verification_title">تایید روش پرداخت</string>
   <string name="referral_view_verify_button">تایید روش پرداخت</string>
   <!--Promotions-->
   <!--Update-->
   <string name="update_wallet_purchase_title">نیاز به بروزرسانی دارید!</string>
-  <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
-  <string name="update_wallet_hard_body">It seems you\'re using an old version of the Aptoide Wallet. Please update it to guarantee the best experience and security.</string>
+  <string name="update_wallet_purchase_body">لطفا Aptoide Wallet را بروزرسانی کنید تا این خرید را کامل کنید.</string>
+  <string name="update_wallet_hard_body">به نظر می‌رسد که از نسخه قدیمی Aptoide Wallet استفاده می‌کنید. لطفا بروزرسانی کنید تا بتوانید بهترین تجربه و امنیت را داشته باشید.</string>
   <string name="update_wallet_soft_title">عقب نیافتید!</string>
-  <string name="update_wallet_soft_body">Keeping the Aptoide Wallet updated guarantees the best experience.</string>
+  <string name="update_wallet_soft_body">Aptoide Wallet را بروز نگه دارید و بهترین تجربه را داشته باشید.</string>
   <string name="update_button">بروزرسانی</string>
   <string name="update_backup_title">سرمایه خود را از دست ندهید!</string>
   <string name="update_backup_body">قبل از بروزرسانی از کیف پول خود بک آپ بگیرید.</string>
@@ -541,7 +541,7 @@
   <string name="subscriptions_details_cancelled_body">لغو شده - در %s منقضی می‌شود</string>
   <string name="subscriptions_expiration_body">در %s منقضی می‌شود</string>
   <string name="subscriptions_canceled_body">لغو شده‌</string>
-  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
+  <string name="subscriptions_details_disclaimer">ارزش پرداخت بعدی شما می‌تواند متناسب با نرخ ارز تغییر کند.</string>
   <string name="subscriptions_manage_button">مدیریت آبونمان‌ها</string>
   <string name="subscriptions_cancel_button">لغو آبونمان</string>
   <string name="subscriptions_renew_subscription_button">تجدید آبونمان</string>
@@ -567,13 +567,13 @@
   <string name="gamif_spent">مقدار پرداخت‌شده برای رسیدن به این مرحله</string>
   <string name="gamif_show_previous">نمایش دستاوردهای پیشین</string>
   <string name="gamif_hide_previous">مخفی کردن دستاوردهای پیشین</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">%s خرج کنید تا به مرحله بعدی برسید</string>
   <string name="gamif_achievement_start">سفر خود را شروع کرده‌اید</string>
   <string name="gamif_achievement_start_sub">هم اکنون زمین را ترک کردید!</string>
   <string name="gamif_achievement_reach">به %s رسیده‌اید</string>
   <string name="gamif_card_start">هنوز روی زمین هستید</string>
   <string name="gamif_card_title">روی %s هستید</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">%s خرج کنید تا به مرحله بعدی برسید.</string>
   <string name="gamif_bonus">%s%% پاداش</string>
   <string name="gamif_quote_earth">\"زمین همان نقطه اشتراک همه ماست.\" - وندل بری</string>
   <string name="gamif_placeholder_moon">ماه</string>
@@ -637,8 +637,8 @@
   <string name="perks_title">پیشنهادات تشویقی</string>
   <string name="promotion_ends_short_title">برنامه تشویقی به پایان می‌رسد در</string>
   <string name="perks_available_soon_short">بزودی در دسترس</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_notification">همین حالا %s در Aptoide balance به عنوان بونوس دریافت کردید</string>
+  <string name="perks_purchases_disclaimer_body">همه خریدها و شارژهایی که در هر روش پرداخت به جز Aptoide balance انجام شده‌ است به بالابردن درجه پاداش و دریافت هدایا کمک می کند.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">قفل بیومتریک</string>
   <string name="fingerprint_failed_title">احراز هویت موفق نبود!</string>
@@ -647,7 +647,7 @@
   <string name="fingerprint_authentication_required_body">لطفا از انگشت خود یا رمزعبور برای ادامه استفاده کنید.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
+  <string name="rate_us_question_title">آیا از Aptoide Wallet لذت می‌برید؟</string>
   <string name="rate_us_no">نه خیلی</string>
   <string name="rate_us_yes">بله!</string>
   <string name="rate_us_improve_title">چه چیزی را می‌توانیم بهتر کنیم؟</string>
@@ -655,10 +655,10 @@
   <string name="rate_us_improve_field__empty_error">لطفا چیزی بنویسید</string>
   <string name="rate_us_possitive_thanks_title">تشکر!</string>
   <string name="rate_us_possitive_thanks_body">خوشحالیم که اپلیکیشن ما را دوست دارید. آیا می‌توانید با رتبه بندی ما در فروشگاه اپلیکیشن به ما کمک کنید؟</string>
-  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
+  <string name="rate_us_possitive_rate_button">رتبه بندی Aptoide Wallet</string>
   <string name="rate_us_possitive_done_title">از بازخورد شما متشکریم!</string>
   <string name="rate_us_back_title">آیا می‌خواهید به ما کمک کنید؟</string>
-  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">Aptoide Wallet را در فروشگاه اپلیکیشن رتبه بندی کنید تا بتوانیم آن را بهتر کنیم.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">کد را در جزییات تراکنش بررسی کنید</string>
   <string name="card_verification_code_body">یک کد ویژه در خلاصه تراکنش توسط بانک شما دیده می‌شود.</string>
@@ -726,7 +726,7 @@
   <string name="mywallet_backup_again_button">بک‌آپ مجدد</string>
   <string name="mywallet_choose_name_field">نام کیف‌پول در اینجا...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
+  <string name="onboarding_1st_title">تبریک! شما Aptoide Wallet را نصب کردید.</string>
   <string name="onboarding_1st_body">برای تکمیل خرید به بازی برگردید.</string>
   <string name="onboarding_1st_back_to_game_button">بازگشت به بازی</string>
   <string name="onboarding_1st_explore_wallet_button">یا کشف Wallet</string>
@@ -752,8 +752,8 @@
   <string name="vip_program_title_vip_offer">پیشنهاد وی‌آی‌پی</string>
   <string name="vip_program_code_error_body">شما نمی‌توانید کد VIP خود را استفاده کنید. آن را به دوستان خود به اشتراک بگذارید!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
+  <string name="intro_welcome_header">به Aptoide Wallet خوش آمدید</string>
+  <string name="intro_welcome_body">کیف پول خود را شارژ کنید تا بتوانید در هر اپلیکیشن و بازی سازگاری خرید کنید.</string>
   <string name="intro_active_promotions_header">پیشنهادهای تبلیغی فعال</string>
   <string name="topup_home_button">افزایش اعتبار</string>
   <string name="intro_home_button">خانه</string>
@@ -781,9 +781,9 @@
   <string name="rewards_promo_code_card_body">برای دریافت پیشنهادات ویژه، یک کد پرومو استفاده کنید!</string>
   <string name="rewards_promo_code_status">وضعیت:</string>
   <string name="rewards_promo_code_status_active">فعال</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">بازی‌های همراه پاداش</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_make_first_purchase_body">اولین خرید خود را در یک بازی سازگار انجام دهید و در هر خرید یک بونوس فعال کنید.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% پاداش برای همه خریدها</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">مدیریت کیف‌پول‌ها</string>
@@ -799,20 +799,20 @@
   <string name="verify_card_view_title_2">اطلاعات کارت بانکی خود را وارد کنید</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">چالش پاداش</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">یک چالش را کامل کنید تا Aptoide balance دریافت کنید.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">از %s Aptoide balance در کیف پول خود لذت ببرید</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">در تماس باشید!</string>
   <string name="mail_list_card_body">در لیست ایمیلی ما عضو شوید تا بروزرسانی ویژه دریافت کنید و شانسی برای بردن کارت هدیه داشته باشید.</string>
   <string name="mail_list_card_confirmation_title">تایید ایمیل شما</string>
   <string name="mail_list_card_confirmation_body">ایمیلی به %s ارسال کرده‌ایم</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins Wallet بزودی به Aptoide Wallet تبدیل می‌شود!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet به Aptoide Wallet تبدیل می‌شود!</string>
+  <string name="rebranding_disclaimer_shortest_title">ما Aptoide Wallet می‌شویم!</string>
   <string name="rebranding_disclaimer_long_body"> ما در حال طراحی جدید و جذاب برند و احساسات خود هستیم. در تماس باشید تا امکانات و جوایز محبوب خود را با تصویر جدیدی کشف کنید!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebranding_post_title">AppCoins Wallet اکنون Aptoide Wallet است!</string>
   <string name="rebrandinh_post_body">امکانات و جوایز محبوب خود را با تصویر جدیدی کشف کنید! امیدواریم دوست داشته باشید!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
