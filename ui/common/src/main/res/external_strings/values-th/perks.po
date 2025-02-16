@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
-"PO-Revision-Date: 2025-02-05 15:03\n"
+"PO-Revision-Date: 2025-02-16 15:17\n"
 
 #. Card Title
 #:
 msgid "Earn Aptoide balance!"
-msgstr ""
+msgstr "รับยอดคงเหลือ Aptoide!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "รับโบนัสพิเศษ {0}% จากการซื้อทั้งหมดของคุณใน {1} ยกเว้นเมื่อคุณใช้ยอดคงเหลือ Aptoide"
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
-msgstr ""
+msgstr "ซื้อใน {0} และรับ{1}ในยอดคงเหลือ Aptoide"
 
 #. Receipt - Purchase Promotion.
 #:
@@ -35,7 +35,7 @@ msgstr "เนื่องจากคุณทำการซื้อใน {0
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
-msgstr ""
+msgstr "ใช้จ่าย {0} {1} ใน {2} วัน และรับ{3}ในยอดคงเหลือ Aptoide"
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -45,7 +45,7 @@ msgstr "เนื่องจากคุณใช้จ่ายมากกว
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} in Aptoide balance!"
-msgstr ""
+msgstr "ไปถึงระดับต่อไปและรับ{0}ในยอดคงเหลือของ Aptoide!"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -55,7 +55,7 @@ msgstr "เพราะคุณถึงเลเวลถัดไป"
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "รับโบนัสพิเศษ {0}% ในการซื้อทั้งหมดของคุณใน {1} ยกเว้นเมื่อคุณใช้ยอดคงเหลือ Aptoide"
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -65,7 +65,7 @@ msgstr "รับโบนัสพิเศษ {0}% สำหรับการ
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "รับโบนัสพิเศษ {0}% ในการซื้อครั้งแรกของคุณ ยกเว้นยอดคงเหลือ Aptoide ใน{1}"
 
 #. Receipt - First Purchase.
 #:
@@ -75,7 +75,7 @@ msgstr "เนื่องจากการซื้อครั้งแรก
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "รับโบนัสพิเศษ {0}% ในการซื้อครั้งแรกของคุณ ยกเว้นยอดคงเหลือ Aptoide ใน{1}"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -85,7 +85,7 @@ msgstr "เนื่องจากการซื้อครั้งแรก
 #. Title for bonus receipts.
 #:
 msgid "+{0} Bonus in Aptoide balance!"
-msgstr ""
+msgstr "+{0} โบนัสในยอดคงเหลือ Aptoide!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
@@ -105,12 +105,12 @@ msgstr ""
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in compatible apps."
-msgstr ""
+msgstr "เพราะว่าคุณใช้จ่าย{0}{1} ในแอปที่เข้ากันได้"
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
-msgstr ""
+msgstr "รับโบนัสพิเศษ {0}% ในการซื้อทั้งหมดของคุณใน ยกเว้นเมื่อคุณใช้ยอดคงเหลือ Aptoide"
 
 #. Card - Title - Common
 #:
