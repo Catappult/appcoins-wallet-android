@@ -452,10 +452,10 @@
   <!--Promotions-->
   <!--Update-->
   <string name="update_wallet_purchase_title">Вам потрібно оновити!</string>
-  <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
-  <string name="update_wallet_hard_body">It seems you\'re using an old version of the Aptoide Wallet. Please update it to guarantee the best experience and security.</string>
+  <string name="update_wallet_purchase_body">Оновіть Aptoide Wallet, щоб завершити цю покупку.</string>
+  <string name="update_wallet_hard_body">Здається, ви використовуєте стару версію Aptoide Wallet. Оновіть його, щоб забезпечити найкращий сервіс та безпеку.</string>
   <string name="update_wallet_soft_title">Не відставай!</string>
-  <string name="update_wallet_soft_body">Keeping the Aptoide Wallet updated guarantees the best experience.</string>
+  <string name="update_wallet_soft_body">Регулярне оновлення Aptoide Wallet гарантує найкращі враження від використання.</string>
   <string name="update_button">Оновити</string>
   <string name="update_backup_title">Не втратьте свої кошти!</string>
   <string name="update_backup_body">Зробіть резервну копію гаманця перед оновленням.</string>
@@ -545,7 +545,7 @@
   <string name="subscriptions_details_cancelled_body">Скасовано – термін дії закінчується %s</string>
   <string name="subscriptions_expiration_body">Термін дії закінчується %s</string>
   <string name="subscriptions_canceled_body">Скасовано</string>
-  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
+  <string name="subscriptions_details_disclaimer">Сума наступного платежу може змінитися через курс валют.</string>
   <string name="subscriptions_manage_button">Керувати підпискою</string>
   <string name="subscriptions_cancel_button">Скасувати підписку</string>
   <string name="subscriptions_renew_subscription_button">Відновити підписку</string>
@@ -571,13 +571,13 @@
   <string name="gamif_spent">Сума, витрачена на досягнення цього рівня</string>
   <string name="gamif_show_previous">Показати попередні досягнення</string>
   <string name="gamif_hide_previous">Приховати попередні досягнення</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">Витратьте %s, щоб досягти наступного рівня</string>
   <string name="gamif_achievement_start">Ви почали свою подорож</string>
   <string name="gamif_achievement_start_sub">Щойно покинули Землю!</string>
   <string name="gamif_achievement_reach">Ви досягли %s</string>
   <string name="gamif_card_start">Ви все ще на Землі</string>
   <string name="gamif_card_title">Ви на %s</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">Витратьте на %s більше, щоб досягти наступного рівня.</string>
   <string name="gamif_bonus">%s%% Бонус</string>
   <string name="gamif_quote_earth">«Земля – це те, що нас усіх об’єднує» – Венделл Беррі</string>
   <string name="gamif_placeholder_moon">Місяць</string>
@@ -641,7 +641,7 @@
   <string name="perks_title">Акції</string>
   <string name="promotion_ends_short_title">Акція закінчується через</string>
   <string name="perks_available_soon_short">Буде доступна найближчим часом</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
+  <string name="perks_notification">Ви щойно отримали бонус %s у вигляді балансу Aptoide</string>
   <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Біометричний замок</string>
