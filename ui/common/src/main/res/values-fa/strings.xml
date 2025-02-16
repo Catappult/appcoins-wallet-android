@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">سوالات متداول</string>
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">Aptoide Wallet نیازمند اجازه شما برای دسترسی به دوربین شما برای اسکن کردن کدهای QR است.</string>
   <string name="no_camera_available">هیچ دوربینی موجود نیست!</string>
   <string name="ok">تایید</string>
   <string name="barcode_error_format">قالب غیرمعتبر بارکد: %s</string>
@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">باز کردن قفل صفحه نمایش</string>
   <string name="unlock_screen_prompt_android">قفل دستگاه آندروید خود را برای ادامه را باز کند.</string>
   <string name="root_title">امنیت دستگاه به خطر افتاده است</string>
-  <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">هر اپلیکیشن \'rooted\' می‌تواند به اطلاعات Aptoide Wallet\'s keychain دسترسی داشته باشد و کیف پول شما را بدزدد! فورا این کیف پول را پاک کنید و روی دستگاه امنی بازیابی کنید.</string>
   <string name="action_buy">خرید</string>
   <string name="empty"></string>
   <string name="try_again">امتحان دوباره</string>
@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">کد QR آدرس معتبر ندارد</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">کیف پول ساخته شد!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">با واردکردن Aptoide Wallet با %1$s و %2$s موافقت خواهید کرد.</string>
   <string name="intro_get_started_button">راه‌اندازی کیف پول</string>
   <!-- New Intro -->
   <!-- Intro from game -->
@@ -114,7 +114,7 @@
   <string name="error_already_added">قبلا افزوده شده است</string>
   <string name="error_export">خروجی گرفتن از کیف پول موفق نبود</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">ما Trust Wallet را برای پروژه اندروید در bootstrap توسعه Aptoide Wallet قرار دادیم. ما آن را بهترین گزینه جایگزین برای قابلیت‌های حال حاضر می دانیم. ما با هدف مشارکت در ادغام‌سازی این کار را کردیم و امیدواریم که مرتبط قرار گیرد.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">تراکنش درحال پردازش</string>
   <string name="activity_aib_loading_message">اندکی زمان می‌برد…</string>
@@ -205,29 +205,29 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">پاداش خرید:</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">%s در Aptoide balance</string>
   <string name="gamification_purchase_body">شما می‌توانید از این پاداش در خرید بعدی خود استفاده کنید.</string>
   <string name="gamification_purchase_completed_bonus_received">پاداش دریافت شد</string>
   <string name="gamification_leveled_up_notification_body">تبریک، پاداش %s برای هر خرید دریافت خواهید کرد!</string>
   <string name="gamification_how_max_level_notification_title">موفق شدید!</string>
   <string name="gamification_how_max_level_body">به بالاترین مرحله رسیدید: %s پاداش در هر خرید!</string>
   <string name="gamification_level_up_notification_title">بسیار نزدیک!</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
+  <string name="gamification_level_up_notification_body">%1$s %2$s خرج کنید تا به مرحله بعدی برسید.</string>
+  <string name="gamification_bonus_plus_perk_body">از %1$s بونوس و %2$s بیشتر در Aptoide balance لذت ببرید.</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">به Aptoide Wallet اجازه دهید که آدرس کیف پول شما را به %s بدهد.</string>
   <string name="provide_wallet_always_allow_button">همیشه اجازه بده</string>
   <string name="provide_wallet_allow_once_button">یک بار اجازه بده</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the Aptoide Wallet.</string>
+  <string name="provide_wallet_create_body">شما نیاز به یک آدرس کیف پول دارید! این مراحل را برای ایجاد یکی در Aptoide Wallet دنبال کنید.</string>
   <string name="provide_wallet_create_wallet_button">ساختن</string>
   <string name="provide_wallet_creating_wallet_header">آماده‌سازی کیف پول شما&#8230;</string>
   <string name="provide_wallet_created_header">کیف پول ساخته شد!</string>
-  <string name="provide_wallet_empty_state">You haven\'t allowed Aptoide Wallet to provide your address to any other app yet.</string>
+  <string name="provide_wallet_empty_state">شما به Aptoide Wallet اجازه ندادید که آدرس شما را به هیچ اپلیکیشن دیگری بدهد.</string>
   <string name="provide_wallet_status">اجازه دسترسی به آدرس کیف پول</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">افزایش اعتبار</string>
-  <string name="topup_completed_1">%s in Aptoide balance</string>
+  <string name="topup_completed_1">%s در Aptoide balance</string>
   <string name="topup_completed_2_with_bonus">در حساب شما قرار گرفت... به همراه یک پاداش!</string>
   <string name="topup_completed_2_without_bonus">به حساب‌کاربری شما پرداخت شده‌است.</string>
   <string name="topup_minimum_value">حداقل مقدار افزایش برابر %s است</string>
@@ -238,7 +238,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">Ethereum همان cryptocurrency است که AppCoins بر اساس آن می باشد. شما می توانید آن ها را به اکثر واحدهای اعتباری خرید و فروش کنید. بسیار محبوب است!</string>
   <string name="balance_appcoins_body">AppCoins همان cryptocurrency برای اقتصاد اپلیکیشن است. شما می توانید خرید و فروش آن را در مبادلات مختلف انجام دهید و از آن برای خریدهای داخل اپلیکیشنی استفاده کنید.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">توکن برای خرید آیتم‌های داخل اپلیکیشنی! Aptoide balance را شارژ کنید یا آن ها را بصورت رایگان با استفاده کردن از اپلیکیشن‌ها بدست آورید. آن همچنین قابل انتقال در میان دوستان می‌باشد!</string>
   <string name="my_wallets_action_new_wallet">کیف‌پول جدید</string>
   <string name="my_wallets_action_recover_wallet">بازیابی کیف‌پول</string>
   <string name="my_wallets_action_backup_wallet">پشتیبان‌گیری از کیف‌پول</string>
@@ -332,7 +332,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">ابزار شما برای خریدهای داخل اپلیکیشنی</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
+  <string name="onboarding_bonus_title">تا %s%% از خریدهای داخل اپلیکیشنی خود در Aptoide balance بدست آورید.</string>
   <string name="onboarding_payment_methods_title">کارت‌ بانکی، پی‌پال و روش‌های پرداخت موردعلاقه خود را استفاده کنید.</string>
   <string name="onboarding_vip_title">یک عضو VIP شوید تا پشتیبانی و پیشنهادات ویژه بگیرید.</string>
   <string name="terms_and_conditions">شرایط و ضوابط</string>
@@ -378,8 +378,8 @@
   <string name="purchase_appcoins_noavailable_body">به مقدار کافی AppCoins یا Ether برای این خرید ندارید.</string>
   <string name="purchase_no_eth_body">به اندازه کافی ETH برای پرداخت گاز نداری.</string>
   <string name="purchase_no_appcoins_body">به مقدار کافی AppCoins برای تکمیل این خرید ندارید.</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">به مقداری کافی Aptoide balance ندارید، شارژ کنید!</string>
+  <string name="purchase_appcoins_credits_default_body">به مقدار کافی Aptoide balance برای این خرید دریافت‌ خواهید کرد. لذت ببرید!</string>
   <string name="purchase_poa_item">از طریق امتحان اپلیکیشن‌ها کسب درآمد کنید</string>
   <string name="purchase_poa_view_title">بدون درآمد، نگران نباشید!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
