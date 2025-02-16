@@ -815,20 +815,20 @@
   <string name="verify_card_view_title_2">Введіть дані вашої банківської картки</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Винагорода за завдання</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Виконайте завдання, щоб отримати баланс Aptoide.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">Насолоджуйтесь %s у вигляді балансу Aptoide на вашому гаманці</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">Слідкуйте за новинами!</string>
   <string name="mail_list_card_body">Приєднуйтесь до нашої інформаційної розсилки, отримуйте ексклюзивні новини та шанс виграти подарункову картку.</string>
   <string name="mail_list_card_confirmation_title">Підтвердьте електронну пошту</string>
   <string name="mail_list_card_confirmation_body">Ми надіслали листа на адресу %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins Wallet незабаром стане Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet стає Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">Ми стаємо Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> Ми працюємо над вражаючим редизайном нашого бренду. Залишайтеся з нами, щоб отримати улюблені функції та винагороди з абсолютно новим іміджем!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebranding_post_title">AppCoins Wallet тепер називається Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Насолоджуйтесь улюбленими функціями та винагородами в абсолютно новому образі. Сподіваємося, вам сподобається!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
