@@ -150,9 +150,8 @@ class TransactionDetailsFragment : BasePageViewFragment() {
           )
         }
         item {
-          if (app != null)
             Text(
-              text = app,
+              text = stringResource(title),
               modifier = Modifier.padding(start = 24.dp, bottom = 8.dp),
               style = MaterialTheme.typography.bodySmall,
               color = WalletColors.styleguide_dark_grey
@@ -167,16 +166,17 @@ class TransactionDetailsFragment : BasePageViewFragment() {
               horizontalAlignment = Alignment.CenterHorizontally,
               modifier = Modifier.padding(horizontal = 16.dp)
             ) {
-              TransactionDetailHeader(
-                icon = icon,
-                appIcon = appIcon,
-                amount = amount,
-                convertedAmount = amountSubtitle,
-                subIcon = subIcon,
-                type = stringResource(title),
-                textDecoration = textDecoration,
-                description = description
-              )
+              if (app != null) {
+                TransactionDetailHeader(
+                  icon = icon,
+                  appIcon = appIcon,
+                  amount = amount,
+                  subIcon = subIcon,
+                  name = app,
+                  textDecoration = textDecoration,
+                  description = description
+                )
+              }
 
               if (status == StatusType.PENDING) {
                 PendingTransactionCard()

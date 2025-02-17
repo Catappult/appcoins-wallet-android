@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Greek\n"
 "Language: el_GR\n"
-"PO-Revision-Date: 2025-01-29 14:51\n"
+"PO-Revision-Date: 2025-01-30 07:54\n"
 
 #. Card Title
 #:
@@ -125,10 +125,10 @@ msgstr "Απολαύστε ένα {0}% bonus σε κάθε αγορά."
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "Λάβετε {0}% επιπλέον bonus σε κάθε φόρτιση μέσω εύκολης τραπεζικής μεταφοράς."
 
 #. Payment Method - Title - Bank Transfer
 #:
 msgid "Easy bank transfer"
-msgstr ""
+msgstr "Εύκολη τραπεζική μεταφορά"
 
