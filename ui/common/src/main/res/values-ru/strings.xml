@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">Часто задаваемые вопросы</string>
   <string name="low_storage_error">Недостаточно места для хранения</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">Aptoide Wallet требуется разрешение на доступ к вашей камере для сканирования QR-кодов.</string>
   <string name="no_camera_available">Камера недоступна!</string>
   <string name="ok">Ок</string>
   <string name="barcode_error_format">Недопустимый формат штрих-кода: %s</string>
