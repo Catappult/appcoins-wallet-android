@@ -10,12 +10,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2025-02-13 04:35\n"
+"PO-Revision-Date: 2025-02-17 14:29\n"
 
 #. Card Title
 #:
 msgid "Earn Aptoide balance!"
-msgstr "Aptoide 잔액을 적립하세요!"
+msgstr "Aptoide 잔액을 획득하세요!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
