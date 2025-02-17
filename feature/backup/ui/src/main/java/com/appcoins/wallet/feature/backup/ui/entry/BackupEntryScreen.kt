@@ -339,8 +339,8 @@ fun BackupEntryPassword(
         SwitchDefaults.colors(
           checkedThumbColor = WalletColors.styleguide_primary,
           uncheckedThumbColor = WalletColors.styleguide_light_grey,
-          checkedTrackColor = WalletColors.styleguide_grey_blue,
-          uncheckedTrackColor = WalletColors.styleguide_grey_blue,
+          checkedTrackColor = WalletColors.styleguide_dark_variant,
+          uncheckedTrackColor = WalletColors.styleguide_dark_variant,
           checkedBorderColor = Color.Transparent,
           uncheckedBorderColor = Color.Transparent
         )

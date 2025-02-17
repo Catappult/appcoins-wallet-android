@@ -71,7 +71,7 @@ import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_new
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_variant
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
@@ -209,7 +209,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         val selected = viewModel.clickedTransferItem.value == item.destination.ordinal
         ButtonWithText(
           label = stringResource(item.label),
-          backgroundColor = if (selected) styleguide_grey_new else styleguide_dark,
+          backgroundColor = if (selected) styleguide_dark_variant else styleguide_dark,
           labelColor = if (selected) styleguide_white else styleguide_medium_grey,
           onClick = { viewModel.clickedTransferItem.value = item.destination.ordinal },
           fragmentName = fragmentName,
@@ -347,7 +347,7 @@ class TransferFundsFragment : BasePageViewFragment() {
       Modifier
         .fillMaxWidth()
         .height(1.dp)
-        .background(styleguide_grey_new)
+        .background(styleguide_dark_variant)
     )
   }
 

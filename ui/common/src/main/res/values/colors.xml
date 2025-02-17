@@ -19,8 +19,8 @@
   <color name="styleguide_rebranding_orange">#FE6446</color>
   <color name="styleguide_rebranding_subtext">#C6BBF8</color>
 
-  <color name="styleguide_payments_blue">#1D1E28</color>
-  <color name="styleguide_payments_blue_secondary">#282937</color>
+  <color name="styleguide_payments_dark">#171717</color>
+  <color name="styleguide_payments_dark_secondary">#212121</color>
   <color name="styleguide_payments_adyen_field">#919191</color>
   <color name="styleguide_payments_background">#F5F5FA</color>
   <color name="styleguide_payments_main_text">#1A1A23</color>

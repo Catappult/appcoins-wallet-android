@@ -1398,12 +1398,12 @@
 
   <style name="CustomLogoutPopUpStyle" parent="Widget.AppCompat.PopupMenu">
     <item name="android:textColor">@color/styleguide_light_grey</item>
-    <item name="android:itemBackground">@color/styleguide_payments_blue</item>
+    <item name="android:itemBackground">@color/styleguide_payments_dark</item>
   </style>
 
   <style name="PaymentLoadingTextStyle">
     <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textColor">@color/styleguide_payments_blue</item>
+    <item name="android:textColor">@color/styleguide_payments_dark</item>
     <item name="android:textSize">12sp</item>
   </style>
 

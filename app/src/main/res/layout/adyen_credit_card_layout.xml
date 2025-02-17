@@ -271,7 +271,7 @@
         android:id="@+id/cv_legal_disclaimer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/styleguide_payments_blue"
+        android:background="@color/styleguide_payments_dark"
         android:layout_alignParentStart="true"
         android:layout_below="@id/credit_card_info"
         android:visibility="gone"

@@ -230,7 +230,7 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
       modifier = Modifier.fillMaxWidth(),
       colors =
       CardDefaults.cardColors(
-        containerColor = WalletColors.styleguide_grey_blue_background
+        containerColor = WalletColors.styleguide_dark_variant
       )
     ) {
       Column(modifier = Modifier.padding(16.dp)) {

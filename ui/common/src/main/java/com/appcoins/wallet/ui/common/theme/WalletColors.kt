@@ -6,6 +6,7 @@ object WalletColors {
   val styleguide_dark = Color(0xFF171717)
   val styleguide_dark_secondary = Color(0xFF212121)
   val styleguide_blue_webview_payment = Color(0xFF282934)
+  val styleguide_dark_variant = Color(0xFF282828)
   val styleguide_primary = Color(0xFFEE5D41)
 
   val styleguide_white = Color(0xFFFFFFFF)
@@ -13,8 +14,6 @@ object WalletColors {
   val styleguide_dark_grey = Color(0xFF8E93A1)
   val styleguide_medium_grey = Color(0xFFC9C9C9)
   val styleguide_light_grey = Color(0xFFF5F5FA)
-  val styleguide_grey_blue = Color(0xFF3D3C4A)
-  val styleguide_grey_blue_background = Color(0xFF282934)
   val styleguide_grey_new = Color(0xFF3C3A55)
 
   val styleguide_green = Color(0xFF3CBD8F)

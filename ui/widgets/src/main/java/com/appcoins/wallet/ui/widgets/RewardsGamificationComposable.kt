@@ -48,7 +48,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_blue
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_variant
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_orange
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_vip_yellow
@@ -140,7 +140,7 @@ fun GamificationHeader(
                     .height(8.dp)
                     .fillMaxWidth(),
                   color = if (isVip) styleguide_vip_yellow else indicatorColor,
-                  trackColor = styleguide_grey_blue,
+                  trackColor = styleguide_dark_variant,
                 )
 
                 Text(
@@ -172,7 +172,7 @@ fun GamificationBottomBar(bonusValue: String) {
     modifier = Modifier
       .fillMaxWidth()
       .height(48.dp)
-      .background(styleguide_dark_secondary)
+      .background(styleguide_dark_variant)
       .padding(horizontal = 16.dp),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
