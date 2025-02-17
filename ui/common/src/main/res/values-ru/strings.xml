@@ -795,7 +795,7 @@
   <string name="rewards_promo_code_card_body">Введите промо-код, чтобы получить особые условия!</string>
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активен</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">Игры с вознаграждением</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Совершите свою первую покупку в совместимой игре и разблокируйте бонус за каждую покупку.</string>
   <string name="rewards_bonus_every_purchase_title">Бонус %s%% за каждую покупку</string>
@@ -813,17 +813,17 @@
   <string name="verify_card_view_title_2">Введите детали вашей банковской карты</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Награда за вызов</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Выполните задание и получите баланс Aptoide.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">Получите %s в баланс Aptoide в вашем кошельке</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">Следите за обновлениями!</string>
   <string name="mail_list_card_body">Подпишитесь на нашу рассылку, чтобы получать эксклюзивные обновления и шанс выиграть подарочную карту.</string>
   <string name="mail_list_card_confirmation_title">Подтвердите ваш e-mail</string>
   <string name="mail_list_card_confirmation_body">Мы отправили письмо %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins Wallet скоро станет Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet становится Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_shortest_title">Мы становимся Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> Мы работаем над захватывающим обновлением нашего бренда и общей атмосферы. Следите за новостями, чтобы открыть для себя любимые функции и награды в совершенно новом облике!</string>
   <string name="rebranding_post_title">AppCoins Wallet теперь Aptoide Wallet!</string>
