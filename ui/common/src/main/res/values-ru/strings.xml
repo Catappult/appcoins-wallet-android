@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">Часто задаваемые вопросы</string>
   <string name="low_storage_error">Недостаточно места для хранения</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">Aptoide Wallet требуется разрешение на доступ к вашей камере для сканирования QR-кодов.</string>
   <string name="no_camera_available">Камера недоступна!</string>
   <string name="ok">Ок</string>
   <string name="barcode_error_format">Недопустимый формат штрих-кода: %s</string>
@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">Разблокировать экран</string>
   <string name="unlock_screen_prompt_android">Пожалуйста, разблокируйте ваше устройство Android, чтобы продолжить.</string>
   <string name="root_title">БЕЗОПАСНОСТЬ УСТРОЙСТВА ПОД УГРОЗОЙ</string>
-  <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Любое приложение с root-доступом может получить доступ к ключам Aptoide Wallet и украсть ваш кошелек! Уничтожьте этот кошелек немедленно и восстановите его на безопасном устройстве.</string>
   <string name="action_buy">Купить</string>
   <string name="empty"></string>
   <string name="try_again">Повторить</string>
@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">QR-код не содержит допустимый адрес</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">Кошелёк создан!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">При входе в Aptoide Wallet вы соглашаетесь с %1$s и %2$s.</string>
   <string name="intro_get_started_button">Запустить кошелёк</string>
   <!-- New Intro -->
   <!-- Intro from game -->
@@ -114,7 +114,7 @@
   <string name="error_already_added">Уже добавлено</string>
   <string name="error_export">Не удалось экспортировать кошелёк</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">Мы форкнули проект Trusted Wallet для Android, чтобы развивать Aptoide Wallet. Мы сочли его наилучшей альтернативой в плане уже реализованных функций. Мы форкнули его с намерением дать обратную связь и поделиться нашими реализациями и наработками, которые сочтём полезными.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Транзакция в процессе</string>
   <string name="activity_aib_loading_message">Это может занять некоторое время…</string>
@@ -205,29 +205,29 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Бонус за покупку:</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">%s в балансе Aptoide</string>
   <string name="gamification_purchase_body">Вы можете использовать этот бонус при вашей следующей покупке.</string>
   <string name="gamification_purchase_completed_bonus_received">Бонус получен</string>
   <string name="gamification_leveled_up_notification_body">Поздравляем, теперь вы получите бонус в %s на каждую покупку!</string>
   <string name="gamification_how_max_level_notification_title">Вы смогли!</string>
   <string name="gamification_how_max_level_body">Вы достигли наивысшего уровня: бонус %s на каждую покупку!</string>
   <string name="gamification_level_up_notification_title">Уже почти!</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
+  <string name="gamification_level_up_notification_body">Потратьте ещё %1$s %2$s, чтобы достичь следующего уровня.</string>
+  <string name="gamification_bonus_plus_perk_body">Наслаждайтесь бонусом %1$s и %2$s на баланс Aptoide дополнительно.</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">Разрешите Aptoide Wallet предоставить адрес вашего кошелька %s.</string>
   <string name="provide_wallet_always_allow_button">Всегда разрешать</string>
   <string name="provide_wallet_allow_once_button">Разрешить один раз</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the Aptoide Wallet.</string>
+  <string name="provide_wallet_create_body">Вам нужен адрес кошелька! Выполните следующие действия, чтобы создать его в Aptoide Wallet.</string>
   <string name="provide_wallet_create_wallet_button">Создать</string>
   <string name="provide_wallet_creating_wallet_header">Готовим ваш кошелёк&#8230;</string>
   <string name="provide_wallet_created_header">Адрес кошелька создан!</string>
-  <string name="provide_wallet_empty_state">You haven\'t allowed Aptoide Wallet to provide your address to any other app yet.</string>
+  <string name="provide_wallet_empty_state">Вы пока не разрешили кошельку Aptoide Wallet предоставлять ваш адрес другим приложениям.</string>
   <string name="provide_wallet_status">Разрешить доступ к адресу кошелька</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">Пополнить</string>
-  <string name="topup_completed_1">%s in Aptoide balance</string>
+  <string name="topup_completed_1">%s в балансе Aptoide</string>
   <string name="topup_completed_2_with_bonus">были размещены на вашем счёте... а также бонус!</string>
   <string name="topup_completed_2_without_bonus">были зачислены на ваш аккаунт.</string>
   <string name="topup_minimum_value">Минимальный размер бонуса – %s</string>
@@ -238,7 +238,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">Ethereum это криптовалюта, на основе которой работают AppCoins. Вы можете купить и продать её на большинстве бирж, она очень популярна!</string>
   <string name="balance_appcoins_body">AppCoins – криптовалюта экономики приложений. Вы можете купить и продать их на нескольких биржах и использовать для встроенных покупок в приложениях.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">Токен для встроенных покупок в приложении! Пополните баланс Aptoide или получите его бесплатно, используя приложения. Их также можно передавать между друзьями!</string>
   <string name="my_wallets_action_new_wallet">Новый кошелёк</string>
   <string name="my_wallets_action_recover_wallet">Восстановить кошелёк</string>
   <string name="my_wallets_action_backup_wallet">Резервная копия</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Текущий баланс: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Недостаточно средств</string>
   <string name="p2p_send_confirmation_header">Детали перевода</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">Aptoide баланс</string>
   <!--Common-->
   <string name="oops_title">Ой</string>
   <string name="error_general">Что-то пошло неправильно</string>
@@ -306,7 +306,7 @@
   <string name="payment_method">Способ оплаты</string>
   <string name="credit_debit_card">Кредитная/дебитовая карта</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
+  <string name="appc">Aptoide баланс</string>
   <string name="bank_transfer">Простой банковский перевод</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -332,7 +332,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">Ваш инструмент для совершения покупок в приложении</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
+  <string name="onboarding_bonus_title">Получите до %s%% от ваших покупок в приложении на баланс Aptoide.</string>
   <string name="onboarding_payment_methods_title">Используйте банковскую карту, PayPal и ваши любимые способы оплаты.</string>
   <string name="onboarding_vip_title">Станьте VIP-участником, чтобы получать премиум-поддержку и эксклюзивные предложения.</string>
   <string name="terms_and_conditions">Условия и ограничения</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">Подтвердите ваш метод оплаты, чтобы завершить вашу покупку.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Aptoide баланс</string>
   <!--Settings-->
   <string name="title_redeem">Погасить подарочную карту</string>
   <string name="settings_item_support">Связаться с поддержкой</string>
@@ -378,16 +378,16 @@
   <string name="purchase_appcoins_noavailable_body">У вас недостаточно AppCoins или эфира для совершения платежа.</string>
   <string name="purchase_no_eth_body">У вас недостаточно ETH, чтобы оплатить транзакцию.</string>
   <string name="purchase_no_appcoins_body">У вас недостаточно AppCoins для совершения платежа.</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">У вас недостаточно средств на балансе Aptoide, попробуйте пополнить его!</string>
+  <string name="purchase_appcoins_credits_default_body">Вы заработали достаточно баланса Aptoide для этой покупки. Наслаждайтесь!</string>
   <string name="purchase_poa_item">Заработайте средства, пробуя приложения</string>
   <string name="purchase_poa_view_title">Нет средств? Нет проблем!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
+  <string name="purchase_poa_view_body">Попробуйте приложение в течение 2 минут и получите вознаграждение в баланс Aptoide для совершения покупки!</string>
   <string name="purchase_current_balance_body">Текущий баланс:</string>
-  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
+  <string name="purchase_current_balance_appcc_body">%s в балансе Aptoide.</string>
   <string name="purchase_current_balance_appc_eth_body">%s в AppCoins Credits и эфире.</string>
-  <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_wallet_blocked_title">Ваш Aptoide баланс заблокирован</string>
+  <string name="purchase_wallet_blocked_body">В связи со странностями в истории транзакций ваш баланс Aptoide был заблокирован. Вы всё ещё можете производить платежи и переводы при помощи других методов, кроме Aptoide баланса. \n\nЕсли вы считаете, что это ошибка – свяжитесь с нами:</string>
   <string name="purchase_card_error_general_1">С вашей картой возникла проблема. Пожалуйста, попробуйте другую карту или другой способ оплаты.</string>
   <string name="purchase_card_error_general_2">Ваш банк отказал в данной транзакции. Пожалуйста, попробуйте другую карту или другой метод оплаты.</string>
   <string name="purchase_card_error_no_funds">Кажется, у вас недостаточно средств, или для карты установлен лимит. Пожалуйста, попробуйте другую карту или иной способ оплаты.</string>
@@ -426,34 +426,34 @@
   <string name="purchase_error_open_banking_wallet_generic">Возникла проблема с вашим платежом. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
   <string name="purchase_error_no_method_available_body">На данный момент в вашем регионе нет доступных способов оплаты для совершения этой покупки. Следите за обновлениями!</string>
   <string name="purchase_legal_disclaimer">Продолжая оплату, вы соглашаетесь и соглашаетесь на предоставление контента после оплаты и тем самым теряете право на отказ.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Бонус находится на балансе Aptoide.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="one">Это может занять до %s дня.</item>
     <item quantity="few">Это может занять до %s дней.</item>
     <item quantity="many">Это может занять до %s дней.</item>
     <item quantity="other">Это может занять до %s дней.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_1">%s в баланс Aptoide будет зачислено на ваш кошелёк.</string>
   <string name="purchase_bank_transfer_success_2">Ваш банк может обработать это в течение 2 дней.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
+  <string name="purchase_bank_transfer_success_bonus">Вы получите бонус в размере %s в баланс Aptoide.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">Мы ожидаем поступления средств от вашего банка.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
   <string name="async_steps_title">Следующие шаги</string>
   <string name="async_steps_1_no_notification">Завершите ваш платеж с %s.</string>
-  <string name="async_steps_2_no_notification">Once you receive the Aptoide balance, go back to the game and make the purchase using Aptoide balance as a payment method.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide balance, use it to make purchases in your favorite games!</string>
+  <string name="async_steps_2_no_notification">Как только вы получите баланс Aptoide – вернитесь в игру и совершите покупку, оплатив её с баланса Aptoide.</string>
+  <string name="async_steps_2_toptup_no_notification">Как только вы получите баланс Aptoide, используйте его для покупок в своих любимых играх!</string>
   <!--Referral Program-->
   <string name="referral_verification_title">Подтвердить способ оплаты</string>
   <string name="referral_view_verify_button">Подтвердить способ оплаты</string>
   <!--Promotions-->
   <!--Update-->
   <string name="update_wallet_purchase_title">Вам нужно обновиться!</string>
-  <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
-  <string name="update_wallet_hard_body">It seems you\'re using an old version of the Aptoide Wallet. Please update it to guarantee the best experience and security.</string>
+  <string name="update_wallet_purchase_body">Обновите Aptoide Wallet, чтобы завершить эту покупку.</string>
+  <string name="update_wallet_hard_body">Кажется, вы используете старую версию Aptoide Wallet. Пожалуйста, обновите её, чтобы гарантировать наилучшую производительность и безопасность.</string>
   <string name="update_wallet_soft_title">Не отставайте!</string>
-  <string name="update_wallet_soft_body">Keeping the Aptoide Wallet updated guarantees the best experience.</string>
+  <string name="update_wallet_soft_body">Поддержание Aptoide Wallet в актуальном состоянии гарантирует наилучший пользовательский опыт.</string>
   <string name="update_button">Обновить</string>
   <string name="update_backup_title">Не потеряйте свои средства!</string>
   <string name="update_backup_body">Сделайте бэкап кошелька перед обновлением.</string>
@@ -543,7 +543,7 @@
   <string name="subscriptions_details_cancelled_body">Отменена – истекает %s</string>
   <string name="subscriptions_expiration_body">Истекает %s</string>
   <string name="subscriptions_canceled_body">Отменена</string>
-  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
+  <string name="subscriptions_details_disclaimer">Сумма вашего следующего платежа может измениться из-за колебания обменного курса.</string>
   <string name="subscriptions_manage_button">Управление подписками</string>
   <string name="subscriptions_cancel_button">Отменить подписку</string>
   <string name="subscriptions_renew_subscription_button">Продлить подписку</string>
@@ -569,13 +569,13 @@
   <string name="gamif_spent">Потрачено, чтобы достичь этого уровня</string>
   <string name="gamif_show_previous">Показать предыдущие достижения</string>
   <string name="gamif_hide_previous">Скрыть предыдущие достижения</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">Потратьте %s, чтобы достичь следующего уровня</string>
   <string name="gamif_achievement_start">Вы начали своё путешествие</string>
   <string name="gamif_achievement_start_sub">Только что взлетели с Земли!</string>
   <string name="gamif_achievement_reach">Вы добрались до %s</string>
   <string name="gamif_card_start">Вы всё ещё на Земле</string>
   <string name="gamif_card_title">Вы на орбите %s</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">Потратьте ещё %s, чтобы достичь следующего уровня.</string>
   <string name="gamif_bonus">Бонус %s%%</string>
   <string name="gamif_quote_earth">\"Земля – это то единственное, что у нас есть общего\" – Уэнделл Берри</string>
   <string name="gamif_placeholder_moon">Луны</string>
@@ -639,8 +639,8 @@
   <string name="perks_title">Продвижения</string>
   <string name="promotion_ends_short_title">Акция заканчивается через</string>
   <string name="perks_available_soon_short">Скоро появится</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_notification">Вы только что получили %s в баланс Aptoide в качестве бонуса</string>
+  <string name="perks_purchases_disclaimer_body">Все покупки в приложениях и пополнения, сделанные с помощью любого способа оплаты, кроме баланса Aptoide, учитываются для повышения вашего уровня и получения вознаграждений.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Открывать биометрией</string>
   <string name="fingerprint_failed_title">Аутентификация не удалась!</string>
@@ -649,7 +649,7 @@
   <string name="fingerprint_authentication_required_body">Используйте отпечаток или пароль, чтобы продолжить.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
+  <string name="rate_us_question_title">Нравится Aptoide Wallet?</string>
   <string name="rate_us_no">Не особо</string>
   <string name="rate_us_yes">Да!</string>
   <string name="rate_us_improve_title">Что нам стоит улучшить?</string>
@@ -657,10 +657,10 @@
   <string name="rate_us_improve_field__empty_error">Пожалуйста, напишите что-нибудь</string>
   <string name="rate_us_possitive_thanks_title">Спасибо!</string>
   <string name="rate_us_possitive_thanks_body">Мы рады, что вам нравится наше приложение. Поможете нам, оценив наше приложение в магазине?</string>
-  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
+  <string name="rate_us_possitive_rate_button">Оценить Aptoide Wallet</string>
   <string name="rate_us_possitive_done_title">Спасибо за ваш отзыв!</string>
   <string name="rate_us_back_title">Хотите помочь нам?</string>
-  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">Оцените Aptoide Wallet в магазине приложений, чтобы мы могли его улучшить.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">Проверьте код в деталях транзакции</string>
   <string name="card_verification_code_body">Уникальный код появится в сводке транзакции, предоставленной эмитентом вашей карты.</string>
@@ -732,7 +732,7 @@
   <string name="mywallet_backup_again_button">Сделать бэкап снова</string>
   <string name="mywallet_choose_name_field">Название кошелька здесь...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
+  <string name="onboarding_1st_title">Поздравляем! Вы установили Aptoide Wallet.</string>
   <string name="onboarding_1st_body">Вернитесь в игру, чтобы завершить вашу покупку.</string>
   <string name="onboarding_1st_back_to_game_button">Вернуться в игру</string>
   <string name="onboarding_1st_explore_wallet_button">Или познакомьтесь с кошельком</string>
@@ -758,8 +758,8 @@
   <string name="vip_program_title_vip_offer">VIP-предложение</string>
   <string name="vip_program_code_error_body">Вы не можете использовать свой собственный VIP-код. Поделитесь им с друзьями!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
+  <string name="intro_welcome_header">Добро пожаловать в Aptoide Wallet</string>
+  <string name="intro_welcome_body">Пополните свой кошелек или совершите покупку в любом совместимом приложении или игре.</string>
   <string name="intro_active_promotions_header">Актуальные акции</string>
   <string name="topup_home_button">Пополнить</string>
   <string name="intro_home_button">Главная</string>
@@ -795,9 +795,9 @@
   <string name="rewards_promo_code_card_body">Введите промо-код, чтобы получить особые условия!</string>
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активен</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">Игры с вознаграждением</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_make_first_purchase_body">Совершите свою первую покупку в совместимой игре и разблокируйте бонус за каждую покупку.</string>
   <string name="rewards_bonus_every_purchase_title">Бонус %s%% за каждую покупку</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">Управление кошельками</string>
@@ -813,20 +813,20 @@
   <string name="verify_card_view_title_2">Введите детали вашей банковской карты</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Награда за вызов</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Выполните задание и получите баланс Aptoide.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">Получите %s в баланс Aptoide в вашем кошельке</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">Следите за обновлениями!</string>
   <string name="mail_list_card_body">Подпишитесь на нашу рассылку, чтобы получать эксклюзивные обновления и шанс выиграть подарочную карту.</string>
   <string name="mail_list_card_confirmation_title">Подтвердите ваш e-mail</string>
   <string name="mail_list_card_confirmation_body">Мы отправили письмо %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">AppCoins Wallet скоро станет Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet становится Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">Мы становимся Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> Мы работаем над захватывающим обновлением нашего бренда и общей атмосферы. Следите за новостями, чтобы открыть для себя любимые функции и награды в совершенно новом облике!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebranding_post_title">AppCoins Wallet теперь Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Откройте для себя ваши любимые функции и награды с совершенно новым изображением. Надеемся, вам понравится!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->

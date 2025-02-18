@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Vietnamese\n"
 "Language: vi_VN\n"
-"PO-Revision-Date: 2025-02-12 14:11\n"
+"PO-Revision-Date: 2025-02-12 16:01\n"
 
 #. Card Title
 #:
@@ -20,52 +20,52 @@ msgstr "Kiếm số dư Aptoide!"
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Nhận thêm {0}% tiền thưởng cho mọi giao dịch mua của bạn trong {1}, ngoại trừ khi bạn sử dụng số dư Aptoide."
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
-msgstr ""
+msgstr "Thực hiện giao dịch mua hàng trong {0} và nhận {1} bằng số dư Aptoide."
 
 #. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr "Bởi vì bạn đã mua hàng trong {0}."
+msgstr "Vì bạn đã mua hàng trong {0}."
 
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
-msgstr ""
+msgstr "Dùng {0} {1} trong {2} ngày và nhận {3} bằng số dư Aptoide."
 
 #. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr "Bởi vì bạn đã dùng hơn {0} {1} trong {2} ngày qua."
+msgstr "Vì bạn đã dùng hơn {0} {1} trong {2} ngày qua."
 
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} in Aptoide balance!"
-msgstr ""
+msgstr "Đạt đến cấp tiếp theo và nhận {0} bằng số dư Aptoide!"
 
 #. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
-msgstr "Bởi vì bạn đã đạt đến cấp kế tiếp."
+msgstr "Vì bạn đã đạt đến cấp kế tiếp."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Nhận thêm {0}% tiền thưởng cho mọi giao dịch mua của bạn trong {1}, ngoại trừ khi bạn sử dụng số dư Aptoide."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các giao dịch mua của bạn."
+msgstr "Nhận thêm {0}% tiền thưởng cho mọi giao dịch mua của bạn."
 
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Nhận thêm {0}% tiền thưởng cho lần mua hàng đầu tiên của bạn, ngoại trừ số dư Aptoide, trong {1}"
 
 #. Receipt - First Purchase.
 #:
@@ -75,7 +75,7 @@ msgstr "Vì giao dịch mua hàng đầu tiên của bạn trong {0}."
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Nhận thêm {0}% tiền thưởng cho lần mua hàng đầu tiên trong ngày của bạn, ngoại trừ số dư Aptoide, trong {1}"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -85,7 +85,7 @@ msgstr "Vì giao dịch mua hàng đầu tiên trong ngày của bạn trong {0}
 #. Title for bonus receipts.
 #:
 msgid "+{0} Bonus in Aptoide balance!"
-msgstr ""
+msgstr "+{0} tiền thưởng bằng số dư Aptoide!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
@@ -105,12 +105,12 @@ msgstr ""
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in compatible apps."
-msgstr ""
+msgstr "Bởi vì bạn đã dùng {0} {1} trong các ứng dụng tương thích."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
-msgstr ""
+msgstr "Nhận thêm {0}% tiền thưởng cho mọi giao dịch mua của bạn, ngoại trừ khi bạn sử dụng số dư Aptoide."
 
 #. Card - Title - Common
 #:
@@ -120,7 +120,7 @@ msgstr "Đặc quyền mới khả dụng"
 #. Card - Title - Enjoy
 #:
 msgid "Enjoy {0}% bonus in every purchase."
-msgstr "Tận hưởng {0}% tiền thưởng trong mỗi lần mua."
+msgstr "Tận hưởng {0}% tiền thưởng trong mọi giao dịch mua."
 
 #. Card - Title - Bank Transfer
 #:

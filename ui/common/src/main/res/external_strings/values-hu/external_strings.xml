@@ -5,11 +5,11 @@
   <string name="appcoins_wallet">Aptoide Wallet</string>
   <string name="iab_wallet_not_installed_popup_close_button">BEZÁRÁS</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the Aptoide Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">Ennél a vásárlásnál Aptoide Wallet szükséges. Töltsd le az Aptoide-ról vagy a Play Áruházból, majd gyere vissza és fejezd be a vásárlást!</string>
   <string name="iap_wallet_and_appstore_not_installed_popup_button">ÉRTEM!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the Aptoide Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the Aptoide Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">Aptoide Wallet szükséges!</string>
+  <string name="poa_wallet_not_installed_notification_body">A jutalom megszerzéséhez Aptoide Wallet szükséges.</string>
   <!-- SDK - Pay as a guest-->
   <string name="iab_pay_as_guest_title">Fizetés, mint vendég</string>
   <string name="iab_pay_as_guest_credit_card">Bankkártya</string>
@@ -21,14 +21,14 @@
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">KÁRTYA MÓDOSÍTÁSA</string>
-  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">Fizetés Aptoide Wallettal</string>
   <string name="iab_pay_with_wallet_reward_title">Szerezz akár %s%% bónuszt!</string>
   <string name="iab_pay_with_wallet_reward_body">A vásárlás utáni jutalom: %s.</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">A vásárlásért bónusz jár neked.</string>
   <string name="iab_best_deal">A LEGJOBB AJÁNLAT</string>
   <string name="iab_purchase_done_title">KÉSZ!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% bonus with the Aptoide Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a bonus with the Aptoide Wallet!</string>
+  <string name="iab_purchase_done_reward_title">Legközelebb szerezz akár %s%% bónuszt az Aptoide Wallettal!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Legközelebb szerezz bónuszt az Aptoide Wallettal!</string>
   <string name="iab_purchase_done_reward_body">A vásárlás után ennyi jutalom járt volna: %s.</string>
   <string name="iab_purchase_done_title_long">Vásárlás befejezve!</string>
   <string name="iab_purchase_change_payment_method_button">TOVÁBBI FIZETÉSI MÓDOK</string>

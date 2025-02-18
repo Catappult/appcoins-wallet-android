@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Hungarian\n"
 "Language: hu_HU\n"
-"PO-Revision-Date: 2025-01-29 17:25\n"
+"PO-Revision-Date: 2025-02-14 18:30\n"
 
 #. Card Title
 #:
 msgid "Earn Aptoide balance!"
-msgstr ""
+msgstr "Szerezz Aptoide egyenleget!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Szerezz extra {0}% bónuszt minden vásárlás után a(z) {1} játékban, kivéve, ha az Aptoide egyenleget használod."
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
-msgstr ""
+msgstr "Vásárolj a/az {0} appban és szerezz {1} Aptoide egyenleget."
 
 #. Receipt - Purchase Promotion.
 #:
@@ -35,7 +35,7 @@ msgstr "Mivel itt vásároltál: {0}."
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
-msgstr ""
+msgstr "Költs el a/az {0} {1} összeget {2} napon belül és szerezz {3} Aptoide egyenleget."
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -45,7 +45,7 @@ msgstr "Mert több, mint {0} {1} értékben költöttél az elmúlt {2} napban."
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} in Aptoide balance!"
-msgstr ""
+msgstr "Érd el a következő szintet és szerezz {0} Aptoide egyenleget!"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -55,7 +55,7 @@ msgstr "Mert elértél a következő szintre."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Szerezz extra {0}% bónuszt minden vásárlás után a(z) {1} játékban, kivéve, ha az Aptoide egyenleget használod."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -65,7 +65,7 @@ msgstr "Szerezz {0}% bónuszt minden vásárlásnál."
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Szerezz extra {0}% bónuszt az első vásárlás után, kivéve, ha az Aptoide egyenleget használod a(z) {1} appban"
 
 #. Receipt - First Purchase.
 #:
@@ -75,7 +75,7 @@ msgstr "Az első vásárlásod miatt itt: {0}."
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Szerezz extra {0}% bónuszt az aznapi első vásárlás után, kivéve, ha az Aptoide egyenleget használod a(z) {1} appban"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -85,7 +85,7 @@ msgstr "A napi első vásárlás miatt itt: {0}."
 #. Title for bonus receipts.
 #:
 msgid "+{0} Bonus in Aptoide balance!"
-msgstr ""
+msgstr "+{0} bónusz Aptoide egyenleg formájában!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
@@ -105,12 +105,12 @@ msgstr ""
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in compatible apps."
-msgstr ""
+msgstr "Mert ennyit költöttél a kompatibilis appokban: {0} {1}."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
-msgstr ""
+msgstr "Szerezz extra {0}% bónuszt minden vásárlás után, kivéve, ha az Aptoide egyenleget használod."
 
 #. Card - Title - Common
 #:
@@ -125,10 +125,10 @@ msgstr "Élvezd ki a {0}% bónuszt minden vásárlás után."
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "Szerezz {0}% extra bónuszt minden egyszerű banki átutalással történő feltöltésnél."
 
 #. Payment Method - Title - Bank Transfer
 #:
 msgid "Easy bank transfer"
-msgstr ""
+msgstr "Egyszerű banki átutalás"
 
