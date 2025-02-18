@@ -428,7 +428,7 @@
   <string name="purchase_legal_disclaimer">Продолжая оплату, вы соглашаетесь и соглашаетесь на предоставление контента после оплаты и тем самым теряете право на отказ.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Бонус находится на балансе Aptoide.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="one">Это может занять до %s дня.</item>
     <item quantity="few">Это может занять до %s дней.</item>
     <item quantity="many">Это может занять до %s дней.</item>
     <item quantity="other">Это может занять до %s дней.</item>
