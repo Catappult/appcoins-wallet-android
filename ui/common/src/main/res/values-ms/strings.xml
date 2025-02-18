@@ -774,7 +774,7 @@
   <string name="rewards_promo_code_card_body">Gunakan kod promo untuk dapat tawaran istimewa!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktif</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">Permainan dgn Ganjaran</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
   <string name="rewards_bonus_every_purchase_title">Bonus %s%% untuk setiap pembelian</string>
