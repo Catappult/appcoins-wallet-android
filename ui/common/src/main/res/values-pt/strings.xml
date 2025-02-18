@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
   <string name="low_storage_error">Espaço de armazenamento insuficiente</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">A Aptoide Wallet precisa de permissão para aceder à tua câmera e digitalizar QR Codes.</string>
   <string name="no_camera_available">Sem câmara disponível!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Código de barras inválido: %s</string>
@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">Desbloquear ecrã</string>
   <string name="unlock_screen_prompt_android">Desbloqueia o teu dispositivo Android para continuares.</string>
   <string name="root_title">DISPOSITIVO DE SEGURANÇA COMPROMETIDA</string>
-  <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Qualquer “rooted” app pode aceder aos dados do keychain da Aptoide Wallet e roubar a tua wallet! Limpa esta wallet imediatamente e restaura-a num dispositivo seguro.</string>
   <string name="action_buy">Comprar</string>
   <string name="empty"></string>
   <string name="try_again">Tentar novamente</string>
@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">Código QR não contém um endereço válido</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">Wallet criada!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Ao entrares na Aptoide Wallet, concordas com os %1$s e a %2$s.</string>
   <string name="intro_get_started_button">Lançar wallet</string>
   <!-- New Intro -->
   <!-- Intro from game -->
