@@ -541,7 +541,7 @@
   <string name="subscriptions_details_cancelled_body">Ακυρώθηκε - Λήξη στις %s</string>
   <string name="subscriptions_expiration_body">Λήξη στις %s</string>
   <string name="subscriptions_canceled_body">Ακυρώθηκε</string>
-  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
+  <string name="subscriptions_details_disclaimer">Η αξία της επόμενης πληρωμής σας μπορεί να διαφέρει εξαιτίας της συναλλαγματικής ισοτιμίας.</string>
   <string name="subscriptions_manage_button">Διαχείριση εγγραφής</string>
   <string name="subscriptions_cancel_button">Ακύρωση εγγραφής</string>
   <string name="subscriptions_renew_subscription_button">Ανανέωση εγγραφής</string>
@@ -567,13 +567,13 @@
   <string name="gamif_spent">Ποσό που ξοδεύτηκε για να φτάσετε σε αυτό το επίπεδο</string>
   <string name="gamif_show_previous">Εμφάνιση προηγούμενων επιτευγμάτων</string>
   <string name="gamif_hide_previous">Απόκρυψη προηγούμενων επιτευγμάτων</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">Ξοδέψτε %s για να φτάσετε στο επόμενο επίπεδο</string>
   <string name="gamif_achievement_start">Ξεκινήσατε το ταξίδι σας</string>
   <string name="gamif_achievement_start_sub">Μόλις φύγατε από τη Γη!</string>
   <string name="gamif_achievement_reach">Φτάσατε %s</string>
   <string name="gamif_card_start">Είστε ακόμη στη Γη</string>
   <string name="gamif_card_title">Είστε %s</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">Ξοδέψτε %s ακόμα για να φτάσετε στο επόμενο επίπεδο.</string>
   <string name="gamif_bonus">%s%% Bonus</string>
   <string name="gamif_quote_earth">\"Η Γη είναι το μόνο, που όλοι έχουμε κοινό\" – Wendell Berry</string>
   <string name="gamif_placeholder_moon">στο Φεγγάρι</string>
@@ -637,8 +637,8 @@
   <string name="perks_title">Προωθήσεις</string>
   <string name="promotion_ends_short_title">Η προωθητική ενέργεια τελειώνει στις</string>
   <string name="perks_available_soon_short">Σύντομα διαθέσιμο</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_notification">Μόλις λάβατε %s σε υπόλοιπο Aptoide ως Bonus</string>
+  <string name="perks_purchases_disclaimer_body">Κάθε αγορά και κάθε φόρτιση που πραγματοποιείται με οποιαδήποτε μέθοδο πληρωμής, εκτός από υπόλοιπο Aptoide, θα πληροί τις προϋποθέσεις για την αύξηση του επιπέδου σας και τη λήψη αμοιβής.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Βιομετρικό κλείδωμα</string>
   <string name="fingerprint_failed_title">Αποτυχία επαλήθευσης!</string>
@@ -647,7 +647,7 @@
   <string name="fingerprint_authentication_required_body">Παρακαλούμε χρησιμοποιήστε το δάχτυλό σας ή τον κωδικό πρόσβασης για να συνεχίσετε.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
+  <string name="rate_us_question_title">Απολαμβάνετε το Aptoide Wallet;</string>
   <string name="rate_us_no">Όχι ιδιαίτερα</string>
   <string name="rate_us_yes">Ναι!</string>
   <string name="rate_us_improve_title">Τι μπορούμε να βελτιώσουμε;</string>
@@ -655,10 +655,10 @@
   <string name="rate_us_improve_field__empty_error">Παρακαλούμε, γράψτε κάτι</string>
   <string name="rate_us_possitive_thanks_title">Ευχαριστούμε!</string>
   <string name="rate_us_possitive_thanks_body">Χαιρόμαστε που σας αρέσει η εφαρμογή μας. Μπορείτε να μας βοηθήσετε παρέχοντας μία αξιολόγηση στο store εφαρμογών;</string>
-  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
+  <string name="rate_us_possitive_rate_button">Αξιολογήστε το Aptoide Wallet</string>
   <string name="rate_us_possitive_done_title">Ευχαριστούμε για την ανατροφοδότηση!</string>
   <string name="rate_us_back_title">Θέλετε να μας βοηθήσετε;</string>
-  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">Αξιολογήστε το Aptoide Wallet στο κατάστημα εφαρμογών, ώστε να το βελτιώσουμε.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">Ελέγξτε τον κωδικό στις λεπτομέρειες συναλλαγής</string>
   <string name="card_verification_code_body">Ένας μοναδικός κωδικός θα εμφανιστεί στη σύνοψη συναλλαγής που παρέχεται από τον εκδότη της κάρτας σας.</string>
@@ -726,7 +726,7 @@
   <string name="mywallet_backup_again_button">Δημιουργία αντιγράφου ασφαλείας ξανά</string>
   <string name="mywallet_choose_name_field">Όνομα wallet εδώ...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
+  <string name="onboarding_1st_title">Συγχαρητήρια! Εγκαταστήσατε το Aptoide Wallet.</string>
   <string name="onboarding_1st_body">Επιστρέψτε στο παιχνίδι για να ολοκληρώσετε την αγορά σας.</string>
   <string name="onboarding_1st_back_to_game_button">Επιστρέψτε στο παιχνίδι</string>
   <string name="onboarding_1st_explore_wallet_button">Ή εξερευνήστε το AppCoins Wallet</string>
@@ -752,8 +752,8 @@
   <string name="vip_program_title_vip_offer">Προσφορά VIP</string>
   <string name="vip_program_code_error_body">Δεν μπορείτε να χρησιμοποιήσετε τον δικό σας κωδικό VIP. Μοιραστείτε τον με τους φίλους σας!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
+  <string name="intro_welcome_header">Καλώς ήρθατε στο Aptoide Wallet</string>
+  <string name="intro_welcome_body">Φορτίστε το wallet σας ή κάντε μία αγορά σε οποιαδήποτε συμβατή εφαρμογή ή παιχνίδι.</string>
   <string name="intro_active_promotions_header">Ενεργές Προσφορές</string>
   <string name="topup_home_button">Φόρτιση</string>
   <string name="intro_home_button">Σπίτι</string>
@@ -781,9 +781,9 @@
   <string name="rewards_promo_code_card_body">Χρησιμοποιήστε έναν κωδικό προσφοράς για να λάβετε ειδικές προσφορές!</string>
   <string name="rewards_promo_code_status">Κατάσταση:</string>
   <string name="rewards_promo_code_status_active">Ενεργές</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">Παιχνίδια με Ανταμοιβές</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_make_first_purchase_body">Κάντε την πρώτη αγορά σας σε ένα συμβατό παιχνίδι και ξεκλειδώστε ένα μπόνους σε κάθε αγορά.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% bonus σε κάθε αγορά</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">Διαχείριση Wallet</string>
@@ -799,20 +799,20 @@
   <string name="verify_card_view_title_2">Συμπληρώστε τα στοιχεία της τραπεζικής σας κάρτας</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Ανταμοιβή Πρόκλησης</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Ολοκληρώστε μια πρόκληση για να λάβετε υπόλοιπο Aptoide.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">Απολαύστε %s σε υπόλοιπο Aptoide στο wallet σας</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">Μείνετε συντονισμένοι!</string>
   <string name="mail_list_card_body">Εγγραφτείτε στη λίστα αλληλογραφίας μας για να λάβετε αποκλειστικές ενημερώσεις και μία ευκαιρία να κερδίσετε μία κάρτα δώρου.</string>
   <string name="mail_list_card_confirmation_title">Επιβεβαιώστε το e-mail σας</string>
   <string name="mail_list_card_confirmation_body">Στείλαμε ένα e-mail στο %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">Το AppCoins Wallet γίνεται σύντομα Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">Το AppCoins Wallet γίνεται Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">Καλωσορίζουμε το Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body">Εργαζόμαστε σε έναν συναρπαστικό επανασχεδιασμό της επωνυμίας και της εμπειρίας μας. Μείνετε συντονισμένοι για να ανακαλύψετε τα αγαπημένα σας χαρακτηριστικά και ανταμοιβές με μια ολοκαίνουργια εμφάνιση!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebranding_post_title">Το AppCoins Wallet τώρα είναι το Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Ανακαλύψτε τα αγαπημένα σας χαρακτηριστικά και ανταμοιβές με μια ολοκαίνουργια εμφάνιση! Ελπίζουμε να σας αρέσει!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
