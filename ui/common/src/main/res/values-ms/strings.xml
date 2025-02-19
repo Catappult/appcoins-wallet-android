@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">FAQ</string>
   <string name="low_storage_error">Tidak cukup ruang simpanan</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">Aptoide Wallet memerlukan kebenaran untuk akses kamera anda untuk imbas kod QR.</string>
   <string name="no_camera_available">Tiada kamera!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format kod bar tidak sah: %s</string>
