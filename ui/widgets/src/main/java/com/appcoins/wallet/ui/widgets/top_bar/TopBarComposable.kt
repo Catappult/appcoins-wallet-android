@@ -111,7 +111,7 @@ fun WalletLogo() {
   Image(
     painter = painterResource(R.drawable.ic_app_logo),
     null,
-    modifier = Modifier.heightIn(max = 24.dp)
+    modifier = Modifier.heightIn(max = 36.dp)
   )
 }
 

@@ -106,7 +106,7 @@ class SplashExtenderFragment : BasePageViewFragment() {
       Image(
         painter = painterResource(logo),
         contentDescription = null,
-        modifier = Modifier.size(112.dp)
+        modifier = Modifier.size(90.dp)
       )
     }
   }
