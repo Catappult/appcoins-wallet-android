@@ -53,12 +53,11 @@
           android:layout_marginHorizontal="@dimen/mid_margin"
           android:layout_marginTop="@dimen/onboarding_container_margin_top"
           android:importantForAccessibility="no"
-          android:src="@drawable/white_app_ic_with_text"
+          android:src="@drawable/ic_app_logo_icon"
           app:layout_constraintBottom_toTopOf="@id/onboarding_label"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:tint="@color/styleguide_primary"
           />
 
       <androidx.appcompat.widget.AppCompatTextView

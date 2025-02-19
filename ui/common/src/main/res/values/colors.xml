@@ -30,9 +30,9 @@
   <color name="styleguide_payments_skeleton_secondary">#C9C9C9</color>
   <color name="styleguide_payments_skeleton_shimmer">#EFEFEF</color>
 
-  <color name="styleguide_topup_skeleton">#1D1E28</color>
-  <color name="styleguide_topup_skeleton_secondary">#2E2D3B</color>
-  <color name="styleguide_topup_skeleton_shimmer">#313040</color>
+  <color name="styleguide_topup_skeleton">#171717</color>
+  <color name="styleguide_topup_skeleton_secondary">#212121</color>
+  <color name="styleguide_topup_skeleton_shimmer">#4A4A4A</color>
   <color name="styleguide_topup_dark_grey">#28272C</color>
   <color name="skeleton_light_base_color">#f0f0f0</color>
 
