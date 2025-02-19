@@ -5,11 +5,11 @@
   <string name="appcoins_wallet">Aptoide Wallet</string>
   <string name="iab_wallet_not_installed_popup_close_button">KAPAT</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the Aptoide Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">Bu satın alma işlemini gerçekleştirmek için Aptoide Wallet\'a ihtiyacın var. Aptoide veya Play Store\'dan indir ve satın alma işlemini tamamlamak için tekrar buraya dön!</string>
   <string name="iap_wallet_and_appstore_not_installed_popup_button">ANLADIM!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the Aptoide Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the Aptoide Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">Aptoide Wallet\'a ihtiyacın var!</string>
+  <string name="poa_wallet_not_installed_notification_body">Ödülünü almak için Aptoide Wallet\'a ihtiyacın var.</string>
   <!-- SDK - Pay as a guest-->
   <string name="iab_pay_as_guest_title">Misafir olarak oyna</string>
   <string name="iab_pay_as_guest_credit_card">Kredi Kartı</string>
@@ -21,14 +21,14 @@
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">KARTI DEĞİŞTİR</string>
-  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">Aptoide Wallet ile öde</string>
   <string name="iab_pay_with_wallet_reward_title">%%%s oranına varan Bonus kazanın!</string>
   <string name="iab_pay_with_wallet_reward_body">Bu satın alma işleminden %s alacaksınız.</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">Bu satın alma işleminden Bonus alacaksınız.</string>
   <string name="iab_best_deal">EN İYİ FIRSAT</string>
   <string name="iab_purchase_done_title">BİTTİ!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% bonus with the Aptoide Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a bonus with the Aptoide Wallet!</string>
+  <string name="iab_purchase_done_reward_title">Bir dahaki sefere, Aptoide Wallet ile %%%s oranına varan bonus kazan!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Bir dahaki sefere, Aptoide Wallet ile bonus kazan!</string>
   <string name="iab_purchase_done_reward_body">Bu satın alma işleminden %s alabilirdiniz.</string>
   <string name="iab_purchase_done_title_long">Satın alma işlemi tamamlandı!</string>
   <string name="iab_purchase_change_payment_method_button">DAHA FAZLA ÖDEME YÖNTEMİ</string>
