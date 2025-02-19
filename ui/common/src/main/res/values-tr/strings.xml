@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">Ekranın kilidini aç</string>
   <string name="unlock_screen_prompt_android">Devam etmek için lütfen Android cihazınızın kilidini açın.</string>
   <string name="root_title">CİHAZ GÜVENLİĞİ TEHLİKEDE</string>
-  <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">\"Root atılan\" herhangi bir uygulama, Aptoide Cüzdanının anahtarlık verilerine erişip cüzdanını çalabilir! Bu cüzdanı hemen sil ve güvenli bir cihazda yeniden yükle.</string>
   <string name="action_buy">Satın Al</string>
   <string name="empty"></string>
   <string name="try_again">Tekrar dene</string>
@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">QR kodu geçerli bir adres içermiyor</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">Cüzdan oluşturuldu!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Aptoide Wallet\'a girerek %1$s ve %2$s\'nı kabul etmiş olursun.</string>
   <string name="intro_get_started_button">Cüzdanı başlat</string>
   <!-- New Intro -->
   <!-- Intro from game -->
@@ -205,14 +205,14 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">%s Aptoide bakiyesi</string>
   <string name="gamification_purchase_body">Bir sonraki satın alma işleminizde bu bonusu kullanabilirsiniz.</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Alındı</string>
   <string name="gamification_leveled_up_notification_body">Tebrikler, artık her bir satın alma işleminde %s bonus kazanacaksınız!</string>
   <string name="gamification_how_max_level_notification_title">Başardınız!</string>
   <string name="gamification_how_max_level_body">En yüksek seviyeye ulaştınız: Her satın alma işleminde %s Bonus!</string>
   <string name="gamification_level_up_notification_title">Neredeyse bitti!</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
+  <string name="gamification_level_up_notification_body">Sonraki seviyeye ulaşmak için %1$s %2$s daha harca.</string>
   <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
@@ -227,7 +227,7 @@
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">Yükle</string>
-  <string name="topup_completed_1">%s in Aptoide balance</string>
+  <string name="topup_completed_1">%s Aptoide bakiyesi</string>
   <string name="topup_completed_2_with_bonus">hesabınıza yattı... Bonusla birlikte!</string>
   <string name="topup_completed_2_without_bonus">hesabınıza yatırıldı.</string>
   <string name="topup_minimum_value">Minimum yükleme değeri %s</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Mevcut bakiye: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Yetersiz fon</string>
   <string name="p2p_send_confirmation_header">Transfer Bilgileri</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">Aptoide bakiyesi</string>
   <!--Common-->
   <string name="oops_title">Hay aksi</string>
   <string name="error_general">Bir şeyler ters gitti</string>
@@ -273,7 +273,7 @@
   <string name="discover_button">Keşfet</string>
   <string name="connection_error_title">İnternet bağlantısı yok</string>
   <string name="connection_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">veya</string>
   <string name="share_via">Şu yolla paylaş:</string>
   <string name="password">Şifre</string>
   <string name="repeat_password">Şifreyi tekrarlayın</string>
@@ -302,12 +302,12 @@
   <string name="buy_button">Satın Al</string>
   <string name="copied_to_clipboard">Panoya kopyalandı</string>
   <string name="topup_button">Yükle</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="extra_bonus_title">İlave %s%% bonus kazan</string>
   <string name="payment_method">Ödeme yöntemi</string>
   <string name="credit_debit_card">Kredi/banka kartı</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="appc">Aptoide bakiyesi</string>
+  <string name="bank_transfer">Kolay banka havalesi</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -331,9 +331,9 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
+  <string name="onboarding_title">Uygulama içi alışveriş aracın</string>
   <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
+  <string name="onboarding_payment_methods_title">Banka kartı, PayPal ve en sevdiğin ödeme yöntemlerini kullan.</string>
   <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
   <string name="terms_and_conditions">Şartlar ve Koşullar</string>
   <string name="privacy_policy">Gizlilik Politikası</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">Satın alma işlemini tamamlamak için ödeme yöntemini doğrula.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Aptoide bakiyesi</string>
   <!--Settings-->
   <string name="title_redeem">Hediye Kartını Kullan</string>
   <string name="settings_item_support">Destek Ekibiyle iletişime geçin</string>
@@ -361,9 +361,9 @@
   <string name="verification_verify_paypal_description">Hesabını doğrulamak için %s tutarında bir işlem yapılacak. Bu tutar anında ilade edilecek.</string>
   <string name="verification_settings_card_verified_title">Kart Doğrulandı</string>
   <string name="verification_error_attempts_reached">Deneme limitine ulaşmışsınız gibi görünüyor. Tekrar denemek için lütfen bekleyin.</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">PayPal ile doğrulandı.</string>
+  <string name="verification_verified_credit_debit_card_body">Kredi/banka kartı ile doğrulandı.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Kredi/banka kartı ve PayPal ile doğrulandı.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Son bir adım!</string>
   <string name="paypal_verification_home_one_step_card_body">PayPal hesabını doğrulamak için e-posta adresine gönderilen kodu gir.</string>
@@ -384,9 +384,9 @@
   <string name="purchase_poa_view_title">Fon Yoksa Sorun Değil!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
   <string name="purchase_current_balance_body">Mevcut bakiye:</string>
-  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
+  <string name="purchase_current_balance_appcc_body">%s Aptoide bakiyesi.</string>
   <string name="purchase_current_balance_appc_eth_body">AppCoins ve Ether cinsinden %s.</string>
-  <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
+  <string name="purchase_wallet_blocked_title">Aptoide bakiyen engellendi</string>
   <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
   <string name="purchase_card_error_general_1">Kartınla ilgili bir sorun oluştu. Lütfen farklı bir kart veya ödeme yöntemi ile dene.</string>
   <string name="purchase_card_error_general_2">Bu işlem bankan tarafından reddedildi. Lütfen farklı bir kart veya ödeme yöntemi ile dene.</string>
@@ -428,12 +428,12 @@
   <string name="purchase_legal_disclaimer">Ödeme işlemine devam ederek, ödeme sonrası içeriğin sağlanmasını kabul etmiş ve onaylamış olursun ve cayma hakkını kaybedersin.</string>
   <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Bu işlem %s gün sürebilir.</item>
+    <item quantity="other">Bu işlem %s gün sürebilir.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
+  <string name="purchase_bank_transfer_success_1">%s Aptoide bakiyesi cüzdanına eklenecek.</string>
+  <string name="purchase_bank_transfer_success_2">Bankanın bunu işleme koyması 2 gün sürebilir.</string>
+  <string name="purchase_bank_transfer_success_bonus">%s bonus Aptoide bakiyesi alacaksın.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
@@ -567,7 +567,7 @@
   <string name="gamif_spent">Bu seviyeye ulaşmak için harcanan miktar</string>
   <string name="gamif_show_previous">Geçmiş başarıları göster</string>
   <string name="gamif_hide_previous">Geçmiş başarıları gizle</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">Sonraki seviyeye geçmek için %s harca</string>
   <string name="gamif_achievement_start">Maceranıza başladınız</string>
   <string name="gamif_achievement_start_sub">Dünya\'dan ayrıldınız!</string>
   <string name="gamif_achievement_reach">%s konumuna ulaştınız</string>
