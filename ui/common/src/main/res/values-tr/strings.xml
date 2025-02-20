@@ -114,7 +114,7 @@
   <string name="error_already_added">Zaten eklendi</string>
   <string name="error_export">Cüzdan dışa aktarılamadı</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">Aptoide Wallet geliştirmesini ilerletmek için Android projesi için Trust Wallet\'ı ayrı kola ayırdık. Halihazırdan uygulanan işlevler açısından bunun en iyi alternatif olduğunu düşündük. İlgili olduğu düşünülen uygulamalar ve çalışmalarla geri katkıda bulunma niyetiyle ayırdık.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">İşlem yapılıyor</string>
   <string name="activity_aib_loading_message">Bu biraz zaman alabilir…</string>
