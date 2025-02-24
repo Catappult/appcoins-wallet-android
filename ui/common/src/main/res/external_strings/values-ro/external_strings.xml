@@ -8,7 +8,7 @@
   <string name="iap_wallet_and_appstore_not_installed_popup_body">Ai nevoie de AppCoins Wallet pentru a face această cumpărătură. Descarcă-l din Aptoide sau din Play Store și întoarce-te pentru a finaliza cumpărătura!</string>
   <string name="iap_wallet_and_appstore_not_installed_popup_button">AM ÎNȚELES!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">Ai nevoie de AppCoins Wallet!</string>
+  <string name="poa_wallet_not_installed_notification_title">Ai nevoie de Aptoide Wallet!</string>
   <string name="poa_wallet_not_installed_notification_body">Pentru a-ți primi recompensa ai nevoie de AppCoins Wallet.</string>
   <!-- SDK - Pay as a guest-->
   <string name="iab_pay_as_guest_title">Plătește ca vizitator</string>
