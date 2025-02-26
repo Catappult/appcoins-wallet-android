@@ -10,62 +10,62 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Vietnamese\n"
 "Language: vi_VN\n"
-"PO-Revision-Date: 2025-01-29 17:26\n"
+"PO-Revision-Date: 2025-02-26 17:27\n"
 
 #. Card Title
 #:
-msgid "Earn AppCoins Credits!"
-msgstr "Kiếm AppCoins Credits!"
+msgid "Earn Aptoide balance!"
+msgstr "Kiếm số dư Aptoide!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các giao dịch mua của mình trong {1}, ngoại trừ khi bạn sử dụng AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr "Nhận thêm {0}% tiền thưởng cho mọi giao dịch mua của bạn trong {1}, ngoại trừ khi bạn sử dụng số dư Aptoide."
 
 #. Card - Purchase Promotion.
 #:
-msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "Mua hàng trong {0} và nhận {1} AppCoins Credits."
+msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
+msgstr "Thực hiện giao dịch mua hàng trong {0} và nhận {1} bằng số dư Aptoide."
 
 #. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr "Bởi vì bạn đã mua hàng trong{0}."
+msgstr "Vì bạn đã mua hàng trong {0}."
 
 #. Card - Expenditure per days Promotion.
 #:
-msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "Dùng {0} {1} trong {2} ngày và nhận {3} AppCoins Credits."
+msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
+msgstr "Dùng {0} {1} trong {2} ngày và nhận {3} bằng số dư Aptoide."
 
 #. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr "Bởi vì bạn đã dùng hơn {0} {1} trong {2} ngày qua."
+msgstr "Vì bạn đã dùng hơn {0} {1} trong {2} ngày qua."
 
 #. Card - Next Level Promotion.
 #:
-msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "Đạt cấp kế tiếp và nhận {0} AppCoins Credits!"
+msgid "Reach the next level and receive {0} in Aptoide balance!"
+msgstr "Đạt đến cấp tiếp theo và nhận {0} bằng số dư Aptoide!"
 
 #. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
-msgstr "Bởi vì bạn đã đạt đến cấp kế tiếp."
+msgstr "Vì bạn đã đạt đến cấp kế tiếp."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các giao dịch mua của mình trong {1}, ngoại trừ khi bạn sử dụng AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các giao dịch mua của bạn."
+msgstr "Nhận thêm {0}% tiền thưởng cho mọi giao dịch mua của bạn."
 
 #. Card - First purchase.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "Nhận thêm {0}% tiền thưởng cho giao dịch mua đầu tiên của bạn, ngoại trừ AppCoins Credits, trong {1}"
+msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
+msgstr "Nhận thêm {0}% tiền thưởng cho lần mua hàng đầu tiên của bạn, ngoại trừ số dư Aptoide, trong {1}"
 
 #. Receipt - First Purchase.
 #:
@@ -74,8 +74,8 @@ msgstr "Vì giao dịch mua hàng đầu tiên của bạn trong {0}."
 
 #. Card - First purchase of the day.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "Nhận thêm {0}% tiền thưởng cho giao dịch mua đầu tiên trong ngày, ngoại trừ AppCoins Credits, trong {1}"
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
+msgstr "Nhận thêm {0}% tiền thưởng cho lần mua hàng đầu tiên trong ngày của bạn, ngoại trừ số dư Aptoide, trong {1}"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -84,13 +84,13 @@ msgstr "Vì giao dịch mua hàng đầu tiên trong ngày của bạn trong {0}
 
 #. Title for bonus receipts.
 #:
-msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} AppCoins Credits tiền thưởng!"
+msgid "+{0} Bonus in Aptoide balance!"
+msgstr "+{0} tiền thưởng bằng số dư Aptoide!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr "Nhận thêm {0} AppCoins Credits khi bạn chi tiêu {1} {2} trong {3}."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in {3}."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -99,18 +99,18 @@ msgstr "Vì bạn đã dùng {0} {1} trong {2}."
 
 #. Card - Expendidure in any game.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "Nhận thêm {0} AppCoins Credits khi bạn chi tiêu {1} {2} trong các ứng dụng AppCoins."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in compatible apps."
+msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
-msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "Vì bạn đã chi tiêu {0} {1} trong các ứng dụng AppCoins."
+msgid "Because you spent {0} {1} in compatible apps."
+msgstr "Bởi vì bạn đã dùng {0} {1} trong các ứng dụng tương thích."
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các giao dịch mua của mình, ngoại trừ khi bạn sử dụng AppCoins Credits."
+msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
+msgstr "Nhận thêm {0}% tiền thưởng cho mọi giao dịch mua của bạn, ngoại trừ khi bạn sử dụng số dư Aptoide."
 
 #. Card - Title - Common
 #:
@@ -120,7 +120,7 @@ msgstr "Đặc quyền mới khả dụng"
 #. Card - Title - Enjoy
 #:
 msgid "Enjoy {0}% bonus in every purchase."
-msgstr "Tận hưởng {0}% tiền thưởng trong mỗi lần mua."
+msgstr "Tận hưởng {0}% tiền thưởng trong mọi giao dịch mua."
 
 #. Card - Title - Bank Transfer
 #:
