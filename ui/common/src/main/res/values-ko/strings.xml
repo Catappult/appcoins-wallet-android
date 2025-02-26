@@ -445,6 +445,7 @@
   <string name="referral_verification_title">지불 방식 검증</string>
   <string name="referral_view_verify_button">지불 방식 검증</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">업데이트가 필요합니다!</string>
   <string name="update_wallet_purchase_body">Aptoide 지갑을 업데이트하여 구매를 완료하세요.</string>
