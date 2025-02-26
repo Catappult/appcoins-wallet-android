@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Disalin ke papan klip</string>
   <string name="topup_button">Tambah Nilai</string>
   <string name="extra_bonus_title">Dapatkan %s%% bonus ekstra</string>
+  <string name="max">Max</string>
   <string name="payment_method">Kaedah pembayaran</string>
   <string name="credit_debit_card">Kad kredit/debit</string>
   <string name="paypal">PayPal</string>
@@ -517,6 +518,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Alamat Dompet</string>
   <string name="transfer_send_button">Hantar</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Anda ada mesej baharu!</string>
   <string name="support_new_message_button">Ketik untuk buka</string>
