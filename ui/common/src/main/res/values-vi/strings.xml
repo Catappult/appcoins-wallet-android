@@ -445,6 +445,7 @@
   <string name="referral_verification_title">Xác minh phương thức thanh toán</string>
   <string name="referral_view_verify_button">Xác minh phương thức thanh toán</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Bạn cần phải cập nhật!</string>
   <string name="update_wallet_purchase_body">Cập nhật Aptoide Wallet để hoàn tất giao dịch mua này.</string>
