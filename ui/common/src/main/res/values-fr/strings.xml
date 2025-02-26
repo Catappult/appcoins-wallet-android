@@ -205,7 +205,7 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Bonus d\'achat :</string>
-  <string name="gamification_purchase_header_part_2">%s en crédits AppCoins</string>
+  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
   <string name="gamification_purchase_body">Vous pouvez utiliser ce bonus pour votre prochain achat.</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Reçu</string>
   <string name="gamification_leveled_up_notification_body">Félicitations, vous obtiendrez maintenant %s de bonus sur chaque achat !</string>
@@ -227,7 +227,7 @@
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">Recharger</string>
-  <string name="topup_completed_1">%s en crédits AppCoins</string>
+  <string name="topup_completed_1">%s in Aptoide balance</string>
   <string name="topup_completed_2_with_bonus">ont été déposés sur votre compte... Avec un bonus !</string>
   <string name="topup_completed_2_without_bonus">ont été crédités sur votre compte.</string>
   <string name="topup_minimum_value">La valeur minimale de la recharge est de %s</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Solde actuel : %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Pas assez de fonds</string>
   <string name="p2p_send_confirmation_header">Détails du transfert</string>
-  <string name="p2p_send_currency_appc_c">AppCoins Credits</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Oups</string>
   <string name="error_general">Quelque chose s\'est mal passé</string>
@@ -341,7 +341,7 @@
   <string name="onboarding_verification_body">Vérifiez votre méthode de paiement pour finaliser cet achat.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">AppCoins Credits</string>
+  <string name="aptoide_balance_name">Aptoide balance</string>
   <!--Settings-->
   <string name="title_redeem">Échanger la carte cadeau</string>
   <string name="settings_item_support">Contacter le Support</string>
@@ -384,7 +384,7 @@
   <string name="purchase_poa_view_title">Pas d\'argent, pas de soucis !</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
   <string name="purchase_current_balance_body">Solde actuel :</string>
-  <string name="purchase_current_balance_appcc_body">%s en crédits AppCoins.</string>
+  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
   <string name="purchase_current_balance_appc_eth_body">%s en Appcoins et Ether.</string>
   <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
   <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
@@ -573,7 +573,7 @@
   <string name="gamif_achievement_reach">Vous avez atteint les %s</string>
   <string name="gamif_card_start">Vous êtes toujours sur Terre</string>
   <string name="gamif_card_title">Vous êtes sur %s</string>
-  <string name="gamif_card_body">Dépensez %s AppCoins de plus pour atteindre le niveau suivant.</string>
+  <string name="gamif_card_body">Dépensez plus de %s pour atteindre le niveau suivant !</string>
   <string name="gamif_bonus">%s%% Bonus</string>
   <string name="gamif_quote_earth">\"La Terre est ce que nous avons tous en commun\" - Wendell Berry</string>
   <string name="gamif_placeholder_moon">la Lune</string>
