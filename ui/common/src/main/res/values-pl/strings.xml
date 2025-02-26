@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Skopiowano do schowka</string>
   <string name="topup_button">Doładowanie</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="max">Max</string>
   <string name="payment_method">Metoda płatności</string>
   <string name="credit_debit_card">Karta kredytowa/debetowa</string>
   <string name="paypal">PayPal</string>
@@ -520,6 +521,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Adres portfela</string>
   <string name="transfer_send_button">Wyślij</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Masz nową wiadomość!</string>
   <string name="support_new_message_button">Otwórz</string>
