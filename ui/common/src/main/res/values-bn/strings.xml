@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">Aptoide Wallet</string>
-  <string name="title_send_with_token">Send %s</string>
+  <string name="title_send_with_token">প্রেরণ করুন %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="action_sign_in_short">Create</string>
   <!-- String related to sending -->
-  <string name="prompt_to">To</string>
-  <string name="action_send">Send</string>
-  <string name="action_settings">Settings</string>
+  <string name="prompt_to">প্রতি</string>
+  <string name="action_send">প্রেরণ করুন</string>
+  <string name="action_settings">সেটিংস</string>
   <string name="cancel">Cancel</string>
-  <string name="copy">Copy to clipboard</string>
+  <string name="copy">ক্লিপবোর্ডে অনুলিপি করুণ</string>
   <string name="copied">Copied!</string>
-  <string name="close">Close</string>
-  <string name="credits">Credits</string>
+  <string name="close">বন্ধ</string>
+  <string name="credits">ক্রেডিটসমূহ</string>
   <string name="got_it_button">Got it</string>
   <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
-  <string name="low_storage_error">Not enough storage space</string>
+  <string name="low_storage_error">পর্যাপ্ত সংরক্ষণযোগ্য জায়গা নেই</string>
   <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
   <string name="no_camera_available">No camera available!</string>
-  <string name="ok">Ok</string>
-  <string name="barcode_error_format">Invalid barcode format: %s</string>
+  <string name="ok">ঠিক আছে</string>
+  <string name="barcode_error_format">অকার্যকর বারকোড বিন্যাস: %s</string>
   <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">X</string>
   <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
-  <string name="title_community">Community</string>
-  <string name="title_opensource">Open Source Development</string>
+  <string name="title_community">সমাজ</string>
+  <string name="title_opensource">উন্মুক্ত উৎসের উন্নয়ন</string>
   <string name="title_source_code">Source Code</string>
-  <string name="title_support">Support</string>
+  <string name="title_support">সহায়তা</string>
   <string name="permissions_title">Permissions</string>
-  <string name="error_import">Error importing keystore</string>
-  <string name="message_this_is_your_address">My public Ethereum wallet address</string>
+  <string name="error_import">কিস্টোর আমদানীতে ত্রুটি</string>
+  <string name="message_this_is_your_address">আমার পাবলিক ইথারিয়াম ওয়ালেট ঠিকানা</string>
   <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
-  <string name="title_privacy_policy">Privacy Policy</string>
-  <string name="title_terms">Terms and Conditions</string>
-  <string name="unlock_screen_title_android">Unlock screen</string>
-  <string name="unlock_screen_prompt_android">Please unlock your Android device to continue.</string>
-  <string name="root_title">DEVICE SECURITY COMPROMISED</string>
+  <string name="title_privacy_policy">গোপনীয়তা নীতি</string>
+  <string name="title_terms">শর্তাবলী</string>
+  <string name="unlock_screen_title_android">স্ক্রিন আনলক</string>
+  <string name="unlock_screen_prompt_android">অনুগ্রহপূর্বক সচল রাখার স্বার্থে আপনার এন্ড্রয়েড ডিভাইসটি আনলক করুন।</string>
+  <string name="root_title">যন্ত্রের নিরাপত্তা বিঘ্নিত হয়েছে</string>
   <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
-  <string name="action_buy">Buy</string>
+  <string name="action_buy">ক্রয়</string>
   <string name="empty"></string>
-  <string name="try_again">Try again</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Back Up Wallet</string>
-  <string name="action_donate">Donate</string>
+  <string name="try_again">পুনরায় প্রচেষ্ঠা করুন</string>
+  <string name="unknown_error">একটি ত্রুটি সংঘটিত হয়েছে।</string>
+  <string name="action_backup_wallet">ব্যাকআপ ওয়ালেট</string>
+  <string name="action_donate">দান করুন</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_airdrop">Airdrop</string>
+  <string name="title_my_address">গ্রহণ করুন</string>
+  <string name="title_activity_send">প্রেরণ করুন</string>
+  <string name="title_activity_confirmation">নিশ্চিত করুন</string>
+  <string name="title_airdrop">এয়ারড্রপ</string>
   <!-- Suggestions -->
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_this_is_your_address">আমার পাবলিক %s ওয়ালেট ঠিকানা</string>
   <!-- Hints -->
   <!-- Tabs labels-->
   <!-- Dialog titles -->
   <!-- Dialog messages-->
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="toast_qr_code_no_address">কিউআর কোডে কোন সঠিক ঠিকানা অন্তর্ভূক্ত নেই</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">Wallet created!</string>
   <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
@@ -77,72 +77,72 @@
   <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
-  <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="button_cancel">CANCEL</string>
+  <string name="label_from">থেকে</string>
+  <string name="label_to">প্রতি</string>
+  <string name="label_gas_limit">গ্যাসের সীমা</string>
+  <string name="label_gas_price">গ্যাসের দাম</string>
+  <string name="label_network_fee">নেটওয়ার্ক ফি</string>
+  <string name="button_ok">ঠিক আছে</string>
+  <string name="hint_recipient_address">প্রাপকের ঠিকানা</string>
+  <string name="hint_amount">পরিমাণ</string>
+  <string name="hint_amount_with_token">পরিমাণ %s</string>
+  <string name="button_cancel">বাতিল</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_from">থেকে</string>
+  <string name="subtitle_gas_fee">ফি</string>
+  <string name="subtitle_transaction_num">লেনদেন</string>
   <!-- Actions -->
-  <string name="action_more_details">More</string>
-  <string name="action_add_wallet">Add wallet</string>
-  <string name="action_next">Next</string>
-  <string name="action_edit">Edit</string>
-  <string name="action_save">Save</string>
+  <string name="action_more_details">আরও</string>
+  <string name="action_add_wallet">ওয়ালেট যুক্ত করুন</string>
+  <string name="action_next">পরবর্তি</string>
+  <string name="action_edit">সম্পাদনাকরণ</string>
+  <string name="action_save">সংরক্ষণ করুন</string>
   <!-- Subject -->
-  <string name="error_fail_generate_qr">Could not generate QR code.</string>
-  <string name="error_invalid_address">Invalid address</string>
-  <string name="error_invalid_amount">Invalid amount</string>
-  <string name="error_transaction_failed">Transaction error</string>
+  <string name="error_fail_generate_qr">কিউআর কোড তৈরি করতে পারেনি।</string>
+  <string name="error_invalid_address">ভূল ঠিকানা</string>
+  <string name="error_invalid_amount">ভূল পরিমান</string>
+  <string name="error_transaction_failed">লেনদেনের ত্রুটি</string>
   <string name="dummy">-</string>
   <string name="dummy_transaction_value">-- ETH</string>
-  <string name="title_dialog_sending">Sending...</string>
-  <string name="scan_qr">Get address from QR Code</string>
-  <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
-  <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
-  <string name="title_send_settings">Advanced</string>
-  <string name="title_activity_barcode">Barcode Scan</string>
-  <string name="facebook">Facebook</string>
-  <string name="error_already_added">Already added</string>
-  <string name="error_export">Failed to export the wallet</string>
+  <string name="title_dialog_sending">প্রেরণরত...</string>
+  <string name="scan_qr">কিউআর কোড থেকে ঠিকানা নিন</string>
+  <string name="info_gas_price">গ্যাসের দাম যতো বেশী হবে, আপনার লেনদেন মাসুল ততো বেশী হবে, তবে ততো দ্রুত আপনার ইথারিয়াম নেটওয়ার্কে লেনদেন কার্যক্রম সম্পাদিত হবে।</string>
+  <string name="info_gas_limit">গ্যাস সীমা আপনার স্মার্ট যোগাযোগ সমূহকে ইথারিয়াম খরচ করার হাত থেকে বিরত রাখে। আমরা আপনার জন্য সয়ংক্রিয়ভাবে গ্যাস গণনা করার চেষ্টা করবো, তবে কিছু স্মার্ট কন্ট্রাক্ট সমূহের একটি কাস্টম গ্যাস লিমিটের প্রয়োজন হতে পারে।</string>
+  <string name="title_send_settings">অগ্রগামী</string>
+  <string name="title_activity_barcode">বারকোড স্ক্যান</string>
+  <string name="facebook">ফেসবুক</string>
+  <string name="error_already_added">ইতিমধ্যে যোগকৃত</string>
+  <string name="error_export">ওয়ালেট রপ্তানী করতে ব্যার্থ</string>
   <string name="gas_price_value">%1$s %2$s</string>
   <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
   <string name="appcoins_symbol">APPC</string>
-  <string name="activity_aib_loading_title">Transaction in progress</string>
-  <string name="activity_aib_loading_message">This may take a while…</string>
-  <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
-  <string name="activity_iab_error_message">An error occurred, please try again</string>
+  <string name="activity_aib_loading_title">লেনদেন কার্যক্রম প্রক্রিয়ারত রয়েছে</string>
+  <string name="activity_aib_loading_message">এটা হয়তো কিছু সময় নেবে…</string>
+  <string name="activity_iab_transaction_completed_title">লেনদেন সম্পন্নকৃত</string>
+  <string name="activity_iab_error_message">একটি ত্রুটি সংঘটিত হয়েছে, অনুগ্রহ করে পুনরায় চেষ্টা করুন</string>
   <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
-  <string name="activity_iab_no_ethereum_funds_message">Not enough Ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Not enough AppCoins</string>
-  <string name="activity_iab_wrong_network_message">Wrong Ethereum network or unknown token</string>
-  <string name="activity_iab_no_network_message">No network access</string>
-  <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
-  <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
-  <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
+  <string name="activity_iab_no_ethereum_funds_message">পর্যাপ্ত ইথারিয়াম নেই</string>
+  <string name="activity_iab_no_token_funds_message">পর্যাপ্ত অ্যাপকয়েন নেই</string>
+  <string name="activity_iab_wrong_network_message">ভূল ইথারিয়াম নেটওয়ার্ক বা অজানা টোকেন</string>
+  <string name="activity_iab_no_network_message">কোন নেটওয়ার্ক অনুমতি নেই</string>
+  <string name="activity_iab_nonce_message">ব্লকচেইনে একটি ত্রুটি সংঘটিত হয়েছে, অনুগ্রহপূর্বক পুনরায় চেষ্টা করুন।</string>
+  <string name="activity_iab_approving_message">সকল বিবরণ পরীক্ষা করা হচ্ছে: স্থিতি, ধরণ, নেটওয়ার্ক…</string>
+  <string name="activity_iab_buying_message">বিবরণ পরীক্ষাকৃত\nআপনার ধরণ গ্রহণ করছে…</string>
   <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <!-- transaction details -->
-  <string name="transaction_status_success">Success</string>
-  <string name="transaction_status_pending">Pending</string>
-  <string name="transaction_status_failed">Failed</string>
+  <string name="transaction_status_success">সাফল্য</string>
+  <string name="transaction_status_pending">মুলতুবি</string>
+  <string name="transaction_status_failed">ব্যর্থ</string>
   <string name="transaction_status_reverted">Reverted</string>
   <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Challenge Reward</string>
   <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
   <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
-  <string name="transaction_type_iab">In-App Purchase</string>
+  <string name="transaction_type_iab">ইন-অ্যাপ ক্রয়</string>
   <string name="transaction_type_poa">Reward</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
-  <string name="transaction_type_standard">Transfer</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_standard">স্থানান্তর</string>
+  <string name="transaction_type_bonus">বোনাস</string>
   <string name="transaction_type_eskills_reward">e-Skills Reward</string>
   <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
   <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
@@ -155,15 +155,15 @@
   <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
-  <string name="transaction_details_brand_txt">Powered By Ethereum</string>
+  <string name="transaction_details_brand_txt">ইথারিয়াম দ্বারা পরিচালিত</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
-  <string name="transaction_status_label">Status</string>
-  <string name="transaction_category_label">Category</string>
+  <string name="transaction_status_label">স্ট্যাটাস</string>
+  <string name="transaction_category_label">শ্রেণী</string>
   <string name="transaction_order_reference_label">Order ID</string>
-  <string name="transaction_details_label">Details</string>
-  <string name="transaction_to_label">To</string>
+  <string name="transaction_details_label">বিস্তারিত</string>
+  <string name="transaction_to_label">প্রতি</string>
   <string name="transaction_invoice_label">Invoice</string>
-  <string name="dialog_credit_card_remember">Remember Card</string>
+  <string name="dialog_credit_card_remember">স্মৃতি কার্ড</string>
   <string name="dialog_bank_card">Credit/debit card</string>
   <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
   <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
@@ -189,19 +189,19 @@
   <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
-  <string name="activity_airdrop_details">This is just a security thing.</string>
-  <string name="activity_airdrop_hint">Type the words in the image</string>
-  <string name="activity_airdrop_submit_btn">Submit</string>
-  <string name="activity_airdrop_wrong_captcha">Wrong captcha</string>
-  <string name="activity_airdrop_ok">ok</string>
-  <string name="activity_airdrop_message_title">Airdrop</string>
-  <string name="activity_airdrop_success_message">Airdrop completed</string>
-  <string name="activity_airdrop_generic_error_message">An error has occurred</string>
+  <string name="activity_airdrop_title">অ্যাপকয়েনে কিছু গ্রহণ করার জন্য প্রমান করুন আপনি মানুষ</string>
+  <string name="activity_airdrop_details">এটি শুধুমাত্র একটি নিরাপত্তা জিনিস।</string>
+  <string name="activity_airdrop_hint">ছবিতে থাকা শব্দ টাইপ করুন</string>
+  <string name="activity_airdrop_submit_btn">দাখিল</string>
+  <string name="activity_airdrop_wrong_captcha">ভূল ক্যাপচা</string>
+  <string name="activity_airdrop_ok">ঠিক আছে</string>
+  <string name="activity_airdrop_message_title">এয়ারড্রপ</string>
+  <string name="activity_airdrop_success_message">এয়ারড্রপ সম্পন্ন</string>
+  <string name="activity_airdrop_generic_error_message">একটি ত্রুটি সংঘটিত হয়েছে</string>
   <!-- Billing -->
-  <string name="item_donation">Donation</string>
+  <string name="item_donation">দান</string>
   <!-- Gamification -->
-  <string name="gamification_level_bonus">%s%% BONUS</string>
+  <string name="gamification_level_bonus">%s%% বোনাস</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
@@ -241,7 +241,7 @@
   <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Back up wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup your wallet now!</string>
   <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
@@ -254,7 +254,7 @@
   <string name="askafriend_received_title">Transfer Received</string>
   <string name="askafriend_send_title">Transfer Sent</string>
   <!--P2P Send-->
-  <string name="p2p_send_title">Send</string>
+  <string name="p2p_send_title">Send Funds</string>
   <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
   <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
@@ -265,8 +265,8 @@
   <string name="oops_title">Oops</string>
   <string name="error_general">Something went wrong</string>
   <string name="cancel_button">Cancel</string>
-  <string name="submit_button">Submit</string>
-  <string name="close_button">Close</string>
+  <string name="submit_button">দাখিল</string>
+  <string name="close_button">বন্ধ</string>
   <string name="back_button">Back</string>
   <string name="value_fiat">%1$s%2$s</string>
   <string name="dismiss_button">Dismiss</string>
@@ -275,18 +275,18 @@
   <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <string name="common_or">or</string>
   <string name="share_via">Share via:</string>
-  <string name="password">Password</string>
+  <string name="password">পাসওয়ার্ড</string>
   <string name="repeat_password">Repeat password</string>
   <string name="no_thanks_button">No, thanks</string>
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
-  <string name="confirm_button">Confirm</string>
+  <string name="confirm_button">নিশ্চিত করুন</string>
   <string name="email_here_field">Your email here&#8230;</string>
   <string name="skip_button">Skip for now</string>
   <string name="install_button">Install</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
+  <string name="transfer_button">স্থানান্তর</string>
   <string name="top_up_button">Top Up</string>
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
@@ -295,11 +295,11 @@
   <string name="done">Done!</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">প্রেরণ করুন</string>
   <string name="continue_button">Continue</string>
   <string name="start_again_button">Start again</string>
   <string name="total_title">Total</string>
-  <string name="buy_button">Buy</string>
+  <string name="buy_button">ক্রয়</string>
   <string name="copied_to_clipboard">Copied to the clipboard</string>
   <string name="topup_button">Top Up</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
@@ -335,8 +335,8 @@
   <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
   <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
   <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions">শর্তাবলী</string>
+  <string name="privacy_policy">গোপনীয়তা নীতি</string>
   <string name="existent_wallet">I already have a wallet</string>
   <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
@@ -370,7 +370,7 @@
   <string name="paypal_verification_header">PayPal Verification</string>
   <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
   <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
-  <string name="paypal_verification_completed_body">Your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
@@ -467,11 +467,11 @@
   <string name="import_wallet_password_body">This wallet is password protected!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <string name="import_code_here_field">Recover code here&#8230;</string>
-  <string name="backup_title">Back Up Wallet</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_button">Back up wallet</string>
+  <string name="backup_button">Backup your wallet now!</string>
   <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Save it on your email</string>
   <string name="backup_ready_email_button">Send to email</string>
@@ -488,15 +488,15 @@
   <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
-  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t back up my wallet key.</string>
-  <string name="backup_wallet_button">Back up wallet</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup your wallet now!</string>
   <string name="backup_popup_title">Back up your wallet now!</string>
   <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <string name="backup_confirmation_save_device">Your backup is on your device</string>
   <string name="backup_confirmation_save_email">Your backup is on your email</string>
   <!--Wallets Management-->
-  <string name="wallets_title">Wallets</string>
+  <string name="wallets_title">ওয়ালেট</string>
   <string name="wallets_active_wallet_title">Active Wallet</string>
   <string name="wallets_bottom_accumulated_value_title">Total value</string>
   <string name="wallets_imported_body">Wallet successfuly recovered</string>
@@ -508,15 +508,15 @@
   <string name="wallet_view_activate_button">Make this wallet active</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Remove Wallet</string>
-  <string name="remove_wallet_body">We strongly recommend to back up a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
-  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_body">We strongly recommend to backup a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
+  <string name="remove_wallet_backup_button">Backup your wallet now!</string>
   <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_no_button">No, go back</string>
   <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">Wallet removed!</string>
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Wallet Address</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">প্রেরণ করুন</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">You\'ve got a new message!</string>
   <string name="support_new_message_button">Tap to open</string>
@@ -614,12 +614,12 @@
   <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Your phone number...</string>
   <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">দাখিল</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add Credit/Debit Card</string>
-  <string name="manage_cards_settings_manage_title">Manage Credit/Debit Cards</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_manage_title">Manage cards</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
-  <string name="manage_cards_view_manage_subtitle">Manage your existing cards</string>
+  <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
@@ -627,12 +627,12 @@
   <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Card ending in %s</string>
   <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
-  <string name="manage_cards_select_title">Select card</string>
-  <string name="manage_cards_header">Manage Cards</string>
+  <string name="manage_cards_select_title">Select payment card</string>
+  <string name="manage_cards_header">Payment Cards</string>
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
   <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
-  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Credit/Debit Cards</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_title">Promotions</string>
   <string name="promotion_ends_short_title">Promotion ends in</string>
@@ -665,7 +665,7 @@
   <string name="card_verification_code_example_title">Example of Transaction Summary</string>
   <string name="card_verification_code_example_date">Trans. Date</string>
   <string name="card_verification_code_example_description">Description</string>
-  <string name="card_verification_code_example_amount">Amount</string>
+  <string name="card_verification_code_example_amount">পরিমাণ</string>
   <string name="card_verification_code_example_code">Unique code.\nExpires in %s days.</string>
   <string name="card_verification_code_enter_title">Enter the %s digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
@@ -685,7 +685,7 @@
   <string name="verify_paypal_button">Verify PayPal account</string>
   <!--Vouchers-->
   <!--Change Currency-->
-  <string name="change_currency_title">Change Currency</string>
+  <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
@@ -779,7 +779,7 @@
   <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
-  <string name="rewards_promo_code_status">Status:</string>
+  <string name="rewards_promo_code_status">স্ট্যাটাস:</string>
   <string name="rewards_promo_code_status_active">Active</string>
   <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
   <!-- Rewards Home -->
