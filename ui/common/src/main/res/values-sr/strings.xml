@@ -798,6 +798,7 @@
   <string name="manage_wallet_wallet_changed_title">Novčanik je promenjen</string>
   <string name="manage_wallet_change_active_wallet_title">Da li želite da izabereet ovaj novčanik?</string>
   <string name="manage_wallet_set_a_name_button">Postavite naziv za vaš novčanik</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Potvrdite način plaćanja</string>
   <string name="verify_card_verified">Način plaćanja je potvrđen!</string>
