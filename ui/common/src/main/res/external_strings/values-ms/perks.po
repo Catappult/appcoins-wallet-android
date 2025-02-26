@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Malay\n"
 "Language: ms_MY\n"
-"PO-Revision-Date: 2025-02-26 15:26\n"
+"PO-Revision-Date: 2025-02-26 15:37\n"
 
 #. Card Title
 #:
 msgid "Earn Aptoide balance!"
-msgstr ""
+msgstr "Peroleh baki Aptoide!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda dalam {1}, kecuali pembelian dengan baki Aptoide."
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
-msgstr ""
+msgstr "Buat pembelian dalam {0} dan terima {1} baki Aptoide."
 
 #. Receipt - Purchase Promotion.
 #:
@@ -35,7 +35,7 @@ msgstr "Kerana anda telah buat pembelian dalam {0}."
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
-msgstr ""
+msgstr "Belanja {0} {1} dalam tempoh {2} hari dan terima {3} dalam baki Aptoide."
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -45,7 +45,7 @@ msgstr "Kerana anda telah belanja lebih daripada {0}{1} dalam tempoh {2} yang le
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} in Aptoide balance!"
-msgstr ""
+msgstr "Capai tahap seterusnya dan terima {0} dalam baki Aptoide!"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -55,7 +55,7 @@ msgstr "Kerana anda telah capai tahap seterusnya."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda dalam {1}, kecuali pembelian dengan baki Aptoide."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -65,7 +65,7 @@ msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda."
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Terima bonus ekstra sebanyak {0}% untuk pembelian pertama anda, kecuali baki Aptoide dalam {1}"
 
 #. Receipt - First Purchase.
 #:
@@ -75,7 +75,7 @@ msgstr "Atas pembelian pertama anda dalam {0}."
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Terima bonus ekstra sebanyak {0}% untuk pembelian pertama anda untuk hari ini, kecuali baki Aptoide dalam {1}"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -85,7 +85,7 @@ msgstr "Atas pembelian pertama anda untuk hari ini dalam {0}."
 #. Title for bonus receipts.
 #:
 msgid "+{0} Bonus in Aptoide balance!"
-msgstr ""
+msgstr "Bonus +{0} dalam baki Aptoide!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
@@ -105,12 +105,12 @@ msgstr ""
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in compatible apps."
-msgstr ""
+msgstr "Kerana anda belanja {0} {1} dalam aplikasi serasi."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
-msgstr ""
+msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda, kecuali pembelian dengan baki Aptoide."
 
 #. Card - Title - Common
 #:
