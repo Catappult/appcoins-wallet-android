@@ -447,6 +447,7 @@
   <string name="referral_verification_title">Verifică metoda de plată</string>
   <string name="referral_view_verify_button">Verifică metoda de plată</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Trebuie să actualizezi!</string>
   <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
