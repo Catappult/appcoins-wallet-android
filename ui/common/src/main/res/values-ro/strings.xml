@@ -205,7 +205,7 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Bonus la cumpărătură:</string>
-  <string name="gamification_purchase_header_part_2">%s în AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
   <string name="gamification_purchase_body">Poți folosi acest bonus la următoarea ta cumpărătură.</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus primit</string>
   <string name="gamification_leveled_up_notification_body">Felicitări, acum vei primi un bonus de %s la fiecare cumpărătură!</string>
@@ -227,7 +227,7 @@
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">Alimentează</string>
-  <string name="topup_completed_1">%s în AppCoins Credits</string>
+  <string name="topup_completed_1">%s in Aptoide balance</string>
   <string name="topup_completed_2_with_bonus">au fost depozitate în contul tău... Plus un bonus!</string>
   <string name="topup_completed_2_without_bonus">au fost creditați în contul tău.</string>
   <string name="topup_minimum_value">Valoarea minimă de alimentare este %s</string>
@@ -384,7 +384,7 @@
   <string name="purchase_poa_view_title">Fără fonduri, fără griji!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
   <string name="purchase_current_balance_body">Balanță curentă:</string>
-  <string name="purchase_current_balance_appcc_body">%s în AppCoins Credits.</string>
+  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
   <string name="purchase_current_balance_appc_eth_body">%s în AppCoins și Ether.</string>
   <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
   <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
@@ -574,7 +574,7 @@
   <string name="gamif_achievement_reach">Ai ajuns pe %s</string>
   <string name="gamif_card_start">Ești încă pe Pământ</string>
   <string name="gamif_card_title">Ești pe %s</string>
-  <string name="gamif_card_body">Cheltuiește încă %s AppCoins ca să atingi nivelul următor.</string>
+  <string name="gamif_card_body">Cheltuiește %s pentru a trece la nivelul următor.</string>
   <string name="gamif_bonus">Bonus %s%%</string>
   <string name="gamif_quote_earth">„Pământul este ceea ce avem toți în comun” - Wendell Berry</string>
   <string name="gamif_placeholder_moon">Lună</string>
