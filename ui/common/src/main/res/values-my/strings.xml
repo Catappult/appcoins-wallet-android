@@ -445,6 +445,7 @@
   <string name="referral_verification_title">ေငြေပးေခ်မႈနည္းလမ္းကို အတည္ျပဳမည္</string>
   <string name="referral_view_verify_button">ေငြေပးေခ်မႈနည္းလမ္းကို အတည္ျပဳမည္</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">အပ္ဒိတ္လုပ္ရန္ လိုအပ္ပါသည္။</string>
   <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
