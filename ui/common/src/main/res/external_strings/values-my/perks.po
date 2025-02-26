@@ -4,28 +4,28 @@ msgstr ""
 "X-Crowdin-Project: appcoins\n"
 "X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: my\n"
-"X-Crowdin-File: /[Catappult.appcoins-wallet-android] dev/ui/common/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 14253\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] carlosgarridoaptoide-rebranding/ui/common/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 15677\n"
 "Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Burmese\n"
 "Language: my_MM\n"
-"PO-Revision-Date: 2025-01-29 14:53\n"
+"PO-Revision-Date: 2025-02-26 15:26\n"
 
 #. Card Title
 #:
-msgid "Earn AppCoins Credits!"
-msgstr "AppCoins Credits ကို ရယူလိုက္ပါ။"
+msgid "Earn Aptoide balance!"
+msgstr ""
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "AppCoins Credits မ်ားကို အသုံးျပဳသည္မွလြဲ၍ {1} တြင္ သင့္ဝယ္ယူမႈမ်ား အားလုံး၌ အပို {0}% ေဘာနပ္စ္ကို ရယူလိုက္ပါ"
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr ""
 
 #. Card - Purchase Promotion.
 #:
-msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "{0} တြင္ ဝယ္ယူမႈတစ္ခု ျပဳလုပ္ၿပီး {1} AppCoins Credits ကို ရယူလိုက္ပါ။"
+msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
+msgstr ""
 
 #. Receipt - Purchase Promotion.
 #:
@@ -34,8 +34,8 @@ msgstr "{0} တြင္ သင္ဝယ္ယူမႈတစ္ခု ျပဳ
 
 #. Card - Expenditure per days Promotion.
 #:
-msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "{2} ရက္အတြင္း {0} {1} အသံုးျပဳကာ {3} AppCoins Credits မ်ားကို ရယူလိုက္ပါ။"
+msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
+msgstr ""
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -44,8 +44,8 @@ msgstr "လြန္ခဲ့ေသာ {2} ရက္အတြင္း သင္
 
 #. Card - Next Level Promotion.
 #:
-msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "ေနာက္တစ္ဆင့္သို႔ ေရာက္ေအာင္သြားကာ {0} AppCoins Credits ကို ရယူလိုက္ပါ။"
+msgid "Reach the next level and receive {0} in Aptoide balance!"
+msgstr ""
 
 #. Receipt - Expenditure bonus.
 #:
@@ -54,8 +54,8 @@ msgstr "ေနာက္တစ္ဆင့္သို႔ သင္ေရာက�
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "AppCoins Credits မ်ားကို အသုံးျပဳသည္မွလြဲ၍ {1} တြင္ သင့္ဝယ္ယူမႈမ်ား အားလုံး၌ အပို {0}% ေဘာနပ္စ္ကို ရယူလိုက္ပါ"
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -64,8 +64,8 @@ msgstr "သင့္ဝယ္ယူမႈမ်ား အားလံုး၌ {
 
 #. Card - First purchase.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "{1} တြင္ သင့္ပထမဆံုး ဝယ္ယူမႈ၌ AppCoins Credits မွလြဲ၍ အပိုေဘာနပ္စ္ {0}% ရယူလိုက္ပါ။"
+msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
+msgstr ""
 
 #. Receipt - First Purchase.
 #:
@@ -74,8 +74,8 @@ msgstr "{0} တြင္ သင့္ပထမဆံုး ဝယ္ယူမႈ
 
 #. Card - First purchase of the day.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "{1} တြင္ တစ္ေန႔တာအတြင္း သင့္ပထမဆံုး ဝယ္ယူမႈ၌ AppCoins Credits မွလြဲ၍ အပိုေဘာနပ္စ္ {0}% ရယူလိုက္ပါ"
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
+msgstr ""
 
 #. Receipt - First Purchase of the day.
 #:
@@ -84,13 +84,13 @@ msgstr "{0} တြင္ တစ္ေန႔တာအတြင္း သင့္
 
 #. Title for bonus receipts.
 #:
-msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} AppCoins Credits ေဘာနပ္စ္။"
+msgid "+{0} Bonus in Aptoide balance!"
+msgstr ""
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr "{3} တြင္ {1} {2} သံုးစြဲကာ AppCoins Credits အပို {0} ရယူလိုက္ပါ။"
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in {3}."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -99,18 +99,18 @@ msgstr "{2} တြင္ သင္ {0} {1} သံုးစြဲခဲ့ေသ�
 
 #. Card - Expendidure in any game.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "AppCoins အက္ပ္မ်ားတြင္ {1} {2} သံုးစြဲကာ AppCoins Credits အပို {0} ရယူလိုက္ပါ။"
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in compatible apps."
+msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
-msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "AppCoins အက္ပ္မ်ားတြင္ သင္ {0} {1} သံုးစြဲခဲ့ေသာေၾကာင့္။"
+msgid "Because you spent {0} {1} in compatible apps."
+msgstr ""
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "AppCoins Credits မ်ားကို အသုံးျပဳသည္မွလြဲ၍ သင့္ဝယ္ယူမႈမ်ား အားလုံး၌ အပို {0}% ေဘာနပ္စ္ကို ရယူလိုက္ပါ။"
+msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
+msgstr ""
 
 #. Card - Title - Common
 #:
