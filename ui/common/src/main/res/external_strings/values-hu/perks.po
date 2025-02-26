@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Hungarian\n"
 "Language: hu_HU\n"
-"PO-Revision-Date: 2025-01-29 18:41\n"
+"PO-Revision-Date: 2025-02-26 17:27\n"
 
 #. Card Title
 #:
-msgid "Earn AppCoins Credits!"
-msgstr "Szerezz AppCoins kreditet!"
+msgid "Earn Aptoide balance!"
+msgstr "Szerezz Aptoide egyenleget!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Szerezz extra {0}% bónuszt minden vásárlás után a(z) {1} játékban, kivéve, ha AppCoins kreditet használsz."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr "Szerezz extra {0}% bónuszt minden vásárlás után a(z) {1} játékban, kivéve, ha az Aptoide egyenleget használod."
 
 #. Card - Purchase Promotion.
 #:
-msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "Vásárolj a/az {0} appben és szerezz {1} AppCoins kreditet."
+msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
+msgstr "Vásárolj a/az {0} appban és szerezz {1} Aptoide egyenleget."
 
 #. Receipt - Purchase Promotion.
 #:
@@ -34,8 +34,8 @@ msgstr "Mivel itt vásároltál: {0}."
 
 #. Card - Expenditure per days Promotion.
 #:
-msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "Költs el a/az {0} {1} összeget {2} napon belül és szerezz {3} AppCoins kreditet."
+msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
+msgstr "Költs el a/az {0} {1} összeget {2} napon belül és szerezz {3} Aptoide egyenleget."
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -44,8 +44,8 @@ msgstr "Mert több, mint {0} {1} értékben költöttél az elmúlt {2} napban."
 
 #. Card - Next Level Promotion.
 #:
-msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "Érd el a következő szintet és szerezz {0} AppCoins kreditet!"
+msgid "Reach the next level and receive {0} in Aptoide balance!"
+msgstr "Érd el a következő szintet és szerezz {0} Aptoide egyenleget!"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -54,8 +54,8 @@ msgstr "Mert elértél a következő szintre."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Szerezz extra {0}% bónuszt minden vásárlás után a(z) {1} játékban, kivéve, ha AppCoins kreditet használsz."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -64,8 +64,8 @@ msgstr "Szerezz {0}% bónuszt minden vásárlásnál."
 
 #. Card - First purchase.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "Szerezz extra {0}% bónuszt az első vásárlás után az AppCoins krediteket kivéve {1} Appben"
+msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
+msgstr "Szerezz extra {0}% bónuszt az első vásárlás után, kivéve, ha az Aptoide egyenleget használod a(z) {1} appban"
 
 #. Receipt - First Purchase.
 #:
@@ -74,8 +74,8 @@ msgstr "Az első vásárlásod miatt itt: {0}."
 
 #. Card - First purchase of the day.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "Szerezz extra {0}% bónuszt a napi első vásárlás után az AppCoins krediteket kivéve a/az {1} appban"
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
+msgstr "Szerezz extra {0}% bónuszt az aznapi első vásárlás után, kivéve, ha az Aptoide egyenleget használod a(z) {1} appban"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -84,13 +84,13 @@ msgstr "A napi első vásárlás miatt itt: {0}."
 
 #. Title for bonus receipts.
 #:
-msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} AppCoins kredit bónusz!"
+msgid "+{0} Bonus in Aptoide balance!"
+msgstr "+{0} bónusz Aptoide egyenleg formájában!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr "Szerezz extra {0} AppCoins kreditet, amikor {1} {2} költesz el a/az {3} appban."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in {3}."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -99,18 +99,18 @@ msgstr "Mert elköltöttél {0} {1} összeget a/az {2} appben."
 
 #. Card - Expendidure in any game.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "Szerezz extra {0} AppCoins kreditet, amikor {1} {2} költesz el AppCoins appokban."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in compatible apps."
+msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
-msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "Mert ennyit költöttél AppCoins appokban: {0} {1}."
+msgid "Because you spent {0} {1} in compatible apps."
+msgstr "Mert ennyit költöttél a kompatibilis appokban: {0} {1}."
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "Szerezz extra {0}% bónuszt minden vásárlás után, kivéve, ha AppCoins kreditet használsz."
+msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
+msgstr "Szerezz extra {0}% bónuszt minden vásárlás után, kivéve, ha az Aptoide egyenleget használod."
 
 #. Card - Title - Common
 #:
