@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
   <string name="topup_button">إضافة</string>
   <string name="extra_bonus_title">احصل على %s%% مكافأة إضافية</string>
+  <string name="max">Max</string>
   <string name="payment_method">وسيلة الدفع</string>
   <string name="credit_debit_card">بطاقة ائتمان/مسبقة الدفع</string>
   <string name="paypal">بايبال</string>
@@ -450,6 +451,7 @@
   <string name="referral_verification_title">وثّق وسيلة الدفع</string>
   <string name="referral_view_verify_button">وثّق وسيلة الدفع</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">يجب عليك التحديث!</string>
   <string name="update_wallet_purchase_body">حدّث محفظة Aptoide لإتمام عملية الشراء هذه.</string>
@@ -521,6 +523,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">عنوان المحفظة</string>
   <string name="transfer_send_button">إرسال</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">وصلتك رسالة جديدة!</string>
   <string name="support_new_message_button">اضغط للفتح</string>

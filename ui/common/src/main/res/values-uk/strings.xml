@@ -305,6 +305,7 @@
   <string name="copied_to_clipboard">Скопійовано до буфера обміну</string>
   <string name="topup_button">Поповнити</string>
   <string name="extra_bonus_title">Отримайте додатковий бонус %s%%</string>
+  <string name="max">Max</string>
   <string name="payment_method">Спосіб оплати</string>
   <string name="credit_debit_card">Кредитна/дебетова карта</string>
   <string name="paypal">PayPal</string>
@@ -450,6 +451,7 @@
   <string name="referral_verification_title">Підтвердити спосіб оплати</string>
   <string name="referral_view_verify_button">Підтвердити спосіб оплати</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Вам потрібно оновити!</string>
   <string name="update_wallet_purchase_body">Оновіть Aptoide Wallet, щоб завершити цю покупку.</string>
@@ -521,6 +523,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Адреса гаманця</string>
   <string name="transfer_send_button">Надіслати</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Ви отримали нове повідомлення!</string>
   <string name="support_new_message_button">Торкніться, щоб відкрити</string>

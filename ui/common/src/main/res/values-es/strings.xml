@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Copiado al portapapeles</string>
   <string name="topup_button">Recargar</string>
   <string name="extra_bonus_title">Gana un %s%% extra de bonus</string>
+  <string name="max">Max</string>
   <string name="payment_method">Método de pago</string>
   <string name="credit_debit_card">Tarjeta de crédito/débito</string>
   <string name="paypal">PayPal</string>
@@ -446,6 +447,7 @@
   <string name="referral_verification_title">Verificación de método de pago</string>
   <string name="referral_view_verify_button">Verificar método de pago</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">¡Tienes que actualizar!</string>
   <string name="update_wallet_purchase_body">Actualiza la Aptoide Wallet para completar esta compra.</string>
@@ -517,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Dirección de la wallet</string>
   <string name="transfer_send_button">Enviar</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">¡Tienes un mensaje nuevo!</string>
   <string name="support_new_message_button">Toca para abrir</string>

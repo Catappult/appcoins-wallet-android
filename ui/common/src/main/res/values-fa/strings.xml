@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">کپی به کلیپبورد</string>
   <string name="topup_button">افزایش اعتبار</string>
   <string name="extra_bonus_title">دریافت یک پاداش %s%% بیشتر</string>
+  <string name="max">Max</string>
   <string name="payment_method">روش پرداخت</string>
   <string name="credit_debit_card">کارت اعتباری / بانکی</string>
   <string name="paypal">پی‌پال</string>
@@ -446,6 +447,7 @@
   <string name="referral_verification_title">تایید روش پرداخت</string>
   <string name="referral_view_verify_button">تایید روش پرداخت</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">نیاز به بروزرسانی دارید!</string>
   <string name="update_wallet_purchase_body">لطفا Aptoide Wallet را بروزرسانی کنید تا این خرید را کامل کنید.</string>
@@ -517,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">آدرس کیف‌پول</string>
   <string name="transfer_send_button">ارسال</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">پیام جدیدی دریافت کرده‌اید!</string>
   <string name="support_new_message_button">برای باز کردن کلیک کنید</string>

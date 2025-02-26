@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Copiat pe clipboard</string>
   <string name="topup_button">Alimentează</string>
   <string name="extra_bonus_title">Primești un bonus extra de %s%%</string>
+  <string name="max">Max</string>
   <string name="payment_method">Metoda de plată</string>
   <string name="credit_debit_card">Card de credit/debit</string>
   <string name="paypal">PayPal</string>
@@ -447,6 +448,7 @@
   <string name="referral_verification_title">Verifică metoda de plată</string>
   <string name="referral_view_verify_button">Verifică metoda de plată</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Trebuie să actualizezi!</string>
   <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
@@ -518,6 +520,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Adresă portofel</string>
   <string name="transfer_send_button">Trimite</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Ai un mesaj nou!</string>
   <string name="support_new_message_button">Apasă ca să deschizi</string>

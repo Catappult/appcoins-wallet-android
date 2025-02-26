@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Naar klembord gekopieerd</string>
   <string name="topup_button">Opwaarderen</string>
   <string name="extra_bonus_title">Krijg %s%% extra bonus</string>
+  <string name="max">Max</string>
   <string name="payment_method">Betalingsmethode</string>
   <string name="credit_debit_card">Creditcard/betaalkaart</string>
   <string name="paypal">PayPal</string>
@@ -446,6 +447,7 @@
   <string name="referral_verification_title">Betaalmethode verifiëren</string>
   <string name="referral_view_verify_button">Betaalmethode verifiëren</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Je dient bij te werken!</string>
   <string name="update_wallet_purchase_body">Werk de Aptoide Wallet bij om deze aankoop te voltooien.</string>
@@ -517,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Wallet-adres</string>
   <string name="transfer_send_button">Sturen</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Je hebt een nieuw bericht!</string>
   <string name="support_new_message_button">Tik om te openen</string>

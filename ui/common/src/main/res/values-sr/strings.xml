@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Kopirano u ostavu</string>
   <string name="topup_button">Dopunite</string>
   <string name="extra_bonus_title">Osvojite dodatni bonus od %s%%</string>
+  <string name="max">Max</string>
   <string name="payment_method">Način plaćanja</string>
   <string name="credit_debit_card">Kreditna/debitna kartica</string>
   <string name="paypal">PayPal</string>
@@ -447,6 +448,7 @@
   <string name="referral_verification_title">Potvrdite način plaćanja</string>
   <string name="referral_view_verify_button">Potvrdite način plaćanja</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Potrebno je ažuriranje!</string>
   <string name="update_wallet_purchase_body">Ažurirajte Aptoide bilans da biste obavili ovu kupovinu.</string>
@@ -518,6 +520,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Adresa novčanika</string>
   <string name="transfer_send_button">Pošaljite</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Dobili ste novu poruku!</string>
   <string name="support_new_message_button">Dodirnite da otvorite</string>

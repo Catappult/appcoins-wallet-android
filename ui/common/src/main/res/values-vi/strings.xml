@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Đã sao chép vào khay nhớ tạm</string>
   <string name="topup_button">Nạp tiền</string>
   <string name="extra_bonus_title">Nhận thêm %s%% tiền thưởng</string>
+  <string name="max">Max</string>
   <string name="payment_method">Phương thức thanh toán</string>
   <string name="credit_debit_card">Thẻ tín dụng/ghi nợ</string>
   <string name="paypal">PayPal</string>
@@ -445,6 +446,7 @@
   <string name="referral_verification_title">Xác minh phương thức thanh toán</string>
   <string name="referral_view_verify_button">Xác minh phương thức thanh toán</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Bạn cần phải cập nhật!</string>
   <string name="update_wallet_purchase_body">Cập nhật Aptoide Wallet để hoàn tất giao dịch mua này.</string>
@@ -516,6 +518,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Địa chỉ ví</string>
   <string name="transfer_send_button">Gửi</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Bạn có một tin nhắn mới!</string>
   <string name="support_new_message_button">Nhấp để mở</string>
