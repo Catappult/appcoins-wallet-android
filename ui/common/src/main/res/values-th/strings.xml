@@ -445,6 +445,7 @@
   <string name="referral_verification_title">ตรวจสอบวิธีการชำระเงิน</string>
   <string name="referral_view_verify_button">ตรวจสอบวิธีการชำระเงิน</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">คุณจำเป็นต้องอัพเดต</string>
   <string name="update_wallet_purchase_body">อัปเดต Aptoide Wallet เพื่อทําการซื้อนี้ให้เสร็จสมบูรณ์</string>
