@@ -10,125 +10,125 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Marathi\n"
 "Language: mr_IN\n"
-"PO-Revision-Date: 2025-02-26 14:52\n"
+"PO-Revision-Date: 2025-02-26 15:26\n"
 
 #. Card Title
 #:
-msgid "Earn AppCoins Credits!"
+msgid "Earn Aptoide balance!"
 msgstr ""
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
 msgstr ""
 
 #. Card - Purchase Promotion.
 #:
-msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
+msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
 msgstr ""
 
 #. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr ""
+msgstr "कारण आपण {0} मध्ये खरेदी केलीत."
 
 #. Card - Expenditure per days Promotion.
 #:
-msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
+msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
 msgstr ""
 
 #. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr ""
+msgstr "कारण आपण गेल्या {2} दिवसात {0} {1} पेक्षा जास्त खर्च केलात."
 
 #. Card - Next Level Promotion.
 #:
-msgid "Reach the next level and receive {0} AppCoins Credits!"
+msgid "Reach the next level and receive {0} in Aptoide balance!"
 msgstr ""
 
 #. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
-msgstr ""
+msgstr "कारण आपण पुढच्या पातळीवर पोचलात."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
 msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "आपल्या सर्व खरेदीवर अतिरिक्त {0}% बोनस मिळवा."
 
 #. Card - First purchase.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
+msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
 msgstr ""
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "{0} मधील आपल्या पहल्या खरेदीसाठी."
 
 #. Card - First purchase of the day.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
 msgstr ""
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "{0} मधील आपल्या पहिल्या खरेदीसाठी."
 
 #. Title for bonus receipts.
 #:
-msgid "+{0} AppCoins Credits Bonus!"
+msgid "+{0} Bonus in Aptoide balance!"
 msgstr ""
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in {3}."
 msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr ""
+msgstr "{2} मध्ये आपण {0} {1} खर्च केलेत म्हणुन."
 
 #. Card - Expendidure in any game.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in compatible apps."
 msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
-msgid "Because you spent {0} {1} in AppCoins apps."
+msgid "Because you spent {0} {1} in compatible apps."
 msgstr ""
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
+msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
 msgstr ""
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr ""
+msgstr "कोणतेही पर्क उपलब्ध नाहीत"
 
 #. Card - Title - Enjoy
 #:
 msgid "Enjoy {0}% bonus in every purchase."
-msgstr ""
+msgstr "प्रत्येक खरेदीवर {0}% बोनस मिळवा"
 
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "सोप्या बँक ट्रांसफरसह केलेले सर्व टॉप अप्सवर {0}% अतिरिक्त बोनस मिळवा."
 
 #. Payment Method - Title - Bank Transfer
 #:
 msgid "Easy bank transfer"
-msgstr ""
+msgstr "सोपी बँक ट्रांसफर"
 
