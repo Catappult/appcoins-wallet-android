@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
-  <string name="iab_wallet_not_installed_popup_body">Щоб купити цей предмет, спочатку потрібно отримати %s.</string>
+  <string name="iab_wallet_not_installed_popup_body">To buy this item you first need to get the %s.</string>
   <string name="appcoins_wallet">AppCoins Wallet</string>
-  <string name="iab_wallet_not_installed_popup_close_button">ЗАКРИТИ</string>
+  <string name="iab_wallet_not_installed_popup_close_button">CLOSE</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">Щоб зробити цю покупку, вам потрібен AppCoins Wallet. Завантажте його з Aptoide або Play Store і поверніться, щоб завершити покупку!</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">ЗРОЗУМІВ!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">GOT IT!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">Вам потрібен AppCoins Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">Щоб отримати свою винагороду, вам потрібен AppCoins Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
+  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">Оплатити як гість</string>
-  <string name="iab_pay_as_guest_credit_card">Кредитна карта</string>
+  <string name="iab_pay_as_guest_title">Pay as a guest</string>
+  <string name="iab_pay_as_guest_credit_card">Credit Card</string>
   <string name="iab_pay_as_guest_paypal">PayPal</string>
-  <string name="iab_switch_to_paypal">Оплатити з допомогою PAYPAL</string>
-  <string name="iab_switch_to_credit_card">Оплатити за допомогою кредитної карти</string>
-  <string name="iab_card_number">Номер карти</string>
-  <string name="iab_card_expiry">ММ/РР</string>
+  <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
+  <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
+  <string name="iab_card_number">Card number</string>
+  <string name="iab_card_expiry">MM/YY</string>
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
-  <string name="iab_change_card_button">ЗМІНИ КАРТКУ</string>
-  <string name="iab_pay_with_wallet_title">Оплатити за допомогою AppCoins Wallet</string>
-  <string name="iab_pay_with_wallet_reward_title">Отримайте бонус до %s%%!</string>
-  <string name="iab_pay_with_wallet_reward_body">Ви отримаєте %s за цю покупку.</string>
-  <string name="iab_pay_with_wallet_reward_no_connection_body">Ви отримаєте бонус за цю покупку.</string>
-  <string name="iab_best_deal">КРАЩА ПРОПОЗИЦІЯ</string>
-  <string name="iab_purchase_done_title">ГОТОВО!</string>
-  <string name="iab_purchase_done_reward_title">Наступного разу отримайте бонус до %s%% за допомогою AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Наступного разу отримайте бонус за допомогою AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_body">Ви могли отримати %s за цю покупку.</string>
-  <string name="iab_purchase_done_title_long">Покупка завершена!</string>
-  <string name="iab_purchase_change_payment_method_button">БІЛЬШЕ СПОСОБІВ ОПЛАТИ</string>
-  <string name="iab_purchase_support_1">Потрібна допомога?</string>
-  <string name="iab_purchase_support_2_link">Зв\'яжіться зі службою підтримки.</string>
+  <string name="iab_change_card_button">CHANGE CARD</string>
+  <string name="iab_pay_with_wallet_title">Pay with AppCoins Wallet</string>
+  <string name="iab_pay_with_wallet_reward_title">Get up to %s%% Bonus!</string>
+  <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">You\'ll receive a Bonus on this purchase.</string>
+  <string name="iab_best_deal">BEST DEAL</string>
+  <string name="iab_purchase_done_title">DONE!</string>
+  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% Bonus with the AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a Bonus with the AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
+  <string name="iab_purchase_done_title_long">Purchase completed!</string>
+  <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
-  <string name="next_button">ДАЛІ</string>
-  <string name="cancel_button">СКАСУВАТИ</string>
-  <string name="buy_button">КУПИТИ</string>
-  <string name="iab_wallet_not_installed_popup_close_install">ВСТАНОВИТИ WALLET</string>
+  <string name="next_button">NEXT</string>
+  <string name="cancel_button">CANCEL</string>
+  <string name="buy_button">BUY</string>
+  <string name="iab_wallet_not_installed_popup_close_install">INSTALL WALLET</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Встановити</string>
+  <string name="install_button">Install</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Помилка</string>
-  <string name="purchase_error_item_owned">Ви вже маєте цей предмет!</string>
-  <string name="purchase_card_error_title">Щось пішло не так.</string>
-  <string name="purchase_card_error_general_1">Виникла проблема з вашою карткою. Будь ласка, спробуйте ще раз або зв’яжіться з нами.</string>
-  <string name="purchase_card_error_general_2">Ваш банк відхилив транзакцію. Спробуйте з іншою карткою або зв’яжіться з нами.</string>
-  <string name="purchase_card_error_no_funds">Схоже, у вас недостатньо коштів або на вашій картці є ліміт. Будь ласка, спробуйте з іншим способом.</string>
-  <string name="purchase_card_error_expired">Здається, термін дії вашої картки закінчився. Будь ласка, спробуйте іншим способом.</string>
-  <string name="purchase_card_error_invalid_details">Ви впевнені, що номер вашої картки правильний? Перевірте та повторіть спробу.</string>
-  <string name="purchase_card_error_not_supported">Ваш тип картки ще не підтримується. Спробуйте іншим способом.</string>
-  <string name="purchase_card_error_security">Ви впевнені, що інформація безпеки правильна? Будь ласка, спробуйте ще раз.</string>
-  <string name="purchase_card_error_wrong_CVV">Схоже, ваш код CVV/CVC неправильний. Будь ласка, спробуйте ще раз.</string>
-  <string name="purchase_card_error_CVV">Неправильний CVV/CVC</string>
-  <string name="error_contac_us_body">Якщо проблема не зникне, зв’яжіться з нами.</string>
+  <string name="title_dialog_error">Error</string>
+  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_card_error_title">Oops, something went wrong.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
+  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="error_contac_us_body">If the problem persists please contact us.</string>
 </resources>
