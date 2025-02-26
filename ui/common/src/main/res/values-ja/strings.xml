@@ -445,6 +445,7 @@
   <string name="referral_verification_title">支払い方法の認証</string>
   <string name="referral_view_verify_button">支払い方法の認証</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">アップデートが必要です!</string>
   <string name="update_wallet_purchase_body">Aptoide Walletを更新して、この購入を完了してください。</string>
