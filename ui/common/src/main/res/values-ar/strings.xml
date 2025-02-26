@@ -450,6 +450,7 @@
   <string name="referral_verification_title">وثّق وسيلة الدفع</string>
   <string name="referral_view_verify_button">وثّق وسيلة الدفع</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">يجب عليك التحديث!</string>
   <string name="update_wallet_purchase_body">حدّث محفظة Aptoide لإتمام عملية الشراء هذه.</string>
