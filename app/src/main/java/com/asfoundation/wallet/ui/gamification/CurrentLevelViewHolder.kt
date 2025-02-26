@@ -28,7 +28,7 @@ class CurrentLevelViewHolder(
       mapper.getProgressPercentage(currentLevel.amountSpent, currentLevel.nextLevelAmount)
     handleSpecificLevel(
       currentLevel.level, currentLevel.bonus,
-      currentLevel.amountSpent, currentLevel.nextLevelAmount
+      currentLevel.amountSpent, currentLevel.nextLevelAmount, currentLevel.currency
     )
     setProgress(progress)
     handleToggleButton(currentLevel.level)
@@ -39,14 +39,14 @@ class CurrentLevelViewHolder(
 
   private fun handleSpecificLevel(
     level: Int, bonus: Double,
-    amountSpent: BigDecimal, nextLevelAmount: BigDecimal?
+    amountSpent: BigDecimal, nextLevelAmount: BigDecimal?, currency: String?
   ) {
     val currentLevelInfo = mapper.mapCurrentLevelInfo(level)
     binding.currentLevelCardLayout.currentLevelImage.setImageDrawable(currentLevelInfo.planet)
     setColor(currentLevelInfo.levelColor)
     setText(
       currentLevelInfo.title, currentLevelInfo.phrase, bonus, amountSpent,
-      nextLevelAmount
+      nextLevelAmount, currency
     )
   }
 
@@ -69,14 +69,14 @@ class CurrentLevelViewHolder(
 
   private fun setText(
     title: String, phrase: String,
-    bonus: Double, amountSpent: BigDecimal, nextLevelAmount: BigDecimal?
+    bonus: Double, amountSpent: BigDecimal, nextLevelAmount: BigDecimal?, currency: String?
   ) {
     binding.currentLevelCardLayout.currentLevelTitle.text = title
     if (nextLevelAmount != null) {
       binding.currentLevelCardLayout.spendAmountText.text =
         itemView.context.getString(
           R.string.gamif_card_body,
-          currencyFormatUtils.formatGamificationValues(nextLevelAmount - amountSpent)
+          currency.plus(currencyFormatUtils.formatGamificationValues(nextLevelAmount - amountSpent))
         )
     } else {
       binding.currentLevelCardLayout.spendAmountText.visibility = View.INVISIBLE

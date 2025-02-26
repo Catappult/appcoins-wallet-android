@@ -6,6 +6,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
@@ -26,7 +27,8 @@ class GamificationPresenter(
   private val formatter: CurrencyFormatUtils,
   private val disposables: CompositeDisposable,
   private val viewScheduler: Scheduler,
-  private val networkScheduler: Scheduler
+  private val networkScheduler: Scheduler,
+  private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase,
 ) {
 
   private var viewHasContent = false
@@ -125,13 +127,13 @@ class GamificationPresenter(
     val currentLevel = gamification.currentLevel
     for (level in gamification.levels) {
       val levelItem = when {
-        level.level < currentLevel -> ReachedLevelItem(level.amount, level.bonus, level.level)
+        level.level < currentLevel -> ReachedLevelItem(level.amount, level.bonus, level.level, getCachedCurrencyUseCase())
         level.level == currentLevel -> CurrentLevelItem(
           level.amount, level.bonus, level.level,
-          gamification.totalSpend, gamification.nextLevelAmount
+          gamification.totalSpend, gamification.nextLevelAmount, getCachedCurrencyUseCase()
         )
 
-        else -> UnreachedLevelItem(level.amount, level.bonus, level.level)
+        else -> UnreachedLevelItem(level.amount, level.bonus, level.level, getCachedCurrencyUseCase())
       }
       if (levelItem is ReachedLevelItem) hiddenList.add(levelItem)
       else shownList.add(levelItem)

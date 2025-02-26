@@ -11,6 +11,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
@@ -46,6 +47,7 @@ class RewardViewModel @Inject constructor(
   private val rxSchedulers: RxSchedulers,
   private val challengeRewardAnalytics: ChallengeRewardAnalytics,
   private val compatibleAppsAnalytics: CompatibleAppsAnalytics,
+  //TODO: Validate why this line crash - private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase
 ) : BaseViewModel<RewardState, RewardSideEffect>(initialState()) {
 
   val promotions = mutableStateListOf<CardPromotionItem>()
@@ -67,6 +69,8 @@ class RewardViewModel @Inject constructor(
   fun showSupportScreen() {
     displayChatUseCase()
   }
+
+  //fun getCurrency() = getCachedCurrencyUseCase()
 
   fun fetchPromotions() {
     getPromotionsUseCase()
