@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
-"PO-Revision-Date: 2025-02-02 11:48\n"
+"PO-Revision-Date: 2025-02-26 17:27\n"
 
 #. Card Title
 #:
-msgid "Earn AppCoins Credits!"
-msgstr "AppCoins Credits دریافت کنید!"
+msgid "Earn Aptoide balance!"
+msgstr "کسب Aptoide balance!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "{0}% پاداش اضافی در همه خریدهای خود در {1} دریافت کنید، به غیر از زمانی که از AppCoins Credits استفاده می‌کنید."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr "{0}% بونوس اضافی در همه خریدهای خود در {1} دریافت کنید، به غیر از زمانی که از Aptoide balance استفاده می‌کنید."
 
 #. Card - Purchase Promotion.
 #:
-msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "در {0} خریدی انجام دهید و {1} AppCoins Credits دریافت کنید."
+msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
+msgstr "در {0} خریدی انجام دهید و {1} Aptoide balance دریافت کنید."
 
 #. Receipt - Purchase Promotion.
 #:
@@ -34,8 +34,8 @@ msgstr "زیرا شما در {0} خریدی انجام داده اید."
 
 #. Card - Expenditure per days Promotion.
 #:
-msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "در{2} روز، {0} {1} خرج کنید و {3} AppCoins Credits بدست آورید."
+msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
+msgstr "در{2} روز، {0} {1} خرج کنید و {3} در Aptoide balance بدست آورید."
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -44,8 +44,8 @@ msgstr "زیرا در{2} روز اخیر، بیش از {0} {1} خرج کرده�
 
 #. Card - Next Level Promotion.
 #:
-msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "به مرحله بعدی برسید و {0} AppCoins Credits بدست آورید!"
+msgid "Reach the next level and receive {0} in Aptoide balance!"
+msgstr "به مرحله بعدی برسید و {0} در Aptoide balance بدست آورید!"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -54,8 +54,8 @@ msgstr "زیرا به مرحله بعد رسیده‌اید."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "{0}% پاداش اضافی در همه خریدهای خود در {1} دریافت کنید، به غیر از زمانی که از AppCoins Credits استفاده می‌کنید."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -64,8 +64,8 @@ msgstr "در همه خریدهای خود در، {0}% پاداش بیشتر در
 
 #. Card - First purchase.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "{0}% پاداش اضافی در اولین خرید خود غیر از AppCoins Credits در {1} دریافت کنید"
+msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
+msgstr "{0}% بونوس اضافی در اولین خرید خود غیر از Aptoide balance در {1} دریافت کنید"
 
 #. Receipt - First Purchase.
 #:
@@ -74,8 +74,8 @@ msgstr "به خاطر اولین خرید شما در {0}."
 
 #. Card - First purchase of the day.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "{0}% پاداش اضافی در اولین خرید روز خود غیر از AppCoins Credits در {1} دریافت کنید"
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
+msgstr "{0}% بونوس اضافی در اولین خرید روز خود غیر از Aptoide balance در {1} دریافت کنید"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -84,13 +84,13 @@ msgstr "به خاطر اولین خرید روز شما در {0}."
 
 #. Title for bonus receipts.
 #:
-msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} پاداش AppCoins Credits!"
+msgid "+{0} Bonus in Aptoide balance!"
+msgstr "+{0} بونوس در Aptoide balance!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr "به ازای هر {1} {2} که در {3} خرج می‌کنید، {0} AppCoins Credits اضافی دریافت کنید."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in {3}."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -99,18 +99,18 @@ msgstr "زیرا شما {0} {1} را در {2} پرداخت کردید."
 
 #. Card - Expendidure in any game.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "به ازای هر {1} {2} که در اپلیکیشن‌های AppCoins خرج می‌کنید، {0} AppCoins Credits اضافی دریافت کنید."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in compatible apps."
+msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
-msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "زیرا شما {0} {1} در اپلیکیشن‌های AppCoins خرج کردید."
+msgid "Because you spent {0} {1} in compatible apps."
+msgstr "زیرا شما {0} {1} در اپلیکیشن‌های سازگار خرج کردید."
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "{0}% پاداش اضافی در همه خریدهای خود دریافت کنید، به غیر از زمانی که از AppCoins Credits استفاده می‌کنید."
+msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
+msgstr "{0}% بونوس اضافی در همه خریدهای خود دریافت کنید، به غیر از زمانی که از Aptoide balance استفاده می‌کنید."
 
 #. Card - Title - Common
 #:
