@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">已复制到剪贴板</string>
   <string name="topup_button">充值</string>
   <string name="extra_bonus_title">额外获得 %s%% 奖金</string>
+  <string name="max">Max</string>
   <string name="payment_method">付款方式</string>
   <string name="credit_debit_card">信用卡/借记卡</string>
   <string name="paypal">PayPal</string>
@@ -517,6 +518,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">钱包地址</string>
   <string name="transfer_send_button">发送</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">您有新消息！</string>
   <string name="support_new_message_button">点击打开</string>
