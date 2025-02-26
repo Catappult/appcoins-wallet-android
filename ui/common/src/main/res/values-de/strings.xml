@@ -446,6 +446,7 @@
   <string name="referral_verification_title">Zahlungsmethode verifizieren</string>
   <string name="referral_view_verify_button">Zahlungsmethode verifizieren</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Du musst eine Aktualisierung durchführen!</string>
   <string name="update_wallet_purchase_body">Aktualisiere die Aptoide Wallet, um diesen Einkauf abzuschließen.</string>
