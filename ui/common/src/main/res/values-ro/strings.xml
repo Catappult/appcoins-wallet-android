@@ -798,6 +798,7 @@
   <string name="manage_wallet_wallet_changed_title">Portofel modificat</string>
   <string name="manage_wallet_change_active_wallet_title">Vrei să selectezi acest portofel?</string>
   <string name="manage_wallet_set_a_name_button">Alege un nume pentru portofelul tău</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verifică o metodă de plată</string>
   <string name="verify_card_verified">Metodă de plată verificată!</string>
