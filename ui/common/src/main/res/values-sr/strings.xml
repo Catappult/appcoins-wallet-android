@@ -447,6 +447,7 @@
   <string name="referral_verification_title">Potvrdite način plaćanja</string>
   <string name="referral_view_verify_button">Potvrdite način plaćanja</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Potrebno je ažuriranje!</string>
   <string name="update_wallet_purchase_body">Ažurirajte Aptoide bilans da biste obavili ovu kupovinu.</string>
