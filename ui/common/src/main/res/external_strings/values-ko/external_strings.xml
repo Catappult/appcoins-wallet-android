@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
-  <string name="iab_wallet_not_installed_popup_body">이 아이템 구매를 위해서 %s을 받아야 합니다.</string>
-  <string name="appcoins_wallet">AppCoins 지갑</string>
-  <string name="iab_wallet_not_installed_popup_close_button">닫기</string>
+  <string name="iab_wallet_not_installed_popup_body">To buy this item you first need to get the %s.</string>
+  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="iab_wallet_not_installed_popup_close_button">CLOSE</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">이 구매를 위해서 AppCoins 지갑이 필요합니다. Aptoide 또는 Play Store에서 다운로드하고 구매를 완료하세요!</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">알겠습니다!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">GOT IT!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">AppCoins 지갑이 필요합니다!</string>
-  <string name="poa_wallet_not_installed_notification_body">보상을 받기 위해서는 AppCoins 지갑이 필요합니다.</string>
+  <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
+  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">게스트로 지불</string>
-  <string name="iab_pay_as_guest_credit_card">신용카드</string>
-  <string name="iab_pay_as_guest_paypal">페이팔</string>
-  <string name="iab_switch_to_paypal">페이팔을 사용하여 지불</string>
-  <string name="iab_switch_to_credit_card">신용카드를 사용하여 지불</string>
-  <string name="iab_card_number">카드 번호</string>
+  <string name="iab_pay_as_guest_title">Pay as a guest</string>
+  <string name="iab_pay_as_guest_credit_card">Credit Card</string>
+  <string name="iab_pay_as_guest_paypal">PayPal</string>
+  <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
+  <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
+  <string name="iab_card_number">Card number</string>
   <string name="iab_card_expiry">MM/YY</string>
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
-  <string name="iab_change_card_button">카드 변경</string>
-  <string name="iab_pay_with_wallet_title">AppCoins 지갑으로 지불</string>
-  <string name="iab_pay_with_wallet_reward_title">최대 %s%% 보너스</string>
-  <string name="iab_pay_with_wallet_reward_body">이 구매에서 %s를 받게됩니다.</string>
-  <string name="iab_pay_with_wallet_reward_no_connection_body">이 구매에 보너스를 받게 됩니다.</string>
-  <string name="iab_best_deal">최고 딜</string>
-  <string name="iab_purchase_done_title">완료!</string>
-  <string name="iab_purchase_done_reward_title">다음에는, AppCoins 지갑으로 최대 %s%% 보너스를 받습니다!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">다음에는, AppCoins 지갑으로 보너스를 받습니다!</string>
-  <string name="iab_purchase_done_reward_body">이 구매에 %s 를 받을 수 있었습니다.</string>
-  <string name="iab_purchase_done_title_long">구매 완료!</string>
-  <string name="iab_purchase_change_payment_method_button">더 많은 지불 방식</string>
-  <string name="iab_purchase_support_1">도움이 필요하신가요?</string>
-  <string name="iab_purchase_support_2_link">고객 지원.</string>
+  <string name="iab_change_card_button">CHANGE CARD</string>
+  <string name="iab_pay_with_wallet_title">Pay with AppCoins Wallet</string>
+  <string name="iab_pay_with_wallet_reward_title">Get up to %s%% Bonus!</string>
+  <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">You\'ll receive a Bonus on this purchase.</string>
+  <string name="iab_best_deal">BEST DEAL</string>
+  <string name="iab_purchase_done_title">DONE!</string>
+  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% Bonus with the AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a Bonus with the AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
+  <string name="iab_purchase_done_title_long">Purchase completed!</string>
+  <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
-  <string name="next_button">다음</string>
-  <string name="cancel_button">취소</string>
-  <string name="buy_button">구매</string>
-  <string name="iab_wallet_not_installed_popup_close_install">지갑 설치</string>
+  <string name="next_button">NEXT</string>
+  <string name="cancel_button">CANCEL</string>
+  <string name="buy_button">BUY</string>
+  <string name="iab_wallet_not_installed_popup_close_install">INSTALL WALLET</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">설치</string>
+  <string name="install_button">Install</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">오류</string>
-  <string name="purchase_error_item_owned">이 아이템을 이미 소유하고 있습니다!</string>
-  <string name="purchase_card_error_title">이런, 무엇인가 잘못 되었습니다.</string>
-  <string name="purchase_card_error_general_1">카드에 문제가 있습니다. 다시 시도하시거나 연락 주세요.</string>
-  <string name="purchase_card_error_general_2">은행에서 거래가 거부되었습니다. 다른 카드로 다시 시도해보시거나 연락 주세요.</string>
-  <string name="purchase_card_error_no_funds">충분한 자금이 없거나 카드 한도를 초과한 것 같습니다. 다른 방법으로 시도해 보세요.</string>
-  <string name="purchase_card_error_expired">카드가 만료된 것 같습니다. 다른 카드로 해 보세요.</string>
-  <string name="purchase_card_error_invalid_details">카드 번호가 올바른가요? 확인하시고 다시 시도해 주세요.</string>
-  <string name="purchase_card_error_not_supported">해당 카드 유형은 아직 지원하지 않습니다. 다른 카드로 시도해 보세요.</string>
-  <string name="purchase_card_error_security">보안 정보가 맞나요? 다시 시도해 주세요.</string>
-  <string name="purchase_card_error_wrong_CVV">CVV/CVC 코드가 잘못된 것 같습니다. 다시 시도해 주세요.</string>
-  <string name="purchase_card_error_CVV">잘못된 CVV/CVC</string>
-  <string name="error_contac_us_body">문제가 계속되면 당사로 연락 주세요.</string>
+  <string name="title_dialog_error">Error</string>
+  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_card_error_title">Oops, something went wrong.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
+  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="error_contac_us_body">If the problem persists please contact us.</string>
 </resources>
