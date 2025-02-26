@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Panoya kopyalandı</string>
   <string name="topup_button">Yükle</string>
   <string name="extra_bonus_title">İlave %s%% bonus kazan</string>
+  <string name="max">Max</string>
   <string name="payment_method">Ödeme yöntemi</string>
   <string name="credit_debit_card">Kredi/banka kartı</string>
   <string name="paypal">PayPal</string>
@@ -518,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Cüzdan Adresi</string>
   <string name="transfer_send_button">Gönder</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Yeni bir mesajınız var!</string>
   <string name="support_new_message_button">Açmak için dokunun</string>
