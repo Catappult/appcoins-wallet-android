@@ -26,6 +26,7 @@ interface RemoteRepository {
     toWallet: String,
     walletAddress: String,
     amount: BigDecimal,
+    currency: String,
     origin: String,
     type: String,
     packageName: String,

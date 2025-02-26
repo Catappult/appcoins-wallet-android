@@ -297,6 +297,7 @@ class RemoteRepository(
     walletAddress: String,
     packageName: String,
     amount: BigDecimal,
+    currency: String,
     guestWalletId: String?
   ): Single<Transaction> = createTransaction(
     userWallet = toWallet,
@@ -313,7 +314,7 @@ class RemoteRepository(
     walletAddress = walletAddress,
     packageName = packageName,
     amount = amount.toPlainString(),
-    currency = "APPC",
+    currency = currency,
     productName = null,
     guestWalletId = guestWalletId,
   )

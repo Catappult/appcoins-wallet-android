@@ -113,7 +113,7 @@
   <string name="facebook">Facebook</string>
   <string name="error_already_added">既に追加されています</string>
   <string name="error_export">ウォレットをエクスポートできませんでした。</string>
-  <string name="gas_price_value">%1$s %2$s</string>
+  <string name="gas_price_value">%1$s%2$s</string>
   <string name="settings_fragment_credits">我々はAptoide Wallet開発をブートストラップするために、Android用のTrust Walletプロジェクトを分岐しました。すでに実装されている機能に関しては、こちらを最善の方法と見なしました。関連性があると考えられる実装と作業に貢献するという意図で、分岐決断をしました。</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">進行中の取引</string>
@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">やった！</string>
   <string name="gamification_how_max_level_body">最高レベルに到達しました：購入ごとに %s のボーナス獲得！</string>
   <string name="gamification_level_up_notification_title">もうすぐです！</string>
-  <string name="gamification_level_up_notification_body">%1$s %2$sを使うと次のレベルに到達</string>
+  <string name="gamification_level_up_notification_body">%s を使うと次のレベルに到達</string>
   <string name="gamification_bonus_plus_perk_body">Aptoideクレジットの%1$sボーナスと%2$sを追加でお楽しみください。</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Aptoide Walletがあなたのウォレットアドレスを%sに提供することを許可します。</string>
@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">クリップボードにコピーされました</string>
   <string name="topup_button">トップアップ</string>
   <string name="extra_bonus_title">さらに%s%のボーナスを獲得</string>
+  <string name="max">Max</string>
   <string name="payment_method">支払方法</string>
   <string name="credit_debit_card">クレジット/デビットカード</string>
   <string name="paypal">PayPal</string>
@@ -445,6 +446,7 @@
   <string name="referral_verification_title">支払い方法の認証</string>
   <string name="referral_view_verify_button">支払い方法の認証</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">アップデートが必要です!</string>
   <string name="update_wallet_purchase_body">Aptoide Walletを更新して、この購入を完了してください。</string>
@@ -516,6 +518,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">ウォレット・アドレス</string>
   <string name="transfer_send_button">送信</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">新しいメッセージを受け取りました！</string>
   <string name="support_new_message_button">タップして開く</string>
@@ -784,6 +789,7 @@
   <string name="manage_wallet_wallet_changed_title">ウォレットが変更されました</string>
   <string name="manage_wallet_change_active_wallet_title">このウォレットを選択しますか？</string>
   <string name="manage_wallet_set_a_name_button">ウォレットの名前を設定</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">支払い方法の認証</string>
   <string name="verify_card_verified">支払い方法が認証されました！</string>

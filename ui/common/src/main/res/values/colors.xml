@@ -13,6 +13,12 @@
   <color name="styleguide_white">#FFFFFFFF</color>
   <color name="styleguide_black">#000000</color>
 
+  <!-- rebranding colors -->
+  <color name="styleguide_rebranding_blue">#38219F</color>
+  <color name="styleguide_rebranding_corner_blue">#2F2077</color>
+  <color name="styleguide_rebranding_orange">#FE6446</color>
+  <color name="styleguide_rebranding_subtext">#C6BBF8</color>
+
   <color name="styleguide_payments_blue">#1D1E28</color>
   <color name="styleguide_payments_blue_secondary">#282937</color>
   <color name="styleguide_payments_adyen_field">#919191</color>

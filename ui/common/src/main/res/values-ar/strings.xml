@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">لقد فعلتها!</string>
   <string name="gamification_how_max_level_body">لقد وصلت أعلى مستوى: %s مكافأة على كل عملية شراء!</string>
   <string name="gamification_level_up_notification_title">كدت تصل!</string>
-  <string name="gamification_level_up_notification_body">أنفق %1$s %2$s إضافية لتصل إلى المستوى التالي.</string>
+  <string name="gamification_level_up_notification_body">أنفق %s إضافية لتصل إلى المستوى التالي.</string>
   <string name="gamification_bonus_plus_perk_body">تمتع بـ %1$s مكافأة و %2$s إضافية في رصيد Aptoide.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">اسمح لمحفظة Aptoide بمنح عنوان محفظتك لـ %s.</string>
@@ -284,7 +284,7 @@
   <string name="email_here_field">بريدك الإلكتروني هنا&#8230;</string>
   <string name="skip_button">تجاهل الآن</string>
   <string name="install_button">تثبيت</string>
-  <string name="get_button">تحصيل</string>
+  <string name="get_button">احصل</string>
   <string name="see_all_button">رؤية الكل</string>
   <string name="transfer_button">تحويل</string>
   <string name="top_up_button">إضافة</string>
@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
   <string name="topup_button">إضافة</string>
   <string name="extra_bonus_title">احصل على %s%% مكافأة إضافية</string>
+  <string name="max">Max</string>
   <string name="payment_method">وسيلة الدفع</string>
   <string name="credit_debit_card">بطاقة ائتمان/مسبقة الدفع</string>
   <string name="paypal">بايبال</string>
@@ -331,7 +332,7 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">أداتك للمشتريات داخل التطبيقات</string>
+  <string name="onboarding_title">أداتك للمشترايت داخل التذبيقات</string>
   <string name="onboarding_bonus_title">احصل على مكافأة تصل إلى %s%% على مشترياتك داخل التطبيقات في رصيد Aptoide.</string>
   <string name="onboarding_payment_methods_title">استخدم بطاقة بنكية، PayPal، ووسائل الدفع المفضلة لديك.</string>
   <string name="onboarding_vip_title">كن عضو VIP لتحصل على الدعم والعروض الممتازة.</string>
@@ -428,12 +429,12 @@
   <string name="purchase_legal_disclaimer">بمتابعة استخدام وسيلة الدفع هذه، أنت توافق وتُدرك أنه سيتم تزويدك بالمحتوى مقابل الدفع، وبهذا تفقد حقك في الانسحاب.</string>
   <string name="purchase_bonus_in_appc_disclaimer">المكافأة ستكون برصيد Aptoide.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="zero">قد يستغرق الأمر %s يومًا.</item>
+    <item quantity="zero">قد يستغرق الأمر يومين %s.</item>
     <item quantity="one">قد يستغرق الأمر يومًا %s.</item>
     <item quantity="two">قد يستغرق الأمر يومين %s.</item>
     <item quantity="few">قد يستغرق الأمر %s أيام.</item>
     <item quantity="many">قد يستغرق الأمر %s يومًا.</item>
-    <item quantity="other">قد يستغرق الأمر %s يومًا.</item>
+    <item quantity="other">قد يستغرق الأمر يومين %s.</item>
   </plurals>
   <string name="purchase_bank_transfer_success_1">%s برصيد Aptoide سيُضاف إلى محفظتك.</string>
   <string name="purchase_bank_transfer_success_2">قد يستغرق الأمر يومين لتكتمل العملية في البنك.</string>
@@ -450,6 +451,7 @@
   <string name="referral_verification_title">وثّق وسيلة الدفع</string>
   <string name="referral_view_verify_button">وثّق وسيلة الدفع</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">يجب عليك التحديث!</string>
   <string name="update_wallet_purchase_body">حدّث محفظة Aptoide لإتمام عملية الشراء هذه.</string>
@@ -521,6 +523,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">عنوان المحفظة</string>
   <string name="transfer_send_button">إرسال</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">وصلتك رسالة جديدة!</string>
   <string name="support_new_message_button">اضغط للفتح</string>
@@ -771,36 +776,36 @@
   <string name="intro_home_button">الرئيسية</string>
   <string name="intro_rewards_button">الجوائز</string>
   <plurals name="day">
-    <item quantity="zero">أيام</item>
+    <item quantity="zero">يومان</item>
     <item quantity="one">يوم</item>
     <item quantity="two">يومان</item>
-    <item quantity="few">أيام</item>
-    <item quantity="many">أيام</item>
-    <item quantity="other">أيام</item>
+    <item quantity="few">يومان</item>
+    <item quantity="many">يومان</item>
+    <item quantity="other">يومان</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="zero">ساعات</item>
+    <item quantity="zero">ساعتان</item>
     <item quantity="one">ساعة</item>
     <item quantity="two">ساعتان</item>
-    <item quantity="few">ساعات</item>
-    <item quantity="many">ساعات</item>
-    <item quantity="other">ساعات</item>
+    <item quantity="few">ساعتان</item>
+    <item quantity="many">ساعتان</item>
+    <item quantity="other">ساعتان</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="zero">دقائق</item>
+    <item quantity="zero">دقيقتان</item>
     <item quantity="one">دقيقة</item>
     <item quantity="two">دقيقتان</item>
-    <item quantity="few">دقائق</item>
-    <item quantity="many">دقائق</item>
-    <item quantity="other">دقائق</item>
+    <item quantity="few">دقيقتان</item>
+    <item quantity="many">دقيقتان</item>
+    <item quantity="other">دقيقتان</item>
   </plurals>
   <plurals name="second">
-    <item quantity="zero">ثوانٍ</item>
+    <item quantity="zero">ثانيتان</item>
     <item quantity="one">ثانية</item>
     <item quantity="two">ثانيتان</item>
-    <item quantity="few">ثوانٍ</item>
-    <item quantity="many">ثوانٍ</item>
-    <item quantity="other">ثوانٍ</item>
+    <item quantity="few">ثانيتان</item>
+    <item quantity="many">ثانيتان</item>
+    <item quantity="other">ثانيتان</item>
   </plurals>
   <string name="intro_transactions_header">التحويلات</string>
   <string name="intro_backup_card_title">لا تخسر أموالك!</string>
@@ -819,6 +824,7 @@
   <string name="manage_wallet_wallet_changed_title">المحفظة تغيرت</string>
   <string name="manage_wallet_change_active_wallet_title">هل تريد اختيار هذه المحفظة؟</string>
   <string name="manage_wallet_set_a_name_button">أعطِ محفظتك اسمًا</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">وثّق وسيلة دفع</string>
   <string name="verify_card_verified">تم توثيق وسيلة الدفع!</string>

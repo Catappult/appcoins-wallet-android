@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">Udało ci się!</string>
   <string name="gamification_how_max_level_body">Jesteś na najwyższym poziomie! %s bonusu przy każdym zakupie!</string>
   <string name="gamification_level_up_notification_title">Prawie gotowe!</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
+  <string name="gamification_level_up_notification_body">Spend %s more to reach the next level.</string>
   <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
@@ -268,7 +268,7 @@
   <string name="submit_button">Wyślij</string>
   <string name="close_button">Zamknij</string>
   <string name="back_button">Wróć</string>
-  <string name="value_fiat">%1$s%2$s</string>
+  <string name="value_fiat">%2$s%1$s</string>
   <string name="dismiss_button">Zamknij</string>
   <string name="discover_button">Odkryj</string>
   <string name="connection_error_title">Brak połączenia z Internetem</string>
@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Skopiowano do schowka</string>
   <string name="topup_button">Doładowanie</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="max">Max</string>
   <string name="payment_method">Metoda płatności</string>
   <string name="credit_debit_card">Karta kredytowa/debetowa</string>
   <string name="paypal">PayPal</string>
@@ -448,6 +449,7 @@
   <string name="referral_verification_title">Zweryfikuj metodę płatności</string>
   <string name="referral_view_verify_button">Zweryfikuj metodę płatności</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Musisz zaktualizować!</string>
   <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
@@ -519,6 +521,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Adres portfela</string>
   <string name="transfer_send_button">Wyślij</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Masz nową wiadomość!</string>
   <string name="support_new_message_button">Otwórz</string>
@@ -805,6 +810,7 @@
   <string name="manage_wallet_wallet_changed_title">Zmieniono portfel</string>
   <string name="manage_wallet_change_active_wallet_title">Chcesz wybrać ten portfel?</string>
   <string name="manage_wallet_set_a_name_button">Nazwij swój portfel</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Zweryfikuj metodę płatności</string>
   <string name="verify_card_verified">Zweryfikowane!</string>

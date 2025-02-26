@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -19,9 +21,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -36,8 +42,10 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -62,11 +70,11 @@ import com.appcoins.wallet.ui.widgets.GamesBundle
 import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingTransactionCard
-import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionCard
 import com.appcoins.wallet.ui.widgets.WelcomeEmailCard
 import com.appcoins.wallet.ui.widgets.component.BalanceValue
 import com.appcoins.wallet.ui.widgets.openGame
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.HomeViewModel.UiState
@@ -191,9 +199,12 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         fragmentName = fragmentName,
         buttonsAnalytics = buttonsAnalytics
       )
-      UserEmailCard()
+      if(viewModel.showRebrandingBanner.value) {
+        RebrandingBanner()
+      }
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
+      UserEmailCard()
       val listState = rememberLazyListState()
       LaunchedEffect(listState) {
         snapshotFlow { listState.isScrollInProgress }
@@ -338,6 +349,70 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     }
   }
 
+  @Composable
+  fun RebrandingBanner() {
+    val showRebrandBanner =
+      remember { mutableStateOf(viewModel.isShowRebrandingBanner()) }
+
+    if(showRebrandBanner.value == true) {
+      Card(
+        colors = CardDefaults.cardColors(WalletColors.styleguide_rebranding_blue),
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+      ) {
+        Column {
+          Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+          ) {
+            Card(
+              colors = CardDefaults.cardColors(WalletColors.styleguide_rebranding_orange),
+              shape = MaterialTheme.shapes.extraSmall
+            ) {
+              Text(
+                text = stringResource(R.string.promotions_new),
+                style = MaterialTheme.typography.bodySmall,
+                color = WalletColors.styleguide_white,
+                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+              )
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Icon(
+              painter = painterResource(id = R.drawable.ic_reb_cross_purple),
+              contentDescription = "Close",
+              tint = WalletColors.styleguide_rebranding_subtext,
+              modifier = Modifier
+                .padding(start = 8.dp)
+                .clickable {
+                  viewModel.saveShowRebrandingBanner(false)
+                  showRebrandBanner.value = false
+                }
+            )
+          }
+
+          Text(
+            text = stringResource(R.string.rebranding_disclaimer_short_title),
+            modifier = Modifier
+              .padding(start = 16.dp, bottom = 8.dp, end = 16.dp),
+            fontWeight = FontWeight(600),
+            fontSize = 14.sp,
+            color = WalletColors.styleguide_light_grey,
+          )
+
+          Text(
+            text = stringResource(R.string.rebranding_disclaimer_long_body),
+            modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp),
+            style = MaterialTheme.typography.bodySmall,
+            lineHeight = 16.sp,
+            fontSize = 12.sp,
+            fontWeight = FontWeight(400),
+            color = WalletColors.styleguide_rebranding_subtext
+          )
+        }
+      }
+    }
+  }
+
   @OptIn(ExperimentalFoundationApi::class)
   @Composable
   fun TransactionsList(transactionsGrouped: Map<String, List<TransactionModel>>) {
@@ -364,7 +439,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                 else
                   description ?: app,
                 amount = amount,
-                convertedAmount = amountSubtitle,
                 subIcon = subIcon,
                 onClick = { navigateToTransactionDetails(transaction) },
                 textDecoration = textDecoration,
@@ -396,6 +470,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     setBalance(state.defaultWalletBalanceAsync)
     setPromotions(state.promotionsModelAsync)
     setBackup(state.hasBackup)
+    setRebrandingBanner(state.showRebrandingBanner)
   }
 
   override fun onSideEffect(sideEffect: HomeSideEffect) {
@@ -503,6 +578,13 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         Intercom.client().handlePushMessage()
       }
 
+      else -> Unit
+    }
+  }
+
+  private fun setRebrandingBanner(showBanner: Async<Boolean>) {
+    when (showBanner) {
+      is Async.Success -> viewModel.showRebrandingBanner.value = (showBanner.value ?: false)
       else -> Unit
     }
   }

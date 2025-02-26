@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">您成功了！</string>
   <string name="gamification_how_max_level_body">您已达到最高等级：每次购买均可获得%s的奖励！</string>
   <string name="gamification_level_up_notification_title">离成功不远了！</string>
-  <string name="gamification_level_up_notification_body">只需再消费 %1$s%2$s ，即可进入下一级别！</string>
+  <string name="gamification_level_up_notification_body">只需再消费 %s ，即可进入下一级别！</string>
   <string name="gamification_bonus_plus_perk_body">享受 %1$s 奖金，并额外获得 %2$s 的 Aptoide 余额。</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">允许 Aptoide Wallet 向 %s 提供您的钱包地址。</string>
@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">已复制到剪贴板</string>
   <string name="topup_button">充值</string>
   <string name="extra_bonus_title">额外获得 %s%% 奖金</string>
+  <string name="max">Max</string>
   <string name="payment_method">付款方式</string>
   <string name="credit_debit_card">信用卡/借记卡</string>
   <string name="paypal">PayPal</string>
@@ -445,6 +446,7 @@
   <string name="referral_verification_title">验证支付方式</string>
   <string name="referral_view_verify_button">验证支付方式</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">你需要更新！</string>
   <string name="update_wallet_purchase_body">更新 Aptoide Wallet 以完成此购买。</string>
@@ -516,6 +518,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">钱包地址</string>
   <string name="transfer_send_button">发送</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">您有新消息！</string>
   <string name="support_new_message_button">点击打开</string>
@@ -784,6 +789,7 @@
   <string name="manage_wallet_wallet_changed_title">钱包更换</string>
   <string name="manage_wallet_change_active_wallet_title">您是否要选择该钱包？</string>
   <string name="manage_wallet_set_a_name_button">设置您的钱包名称</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">验证一种支付方式</string>
   <string name="verify_card_verified">支付方式已通过验证！</string>

@@ -154,7 +154,6 @@ class TransactionsListFragment : BasePageViewFragment() {
                 else
                   description ?: app,
                 amount = amount,
-                convertedAmount = amountSubtitle,
                 subIcon = subIcon,
                 onClick = { navigateToTransactionDetails(uiModel.transaction) },
                 textDecoration = textDecoration,

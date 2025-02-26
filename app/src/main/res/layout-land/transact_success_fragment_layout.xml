@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     android:background="@color/styleguide_blue"
     >
+
+  <include
+      android:id="@+id/top_bar"
+      layout="@layout/bar_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:elevation="2dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/transfer_success_animation"
       android:layout_width="120dp"
@@ -16,17 +28,34 @@
       app:layout_constraintTop_toTopOf="parent"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/transact_credits_successful"
+      app:lottie_rawRes="@raw/success_tx"
+      />
+
+  <TextView
+      android:id="@+id/transfer_done_message"
+      style="@style/TextL"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="32dp"
+      android:layout_marginTop="12dp"
+      android:layout_marginEnd="32dp"
+      android:gravity="center"
+      android:text="@string/done"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintBottom_toTopOf="@id/transfer_success_wallet"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/transfer_success_animation"
+      app:layout_constraintVertical_bias="0"
       />
 
   <TextView
       android:id="@+id/transfer_success_message"
-      style="@style/TextAppearance.AppCompat.Headline.Roboto.Medium"
+      style="@style/TextM"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="32dp"
-      android:layout_marginTop="32dp"
+      android:layout_marginTop="12dp"
       android:layout_marginEnd="32dp"
       android:gravity="center"
       android:text="@string/p2p_send_confirmation_message"
@@ -34,7 +63,7 @@
       app:layout_constraintBottom_toTopOf="@id/transfer_success_wallet"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/transfer_success_animation"
+      app:layout_constraintTop_toBottomOf="@id/transfer_done_message"
       app:layout_constraintVertical_bias="0"
       />
 
@@ -46,7 +75,7 @@
       android:layout_marginEnd="32dp"
       android:gravity="center"
       android:textColor="@color/styleguide_dark_grey"
-      app:layout_constraintBottom_toTopOf="@+id/transfer_success_ok_button"
+      android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/transfer_success_message"

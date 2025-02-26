@@ -40,7 +40,7 @@
   <string name="buy_button">खरेदी करा</string>
   <string name="iab_wallet_not_installed_popup_close_install">वॉलेट इन्स्टॉल करा</string>
   <string name="button_ok">ठीक आहे</string>
-  <string name="install_button">इंस्टॉल करा</string>
+  <string name="install_button">इंस्टॉल</string>
   <!-- Error messages -->
   <string name="title_dialog_error">त्रुटी</string>
   <string name="purchase_error_item_owned">ही वस्तु आधीच आपल्या मालकीची आहे!</string>

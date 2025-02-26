@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">Ти це зробив!</string>
   <string name="gamification_how_max_level_body">Ви досягли найвищого рівня: %s бонус за кожну покупку!</string>
   <string name="gamification_level_up_notification_title">Майже там!</string>
-  <string name="gamification_level_up_notification_body">Витратьте на %1$s %2$s більше, щоб досягти наступного рівня.</string>
+  <string name="gamification_level_up_notification_body">Витратьте на %s більше, щоб досягти наступного рівня.</string>
   <string name="gamification_bonus_plus_perk_body">Отримайте бонус %1$s і %2$s у вигляді балансу Aptoide додатково.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Дозвольте Aptoide Wallet надати %s адресу вашого гаманця.</string>
@@ -305,6 +305,7 @@
   <string name="copied_to_clipboard">Скопійовано до буфера обміну</string>
   <string name="topup_button">Поповнити</string>
   <string name="extra_bonus_title">Отримайте додатковий бонус %s%%</string>
+  <string name="max">Max</string>
   <string name="payment_method">Спосіб оплати</string>
   <string name="credit_debit_card">Кредитна/дебетова карта</string>
   <string name="paypal">PayPal</string>
@@ -450,6 +451,7 @@
   <string name="referral_verification_title">Підтвердити спосіб оплати</string>
   <string name="referral_view_verify_button">Підтвердити спосіб оплати</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Вам потрібно оновити!</string>
   <string name="update_wallet_purchase_body">Оновіть Aptoide Wallet, щоб завершити цю покупку.</string>
@@ -521,6 +523,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Адреса гаманця</string>
   <string name="transfer_send_button">Надіслати</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Ви отримали нове повідомлення!</string>
   <string name="support_new_message_button">Торкніться, щоб відкрити</string>
@@ -715,8 +720,8 @@
   <string name="promo_code_replace_button">Перемістити</string>
   <string name="promo_code_active_tag">Активний</string>
   <string name="promo_code_expired_tag">Термін дії закінчився</string>
-  <string name="promo_code_success_body">Ви отримаєте %s%% додаткового бонусу за всі ваші покупки.</string>
-  <string name="promo_code_success_body_specific_app">Ви отримаєте %1$s%% додаткового бонусу за всі ваші покупки в %2$s.</string>
+  <string name="promo_code_success_body">Ви отримаєте %s%% додаткового бонусу на всі ваші покупки.</string>
+  <string name="promo_code_success_body_specific_app">Ви отримаєте %1$s%% додаткового бонусу на всі ваші покупки в %2$s.</string>
   <string name="promo_code_error_not_available">Цей промо-код більше недоступний.</string>
   <string name="promo_code_error_invalid_user">Ой! Цей код неможливо застосувати.</string>
   <!-- Gift Card -->
@@ -769,25 +774,25 @@
   <plurals name="day">
     <item quantity="one">ДЕНЬ</item>
     <item quantity="few">ДНІВ</item>
-    <item quantity="many">ДНІВ</item>
+    <item quantity="many">ДНІ</item>
     <item quantity="other">ДНІ</item>
   </plurals>
   <plurals name="hour">
     <item quantity="one">ГОДИНА</item>
     <item quantity="few">ГОДИН</item>
-    <item quantity="many">ГОДИН</item>
+    <item quantity="many">ГОДИНИ</item>
     <item quantity="other">ГОДИНИ</item>
   </plurals>
   <plurals name="minute">
     <item quantity="one">ХВИЛИНА</item>
     <item quantity="few">ХВИЛИН</item>
-    <item quantity="many">ХВИЛИН</item>
+    <item quantity="many">ХВИЛИНИ</item>
     <item quantity="other">ХВИЛИНИ</item>
   </plurals>
   <plurals name="second">
     <item quantity="one">СЕКУНДА</item>
     <item quantity="few">СЕКУНД</item>
-    <item quantity="many">СЕКУНД</item>
+    <item quantity="many">СЕКУНДИ</item>
     <item quantity="other">СЕКУНДИ</item>
   </plurals>
   <string name="intro_transactions_header">Транзакції</string>
@@ -807,6 +812,7 @@
   <string name="manage_wallet_wallet_changed_title">Гаманець змінено</string>
   <string name="manage_wallet_change_active_wallet_title">Хочете обрати цей гаманець?</string>
   <string name="manage_wallet_set_a_name_button">Задайте ім\'я для свого гаманця</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Підтвердити спосіб оплати</string>
   <string name="verify_card_verified">Спосіб оплати підтверджено!</string>

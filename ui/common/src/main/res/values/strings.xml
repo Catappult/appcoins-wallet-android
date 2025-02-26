@@ -233,7 +233,7 @@
   <string name="gamification_how_max_level_notification_title">You Made It!</string>
   <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
   <string name="gamification_level_up_notification_title">Almost there!</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
+  <string name="gamification_level_up_notification_body">Spend %s more to reach the next level.</string>
   <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
 
   <!-- Provide wallet address -->
@@ -336,6 +336,7 @@
   <string name="copied_to_clipboard">Copied to the clipboard</string>
   <string name="topup_button">Top Up</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="max">Max</string>
 
   <string name="payment_method">Payment method</string>
   <string name="credit_debit_card">Credit/debit card</string>
@@ -503,6 +504,7 @@
 
 
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
 
   <!--Update-->
   <string name="update_wallet_purchase_title">You need to update!</string>
@@ -590,7 +592,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Wallet Address</string>
   <string name="transfer_send_button">Send</string>
-
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
 
   <!--Support Notifications-->
   <string name="support_new_message_title">You\'ve got a new message!</string>
@@ -917,7 +921,7 @@
   <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
   <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
 
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verify a Payment Method</string>
@@ -952,8 +956,10 @@
   <integer name="com_vk_sdk_AppId" translatable="false">12</integer>
 
   <!-- Your protected key from platform.vk.com !-->
+  <string name="vk_client_secret" translatable="false">324</string>
 
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <string name="vk_external_oauth_redirect_url" translatable="false">434://vk.com</string>
 
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
   <string name="vk_account_manager_id" translatable="false">com.appcoins.wallet.account.vk</string>

@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">Ai reușit!</string>
   <string name="gamification_how_max_level_body">Ai atins cel mai înalt nivel: %s Bonus la fiecare achiziție!</string>
   <string name="gamification_level_up_notification_title">Încă puțin!</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
+  <string name="gamification_level_up_notification_body">Cheltuiește %s pentru a trece la nivelul următor.</string>
   <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Sold curent: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Fonduri insuficiente</string>
   <string name="p2p_send_confirmation_header">Detalii transfer</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">AppCoins Credits</string>
   <!--Common-->
   <string name="oops_title">Ups</string>
   <string name="error_general">Ceva nu a mers cum trebuie</string>
@@ -303,10 +303,11 @@
   <string name="copied_to_clipboard">Copiat pe clipboard</string>
   <string name="topup_button">Alimentează</string>
   <string name="extra_bonus_title">Primești un bonus extra de %s%%</string>
+  <string name="max">Max</string>
   <string name="payment_method">Metoda de plată</string>
   <string name="credit_debit_card">Card de credit/debit</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
+  <string name="appc">Balanța Aptoide</string>
   <string name="bank_transfer">Transfer bancar simplu</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +342,7 @@
   <string name="onboarding_verification_body">Verifică-ți metoda de plată pentru a-ți finaliza achiziția.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">AppCoins Credits</string>
   <!--Settings-->
   <string name="title_redeem">Revendică Card Cadou</string>
   <string name="settings_item_support">Contactează echipa de asistență</string>
@@ -447,6 +448,7 @@
   <string name="referral_verification_title">Verifică metoda de plată</string>
   <string name="referral_view_verify_button">Verifică metoda de plată</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Trebuie să actualizezi!</string>
   <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
@@ -518,6 +520,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Adresă portofel</string>
   <string name="transfer_send_button">Trimite</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Ai un mesaj nou!</string>
   <string name="support_new_message_button">Apasă ca să deschizi</string>
@@ -574,7 +579,7 @@
   <string name="gamif_achievement_reach">Ai ajuns pe %s</string>
   <string name="gamif_card_start">Ești încă pe Pământ</string>
   <string name="gamif_card_title">Ești pe %s</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">Cheltuiește %s pentru a trece la nivelul următor.</string>
   <string name="gamif_bonus">Bonus %s%%</string>
   <string name="gamif_quote_earth">„Pământul este ceea ce avem toți în comun” - Wendell Berry</string>
   <string name="gamif_placeholder_moon">Lună</string>
@@ -798,6 +803,7 @@
   <string name="manage_wallet_wallet_changed_title">Portofel modificat</string>
   <string name="manage_wallet_change_active_wallet_title">Vrei să selectezi acest portofel?</string>
   <string name="manage_wallet_set_a_name_button">Alege un nume pentru portofelul tău</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verifică o metodă de plată</string>
   <string name="verify_card_verified">Metodă de plată verificată!</string>
@@ -816,7 +822,7 @@
   <string name="mail_list_card_confirmation_body">Ți-am trimis un e-mail la %s</string>
   <!-- Rebranding -->
   <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">AppCoins Wallet devine Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> Lucrăm la o reinventare a brandului și identității noastre. Fii pe fază pentru a descoperi funcțiile și recompensele tale preferate cu un aspect nou-nouț!</string>
   <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>

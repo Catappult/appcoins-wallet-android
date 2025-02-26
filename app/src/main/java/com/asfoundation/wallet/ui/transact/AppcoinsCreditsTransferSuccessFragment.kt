@@ -1,15 +1,20 @@
 package com.asfoundation.wallet.ui.transact
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.extensions.getSerializableExtra
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TransactSuccessFragmentLayoutBinding
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.jakewharton.rxbinding2.view.RxView
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +46,13 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
+
+  @Inject
+  lateinit var buttonsAnalytics: ButtonsAnalytics
+
+  @Inject
+  lateinit var displayChatUseCase: DisplayChatUseCase
+
   private lateinit var presenter: AppcoinsCreditsTransactSuccessPresenter
 
   private val binding by viewBinding(TransactSuccessFragmentLayoutBinding::bind)
@@ -50,6 +62,7 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
     val amount = getSerializableExtra<BigDecimal>(AMOUNT_SENT_KEY)!!
     val currency = requireArguments().getString(CURRENCY_KEY)!!
     val toAddress = requireArguments().getString(TO_ADDRESS_KEY)!!
+    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     presenter = AppcoinsCreditsTransactSuccessPresenter(
       view = this,
       amount = amount,
@@ -58,6 +71,7 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
       disposables = CompositeDisposable(),
       formatter = formatter
     )
+
   }
 
   override fun onCreateView(
@@ -68,6 +82,16 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
+    binding.topBar.composeView.apply {
+      setContent {
+        TopBar(
+          onClickSupport = { displayChatUseCase() },
+          fragmentName = this::class.java.simpleName,
+          buttonsAnalytics = buttonsAnalytics,
+          title = stringResource(R.string.transfer_button),
+        )
+      }
+    }
   }
 
   override fun getOkClick(): Observable<Any> {

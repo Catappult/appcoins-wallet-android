@@ -113,7 +113,7 @@
   <string name="facebook">Facebook</string>
   <string name="error_already_added">Már hozzáadva</string>
   <string name="error_export">Tárca exportálása sikertelen</string>
-  <string name="gas_price_value">%1$s %2$s</string>
+  <string name="gas_price_value">%1$s%2$s</string>
   <string name="settings_fragment_credits">A Trust Wallet for Android projektből indultunk ki, annak mellékágaként indítottuk el az Aptoide Wallet fejlesztését. A már leprogramozott funkciókat tekintve ezt találtuk a legjobb megoldásnak. Azzal a céllal fork-oltuk a programot, hogy a releváns új implementációkat és javításokat visszaadjuk az eredeti programnak.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Tranzakció folyamatban</string>
@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">Megcsináltad!</string>
   <string name="gamification_how_max_level_body">Elérted a legmagasabb szintet: %s bónusz minden vásárlásnál!</string>
   <string name="gamification_level_up_notification_title">Már majdnem megvan!</string>
-  <string name="gamification_level_up_notification_body">Még %2$s%1$s elköltésével juthatsz el a következő szintre.</string>
+  <string name="gamification_level_up_notification_body">Még %s elköltésével juthatsz el a következő szintre.</string>
   <string name="gamification_bonus_plus_perk_body">Élvezd ki a(z) %1$s bónuszt és a még %2$s Aptoide egyenleget.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Engedélyezd az Aptoide Walletnek, hogy tárcacímedet megadja a(z) %s számára.</string>
@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Vágólapra másolva</string>
   <string name="topup_button">Befizetés</string>
   <string name="extra_bonus_title">Szerezz %s%% extra bónuszt</string>
+  <string name="max">Max</string>
   <string name="payment_method">Fizetési mód</string>
   <string name="credit_debit_card">Hitelkártya/bankkártya</string>
   <string name="paypal">PayPal</string>
@@ -446,6 +447,7 @@
   <string name="referral_verification_title">Fizetési mód hitelesítése</string>
   <string name="referral_view_verify_button">Fizetési mód hitelesítése</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Frissítés szükséges!</string>
   <string name="update_wallet_purchase_body">A vásárlás befejezéséhez frissítsd az Aptoide Walletet.</string>
@@ -517,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Tárcacím</string>
   <string name="transfer_send_button">Küldés</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Új üzeneted érkezett!</string>
   <string name="support_new_message_button">Koppints a megnyitáshoz</string>
@@ -791,6 +796,7 @@
   <string name="manage_wallet_wallet_changed_title">Megváltozott a wallet</string>
   <string name="manage_wallet_change_active_wallet_title">Ezt a walletet választod ki?</string>
   <string name="manage_wallet_set_a_name_button">Nevezd el a tárcád</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Hitelesítsd a fizetési módot</string>
   <string name="verify_card_verified">Fizetési mód hitelesítve!</string>

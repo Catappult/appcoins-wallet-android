@@ -4,13 +4,13 @@ msgstr ""
 "X-Crowdin-Project: appcoins\n"
 "X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: fa\n"
-"X-Crowdin-File: /[Catappult.appcoins-wallet-android] feature.remove-unused-resources/ui/common/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 15556\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] carlosgarridoaptoide-rebranding/ui/common/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 15677\n"
 "Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
-"PO-Revision-Date: 2025-02-16 17:23\n"
+"PO-Revision-Date: 2025-02-26 15:37\n"
 
 #. Card Title
 #:

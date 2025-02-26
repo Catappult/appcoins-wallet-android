@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">आपण पोचलात!</string>
   <string name="gamification_how_max_level_body">आपण सर्वोच्च पातळीवर पोचलात: %s प्रत्येक खरेदीवर बोनस!</string>
   <string name="gamification_level_up_notification_title">झालच की!</string>
-  <string name="gamification_level_up_notification_body">पुढच्या पातळीवर पोचण्यासाठी %1$s%2$s अधिक खर्च करा.</string>
+  <string name="gamification_level_up_notification_body">पुढच्या पातळीवर पोचण्यासाठी %s अधिक खर्च करा.</string>
   <string name="gamification_bonus_plus_perk_body">अतिरिक्त %1$s बोनसचा आणि %2$s Aptoide बॅलन्सचा आनंद घ्या.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">%s ला आपला वॉलेट पत्ता देण्याची Aptoide वॉलेटला परवानगी द्या.</string>
@@ -283,7 +283,7 @@
   <string name="confirm_button">पुष्टी करा</string>
   <string name="email_here_field">आपला ईमेल पत्ता इथे&#8230;</string>
   <string name="skip_button">आतापुरत वगळा</string>
-  <string name="install_button">इंस्टॉल करा</string>
+  <string name="install_button">इंस्टॉल</string>
   <string name="get_button">मिळवा</string>
   <string name="see_all_button">सर्व पहा</string>
   <string name="transfer_button">हस्तांतरण</string>
@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">क्लिपबोर्डवर कॉपी करा</string>
   <string name="topup_button">भरणा करा</string>
   <string name="extra_bonus_title">%s%% बोनस</string>
+  <string name="max">Max</string>
   <string name="payment_method">पेमेंट पद्धत</string>
   <string name="credit_debit_card">क्रेडीट/डेबीट कार्ड</string>
   <string name="paypal">पेपाल</string>
@@ -446,6 +447,7 @@
   <string name="referral_verification_title">पेमेंट पद्धत सत्यापित करा</string>
   <string name="referral_view_verify_button">पेमेंट पद्धत सत्यापित करा</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">आपल्याला अद्यतनाची गरज आहे!</string>
   <string name="update_wallet_purchase_body">ही खरेदी पूर्ण करण्यासाठी Aptoide बॅलन्स अद्यतन करा.</string>
@@ -517,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">वॉलेट पत्ता</string>
   <string name="transfer_send_button">पाठवा</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">आपल्यासाठी नविन संदेश आहे!</string>
   <string name="support_new_message_button">उघडण्यासाठी टॅप करा</string>
@@ -791,6 +796,7 @@
   <string name="manage_wallet_wallet_changed_title">वॉलेट बदलले</string>
   <string name="manage_wallet_change_active_wallet_title">हे वॉलेट निवताय?</string>
   <string name="manage_wallet_set_a_name_button">आपल्या वॉलेटला नाव द्या</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">पेमेंट पद्धत सत्यापित करा</string>
   <string name="verify_card_verified">पेमेंट पद्धत सत्यापित झाली!</string>

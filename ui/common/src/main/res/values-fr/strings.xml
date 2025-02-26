@@ -113,7 +113,7 @@
   <string name="facebook">Facebook</string>
   <string name="error_already_added">Déjà ajouté</string>
   <string name="error_export">Impossible d’exporter le portefeuille</string>
-  <string name="gas_price_value">%1$s %2$s</string>
+  <string name="gas_price_value">%2$s%1$s</string>
   <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transaction en cours</string>
@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">Vous l\'avez fait !</string>
   <string name="gamification_how_max_level_body">Vous avez atteint le niveau le plus élevé : %s de Bonus sur chaque achat !</string>
   <string name="gamification_level_up_notification_title">Ca y est presque !</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
+  <string name="gamification_level_up_notification_body">Dépensez plus de %s pour atteindre le niveau suivant !</string>
   <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
@@ -303,10 +303,11 @@
   <string name="copied_to_clipboard">Copié dans le presse-papiers</string>
   <string name="topup_button">Recharger</string>
   <string name="extra_bonus_title">Obtenir un bonus supplémentaire de  %s%%</string>
+  <string name="max">Max</string>
   <string name="payment_method">Mode de paiement</string>
   <string name="credit_debit_card">Carte de crédit/débit</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
+  <string name="appc">Solde Aptoide</string>
   <string name="bank_transfer">Virement bancaire facile</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -446,6 +447,7 @@
   <string name="referral_verification_title">Vérifier le mode de paiement</string>
   <string name="referral_view_verify_button">Vérifier le mode de paiement</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Vous devez mettre à jour !</string>
   <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
@@ -517,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Adresse du portefeuille</string>
   <string name="transfer_send_button">Envoyer</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Vous avez un nouveau message !</string>
   <string name="support_new_message_button">Cliquez pour ouvrir</string>
@@ -573,7 +578,7 @@
   <string name="gamif_achievement_reach">Vous avez atteint les %s</string>
   <string name="gamif_card_start">Vous êtes toujours sur Terre</string>
   <string name="gamif_card_title">Vous êtes sur %s</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">Dépensez plus de %s pour atteindre le niveau suivant !</string>
   <string name="gamif_bonus">%s%% Bonus</string>
   <string name="gamif_quote_earth">\"La Terre est ce que nous avons tous en commun\" - Wendell Berry</string>
   <string name="gamif_placeholder_moon">la Lune</string>
@@ -791,6 +796,7 @@
   <string name="manage_wallet_wallet_changed_title">Portefeuille modifié</string>
   <string name="manage_wallet_change_active_wallet_title">Voulez-vous sélectionner ce portefeuille ?</string>
   <string name="manage_wallet_set_a_name_button">Donnez un nom à votre portefeuille</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Vérifier un mode de paiement</string>
   <string name="verify_card_verified">Mode de paiement vérifié !</string>
@@ -809,11 +815,11 @@
   <string name="mail_list_card_confirmation_body">Nous avons envoyé un courriel à %s</string>
   <!-- Rebranding -->
   <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">Le portefeuille AppCoins devient Aptoide Wallet !</string>
   <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
+  <string name="rebranding_disclaimer_long_body"> Nous sommes en pleine transformation passionnante pour redéfinir notre marque et notre identité. Restez connectés pour retrouver vos fonctionnalités et récompenses préférées dans une toute nouvelle présentation !</string>
   <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebrandinh_post_body">Découvrez vos fonctionnalités et récompenses préférées avec une toute nouvelle présentation. Nous espérons que cela vous plaira !</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

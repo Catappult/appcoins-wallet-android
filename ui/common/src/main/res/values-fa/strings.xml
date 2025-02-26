@@ -113,7 +113,7 @@
   <string name="facebook">فیسبوک</string>
   <string name="error_already_added">قبلا افزوده شده است</string>
   <string name="error_export">خروجی گرفتن از کیف پول موفق نبود</string>
-  <string name="gas_price_value">%1$s %2$s</string>
+  <string name="gas_price_value">%1$s%2$s</string>
   <string name="settings_fragment_credits">ما Trust Wallet را برای پروژه اندروید در bootstrap توسعه Aptoide Wallet قرار دادیم. ما آن را بهترین گزینه جایگزین برای قابلیت‌های حال حاضر می دانیم. ما با هدف مشارکت در ادغام‌سازی این کار را کردیم و امیدواریم که مرتبط قرار گیرد.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">تراکنش درحال پردازش</string>
@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">موفق شدید!</string>
   <string name="gamification_how_max_level_body">به بالاترین مرحله رسیدید: %s پاداش در هر خرید!</string>
   <string name="gamification_level_up_notification_title">بسیار نزدیک!</string>
-  <string name="gamification_level_up_notification_body">%1$s %2$s خرج کنید تا به مرحله بعدی برسید.</string>
+  <string name="gamification_level_up_notification_body">%s خرج کنید تا به مرحله بعدی برسید.</string>
   <string name="gamification_bonus_plus_perk_body">از %1$s بونوس و %2$s بیشتر در Aptoide balance لذت ببرید.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">به Aptoide Wallet اجازه دهید که آدرس کیف پول شما را به %s بدهد.</string>
@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">کپی به کلیپبورد</string>
   <string name="topup_button">افزایش اعتبار</string>
   <string name="extra_bonus_title">دریافت یک پاداش %s%% بیشتر</string>
+  <string name="max">Max</string>
   <string name="payment_method">روش پرداخت</string>
   <string name="credit_debit_card">کارت اعتباری / بانکی</string>
   <string name="paypal">پی‌پال</string>
@@ -446,6 +447,7 @@
   <string name="referral_verification_title">تایید روش پرداخت</string>
   <string name="referral_view_verify_button">تایید روش پرداخت</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">نیاز به بروزرسانی دارید!</string>
   <string name="update_wallet_purchase_body">لطفا Aptoide Wallet را بروزرسانی کنید تا این خرید را کامل کنید.</string>
@@ -517,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">آدرس کیف‌پول</string>
   <string name="transfer_send_button">ارسال</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">پیام جدیدی دریافت کرده‌اید!</string>
   <string name="support_new_message_button">برای باز کردن کلیک کنید</string>
@@ -791,6 +796,7 @@
   <string name="manage_wallet_wallet_changed_title">کیف‌پول تغییر کرد</string>
   <string name="manage_wallet_change_active_wallet_title">آیا نمی‌خواهید این کیف پول را انتخاب کنید؟</string>
   <string name="manage_wallet_set_a_name_button">نامی برای فایل کیف پول خود انتخاب کنید</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">تایید یک روش پرداخت</string>
   <string name="verify_card_verified">روش پرداخت تایید شد!</string>

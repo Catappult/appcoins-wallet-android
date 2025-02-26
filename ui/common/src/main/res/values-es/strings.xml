@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">El código QR no contiene una dirección válida</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">¡Wallet creada!</string>
-  <string name="intro_agree_terms_and_conditions_body">Al entrar en la AptoideWallet aceptas los %1$s y la %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Al entrar en la Aptoide Wallet aceptas los %1$s y la %2$s.</string>
   <string name="intro_get_started_button">Iniciar wallet</string>
   <!-- New Intro -->
   <!-- Intro from game -->
@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">¡Lo lograste!</string>
   <string name="gamification_how_max_level_body">Has alcanzado el nivel máximo: ¡un bonus de %s en todas las compras!</string>
   <string name="gamification_level_up_notification_title">¡Ya casi estás!</string>
-  <string name="gamification_level_up_notification_body">Gasta %1$s %2$s más para alcanzar el siguiente nivel.</string>
+  <string name="gamification_level_up_notification_body">Gasta %s más para alcanzar el siguiente nivel.</string>
   <string name="gamification_bonus_plus_perk_body">Disfruta de un bonus de %1$s y %2$s en saldo Aptoide extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permite que la Aptoide Wallet proporcione la dirección de tu wallet a %s.</string>
@@ -284,7 +284,7 @@
   <string name="email_here_field">Tu email aquí&#8230;</string>
   <string name="skip_button">Saltar</string>
   <string name="install_button">Instalar</string>
-  <string name="get_button">Conseguir</string>
+  <string name="get_button">Obtener</string>
   <string name="see_all_button">Ver todo</string>
   <string name="transfer_button">Transferir</string>
   <string name="top_up_button">Recargar</string>
@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Copiado al portapapeles</string>
   <string name="topup_button">Recargar</string>
   <string name="extra_bonus_title">Gana un %s%% extra de bonus</string>
+  <string name="max">Max</string>
   <string name="payment_method">Método de pago</string>
   <string name="credit_debit_card">Tarjeta de crédito/débito</string>
   <string name="paypal">PayPal</string>
@@ -446,6 +447,7 @@
   <string name="referral_verification_title">Verificación de método de pago</string>
   <string name="referral_view_verify_button">Verificar método de pago</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">¡Tienes que actualizar!</string>
   <string name="update_wallet_purchase_body">Actualiza la Aptoide Wallet para completar esta compra.</string>
@@ -517,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Dirección de la wallet</string>
   <string name="transfer_send_button">Enviar</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">¡Tienes un mensaje nuevo!</string>
   <string name="support_new_message_button">Toca para abrir</string>
@@ -791,6 +796,7 @@
   <string name="manage_wallet_wallet_changed_title">Wallet cambiada</string>
   <string name="manage_wallet_change_active_wallet_title">¿Quieres seleccionar esta wallet?</string>
   <string name="manage_wallet_set_a_name_button">Elige un nombre para tu wallet</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verificación de método de pago</string>
   <string name="verify_card_verified">¡Método de pago verificado!</string>

@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">Você Conseguiu!</string>
   <string name="gamification_how_max_level_body">Você chegou ao nível máximo: %s de bônus em cada compra!</string>
   <string name="gamification_level_up_notification_title">Quase lá!</string>
-  <string name="gamification_level_up_notification_body">Spend %1$s %2$s more to reach the next level.</string>
+  <string name="gamification_level_up_notification_body">Spend %s more to reach the next level.</string>
   <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Saldo atual: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Fundos insuficientes</string>
   <string name="p2p_send_confirmation_header">Detalhes da Transferência</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">saldo Aptoide</string>
   <!--Common-->
   <string name="oops_title">Ops!</string>
   <string name="error_general">Algo deu errado</string>
@@ -284,7 +284,7 @@
   <string name="email_here_field">Seu e-mail aqui&#8230;</string>
   <string name="skip_button">Pular por enquanto</string>
   <string name="install_button">Instalar</string>
-  <string name="get_button">Receber</string>
+  <string name="get_button">Obter</string>
   <string name="see_all_button">Ver tudo</string>
   <string name="transfer_button">Transferir</string>
   <string name="top_up_button">Depositar</string>
@@ -303,10 +303,11 @@
   <string name="copied_to_clipboard">Copiado para área de transferência</string>
   <string name="topup_button">Depositar</string>
   <string name="extra_bonus_title">Receba um bônus extra de %s%%</string>
+  <string name="max">Max</string>
   <string name="payment_method">Método de pagamento</string>
   <string name="credit_debit_card">Cartão de crédito/débito</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
+  <string name="appc">saldo Aptoide</string>
   <string name="bank_transfer">Transferência bancária fácil</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -341,7 +342,7 @@
   <string name="onboarding_verification_body">Verifique o seu método de pagamento para concluir sua compra.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">saldo Aptoide</string>
   <!--Settings-->
   <string name="title_redeem">Resgatar Cartão Presente</string>
   <string name="settings_item_support">Falar com a Equipe de Suporte</string>
@@ -446,6 +447,7 @@
   <string name="referral_verification_title">Verificar Método de Pagamento</string>
   <string name="referral_view_verify_button">Verificar método de pagamento</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Você precisa atualizar!</string>
   <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
@@ -517,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Endereço da Wallet</string>
   <string name="transfer_send_button">Enviar</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Você tem uma nova mensagem!</string>
   <string name="support_new_message_button">Toque para abrir</string>
@@ -791,6 +796,7 @@
   <string name="manage_wallet_wallet_changed_title">Carteira alterada</string>
   <string name="manage_wallet_change_active_wallet_title">Você quer selecionar esta carteira?</string>
   <string name="manage_wallet_set_a_name_button">Escolha um nome para sua carteira</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verificar um Método de Pagamento</string>
   <string name="verify_card_verified">Método de pagamento verificado!</string>
@@ -809,7 +815,7 @@
   <string name="mail_list_card_confirmation_body">Enviamos um e-mail para %s</string>
   <!-- Rebranding -->
   <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_title">A AppCoins Wallet está se tornando Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
   <string name="rebranding_disclaimer_long_body"> Estamos renovando nossa marca e identidade visual para uma experiência ainda mais incrível. Em breve, você poderá redescobrir seus recursos e recompensas favoritos com um visual totalmente novo!</string>
   <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>

@@ -113,7 +113,7 @@
   <string name="facebook">Facebook</string>
   <string name="error_already_added">Já foi adicionada</string>
   <string name="error_export">Falha ao exportar a wallet</string>
-  <string name="gas_price_value">%1$s %2$s</string>
+  <string name="gas_price_value">%1$s%2$s</string>
   <string name="settings_fragment_credits">Ramificámos o projeto Trust Wallet para Android para dar início ao desenvolvimento da Aptoide Wallet. Consideramo-la a melhor alternativa em termos de funcionalidades já implementadas. Esta ramificação foi feita com a intenção de contribuir com implementações, e trabalhos que sejam considerados relevantes.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">A sua transação está a ser efetuada</string>
@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">Conseguiste!</string>
   <string name="gamification_how_max_level_body">Atingiste o nível mais alto: %s de Bónus em cada compra!</string>
   <string name="gamification_level_up_notification_title">Quase lá!</string>
-  <string name="gamification_level_up_notification_body">Gasta mais %1$s %2$s para atingires o próximo nível.</string>
+  <string name="gamification_level_up_notification_body">Gasta mais %s para atingires o próximo nível.</string>
   <string name="gamification_bonus_plus_perk_body">Aproveita um bónus de %1$s e %2$s em saldo Aptoide extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permitir que a Aptoide Wallet forneça o endereço da tua wallet para %s.</string>
@@ -284,7 +284,7 @@
   <string name="email_here_field">O teu e-mail aqui&#8230;</string>
   <string name="skip_button">Saltar por agora</string>
   <string name="install_button">Instalar</string>
-  <string name="get_button">Receber</string>
+  <string name="get_button">Recebe</string>
   <string name="see_all_button">Ver tudo</string>
   <string name="transfer_button">Transferência</string>
   <string name="top_up_button">Carregar</string>
@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Copiado para a área de transferência</string>
   <string name="topup_button">Carregar</string>
   <string name="extra_bonus_title">Recebe um bónus extra de %s%%</string>
+  <string name="max">Max</string>
   <string name="payment_method">Método de pagamento</string>
   <string name="credit_debit_card">Cartão de crédito/débito</string>
   <string name="paypal">PayPal</string>
@@ -446,6 +447,7 @@
   <string name="referral_verification_title">Verificar Método de Pagamento</string>
   <string name="referral_view_verify_button">Verificar método de pagamento</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Precisas de fazer a atualização!</string>
   <string name="update_wallet_purchase_body">Faz a atualização da Aptoide Wallet para concluires esta compra.</string>
@@ -517,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Endereço da Wallet</string>
   <string name="transfer_send_button">Enviar</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Tens uma nova mensagem!</string>
   <string name="support_new_message_button">Toca para abrir</string>
@@ -791,6 +796,7 @@
   <string name="manage_wallet_wallet_changed_title">Wallet alterada</string>
   <string name="manage_wallet_change_active_wallet_title">Queres selecionar esta wallet?</string>
   <string name="manage_wallet_set_a_name_button">Define um nome para a tua wallet</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verificar um Método de Pagamento</string>
   <string name="verify_card_verified">Método de pagamento verificado!</string>

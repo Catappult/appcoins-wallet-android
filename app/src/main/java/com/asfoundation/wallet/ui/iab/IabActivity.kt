@@ -645,6 +645,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun launchPerkBonusAndGamificationService(address: String) =
     PerkBonusAndGamificationService.buildService(this, address)
 
+  override fun showRebrandingBanner() {
+    binding.walletLogoLayout.root.visibility = View.GONE
+    binding.walletLogoRebrandingLayout.root.visibility = View.VISIBLE
+  }
+
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     presenter.onSaveInstance(outState)
