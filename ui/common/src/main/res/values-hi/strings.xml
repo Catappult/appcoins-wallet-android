@@ -303,6 +303,7 @@
   <string name="copied_to_clipboard">Copied to the clipboard</string>
   <string name="topup_button">टॉप अप</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
+  <string name="max">Max</string>
   <string name="payment_method">Payment method</string>
   <string name="credit_debit_card">क्रेडिट या डेबिट कार्ड</string>
   <string name="paypal">पेपैल</string>
@@ -518,6 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">वॉलेट पता</string>
   <string name="transfer_send_button">भेजें</string>
+  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">आपको एक नया संदेश मिला है!</string>
   <string name="support_new_message_button">खोलने के लिए टैप करें</string>
