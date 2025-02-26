@@ -445,6 +445,7 @@
   <string name="referral_verification_title">Verifikasi Metode Pembayaran</string>
   <string name="referral_view_verify_button">Verifikasi metode pembayaran</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Anda perlu memperbarui!</string>
   <string name="update_wallet_purchase_body">Perbarui Aptoide Wallet untuk menyelesaikan pembelian ini.</string>
