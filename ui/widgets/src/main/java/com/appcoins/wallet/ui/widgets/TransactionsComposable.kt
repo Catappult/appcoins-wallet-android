@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -54,6 +56,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_green
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_red
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -63,7 +66,6 @@ fun TransactionCard(
   title: String,
   description: String?,
   amount: String?,
-  convertedAmount: String?,
   subIcon: Int?,
   onClick: () -> Unit,
   textDecoration: TextDecoration,
@@ -114,29 +116,31 @@ fun TransactionCard(
             modifier = Modifier.fillMaxWidth(0.9f)
           ) {
             if (amount != null)
-              Text(
-                text = amount,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.End,
-                color = if (isPending)
-                  styleguide_dark_grey
-                else
-                  styleguide_light_grey,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                textDecoration = textDecoration
-              )
-            if (convertedAmount != null)
-              Text(
-                text = convertedAmount,
-                color = styleguide_dark_grey,
-                style = MaterialTheme.typography.bodySmall,
-                textAlign = TextAlign.End,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                textDecoration = textDecoration
-              )
+              Box {
+                Text(
+                  text = amount,
+                  fontWeight = FontWeight.Bold,
+                  style = MaterialTheme.typography.bodyMedium,
+                  textAlign = TextAlign.End,
+                  color = if (isPending)
+                    styleguide_dark_grey
+                  else
+                    styleguide_light_grey,
+                  maxLines = 1,
+                  overflow = TextOverflow.Ellipsis
+                )
+                if (textDecoration == TextDecoration.LineThrough) {
+                  Canvas(modifier = Modifier.matchParentSize()) {
+                    val textHeight = size.height / 1.90f
+                    drawLine(
+                      color = styleguide_dark_grey,
+                      start = Offset(0f, textHeight),
+                      end = Offset(size.width, textHeight),
+                      strokeWidth = 1.5.dp.toPx()
+                    )
+                  }
+                }
+              }
           }
         }
       }
@@ -206,9 +210,8 @@ fun TransactionDetailHeader(
   icon: Int?,
   appIcon: String?,
   amount: String?,
-  convertedAmount: String?,
   subIcon: Int?,
-  type: String?,
+  name: String?,
   textDecoration: TextDecoration,
   description: String?
 ) {
@@ -222,29 +225,31 @@ fun TransactionDetailHeader(
     ) {
       Column(horizontalAlignment = Alignment.Start, modifier = Modifier.fillMaxWidth(0.8f)) {
         if (amount != null)
+          Box {
+            Text(
+              text = amount,
+              fontWeight = FontWeight.Bold,
+              style = MaterialTheme.typography.headlineSmall,
+              textAlign = TextAlign.End,
+              color = styleguide_light_grey,
+              maxLines = 1,
+              overflow = TextOverflow.Ellipsis
+            )
+            if (textDecoration == TextDecoration.LineThrough) {
+              Canvas(modifier = Modifier.matchParentSize()) {
+                val textHeight = size.height / 1.8f
+                drawLine(
+                  color = styleguide_red,
+                  start = Offset(0f, textHeight),
+                  end = Offset(size.width, textHeight),
+                  strokeWidth = 1.5.dp.toPx()
+                )
+              }
+            }
+          }
+        if (name != null)
           Text(
-            text = amount,
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.headlineSmall,
-            textAlign = TextAlign.End,
-            color = styleguide_light_grey,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            textDecoration = textDecoration
-          )
-        if (convertedAmount != null)
-          Text(
-            text = convertedAmount,
-            color = styleguide_dark_grey,
-            style = MaterialTheme.typography.bodySmall,
-            textAlign = TextAlign.End,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            textDecoration = textDecoration
-          )
-        if (type != null)
-          Text(
-            text = type,
+            text = name,
             color = styleguide_light_grey,
             style = MaterialTheme.typography.bodySmall,
             maxLines = 2,
@@ -537,9 +542,8 @@ fun PreviewTransactionCardHeader() {
   TransactionDetailHeader(
     icon = null,
     appIcon = null,
-    type = "Purchase Refund",
+    name = "Trivial Drive",
     amount = "-€12,21238745674839837456.73",
-    convertedAmount = "-12,5000.00 APPC-C",
     subIcon = R.drawable.ic_transaction_rejected_mini,
     textDecoration = TextDecoration.LineThrough,
     description = "The Bonus of 10% you received on Mar, 14 2022 has been reverted."
@@ -575,7 +579,6 @@ fun PreviewTransactionCard() {
     title = "Reverted Purchase Bonus test used to verify UI",
     description = "AppCoins Trivial demo sample used to test the UI",
     amount = "-€12,21238745674839837456.73",
-    convertedAmount = "-12,5000000000000000000.00 APPC-C",
     subIcon = R.drawable.ic_transaction_rejected_mini,
     {},
     TextDecoration.LineThrough,

@@ -394,8 +394,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             fontWeight = FontWeight(600),
             fontSize = 14.sp,
             color = WalletColors.styleguide_light_grey,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
           )
 
           Text(
@@ -438,7 +436,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                 else
                   description ?: app,
                 amount = amount,
-                convertedAmount = amountSubtitle,
                 subIcon = subIcon,
                 onClick = { navigateToTransactionDetails(transaction) },
                 textDecoration = textDecoration,
