@@ -448,6 +448,7 @@
   <string name="referral_verification_title">Подтвердить способ оплаты</string>
   <string name="referral_view_verify_button">Подтвердить способ оплаты</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Вам нужно обновиться!</string>
   <string name="update_wallet_purchase_body">Обновите Aptoide Wallet, чтобы завершить эту покупку.</string>
