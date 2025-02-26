@@ -446,6 +446,7 @@
   <string name="referral_verification_title">Ödeme Yöntemini Doğrula</string>
   <string name="referral_view_verify_button">Ödeme yöntemini doğrula</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Güncellemeniz gerekiyor!</string>
   <string name="update_wallet_purchase_body">Bu satın alma işlemini gerçekleştirmek için Aptoide Wallet\'ı güncelle.</string>
