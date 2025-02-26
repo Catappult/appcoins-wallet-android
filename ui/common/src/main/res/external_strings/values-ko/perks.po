@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2025-02-26 15:26\n"
+"PO-Revision-Date: 2025-02-26 15:36\n"
 
 #. Card Title
 #:
 msgid "Earn Aptoide balance!"
-msgstr ""
+msgstr "Aptoide 잔액을 획득하세요!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Aptoide 잔액을 사용하는 경우를 제외하고, {1}에서 모든 구매 시 추가 {0}%의 보너스를 받으세요."
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
-msgstr ""
+msgstr "{0}에서 구매하고 Aptoide 잔액으로 {1}을 받습니다."
 
 #. Receipt - Purchase Promotion.
 #:
@@ -35,7 +35,7 @@ msgstr "{0} 에서 구매를 했기 때문에."
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
-msgstr ""
+msgstr "{2}일 동안 {0} {1}을 지출하고 앱토이드 잔액으로 {3}을 받습니다."
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -45,7 +45,7 @@ msgstr "지난 {2} 일간 {0}{1} 이상을 지출하셨기 때문에."
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} in Aptoide balance!"
-msgstr ""
+msgstr "다음 레벨에 도달하여 Aptoide 잔액 {0}을 받으세요!"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -55,7 +55,7 @@ msgstr "다음 단계에 도달했기 때문에."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Aptoide 잔액을 사용하는 경우를 제외하고, {1}에서 모든 구매 시 추가 {0}%의 보너스를 받으세요."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -65,7 +65,7 @@ msgstr "모든 구매에서 {0}% 추가 보너스를 받으세요."
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "첫 구매 시 Aptoide 잔액을 제외한 {1}에서 추가 {0}% 보너스를 받으세요"
 
 #. Receipt - First Purchase.
 #:
@@ -75,7 +75,7 @@ msgstr "{0} 에서 첫 번째 구매를 했기 때문에."
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "오늘 첫 구매 시 Aptoide 잔액을 제외한 {1}에서 추가 {0}% 보너스를 받으세요"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -85,7 +85,7 @@ msgstr "{0} 에서 최초 구매일로 인하여"
 #. Title for bonus receipts.
 #:
 msgid "+{0} Bonus in Aptoide balance!"
-msgstr ""
+msgstr "+ Aptoide 잔액 보너스 {0}!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
@@ -105,12 +105,12 @@ msgstr ""
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in compatible apps."
-msgstr ""
+msgstr "호환되는 앱에서 {0} {1}을 사용했기 때문입니다."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
-msgstr ""
+msgstr "Aptoide 잔액을 사용하는 경우를 제외하고 모든 구매 시 추가로 {0}%의 보너스를 받으세요."
 
 #. Card - Title - Common
 #:
