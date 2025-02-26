@@ -4,28 +4,28 @@ msgstr ""
 "X-Crowdin-Project: appcoins\n"
 "X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: el\n"
-"X-Crowdin-File: /[Catappult.appcoins-wallet-android] dev/ui/common/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 14253\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] carlosgarridoaptoide-rebranding/ui/common/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 15677\n"
 "Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Greek\n"
 "Language: el_GR\n"
-"PO-Revision-Date: 2025-01-30 07:54\n"
+"PO-Revision-Date: 2025-02-26 15:36\n"
 
 #. Card Title
 #:
-msgid "Earn AppCoins Credits!"
-msgstr "Κερδίστε AppCoins Credits!"
+msgid "Earn Aptoide balance!"
+msgstr "Κερδίστε υπόλοιπο Aptoide!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας στο {1}, εκτός αν γίνουν με AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας στο {1}, εκτός αν γίνουν με υπόλοιπο Aptoide."
 
 #. Card - Purchase Promotion.
 #:
-msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "Πραγματοποιήστε μία αγορά στο {0} και λάβετε {1} AppCoins Credits."
+msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
+msgstr "Πραγματοποιήστε μία αγορά στο {0} και λάβετε {1} υπόλοιπο Aptoide."
 
 #. Receipt - Purchase Promotion.
 #:
@@ -34,8 +34,8 @@ msgstr "Επειδή πραγματοποιήσατε αγορά στο {0}."
 
 #. Card - Expenditure per days Promotion.
 #:
-msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "Ξοδέψτε {0} {1} σε {2} ημέρες και λάβετε {3} AppCoins Credits."
+msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
+msgstr "Ξοδέψτε {0} {1} σε {2} ημέρες και λάβετε {3} σε υπόλοιπο Aptoide."
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -44,8 +44,8 @@ msgstr "Επειδή ξοδέψατε περισσότερα από {0} {1} τι
 
 #. Card - Next Level Promotion.
 #:
-msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "Φτάστε στο επόμενο επίπεδο και λάβετε {0} AppCoins Credits!"
+msgid "Reach the next level and receive {0} in Aptoide balance!"
+msgstr "Φτάστε στο επόμενο επίπεδο και λάβετε {0} σε υπόλοιπο Aptoide!"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -54,8 +54,8 @@ msgstr "Επειδή φτάσατε στο επόμενο επίπεδο."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας στο {1}, εκτός αν γίνουν με AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας στο {1}, εκτός αν γίνουν με υπόλοιπο Aptoide."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -64,8 +64,8 @@ msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορέ
 
 #. Card - First purchase.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "Λάβετε επιπλέον {0}% Bonus στην πρώτη σας αγορά, εκτός αν γίνει με AppCoins Credits, στο {1}"
+msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
+msgstr "Λάβετε επιπλέον {0}% Bonus στην πρώτη σας αγορά, εκτός αν γίνει με υπόλοιπο Aptoide, στο {1}"
 
 #. Receipt - First Purchase.
 #:
@@ -74,8 +74,8 @@ msgstr "Λόγω της πρώτης σας αγοράς στο {0}."
 
 #. Card - First purchase of the day.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "Λάβετε επιπλέον {0}% Bonus στην πρώτη σας αγορά της ημέρας, εκτός αν γίνει με AppCoins Credits, στο {1}"
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
+msgstr "Λάβετε επιπλέον {0}% Bonus στην πρώτη σας αγορά της ημέρας, εκτός αν γίνει με υπόλοιπο Aptoide, στο {1}"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -84,13 +84,13 @@ msgstr "Λόγω της πρώτης σας αγοράς της ημέρας σ�
 
 #. Title for bonus receipts.
 #:
-msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} Μπόνους AppCoins Credits!"
+msgid "+{0} Bonus in Aptoide balance!"
+msgstr "+{0} Bonus σε υπόλοιπο Aptoide!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr "Λάβετε {0} AppCoins Credits επιπλέον όταν ξοδεύετε {1} {2} στο {3}."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in {3}."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -99,18 +99,18 @@ msgstr "Επειδή ξοδέψατε {0} {1} στο {2}."
 
 #. Card - Expendidure in any game.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "Λάβετε {0} AppCoins Credits επιπλέον όταν ξοδεύετε {1} {2} σε εφαρμογές με AppCoins."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in compatible apps."
+msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
-msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "Επειδή ξοδέψατε {0} {1} σε εφαρμογές με AppCoins."
+msgid "Because you spent {0} {1} in compatible apps."
+msgstr "Επειδή ξοδέψατε {0} {1} σε συμβατές εφαρμογές."
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας, εκτός αν γίνουν με AppCoins Credits."
+msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
+msgstr "Λάβετε επιπλέον {0}% bonus σε όλες τις αγορές σας, εκτός αν γίνουν με υπόλοιπο Aptoide."
 
 #. Card - Title - Common
 #:
