@@ -133,7 +133,7 @@ fun TransactionCard(
                   Canvas(modifier = Modifier.matchParentSize()) {
                     val textHeight = size.height / 1.90f
                     drawLine(
-                      color = styleguide_red,
+                      color = styleguide_dark_grey,
                       start = Offset(0f, textHeight),
                       end = Offset(size.width, textHeight),
                       strokeWidth = 1.5.dp.toPx()

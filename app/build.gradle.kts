@@ -12,8 +12,8 @@ android {
   namespace = "com.asf.wallet"
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 349
-    versionName = "3.38.1"
+    versionCode = 350
+    versionName = "3.39.0"
   }
 }
 
