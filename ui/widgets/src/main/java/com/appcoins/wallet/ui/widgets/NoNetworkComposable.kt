@@ -47,7 +47,8 @@ fun NoNetworkScreen(
   val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
 
   Column(
-    modifier = Modifier.fillMaxSize(),
+    modifier = Modifier.fillMaxSize()
+      .background(WalletColors.styleguide_dark),
     horizontalAlignment = CenterHorizontally,
     verticalArrangement = Arrangement.Center
   ) {
