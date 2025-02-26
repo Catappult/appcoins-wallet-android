@@ -446,6 +446,7 @@
   <string name="referral_verification_title">पेमेंट पद्धत सत्यापित करा</string>
   <string name="referral_view_verify_button">पेमेंट पद्धत सत्यापित करा</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">आपल्याला अद्यतनाची गरज आहे!</string>
   <string name="update_wallet_purchase_body">ही खरेदी पूर्ण करण्यासाठी Aptoide बॅलन्स अद्यतन करा.</string>
