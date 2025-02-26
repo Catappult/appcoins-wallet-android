@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">%s verzenden</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">Mijn wallets</string>
