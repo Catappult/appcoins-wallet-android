@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">常見問題集</string>
   <string name="low_storage_error">儲存空間不足</string>
-  <string name="no_camera_permission">AppCoins BDS錢包需要取得您相機的權限以掃描QR碼。</string>
+  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
   <string name="no_camera_available">沒有可用的相機！</string>
   <string name="ok">了解</string>
   <string name="barcode_error_format">無效的QR碼格式：%s</string>
