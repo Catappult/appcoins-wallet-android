@@ -446,6 +446,7 @@
   <string name="referral_verification_title">تایید روش پرداخت</string>
   <string name="referral_view_verify_button">تایید روش پرداخت</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">نیاز به بروزرسانی دارید!</string>
   <string name="update_wallet_purchase_body">لطفا Aptoide Wallet را بروزرسانی کنید تا این خرید را کامل کنید.</string>
