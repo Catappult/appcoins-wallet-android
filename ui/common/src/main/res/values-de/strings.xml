@@ -212,7 +212,7 @@
   <string name="gamification_how_max_level_notification_title">Du hast es geschafft!</string>
   <string name="gamification_how_max_level_body">Du hast das höchste Level erreicht: %s Bonus für jeden Einkauf!</string>
   <string name="gamification_level_up_notification_title">Fast geschafft!</string>
-  <string name="gamification_level_up_notification_body">Gib %s AppCoins mehr aus, um das nächste Level zu erreichen.</string>
+  <string name="gamification_level_up_notification_body">Gib %s mehr aus, um das nächste Level zu erreichen.</string>
   <string name="gamification_bonus_plus_perk_body">Erhalte %1$s Bonus und %2$s zusätzliches Aptoide-Guthaben.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Erlaube der Aptoide Wallet, deine Wallet-Adresse an %s weiterzureichen.</string>
