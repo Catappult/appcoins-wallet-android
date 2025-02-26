@@ -446,6 +446,7 @@
   <string name="referral_verification_title">Fizetési mód hitelesítése</string>
   <string name="referral_view_verify_button">Fizetési mód hitelesítése</string>
   <!--Promotions-->
+  <string name="promotions_new">NEW</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Frissítés szükséges!</string>
   <string name="update_wallet_purchase_body">A vásárlás befejezéséhez frissítsd az Aptoide Walletet.</string>
