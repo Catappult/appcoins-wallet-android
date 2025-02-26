@@ -105,9 +105,7 @@ fun SupportButton(onSupportClick: () -> Unit, isDarkTheme: Boolean) {
     Image(
       painterResource(id = if(isDarkTheme) R.drawable.ic_logo_appc_support_light else R.drawable.ic_logo_appc_support),
       contentDescription = null,
-      modifier = Modifier.padding(end = 8.dp)
     )
-    Image(painterResource(id = R.drawable.ic_open_in_24), contentDescription = null)
   }
 }
 

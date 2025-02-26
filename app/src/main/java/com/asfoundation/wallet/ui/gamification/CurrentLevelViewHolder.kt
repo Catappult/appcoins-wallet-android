@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.gamification
 
 import android.content.res.ColorStateList
-import android.os.Build
 import android.view.View
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
@@ -27,12 +26,8 @@ class CurrentLevelViewHolder(
     val currentLevel = level as CurrentLevelItem
     val progress =
       mapper.getProgressPercentage(currentLevel.amountSpent, currentLevel.nextLevelAmount)
-    val progressString = mapper.validateAndGetProgressString(
-      currentLevel.amountSpent,
-      currentLevel.nextLevelAmount
-    )
     handleSpecificLevel(
-      currentLevel.level, progressString, currentLevel.bonus,
+      currentLevel.level, currentLevel.bonus,
       currentLevel.amountSpent, currentLevel.nextLevelAmount
     )
     setProgress(progress)
@@ -43,14 +38,14 @@ class CurrentLevelViewHolder(
   }
 
   private fun handleSpecificLevel(
-    level: Int, progressString: String, bonus: Double,
+    level: Int, bonus: Double,
     amountSpent: BigDecimal, nextLevelAmount: BigDecimal?
   ) {
     val currentLevelInfo = mapper.mapCurrentLevelInfo(level)
     binding.currentLevelCardLayout.currentLevelImage.setImageDrawable(currentLevelInfo.planet)
     setColor(currentLevelInfo.levelColor)
     setText(
-      currentLevelInfo.title, currentLevelInfo.phrase, progressString, bonus, amountSpent,
+      currentLevelInfo.title, currentLevelInfo.phrase, bonus, amountSpent,
       nextLevelAmount
     )
   }
@@ -73,7 +68,7 @@ class CurrentLevelViewHolder(
   }
 
   private fun setText(
-    title: String, phrase: String, progressPercentage: String,
+    title: String, phrase: String,
     bonus: Double, amountSpent: BigDecimal, nextLevelAmount: BigDecimal?
   ) {
     binding.currentLevelCardLayout.currentLevelTitle.text = title
@@ -90,14 +85,9 @@ class CurrentLevelViewHolder(
     val df = DecimalFormat("###.#")
     binding.currentLevelCardLayout.currentLevelBonus.text =
       itemView.context.getString(R.string.gamif_bonus, df.format(bonus))
-    binding.currentLevelCardLayout.percentageLeft.text = progressPercentage
   }
 
   private fun setProgress(progress: BigDecimal) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      binding.currentLevelCardLayout.currentLevelProgressBar.setProgress(progress.toInt(), true)
-    } else {
-      binding.currentLevelCardLayout.currentLevelProgressBar.progress = progress.toInt()
-    }
+    binding.currentLevelCardLayout.currentLevelProgressBar.setProgress(progress.toInt(), true)
   }
 }

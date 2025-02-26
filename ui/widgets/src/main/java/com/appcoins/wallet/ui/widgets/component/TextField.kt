@@ -115,6 +115,7 @@ fun WalletTextField(
       unfocusedIndicatorColor = Color.Transparent,
       focusedTextColor = WalletColors.styleguide_light_grey,
       unfocusedTextColor = WalletColors.styleguide_light_grey,
+      cursorColor = WalletColors.styleguide_medium_grey
     ),
     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Default, keyboardType = keyboardType),
     placeholder = {

@@ -113,7 +113,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
 
   override fun showHeaderInformation(totalSpent: String, bonusEarned: String, symbol: String) {
     binding.bonusEarned.text = getString(R.string.value_fiat, symbol, bonusEarned)
-    binding.totalSpend.text = getString(R.string.gamification_how_table_a2, totalSpent)
+    binding.totalSpend.text = getString(R.string.value_fiat,symbol ,totalSpent)
 
     binding.bonusEarnedSkeleton.visibility = View.INVISIBLE
     binding.totalSpendSkeleton.visibility = View.INVISIBLE
