@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">Enviar %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">Minhas Wallets</string>
@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
   <string name="low_storage_error">Não há espaço de armazenamento livre</string>
-  <string name="no_camera_permission">A BDS da AppCoins Wallet precisa permissão para acessar sua câmera para escanear QR Codes.</string>
+  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
   <string name="no_camera_available">Nenhuma câmera disponível!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato de código de barras inválido: %s</string>
