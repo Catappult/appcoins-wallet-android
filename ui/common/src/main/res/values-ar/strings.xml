@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">محفظة Aptoide</string>
   <string name="title_send_with_token">إرسال %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">مَحافظي</string>
@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">أسئلة شائعة</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
-  <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
+  <string name="no_camera_permission">محفظة Aptoide تحتاج الإذن للوصول إلى الكاميرا لمسح رموز QR.</string>
   <string name="no_camera_available">الكاميرا غير متوفرة!</string>
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">إلغاء قفل الشاشة</string>
   <string name="unlock_screen_prompt_android">يرجى إلغاء قفل جهاز الأندرويد الخاص بك للمتابعة.</string>
   <string name="root_title">أمان الجهاز معرض خطر</string>
-  <string name="root_body">يمكن لأي تطبيق الوصول إلى بيانات سلسلة المفاتيح الخاصة بمحفظة الأبكوينز وسرقة محفظتك! امسح هذه المحفظة حالًا واستعدها على جهاز آمن.</string>
+  <string name="root_body">أي تطبيق مُروّت يمكنه أن يصل إلى بيانات keychain لمحفظة Aptoide وأن يسرق محفظتك! امسح هذه المحفظة في الحال واستعدها على جهاز آمن.</string>
   <string name="action_buy">شراء</string>
   <string name="empty"></string>
   <string name="try_again">حاول مرة أخرى</string>
@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">شيفرة QR لا تحتوي على عنوان صالح</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">تم إنشاء المحفظة!</string>
-  <string name="intro_agree_terms_and_conditions_body">بإدخال AppCoins Wallet، أنت توافق على %1$s و%2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">بدخولك محفظة Aptoide، أنت توافق على %1$s و %2$s.</string>
   <string name="intro_get_started_button">إطلاق المحفظة</string>
   <!-- New Intro -->
   <!-- Intro from game -->
@@ -114,7 +114,7 @@
   <string name="error_already_added">تمت الإضافة مسبقًا</string>
   <string name="error_export">فشل في تصدير المحفظة</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">لقد قمنا بتشعيب محفظة ثقة لمشروع أندرويد للتمهيد لتطوير محفظة أبكوينز. اعتبرناها البديل الأفضل بالنسبة للوظائف المنفذة مسبقًا. قمنا بتشعيبها للمساهمة في العمليات التنفيذية والعمل ذي الصلة.</string>
+  <string name="settings_fragment_credits">لقد أجرينا تشعيبًا لمحفظة Trust من أجل مشروع أندرويد للتمهيد لتطوير محفظة Aptoide. واعتمدناها كأفضل بديل بخصوص ما يتعلق بالوظائف التي نفذناها مسبقًا. وقد عملنا على تشعيبها بقصد المساهمة في العمليات التنفيذية والأعمال التي رأينا أنها ذات صلة.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">التحويل قيد التنفيذ</string>
   <string name="activity_aib_loading_message">قد يستغرق هذا بعض الوقت…</string>
@@ -205,7 +205,7 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">مكافأة للمشتريات:</string>
-  <string name="gamification_purchase_header_part_2">%s في رصيد الـAppCoins</string>
+  <string name="gamification_purchase_header_part_2">%s في رصيد Aptoide</string>
   <string name="gamification_purchase_body">يمكنك استخدام هذه المكافأة في عملية الشراء القادمة.</string>
   <string name="gamification_purchase_completed_bonus_received">تلقيت مكافأة</string>
   <string name="gamification_leveled_up_notification_body">مبروك، ستحصل الآن على مكافأة %s على كل عملية شراء!</string>
@@ -213,21 +213,21 @@
   <string name="gamification_how_max_level_body">لقد وصلت أعلى مستوى: %s مكافأة على كل عملية شراء!</string>
   <string name="gamification_level_up_notification_title">كدت تصل!</string>
   <string name="gamification_level_up_notification_body">أنفق %s AppCoins إضافية لتصل إلى المستوى التالي.</string>
-  <string name="gamification_bonus_plus_perk_body">تمتع بـ %1$s مكافأة و %2$s رصيد AppCoins إضافي.</string>
+  <string name="gamification_bonus_plus_perk_body">تمتع بـ %1$s مكافأة و %2$s إضافية في رصيد Aptoide.</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">اسمح لمحفظة AppCoins بإعطاء عنوان محفظتك إلى %s.</string>
+  <string name="provide_wallet_body">اسمح لمحفظة Aptoide بمنح عنوان محفظتك لـ %s.</string>
   <string name="provide_wallet_always_allow_button">السماح دائمًا</string>
   <string name="provide_wallet_allow_once_button">السماح مرة واحدة</string>
-  <string name="provide_wallet_create_body">تحتاج لعنوان محفظة! اتبع هذه الخطوات لإنشاء واحدٍ في محفظة AppCoins.</string>
+  <string name="provide_wallet_create_body">أنت بحاجة إلى عنوان محفظة! اتبع هذه الخطوات لإنشاء عنوان في محفظة Aptoide.</string>
   <string name="provide_wallet_create_wallet_button">إنشاء</string>
   <string name="provide_wallet_creating_wallet_header">جاري تحضير محفظتك&#8230;</string>
   <string name="provide_wallet_created_header">تم إنشاء عنوان محفظة!</string>
-  <string name="provide_wallet_empty_state">لم تسمح لمحفظة AppCoins بإعطاء عنوان محفظتك لأي تطبيقات أخرى بعد.</string>
+  <string name="provide_wallet_empty_state">أنت لم تسمح لمحفظة Aptoide بمنح عنوانك لآي تطبيق آخر حتى الآن.</string>
   <string name="provide_wallet_status">اسمح بالوصول إلى عنوان محفظتك</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">تعبئة</string>
-  <string name="topup_completed_1">%s في رصيد الـAppCoins</string>
+  <string name="topup_completed_1">%s في رصيد Aptoide</string>
   <string name="topup_completed_2_with_bonus">أُودعت في حسابك... إضافة إلى مكافأة!</string>
   <string name="topup_completed_2_without_bonus">أُودِعَتْ في حسابك.</string>
   <string name="topup_minimum_value">أقل قيمة يمكن إضافتها هي %s</string>
@@ -238,7 +238,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">الإيثيريوم هي عملة مشفرة تعتمد عليها عملة AppCoins. يمكنك بيعها وشراؤها في معظم التبادلات، إن استخدامها شائع جدًّا!</string>
   <string name="balance_appcoins_body">AppCoins هي عملة مشفرة من أجل العمليات الاقتصادية في التطبيق. يمكنك بيعها وشراؤها في عدة تبادلات واستخدامها لشراء العناصر داخل التطبيقات.</string>
-  <string name="balance_appccreditos_body">العملة التي ستشتري بها داخل التطبيقات! أضف إلى رصيد AppCoins من محفظتك أو احصل عليها مجانًا عند استخدام تطبيقات معينة. يمكن أيضًا إرسالها إلى الأصدقاء!</string>
+  <string name="balance_appccreditos_body">التوكن لشراء العناصر داخل التطبيقات! أضف مبلغًا إلى رصيد Aptoide أو احصل عليه مجانًا باستخدام التطبيقات الأخرى. يمكنك أيضًا تبادلها مع الأصدقاء!</string>
   <string name="my_wallets_action_new_wallet">محفظة جديدة</string>
   <string name="my_wallets_action_recover_wallet">استعادة المحفظة</string>
   <string name="my_wallets_action_backup_wallet">محفظة احتياطية</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">الرصيد الحالي: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">رصيد غير كافٍ</string>
   <string name="p2p_send_confirmation_header">بيانات التحويل</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
+  <string name="p2p_send_currency_appc_c">رصيد Aptoide</string>
   <!--Common-->
   <string name="oops_title">يييي</string>
   <string name="error_general">حدث خطأ</string>
@@ -284,7 +284,7 @@
   <string name="email_here_field">بريدك الإلكتروني هنا&#8230;</string>
   <string name="skip_button">تجاهل الآن</string>
   <string name="install_button">تثبيت</string>
-  <string name="get_button">تحصيل</string>
+  <string name="get_button">احصل</string>
   <string name="see_all_button">رؤية الكل</string>
   <string name="transfer_button">تحويل</string>
   <string name="top_up_button">إضافة</string>
@@ -302,11 +302,11 @@
   <string name="buy_button">شراء</string>
   <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
   <string name="topup_button">إضافة</string>
-  <string name="extra_bonus_title">احصل على %s%% إضافية</string>
+  <string name="extra_bonus_title">احصل على %s%% مكافأة إضافية</string>
   <string name="payment_method">وسيلة الدفع</string>
   <string name="credit_debit_card">بطاقة ائتمان/مسبقة الدفع</string>
   <string name="paypal">بايبال</string>
-  <string name="appc">أرصدة AppCoins</string>
+  <string name="appc">رصيد Aptoide</string>
   <string name="bank_transfer">تحويل بنكي سهل</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -331,17 +331,17 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">أداتك للمشتريات داخل التطبيقات</string>
-  <string name="onboarding_bonus_title">احصل على %s%% من قيمة مشترياتك داخل التطبيق برصيد AppCoins Credits.</string>
-  <string name="onboarding_payment_methods_title">استخدم بطاقة مصرفية، PayPal، ووسيلة الدفع المفضلة لديك.</string>
-  <string name="onboarding_vip_title">كن عضوًا في VIP لتحصل على دعم وعروض استثنائية.</string>
+  <string name="onboarding_title">أداتك للمشترايت داخل التذبيقات</string>
+  <string name="onboarding_bonus_title">احصل على مكافأة تصل إلى %s%% على مشترياتك داخل التطبيقات في رصيد Aptoide.</string>
+  <string name="onboarding_payment_methods_title">استخدم بطاقة بنكية، PayPal، ووسائل الدفع المفضلة لديك.</string>
+  <string name="onboarding_vip_title">كن عضو VIP لتحصل على الدعم والعروض الممتازة.</string>
   <string name="terms_and_conditions">القواعد والشروط</string>
   <string name="privacy_policy">سياسة الخصوصية</string>
   <string name="existent_wallet">لدي محفظة فعلًا</string>
   <string name="onboarding_verification_body">وثق وسيلة الدفع لديك لإتمام عملية الشراء.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">رصيد Aptoide</string>
   <!--Settings-->
   <string name="title_redeem">تحرير بطاقة هدية</string>
   <string name="settings_item_support">تواصل مع فريق الدعم</string>
@@ -378,17 +378,16 @@
   <string name="purchase_appcoins_noavailable_body">لا تتوفر لديك AppCoins ولا إيثر كافية لإتمام عملية الشراء هذه.</string>
   <string name="purchase_no_eth_body">لا يوجد لديك ETH كافية لتدفع رسوم عمولات التحويل.</string>
   <string name="purchase_no_appcoins_body">لا توجد لديك AppCoins كافية لمتابعة عملية الشراء هذه.</string>
-  <string name="purchase_appcoins_credits_noavailable_body">لا يوجد لديك رصيد AppCoins كافٍ، جرب إضافة رصيد!</string>
-  <string name="purchase_appcoins_credits_default_body">لقد كسبت ما يكفي من رصيد الAppCoins لعملية الشراء هه. استمتع!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">ليس لديك رصيد Aptoide كافٍ، جرب زيادة الرصيد!</string>
+  <string name="purchase_appcoins_credits_default_body">لقد كسبت رصيد Aptoide كافيًا لعملية الشراء هذه. استمتع!</string>
   <string name="purchase_poa_item">اربح الأموال من خلال تجربة التطبيقات</string>
   <string name="purchase_poa_view_title">لا مال لديك، لا تقلق!</string>
-  <string name="purchase_poa_view_body">جرّب تطبيقًا لمدة دقيقتين واحصل على مكافأة رصيد AppCoins لمشترياتك!</string>
+  <string name="purchase_poa_view_body">جرّب استخدام تطبيق لمدة دقيقتين واحصل على رصيد Aptoide لإجراء عملية شراء!</string>
   <string name="purchase_current_balance_body">الرصيد الحالي:</string>
-  <string name="purchase_current_balance_appcc_body">%s برصيد AppCoins.</string>
+  <string name="purchase_current_balance_appcc_body">%s في رصيد Aptoide.</string>
   <string name="purchase_current_balance_appc_eth_body">%s برصيد AppCoins وإيثر.</string>
-  <string name="purchase_wallet_blocked_title">لقد تجمدت أرصدتك من AppCoins</string>
-  <string name="purchase_wallet_blocked_body">نظرًا لسجل التحويلات غير المعتاد، تم تجميد أرصدة AppCoins لديك. 
-لا يزال بإمكانك الدفع وتبادل الأرصدة من وسائل الدفع الأخرى عدا رصيد AppCoins. \n\n إذا كنت تعتقد بأن هناك خطأ، تواصل معنا على:</string>
+  <string name="purchase_wallet_blocked_title">لقد تم حجب رصيد Aptoide</string>
+  <string name="purchase_wallet_blocked_body">بناءً على سجل تحويلات غير معتاد، تم حجب رصيد Aptoide لديك. ستبقى قادرًا على إجراء الدفعات والتحويلات بوسائل دفع أخرى ما عدا رصيد Aptoide.\n\nإذا كنت تعتقد أن هناك خطأً، تواصل معنا من خلال:</string>
   <string name="purchase_card_error_general_1">هناك مشكلة بالبطاقة. يرجى استخدام بطاقة أخرى أو وسيلة دفع أخرى.</string>
   <string name="purchase_card_error_general_2">التحويل مرفوض من جهة المصرف. يرجى استخدام بطاقة أخرى أو وسيلة دفع أخرى.</string>
   <string name="purchase_card_error_no_funds">يبدو أنك لا تملك رصيدًا كافيًا أو هناك هناك حدًّا للسحب على بطاقتك. يرجى المحاولة مع بطاقة أخرى أو وسيلة دفع أخرى.</string>
@@ -424,39 +423,39 @@
   <string name="purchase_success_bonus_received_title">تلقيت %s مكافأة.</string>
   <string name="purchase_making_purchase_title">الشراء&#8230;</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">مع وسيلة الدفع هذه ستدفع عمولة تشغيل وضريبة.</string>
-  <string name="purchase_error_open_banking_wallet_generic">حدثت مشكلة مع مدفوعاتك. يرجى المحاولة ثانية أو استخدام وسيلة دفع مختلفة.</string>
+  <string name="purchase_error_open_banking_wallet_generic">حدثت مشكلة مع مدفوعاتك. يرجى المحاولة ثانية أو استخدام وسيلة دفع أخرى.</string>
   <string name="purchase_error_no_method_available_body">حتى اللحظة، لا تتوفر وسائل دفع لإتمام عملية الشراء الحالية في منطقتك. تابع لتعرف التحديثات في هذا الأمر!</string>
   <string name="purchase_legal_disclaimer">بمتابعة استخدام وسيلة الدفع هذه، أنت توافق وتُدرك أنه سيتم تزويدك بالمحتوى مقابل الدفع، وبهذا تفقد حقك في الانسحاب.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">المكافأة عبارة عن AppCoins Credits.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">المكافأة ستكون برصيد Aptoide.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="zero">قد يستغر الأمر %s يومًا.</item>
-    <item quantity="one">قد يستغرق الأمر %s يومًا.</item>
-    <item quantity="two">قد يستغرق الأمر يومين.</item>
+    <item quantity="zero">قد يستغرق الأمر يومين %s.</item>
+    <item quantity="one">قد يستغرق الأمر يومًا %s.</item>
+    <item quantity="two">قد يستغرق الأمر يومين %s.</item>
     <item quantity="few">قد يستغرق الأمر %s أيام.</item>
     <item quantity="many">قد يستغرق الأمر %s يومًا.</item>
-    <item quantity="other">قد يستغرق الأمر %s يومًا.</item>
+    <item quantity="other">قد يستغرق الأمر يومين %s.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">سيتم إضافة %s إلى حساب AppCoins Credits في محفظتك.</string>
-  <string name="purchase_bank_transfer_success_2">قد يستغرق الأمر حتى يومين ليعمل مصرفك على الدفعة.</string>
-  <string name="purchase_bank_transfer_success_bonus">ستتلقى مكافأة قدرها %s في رصيد AppCoins Credits.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">نحن بانتظار المال ليص من حسابك المصرفي.</string>
+  <string name="purchase_bank_transfer_success_1">%s برصيد Aptoide سيُضاف إلى محفظتك.</string>
+  <string name="purchase_bank_transfer_success_2">قد يستغرق الأمر يومين لتكتمل العملية في البنك.</string>
+  <string name="purchase_bank_transfer_success_bonus">ستحصل على مكافأة %s في رصيد Aptoide.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">نحن بانتظار وصول المبلغ من حسابك البنكي.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
   <string name="async_steps_title">الخطوة التالية</string>
   <string name="async_steps_1_no_notification">أتم عملية الدفع باستخدام %s.</string>
-  <string name="async_steps_2_no_notification">حالما يصلك رصيد AppCoins، ارجع إلى اللعبة وأتمّ عملية الشراء باستخدام رصيد AppCoins كوسيلة دفع.</string>
-  <string name="async_steps_2_toptup_no_notification">حالما يصلك رصيد AppCoins، استخدمه لإجراء عمليات الشراء في الألعاب المفضلة لديك!</string>
+  <string name="async_steps_2_no_notification">حالما تستلم رصيد Aptoide، عُد إلى اللعبة وأجرِ عملية الشراء باستخدام رصيد Aptoide كوسيلة دفع.</string>
+  <string name="async_steps_2_toptup_no_notification">حالما تستلم رصيد Aptoide، استخدمه لعمليات الشراء في ألعابك المفضلة!</string>
   <!--Referral Program-->
   <string name="referral_verification_title">وثّق وسيلة الدفع</string>
   <string name="referral_view_verify_button">وثّق وسيلة الدفع</string>
   <!--Promotions-->
   <!--Update-->
   <string name="update_wallet_purchase_title">يجب عليك التحديث!</string>
-  <string name="update_wallet_purchase_body">حدّث محفظة AppCoins لإتمام الشراء.</string>
-  <string name="update_wallet_hard_body">يبدو أنك تستخدم نسخة قديمة من محفظة AppCoins. يرجى تحديثها لضمان التجربة والأمان الأفضل.</string>
+  <string name="update_wallet_purchase_body">حدّث محفظة Aptoide لإتمام عملية الشراء هذه.</string>
+  <string name="update_wallet_hard_body">يبدو أنك تستخدم نسخة قديمة من محفظة Aptoide. يرجى تحديثها لضمان أفضل تجربة استخدام امنة.</string>
   <string name="update_wallet_soft_title">لا تبقَ مع النسخة القديمة!</string>
-  <string name="update_wallet_soft_body">إن الحفاظ على محفظة AppCoins محدّثة باستمرار يضمن لك أفضل تجربة.</string>
+  <string name="update_wallet_soft_body">الحفاظ على التحديث المستمر لمحفظة Aptoide يضمن أفضل تجربة استخدام.</string>
   <string name="update_button">تحديث</string>
   <string name="update_backup_title">لا تخسر رصيدك!</string>
   <string name="update_backup_body">احتفظ بنسخة احتياطية من المحفظة قبل التحديث.</string>
@@ -546,7 +545,7 @@
   <string name="subscriptions_details_cancelled_body">ملغية - تنتهي صلاحيتها في %s</string>
   <string name="subscriptions_expiration_body">تنتهي صلاحيتها في %s</string>
   <string name="subscriptions_canceled_body">ملغية</string>
-  <string name="subscriptions_details_disclaimer">قد تتغير القيمة في AppCoins للدفعة المقبلة بناء على سعر الصرف.</string>
+  <string name="subscriptions_details_disclaimer">إن قيمة مدفوعاتك التالية يمكن أن تختلف حسب سعر الصرف.</string>
   <string name="subscriptions_manage_button">إدارة الاشتراك</string>
   <string name="subscriptions_cancel_button">إلغاء الاشتراك</string>
   <string name="subscriptions_renew_subscription_button">تجديد الاشتراك</string>
@@ -572,13 +571,13 @@
   <string name="gamif_spent">المبلغ المدفوع للوصول إلى هذا المستوى</string>
   <string name="gamif_show_previous">أظهر الإنجازات السابقة</string>
   <string name="gamif_hide_previous">أخفِ الإنجازات السابقة</string>
-  <string name="gamif_next_goals">أنفق %s AppCoins للوصول إلى المستوى التالي</string>
+  <string name="gamif_next_goals">ادفع %s لتصل للمستوى التالي</string>
   <string name="gamif_achievement_start">لقد بدأت رحلتك</string>
   <string name="gamif_achievement_start_sub">لقد غادر الأرض للتوّ!</string>
   <string name="gamif_achievement_reach">وصلت إلى %s</string>
   <string name="gamif_card_start">لا تزال على الأرض</string>
   <string name="gamif_card_title">أنت على %s</string>
-  <string name="gamif_card_body">أنفق %s AppCoins إضافية لتصل إلى المستوى التالي.</string>
+  <string name="gamif_card_body">أادفع %s إضافية لتصل للمستوى التالي.</string>
   <string name="gamif_bonus">%s%% مكافأة</string>
   <string name="gamif_quote_earth">\"كوكب الأرض هي الشيء المشترك بيننا\" - ويندل بيري</string>
   <string name="gamif_placeholder_moon">القمر</string>
@@ -642,8 +641,8 @@
   <string name="perks_title">ترقيات</string>
   <string name="promotion_ends_short_title">ينتهي الترويج في</string>
   <string name="perks_available_soon_short">سيتوفر قريبًا</string>
-  <string name="perks_notification">لقد تلقّيت للتوّ رصيد %s AppCoins كمكافأة</string>
-  <string name="perks_purchases_disclaimer_body">كل المشتريات والمبالغ المضافة التي تتم بواسطة وسيلة دفع غير رصيد AppCoins ستجعلك تتأهل لزيادة مستواك والحصول على مكافأة.</string>
+  <string name="perks_notification">حصلت للتوّ على %s في رصيد Aptoide كمكافأة</string>
+  <string name="perks_purchases_disclaimer_body">جميع عمليات الشراء وزيادة الرصيد التي تجريها باستخدام وسيلة دفع غير رصيد Aptoide، ستؤهلك لرفع مستواك والحصول على الجوائز.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">القُفل الحيوي</string>
   <string name="fingerprint_failed_title">فشلت الإثبات!</string>
@@ -652,7 +651,7 @@
   <string name="fingerprint_authentication_required_body">يرجى استخدام بصمة الإصبع أو كلمة المرور للمتابعة.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">هل أنت مستمتع بـ AppCoins Wallet؟</string>
+  <string name="rate_us_question_title">هل تستمتع بمحفظة Aptoide؟</string>
   <string name="rate_us_no">ليس كثيرًا</string>
   <string name="rate_us_yes">نعم!</string>
   <string name="rate_us_improve_title">ما الذي يمكننا تحسينه؟</string>
@@ -660,10 +659,10 @@
   <string name="rate_us_improve_field__empty_error">يرجى كتابة أي شيء</string>
   <string name="rate_us_possitive_thanks_title">شكرًا لك!</string>
   <string name="rate_us_possitive_thanks_body">نحن سعداء بأنك تحب التطبيق. هل يمكنك مساعدتنا بتقييمنا على متجر التطبيقات؟</string>
-  <string name="rate_us_possitive_rate_button">أضف تقييمًا لمحفظة AppCoins</string>
+  <string name="rate_us_possitive_rate_button">قيّم محفظة Aptoide</string>
   <string name="rate_us_possitive_done_title">نشكرك على تقييمك!</string>
   <string name="rate_us_back_title">تريد مساعدتنا؟</string>
-  <string name="rate_us_back_body">أضف تقيمك لمحفظة AppCoins على متجر التطبيقات لنعمل على تحسينه.</string>
+  <string name="rate_us_back_body">قيّم محفظة Aptoide على متجر التطبيقا لنعمل على تطويرها.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">تفقد الرمز في تفاصيل حركة الدفع</string>
   <string name="card_verification_code_body">سيظهر رمز مميز في ملخص عملية التحويل عن طريق مُصدِر بطاقتك.</string>
@@ -739,7 +738,7 @@
   <string name="mywallet_backup_again_button">أعد النسخ الاحتياطي</string>
   <string name="mywallet_choose_name_field">اسم المحفظة هنا...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">مبروك! لقد ثبتَّ AppCoins Wallet.</string>
+  <string name="onboarding_1st_title">مبروك! لقد ثبتَّ محفظة Aptoide.</string>
   <string name="onboarding_1st_body">عد إلى اللعبة لإتمام عملية الشراء.</string>
   <string name="onboarding_1st_back_to_game_button">عد إلى اللعبة</string>
   <string name="onboarding_1st_explore_wallet_button">أو استكشف المحفظة</string>
@@ -754,7 +753,7 @@
   <string name="vip_program_referral_button_title">برنامج الإحالة VIP</string>
   <string name="vip_program_referral_button_body">%s%% مكافأة لك ولأصدقائك.</string>
   <string name="vip_program_referral_page_title">برنامج الإحالة VIP</string>
-  <string name="vip_program_referral_page_body_2">شارك هذا الرمز مع أصدقائك وسيحصل كلاكما على مكافأة %s%% على كل المشتريات التي يقومون بها.</string>
+  <string name="vip_program_referral_page_body_2">شارك هذا الرمز مع أصدقائك ليحصل كلاكما على %s%% مكافأة على جميع مشترياتك.</string>
   <string name="vip_program_referral_page_share_title">شارك هذا الرمز مع أصدقائك</string>
   <string name="vip_program_referral_page_only_app_title">فقط للمشتريات على</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s كسبتها من إحالات %3$s</string>
@@ -763,45 +762,45 @@
   <string name="vip_program_referral_notification_title">يتوفر رمز إحالة VIP!</string>
   <string name="vip_program_referral_notification_body">شارك رمزك مع مجتمعك لتكسبوا جميعًا بينما تلعبون!</string>
   <string name="vip_program_title_vip_offer">عرض VIP</string>
-  <string name="vip_program_code_error_body">لا يمكنك أنت استخدام رمزك الترويجي الـ VIP. شاركه مع أصدقائك!</string>
+  <string name="vip_program_code_error_body">لا يمكنك استخدام رمزك الـVIP بنفسك. شاركه مع أصدقائك!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">أهلا بك بمحفظة AppCoins Wallet</string>
-  <string name="intro_welcome_body">أضف إلى المحفظة أو أجرِ عملية شراء في أي تطبيق أو لُعبة تتوافق مع AppCoins.</string>
+  <string name="intro_welcome_header">أهلا بك في محفظة Aptoide</string>
+  <string name="intro_welcome_body">أضف مبلغًا إلى محفظتك واشترِ ما تريد في التطبيقات والألعاب المتوافقة.</string>
   <string name="intro_active_promotions_header">الترويجات النشطة</string>
   <string name="topup_home_button">أعد تعبئة</string>
   <string name="intro_home_button">الرئيسية</string>
   <string name="intro_rewards_button">الجوائز</string>
   <plurals name="day">
-    <item quantity="zero">أيام</item>
+    <item quantity="zero">يومان</item>
     <item quantity="one">يوم</item>
     <item quantity="two">يومان</item>
-    <item quantity="few">أيام</item>
-    <item quantity="many">أيام</item>
-    <item quantity="other">أيام</item>
+    <item quantity="few">يومان</item>
+    <item quantity="many">يومان</item>
+    <item quantity="other">يومان</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="zero">ساعات</item>
+    <item quantity="zero">ساعتان</item>
     <item quantity="one">ساعة</item>
     <item quantity="two">ساعتان</item>
-    <item quantity="few">ساعات</item>
-    <item quantity="many">ساعات</item>
-    <item quantity="other">ساعات</item>
+    <item quantity="few">ساعتان</item>
+    <item quantity="many">ساعتان</item>
+    <item quantity="other">ساعتان</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="zero">دقائق</item>
+    <item quantity="zero">دقيقتان</item>
     <item quantity="one">دقيقة</item>
     <item quantity="two">دقيقتان</item>
-    <item quantity="few">دقائق</item>
-    <item quantity="many">دقائق</item>
-    <item quantity="other">دقائق</item>
+    <item quantity="few">دقيقتان</item>
+    <item quantity="many">دقيقتان</item>
+    <item quantity="other">دقيقتان</item>
   </plurals>
   <plurals name="second">
-    <item quantity="zero">ثوانٍ</item>
+    <item quantity="zero">ثانيتان</item>
     <item quantity="one">ثانية</item>
     <item quantity="two">ثانيتان</item>
-    <item quantity="few">ثوانٍ</item>
-    <item quantity="many">ثوانٍ</item>
-    <item quantity="other">ثوانٍ</item>
+    <item quantity="few">ثانيتان</item>
+    <item quantity="many">ثانيتان</item>
+    <item quantity="other">ثانيتان</item>
   </plurals>
   <string name="intro_transactions_header">التحويلات</string>
   <string name="intro_backup_card_title">لا تخسر أموالك!</string>
@@ -810,9 +809,9 @@
   <string name="rewards_promo_code_card_body">استخدم الرمز الترويجي للحصول على صفقات مميزة!</string>
   <string name="rewards_promo_code_status">الحالة:</string>
   <string name="rewards_promo_code_status_active">نشط</string>
-  <string name="home_appcoins_compatible_games_title">ألعاب متوافقة مع AppCoins</string>
+  <string name="home_appcoins_compatible_games_title">الألعاب والجوائز</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">أتم أول عملية شراء لك في لعبة متوافقة مع AppCoins واحصل على مكافآت على كل عملية شراء.</string>
+  <string name="rewards_make_first_purchase_body">تمتع بأول عملية شراء في لعبة متوافقة واحصل على المكافآت في كل عملية شراء.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% مكافأة على كل المشتريات</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_settings_item">إدارة المَحافظ</string>
@@ -828,20 +827,20 @@
   <string name="verify_card_view_title_2">أدخل بيانات بطاقتك البنكية</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">جائزة التحدي</string>
-  <string name="challenge_reward_card_body">أكمل التحدي لتحصل على رصيد AppCoins.</string>
+  <string name="challenge_reward_card_body">أكمل التحدي للحصول على رصيد Aptoide.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">تمتع برصيد %s AppCoins Credits قي محفظتك</string>
+  <string name="bonus_granted_body">تمتع بـ %s في رصيد Aptoide في محفظتك</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">ابق مطّلعًا!</string>
   <string name="mail_list_card_body">انضم إلى قائمتنا البريدية لتحصل على تحديثات حصرية وفرصة للفوز ببطاقة هدية.</string>
   <string name="mail_list_card_confirmation_title">تأكيد بريدك الإلكتروني</string>
   <string name="mail_list_card_confirmation_body">أرسلنا بريدًا إلكترونيًا إلى %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_short_title">محفظة AppCoins ستصبح قريبًا محفظة Aptoide!</string>
+  <string name="rebranding_disclaimer_long_title">محفظة AppCoins ستصبح محفظة Aptoide!</string>
+  <string name="rebranding_disclaimer_shortest_title">سنتحوّل إلى محفظة Aptoide!</string>
   <string name="rebranding_disclaimer_long_body"> نحن نعمل على إعادة تصميم لعلامتنا وواجهتها. تابعنا لتعرف وتكتشف المزايا والجوائز المفضلة لديك بحُلّتها الجديدة كليًّا!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
+  <string name="rebranding_post_title">محفظة AppCoins أصبحت محفظة Aptoide!</string>
   <string name="rebrandinh_post_body">اكتشف المزايا والجوائز التي تفضّلها بشكلها الجديد. نتمنى أن تنال إعجابك!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
