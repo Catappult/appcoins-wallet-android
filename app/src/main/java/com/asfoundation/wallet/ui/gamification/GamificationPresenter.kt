@@ -6,7 +6,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
-import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencySymbolUseCase
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
@@ -28,7 +28,7 @@ class GamificationPresenter(
   private val disposables: CompositeDisposable,
   private val viewScheduler: Scheduler,
   private val networkScheduler: Scheduler,
-  private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase,
+  private val getCachedCurrencyUseCase: GetCachedCurrencySymbolUseCase,
 ) {
 
   private var viewHasContent = false

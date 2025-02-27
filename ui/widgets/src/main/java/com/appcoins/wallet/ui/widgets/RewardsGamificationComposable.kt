@@ -118,8 +118,8 @@ fun GamificationHeader(
               modifier = Modifier.padding(end = 8.dp, top = 16.dp, bottom = 8.dp),
               text = stringResource(
                 id = R.string.rewards_spend_to_next_level_body,
-                valueSpendForNextLevel,
-                currencySpend
+                currencySpend,
+                valueSpendForNextLevel
               ),
               style = MaterialTheme.typography.titleSmall,
               color = WalletColors.styleguide_light_grey,
