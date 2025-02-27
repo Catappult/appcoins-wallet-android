@@ -35,14 +35,11 @@ class PartnerAddressService @Inject constructor(
   override fun getAttribution(packageName: String): Single<AttributionEntity> {
     return getAttributionClientCache(packageName)
       .map { attribution ->
-        // TODO comment uncomment:
-//        if (oemIdPreferencesDataSource.getOemIdFromSdk().isBlank()) {
-//          attribution
-//        } else {
-//          AttributionEntity(oemIdPreferencesDataSource.getOemIdFromSdk(), attribution.domain)
-//        }
-        AttributionEntity("8f8088678db7d3fe83c9e3609098255f", attribution.domain)
-        ////
+        if (oemIdPreferencesDataSource.getOemIdFromSdk().isBlank()) {
+          attribution
+        } else {
+          AttributionEntity(oemIdPreferencesDataSource.getOemIdFromSdk(), attribution.domain)
+        }
       }
       .doOnSuccess {
         Log.d("oemid", "oemid: ${it?.oemId ?: ""}")
