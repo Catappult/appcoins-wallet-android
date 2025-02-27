@@ -224,11 +224,19 @@ class BdsPromotionsRepository @Inject constructor(
       val gamification =
         stats.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
       if (gamification == null) {
-        PromotionsGamificationStats(
-          resultState = PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
-          fromCache = stats.fromCache,
-          gamificationStatus = GamificationStatus.NONE
-        )
+        if (stats.walletOrigin == WalletOrigin.PARTNER_NO_BONUS) {
+          PromotionsGamificationStats(
+            resultState = PromotionsGamificationStats.ResultState.OK,
+            fromCache = stats.fromCache,
+            gamificationStatus = GamificationStatus.NONE
+          )
+        } else {
+          PromotionsGamificationStats(
+            resultState = PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
+            fromCache = stats.fromCache,
+            gamificationStatus = GamificationStatus.NONE
+          )
+        }
       } else {
         PromotionsGamificationStats(
           PromotionsGamificationStats.ResultState.OK,

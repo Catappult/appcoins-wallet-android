@@ -81,8 +81,9 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       userStats.walletOrigin == WalletOrigin.PARTNER_NO_BONUS
     ) {
       val index = perks.indexOfFirst { it.id == "PARTNER_PERK" }
-      toPartnerPerk(perks.removeAt(index))
-    } else null
+      if (index != -1) toPartnerPerk(perks.removeAt(index)) else null
+    } else
+      null
 
     return PromotionsModel(
       promotions = promotions,

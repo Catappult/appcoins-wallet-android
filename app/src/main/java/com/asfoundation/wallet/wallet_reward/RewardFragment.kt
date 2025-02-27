@@ -2,6 +2,7 @@ package com.asfoundation.wallet.wallet_reward
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -188,7 +189,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             }
 
             this != null && walletOrigin == PARTNER_NO_BONUS -> {
-
+              // No Gamification header
             }
 
             this != null && this.uninitialized -> {
