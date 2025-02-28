@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Hungarian\n"
 "Language: hu_HU\n"
-"PO-Revision-Date: 2025-02-26 17:27\n"
+"PO-Revision-Date: 2025-02-28 13:27\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Mert elértél a következő szintre."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Szerezz extra {0}% bónuszt minden vásárlás után a(z) {1} játékban, kivéve, ha az Aptoide egyenleget használod."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
