@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
-"PO-Revision-Date: 2025-02-26 17:27\n"
+"PO-Revision-Date: 2025-02-28 13:28\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "زیرا به مرحله بعد رسیده‌اید."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "{0}% بونوس اضافی در همه خریدهای خود در {1} دریافت کنید، به غیر از زمانی که از Aptoide balance استفاده می‌کنید."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
