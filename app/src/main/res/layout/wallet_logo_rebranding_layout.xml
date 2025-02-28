@@ -7,18 +7,18 @@
     android:minHeight="48dp"
     >
 
-  <TextView
-      android:id="@+id/appc_icon"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/logo_transform"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
       android:layout_marginStart="16dp"
-      android:background="@drawable/rounded_box_rebranding"
-      android:text="@string/promotions_new"
-      android:textColor="@color/styleguide_white"
-      android:textSize="10sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/rebranding_new"
       />
 
   <TextView
@@ -29,13 +29,13 @@
       android:ellipsize="end"
       android:fontFamily="@font/roboto_regular"
       android:maxLines="1"
-      android:text="@string/rebranding_disclaimer_shortest_title"
+      android:text="@string/rebranding_post_title"
       android:textColor="@color/styleguide_white"
-      android:textSize="13sp"
+      android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/iap_compose_view"
       app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintStart_toEndOf="@id/appc_icon"
+      app:layout_constraintStart_toEndOf="@id/logo_transform"
       app:layout_constraintTop_toTopOf="parent"
       />
 
@@ -47,7 +47,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintStart_toEndOf="@id/appc_icon"
+      app:layout_constraintStart_toEndOf="@id/logo_transform"
       app:layout_constraintTop_toTopOf="parent"
       />
 
