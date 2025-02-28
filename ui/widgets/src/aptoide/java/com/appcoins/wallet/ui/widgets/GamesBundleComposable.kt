@@ -83,7 +83,7 @@ private fun CardItem(
   onClick: () -> Unit,
 ) {
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
     onClick = onClick,
@@ -107,9 +107,9 @@ private fun CardItem(
           .fillMaxSize()
           .background(
             Brush.verticalGradient(
-              0.3F to WalletColors.styleguide_blue_secondary.copy(alpha = 0.0F),
-              0.75F to WalletColors.styleguide_blue_secondary.copy(alpha = 0.95F),
-              1F to WalletColors.styleguide_blue_secondary.copy(alpha = 0.99F)
+              0.3F to WalletColors.styleguide_dark_secondary.copy(alpha = 0.0F),
+              0.75F to WalletColors.styleguide_dark_secondary.copy(alpha = 0.95F),
+              1F to WalletColors.styleguide_dark_secondary.copy(alpha = 0.99F)
             )
           )
       )
@@ -122,7 +122,7 @@ private fun CardItem(
         verticalAlignment = Alignment.CenterVertically
       ) {
         Card(
-          colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+          colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
           elevation = CardDefaults.cardElevation(4.dp),
           shape = RoundedCornerShape(8.dp),
           modifier = Modifier
@@ -167,7 +167,7 @@ fun GetTextOrPlay(packageName: String?) {
   if (BuildConfig.FLAVOR == "gp" && hasGameInstall) {
     Text(
       text = stringResource(id = R.string.play_button),
-      color = WalletColors.styleguide_pink,
+      color = WalletColors.styleguide_primary,
       fontSize = 14.sp,
       fontWeight = FontWeight.Bold,
       modifier = Modifier
@@ -176,7 +176,7 @@ fun GetTextOrPlay(packageName: String?) {
   } else if (BuildConfig.FLAVOR != "gp") {
     Text(
       text = stringResource(id = if (hasGameInstall) R.string.play_button else R.string.get_button),
-      color = WalletColors.styleguide_pink,
+      color = WalletColors.styleguide_primary,
       fontSize = 14.sp,
       fontWeight = FontWeight.Bold,
       modifier = Modifier
@@ -196,7 +196,7 @@ data class GameData(
 @Composable
 fun SkeletonLoadingGamesBundleCard() {
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
     modifier =
     Modifier
       .fillMaxWidth()
@@ -222,7 +222,7 @@ fun SkeletonLoadingGamesBundleCard() {
       Box(
         modifier = Modifier
           .align(Alignment.BottomStart)
-          .background(WalletColors.styleguide_blue_secondary)
+          .background(WalletColors.styleguide_dark_secondary)
       ) {
         Row(
           modifier = Modifier.fillMaxWidth(),

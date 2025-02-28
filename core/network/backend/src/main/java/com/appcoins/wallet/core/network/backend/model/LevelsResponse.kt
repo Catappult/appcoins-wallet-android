@@ -16,4 +16,4 @@ data class LevelsResponse(
   }
 }
 
-data class Level(val amount: BigDecimal, val bonus: Double, val level: Int)
+data class Level(@SerializedName("amount_currency") val amount: BigDecimal, val bonus: Double, val level: Int)

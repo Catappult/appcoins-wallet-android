@@ -5,7 +5,7 @@
     android:id="@+id/terms_conditions_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:background="@color/styleguide_blue"
+    tools:background="@color/styleguide_dark"
     >
 
   <androidx.appcompat.widget.AppCompatTextView

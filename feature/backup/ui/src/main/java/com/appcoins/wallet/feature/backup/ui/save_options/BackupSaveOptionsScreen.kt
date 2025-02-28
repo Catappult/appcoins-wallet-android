@@ -41,7 +41,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.widgets.top_bar.TopBar
@@ -127,7 +127,7 @@ fun SaveOnDeviceCardDefault() {
     modifier = Modifier
       .fillMaxWidth()
       .padding(vertical = 48.dp, horizontal = 16.dp),
-    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
+    colors = CardDefaults.cardColors(containerColor = styleguide_dark_secondary)
   ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -155,7 +155,7 @@ fun LoadingCard() {
     modifier = Modifier
       .fillMaxWidth()
       .padding(vertical = 48.dp, horizontal = 16.dp),
-    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
+    colors = CardDefaults.cardColors(containerColor = styleguide_dark_secondary)
   ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -238,7 +238,7 @@ fun SaveOnDeviceOptions(
           label = stringResource(id = R.string.backup_ready_email_button),
           onClick = { if (validEmail) onSendEmailClick(checkedCommunicationState.value) },
           backgroundColor =
-          if (validEmail) WalletColors.styleguide_pink else styleguide_dark_grey,
+          if (validEmail) WalletColors.styleguide_primary else styleguide_dark_grey,
           labelColor = WalletColors.styleguide_light_grey,
           buttonType = ButtonType.LARGE,
           fragmentName = fragmentName,
@@ -297,7 +297,7 @@ fun CheckboxCommunicationEmail(
       checked = checked,
       onCheckedChange = onCheckedChange,
       colors = CheckboxDefaults.colors(
-        checkedColor = WalletColors.styleguide_pink,
+        checkedColor = WalletColors.styleguide_primary,
         uncheckedColor = WalletColors.styleguide_dark_grey,
         checkmarkColor = WalletColors.styleguide_white,
       )

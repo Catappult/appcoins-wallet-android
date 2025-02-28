@@ -99,7 +99,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
           )
         }
       },
-      containerColor = WalletColors.styleguide_blue
+      containerColor = WalletColors.styleguide_dark
     ) { padding ->
       when (uiState) {
         is UiState.TransactionSuccess -> {
@@ -160,7 +160,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
         item {
           Card(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp),
-            colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)
+            colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary)
           ) {
             Column(
               horizontalAlignment = Alignment.CenterHorizontally,

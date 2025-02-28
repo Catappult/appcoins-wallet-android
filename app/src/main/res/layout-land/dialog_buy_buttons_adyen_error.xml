@@ -39,7 +39,7 @@
       android:layout_height="40dp"
       android:layout_gravity="center_vertical"
       android:layout_marginEnd="@dimen/big_margin"
-      app:buttonColor="@color/styleguide_payments_blue"
+      app:buttonColor="@color/styleguide_payments_dark"
       app:buttonText="@string/try_again"
       app:buttonType="outlined"
       />

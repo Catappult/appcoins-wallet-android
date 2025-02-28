@@ -67,7 +67,7 @@
         android:gravity="bottom"
         app:ccpDialog_background="@drawable/ccp_background"
         app:ccpDialog_textColor="@color/styleguide_payments_main_text"
-        app:ccp_arrowColor="@color/styleguide_pink"
+        app:ccp_arrowColor="@color/styleguide_primary"
         app:ccp_arrowSize="30dp"
         app:ccp_autoDetectCountry="true"
         app:ccp_autoFormatNumber="true"

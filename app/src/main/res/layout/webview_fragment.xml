@@ -110,7 +110,7 @@
           android:layout_marginHorizontal="16dp"
           android:layout_marginTop="16dp"
           android:layout_marginBottom="27dp"
-          app:buttonColor="@color/styleguide_blue"
+          app:buttonColor="@color/styleguide_dark"
           app:buttonText="@string/install_button"
           app:buttonType="filled"
           app:layout_constraintBottom_toTopOf="@+id/line_separator"

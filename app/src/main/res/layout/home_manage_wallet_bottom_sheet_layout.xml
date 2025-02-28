@@ -98,7 +98,7 @@
         android:layout_gravity="center_vertical"
         android:contentDescription="@null"
         android:src="@drawable/ic_backup_white"
-        app:tint="@color/styleguide_pink"
+        app:tint="@color/styleguide_primary"
         />
 
     <TextView

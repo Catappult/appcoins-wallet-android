@@ -70,7 +70,7 @@
           android:layout_gravity="center_vertical"
           android:layout_marginHorizontal="24dp"
           android:visibility="gone"
-          app:buttonColor="@color/styleguide_pink"
+          app:buttonColor="@color/styleguide_primary"
           app:buttonText="@string/try_again"
           app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"

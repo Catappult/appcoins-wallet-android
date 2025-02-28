@@ -11,11 +11,12 @@ interface GamificationApi {
   fun getUserStats(
     @Query("address") address: String,
     @Query("lang_code") languageCode: String,
-    @Query("promo_code") promoCodeString: String?
+    @Query("promo_code") promoCodeString: String?,
+    @Query("currency") currency: String?
   ): Single<UserStatusResponse>
 
   @GET("gamification/levels")
-  fun getLevels(@Query("address") address: String): Single<LevelsResponse>
+  fun getLevels(@Query("address") address: String, @Query("currency") currency: String?): Single<LevelsResponse>
 
   @GET("gamification/bonus_forecast")
   fun getForecastBonus(

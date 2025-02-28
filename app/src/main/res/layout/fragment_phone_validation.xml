@@ -51,7 +51,7 @@
       android:layout_marginEnd="40dp"
       app:ccpDialog_background="@drawable/ccp_background"
       app:ccpDialog_textColor="@color/styleguide_light_grey"
-      app:ccp_arrowColor="@color/styleguide_pink"
+      app:ccp_arrowColor="@color/styleguide_primary"
       app:ccp_arrowSize="30dp"
       app:ccp_autoDetectCountry="true"
       app:ccp_textSize="16sp"

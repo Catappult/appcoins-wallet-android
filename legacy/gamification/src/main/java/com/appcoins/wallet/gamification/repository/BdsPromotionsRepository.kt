@@ -12,6 +12,7 @@ import com.appcoins.wallet.core.network.backend.model.UserStatusResponse
 import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.appcoins.wallet.gamification.GamificationContext
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -25,7 +26,8 @@ import javax.inject.Inject
 @BoundTo(supertype = PromotionsRepository::class)
 class BdsPromotionsRepository @Inject constructor(
   private val api: GamificationApi,
-  private val local: UserStatsLocalData
+  private val local: UserStatsLocalData,
+  private val fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
 ) :
   PromotionsRepository {
 
@@ -72,7 +74,7 @@ class BdsPromotionsRepository @Inject constructor(
     promoCodeString: String?,
     useDbOnError: Boolean = false
   ): Observable<UserStats> =
-    api.getUserStats(wallet, Locale.getDefault().language, promoCodeString)
+    api.getUserStats(wallet, Locale.getDefault().language, promoCodeString, fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency())
       .subscribeOn(Schedulers.io())
       .map { filterByDate(it) }
       .flatMapObservable {
@@ -274,7 +276,7 @@ class BdsPromotionsRepository @Inject constructor(
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.
   private fun getLevelsFromAPI(wallet: String, useDbOnError: Boolean = false): Observable<Levels> =
-    api.getLevels(wallet)
+    api.getLevels(wallet, fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency())
       .flatMapObservable {
         local.deleteLevels()
           .andThen(local.insertLevels(it))

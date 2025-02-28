@@ -148,6 +148,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       viewModel.fetchPromotions()
       viewModel.fetchGamificationStats()
       viewModel.fetchWalletInfo()
+      viewModel.getCurrency()
     }
     Scaffold(
       topBar = {
@@ -161,7 +162,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           )
         }
       },
-      containerColor = WalletColors.styleguide_blue,
+      containerColor = WalletColors.styleguide_dark,
       modifier = modifier
     ) { padding ->
       RewardScreenContent(padding = padding)
@@ -290,7 +291,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         onClick = { navigator.navigateToGamification(cachedBonus = this.bonusPercentage) },
         indicatorColor = Color(color),
         valueSpendForNextLevel = spendMoreAmount,
-        currencySpend = " AppCoins Credits",
+        currencySpend = currency ?: "",
         currentProgress = currentSpent,
         maxProgress = nextLevelSpent ?: 0,
         bonusValue = df.format(bonusPercentage),
@@ -324,7 +325,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   }
 
   override fun onStateChanged(state: RewardState) {
-    setPromotions(state.promotionsModelAsync, state.promotionsGamificationStatsAsync)
+    setPromotions(state.promotionsModelAsync, state.promotionsGamificationStatsAsync, state.selectedCurrency)
     instantiateChallengeReward(state.walletInfoAsync)
   }
 
@@ -337,7 +338,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   private fun setPromotions(
     promotionsModel: Async<PromotionsModel>,
-    promotionsGamificationStats: Async<PromotionsGamificationStats>
+    promotionsGamificationStats: Async<PromotionsGamificationStats>,
+    selectedCurrency: Async<String?>
   ) {
     when (promotionsModel) {
       Async.Uninitialized,
@@ -370,7 +372,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           }
         }
 
-        setGamification(promotionsModel, promotionsGamificationStats)
+        setGamification(promotionsModel, promotionsGamificationStats, selectedCurrency.value)
 
         promotionsModel.value!!.vipReferralInfo?.let { viewModel.vipReferralModel.value = it }
       }
@@ -381,7 +383,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   private fun setGamification(
     promotionsModel: Async<PromotionsModel>,
-    promotionsGamificationStats: Async<PromotionsGamificationStats>
+    promotionsGamificationStats: Async<PromotionsGamificationStats>,
+    selectedCurrency: String?
   ) {
     if (promotionsGamificationStats.value != null && promotionsModel.value?.promotions != null) {
       val gamificationItem: GamificationItem? =
@@ -403,7 +406,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
           walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
           uninitialized = false,
-          partnerPerk = promotionsModel.value?.partnerPerk
+          partnerPerk = promotionsModel.value?.partnerPerk,
+          currency = selectedCurrency
         )
     } else {
       viewModel.gamificationHeaderModel.value = null

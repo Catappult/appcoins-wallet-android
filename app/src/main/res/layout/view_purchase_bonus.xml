@@ -53,7 +53,7 @@
           android:layout_height="match_parent"
           android:layout_marginEnd="4dp"
           android:text="@string/gamification_purchase_header_part_1"
-          android:textColor="@color/styleguide_pink"
+          android:textColor="@color/styleguide_primary"
           />
 
       <TextView

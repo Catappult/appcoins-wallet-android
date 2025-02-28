@@ -47,7 +47,7 @@ import androidx.fragment.app.viewModels
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.widgets.AddNewCardComposable
 import com.appcoins.wallet.ui.widgets.top_bar.TopBar
@@ -96,7 +96,7 @@ class ManageCardsFragment : BasePageViewFragment() {
       topBar = {
         Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) }
       },
-      containerColor = WalletColors.styleguide_blue,
+      containerColor = WalletColors.styleguide_dark,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is ManageCardsViewModel.UiState.StoredCardsInfo -> ManageCardsContent(
@@ -174,7 +174,7 @@ class ManageCardsFragment : BasePageViewFragment() {
           },
           addIconDrawable = R.drawable.ic_add_card,
           titleText = stringResource(com.appcoins.wallet.ui.widgets.R.string.manage_cards_add_credit_debit_card_button_),
-          backgroundColor = styleguide_blue_secondary,
+          backgroundColor = styleguide_dark_secondary,
           textColor = styleguide_light_grey
         )
         if (cardsList.isNotEmpty()) {
@@ -213,7 +213,7 @@ class ManageCardsFragment : BasePageViewFragment() {
   @Composable
   fun PaymentCardItem(storedCard: StoredCard) {
     Card(
-      colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary),
+      colors = CardDefaults.cardColors(containerColor = styleguide_dark_secondary),
       modifier = Modifier
         .padding(top = 8.dp)
         .fillMaxWidth()
@@ -260,7 +260,7 @@ class ManageCardsFragment : BasePageViewFragment() {
     ModalBottomSheet(
       onDismissRequest = { viewModel.showBottomSheet(false, null) },
       sheetState = bottomSheetState,
-      containerColor = styleguide_blue_secondary
+      containerColor = styleguide_dark_secondary
     ) {
       if (viewModel.storedCardClicked.value != null) {
         ManageDeleteCardBottomSheet(

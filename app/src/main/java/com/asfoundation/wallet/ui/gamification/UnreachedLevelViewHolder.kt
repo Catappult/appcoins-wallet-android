@@ -17,7 +17,7 @@ class UnreachedLevelViewHolder(
   override fun bind(level: LevelItem) {
     binding.lockedText.text = itemView.context.getString(
       R.string.gamif_next_goals,
-      currencyFormatUtils.formatGamificationValues(level.amount)
+      level.currency.plus(currencyFormatUtils.formatGamificationValues(level.amount))
     )
     val df = DecimalFormat("###.#")
     binding.lockedBonus.text =

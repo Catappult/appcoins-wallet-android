@@ -89,7 +89,7 @@ fun ChooseCurrencyScreen(
       onClick = {
         currencyConfirmationClick(chosenCurrency.currency)
       },
-      backgroundColor = WalletColors.styleguide_pink,
+      backgroundColor = WalletColors.styleguide_primary,
       labelColor = MaterialTheme.colorScheme.primaryContainer,
       fragmentName = fragmentName,
       buttonsAnalytics = buttonsAnalytics

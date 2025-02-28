@@ -50,12 +50,12 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_green
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_red
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -73,7 +73,7 @@ fun TransactionCard(
 ) {
   Card(
     modifier = Modifier.fillMaxWidth(),
-    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(containerColor = styleguide_dark_secondary),
     onClick = onClick
   ) {
     Row(
@@ -133,7 +133,7 @@ fun TransactionCard(
                   Canvas(modifier = Modifier.matchParentSize()) {
                     val textHeight = size.height / 1.90f
                     drawLine(
-                      color = styleguide_red,
+                      color = styleguide_dark_grey,
                       start = Offset(0f, textHeight),
                       end = Offset(size.width, textHeight),
                       strokeWidth = 1.5.dp.toPx()
@@ -266,7 +266,7 @@ fun TransactionDetailHeader(
 
 @Composable
 fun TransactionDetailLinkedHeader(description: String, appIcon: String? = null) {
-  Card(colors = CardDefaults.cardColors(styleguide_blue), modifier = Modifier.fillMaxWidth()) {
+  Card(colors = CardDefaults.cardColors(styleguide_dark), modifier = Modifier.fillMaxWidth()) {
     Row(
       modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
       verticalAlignment = Alignment.CenterVertically
@@ -292,7 +292,7 @@ fun PendingTransactionCard() {
   val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
 
   Card(
-    colors = CardDefaults.cardColors(styleguide_blue),
+    colors = CardDefaults.cardColors(styleguide_dark),
     modifier = Modifier.fillMaxWidth(),
     shape = RoundedCornerShape(8.dp)
   ) {
@@ -373,7 +373,7 @@ fun TransactionDetailInfo(
       Icon(
         painter = painterResource(R.drawable.ic_copy),
         contentDescription = stringResource(R.string.copy),
-        tint = styleguide_pink,
+        tint = styleguide_primary,
         modifier = Modifier.size(14.dp)
       )
     }
@@ -396,14 +396,14 @@ fun IconTextButton(text: String, iconId: Int, onClick: () -> Unit = {}) {
     Icon(
       painter = painterResource(iconId),
       contentDescription = text,
-      tint = styleguide_pink,
+      tint = styleguide_primary,
       modifier = Modifier
         .padding(end = 8.dp)
         .size(14.dp)
     )
     Text(
       text = text,
-      color = styleguide_pink,
+      color = styleguide_primary,
       style = MaterialTheme.typography.bodySmall,
       maxLines = 1,
       overflow = TextOverflow.Ellipsis,
@@ -416,7 +416,7 @@ fun IconTextButton(text: String, iconId: Int, onClick: () -> Unit = {}) {
 @Composable
 fun SkeletonLoadingTransactionCard() {
   Card(
-    colors = CardDefaults.cardColors(styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(styleguide_dark_secondary),
     modifier =
     Modifier
       .fillMaxWidth()

@@ -105,7 +105,7 @@ fun ActionCard(
         buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, actionCardString )
         onClick() },
     shape = RoundedCornerShape(8.dp),
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
   ) {
     Column(
       modifier = Modifier.padding(16.dp),
@@ -159,7 +159,7 @@ private fun SkeletonLoadingRewardActionCard() {
     modifier = Modifier
       .size(width = 160.dp, height = 208.dp),
     shape = RoundedCornerShape(8.dp),
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
   ) {
     Column(
       modifier = Modifier.padding(16.dp),

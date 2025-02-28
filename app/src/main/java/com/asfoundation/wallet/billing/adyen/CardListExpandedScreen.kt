@@ -129,7 +129,7 @@ fun CardListExpandedScreen(
             Text(
               text = stringResource(id = R.string.got_it_button),
               fontWeight = FontWeight.Bold,
-              color = WalletColors.styleguide_pink,
+              color = WalletColors.styleguide_primary,
               fontSize = 14.sp
             )
           }

@@ -26,7 +26,7 @@ fun WalletBottomSheet(
     ModalBottomSheet(
       onDismissRequest = onDismissRequest,
       sheetState = bottomSheetState,
-      containerColor = WalletColors.styleguide_blue_secondary
+      containerColor = WalletColors.styleguide_dark_secondary
     ) {
       Column(
         modifier =

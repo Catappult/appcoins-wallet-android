@@ -5,7 +5,7 @@
     android:id="@+id/generic_purchase_error_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/styleguide_blue"
+    android:background="@color/styleguide_dark"
     android:paddingTop="32dp"
     android:paddingBottom="16dp"
     >
@@ -48,7 +48,7 @@
       android:layout_marginEnd="32dp"
       android:layout_marginBottom="40dp"
       android:visibility="gone"
-      app:buttonColor="@color/styleguide_payments_blue"
+      app:buttonColor="@color/styleguide_payments_dark"
       app:buttonText="@string/referral_view_verify_button"
       app:buttonType="outlined"
       app:layout_constraintBottom_toTopOf="@id/error_button_barrier"
