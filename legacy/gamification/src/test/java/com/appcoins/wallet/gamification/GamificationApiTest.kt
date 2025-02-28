@@ -19,14 +19,15 @@ class GamificationApiTest : GamificationApi {
   override fun getUserStats(
     address: String,
     languageCode: String,
-    promoCodeString: String?
+    promoCodeString: String?,
+    currency: String?
   ): Single<UserStatusResponse> {
     val aux = userStatusResponse!!
     userStatusResponse = null
     return aux
   }
 
-  override fun getLevels(address: String): Single<LevelsResponse> {
+  override fun getLevels(address: String, currency: String?): Single<LevelsResponse> {
     val aux = levelsResponse!!
     levelsResponse = null
     return aux

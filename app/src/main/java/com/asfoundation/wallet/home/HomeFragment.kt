@@ -405,7 +405,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           Row(
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+            modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 10.dp, end = 10.dp)
           ) {
             LottieAnimationLoop()
             Text(
