@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2025-02-26 17:27\n"
+"PO-Revision-Date: 2025-02-28 13:28\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Bir sonraki seviyeye ulaştığınız için."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Aptoide bakiyesi kullandığın zamanlar hariç, {1} adlı oyundaki tüm satın alma işlemlerinde ekstra %{0} Bonus kazan."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
