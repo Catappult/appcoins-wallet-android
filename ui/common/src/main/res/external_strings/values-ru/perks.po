@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2025-02-26 17:27\n"
+"PO-Revision-Date: 2025-02-28 13:28\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Потому что вы достигли следующего уров�
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Получите бонус в размере {0}% за все ваши покупки в {1}, за исключением случаев, когда вы используете баланс Aptoide."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
