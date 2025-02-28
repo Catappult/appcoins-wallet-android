@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2025-02-26 17:27\n"
+"PO-Revision-Date: 2025-02-28 13:27\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "次のレベルに到達！"
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Aptoideクレジットを使用した場合を除き、{1}のすべてのお買い物でさらに{0}%のボーナスを獲得できます。"
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
