@@ -520,7 +520,7 @@
   <string name="transfer_send_button">ส่ง</string>
   <string name="transfer_send_to_title">Send to</string>
   <string name="transfer_send_amount_title">จำนวน</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_public_wallet_address_title">ที่อยู่กระเป๋าสตางค์ สาธารณะของฉัน</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">คุณได้รับข้อความใหม่!</string>
   <string name="support_new_message_button">แตะเพื่อเปิด</string>
