@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2025-02-26 17:27\n"
+"PO-Revision-Date: 2025-02-28 13:28\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Omdat je het volgende niveau hebt bereikt."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Krijg een extra bonus van {0}% bij al je aankopen in {1}, behalve als je Aptoide-tegoed gebruikt."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
