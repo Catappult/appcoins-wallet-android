@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2025-02-26 17:27\n"
+"PO-Revision-Date: 2025-02-28 13:28\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "다음 단계에 도달했기 때문에."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Aptoide 잔액을 사용하는 경우를 제외하고, {1}에서 모든 구매 시 추가 {0}%의 보너스를 받으세요."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
