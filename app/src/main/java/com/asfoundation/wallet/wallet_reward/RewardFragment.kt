@@ -2,6 +2,7 @@ package com.asfoundation.wallet.wallet_reward
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,6 +74,7 @@ import com.asfoundation.wallet.promotions.model.PromoCodeItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.APTOIDE
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.PARTNER
+import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.PARTNER_NO_BONUS
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.UNKNOWN
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
@@ -184,6 +186,10 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
             this != null && walletOrigin == PARTNER -> {
               GamificationHeaderPartner(this.partnerPerk?.description ?: "")
+            }
+
+            this != null && walletOrigin == PARTNER_NO_BONUS -> {
+              // No Gamification header
             }
 
             this != null && this.uninitialized -> {
