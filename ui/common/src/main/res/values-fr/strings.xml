@@ -342,7 +342,7 @@
   <string name="onboarding_verification_body">Vérifiez votre méthode de paiement pour finaliser cet achat.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Solde Aptoide</string>
   <!--Settings-->
   <string name="title_redeem">Échanger la carte cadeau</string>
   <string name="settings_item_support">Contacter le Support</string>
