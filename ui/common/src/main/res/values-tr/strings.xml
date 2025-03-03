@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Mevcut bakiye: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Yetersiz fon</string>
   <string name="p2p_send_confirmation_header">Transfer Bilgileri</string>
-  <string name="p2p_send_currency_appc_c">Aptoide bakiyesi</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Hay aksi</string>
   <string name="error_general">Bir şeyler ters gitti</string>
@@ -268,7 +268,7 @@
   <string name="submit_button">Gönder</string>
   <string name="close_button">Kapat</string>
   <string name="back_button">Geri</string>
-  <string name="value_fiat">%2$s%1$s</string>
+  <string name="value_fiat">%1$s%2$s</string>
   <string name="dismiss_button">Kapat</string>
   <string name="discover_button">Keşfet</string>
   <string name="connection_error_title">İnternet bağlantısı yok</string>
@@ -303,7 +303,7 @@
   <string name="copied_to_clipboard">Panoya kopyalandı</string>
   <string name="topup_button">Yükle</string>
   <string name="extra_bonus_title">İlave %s%% bonus kazan</string>
-  <string name="max">Max</string>
+  <string name="max">Maks</string>
   <string name="payment_method">Ödeme yöntemi</string>
   <string name="credit_debit_card">Kredi/banka kartı</string>
   <string name="paypal">PayPal</string>
@@ -447,7 +447,7 @@
   <string name="referral_verification_title">Ödeme Yöntemini Doğrula</string>
   <string name="referral_view_verify_button">Ödeme yöntemini doğrula</string>
   <!--Promotions-->
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_new">YENİ</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Güncellemeniz gerekiyor!</string>
   <string name="update_wallet_purchase_body">Bu satın alma işlemini gerçekleştirmek için Aptoide Wallet\'ı güncelle.</string>
@@ -519,9 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Cüzdan Adresi</string>
   <string name="transfer_send_button">Gönder</string>
-  <string name="transfer_send_to_title">Send to</string>
-  <string name="transfer_send_amount_title">Amount</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_send_to_title">Gönder</string>
+  <string name="transfer_send_amount_title">Tutar</string>
+  <string name="transfer_public_wallet_address_title">Herkese açık cüzdan adresim</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Yeni bir mesajınız var!</string>
   <string name="support_new_message_button">Açmak için dokunun</string>
@@ -796,7 +796,7 @@
   <string name="manage_wallet_wallet_changed_title">Cüzdan değiştirildi</string>
   <string name="manage_wallet_change_active_wallet_title">Bu cüzdanı seçmek istiyor musun?</string>
   <string name="manage_wallet_set_a_name_button">Cüzdanın için bir isim belirle</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Bakiyen, karışıklığı önlemek için yerel para biriminde gösterilir, ancak USD\'ye bağlıdır ve USD değerindeki değişiklikler bakiyeni etkileyebilir.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Bir Ödeme Yöntemi Doğrula</string>
   <string name="verify_card_verified">Ödeme yöntemi doğrulandı!</string>

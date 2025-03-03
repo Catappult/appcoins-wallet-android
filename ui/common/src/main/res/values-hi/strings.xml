@@ -122,7 +122,7 @@
   <string name="activity_iab_error_message">एक त्रुटि उत्पन्न हुई, कृपया पुनः प्रयास करें</string>
   <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">पर्याप्त इथीरियम नहीं</string>
-  <string name="activity_iab_no_token_funds_message">पर्याप्त AppCoins नहीं</string>
+  <string name="activity_iab_no_token_funds_message">Not enough AppCoins</string>
   <string name="activity_iab_wrong_network_message">गलत इथीरियम नेटवर्क या अज्ञात टोकन</string>
   <string name="activity_iab_no_network_message">कोई नेटवर्क पहुँच नहीं</string>
   <string name="activity_iab_nonce_message">ब्लॉकचेन के साथ एक त्रुटि हुई, कृपया बाद में पुनः प्रयास करें।</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">AppCoins प्राप्त करने के लिए पुष्टि करें कि आप एक मानव हैं</string>
+  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">यह केवल एक सुरक्षा की बात है।</string>
   <string name="activity_airdrop_hint">छवि में दिए गए शब्द लिखें</string>
   <string name="activity_airdrop_submit_btn">जमा करें</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">AppCoins इथीरियम क्रिप्टोकरेंसी पर आधारित है। आप अधिकतम एक्सचेंजों में उन्हें खरीद और बेच सकते हैं, यह बहुत लोकप्रिय है!</string>
-  <string name="balance_appcoins_body">AppCoins एप्प अर्थव्यवस्था के लिए क्रिप्टोकरेंसी है। आप इसे कई एक्सचेंजों पर खरीदने और बेचने के साथ ही इन-एप्प खरीद के लिए इसका उपयोग कर सकते हैं।</string>
+  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
+  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
   <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
@@ -376,7 +376,7 @@
   <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">संभवतः यह खरीद पहले से ही संसाधित की जा रही है। कृपया लेनदेन पूरा होने तक होल्ड करें या हमारी सहायता टीम से संपर्क करें।</string>
   <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
-  <string name="purchase_appcoins_noavailable_body">आपके पास इस खरीद के लिए पर्याप्त AppCoins या Ether नहीं हैं।</string>
+  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
   <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
   <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
@@ -386,7 +386,7 @@
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
   <string name="purchase_current_balance_body">वर्तमान शेष:</string>
   <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
-  <string name="purchase_current_balance_appc_eth_body">AppCoins और Ether में %s।</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
   <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
   <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
@@ -447,7 +447,7 @@
   <string name="referral_verification_title">Verify Payment Method</string>
   <string name="referral_view_verify_button">Verify payment method</string>
   <!--Promotions-->
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_new">नया</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">आपको अपडेट करने की जरूरत है!</string>
   <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
@@ -520,7 +520,7 @@
   <string name="transfer_send_recipient_title">वॉलेट पता</string>
   <string name="transfer_send_button">भेजें</string>
   <string name="transfer_send_to_title">Send to</string>
-  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_send_amount_title">राशि</string>
   <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">आपको एक नया संदेश मिला है!</string>

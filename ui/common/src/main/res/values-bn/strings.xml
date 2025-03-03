@@ -114,7 +114,7 @@
   <string name="error_already_added">ইতিমধ্যে যোগকৃত</string>
   <string name="error_export">ওয়ালেট রপ্তানী করতে ব্যার্থ</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">আমরা অ্যাপকয়েন ওয়ালেট উন্নতকরনের জন্য ট্রাস্ট ওয়ালেটকে এন্ড্রয়েড প্রজেক্টের জন্য দ্বিবিভক্ত করেছি। আমরা ধরেছিলাম ইতিমধ্যে কার্যরত বৈশিষ্ট্য সমূহের ভেতর এটি হবে শ্রেষ্ঠ উপায়। আমরা এটিকে দ্বিবিভক্ত করেছিলাম কার্যক্রম চরমানরত বৈশিষ্ট্য সমূহের সাথে অবদান রাখার উদ্দেশ্যে এবং যাতে করে এটির কার্যাদি সম্পর্কযুক্ত দেখায়।</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">লেনদেন কার্যক্রম প্রক্রিয়ারত রয়েছে</string>
   <string name="activity_aib_loading_message">এটা হয়তো কিছু সময় নেবে…</string>
@@ -122,7 +122,7 @@
   <string name="activity_iab_error_message">একটি ত্রুটি সংঘটিত হয়েছে, অনুগ্রহ করে পুনরায় চেষ্টা করুন</string>
   <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">পর্যাপ্ত ইথারিয়াম নেই</string>
-  <string name="activity_iab_no_token_funds_message">পর্যাপ্ত অ্যাপকয়েন নেই</string>
+  <string name="activity_iab_no_token_funds_message">Not enough AppCoins</string>
   <string name="activity_iab_wrong_network_message">ভূল ইথারিয়াম নেটওয়ার্ক বা অজানা টোকেন</string>
   <string name="activity_iab_no_network_message">কোন নেটওয়ার্ক অনুমতি নেই</string>
   <string name="activity_iab_nonce_message">ব্লকচেইনে একটি ত্রুটি সংঘটিত হয়েছে, অনুগ্রহপূর্বক পুনরায় চেষ্টা করুন।</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">অ্যাপকয়েনে কিছু গ্রহণ করার জন্য প্রমান করুন আপনি মানুষ</string>
+  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">এটি শুধুমাত্র একটি নিরাপত্তা জিনিস।</string>
   <string name="activity_airdrop_hint">ছবিতে থাকা শব্দ টাইপ করুন</string>
   <string name="activity_airdrop_submit_btn">দাখিল</string>
@@ -520,7 +520,7 @@
   <string name="transfer_send_recipient_title">Wallet Address</string>
   <string name="transfer_send_button">প্রেরণ করুন</string>
   <string name="transfer_send_to_title">Send to</string>
-  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_send_amount_title">পরিমাণ</string>
   <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">You\'ve got a new message!</string>

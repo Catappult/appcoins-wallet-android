@@ -4,13 +4,13 @@ msgstr ""
 "X-Crowdin-Project: appcoins\n"
 "X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: fr\n"
-"X-Crowdin-File: /[Catappult.appcoins-wallet-android] carlosgarridoaptoide-rebranding/ui/common/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 15677\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] dev/ui/common/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 14253\n"
 "Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2025-02-26 15:36\n"
+"PO-Revision-Date: 2025-02-28 13:27\n"
 
 #. Card Title
 #:
@@ -20,7 +20,7 @@ msgstr "Gagnez du solde Aptoide !"
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr "Recevez un Bonus supplémentaire de {0}% sur tous vos achats en {1}, sauf si vous utilisez le solde Aptoide."
+msgstr "Recevez un Bonus supplémentaire de {0}% sur tous vos achats en {1}, sauf si vous utilisez votre solde Aptoide."
 
 #. Card - Purchase Promotion.
 #:

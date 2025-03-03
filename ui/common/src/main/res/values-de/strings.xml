@@ -113,7 +113,7 @@
   <string name="facebook">Facebook</string>
   <string name="error_already_added">Bereits hinzugefügt</string>
   <string name="error_export">Fehler beim Exportieren der Wallets</string>
-  <string name="gas_price_value">%1$s%2$s</string>
+  <string name="gas_price_value">%1$s %2$s</string>
   <string name="settings_fragment_credits">Wir haben beim Trust Wallet für das Android-Projekt ein Fork durchgeführt, um die Entwicklung der Aptoide Wallet zu beschleunigen. Wir haben dies als die beste Alternative bezüglich bereits implementierter Funktionalitäten angesehen. Wir haben den Fork mit der Absicht durchgeführt, mit Implementierungen und Arbeiten beizutragen, die als relevant angesehen werden.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transaktion wird durchgeführt</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Aktuelles Guthaben: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Guthaben nicht ausreichend</string>
   <string name="p2p_send_confirmation_header">Überweisungsdetails</string>
-  <string name="p2p_send_currency_appc_c">Aptoide-Guthaben</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Hoppla</string>
   <string name="error_general">Etwas ist schief gelaufen</string>
@@ -268,7 +268,7 @@
   <string name="submit_button">Senden</string>
   <string name="close_button">Schließen</string>
   <string name="back_button">Zurück</string>
-  <string name="value_fiat">%1$s %2$s</string>
+  <string name="value_fiat">%1$s%2$s</string>
   <string name="dismiss_button">Ablehnen</string>
   <string name="discover_button">Los geht\'s</string>
   <string name="connection_error_title">Keine Internetverbindung</string>
@@ -303,7 +303,7 @@
   <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
   <string name="topup_button">Aufladen</string>
   <string name="extra_bonus_title">Erhalte einen zusätzlichen Bonus von %s%%</string>
-  <string name="max">Max</string>
+  <string name="max">Max.</string>
   <string name="payment_method">Zahlungsmethode</string>
   <string name="credit_debit_card">Kredit-/Debitkarte</string>
   <string name="paypal">PayPal</string>
@@ -447,7 +447,7 @@
   <string name="referral_verification_title">Zahlungsmethode verifizieren</string>
   <string name="referral_view_verify_button">Zahlungsmethode verifizieren</string>
   <!--Promotions-->
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_new">NEU</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Du musst eine Aktualisierung durchführen!</string>
   <string name="update_wallet_purchase_body">Aktualisiere die Aptoide Wallet, um diesen Einkauf abzuschließen.</string>
@@ -519,9 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Wallet-Adresse</string>
   <string name="transfer_send_button">Senden</string>
-  <string name="transfer_send_to_title">Send to</string>
-  <string name="transfer_send_amount_title">Amount</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_send_to_title">Senden an</string>
+  <string name="transfer_send_amount_title">Betrag</string>
+  <string name="transfer_public_wallet_address_title">Meine öffentliche Wallet-Adresse</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Du hast eine neue Nachricht erhalten!</string>
   <string name="support_new_message_button">Zum Öffnen antippen</string>
@@ -796,7 +796,7 @@
   <string name="manage_wallet_wallet_changed_title">Wallet geändert</string>
   <string name="manage_wallet_change_active_wallet_title">Willst du diese Wallet auswählen?</string>
   <string name="manage_wallet_set_a_name_button">Lege einen Namen für deine Wallet fest</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Dein Guthaben wird der Einfachheit halber in deiner Landeswährung angezeigt, ist aber an den US-Dollar gebunden, sodass sich Änderungen des US-Dollar-Kurses auf dein Guthaben auswirken können.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Eine Zahlungsmethode verifizieren</string>
   <string name="verify_card_verified">Zahlungsmethode verifiziert!</string>

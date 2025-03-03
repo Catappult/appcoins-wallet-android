@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">အခ်ိန္အနည္းငယ္ ၾကာႏိုင္ပါသည္…</string>
   <string name="activity_iab_transaction_completed_title">ေငြလႊဲေျပာင္းမႈ ၿပီးပါၿပီ</string>
   <string name="activity_iab_error_message">ခ်ိဳ႕ယြင္းခ်က္တစ္ခု ျဖစ္ခဲ့ပါသည္။ ျပန္ႀကိဳးစားေပးပါ</string>
-  <string name="activity_iab_no_funds_message">ETH ႏွင့္ AppCoins တို႔ မလုံေလာက္ပါ</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereum မလံုေလာက္ပါ</string>
-  <string name="activity_iab_no_token_funds_message">AppCoins မလံုေလာက္ပါ</string>
+  <string name="activity_iab_no_token_funds_message">Not enough AppCoins</string>
   <string name="activity_iab_wrong_network_message">မွားယြင္းေသာ Ethereum ကြန္ရက္ သို႔မဟုုတ္ အမည္မသိတိုကင္</string>
   <string name="activity_iab_no_network_message">ကြန္ရက္ရရွိမႈ မရွိပါ</string>
   <string name="activity_iab_nonce_message">Blockchain တြင္ ခ်ိဳ႕ယြင္းမႈတစ္ခု ျဖစ္ခဲ့ပါသည္။ ေနာက္မွျပန္ႀကိဳးစားေပးပါ။</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">AppCoins ကို ရရွိရန္အတြက္ သင္သည္ လူသားျဖစ္ေၾကာင္း အတည္ျပဳပါ</string>
+  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">ယင္းသည္ လံုၿခံဳေရးကိစၥအတြက္သာ ျဖစ္ပါသည္။</string>
   <string name="activity_airdrop_hint">ပံုတြင္ စကားလံုးမ်ားကို ႐ိုက္ထည့္ပါ</string>
   <string name="activity_airdrop_submit_btn">ေပးပို႔မည္</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">လက္ရွိတြင္ သင့္ႏိုင္ငံအတြက္ ေငြျဖည့္ႏိုင္ရန္ ေငြေပးေခ်မႈနည္းလမ္းမ်ား မရွိေသးပါ။ နားစြင့္ထားလိုက္ပါ။</string>
   <string name="topup_bonus_amount_body">ဤေငြျဖည့္မႈျဖင့္ %s ေဘာနပ္စ္ ရယူလိုက္ပါ</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Ethereum သည္ AppCoins မ်ား အေျချပဳထားေသာ ခရစ္ပ္တိုေငြေၾကးပံုစံ တစ္ခုုျဖစ္ပါသည္။ အိတ္ခ်ိန္းအမ်ားစုတြင္ ယင္းတို႔ကို သင္ေရာင္းဝယ္နိုင္ပါသည္။ အလြန္ လူႀကိဳက္မ်ားပါသည္။</string>
-  <string name="balance_appcoins_body">AppCoins သည္ အက္ပ္စီးပြားေရးနယ္ပယ္အတြက္ ခရစ္ပ္တိုေငြေၾကးပံုစံ ျဖစ္ပါသည္။ သင္သည္ယင္းအား အိတ္ခ်ိန္းအမ်ားအျပားတြင္ ေရာင္းဝယ္နိုင္သလို အက္ပ္အတြင္း ပစၥည္းမ်ား ဝယ္ယူရန္အတြက္လည္း အသံုးျပဳနိုင္ပါသည္။</string>
+  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
+  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
   <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">ပိုက္ဆံအိတ္အသစ္</string>
   <string name="my_wallets_action_recover_wallet">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
@@ -376,9 +376,9 @@
   <string name="purchase_total_header">စုစုေပါင္း %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">ဤ၀ယ္ယူမႈကို ေဆာင္ရြက္ေပးၿပီး ျဖစ္ပံုရပါသည္။ ေငြလႊဲေျပာင္းမႈ ၿပီးစီးသည္အထိ ေစာင့္ေပးပါ သို႔မဟုတ္ ကၽြႏ္ုပ္တို႔၏ ပံ့ပိုးေရးအဖြဲ႕သို႔ ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_more_payment_methods_lower_case_button">အျခားေငြေပးေခ်မႈ နည္းလမ္းမ်ား</string>
-  <string name="purchase_appcoins_noavailable_body">ဤ၀ယ္ယူမႈအတြက္ သင့္္တြင္ AppCoins သို႔မဟုတ္ Ether လံုေလာက္စြာ မရွိပါ။</string>
+  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
   <string name="purchase_no_eth_body">ဂက္စ္အတြက္ ေပးေခ်ရန္ သင့္တြင္ ETH လံုေလာက္စြာ မရွိပါ။</string>
-  <string name="purchase_no_appcoins_body">ဤ၀ယ္ယူမႈအတြက္ သင့္္တြင္ AppCoins လံုေလာက္စြာ မရွိပါ။</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">အက္ပ္မ်ားကို စမ္းသံုးျခင္းျဖင့္ ေငြေၾကးမ်ားကို ရယူလိုက္ပါ</string>
@@ -386,7 +386,7 @@
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
   <string name="purchase_current_balance_body">လက္ရွိလက္က်န္ေငြ -</string>
   <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
-  <string name="purchase_current_balance_appc_eth_body">AppCoins ႏွင့္ Ether ျဖင့္ %s။</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
   <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
   <string name="purchase_card_error_general_1">သင့္ကဒ္တြင္ ျပႆနာတစ္ခု ရွိခဲ့ပါသည္။ အျခားကဒ္ သို႔မဟုတ္ ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုျဖင့္ ႀကိဳးစားၾကည့္ေပးပါ။</string>
@@ -446,7 +446,7 @@
   <string name="referral_verification_title">ေငြေပးေခ်မႈနည္းလမ္းကို အတည္ျပဳမည္</string>
   <string name="referral_view_verify_button">ေငြေပးေခ်မႈနည္းလမ္းကို အတည္ျပဳမည္</string>
   <!--Promotions-->
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_new">အသစ္</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">အပ္ဒိတ္လုပ္ရန္ လိုအပ္ပါသည္။</string>
   <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
@@ -519,7 +519,7 @@
   <string name="transfer_send_recipient_title">ပိုက္ဆံအိတ္လိပ္စာ</string>
   <string name="transfer_send_button">ေပးပို႔မည္</string>
   <string name="transfer_send_to_title">Send to</string>
-  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_send_amount_title">ပမာဏ</string>
   <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">သင့္အတြက္ မက္ေဆ့ဂ်္အသစ္တစ္ခု ရွိပါသည္။</string>

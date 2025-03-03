@@ -41,7 +41,7 @@
   <string name="unlock_screen_title_android">Odblokuj ekran</string>
   <string name="unlock_screen_prompt_android">Odblokuj urządzenie Android, by kontynuować.</string>
   <string name="root_title">ZŁAMANE ZABEZPIECZENIE URZĄDZENIA</string>
-  <string name="root_body">Any \'rooted\' app can access Aptoide Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Dowolna aplikacja z uprawnieniami \'root\' może uzyskać dostęp do danych portfela i ukraść portfel! Należy natychmiast opróżnić ten portfel i przywrócić na bezpieczne urządzenie.</string>
   <string name="action_buy">Kup</string>
   <string name="empty"></string>
   <string name="try_again">Spróbuj ponownie</string>
@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">To może potrwać chwilę…</string>
   <string name="activity_iab_transaction_completed_title">Transakcja zakończona</string>
   <string name="activity_iab_error_message">Wystąpił błąd, spróbuj ponownie</string>
-  <string name="activity_iab_no_funds_message">Za mało ETH i AppCoins</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Za mało Ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Za mało AppCoins</string>
+  <string name="activity_iab_no_token_funds_message">Not enough AppCoins</string>
   <string name="activity_iab_wrong_network_message">Nieznany token lub niewłaściwa sieć Ethereum</string>
   <string name="activity_iab_no_network_message">Brak dostępu do sieci</string>
   <string name="activity_iab_nonce_message">Wystąpił błąd blockchainu, spróbuj ponownie później.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">Potwierdź, że jesteś człowiekiem, aby otrzymać AppCoins</string>
+  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">To dla bezpieczeństwa.</string>
   <string name="activity_airdrop_hint">Wpisz słowa z obrazka</string>
   <string name="activity_airdrop_submit_btn">Wyślij</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">W tym momencie nie ma metod płatności pozwalających na doładowanie w Twoim kraju. Niebawem!</string>
   <string name="topup_bonus_amount_body">Otrzymaj %s bonusu z doładowaniem</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Ethereum to kryptowaluta, na której są oparte AppCoins. Możesz je kupować i sprzedawać na większości giełd, są bardzo popularne!</string>
-  <string name="balance_appcoins_body">AppCoins to kryptowaluta dla gospodarki aplikacji. Można je kupić i sprzedać na kilku giełdach i używać ich do zakupu przedmiotów i usług w aplikacjach.</string>
+  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
+  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
   <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">Nowy portfel</string>
   <string name="my_wallets_action_recover_wallet">Odzyskaj portfel</string>
@@ -268,7 +268,7 @@
   <string name="submit_button">Wyślij</string>
   <string name="close_button">Zamknij</string>
   <string name="back_button">Wróć</string>
-  <string name="value_fiat">%2$s%1$s</string>
+  <string name="value_fiat">%1$s%2$s</string>
   <string name="dismiss_button">Zamknij</string>
   <string name="discover_button">Odkryj</string>
   <string name="connection_error_title">Brak połączenia z Internetem</string>
@@ -376,17 +376,17 @@
   <string name="purchase_total_header">W sumie %1$s%2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Wygląda na to, że ten zakup jest już przetwarzany. Poczekaj aż transakcja zostanie zakończone lub skontaktuj się z Zespołem Wsparcia.</string>
   <string name="purchase_more_payment_methods_lower_case_button">Inne metody płatności</string>
-  <string name="purchase_appcoins_noavailable_body">Nie masz wystarczającej ilości AppCoins lub Ether dla tego zakupu.</string>
+  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
   <string name="purchase_no_eth_body">Masz za mało ETH by zapłacić.</string>
-  <string name="purchase_no_appcoins_body">Masz za mało AppCoins dla tego zakupu.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">Zarabiaj środki próbując aplikacji</string>
   <string name="purchase_poa_view_title">Brak środków? Bez problemu!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
   <string name="purchase_current_balance_body">Aktualne saldo:</string>
-  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s w AppCoins i Ether.</string>
+  <string name="purchase_current_balance_appcc_body">%s Kredytów APPC.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
   <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
   <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
   <string name="purchase_card_error_general_1">Wystąpił problem z kartą. Spróbuj użyć innej karty lub innej metody płatności.</string>
@@ -449,7 +449,7 @@
   <string name="referral_verification_title">Zweryfikuj metodę płatności</string>
   <string name="referral_view_verify_button">Zweryfikuj metodę płatności</string>
   <!--Promotions-->
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_new">NOWE</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Musisz zaktualizować!</string>
   <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
@@ -522,7 +522,7 @@
   <string name="transfer_send_recipient_title">Adres portfela</string>
   <string name="transfer_send_button">Wyślij</string>
   <string name="transfer_send_to_title">Send to</string>
-  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_send_amount_title">Kwota</string>
   <string name="transfer_public_wallet_address_title">My public wallet address</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Masz nową wiadomość!</string>

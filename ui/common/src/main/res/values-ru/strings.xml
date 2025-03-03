@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Текущий баланс: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Недостаточно средств</string>
   <string name="p2p_send_confirmation_header">Детали перевода</string>
-  <string name="p2p_send_currency_appc_c">Aptoide баланс</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Ой</string>
   <string name="error_general">Что-то пошло неправильно</string>
@@ -268,7 +268,7 @@
   <string name="submit_button">Отправить</string>
   <string name="close_button">Закрыть</string>
   <string name="back_button">Назад</string>
-  <string name="value_fiat">%2$s%1$s</string>
+  <string name="value_fiat">%1$s%2$s</string>
   <string name="dismiss_button">Закрыть</string>
   <string name="discover_button">Узнать</string>
   <string name="connection_error_title">Отсутствует сетевое подключение</string>
@@ -303,7 +303,7 @@
   <string name="copied_to_clipboard">Скопировано в буфер</string>
   <string name="topup_button">Пополнить</string>
   <string name="extra_bonus_title">Получите дополнительный %s%% бонус</string>
-  <string name="max">Max</string>
+  <string name="max">Максимум</string>
   <string name="payment_method">Способ оплаты</string>
   <string name="credit_debit_card">Кредитная/дебитовая карта</string>
   <string name="paypal">PayPal</string>
@@ -449,7 +449,7 @@
   <string name="referral_verification_title">Подтвердить способ оплаты</string>
   <string name="referral_view_verify_button">Подтвердить способ оплаты</string>
   <!--Promotions-->
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_new">НОВОЕ</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Вам нужно обновиться!</string>
   <string name="update_wallet_purchase_body">Обновите Aptoide Wallet, чтобы завершить эту покупку.</string>
@@ -521,9 +521,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Адрес кошелька</string>
   <string name="transfer_send_button">Отправить</string>
-  <string name="transfer_send_to_title">Send to</string>
-  <string name="transfer_send_amount_title">Amount</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_send_to_title">Отправить</string>
+  <string name="transfer_send_amount_title">Сумма</string>
+  <string name="transfer_public_wallet_address_title">Мой публичный адрес кошелька</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">У вас новое сообщение!</string>
   <string name="support_new_message_button">Нажмите, чтобы открыть</string>
@@ -810,7 +810,7 @@
   <string name="manage_wallet_wallet_changed_title">Кошелёк изменён</string>
   <string name="manage_wallet_change_active_wallet_title">Вы уверены, что хотите выбрать этот кошелек?</string>
   <string name="manage_wallet_set_a_name_button">Задайте имя для своего кошелька</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Для простоты ваш баланс отображается в вашей местной валюте, но он привязан к доллару США, поэтому изменения в стоимости доллара США могут повлиять на ваш баланс.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Подтвердить способ оплаты</string>
   <string name="verify_card_verified">Способ оплаты подтвержден!</string>

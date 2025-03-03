@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Saldo attuale: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Fondi insufficienti</string>
   <string name="p2p_send_confirmation_header">Dati per il trasferimento</string>
-  <string name="p2p_send_currency_appc_c">Saldo Aptoide</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Oh no!</string>
   <string name="error_general">Si è verificato un errore</string>
@@ -303,7 +303,7 @@
   <string name="copied_to_clipboard">Copiato negli appunti</string>
   <string name="topup_button">Ricarica</string>
   <string name="extra_bonus_title">Ricevi un bonus extra del %s%%</string>
-  <string name="max">Max</string>
+  <string name="max">Max.</string>
   <string name="payment_method">Metodo di pagamento</string>
   <string name="credit_debit_card">Carta di credito/debito</string>
   <string name="paypal">PayPal</string>
@@ -447,7 +447,7 @@
   <string name="referral_verification_title">Verifica metodo di pagamento</string>
   <string name="referral_view_verify_button">Verifica metodo di pagamento</string>
   <!--Promotions-->
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_new">NOVITÀ</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Devi effettuare l\'aggiornamento!</string>
   <string name="update_wallet_purchase_body">Aggiorna l\'Aptoide Wallet per completare questo acquisto.</string>
@@ -519,9 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Indirizzo wallet</string>
   <string name="transfer_send_button">Invia</string>
-  <string name="transfer_send_to_title">Send to</string>
-  <string name="transfer_send_amount_title">Amount</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_send_to_title">Invia a</string>
+  <string name="transfer_send_amount_title">Importo</string>
+  <string name="transfer_public_wallet_address_title">Il mio indirizzo pubblico del wallet</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Hai un nuovo messaggio!</string>
   <string name="support_new_message_button">Premi per aprire</string>
@@ -796,7 +796,7 @@
   <string name="manage_wallet_wallet_changed_title">Wallet modificato</string>
   <string name="manage_wallet_change_active_wallet_title">Vuoi selezionare questo wallet?</string>
   <string name="manage_wallet_set_a_name_button">Scegli un nome per il tuo wallet</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Il saldo è mostrato nella tua valuta locale per semplicità, ma è legato a USD, quindi eventuali cambiamenti del valore del dollaro americano potrebbero avere un impatto sul tuo saldo.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verifica un metodo di pagamento</string>
   <string name="verify_card_verified">Metodo di pagamento verificato con successo!</string>

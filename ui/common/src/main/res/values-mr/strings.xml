@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">सद्य शिल्लक: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">पुरेसे पैसे नाहीत</string>
   <string name="p2p_send_confirmation_header">हस्तांतरण तपशील</string>
-  <string name="p2p_send_currency_appc_c">Aptoide बॅलन्स</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">अरेरे</string>
   <string name="error_general">काहीतरी चूक झाली</string>
@@ -303,7 +303,7 @@
   <string name="copied_to_clipboard">क्लिपबोर्डवर कॉपी करा</string>
   <string name="topup_button">भरणा करा</string>
   <string name="extra_bonus_title">%s%% बोनस</string>
-  <string name="max">Max</string>
+  <string name="max">कमाल</string>
   <string name="payment_method">पेमेंट पद्धत</string>
   <string name="credit_debit_card">क्रेडीट/डेबीट कार्ड</string>
   <string name="paypal">पेपाल</string>
@@ -447,7 +447,7 @@
   <string name="referral_verification_title">पेमेंट पद्धत सत्यापित करा</string>
   <string name="referral_view_verify_button">पेमेंट पद्धत सत्यापित करा</string>
   <!--Promotions-->
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_new">नविन</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">आपल्याला अद्यतनाची गरज आहे!</string>
   <string name="update_wallet_purchase_body">ही खरेदी पूर्ण करण्यासाठी Aptoide बॅलन्स अद्यतन करा.</string>
@@ -519,9 +519,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">वॉलेट पत्ता</string>
   <string name="transfer_send_button">पाठवा</string>
-  <string name="transfer_send_to_title">Send to</string>
-  <string name="transfer_send_amount_title">Amount</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_send_to_title">ह्यांना पाठवा</string>
+  <string name="transfer_send_amount_title">रक्कम</string>
+  <string name="transfer_public_wallet_address_title">माझा पब्लिक वॉलेट पत्ता</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">आपल्यासाठी नविन संदेश आहे!</string>
   <string name="support_new_message_button">उघडण्यासाठी टॅप करा</string>
@@ -796,7 +796,7 @@
   <string name="manage_wallet_wallet_changed_title">वॉलेट बदलले</string>
   <string name="manage_wallet_change_active_wallet_title">हे वॉलेट निवताय?</string>
   <string name="manage_wallet_set_a_name_button">आपल्या वॉलेटला नाव द्या</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">सुरळितपणासाठी आपली शिल्लक आपल्या स्थानिक चलनात दर्शविली आहे, पण ही यूएसडीशी जुडलेली असल्याने बदलत्या यूएसडीच्या मूल्याचा आपल्या शिल्लकेवर प्रभाव पडू शकतो.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">पेमेंट पद्धत सत्यापित करा</string>
   <string name="verify_card_verified">पेमेंट पद्धत सत्यापित झाली!</string>

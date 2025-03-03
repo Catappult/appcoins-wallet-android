@@ -113,7 +113,7 @@
   <string name="facebook">Facebook</string>
   <string name="error_already_added">Već je dodato</string>
   <string name="error_export">Izvoz novčanika nije uspeo</string>
-  <string name="gas_price_value">%1$s%2$s</string>
+  <string name="gas_price_value">%1$s %2$s</string>
   <string name="settings_fragment_credits">Razdvojili smo Trust Wallet za Android projekat za podizanje razvoja za Aptoide Wallet. Smatramo da je to najbolje rešenje u odnosu na već implementirane funkcije. Razdvojili smo ga u nameri da izvršimo dodatne implementacije i radove koje budemo smatrali potrebnim.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transakcija je u toku</string>
@@ -260,7 +260,7 @@
   <string name="p2p_send_current_balance_message">Trenutno stanje: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Nema dovoljno sredstava</string>
   <string name="p2p_send_confirmation_header">Informacije o prenosu</string>
-  <string name="p2p_send_currency_appc_c">Aptoide bilans</string>
+  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Ups</string>
   <string name="error_general">Došlo je do greške</string>
@@ -303,7 +303,7 @@
   <string name="copied_to_clipboard">Kopirano u ostavu</string>
   <string name="topup_button">Dopunite</string>
   <string name="extra_bonus_title">Osvojite dodatni bonus od %s%%</string>
-  <string name="max">Max</string>
+  <string name="max">Maks.</string>
   <string name="payment_method">Način plaćanja</string>
   <string name="credit_debit_card">Kreditna/debitna kartica</string>
   <string name="paypal">PayPal</string>
@@ -448,7 +448,7 @@
   <string name="referral_verification_title">Potvrdite način plaćanja</string>
   <string name="referral_view_verify_button">Potvrdite način plaćanja</string>
   <!--Promotions-->
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_new">NOVO</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Potrebno je ažuriranje!</string>
   <string name="update_wallet_purchase_body">Ažurirajte Aptoide bilans da biste obavili ovu kupovinu.</string>
@@ -520,9 +520,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Adresa novčanika</string>
   <string name="transfer_send_button">Pošaljite</string>
-  <string name="transfer_send_to_title">Send to</string>
-  <string name="transfer_send_amount_title">Amount</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_send_to_title">Pošaljite</string>
+  <string name="transfer_send_amount_title">Iznos</string>
+  <string name="transfer_public_wallet_address_title">Javna adresa mog novčanika</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Dobili ste novu poruku!</string>
   <string name="support_new_message_button">Dodirnite da otvorite</string>
@@ -803,7 +803,7 @@
   <string name="manage_wallet_wallet_changed_title">Novčanik je promenjen</string>
   <string name="manage_wallet_change_active_wallet_title">Da li želite da izabereet ovaj novčanik?</string>
   <string name="manage_wallet_set_a_name_button">Postavite naziv za vaš novčanik</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Vaše stanje je prikazano u lokalnoj valuti zbog jednostavnosti, ali je vezano za USD, tako da promene u USD vrednosti mogu uticati na vaše stanje.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Potvrdite način plaćanja</string>
   <string name="verify_card_verified">Način plaćanja je potvrđen!</string>
