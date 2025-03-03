@@ -38,22 +38,7 @@ class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
   }
 
   private fun setAndRunAnimation() {
-    views.animation.setMinFrame(97)
-    views.animation.setMaxFrame(123)
     views.animation.playAnimation()
-    views.animation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationRepeat(anim: Animator) = Unit
-      override fun onAnimationEnd(anim: Animator) {
-        if (views.animation.minFrame == 97f) {
-          views.animation.setMaxFrame(283)
-          views.animation.setMinFrame(219)
-          views.animation.playAnimation()
-        }
-      }
-
-      override fun onAnimationCancel(anim: Animator) = Unit
-      override fun onAnimationStart(anim: Animator) = Unit
-    })
   }
 
   private fun setTextWatcher() {
