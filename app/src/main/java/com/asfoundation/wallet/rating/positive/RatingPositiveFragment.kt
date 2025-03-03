@@ -35,11 +35,7 @@ class RatingPositiveFragment : BasePageViewFragment(), RatingPositiveView {
     if (isNotFirstTime) {
       binding.title.setText(R.string.rate_us_back_title)
       binding.description.setText(R.string.rate_us_back_body)
-      binding.animation.setMinFrame(196)
-      binding.animation.setMaxFrame(196)
     } else {
-      binding.animation.setMinFrame(97)
-      binding.animation.setMaxFrame(196)
       binding.animation.playAnimation()
     }
   }

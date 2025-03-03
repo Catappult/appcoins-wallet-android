@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.home
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
@@ -45,6 +46,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -288,6 +290,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   @Composable
   fun PromotionsList() {
+    val configuration = LocalConfiguration.current
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     if (viewModel.activePromotions.isNotEmpty() && !viewModel.isLoadingOrIdlePromotionState()) {
       Text(
         text = getString(R.string.intro_active_promotions_header),
@@ -319,7 +323,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             cardItem = promotion,
             fragmentName = fragmentName,
             buttonsAnalytics = buttonsAnalytics,
-            modifier = Modifier.fillParentMaxWidth(0.9f)
+            modifier = Modifier.fillParentMaxWidth(if (isLandscape) 0.45f else 0.9f)
           )
         }
       }
