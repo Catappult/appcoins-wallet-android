@@ -22,7 +22,7 @@ enum class ExternalAppEnum(
     "PhonePe",
     "phonepe://",
     R.drawable.ic_phonepe,
-    R.color.styleguide_blue,
+    R.color.styleguide_dark,
     "market://details?id=com.phonepe.app",
     "https://play.google.com/store/apps/details?id=com.phonepe.app"
   ),
@@ -30,7 +30,7 @@ enum class ExternalAppEnum(
     "PayTM UPI",
     "paytmmp://",
     R.drawable.ic_paytm,
-    R.color.styleguide_blue,
+    R.color.styleguide_dark,
     "market://details?id=net.one97.paytm",
     "https://play.google.com/store/apps/details?id=net.one97.paytm"
   ),
@@ -38,7 +38,7 @@ enum class ExternalAppEnum(
     "BHIM",
     "bhim://",
     R.drawable.ic_bhim,
-    R.color.styleguide_blue,
+    R.color.styleguide_dark,
     "market://details?id=in.org.npci.upiapp",
     "https://play.google.com/store/apps/details?id=in.org.npci.upiapp"
   ),
@@ -46,7 +46,7 @@ enum class ExternalAppEnum(
     "Dana",
     "danaid://",
     R.drawable.ic_dana,
-    R.color.styleguide_blue,
+    R.color.styleguide_dark,
     "market://details?id=id.dana",
     "https://play.google.com/store/apps/details?id=id.dana"
   ),

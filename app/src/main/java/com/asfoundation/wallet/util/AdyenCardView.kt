@@ -68,7 +68,7 @@ class AdyenCardView(view: View?) {
       ),
       intArrayOf(android.R.attr.state_checked) to ContextCompat.getColor(
         context,
-        R.color.styleguide_pink
+        R.color.styleguide_primary
       ),
     )
     trackTintList = colorStateListOf(

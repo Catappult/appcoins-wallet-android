@@ -92,7 +92,7 @@
   <style name="PaymentMethods.Error" />
 
   <style name="PaymentMethods.Error.OtherPaymentsButton" parent="@style/Widget.MaterialComponents.Button.TextButton">
-    <item name="android:textColor">@color/styleguide_pink</item>
+    <item name="android:textColor">@color/styleguide_primary</item>
     <item name="android:textSize">12sp</item>
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:lineSpacingExtra">4sp</item>

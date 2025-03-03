@@ -41,9 +41,9 @@ import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.properties.HostProperties
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
 import com.appcoins.wallet.ui.widgets.GenericError
 import com.appcoins.wallet.ui.widgets.component.Animation
@@ -108,7 +108,7 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
   @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
   fun MainContent() {
     Scaffold(
-      containerColor = styleguide_blue_secondary,
+      containerColor = styleguide_dark_secondary,
     ) { _ ->
       when (viewModel.uiState.collectAsState().value) {
         is UiState.Success -> {
@@ -219,7 +219,7 @@ class OnboardingAmazonPayFragment : BasePageViewFragment() {
           analytics.sendPaymentConclusionNavigationEvent(OnboardingPaymentEvents.BACK_TO_THE_GAME)
           navigator.navigateBackToGame(args.transactionBuilder.domain)
         },
-        backgroundColor = styleguide_pink,
+        backgroundColor = styleguide_primary,
         labelColor = styleguide_white,
         buttonType = ButtonType.LARGE,
         fragmentName = fragmentName,

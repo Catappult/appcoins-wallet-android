@@ -85,7 +85,7 @@ class TransactionsListFragment : BasePageViewFragment() {
           )
         }
       },
-      containerColor = WalletColors.styleguide_blue
+      containerColor = WalletColors.styleguide_dark
     ) { padding ->
       when (uiState) {
         is UiState.Success -> {

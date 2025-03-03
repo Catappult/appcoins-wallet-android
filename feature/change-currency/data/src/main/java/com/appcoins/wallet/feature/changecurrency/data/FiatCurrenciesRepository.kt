@@ -62,12 +62,30 @@ class FiatCurrenciesRepository @Inject constructor(
     }
   }
 
+  suspend fun getSelectedCurrencySymbol(): DataResult<String> {
+    return if (fiatCurrenciesPreferencesDataSource.getSelectCurrencySymbol()) {
+      val fiatValue: FiatValue = conversionService.localCurrency.await()
+      fiatCurrenciesPreferencesDataSource.setSelectedCurrencySymbol(fiatValue.symbol)
+      fiatCurrenciesPreferencesDataSource.setSelectFirstTime()
+      fiatValue.symbol.toDataResult()
+    } else {
+      getCachedResultSelectedCurrencySymbol()
+    }
+  }
+
   fun getCachedResultSelectedCurrency(): DataResult<String> {
     return fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency().toDataResult()
   }
 
+  fun getCachedResultSelectedCurrencySymbol(): DataResult<String> {
+    return fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrencySymbol().toDataResult()
+  }
+
   fun getCachedSelectedCurrency(): String? =
     fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
+
+  fun getCachedSelectedCurrencySymbol(): String? =
+    fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrencySymbol()
 
 
   suspend fun setSelectedCurrency(currency: String) {

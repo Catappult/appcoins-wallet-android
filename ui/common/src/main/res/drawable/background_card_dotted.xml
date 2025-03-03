@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-  <solid android:color="@color/styleguide_payments_blue" />
+  <solid android:color="@color/styleguide_payments_dark" />
   <corners
       android:bottomLeftRadius="16dp"
       android:bottomRightRadius="16dp"
@@ -8,7 +8,7 @@
       android:topRightRadius="16dp" />
   <stroke
       android:width="2dp"
-      android:color="@color/styleguide_blue"
+      android:color="@color/styleguide_dark"
       android:dashWidth="5dp"
       android:dashGap="5dp" />
 </shape>

@@ -47,7 +47,7 @@ fun CardListBottomSheet(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier
       .fillMaxWidth()
-      .background(WalletColors.styleguide_blue_secondary),
+      .background(WalletColors.styleguide_dark_secondary),
   ) {
     LazyColumn {
       item {
@@ -62,7 +62,7 @@ fun CardListBottomSheet(
           onClickAction = onAddNewCardClick,
           addIconDrawable = com.asf.wallet.R.drawable.ic_add_card,
           titleText = stringResource(R.string.manage_cards_settings_add_title),
-          backgroundColor = WalletColors.styleguide_blue_secondary,
+          backgroundColor = WalletColors.styleguide_dark_secondary,
           textColor = WalletColors.styleguide_light_grey
         )
       }
@@ -76,7 +76,7 @@ fun CardListBottomSheet(
             Row(
               modifier = Modifier
                 .fillMaxWidth()
-                .background(WalletColors.styleguide_blue),
+                .background(WalletColors.styleguide_dark),
               horizontalArrangement = Arrangement.SpaceBetween,
               verticalAlignment = Alignment.CenterVertically
             ) {
@@ -97,7 +97,7 @@ fun CardListBottomSheet(
                 Text(
                   text = stringResource(id = R.string.got_it_button),
                   fontWeight = FontWeight.Bold,
-                  color = WalletColors.styleguide_pink,
+                  color = WalletColors.styleguide_primary,
                   fontSize = 14.sp
                 )
               }
@@ -112,7 +112,7 @@ fun CardListBottomSheet(
 @Composable
 fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
   val containerColor =
-    if (storedCard.isSelectedCard) WalletColors.styleguide_blue else WalletColors.styleguide_blue_secondary
+    if (storedCard.isSelectedCard) WalletColors.styleguide_dark else WalletColors.styleguide_dark_secondary
   Card(
     colors = CardDefaults.cardColors(containerColor = containerColor),
     modifier = Modifier

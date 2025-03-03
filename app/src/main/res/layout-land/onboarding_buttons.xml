@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/MaterialAppTheme"
-    tools:background="@color/styleguide_blue"
+    tools:background="@color/styleguide_dark"
     >
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView

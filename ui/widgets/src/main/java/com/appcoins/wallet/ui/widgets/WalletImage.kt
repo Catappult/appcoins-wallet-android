@@ -17,7 +17,7 @@ fun WalletImage(
   modifier: Modifier = Modifier,
   data: Any?,
   contentDescription: String? = null,
-  placeholderColor: Color = WalletColors.styleguide_pink,
+  placeholderColor: Color = WalletColors.styleguide_primary,
   contentScale: ContentScale = ContentScale.Crop,
   transformations: Transformation? = null
 ) {

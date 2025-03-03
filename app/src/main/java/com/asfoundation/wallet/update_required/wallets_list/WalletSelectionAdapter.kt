@@ -49,7 +49,7 @@ class WalletSelectionAdapter(
 
       if (dateLong == 0L) {
         it.setTextColor(
-          ContextCompat.getColor(context, R.color.styleguide_pink)
+          ContextCompat.getColor(context, R.color.styleguide_primary)
         )
       }
     }

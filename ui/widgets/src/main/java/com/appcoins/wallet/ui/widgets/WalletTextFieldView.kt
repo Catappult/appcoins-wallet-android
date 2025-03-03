@@ -84,7 +84,7 @@ class WalletTextFieldView : FrameLayout {
         views.textInputEditText.isAllCaps = true
         views.textInputEditText.filters += InputFilter.AllCaps()
         views.textInputLayout.boxBackgroundColor =
-          ContextCompat.getColor(this.context, R.color.styleguide_blue)
+          ContextCompat.getColor(this.context, R.color.styleguide_dark)
         views.textInputLayout.boxStrokeColor =
           ContextCompat.getColor(this.context, R.color.transparent)
         views.textInputLayout.boxStrokeWidth = 0
@@ -97,7 +97,7 @@ class WalletTextFieldView : FrameLayout {
       Type.FILLED -> {
         views.textInputEditText.setReadOnly(value = false, inputType = InputType.TYPE_CLASS_TEXT)
         views.textInputLayout.boxBackgroundColor =
-          ContextCompat.getColor(this.context, R.color.styleguide_blue)
+          ContextCompat.getColor(this.context, R.color.styleguide_dark)
         views.textInputLayout.boxStrokeColor =
           ContextCompat.getColor(this.context, R.color.transparent)
         views.textInputLayout.boxStrokeWidth = 0
@@ -111,7 +111,7 @@ class WalletTextFieldView : FrameLayout {
       Type.OUTLINED -> {
         views.textInputEditText.setReadOnly(value = false, inputType = InputType.TYPE_CLASS_TEXT)
         views.textInputLayout.boxBackgroundColor =
-          ContextCompat.getColor(this.context, R.color.styleguide_blue)
+          ContextCompat.getColor(this.context, R.color.styleguide_dark)
         views.textInputLayout.boxStrokeColor =
           ContextCompat.getColor(this.context, R.color.transparent)
         views.textInputLayout.endIconMode = END_ICON_NONE
@@ -148,7 +148,7 @@ class WalletTextFieldView : FrameLayout {
       Type.READ_ONLY -> {
         views.textInputEditText.setReadOnly(value = true)
         views.textInputLayout.boxBackgroundColor =
-          ContextCompat.getColor(this.context, R.color.styleguide_blue)
+          ContextCompat.getColor(this.context, R.color.styleguide_dark)
         views.textInputLayout.editText?.setTextColor(resources.getColor(R.color.styleguide_white))
         views.textInputLayout.boxStrokeColor = color
         views.textInputLayout.boxStrokeWidth = 1.convertDpToPx(resources)

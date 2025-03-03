@@ -243,7 +243,7 @@ class PromoCodeBottomSheetFragment :
     hideAll()
     views.promoCodeBottomSheetString.setType(WalletTextFieldView.Type.FILLED)
     views.promoCodeBottomSheetString.setColor(
-      ContextCompat.getColor(requireContext(), R.color.styleguide_blue)
+      ContextCompat.getColor(requireContext(), R.color.styleguide_dark)
     )
     views.promoCodeBottomSheetString.visibility = View.VISIBLE
     views.promoCodeBottomSheetTitle.visibility = View.VISIBLE

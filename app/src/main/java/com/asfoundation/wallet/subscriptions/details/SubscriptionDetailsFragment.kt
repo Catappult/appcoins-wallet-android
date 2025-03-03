@@ -199,7 +199,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     binding.layoutActiveSubscriptionContent.nextPaymentValue.setTextColor(
       ResourcesCompat.getColor(
         resources,
-        R.color.styleguide_pink,
+        R.color.styleguide_primary,
         null
       )
     )

@@ -3,6 +3,7 @@ package com.appcoins.wallet.feature.backup.ui.entry
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -55,8 +56,8 @@ import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.simp
 import com.appcoins.wallet.feature.backup.ui.BackupDialogCardAlertBottomSheet
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
@@ -132,7 +133,7 @@ fun BackupEntryScreen(
     ModalBottomSheet(
       onDismissRequest = dismissBottomSheet,
       sheetState = bottomSheetState,
-      containerColor = styleguide_blue_secondary
+      containerColor = styleguide_dark
     ) {
       BackupDialogCardAlertBottomSheet(
         onCancelClick = {
@@ -158,6 +159,7 @@ fun BackupEntryScreen(
         Modifier
           .fillMaxSize(1f)
           .padding(scaffoldPadding)
+          .background(styleguide_dark)
           .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.Start,
       ) {
@@ -211,14 +213,14 @@ fun BalanceCard(
     modifier = Modifier
       .fillMaxWidth()
       .padding(16.dp),
-    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
+    colors = CardDefaults.cardColors(containerColor = styleguide_dark_secondary)
   ) {
     Card(
       shape = RoundedCornerShape(12.dp),
       modifier = Modifier
         .padding(vertical = 16.dp, horizontal = 8.dp)
         .fillMaxWidth(),
-      colors = CardDefaults.cardColors(containerColor = styleguide_blue)
+      colors = CardDefaults.cardColors(containerColor = styleguide_dark)
     ) {
       Row(
         modifier = Modifier
@@ -266,7 +268,7 @@ fun BalanceCard(
               interactionSource = interactionSource,
               indication = null,
               onClick = { onChooseWallet() }),
-          tint = WalletColors.styleguide_pink
+          tint = WalletColors.styleguide_primary
         )
       }
     }
@@ -284,7 +286,7 @@ fun BackupEntryButtonPasswordsCorrect(onNextClick: () -> Unit, isInputPasswordCo
     ButtonWithText(
       label = stringResource(id = R.string.backup_wallet_button),
       onClick = { onNextClick() },
-      backgroundColor = WalletColors.styleguide_pink,
+      backgroundColor = WalletColors.styleguide_primary,
       labelColor = WalletColors.styleguide_light_grey,
       buttonType = ButtonType.LARGE,
       enabled = isInputPasswordCorrect,
@@ -335,10 +337,10 @@ fun BackupEntryPassword(
         },
         colors =
         SwitchDefaults.colors(
-          checkedThumbColor = WalletColors.styleguide_pink,
+          checkedThumbColor = WalletColors.styleguide_primary,
           uncheckedThumbColor = WalletColors.styleguide_light_grey,
-          checkedTrackColor = WalletColors.styleguide_grey_blue,
-          uncheckedTrackColor = WalletColors.styleguide_grey_blue,
+          checkedTrackColor = WalletColors.styleguide_dark_variant,
+          uncheckedTrackColor = WalletColors.styleguide_dark_variant,
           checkedBorderColor = Color.Transparent,
           uncheckedBorderColor = Color.Transparent
         )
@@ -408,7 +410,7 @@ private fun SwitchModeTrue(
           Text(
             text = stringResource(R.string.backup_additional_security_disclaimer_body),
             style = WalletTypography.bold.sp12,
-            color = WalletColors.styleguide_pink,
+            color = WalletColors.styleguide_primary,
           )
           Text(
             text = stringResource(R.string.backup_additional_security_disclaimer_title),

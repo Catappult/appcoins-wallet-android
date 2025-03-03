@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,17 +14,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -36,11 +37,13 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -55,6 +58,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import coil.compose.rememberAsyncImagePainter
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
@@ -171,7 +180,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           )
         }
       },
-      containerColor = WalletColors.styleguide_blue,
+      containerColor = WalletColors.styleguide_dark,
       modifier = modifier
     ) { padding ->
       HomeScreenContent(padding = padding)
@@ -252,7 +261,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
               fontWeight = FontWeight.Bold,
               color = WalletColors.styleguide_dark_grey
             )
-            Card(colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)) {
+            Card(colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary)) {
               TransactionsList(transactionsState.transactions)
             }
           }
@@ -350,6 +359,21 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   }
 
   @Composable
+  fun LottieAnimationLoop() {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.rebranding_new))
+    val progress by animateLottieCompositionAsState(
+      composition,
+      iterations = LottieConstants.IterateForever
+    )
+
+    LottieAnimation(
+      composition = composition,
+      progress = { progress },
+      modifier = Modifier.size(24.dp)
+    )
+  }
+
+  @Composable
   fun RebrandingBanner() {
     val showRebrandBanner =
       remember { mutableStateOf(viewModel.isShowRebrandingBanner()) }
@@ -361,46 +385,41 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       ) {
         Column {
           Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+            modifier = Modifier
+              .fillMaxWidth()
+              .padding(end = 16.dp,  top = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
           ) {
-            Card(
-              colors = CardDefaults.cardColors(WalletColors.styleguide_rebranding_orange),
-              shape = MaterialTheme.shapes.extraSmall
-            ) {
-              Text(
-                text = stringResource(R.string.promotions_new),
-                style = MaterialTheme.typography.bodySmall,
-                color = WalletColors.styleguide_white,
-                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
-              )
-            }
             Spacer(modifier = Modifier.weight(1f))
             Icon(
               painter = painterResource(id = R.drawable.ic_reb_cross_purple),
               contentDescription = "Close",
               tint = WalletColors.styleguide_rebranding_subtext,
               modifier = Modifier
-                .padding(start = 8.dp)
                 .clickable {
                   viewModel.saveShowRebrandingBanner(false)
                   showRebrandBanner.value = false
                 }
             )
           }
+          Row(
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 10.dp, end = 10.dp)
+          ) {
+            LottieAnimationLoop()
+            Text(
+              text = stringResource(R.string.rebranding_post_title),
+              modifier = Modifier
+                .padding(start = 4.dp, end = 16.dp),
+              fontWeight = FontWeight(600),
+              fontSize = 14.sp,
+              color = WalletColors.styleguide_light_grey,
+            )
+          }
 
           Text(
-            text = stringResource(R.string.rebranding_disclaimer_short_title),
-            modifier = Modifier
-              .padding(start = 16.dp, bottom = 8.dp, end = 16.dp),
-            fontWeight = FontWeight(600),
-            fontSize = 14.sp,
-            color = WalletColors.styleguide_light_grey,
-          )
-
-          Text(
-            text = stringResource(R.string.rebranding_disclaimer_long_body),
+            text = stringResource(R.string.rebrandinh_post_body),
             modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp),
             style = MaterialTheme.typography.bodySmall,
             lineHeight = 16.sp,
@@ -453,7 +472,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         onClick = { viewModel.onSeeAllTransactionsClick() }) {
         Text(
           text = stringResource(R.string.see_all_button),
-          color = WalletColors.styleguide_pink,
+          color = WalletColors.styleguide_primary,
           style = MaterialTheme.typography.bodyMedium,
         )
       }
@@ -512,7 +531,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
       alertDialog
         .getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
-        .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_pink, null))
+        .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_primary, null))
     }
   }
 

@@ -69,7 +69,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import okhttp3.internal.notify
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -780,7 +779,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     ModalBottomSheet(
       onDismissRequest = { showBottomSheet.value = false },
       sheetState = bottomSheetState,
-      containerColor = WalletColors.styleguide_blue_secondary
+      containerColor = WalletColors.styleguide_dark_secondary
     ) {
       if (cardsList.isNotEmpty()) {
         var isGotItVisible by remember { mutableStateOf(cardPaymentDataSource.isGotItVisible()) }

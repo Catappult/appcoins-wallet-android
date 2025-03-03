@@ -120,7 +120,7 @@ fun PromotionsCardComposable(
         Text(
           text = stringResource(id = R.string.vip_program_title_vip_offer),
           fontSize = 12.sp,
-          color = WalletColors.styleguide_blue,
+          color = WalletColors.styleguide_dark,
           fontWeight = FontWeight.Bold,
           modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp)
         )
@@ -129,7 +129,7 @@ fun PromotionsCardComposable(
       Spacer(modifier = Modifier.height(spacerSize))
     }
     Surface(
-      color = WalletColors.styleguide_blue_secondary,
+      color = WalletColors.styleguide_dark_secondary,
       modifier =
       Modifier
         .border(
@@ -292,7 +292,7 @@ fun IconWithText(text: String) {
   Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 10.dp)) {
     Image(
       painter = painterResource(R.drawable.ic_clock),
-      colorFilter = ColorFilter.tint(WalletColors.styleguide_pink),
+      colorFilter = ColorFilter.tint(WalletColors.styleguide_primary),
       modifier = Modifier
         .height(14.dp)
         .width(14.dp),
@@ -335,7 +335,7 @@ fun GetText(
       Text(
         text = text,
         fontWeight = FontWeight.Bold,
-        color = if (isVip) WalletColors.styleguide_vip_yellow else WalletColors.styleguide_pink,
+        color = if (isVip) WalletColors.styleguide_vip_yellow else WalletColors.styleguide_primary,
         fontSize = 14.sp
       )
     }
@@ -396,7 +396,7 @@ fun SkeletonLoadingPromotionCards(hasVerticalList: Boolean) {
 private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
   val maxColumnWidth = if (hasVerticalList) 320.dp else 300.dp
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
     modifier =
     Modifier
       .fillMaxWidth()
