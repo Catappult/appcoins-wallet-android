@@ -958,6 +958,7 @@
   <string name="app_store_screen_3">Receive a bonus in all purchases</string>
   <string name="app_store_screen_4">Your favorite payment methods</string>
   <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_6">and more...</string>
 
   <!-- platform.vk.com !-->
   <integer name="com_vk_sdk_AppId" translatable="false">12</integer>
