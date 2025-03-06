@@ -92,6 +92,12 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   private var shouldAllowExternalApps = true
 
+  private val MAX_HEIGHT = 0.98f
+  private val MEDIUM_HEIGHT = 0.8f
+  private val SMALL_HEIGHT = 0.6f
+
+  private var webViewHeightWeight = mutableStateOf(SMALL_HEIGHT)
+
   companion object {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
     const val TRANSACTION_BUILDER = "transactionBuilder"
@@ -124,7 +130,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
     decorView.viewTreeObserver.addOnGlobalLayoutListener {
       val rect = Rect()
       decorView.getWindowVisibleDisplayFrame(rect)
-      val ratio = (rect.height() * 0.8f) / rect.width()
+      val ratio =
+        (rect.height() * MEDIUM_HEIGHT) / rect.width() //TODO should depend on current screen size, for testing.
       if (ratio > 1.05) {
         isPortraitSpaceForWeb.value = true
       } else {
@@ -140,6 +147,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
     val webView = remember { WebView(context) }
+    val webViewHeightWeight = remember { webViewHeightWeight }
 
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
@@ -167,7 +175,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
         Spacer(
           modifier = Modifier
             .fillMaxWidth()
-            .weight(if (isPortraitSpaceForWeb.value) 0.2f else 0.02f)
+            .weight(if (isPortraitSpaceForWeb.value) (1 - webViewHeightWeight.value) else 0.02f)
             .clickable { finish() }
         )
       }
@@ -192,7 +200,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
               1f
             else
               if (isPortraitSpaceForWeb.value)
-                0.8f
+                webViewHeightWeight.value
               else
                 0.98f
           )
@@ -256,6 +264,14 @@ class WebViewPaymentActivity : AppCompatActivity() {
                     errorReason = webError?.errorDetails ?: "",
                     paymentMethod = webError?.paymentMethod ?: ""
                   )
+                },
+                resizeCallback = {
+                  webViewHeightWeight.value = when (it) {
+                    "SMALL" -> SMALL_HEIGHT   // TODO save sizes separately
+                    "MEDIUM" -> MEDIUM_HEIGHT
+                    "MAX" -> MAX_HEIGHT
+                    else -> MAX_HEIGHT
+                  }
                 }
               ),
               "WebViewPaymentInterface"
