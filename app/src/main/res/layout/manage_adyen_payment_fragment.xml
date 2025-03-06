@@ -5,7 +5,7 @@
     android:id="@+id/manage_adyen_payment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/styleguide_blue"
+    android:background="@color/styleguide_dark"
     >
 
   <androidx.compose.ui.platform.ComposeView
@@ -75,7 +75,7 @@
       <View
           android:layout_width="match_parent"
           android:layout_height="36dp"
-          android:background="@color/styleguide_blue"
+          android:background="@color/styleguide_dark"
           app:layout_constraintBottom_toBottomOf="@+id/adyen_card_form"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

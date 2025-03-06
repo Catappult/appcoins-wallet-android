@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/transparent"
     android:theme="@style/MaterialAppTheme"
-    app:cardBackgroundColor="@color/styleguide_pink"
+    app:cardBackgroundColor="@color/styleguide_primary"
     app:cardElevation="0dp"
     app:rippleColor="@color/styleguide_white"
     app:shapeAppearance="@style/Home.PillShape"

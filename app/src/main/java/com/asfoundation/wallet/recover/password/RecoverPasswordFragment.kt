@@ -52,7 +52,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
     views.recoverPasswordInfo.recoverPasswordInput.setColor(
       ContextCompat.getColor(
         requireContext(),
-        R.color.styleguide_blue
+        R.color.styleguide_dark
       )
     )
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)

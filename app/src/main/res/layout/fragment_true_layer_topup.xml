@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/styleguide_blue"
+    android:background="@color/styleguide_dark"
     android:minHeight="248dp"
     >
 

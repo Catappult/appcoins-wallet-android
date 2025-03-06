@@ -21,7 +21,7 @@ class WalletButtonView : FrameLayout {
 
   private var type = Type.FILLED
 
-  private var color = ContextCompat.getColor(this.context, R.color.styleguide_pink)
+  private var color = ContextCompat.getColor(this.context, R.color.styleguide_primary)
 
   private var greyColor = ContextCompat.getColor(this.context, R.color.styleguide_light_grey)
 
@@ -207,14 +207,14 @@ class WalletButtonView : FrameLayout {
             views.imageLeft.setImageDrawable(image)
             views.imageLeft.visibility = View.VISIBLE
             views.imageLeft.imageTintList =
-              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.styleguide_pink))
+              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.styleguide_primary))
             views.imageLeft.setMargins(0, 0, 0, 0)
           }
           imageRight?.let { image ->
             views.imageRight.setImageDrawable(image)
             views.imageRight.visibility = View.VISIBLE
             views.imageRight.imageTintList =
-              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.styleguide_pink))
+              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.styleguide_primary))
             views.imageRight.setMargins(0, 0, 0, 0)
           }
         }

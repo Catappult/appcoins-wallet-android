@@ -67,7 +67,7 @@ fun BackupDialogCardAlertBottomSheet(onCancelClick: () -> Unit, onConfirmClick: 
       ButtonWithText(
         label = stringResource(id = R.string.confirm_button),
         onClick = { onConfirmClick() },
-        backgroundColor = WalletColors.styleguide_pink,
+        backgroundColor = WalletColors.styleguide_primary,
         labelColor = WalletColors.styleguide_white,
         buttonType = ButtonType.LARGE,
         fragmentName = fragmentName,

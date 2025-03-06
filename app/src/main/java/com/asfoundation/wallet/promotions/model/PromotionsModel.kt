@@ -17,7 +17,7 @@ data class PromotionsModel(
   fun hasError() = error != null
 
   enum class WalletOrigin {
-    UNKNOWN, APTOIDE, PARTNER
+    UNKNOWN, APTOIDE, PARTNER, PARTNER_NO_BONUS
   }
 
   enum class Status {

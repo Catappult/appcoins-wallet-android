@@ -46,7 +46,7 @@ import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
 import com.appcoins.wallet.ui.widgets.top_bar.ScreenTitle
 import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.component.ButtonType
@@ -85,7 +85,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
       topBar = {
         Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) }
       },
-      containerColor = WalletColors.styleguide_blue,
+      containerColor = WalletColors.styleguide_dark,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is ManageWalletViewModel.UiState.Success ->
@@ -142,7 +142,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
       Card(
         modifier = Modifier.padding(vertical = 24.dp),
         colors =
-        CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
+        CardDefaults.cardColors(containerColor = WalletColors.styleguide_dark_secondary)
       ) {
         Column(
           modifier = Modifier
@@ -219,8 +219,8 @@ class RemoveWalletFragment : BasePageViewFragment() {
   @Composable
   fun AlertCard() {
     Card(
-      colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue),
-      border = BorderStroke(1.dp, styleguide_pink),
+      colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_dark),
+      border = BorderStroke(1.dp, styleguide_primary),
       modifier = Modifier
         .padding(horizontal = 16.dp)
         .fillMaxWidth()
@@ -261,7 +261,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
         label = stringResource(id = R.string.backup_button),
         onClick = { myWalletsNavigator.navigateToBackup(address, name) },
         labelColor = styleguide_light_grey,
-        backgroundColor = styleguide_pink,
+        backgroundColor = styleguide_primary,
         buttonType = ButtonType.LARGE,
         fragmentName = fragmentName,
         buttonsAnalytics = buttonsAnalytics

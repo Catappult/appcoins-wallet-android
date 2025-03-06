@@ -71,7 +71,7 @@ fun BalanceCard(
       SkeletonLoadingBalanceCard()
     } else {
       Card(
-        colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+        colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
         modifier =
         Modifier
           .fillMaxWidth()
@@ -106,9 +106,9 @@ fun BalanceCard(
                   icon = R.drawable.ic_transfer,
                   label = R.string.transfer_button,
                   onClick = onClickTransfer,
-                  backgroundColor = WalletColors.styleguide_blue,
+                  backgroundColor = WalletColors.styleguide_dark,
                   labelColor = WalletColors.styleguide_white,
-                  iconColor = WalletColors.styleguide_pink,
+                  iconColor = WalletColors.styleguide_primary,
                   iconSize = 14.dp,
                   fragmentName = fragmentName,
                   buttonsAnalytics = buttonsAnalytics
@@ -117,7 +117,7 @@ fun BalanceCard(
                   icon = R.drawable.ic_plus_v3,
                   label = R.string.top_up_button,
                   onClick = onClickTopUp,
-                  backgroundColor = WalletColors.styleguide_pink,
+                  backgroundColor = WalletColors.styleguide_primary,
                   labelColor = WalletColors.styleguide_white,
                   iconColor = WalletColors.styleguide_white,
                   fragmentName = fragmentName,
@@ -132,7 +132,7 @@ fun BalanceCard(
                   .fillMaxWidth()
                   .absolutePadding(top = 4.dp, bottom = 4.dp)
                   .size(1.dp),
-                color = WalletColors.styleguide_blue,
+                color = WalletColors.styleguide_dark,
                 content = {})
               Column(modifier = Modifier.padding(16.dp)) {
                 BackupAlertCard(
@@ -191,7 +191,7 @@ fun TotalBalance(
 @Composable
 fun SkeletonLoadingBalanceCard() {
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
     modifier =
     Modifier
       .fillMaxWidth()
@@ -238,7 +238,7 @@ fun SkeletonLoadingBalanceCard() {
 @Composable
 fun BalanceItem(icon: Int, currencyName: Int, balance: String) {
   Card(
-    colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue),
+    colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_dark),
   ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -299,7 +299,7 @@ fun BalanceCardNewUser(onClickTopUp: () -> Unit, fragmentName: String, buttonsAn
       icon = R.drawable.ic_plus_v3,
       label = R.string.top_up_button,
       onClick = onClickTopUp,
-      backgroundColor = WalletColors.styleguide_pink,
+      backgroundColor = WalletColors.styleguide_primary,
       labelColor = WalletColors.styleguide_white,
       iconColor = WalletColors.styleguide_white,
       fragmentName = fragmentName,

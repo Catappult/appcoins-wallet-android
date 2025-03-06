@@ -16,6 +16,7 @@ data class GamificationHeaderModel(
   val isMaxVip: Boolean,
   val walletOrigin: WalletOrigin,
   val uninitialized: Boolean,
+  val currency: String?
 ) {
 
   companion object {
@@ -31,7 +32,8 @@ data class GamificationHeaderModel(
         isVip = false,
         isMaxVip = false,
         walletOrigin = WalletOrigin.UNKNOWN,
-        uninitialized = true
+        uninitialized = true,
+        currency = ""
       )
     }
   }

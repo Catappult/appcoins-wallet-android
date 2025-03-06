@@ -8,5 +8,5 @@ data class UserStatusResponse(
 )
 
 enum class WalletOrigin {
-  UNKNOWN, APTOIDE, PARTNER
+  UNKNOWN, APTOIDE, PARTNER, PARTNER_NO_BONUS
 }

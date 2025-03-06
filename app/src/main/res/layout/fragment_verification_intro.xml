@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/MaterialAppTheme"
-    tools:background="@color/styleguide_blue"
+    tools:background="@color/styleguide_dark"
     >
 
   <ScrollView
@@ -106,7 +106,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="6dp"
             android:visibility="gone"
-            app:buttonColor="@color/styleguide_pink"
+            app:buttonColor="@color/styleguide_primary"
             app:buttonText="@string/activity_iab_change_card_lower_case_button"
             app:buttonType="text"
             tools:visibility="visible"

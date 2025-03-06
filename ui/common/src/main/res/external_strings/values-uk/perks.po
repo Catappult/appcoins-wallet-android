@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Ukrainian\n"
 "Language: uk_UA\n"
-"PO-Revision-Date: 2025-01-29 14:52\n"
+"PO-Revision-Date: 2025-02-28 13:28\n"
 
 #. Card Title
 #:
-msgid "Earn AppCoins Credits!"
-msgstr "Заробляйте AppCoins Credits!"
+msgid "Earn Aptoide balance!"
+msgstr "Заробляйте баланс Aptoide!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Отримайте додатковий бонус у розмірі {0}% за всі ваші покупки в {1}, крім випадків, коли ви використовуєте AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr "Отримайте додатковий бонус {0}% за всі ваші покупки в {1}, крім випадків, коли ви використовуєте баланс Aptoide."
 
 #. Card - Purchase Promotion.
 #:
-msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "Зробіть покупку в {0} і отримайте {1} AppCoins Credits."
+msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
+msgstr "Зробіть покупку в {0} і отримайте {1} у вигляді балансу Aptoide."
 
 #. Receipt - Purchase Promotion.
 #:
@@ -34,8 +34,8 @@ msgstr "Оскільки ви зробили покупку в {0}."
 
 #. Card - Expenditure per days Promotion.
 #:
-msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "Витратьте {0} {1} за {2} дн. і отримайте {3} AppCoins Credits."
+msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
+msgstr "Витратьте {0} {1} за {2} дн. і отримайте {3} у вигляді балансу Aptoide."
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -44,8 +44,8 @@ msgstr "Оскільки ви витратили більше {0} {1} за ос�
 
 #. Card - Next Level Promotion.
 #:
-msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "Перейдіть на наступний рівень і отримайте {0} AppCoins Credits!"
+msgid "Reach the next level and receive {0} in Aptoide balance!"
+msgstr "Перейдіть на наступний рівень і отримайте {0} у вигляді балансу Aptoide!"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -54,8 +54,8 @@ msgstr "Оскільки ви досягли наступного рівня."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Отримайте додатковий бонус у розмірі {0}% за всі ваші покупки в {1}, крім випадків, коли ви використовуєте AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr "Отримайте додатковий бонус {0}% за всі ваші покупки в {1}, крім випадків, коли ви використовуєте баланс Aptoide."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -64,8 +64,8 @@ msgstr "Отримайте додатковий бонус у розмірі {0}
 
 #. Card - First purchase.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "Отримайте додатковий бонус {0}% за свою першу покупку, за винятком AppCoins Credits, в {1}"
+msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
+msgstr "Отримайте додатковий бонус {0}% за свою першу покупку, за винятком балансу Aptoide, в {1}"
 
 #. Receipt - First Purchase.
 #:
@@ -74,8 +74,8 @@ msgstr "Через вашу першу покупку в {0}."
 
 #. Card - First purchase of the day.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "Отримайте додатковий бонус у розмірі {0}% під час першої покупки за день, за винятком AppCoins Credits, в {1}"
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
+msgstr "Отримайте додатковий бонус {0}% за свою першу покупку за день, за винятком балансу Aptoide, в {1}"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -84,13 +84,13 @@ msgstr "Через вашу першу покупку за день в {0}."
 
 #. Title for bonus receipts.
 #:
-msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} бонус AppCoins Credits!"
+msgid "+{0} Bonus in Aptoide balance!"
+msgstr "Бонус +{0} у вигляді балансу Aptoide!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr "Отримайте додаткові AppCoins Credits на {0}, витративши {1} {2} в {3}."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in {3}."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -99,18 +99,18 @@ msgstr "Оскільки ви витратили {0} {1} у {2}."
 
 #. Card - Expendidure in any game.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "Отримайте додаткові AppCoins Credits на {0}, витративши {1} {2} у додатках AppCoins."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in compatible apps."
+msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
-msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "Оскільки ви витратили {0} {1} на додатки AppCoins."
+msgid "Because you spent {0} {1} in compatible apps."
+msgstr "Тому що ви витратили {0} {1} у сумісних додатках."
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "Отримуйте додатковий бонус у розмірі {0}% за всі ваші покупки, крім випадків, коли ви використовуєте AppCoins Credits."
+msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
+msgstr "Отримайте додатковий бонус {0}% за всі покупки, окрім тих, де ви використовуєте баланс Aptoide."
 
 #. Card - Title - Common
 #:
@@ -125,10 +125,10 @@ msgstr "Отримуйте бонус {0}% до кожної покупки."
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "Отримайте додатковий бонус {0}% за усі поповнення за допомогою банківського переказу."
 
 #. Payment Method - Title - Bank Transfer
 #:
 msgid "Easy bank transfer"
-msgstr ""
+msgstr "Простий банківський переказ"
 

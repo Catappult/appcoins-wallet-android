@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
-"PO-Revision-Date: 2025-02-01 08:41\n"
+"PO-Revision-Date: 2025-02-28 13:28\n"
 
 #. Card Title
 #:
-msgid "Earn AppCoins Credits!"
-msgstr "รับเครดิต AppCoins!"
+msgid "Earn Aptoide balance!"
+msgstr "รับยอดคงเหลือ Aptoide!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "รับโบนัสพิเศษ {0}% จากการซื้อทั้งหมดของคุณใน {1} ยกเว้นเมื่อคุณใช้เครดิต AppCoins"
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr "รับโบนัสพิเศษ {0}% ในการซื้อทั้งหมดของคุณใน {1} ยกเว้นเมื่อคุณใช้ยอดคงเหลือ Aptoide"
 
 #. Card - Purchase Promotion.
 #:
-msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "ดำเนินการซื้อใน {0} และรับ {1} AppCoins Credits"
+msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
+msgstr "ซื้อใน {0} และรับ{1}ในยอดคงเหลือ Aptoide"
 
 #. Receipt - Purchase Promotion.
 #:
@@ -34,8 +34,8 @@ msgstr "เนื่องจากคุณทำการซื้อใน {0
 
 #. Card - Expenditure per days Promotion.
 #:
-msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "ใช้จ่าย {0} {1} ใน {2} วันและรับ {3} AppCoins Credits"
+msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
+msgstr "ใช้จ่าย {0} {1} ใน {2} วัน และรับ{3}ในยอดคงเหลือ Aptoide"
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -44,8 +44,8 @@ msgstr "เนื่องจากคุณใช้จ่ายมากกว
 
 #. Card - Next Level Promotion.
 #:
-msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "ไปถึงระดับถัดไปและรับ {0} AppCoins Credits!"
+msgid "Reach the next level and receive {0} in Aptoide balance!"
+msgstr "ไปถึงระดับต่อไปและรับ{0}ในยอดคงเหลือของ Aptoide!"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -54,8 +54,8 @@ msgstr "เพราะคุณถึงเลเวลถัดไป"
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "รับโบนัสพิเศษ {0}% จากการซื้อทั้งหมดของคุณใน {1} ยกเว้นเมื่อคุณใช้เครดิต AppCoins"
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr "รับโบนัสพิเศษ {0}% ในการซื้อทั้งหมดของคุณใน {1} ยกเว้นเมื่อคุณใช้ยอดคงเหลือ Aptoide"
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -64,8 +64,8 @@ msgstr "รับโบนัสพิเศษ {0}% สำหรับการ
 
 #. Card - First purchase.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "รับโบนัสพิเศษ {0}% สำหรับการซื้อครั้งแรกของคุณ ยกเว้นเครดิต AppCoins ใน {1}"
+msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
+msgstr "รับโบนัสพิเศษ {0}% ในการซื้อครั้งแรกของคุณ ยกเว้นยอดคงเหลือ Aptoide ใน{1}"
 
 #. Receipt - First Purchase.
 #:
@@ -74,8 +74,8 @@ msgstr "เนื่องจากการซื้อครั้งแรก
 
 #. Card - First purchase of the day.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "รับโบนัสพิเศษ {0}% ในการซื้อครั้งแรกของวัน ยกเว้น AppCoins Credits ใน {1}"
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
+msgstr "รับโบนัสพิเศษ {0}% ในการซื้อครั้งแรกของคุณ ยกเว้นยอดคงเหลือ Aptoide ใน{1}"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -84,13 +84,13 @@ msgstr "เนื่องจากการซื้อครั้งแรก
 
 #. Title for bonus receipts.
 #:
-msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0}โบนัส AppCoins Credits!"
+msgid "+{0} Bonus in Aptoide balance!"
+msgstr "+{0} โบนัสในยอดคงเหลือ Aptoide!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr "รับ {0} เครดิต AppCoins พิเศษสำหรับทุกๆ {1} {2} ที่คุณใช้จ่ายใน {3}"
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in {3}."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -99,18 +99,18 @@ msgstr "เนื่องจากคุณใช้จ่ายไป {0} {1} 
 
 #. Card - Expendidure in any game.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "รับ {0} เครดิต AppCoins พิเศษสำหรับทุกๆ {1} {2} ที่ในแอป AppCoins"
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in compatible apps."
+msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
-msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "เพราะว่าคุณใช้จ่าย{0}{1} ในแอป AppCoins"
+msgid "Because you spent {0} {1} in compatible apps."
+msgstr "เพราะว่าคุณใช้จ่าย{0}{1} ในแอปที่เข้ากันได้"
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "รับโบนัสพิเศษ {0}% ในการซื้อทั้งหมดของคุณ ยกเว้นเมื่อคุณใช้เครดิต AppCoins"
+msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
+msgstr "รับโบนัสพิเศษ {0}% ในการซื้อทั้งหมดของคุณใน ยกเว้นเมื่อคุณใช้ยอดคงเหลือ Aptoide"
 
 #. Card - Title - Common
 #:

@@ -78,7 +78,7 @@
       android:layout_height="48dp"
       android:layout_marginStart="8dp"
       android:layout_marginTop="24dp"
-      app:buttonColor="@color/styleguide_pink"
+      app:buttonColor="@color/styleguide_primary"
       app:buttonText="@string/submit_button"
       app:buttonType="filled"
       app:layout_constraintEnd_toEndOf="parent"

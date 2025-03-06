@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2025-01-29 14:51\n"
+"PO-Revision-Date: 2025-02-28 13:27\n"
 
 #. Card Title
 #:
-msgid "Earn AppCoins Credits!"
-msgstr "Gagnez des Crédits AppCoins!"
+msgid "Earn Aptoide balance!"
+msgstr "Gagnez du solde Aptoide !"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Recevez un bonus supplémentaire de {0}% sur tous vos achats en {1}, sauf si vous utilisez des AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr "Recevez un Bonus supplémentaire de {0}% sur tous vos achats en {1}, sauf si vous utilisez votre solde Aptoide."
 
 #. Card - Purchase Promotion.
 #:
-msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "Faites un achat en {0} et recevez des AppCoins Credits en {1}."
+msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
+msgstr "Faites un achat en {0} et recevez {1} dans votre solde Aptoide."
 
 #. Receipt - Purchase Promotion.
 #:
@@ -34,8 +34,8 @@ msgstr "Parce que vous avez fait un achat en {0}."
 
 #. Card - Expenditure per days Promotion.
 #:
-msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "Dépensez {0} {1} en {2} jours et recevez {3} AppCoins Credits."
+msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
+msgstr "Dépensez {0} {1} en {2} jours et recevez {3} dans votre solde Aptoide."
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -44,8 +44,8 @@ msgstr "Parce que vous avez dépensé plus de {0} {1} dans les derniers {2} jour
 
 #. Card - Next Level Promotion.
 #:
-msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "Atteignez le niveau suivant et recevez {0} Appcoins Credits !"
+msgid "Reach the next level and receive {0} in Aptoide balance!"
+msgstr "Atteignez le niveau suivant et recevez {0} dans votre solde Aptoide !"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -54,8 +54,8 @@ msgstr "Parce que vous avez atteint le niveau suivant."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Recevez un bonus supplémentaire de {0}% sur tous vos achats en {1}, sauf si vous utilisez des AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
+msgstr "Recevez un Bonus supplémentaire de {0}% sur tous vos achats en {1}, sauf si vous utilisez votre solde Aptoide."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -64,8 +64,8 @@ msgstr "Recevez un Bonus supplémentaire de {0} % sur tous vos achats."
 
 #. Card - First purchase.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "Recevez un bonus supplémentaire de {0}% pour votre premier achat dans {1}, à l'exception des AppCoins Credits"
+msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
+msgstr "Recevez un bonus supplémentaire de {0}% pour votre premier achat en {1}, à l'exception du solde Aptoide"
 
 #. Receipt - First Purchase.
 #:
@@ -74,8 +74,8 @@ msgstr "Pour votre premier achat dans {0}."
 
 #. Card - First purchase of the day.
 #:
-msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "Recevez un bonus supplémentaire de {0}% lors de votre premier achat de la journée dans {1}, à l'exception des AppCoins Credits"
+msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
+msgstr "Recevez un bonus supplémentaire de {0}% lors de votre premier achat de la journée en {1}, à l'exception du solde Aptoide"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -84,13 +84,13 @@ msgstr "Pour votre premier achat du jour dans {0}."
 
 #. Title for bonus receipts.
 #:
-msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} de Bonus en AppCoins Credits !"
+msgid "+{0} Bonus in Aptoide balance!"
+msgstr "+{0} Bonus dans votre solde Aptoide !"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr "Recevez {0} AppCoins Credits supplémentaires lorsque vous dépensez {1} {2} dans {3}."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in {3}."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -99,18 +99,18 @@ msgstr "Parce que vous avez dépensé {0} {1} dans {2}."
 
 #. Card - Expendidure in any game.
 #:
-msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "Recevez {0} Appcoins Credits supplémentaires lorsque vous dépensez {1} {2} dans les applications AppCoins."
+msgid "Receive {0} extra in Aptoide balance when you spend {1} {2} in compatible apps."
+msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
-msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "Parce que vous avez dépensé {0} {1} dans les applications AppCoins."
+msgid "Because you spent {0} {1} in compatible apps."
+msgstr "Parce que vous avez dépensé {0} {1} dans les applications compatibles."
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "Recevez un bonus supplémentaire de {0}% sur tous vos achats, sauf si vous utilisez des AppCoins Credits."
+msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
+msgstr "Recevez un Bonus supplémentaire de {0}% sur tous vos achats en , sauf si vous utilisez votre solde Aptoide."
 
 #. Card - Title - Common
 #:
@@ -125,10 +125,10 @@ msgstr "Bénéficiez d'un bonus de {0}% à chaque achat."
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "Obtenez un bonus supplémentaire de {0}% sur toutes les recharges effectuées par virement bancaire simple."
 
 #. Payment Method - Title - Bank Transfer
 #:
 msgid "Easy bank transfer"
-msgstr ""
+msgstr "Virement bancaire facile"
 

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -121,7 +120,7 @@ fun ManageDeleteCardBottomSheet(
             isShowLoading = true
             onConfirmClick()
           },
-          backgroundColor = WalletColors.styleguide_pink,
+          backgroundColor = WalletColors.styleguide_primary,
           labelColor = WalletColors.styleguide_white,
           buttonType = ButtonType.LARGE,
           fragmentName = fragmentName,

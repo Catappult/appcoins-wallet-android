@@ -77,7 +77,7 @@ fun VectorIconButton(
   contentDescription: Int,
   onClick: () -> Unit,
   paddingIcon: Dp = 8.dp,
-  background: Color = WalletColors.styleguide_blue,
+  background: Color = WalletColors.styleguide_dark,
   fragmentName: String,
   buttonsAnalytics: ButtonsAnalytics?
 ) {
@@ -106,7 +106,7 @@ fun VectorIconButton(
   onClick: () -> Unit,
   paddingIcon: Dp = 8.dp,
   iconSize: Dp = 32.dp,
-  background: Color = WalletColors.styleguide_blue,
+  background: Color = WalletColors.styleguide_dark,
   fragmentName: String,
   buttonsAnalytics: ButtonsAnalytics?
 ) {

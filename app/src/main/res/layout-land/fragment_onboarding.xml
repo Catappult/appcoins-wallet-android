@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/styleguide_blue"
+    android:background="@color/styleguide_dark"
     >
 
   <com.airbnb.lottie.LottieAnimationView
@@ -106,7 +106,7 @@
       android:layout_height="0dp"
       android:layout_marginHorizontal="16dp"
       android:layout_marginBottom="16dp"
-      android:backgroundTint="@color/styleguide_blue_secondary"
+      android:backgroundTint="@color/styleguide_dark_secondary"
       android:visibility="invisible"
       app:cardCornerRadius="16dp"
       app:layout_constraintBottom_toBottomOf="@id/onboarding_action"
@@ -228,7 +228,7 @@
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="16dp"
       android:layout_marginBottom="16dp"
-      android:backgroundTint="@color/styleguide_blue_secondary"
+      android:backgroundTint="@color/styleguide_dark_secondary"
       android:visibility="invisible"
       app:cardCornerRadius="16dp"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -262,7 +262,7 @@
           android:layout_marginStart="8dp"
           android:background="@color/transparent"
           android:theme="@style/MaterialAppTheme"
-          app:cardBackgroundColor="@color/styleguide_blue"
+          app:cardBackgroundColor="@color/styleguide_dark"
           app:cardElevation="0dp"
           app:layout_constraintBottom_toBottomOf="@+id/onboarding_recover_guest_button"
           app:layout_constraintStart_toEndOf="@+id/onboarding_recover_text1"

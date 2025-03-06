@@ -39,7 +39,7 @@ private fun AddNewCardComposableExample() {
     {},
     R.drawable.ic_plus,
     stringResource(R.string.manage_cards_add_title),
-    WalletColors.styleguide_blue_secondary,
+    WalletColors.styleguide_dark_secondary,
     WalletColors.styleguide_light_grey
   )
 }

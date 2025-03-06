@@ -4,7 +4,7 @@
     android:id="@+id/recover_wallet_options"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/styleguide_blue"
+    android:background="@color/styleguide_dark"
     android:theme="@style/MaterialAppTheme"
     >
 

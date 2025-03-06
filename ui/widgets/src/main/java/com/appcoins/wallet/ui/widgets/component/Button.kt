@@ -138,7 +138,7 @@ fun BottomSheetButton(
   label: Int,
   onClick: () -> Unit,
   labelColor: Color = WalletColors.styleguide_white,
-  iconColor: Color = WalletColors.styleguide_pink,
+  iconColor: Color = WalletColors.styleguide_primary,
   fragmentName: String,
   buttonsAnalytics: ButtonsAnalytics?
 ) {
@@ -179,7 +179,7 @@ fun PreviewButtonWithIcon() {
     icon = R.drawable.ic_home,
     label = R.string.action_add_wallet,
     onClick = {},
-    backgroundColor = WalletColors.styleguide_pink,
+    backgroundColor = WalletColors.styleguide_primary,
     labelColor = WalletColors.styleguide_white,
     iconColor = WalletColors.styleguide_white,
     fragmentName = "HomeFragment",
@@ -194,7 +194,7 @@ fun PreviewLargeButtonWithIcon() {
     icon = R.drawable.ic_home,
     label = R.string.action_add_wallet,
     onClick = {},
-    backgroundColor = WalletColors.styleguide_pink,
+    backgroundColor = WalletColors.styleguide_primary,
     labelColor = WalletColors.styleguide_white,
     iconColor = WalletColors.styleguide_white,
     buttonType = LARGE,
@@ -208,7 +208,7 @@ fun PreviewLargeButtonWithIcon() {
 @Composable
 fun PreviewButtonWithText() {
   ButtonWithText(
-    backgroundColor = WalletColors.styleguide_pink,
+    backgroundColor = WalletColors.styleguide_primary,
     labelColor = WalletColors.styleguide_white,
     label = stringResource(R.string.action_add_wallet),
     onClick = {},
@@ -221,7 +221,7 @@ fun PreviewButtonWithText() {
 @Composable
 fun PreviewLargeButtonWithText() {
   ButtonWithText(
-    backgroundColor = WalletColors.styleguide_pink,
+    backgroundColor = WalletColors.styleguide_primary,
     labelColor = WalletColors.styleguide_white,
     label = stringResource(R.string.action_add_wallet),
     onClick = {},

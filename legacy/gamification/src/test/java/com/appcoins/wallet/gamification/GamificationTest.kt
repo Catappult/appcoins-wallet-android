@@ -4,6 +4,8 @@ import androidx.room.EmptyResultSetException
 import com.appcoins.wallet.core.network.backend.model.*
 import com.appcoins.wallet.gamification.repository.*
 import com.appcoins.wallet.gamification.repository.entity.*
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
+import io.mockk.mockk
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
@@ -19,6 +21,7 @@ class GamificationTest {
   private lateinit var gamification: Gamification
   private val api = GamificationApiTest()
   private val local = UserStatsDataTest()
+  private val fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource = mockk(relaxed = true)
   private val date = Date()
 
   companion object {
@@ -32,7 +35,7 @@ class GamificationTest {
   fun setUp() {
     RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
     RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
-    gamification = Gamification(BdsPromotionsRepository(api, local))
+    gamification = Gamification(BdsPromotionsRepository(api, local, fiatCurrenciesPreferencesDataSource))
   }
 
   @Test

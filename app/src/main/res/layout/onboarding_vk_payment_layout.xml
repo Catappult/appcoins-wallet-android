@@ -5,7 +5,7 @@
     android:id="@+id/onboarding_vk_payment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/styleguide_blue_secondary"
+    android:background="@color/styleguide_dark_secondary"
     >
 
   <com.vk.auth.ui.fastloginbutton.VkFastLoginButton
@@ -50,7 +50,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginBottom="32dp"
-          android:background="@color/styleguide_blue_secondary"
+          android:background="@color/styleguide_dark_secondary"
           android:visibility="gone"
           app:layout_constraintBottom_toTopOf="@+id/onboarding_success_vk_buttons"
           app:layout_constraintEnd_toEndOf="parent"
