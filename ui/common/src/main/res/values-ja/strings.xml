@@ -813,6 +813,13 @@
   <string name="rebranding_disclaimer_long_body"> ブランドとフィーリングのエキサイティングな再設計に取り組んでいます。全く新しいイメージで、お気に入りの機能や特典を発見してください！</string>
   <string name="rebranding_post_title">AppCoins WalletはまもなくAptoide Wallet!になります！</string>
   <string name="rebrandinh_post_body">全く新しいデザインで、お気に入りの機能や特典を発見してください。どうぞお楽しみに！</string>
+  <!-- App store screenshots -->
+  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
+  <string name="app_store_screen_2">Your tool for in-app purchases</string>
+  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
+  <string name="app_store_screen_4">Your favorite payment methods</string>
+  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_6">and more...</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
