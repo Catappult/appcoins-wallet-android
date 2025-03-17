@@ -7,6 +7,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64Url
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -23,6 +24,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
   val addressService: AddressService,
   val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
   val analytics: IndicativeAnalytics,
+  val getCachedCurrencyUseCase: GetCachedCurrencyUseCase,
   val rxSchedulers: RxSchedulers
 ) {
 
@@ -30,6 +32,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
 
   operator fun invoke(
     transaction: TransactionBuilder,
+    appVersion: String?
   ): Single<String> {
     return Single.zip(
       walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
@@ -63,6 +66,8 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
             "&oem_id=${oemId ?: ""}" +
             "&reference=${transaction.orderReference ?: ""}" +
             "&promo_code=${promoCode.code ?: ""}" +
+            "&version=${appVersion ?: ""}" +
+            "&currency=".plus(getCachedCurrencyUseCase()) +
             "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}"
       }
   }

@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Rect
+import android.net.Uri
 import android.net.Uri.parse
 import android.os.Build
 import android.os.Bundle
@@ -92,6 +93,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   private var shouldAllowExternalApps = true
 
+  private var webViewInstance: WebView? = null
+
   companion object {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
     const val TRANSACTION_BUILDER = "transactionBuilder"
@@ -115,6 +118,19 @@ class WebViewPaymentActivity : AppCompatActivity() {
     setKeyboardListener()
     setContent {
       MainContent(url)
+    }
+  }
+
+  override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    val data = intent?.data?.toString().orEmpty()
+
+    webViewInstance?.post {
+      if (data.isNotBlank()) {
+        webViewInstance?.loadUrl("javascript:onPaymentStateUpdated(\"$data\")")
+      } else {
+        webViewInstance?.loadUrl("javascript:onPaymentStateUpdated()")
+      }
     }
   }
 
@@ -198,7 +214,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
           )
           .background(styleguide_light_grey),
         factory = {
-          webView.apply {
+          WebView(context).apply {
+            webViewInstance = this
             setBackgroundColor(resources.getColor(R.color.transparent))
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
@@ -256,6 +273,11 @@ class WebViewPaymentActivity : AppCompatActivity() {
                     errorReason = webError?.errorDetails ?: "",
                     paymentMethod = webError?.paymentMethod ?: ""
                   )
+                },
+                onOpenDeepLink = { deepLink: String? ->
+                  val intent = Intent(Intent.ACTION_VIEW, parse(deepLink))
+                  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                  startActivity(intent)
                 }
               ),
               "WebViewPaymentInterface"

@@ -872,7 +872,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   }
 
   private fun showBonus() {
-    if (bonus.isNotEmpty()) {
+    if (bonus.isNotEmpty() && bonus != " ") {
       bonusLayout?.visibility = VISIBLE
       bonusLayoutPreSelected?.visibility = VISIBLE
       bonusValue.text = if (isPortraitMode(requireContext())) context?.getString(
