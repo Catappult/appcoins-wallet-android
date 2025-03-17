@@ -820,6 +820,13 @@
   <string name="rebranding_disclaimer_long_body"> आमच्या ब्रँड आणि फिलिंगच्या एक्सायटिंग रिडिझाईनवर आम्ही काम करत आहोत. आपली आवडती वैशिष्ट्ये आणि बक्षिसे संपूर्णपणे नव्या रुपात मिळविण्यासाठी येत रहा!</string>
   <string name="rebranding_post_title">अॅपकॉईन्स वॉलेट आता झालेय Aptoide वॉलेट!</string>
   <string name="rebrandinh_post_body">आपली आवडती वैशिष्ट्ये आणि बक्षिसे आता संपूर्णपणे नव्या रुपात. आशा आहे आपणांस आवडतील!</string>
+  <!-- App store screenshots -->
+  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
+  <string name="app_store_screen_2">Your tool for in-app purchases</string>
+  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
+  <string name="app_store_screen_4">Your favorite payment methods</string>
+  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_6">and more...</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
