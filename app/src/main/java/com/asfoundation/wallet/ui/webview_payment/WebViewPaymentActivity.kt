@@ -49,12 +49,15 @@ import com.asfoundation.wallet.analytics.PaymentMethodAnalyticsMapper
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.iab.IabInteract
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
@@ -278,6 +281,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
                   val intent = Intent(Intent.ACTION_VIEW, parse(deepLink))
                   intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                   startActivity(intent)
+                },
+                openVerifyFlowCallback = { verifyFlow ->
+                  goToVerify(verifyFlow)
                 }
               ),
               "WebViewPaymentInterface"
@@ -495,6 +501,35 @@ class WebViewPaymentActivity : AppCompatActivity() {
   private fun stopTimingForPurchaseEvent(success: Boolean, paymentMethod: String) {
     val paymentMethodAnalytics = PaymentMethodAnalyticsMapper.mapPaymentToAnalytics(paymentMethod)
     paymentAnalytics.stopTimingForPurchaseEvent(paymentMethodAnalytics, success, false)
+  }
+
+  fun goToVerify(flow: VerifyFlowWeb) {
+    when (flow) {
+      VerifyFlowWeb.CREDIT_CARD -> {
+        showCreditCardVerification(false)
+      }
+
+      VerifyFlowWeb.PAYPAL -> {
+        showPayPalVerification()
+      }
+    }
+  }
+
+  fun showCreditCardVerification(isWalletVerified: Boolean) {
+    val intent = VerificationCreditCardActivity.newIntent(this, isWalletVerified)
+      .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    startActivity(intent)
+    finish()
+  }
+
+  fun showPayPalVerification() {
+    val intent = MainActivity.newIntent(
+      context = this,
+      supportNotificationClicked = false,
+      isPayPalVerificationRequired = true
+    ).apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    startActivity(intent)
+    finish()
   }
 
 }
