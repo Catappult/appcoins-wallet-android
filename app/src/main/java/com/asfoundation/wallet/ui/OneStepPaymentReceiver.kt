@@ -106,7 +106,7 @@ class OneStepPaymentReceiver : BaseActivity() {
             transferParser.parse(intent.dataString!!)
               .flatMap { transaction: TransactionBuilder ->
                 Single.zip(
-                  isWebViewPaymentFlowUseCase(transaction).subscribeOn(rxSchedulers.io),
+                  isWebViewPaymentFlowUseCase(transaction, BuildConfig.VERSION_CODE).subscribeOn(rxSchedulers.io),
                   inAppPurchaseInteractor.isWalletFromBds(
                     transaction.domain,
                     transaction.toAddress()

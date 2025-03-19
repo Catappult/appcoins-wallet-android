@@ -81,9 +81,9 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     setContentView(R.layout.activity_iab_wallet_creation)
     val productName = intent.extras?.getString(PRODUCT_NAME, "")
     presenter =
-      Erc681ReceiverPresenter(
-        view = this,
-        transferParser = transferParser,
+        Erc681ReceiverPresenter(
+          view = this,
+          transferParser = transferParser,
         inAppPurchaseInteractor = inAppPurchaseInteractor,
         walletService = walletService,
         data = intent.dataString!!,
@@ -97,7 +97,8 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         billingAnalytics = billingAnalytics,
         addressService = partnerAddressService,
         logger = logger,
-        appVersion = BuildConfig.VERSION_NAME
+        appVersionName = BuildConfig.VERSION_NAME,
+        appVersionCode = BuildConfig.VERSION_CODE
       )
 
     CoroutineScope(Dispatchers.Main).launch {
