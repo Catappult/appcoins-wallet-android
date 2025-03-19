@@ -11,6 +11,7 @@ interface PayFlowApi {
   fun getPayFlow(
     @Query("package") packageName: String,
     @Query("oemid") oemid: String?,
+    @Query("vercode") appVersionCode: Int?,
   ): Single<PayFlowResponse>
 
 }

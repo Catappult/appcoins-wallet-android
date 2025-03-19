@@ -36,7 +36,8 @@ internal class Erc681ReceiverPresenter(
   private val billingAnalytics: BillingAnalytics,
   private var addressService: AddressService,
   private val logger: Logger,
-  private val appVersion: String?
+  private val appVersionName: String?,
+  private val appVersionCode: Int?
 ) {
   private var firstImpression = true
   private val TAG = this::class.java.simpleName
@@ -57,7 +58,7 @@ internal class Erc681ReceiverPresenter(
               .flatMap { transactionBuilder ->
                 partnerAddressService.setOemIdFromSdk(transactionBuilder.oemIdSdk)
                 Single.zip(
-                  isWebViewPaymentFlowUseCase(transactionBuilder).subscribeOn(rxSchedulers.io),
+                  isWebViewPaymentFlowUseCase(transactionBuilder, appVersionCode).subscribeOn(rxSchedulers.io),
                   inAppPurchaseInteractor.isWalletFromBds(
                     transactionBuilder.domain,
                     transactionBuilder.toAddress()
@@ -97,7 +98,7 @@ internal class Erc681ReceiverPresenter(
   private fun startWebViewPayment(
     transaction: TransactionBuilder,
   ): Single<String> {
-    return createWebViewPaymentSdkUseCase(transaction, appVersion)
+    return createWebViewPaymentSdkUseCase(transaction, appVersionName)
       .doOnSuccess { url ->
         view.launchWebViewPayment(url, transaction)
       }
