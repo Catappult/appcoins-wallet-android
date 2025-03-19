@@ -20,6 +20,7 @@ import android.widget.FrameLayout
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -98,6 +99,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   private var webViewInstance: WebView? = null
 
+  private var runningCustomTab = false
+
   companion object {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
     const val TRANSACTION_BUILDER = "transactionBuilder"
@@ -134,6 +137,14 @@ class WebViewPaymentActivity : AppCompatActivity() {
       } else {
         webViewInstance?.loadUrl("javascript:onPaymentStateUpdated()")
       }
+    }
+  }
+
+  override fun onResume() {
+    super.onResume()
+    if (runningCustomTab) {
+      webViewInstance?.loadUrl("javascript:onPaymentStateUpdated()")
+      runningCustomTab = false
     }
   }
 
@@ -281,6 +292,11 @@ class WebViewPaymentActivity : AppCompatActivity() {
                   val intent = Intent(Intent.ACTION_VIEW, parse(deepLink))
                   intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                   startActivity(intent)
+                },
+                onStartExternalPayment = { deepLink: String? ->
+                  val intent = CustomTabsIntent.Builder().build()
+                  intent.launchUrl(getContext(), parse(deepLink))
+                  runningCustomTab = true
                 },
                 openVerifyFlowCallback = { verifyFlow ->
                   goToVerify(verifyFlow)
