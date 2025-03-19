@@ -9,6 +9,7 @@ import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressServi
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityIabWalletCreationBinding
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -95,8 +96,10 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         rxSchedulers = rxSchedulers,
         billingAnalytics = billingAnalytics,
         addressService = partnerAddressService,
-        logger = logger
+        logger = logger,
+        appVersion = BuildConfig.VERSION_NAME
       )
+
     CoroutineScope(Dispatchers.Main).launch {
       presenter.present(savedInstanceState)
     }

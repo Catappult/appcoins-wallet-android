@@ -11,6 +11,7 @@ class WebViewPaymentInterface(
   private val intercomCallback: () -> Unit,
   private val allowExternalAppsCallback: (allow: Boolean) -> Unit,
   private val onPurchaseResultCallback: (WebViewPaymentResponse?) -> Unit,
+  private val onOpenDeepLink: (deepLink: String?) -> Unit,
   private val onErrorCallback: (WebViewPaymentErrorResponse?) -> Unit,
   private val openVerifyFlowCallback: (VerifyFlowWeb) -> Unit
 ) {
@@ -28,6 +29,13 @@ class WebViewPaymentInterface(
   @JavascriptInterface
   fun onPurchaseResult(result: String?) {
     onPurchaseResultCallback(parsePurchaseResult(result))
+  }
+
+
+  @JavascriptInterface
+  fun openDeeplink(deepLink: String?): Boolean {
+    onOpenDeepLink(deepLink)
+    return deepLink!= null
   }
 
   @JavascriptInterface
