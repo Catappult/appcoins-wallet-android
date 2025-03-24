@@ -12,12 +12,14 @@ import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_ADDRESS_KEY
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_NAME
+import com.asfoundation.wallet.home.bottom_sheet.HomeDetailsBalanceBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import com.asfoundation.wallet.home.bottom_sheet.HomeManageWalletBottomSheetFragment
+import com.asfoundation.wallet.promo_code.bottom_sheet.entry.PromoCodeBottomSheetFragment
 import javax.inject.Inject
 
 class HomeNavigator
@@ -85,6 +87,26 @@ constructor(
   fun navigateToManageBottomSheet() {
     val bottomSheet = HomeManageWalletBottomSheetFragment.newInstance()
     bottomSheet.show(fragment.parentFragmentManager, "HomeManageWallet")
+  }
+
+  fun navigateToDetailsBalanceBottomSheet(balanceValue: String, balanceCurrency: String) {
+    val bundle = Bundle()
+    val bottomSheet = HomeDetailsBalanceBottomSheetFragment.newInstance()
+    bundle.putString(HomeDetailsBalanceBottomSheetFragment.BALANCE_VALUE, balanceValue)
+    bundle.putString(HomeDetailsBalanceBottomSheetFragment.BALANCE_CURRENCY, balanceCurrency)
+    bottomSheet.arguments = bundle
+    bottomSheet.show(fragment.parentFragmentManager, "HomeDetailsBalanceBottomSheetFragment")
+  }
+
+  fun navigateToPromoCode(promoCode: String? = null) {
+    val bottomSheet = PromoCodeBottomSheetFragment.newInstance()
+    val bundle = Bundle()
+    bundle.putString(
+      PromoCodeBottomSheetFragment.EXTRA_PROMO_CODE,
+      promoCode
+    )
+    bottomSheet.arguments = bundle
+    bottomSheet.show(fragment.parentFragmentManager, "HomePromoCode")
   }
 
   fun navigateToTransfer(mainNavController: NavController) {
