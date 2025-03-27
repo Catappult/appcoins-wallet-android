@@ -203,7 +203,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         buttonsAnalytics = buttonsAnalytics,
         onClickPromoCode = { navigator.navigateToPromoCode()},
         onClickBackup = { viewModel.onBackupClick() },
-        onClickMore = { navigator.navigateToManageBottomSheet() },
+        onClickMore = { navigator.navigateToManageBottomSheet(viewModel.canTransfer.value) },
         balance = balanceValue,
         showBackup = viewModel.showBackup.value,
         onClickDetailsBalance = { navigator.navigateToDetailsBalanceBottomSheet(balanceValue, balanceCurrency) },

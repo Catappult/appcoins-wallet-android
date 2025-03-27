@@ -91,7 +91,8 @@ class WalletInfoRepository @Inject constructor(
           appcBalanceFiat = null,
           ethBalanceFiat = null,
           fiatCurrency = null,
-          fiatSymbol = null
+          fiatSymbol = null,
+          canTransfer = false
         )
       )
     }.subscribeOn(rxSchedulers.io)
@@ -140,7 +141,8 @@ class WalletInfoRepository @Inject constructor(
       blocked = blocked,
       verified = verified,
       logging = logging,
-      backupDate = hasBackup
+      backupDate = hasBackup,
+      canTransfer = canTransfer
     )
 
   private fun WalletInfoResponse.toWalletInfoEntity(walletBalance: WalletBalance? = null) =
@@ -158,6 +160,7 @@ class WalletInfoRepository @Inject constructor(
       appcBalanceFiat = walletBalance?.appcBalance?.fiat?.amount,
       ethBalanceFiat = walletBalance?.ethBalance?.fiat?.amount,
       fiatCurrency = walletBalance?.creditsBalance?.fiat?.currency,
-      fiatSymbol = walletBalance?.creditsBalance?.fiat?.symbol
+      fiatSymbol = walletBalance?.creditsBalance?.fiat?.symbol,
+      canTransfer = canTransfer
     )
 }

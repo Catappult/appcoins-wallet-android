@@ -84,8 +84,14 @@ constructor(
     bottomSheet.show(fragment.parentFragmentManager, "HomeBalanceWallet")
   }
 
-  fun navigateToManageBottomSheet() {
+  fun navigateToManageBottomSheet(canTransfer: Boolean) {
     val bottomSheet = HomeManageWalletBottomSheetFragment.newInstance()
+    val bundle = Bundle()
+    bundle.putBoolean(
+      HomeManageWalletBottomSheetFragment.CAN_TRANSFER,
+      canTransfer
+    )
+    bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "HomeManageWallet")
   }
 
