@@ -14,6 +14,7 @@ object WalletColors {
   val styleguide_dark_grey = Color(0xFF8E93A1)
   val styleguide_medium_grey = Color(0xFFC9C9C9)
   val styleguide_light_grey = Color(0xFFF5F5FA)
+  val styleguide_shimmer = Color(0xFF47484C)
   val styleguide_grey_new = Color(0xFF3C3A55)
 
   val styleguide_green = Color(0xFF3CBD8F)

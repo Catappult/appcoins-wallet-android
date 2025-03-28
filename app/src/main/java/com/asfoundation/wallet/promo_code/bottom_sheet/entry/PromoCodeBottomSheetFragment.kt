@@ -47,7 +47,7 @@ class PromoCodeBottomSheetFragment :
   lateinit var rewardsAnalytics: RewardsAnalytics
 
   companion object {
-    private const val EXTRA_PROMO_CODE = "promoCode"
+    const val EXTRA_PROMO_CODE = "promoCode"
 
     @JvmStatic
     fun newInstance(): PromoCodeBottomSheetFragment {

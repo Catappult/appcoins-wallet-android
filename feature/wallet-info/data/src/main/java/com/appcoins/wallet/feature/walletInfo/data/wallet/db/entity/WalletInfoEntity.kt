@@ -22,4 +22,5 @@ data class WalletInfoEntity(
   val ethBalanceFiat: BigDecimal?,
   val fiatCurrency: String?,
   val fiatSymbol: String?,
+  val canTransfer: Boolean,
 )

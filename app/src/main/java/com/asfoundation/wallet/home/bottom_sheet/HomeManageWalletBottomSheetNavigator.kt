@@ -39,6 +39,10 @@ class HomeManageWalletBottomSheetNavigator @Inject constructor(
     openIntent(intent)
   }
 
+  fun navigateToTransfer(mainNavController: NavController) {
+    mainNavController.navigate(R.id.action_navigate_to_send_funds)
+  }
+
   fun navigateToManageWallet(
     mainNavController: NavController
   ) {

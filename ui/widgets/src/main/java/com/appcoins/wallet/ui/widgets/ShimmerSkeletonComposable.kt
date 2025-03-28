@@ -12,12 +12,12 @@ import androidx.compose.ui.graphics.Color
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
-fun shimmerSkeleton(showShimmer: Boolean = true, targetValue: Float = 1000f): Brush {
+fun shimmerSkeleton(showShimmer: Boolean = true, targetValue: Float = 1000f, shimmerColor: Color = WalletColors.styleguide_skeleton_loading): Brush {
   return if (showShimmer) {
     val shimmerColors = listOf(
-      WalletColors.styleguide_skeleton_loading.copy(alpha = 0.8f),
-      WalletColors.styleguide_skeleton_loading.copy(alpha = 0.2f),
-      WalletColors.styleguide_skeleton_loading.copy(alpha = 0.8f),
+      shimmerColor.copy(alpha = 0.8f),
+      shimmerColor.copy(alpha = 0.2f),
+      shimmerColor.copy(alpha = 0.8f),
     )
 
     val transition = rememberInfiniteTransition(label = "")

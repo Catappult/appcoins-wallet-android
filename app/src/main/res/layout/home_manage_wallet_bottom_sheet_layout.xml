@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_manage_wallet_bottom_sheet_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -47,37 +48,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginHorizontal="22dp"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/manage_wallet_button"
-        android:textColor="@color/styleguide_light_grey"
-        android:textSize="14sp"
-        />
-  </androidx.appcompat.widget.LinearLayoutCompat>
-
-  <androidx.appcompat.widget.LinearLayoutCompat
-      android:id="@+id/recover_wallet_view"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:paddingVertical="@dimen/big_margin"
-      >
-
-    <ImageView
-        android:id="@+id/recover_wallet_icon"
-        android:layout_width="20dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_recover_wallet"
-        />
-
-    <TextView
-        android:id="@+id/recover_wallet_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginHorizontal="22dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/my_wallets_action_recover_wallet"
+        android:text="@string/home_manage_wallet_button"
         android:textColor="@color/styleguide_light_grey"
         android:textSize="14sp"
         />
@@ -97,8 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:contentDescription="@null"
-        android:src="@drawable/ic_backup_white"
-        app:tint="@color/styleguide_primary"
+        android:src="@drawable/ic_backup_wallet"
         />
 
     <TextView
@@ -113,5 +83,69 @@
         android:textSize="14sp"
         />
   </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/recover_wallet_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:paddingVertical="@dimen/big_margin"
+      >
+
+    <ImageView
+        android:id="@+id/recover_wallet_icon"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_restore_wallet"
+        />
+
+    <TextView
+        android:id="@+id/recover_wallet_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="22dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/home_restore_wallet_button"
+        android:textColor="@color/styleguide_light_grey"
+        android:textSize="14sp"
+        />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/transfer_wallet_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:visibility="gone"
+      tools:visibility="visible"
+      android:paddingVertical="@dimen/big_margin"
+      >
+
+    <ImageView
+        android:id="@+id/transfer_wallet_icon"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_transfer_wallet"
+        />
+
+    <TextView
+        android:id="@+id/transfer_wallet_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="22dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/home_transfer_balance_button"
+        android:textColor="@color/styleguide_light_grey"
+        android:textSize="14sp"
+        />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

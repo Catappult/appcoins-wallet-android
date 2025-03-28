@@ -28,6 +28,7 @@ data class WalletInfoUpdateWithBalance(
   val ethBalanceFiat: BigDecimal?,
   val fiatCurrency: String?,
   val fiatSymbol: String?,
+  val canTransfer: Boolean,
 )
 
 data class WalletInfoUpdateName(val wallet: String, val name: String?)

@@ -160,6 +160,7 @@ constructor(
   val isEmailError = mutableStateOf(false)
   val emailErrorText = mutableStateOf(0)
   private val alreadyGetImpression = mutableStateOf(false)
+  val canTransfer = mutableStateOf(false)
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
@@ -299,7 +300,10 @@ constructor(
       .flatMap { observeRefreshData() }
       .switchMap {
         observeWalletInfoUseCase(null, update = true)
-          .map { walletInfo -> mapWalletValue(walletInfo.walletBalance) }
+          .map { walletInfo ->
+            canTransfer.value = walletInfo.canTransfer
+            mapWalletValue(walletInfo.walletBalance)
+          }
           .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
             copy(defaultWalletBalanceAsync = it)
           }

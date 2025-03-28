@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -15,6 +17,7 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.HomeManageWalletBottomSheetLayoutBinding
+import com.asfoundation.wallet.home.bottom_sheet.HomeDetailsBalanceBottomSheetFragment.Companion.BALANCE_VALUE
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +39,7 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
   private val fragmentName = this::class.java.simpleName
 
   companion object {
+    const val CAN_TRANSFER = "can_transfer"
     @JvmStatic
     fun newInstance(): HomeManageWalletBottomSheetFragment {
       return HomeManageWalletBottomSheetFragment()
@@ -50,6 +54,8 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    val canTransfer = arguments?.getBoolean(CAN_TRANSFER)
+    views.transferWalletView.isGone = canTransfer != true
     setListeners()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
@@ -80,7 +86,11 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
       this.dismiss()
       navigator.navigateToRecoverWallet()
     }
-
+    views.transferWalletView.setOnClickListener {
+      buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.home_transfer_balance_button))
+      this.dismiss()
+      navigator.navigateToTransfer(navController())
+    }
   }
 
   private fun navController(): NavController {
