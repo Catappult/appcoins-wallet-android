@@ -14,6 +14,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.IabActivity
@@ -105,7 +106,7 @@ class OneStepPaymentReceiver : BaseActivity() {
             transferParser.parse(intent.dataString!!)
               .flatMap { transaction: TransactionBuilder ->
                 Single.zip(
-                  isWebViewPaymentFlowUseCase(transaction).subscribeOn(rxSchedulers.io),
+                  isWebViewPaymentFlowUseCase(transaction, BuildConfig.VERSION_CODE).subscribeOn(rxSchedulers.io),
                   inAppPurchaseInteractor.isWalletFromBds(
                     transaction.domain,
                     transaction.toAddress()
@@ -164,7 +165,7 @@ class OneStepPaymentReceiver : BaseActivity() {
   private fun startWebViewPayment(
     transaction: TransactionBuilder,
   ): Single<String> {
-    return createWebViewPaymentOspUseCase(transaction)
+    return createWebViewPaymentOspUseCase(transaction, BuildConfig.VERSION_NAME)
       .doOnSuccess { url ->
         launchWebViewPayment(url, transaction)
       }
