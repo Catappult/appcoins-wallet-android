@@ -1,5 +1,6 @@
 package com.appcoins.wallet.feature.walletInfo.data.wallet.repository
 
+import android.util.Log
 import com.appcoins.wallet.core.analytics.analytics.SentryEventLogger
 import com.appcoins.wallet.core.network.backend.api.WalletInfoApi
 import com.appcoins.wallet.core.network.backend.model.WalletInfoResponse
@@ -21,6 +22,7 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.Locale
 import javax.inject.Inject
+import kotlin.math.log
 
 class WalletInfoRepository @Inject constructor(
   private val api: WalletInfoApi,
@@ -117,7 +119,10 @@ class WalletInfoRepository @Inject constructor(
             .map { walletInfoResponse.toWalletInfoEntity(it) }
             .doOnSuccess(walletInfoDao::insertOrUpdateWithFiat)
         }
-        .doOnError(Throwable::printStackTrace)
+        .doOnError {
+          Log.d("errro", "errorr - " + it)
+
+        }
     }
   }
 
