@@ -10,6 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.gamification.GamificationAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencySymbolUseCase
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.ui.common.MarginItemDecoration
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentGamificationBinding
@@ -39,7 +40,10 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
   lateinit var formatter: CurrencyFormatUtils
 
   @Inject
-  lateinit var getCachedCurrencyUseCase: GetCachedCurrencySymbolUseCase
+  lateinit var getCachedCurrencySymbolUseCase: GetCachedCurrencySymbolUseCase
+
+  @Inject
+  lateinit var getCachedCurrencyUseCase: GetCachedCurrencyUseCase
 
   @Inject
   lateinit var mapper: GamificationMapper
@@ -72,7 +76,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     presenter =
       GamificationPresenter(
         this, activityView, interactor, analytics, formatter,
-        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(), getCachedCurrencyUseCase
+        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(), getCachedCurrencySymbolUseCase, getCachedCurrencyUseCase
       )
   }
 

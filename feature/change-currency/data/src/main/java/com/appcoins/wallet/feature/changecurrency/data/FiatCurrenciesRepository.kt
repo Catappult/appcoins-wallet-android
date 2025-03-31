@@ -93,4 +93,10 @@ class FiatCurrenciesRepository @Inject constructor(
       fiatCurrenciesPreferencesDataSource.setSelectedCurrency(currency)
     }
   }
+
+  suspend fun setSelectedCurrencySymbol(symbol: String) {
+    withContext(dispatchers.io) {
+      fiatCurrenciesPreferencesDataSource.setSelectedCurrencySymbol(symbol)
+    }
+  }
 }
