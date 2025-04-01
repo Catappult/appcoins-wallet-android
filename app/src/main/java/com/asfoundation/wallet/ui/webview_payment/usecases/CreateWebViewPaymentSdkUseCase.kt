@@ -73,7 +73,7 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
             "&period=${transaction.subscriptionPeriod ?: ""}" +
             "&trial_period=${transaction.trialPeriod ?: ""}" +
             "&version=${appVersion ?: ""}" +
-            "&currency=".plus(getCachedCurrencyUseCase()) +
+            "&currency=".plus(if (getCachedCurrencyUseCase().equals("null")) "" else getCachedCurrencyUseCase()) +
             "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}"
       }
   }
