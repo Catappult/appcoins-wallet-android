@@ -7,7 +7,8 @@ class SetSelectedCurrencyUseCase @Inject constructor(
   private val fiatCurrenciesRepository: FiatCurrenciesRepository
 ) {
 
-  suspend operator fun invoke(fiatCurrency: String) {
+  suspend operator fun invoke(fiatCurrency: String, symbol: String?) {
     fiatCurrenciesRepository.setSelectedCurrency(fiatCurrency)
+    fiatCurrenciesRepository.setSelectedCurrencySymbol(symbol ?: "")
   }
 }

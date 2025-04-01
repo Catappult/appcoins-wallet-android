@@ -7,6 +7,7 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencySymbolUseCase
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
@@ -28,7 +29,8 @@ class GamificationPresenter(
   private val disposables: CompositeDisposable,
   private val viewScheduler: Scheduler,
   private val networkScheduler: Scheduler,
-  private val getCachedCurrencyUseCase: GetCachedCurrencySymbolUseCase,
+  private val getCachedCurrencySymbolUseCase: GetCachedCurrencySymbolUseCase,
+  private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase
 ) {
 
   private var viewHasContent = false
@@ -53,12 +55,11 @@ class GamificationPresenter(
 
   private fun handleLevelInformation(sendEvent: Boolean) {
     disposables.add(
-      Observable.zip(gamification.getLevels(), getUserStatsAndBonusEarned(),
-        BiFunction { levels: Levels, statsAndBonusEarnedPromotions: Pair<PromotionsGamificationStats, FiatValue> ->
+      Observable.zip(gamification.getLevels(), gamification.getUserStats(),
+        BiFunction { levels: Levels, promotionsGamificationStats: PromotionsGamificationStats ->
           mapToGamificationInfo(
             levels,
-            statsAndBonusEarnedPromotions.first,
-            statsAndBonusEarnedPromotions.second
+            promotionsGamificationStats
           )
         })
         .subscribeOn(networkScheduler)
@@ -80,14 +81,19 @@ class GamificationPresenter(
   }
 
   private fun mapToGamificationInfo(
-    levels: Levels, promotionsGamificationStats: PromotionsGamificationStats,
-    bonusEarned: FiatValue
+    levels: Levels, promotionsGamificationStats: PromotionsGamificationStats
   ): GamificationInfo {
     var status = Status.UNKNOWN_ERROR
     if (levels.status == Levels.Status.OK && promotionsGamificationStats.resultState == PromotionsGamificationStats.ResultState.OK) {
       return GamificationInfo(
         promotionsGamificationStats.level, promotionsGamificationStats.totalSpend,
-        if (bonusEarned.amount >= BigDecimal.ZERO) bonusEarned else null,
+        if (promotionsGamificationStats.totalEarned >= BigDecimal.ZERO) getCachedCurrencyUseCase()?.let { currency ->
+          getCachedCurrencySymbolUseCase()?.let { symbol ->
+            FiatValue(promotionsGamificationStats.totalEarned,
+              currency, symbol
+            )
+          }
+        } else null,
         promotionsGamificationStats.nextLevelAmount, levels.list, levels.updateDate, Status.OK,
         promotionsGamificationStats.fromCache
       )
@@ -127,39 +133,18 @@ class GamificationPresenter(
     val currentLevel = gamification.currentLevel
     for (level in gamification.levels) {
       val levelItem = when {
-        level.level < currentLevel -> ReachedLevelItem(level.amount, level.bonus, level.level, getCachedCurrencyUseCase())
+        level.level < currentLevel -> ReachedLevelItem(level.amount, level.bonus, level.level, getCachedCurrencySymbolUseCase())
         level.level == currentLevel -> CurrentLevelItem(
           level.amount, level.bonus, level.level,
-          gamification.totalSpend, gamification.nextLevelAmount, getCachedCurrencyUseCase()
+          gamification.totalSpend, gamification.nextLevelAmount, getCachedCurrencySymbolUseCase()
         )
 
-        else -> UnreachedLevelItem(level.amount, level.bonus, level.level, getCachedCurrencyUseCase())
+        else -> UnreachedLevelItem(level.amount, level.bonus, level.level, getCachedCurrencySymbolUseCase())
       }
       if (levelItem is ReachedLevelItem) hiddenList.add(levelItem)
       else shownList.add(levelItem)
     }
     return Pair(hiddenList, shownList)
-  }
-
-  private fun getUserStatsAndBonusEarned(): Observable<Pair<PromotionsGamificationStats, FiatValue>> {
-    return gamification.getUserStats()
-      .flatMap { stats ->
-        if (stats.resultState == PromotionsGamificationStats.ResultState.OK) {
-          gamification.getAppcToLocalFiat(stats.totalEarned.toString(), 2, stats.fromCache)
-            .map { Pair(stats, it) }
-            .toObservable()
-        } else {
-          Observable.just(
-            Pair(
-              stats,
-              FiatValue(
-                BigDecimal.ONE.negate(),
-                ""
-              )
-            )
-          )
-        }
-      }
   }
 
   private fun handleError(throwable: Throwable) {
