@@ -2,14 +2,15 @@ package com.appcoins.wallet.sharedpreferences
 
 import android.content.SharedPreferences
 import javax.inject.Inject
+import androidx.core.content.edit
 
 class FiatCurrenciesPreferencesDataSource @Inject constructor(
   private val sharedPreferences: SharedPreferences
 ) {
   fun setCurrencyListLastVersion(versionCode: Int) =
-    sharedPreferences.edit()
-      .putInt(CURRENCY_LIST_LAST_VERSION, versionCode)
-      .apply()
+    sharedPreferences.edit() {
+      putInt(CURRENCY_LIST_LAST_VERSION, versionCode)
+    }
 
   fun getCurrencyListLastVersion() = sharedPreferences.getInt(CURRENCY_LIST_LAST_VERSION, 0)
 
@@ -18,18 +19,23 @@ class FiatCurrenciesPreferencesDataSource @Inject constructor(
   fun getCachedSelectedCurrencySymbol() = sharedPreferences.getString(FIAT_CURRENCY_SYMBOL, null)
 
   fun setSelectedCurrency(currency: String) =
-    sharedPreferences.edit().putString(FIAT_CURRENCY, currency).apply()
+    sharedPreferences.edit() { putString(FIAT_CURRENCY, currency) }
 
-  fun setSelectedCurrencySymbol(currency: String) =
-    sharedPreferences.edit().putString(FIAT_CURRENCY_SYMBOL, currency).apply()
+  fun setSelectedCurrencySymbol(symbol: String) =
+    sharedPreferences.edit() { putString(FIAT_CURRENCY_SYMBOL, symbol) }
 
   fun getSelectCurrency() = sharedPreferences.getBoolean(SELECTED_FIRST_TIME, true)
 
   fun getSelectCurrencySymbol() = sharedPreferences.getBoolean(SELECTED_FIRST_TIME_SYMBOL, true)
 
-  fun setSelectFirstTimeSymbol() = sharedPreferences.edit().putBoolean(SELECTED_FIRST_TIME_SYMBOL, false).apply()
+  fun setSelectFirstTimeSymbol() = sharedPreferences.edit() {
+    putBoolean(
+      SELECTED_FIRST_TIME_SYMBOL,
+      false
+    )
+  }
 
-  fun setSelectFirstTime() = sharedPreferences.edit().putBoolean(SELECTED_FIRST_TIME, false).apply()
+  fun setSelectFirstTime() = sharedPreferences.edit() { putBoolean(SELECTED_FIRST_TIME, false) }
 
   companion object {
     private const val FIAT_CURRENCY = "fiat_currency"

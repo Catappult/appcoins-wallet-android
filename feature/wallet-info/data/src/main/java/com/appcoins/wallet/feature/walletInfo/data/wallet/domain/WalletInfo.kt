@@ -9,7 +9,8 @@ data class WalletInfo(
   val blocked: Boolean,
   val verified: Boolean,
   val logging: Boolean,
-  val backupDate: Long
+  val backupDate: Long,
+  val canTransfer: Boolean
 ) {
   val hasBackup get() = backupDate > 0
 }

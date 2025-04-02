@@ -16,12 +16,14 @@ class IsWebViewPaymentFlowUseCase @Inject constructor(
 
   operator fun invoke(
     transaction: TransactionBuilder,
+    appVersionCode: Int?
   ): Single<PayFlowResponse> {
     return partnerAddressService.getAttribution(transaction.domain)
       .flatMap { attributionEntity ->
         payFlowRepository.getPayFlow(
           packageName = transaction.domain,
           oemid = attributionEntity.oemId,
+          appVersionCode = appVersionCode
         )
       }
   }

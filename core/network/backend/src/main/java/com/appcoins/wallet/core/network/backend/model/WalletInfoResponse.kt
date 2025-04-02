@@ -20,7 +20,10 @@ data class WalletInfoResponse(
   val logging: Boolean,
   @SerializedName("has_backup") val hasBackup: Boolean,
   @SerializedName("last_backup_date") val lastBackupDate: Date?,
-  @SerializedName("sentry_breadcrumbs") val breadcrumbs: Int
+  @SerializedName("sentry_breadcrumbs") val breadcrumbs: Int,
+  @SerializedName("can_transfer") private val canTransferInt: Int
 ) {
+  val canTransfer: Boolean
+    get() = canTransferInt == 1
   val syntheticBackupDate get() = lastBackupDate?.time ?: if (hasBackup) 1 else 0
 }

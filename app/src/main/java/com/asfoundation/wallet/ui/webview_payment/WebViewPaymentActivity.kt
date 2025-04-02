@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Rect
+import android.net.Uri
 import android.net.Uri.parse
 import android.os.Build
 import android.os.Bundle
@@ -40,6 +41,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
@@ -48,12 +50,15 @@ import com.asfoundation.wallet.analytics.PaymentMethodAnalyticsMapper
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.iab.IabInteract
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
@@ -88,9 +93,14 @@ class WebViewPaymentActivity : AppCompatActivity() {
   @Inject
   lateinit var paymentAnalytics: PaymentMethodsAnalytics
 
+  @Inject
+  lateinit var logger: Logger
+
   private val compositeDisposable = CompositeDisposable()
 
   private var shouldAllowExternalApps = true
+
+  private var webViewInstance: WebView? = null
 
   companion object {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
@@ -115,6 +125,19 @@ class WebViewPaymentActivity : AppCompatActivity() {
     setKeyboardListener()
     setContent {
       MainContent(url)
+    }
+  }
+
+  override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    val data = intent?.data?.toString().orEmpty()
+
+    webViewInstance?.post {
+      if (data.isNotBlank()) {
+        webViewInstance?.loadUrl("javascript:onPaymentStateUpdated(\"$data\")")
+      } else {
+        webViewInstance?.loadUrl("javascript:onPaymentStateUpdated()")
+      }
     }
   }
 
@@ -198,7 +221,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
           )
           .background(styleguide_light_grey),
         factory = {
-          webView.apply {
+          WebView(context).apply {
+            webViewInstance = this
             setBackgroundColor(resources.getColor(R.color.transparent))
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
@@ -229,6 +253,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
             addJavascriptInterface(
               WebViewPaymentInterface(
+                logger = logger,
                 intercomCallback = { showSupport() },
                 allowExternalAppsCallback = {
                   shouldAllowExternalApps = it
@@ -256,6 +281,14 @@ class WebViewPaymentActivity : AppCompatActivity() {
                     errorReason = webError?.errorDetails ?: "",
                     paymentMethod = webError?.paymentMethod ?: ""
                   )
+                },
+                onOpenDeepLink = { deepLink: String? ->
+                  val intent = Intent(Intent.ACTION_VIEW, parse(deepLink))
+                  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                  startActivity(intent)
+                },
+                openVerifyFlowCallback = { verifyFlow ->
+                  goToVerify(verifyFlow)
                 }
               ),
               "WebViewPaymentInterface"
@@ -473,6 +506,35 @@ class WebViewPaymentActivity : AppCompatActivity() {
   private fun stopTimingForPurchaseEvent(success: Boolean, paymentMethod: String) {
     val paymentMethodAnalytics = PaymentMethodAnalyticsMapper.mapPaymentToAnalytics(paymentMethod)
     paymentAnalytics.stopTimingForPurchaseEvent(paymentMethodAnalytics, success, false)
+  }
+
+  fun goToVerify(flow: VerifyFlowWeb) {
+    when (flow) {
+      VerifyFlowWeb.CREDIT_CARD -> {
+        showCreditCardVerification(false)
+      }
+
+      VerifyFlowWeb.PAYPAL -> {
+        showPayPalVerification()
+      }
+    }
+  }
+
+  fun showCreditCardVerification(isWalletVerified: Boolean) {
+    val intent = VerificationCreditCardActivity.newIntent(this, isWalletVerified)
+      .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    startActivity(intent)
+    finish()
+  }
+
+  fun showPayPalVerification() {
+    val intent = MainActivity.newIntent(
+      context = this,
+      supportNotificationClicked = false,
+      isPayPalVerificationRequired = true
+    ).apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    startActivity(intent)
+    finish()
   }
 
 }

@@ -76,7 +76,7 @@ class RewardViewModel @Inject constructor(
   }
 
   fun getCurrency() {
-    rxSingle(dispatchers.io) { getSelectedCurrencySymbolUseCase(bypass = false) }.toObservable()
+    rxSingle(dispatchers.io) { getSelectedCurrencySymbolUseCase(bypass = true) }.toObservable()
       .subscribeOn(rxSchedulers.io)
       .map { it.get() }
       .asAsyncToState { copy(selectedCurrency = it) }

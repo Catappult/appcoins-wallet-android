@@ -78,6 +78,7 @@ interface WalletInfoDao {
           ethBalanceFiat = walletInfo.ethBalanceFiat,
           fiatCurrency = walletInfo.fiatCurrency,
           fiatSymbol = walletInfo.fiatSymbol,
+          canTransfer = walletInfo.canTransfer
         )
       )
     }
