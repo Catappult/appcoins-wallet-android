@@ -304,6 +304,8 @@
   <string name="topup_button">Opwaarderen</string>
   <string name="extra_bonus_title">Krijg %s%% extra bonus</string>
   <string name="max">Max.</string>
+  <string name="month">month</string>
+  <string name="week">week</string>
   <string name="payment_method">Betalingsmethode</string>
   <string name="credit_debit_card">Creditcard/betaalkaart</string>
   <string name="paypal">PayPal</string>
@@ -566,6 +568,12 @@
   <string name="subscriptions_per_several_month">%1$s elke %2$s maanden</string>
   <string name="subscriptions_per_several_year">%1$s elk %2$s jaar</string>
   <string name="subscriptions_error_already_subscribed">Oeps! Je bent al op deze dienst geabonneerd! Je kunt altijd contact met ons opnemen.</string>
+  <string name="subscriptions_starting_today_body">Starting Today</string>
+  <string name="subscriptions_starting_on_body">Starting on %s</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
+  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_renew_title">Renews on %s</string>
   <!--New Gamification-->
   <string name="gamif_title">Tot %s%% bonus!</string>
   <string name="gamif_bonus_received">Bonus ontvangen</string>
