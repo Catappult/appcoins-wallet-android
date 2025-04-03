@@ -67,7 +67,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
             "&reference=${transaction.orderReference ?: ""}" +
             "&promo_code=${promoCode.code ?: ""}" +
             "&version=${appVersion ?: ""}" +
-            "&currency=".plus(getCachedCurrencyUseCase()) +
+            "&currency=".plus(if (getCachedCurrencyUseCase().equals("null")) "" else getCachedCurrencyUseCase()) +
             "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}"
       }
   }
