@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.webview_payment
 
+import android.util.Log
 import android.webkit.JavascriptInterface
 import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentErrorResponse
@@ -14,6 +15,7 @@ class WebViewPaymentInterface(
   private val allowExternalAppsCallback: (allow: Boolean) -> Unit,
   private val onPurchaseResultCallback: (WebViewPaymentResponse?) -> Unit,
   private val onOpenDeepLink: (deepLink: String?) -> Unit,
+  private val onStartExternalPayment: (deepLink: String?) -> Unit,
   private val onErrorCallback: (WebViewPaymentErrorResponse?) -> Unit,
   private val openVerifyFlowCallback: (VerifyFlowWeb) -> Unit
 ) {
@@ -37,6 +39,11 @@ class WebViewPaymentInterface(
   @JavascriptInterface
   fun openDeeplink(deepLink: String?): Boolean {
     onOpenDeepLink(deepLink)
+    return deepLink!= null
+  }
+  @JavascriptInterface
+  fun startExternalPayment(deepLink: String?): Boolean {
+    onStartExternalPayment(deepLink)
     return deepLink!= null
   }
 
