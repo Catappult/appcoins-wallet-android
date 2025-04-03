@@ -19,6 +19,7 @@ class WalletInfoModule {
     Room.databaseBuilder(context, WalletInfoDatabase::class.java, "wallet_info_database")
       .addMigrations(WalletInfoDatabase.MIGRATION_1_2)
       .addMigrations(WalletInfoDatabase.MIGRATION_2_3)
+      .addMigrations(WalletInfoDatabase.MIGRATION_3_4)
       .build()
 
   @Singleton

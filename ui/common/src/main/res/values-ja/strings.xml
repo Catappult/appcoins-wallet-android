@@ -333,7 +333,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">アプリ内購入ツール</string>
-  <string name="onboarding_bonus_title">アプリ内課金の最大%s%をAptoideクレジットに加算。</string>
+  <string name="onboarding_bonus_title">アプリ内課金の最大%s%%をAptoideクレジットに加算。</string>
   <string name="onboarding_payment_methods_title">銀行カード、PayPal、お好きな支払い方法をご利用ください。</string>
   <string name="onboarding_vip_title">VIP会員になると、プレミアムサポートや特典が受けられます。</string>
   <string name="terms_and_conditions">利用規約</string>
@@ -813,6 +813,23 @@
   <string name="rebranding_disclaimer_long_body"> ブランドとフィーリングのエキサイティングな再設計に取り組んでいます。全く新しいイメージで、お気に入りの機能や特典を発見してください！</string>
   <string name="rebranding_post_title">AppCoins WalletはまもなくAptoide Wallet!になります！</string>
   <string name="rebrandinh_post_body">全く新しいデザインで、お気に入りの機能や特典を発見してください。どうぞお楽しみに！</string>
+  <!-- App store screenshots -->
+  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
+  <string name="app_store_screen_2">Your tool for in-app purchases</string>
+  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
+  <string name="app_store_screen_4">Your favorite payment methods</string>
+  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_6">and more...</string>
+  <!-- Home buttons -->
+  <string name="home_promo_code_button">Promo Code</string>
+  <string name="home_top_up_button">Top Up</string>
+  <string name="home_manage_wallet_button">Manage Wallets</string>
+  <string name="home_backup_wallet_button">Back Up Wallet</string>
+  <string name="home_restore_wallet_button">Restore Wallet</string>
+  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <!-- Discord -->
+  <string name="discord_card_title">Join Our Discord Community!</string>
+  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

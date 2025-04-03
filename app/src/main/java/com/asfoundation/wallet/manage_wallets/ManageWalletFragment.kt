@@ -603,7 +603,8 @@ class ManageWalletFragment : BasePageViewFragment() {
         blocked = false,
         verified = true,
         logging = false,
-        backupDate = 987654L
+        backupDate = 987654L,
+        canTransfer = false
       )
     )
   }
@@ -638,7 +639,8 @@ class ManageWalletFragment : BasePageViewFragment() {
       blocked = false,
       backupDate = 987654L,
       verified = false,
-      logging = true
+      logging = true,
+      canTransfer = false
     )
     ActiveWalletContentLandscape(
       walletInfo, VerificationStatusCompound(CODE_REQUESTED, VERIFIED, VerificationType.CREDIT_CARD)

@@ -813,6 +813,23 @@
   <string name="rebranding_disclaimer_long_body"> เรากําลังดําเนินการออกแบบแบรนด์และความรู้สึกของเราใหม่ที่น่าตื่นเต้น คอยติดตามเพื่อค้นพบคุณสมบัติและรางวัลที่คุณชื่นชอบด้วยภาพใหม่ทั้งหมด!</string>
   <string name="rebranding_post_title">AppCoins Wallet เป็น Aptoide Wallet แล้ว!</string>
   <string name="rebrandinh_post_body">ค้นพบคุณสมบัติและรางวัลที่คุณชื่นชอบด้วยภาพใหม่ทั้งหมด เราหวังว่าคุณจะชอบมัน!</string>
+  <!-- App store screenshots -->
+  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
+  <string name="app_store_screen_2">Your tool for in-app purchases</string>
+  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
+  <string name="app_store_screen_4">Your favorite payment methods</string>
+  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_6">and more...</string>
+  <!-- Home buttons -->
+  <string name="home_promo_code_button">Promo Code</string>
+  <string name="home_top_up_button">Top Up</string>
+  <string name="home_manage_wallet_button">Manage Wallets</string>
+  <string name="home_backup_wallet_button">Back Up Wallet</string>
+  <string name="home_restore_wallet_button">Restore Wallet</string>
+  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <!-- Discord -->
+  <string name="discord_card_title">Join Our Discord Community!</string>
+  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

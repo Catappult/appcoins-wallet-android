@@ -23,9 +23,9 @@ class ChooseCurrencyBottomSheetViewModel @Inject constructor(
   ChooseCurrencyBottomSheetState()
 ) {
 
-  fun currencyConfirmationClick(chosenCurrency: String) {
+  fun currencyConfirmationClick(chosenCurrency: String, symbol: String?) {
     viewModelScope.launch {
-      suspend { setSelectedCurrencyUseCase(chosenCurrency) }
+      suspend { setSelectedCurrencyUseCase(chosenCurrency, symbol) }
         .mapSuspendToAsync() {
           copy(selectedConfirmationAsync = it)
         }
