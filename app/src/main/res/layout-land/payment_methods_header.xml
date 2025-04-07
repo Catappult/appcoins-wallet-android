@@ -172,7 +172,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/app_icon"
       android:layout_marginTop="16dp"
-      android:visibility="gone"
+      android:visibility="visible"
       >
 
     <TextView
@@ -180,7 +180,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="1"
         android:textColor="@color/styleguide_dark_grey"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -207,7 +206,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="1"
         android:textColor="@color/styleguide_dark_grey"
         android:textSize="13sp"
         android:layout_marginTop="12dp"
