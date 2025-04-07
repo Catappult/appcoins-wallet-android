@@ -304,6 +304,8 @@
   <string name="topup_button">Recargar</string>
   <string name="extra_bonus_title">Gana un %s%% extra de bonus</string>
   <string name="max">Max</string>
+  <string name="month">month</string>
+  <string name="week">week</string>
   <string name="payment_method">Método de pago</string>
   <string name="credit_debit_card">Tarjeta de crédito/débito</string>
   <string name="paypal">PayPal</string>
@@ -566,6 +568,12 @@
   <string name="subscriptions_per_several_month">%1$s cada %2$s meses</string>
   <string name="subscriptions_per_several_year">%1$s cada %2$s años</string>
   <string name="subscriptions_error_already_subscribed">¡Ya estás suscrito a este servicio! Prueba a ponerte en contacto con nosotros.</string>
+  <string name="subscriptions_starting_today_body">Starting Today</string>
+  <string name="subscriptions_starting_on_body">Starting on %s</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
+  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_renew_title">Renews on %s</string>
   <!--New Gamification-->
   <string name="gamif_title">¡Hasta %s%% de bonus!</string>
   <string name="gamif_bonus_received">Bonus recibido</string>
