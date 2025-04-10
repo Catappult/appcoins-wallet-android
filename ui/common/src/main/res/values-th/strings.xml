@@ -304,6 +304,8 @@
   <string name="topup_button">เติม</string>
   <string name="extra_bonus_title">รับโบนัส %s%% เพิ่มเติม</string>
   <string name="max">สูงสุด</string>
+  <string name="month">month</string>
+  <string name="week">week</string>
   <string name="payment_method">วิธีการชำระเงิน</string>
   <string name="credit_debit_card">บัตรเครดิต/เดบิต</string>
   <string name="paypal">Paypal</string>
@@ -565,6 +567,12 @@
   <string name="subscriptions_per_several_month">%1$s ทุก %2$s เดือน</string>
   <string name="subscriptions_per_several_year">%1$s ทุก %2$s ปี</string>
   <string name="subscriptions_error_already_subscribed">อ๊ะคุณสมัครใช้บริการนี้แล้ว! อย่าลังเลที่จะติดต่อเรา</string>
+  <string name="subscriptions_starting_today_body">Starting Today</string>
+  <string name="subscriptions_starting_on_body">Starting on %s</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
+  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_renew_title">Renews on %s</string>
   <!--New Gamification-->
   <string name="gamif_title">โบนัสสูงสุด %s%%</string>
   <string name="gamif_bonus_received">โบนัสที่ได้รับ</string>
