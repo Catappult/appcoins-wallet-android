@@ -22,6 +22,10 @@ class TransactionData @JvmOverloads constructor(
   private val _oemId: String? = null,
   @SerializedName("guestWalletId")
   private val _guestWalletId: String? = null,
+  @SerializedName("externalBuyerReference")
+  private val _externalBuyerReference: String? = null,
+  @SerializedName("isFreeTrial")
+  private val _isFreeTrial: Boolean? = null,
 ) {
 
   val type get() = _type ?: UNKNOWN
@@ -34,6 +38,8 @@ class TransactionData @JvmOverloads constructor(
   val trialPeriod get() = _trialPeriod
   val oemId get() = _oemId
   val guestWalletId get() = _guestWalletId
+  val externalBuyerReference get() = _externalBuyerReference
+  val isFreeTrial get() = _isFreeTrial ?: false
 
   companion object {
     const val UNKNOWN = "unknown"

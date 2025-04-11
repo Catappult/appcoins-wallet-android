@@ -72,7 +72,8 @@ public class EIPTransactionParser {
               getTokenTransferAmount(payment, tokenInfo.decimals), data.getSkuId(),
               tokenInfo.decimals, getIabContract(payment), data.getType(), data.getOrigin(),
               data.getDomain(), data.getPayload(), null, data.getOrderReference(), null, null,
-              data.getPeriod(), data.getTrialPeriod(), data.getOemId(), data.getGuestWalletId()).shouldSendToken(true);
+              data.getPeriod(), data.getTrialPeriod(), data.getOemId(), data.getGuestWalletId(),
+              data.getExternalBuyerReference(), data.isFreeTrial()).shouldSendToken(true);
         });
   }
 

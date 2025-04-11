@@ -172,19 +172,19 @@ class AppcoinsBillingBinder(
           billingMessagesMapper.mapInvalidSubscriptionData()
         }
         intentBuilder.buildBuyIntentBundle(
-          type.name,
-          tokenContractAddress,
-          iabContractAddress,
-          developerPayload,
-          true,
-          packageName,
-          skuDetails[0].sku,
-          BigDecimal(product.transactionPrice.appcoinsAmount),
-          product.title,
-          product.subscriptionPeriod,
-          product.trialPeriod,
-          oemid,
-          guestWalletId
+          type = type.name,
+          tokenContractAddress = tokenContractAddress,
+          iabContractAddress = iabContractAddress,
+          payload = developerPayload,
+          bdsIap = true,
+          packageName = packageName,
+          skuId = skuDetails[0].sku,
+          appcAmount = BigDecimal(product.transactionPrice.appcoinsAmount),
+          skuTitle = product.title,
+          subscriptionPeriod = product.subscriptionPeriod,
+          trialPeriod = product.trialPeriod,
+          oemid = oemid,
+          guestWalletId = guestWalletId
         )
       } catch (exception: Exception) {
         if (skuDetails.isEmpty()) {

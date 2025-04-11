@@ -151,12 +151,21 @@ class PaymentMethodsInteractor @Inject constructor(
     billing.getPurchases(appPackage, inapp, networkThread)
 
   fun isAbleToSubscribe(
-    packageName: String, skuId: String,
-    networkThread: Scheduler
+    packageName: String,
+    skuId: String,
+    networkThread: Scheduler,
+    externalBuyerReference: String?,
+    isFreeTrial: Boolean?
   ): Single<SubscriptionStatus> {
-    return billing.getSubscriptionToken(packageName, skuId, networkThread)
+    return billing.getSubscriptionToken(
+      packageName = packageName,
+      skuId = skuId,
+      networkThread = networkThread,
+      externalBuyerReference = externalBuyerReference,
+      isFreeTrial = isFreeTrial
+    )
       .map { SubscriptionStatus(true) }
-      .onErrorReturn {
+      .onErrorReturn {  // TODO error no free trial here
         val errorInfo = errorMapper.map(it)
         val isAlreadySubscribed = errorInfo.errorType == ErrorInfo.ErrorType.SUB_ALREADY_OWNED
         SubscriptionStatus(false, isAlreadySubscribed)

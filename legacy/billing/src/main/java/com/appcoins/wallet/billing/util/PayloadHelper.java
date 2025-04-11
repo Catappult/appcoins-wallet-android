@@ -19,6 +19,8 @@ public class PayloadHelper {
   private static final String PAYLOAD_PARAMETER = "payload";
   private static final String ORDER_PARAMETER = "order_reference";
   private static final String ORIGIN_PARAMETER = "origin";
+  private static final String EXTERNAL_BUYER_PARAMETER = "ofuscated_account_id";
+  private static final String IS_FREE_TRIAL_PARAMETER = "free_trial";
 
   /**
    * Method to build the payload required on the {@link AppcoinsBilling#getBuyIntent} method.
@@ -31,7 +33,8 @@ public class PayloadHelper {
    * @return The final developers payload to be sent
    */
   public static String buildIntentPayload(@Nullable String orderReference,
-      @Nullable String developerPayload, String origin) {
+      @Nullable String developerPayload, String origin, @Nullable String externalBuyerReference,
+      @Nullable Boolean isFreeTrial) {
     Uri.Builder builder = new Uri.Builder();
     builder.scheme(SCHEME)
         .authority("appcoins.io");
@@ -44,6 +47,13 @@ public class PayloadHelper {
     if (origin != null) {
       builder.appendQueryParameter(ORIGIN_PARAMETER, origin);
     }
+    if (externalBuyerReference != null) {
+      builder.appendQueryParameter(EXTERNAL_BUYER_PARAMETER, externalBuyerReference);
+    }
+    if (isFreeTrial != null) {
+      builder.appendQueryParameter(IS_FREE_TRIAL_PARAMETER, isFreeTrial.toString());
+    }
+
     return builder.toString();
   }
 
@@ -86,5 +96,18 @@ public class PayloadHelper {
     Uri uri = checkRequirements(uriString);
     if (uri == null) return null;
     return uri.getQueryParameter(ORIGIN_PARAMETER);
+  }
+
+  public static String getExternalBuyerReference(String uriString) {
+    Uri uri = checkRequirements(uriString);
+    if (uri == null) return null;
+    return uri.getQueryParameter(EXTERNAL_BUYER_PARAMETER);
+  }
+
+  public static Boolean isFreeTrial(String uriString) {
+    Uri uri = checkRequirements(uriString);
+    if (uri == null) return null;
+    String isFreeTrial = uri.getQueryParameter(IS_FREE_TRIAL_PARAMETER);
+    return isFreeTrial != null && Boolean.parseBoolean(isFreeTrial);
   }
 }

@@ -25,7 +25,7 @@ interface SubscriptionBillingApi {
     @Path("domain") domain: String,
     @Query("skus") skus: String?,
     @Query("limit") limit: Long? = null,
-    @Query("currency") currency: String? = null
+    @Query("currency") currency: String? = null,
   ): Single<SubscriptionsResponse>
 
   /**
@@ -40,7 +40,9 @@ interface SubscriptionBillingApi {
     @Path("sku") sku: String,
     @Query("currency") currency: String?,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String
+    @Query("wallet.signature") walletSignature: String,
+    @Query("external_buyer_reference") externalBuyerReference: String?,
+    @Query("enable_trial_period") isFreeTrial: Boolean?,
   ): Single<String>
 
   /**

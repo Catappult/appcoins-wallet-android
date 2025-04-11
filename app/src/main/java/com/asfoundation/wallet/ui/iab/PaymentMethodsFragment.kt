@@ -10,7 +10,6 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Pair
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -171,13 +170,15 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
     val paymentMethodsData =
       PaymentMethodsData(
-        appPackage,
-        isBds,
-        getDeveloperPayload(),
-        getUri(),
-        transactionBuilder!!.skuId,
-        getFrequency(),
-        getIsSubscription()
+        appPackage = appPackage,
+        isBds = isBds,
+        developerPayload = getDeveloperPayload(),
+        uri = getUri(),
+        sku = transactionBuilder!!.skuId,
+        frequency = getFrequency(),
+        subscription = getIsSubscription(),
+        externalBuyerReference = transactionBuilder!!.externalBuyerReference,
+        isFreeTrial = transactionBuilder!!.isFreeTrial
       )
     presenter =
       PaymentMethodsPresenter(
@@ -364,7 +365,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   @SuppressLint("NotifyDataSetChanged")
   private fun updateAdapter() {
-    paymentMethodsAdapter.showLogoutAction = presenter.showPayPalLogout || presenter.showAmazonPayLogout
+    paymentMethodsAdapter.showLogoutAction =
+      presenter.showPayPalLogout || presenter.showAmazonPayLogout
     paymentMethodsAdapter.notifyDataSetChanged()
   }
 

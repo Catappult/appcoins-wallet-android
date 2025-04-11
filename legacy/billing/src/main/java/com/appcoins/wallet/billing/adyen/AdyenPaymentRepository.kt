@@ -90,6 +90,8 @@ class AdyenPaymentRepository @Inject constructor(
     walletSignature: String,
     referrerUrl: String?,
     guestWalletId: String?,
+    externalBuyerReference: String?,
+    isFreeTrial: Boolean?
   ): Single<PaymentModel> {
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
@@ -101,7 +103,9 @@ class AdyenPaymentRepository @Inject constructor(
         sku = sku!!,
         currency = currency,
         walletAddress = walletAddress,
-        walletSignature = walletSignature
+        walletSignature = walletSignature,
+        externalBuyerReference = externalBuyerReference,
+        isFreeTrial = isFreeTrial
       )
         .subscribeOn(rxSchedulers.io)
         .map {

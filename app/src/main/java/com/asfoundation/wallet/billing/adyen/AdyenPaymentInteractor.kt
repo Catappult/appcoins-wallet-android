@@ -94,6 +94,8 @@ class AdyenPaymentInteractor @Inject constructor(
     transactionType: String,
     referrerUrl: String?,
     guestWalletId: String?,
+    externalBuyerReference: String?,
+    isFreeTrial: Boolean?
   ): Single<PaymentModel> {
     return Single.zip(
       walletService.getAndSignCurrentWalletAddress(),
@@ -126,6 +128,8 @@ class AdyenPaymentInteractor @Inject constructor(
               walletSignature = addressModel.signedAddress,
               referrerUrl = referrerUrl,
               guestWalletId = guestWalletId,
+              externalBuyerReference = externalBuyerReference,
+              isFreeTrial = isFreeTrial
             )
           }
       }
@@ -165,7 +169,9 @@ class AdyenPaymentInteractor @Inject constructor(
           userWallet = null,
           walletSignature = addressModel.signedAddress,
           referrerUrl = null,
-          guestWalletId = null
+          guestWalletId = null,
+          externalBuyerReference = null,
+          isFreeTrial = null
         )
       }
   }
@@ -207,7 +213,9 @@ class AdyenPaymentInteractor @Inject constructor(
           userWallet = null,
           walletSignature = it.signedAddress,
           referrerUrl = null,
-          guestWalletId = null
+          guestWalletId = null,
+          externalBuyerReference = null,
+          isFreeTrial = null
         )
       }
   }
@@ -289,10 +297,11 @@ class AdyenPaymentInteractor @Inject constructor(
     return if (timesCalled < MAX_NUMBER_OF_TRIES) {
       walletService.getAndSignCurrentWalletAddress()
         .flatMap { walletAddressModel ->
-          Single.zip(adyenPaymentRepository.getTransaction(
-            uid, walletAddressModel.address,
-            walletAddressModel.signedAddress
-          ),
+          Single.zip(
+            adyenPaymentRepository.getTransaction(
+              uid, walletAddressModel.address,
+              walletAddressModel.signedAddress
+            ),
             Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS, rxSchedulers.io),
             BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })
         }
