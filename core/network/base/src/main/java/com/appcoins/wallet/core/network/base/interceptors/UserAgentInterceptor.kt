@@ -17,8 +17,7 @@ class UserAgentInterceptor(
   private val commonsPreferencesDataSource: CommonsPreferencesDataSource
 ) :
   Interceptor {
-
-  private val userAgent: String
+    val userAgent: String
     get() {
       val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
       val display = wm.defaultDisplay
