@@ -213,10 +213,6 @@ class WebViewPaymentViewModel @Inject constructor(
     )
   }
 
-  fun resetUiState() {
-    _uiState.value = UiState.ShowPaymentMethods
-  }
-
   fun showSupport() {
     compositeDisposable.add(
       supportInteractor.showSupport().subscribe({}, {})

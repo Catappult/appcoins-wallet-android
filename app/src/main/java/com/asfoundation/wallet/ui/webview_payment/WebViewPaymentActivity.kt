@@ -267,6 +267,33 @@ class WebViewPaymentActivity : AppCompatActivity() {
             .clickable { finish() }
         )
       }
+      Box(
+        modifier = Modifier
+          .fillMaxWidth()
+          .height(16.dp)
+          .background(
+            color = if (isDarkModeEnabled(context))
+              styleguide_blue_webview_payment
+            else
+              styleguide_light_grey,
+            shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
+          )
+      )
+      AndroidView(
+        modifier = Modifier
+          .fillMaxWidth()
+          .weight(
+            if (isLandscape)
+              1f
+            else
+              if (isPortraitSpaceForWeb.value)
+                0.8f
+              else
+                0.98f
+          )
+          .background(styleguide_light_grey),
+        factory = { webView }
+      )
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is WebViewPaymentViewModel.UiState.FinishActivity -> finishActivity(uiState.bundle)
         WebViewPaymentViewModel.UiState.Finish -> finish()
@@ -274,35 +301,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
           viewModel.sendRevenueEvent(transactionBuilder)
           finish(uiState.bundle)
         }
-        WebViewPaymentViewModel.UiState.ShowPaymentMethods -> {
-          Box(
-            modifier = Modifier
-              .fillMaxWidth()
-              .height(16.dp)
-              .background(
-                color = if (isDarkModeEnabled(context))
-                  styleguide_blue_webview_payment
-                else
-                  styleguide_light_grey,
-                shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
-              )
-          )
-            AndroidView(
-              modifier = Modifier
-                .fillMaxWidth()
-                .weight(
-                  if (isLandscape)
-                    1f
-                  else
-                    if (isPortraitSpaceForWeb.value)
-                      0.8f
-                    else
-                      0.98f
-                )
-                .background(styleguide_light_grey),
-              factory = { webView }
-            )
-          }
+        else -> {}
       }
     }
   }
