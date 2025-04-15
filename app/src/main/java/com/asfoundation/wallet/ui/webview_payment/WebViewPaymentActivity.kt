@@ -46,12 +46,10 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
-import com.asfoundation.wallet.analytics.PaymentMethodAnalyticsMapper
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,9 +65,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   @Inject
   lateinit var analytics: BillingAnalytics
-
-  @Inject
-  lateinit var paymentAnalytics: PaymentMethodsAnalytics
 
   private var shouldAllowExternalApps = true
 
@@ -247,15 +242,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
         viewModel.webView = this
       }
     }
+
     BackHandler(enabled = true) {
-      if (webView.canGoBack()) {
-        viewModel.resetUiState()
-        webView.goBack()
-        webView.loadUrl(webView.url ?: "")
-      } else {
-        webView.loadUrl("about:blank")
-        finish()
-      }
+      finish()
     }
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     Column(
@@ -278,47 +267,44 @@ class WebViewPaymentActivity : AppCompatActivity() {
             .clickable { finish() }
         )
       }
-    when (val uiState = viewModel.uiState.collectAsState().value) {
-      WebViewPaymentViewModel.UiState.FinishActivity -> finish()
-      is WebViewPaymentViewModel.UiState.FinishWithBundle -> {
-        viewModel.sendRevenueEvent(transactionBuilder)
-        finish(uiState.bundle)
-      }
-      is WebViewPaymentViewModel.UiState.StopTimingForPurchaseEvent -> { stopTimingForPurchaseEvent(uiState.success, uiState.paymentMethod) }
-      WebViewPaymentViewModel.UiState.Idle,
-      WebViewPaymentViewModel.UiState.LoadingPayment,
-      WebViewPaymentViewModel.UiState.ShowPaymentMethods -> {
-        Box(
-          modifier = Modifier
-            .fillMaxWidth()
-            .height(16.dp)
-            .background(
-              color = if (isDarkModeEnabled(context))
-                styleguide_blue_webview_payment
-              else
-                styleguide_light_grey,
-              shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
-            )
-        )
-          AndroidView(
+      when (val uiState = viewModel.uiState.collectAsState().value) {
+        is WebViewPaymentViewModel.UiState.FinishActivity -> finishActivity(uiState.bundle)
+        WebViewPaymentViewModel.UiState.Finish -> finish()
+        is WebViewPaymentViewModel.UiState.FinishWithBundle -> {
+          viewModel.sendRevenueEvent(transactionBuilder)
+          finish(uiState.bundle)
+        }
+        WebViewPaymentViewModel.UiState.ShowPaymentMethods -> {
+          Box(
             modifier = Modifier
               .fillMaxWidth()
-              .weight(
-                if (isLandscape)
-                  1f
+              .height(16.dp)
+              .background(
+                color = if (isDarkModeEnabled(context))
+                  styleguide_blue_webview_payment
                 else
-                  if (isPortraitSpaceForWeb.value)
-                    0.8f
-                  else
-                    0.98f
+                  styleguide_light_grey,
+                shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
               )
-              .background(styleguide_light_grey),
-            factory = { webView }
           )
-        }
+            AndroidView(
+              modifier = Modifier
+                .fillMaxWidth()
+                .weight(
+                  if (isLandscape)
+                    1f
+                  else
+                    if (isPortraitSpaceForWeb.value)
+                      0.8f
+                    else
+                      0.98f
+                )
+                .background(styleguide_light_grey),
+              factory = { webView }
+            )
+          }
       }
     }
-
   }
 
 
@@ -329,32 +315,27 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   fun finish(bundle: Bundle) =
     if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
-      viewModel.handleBackupNotifications(bundle, context = baseContext)
-      viewModel.handlePerkNotifications(bundle, context = baseContext)
+      viewModel.handleBackupNotifications(bundle, context = this)
+      viewModel.handlePerkNotifications(bundle, context = this)
     } else {
-      Log.i(TAG, "finish: ${bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE)}")
+      Log.i(TAG, "finish bundle: ${bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE)}")
       finishActivity(bundle)
     }
 
-  fun finishActivity(data: Bundle) {
+  private fun finishActivity(data: Bundle) {
     data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
     setResult(RESULT_OK, Intent().putExtras(data))
     finish()
   }
 
 
-  fun isDarkModeEnabled(context: Context): Boolean {
+  private fun isDarkModeEnabled(context: Context): Boolean {
     return (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
         Configuration.UI_MODE_NIGHT_YES
   }
 
 
-  private fun stopTimingForPurchaseEvent(success: Boolean, paymentMethod: String) {
-    val paymentMethodAnalytics = PaymentMethodAnalyticsMapper.mapPaymentToAnalytics(paymentMethod)
-    paymentAnalytics.stopTimingForPurchaseEvent(paymentMethodAnalytics, success, false)
-  }
-
-  fun goToVerify(flow: VerifyFlowWeb) {
+  private fun goToVerify(flow: VerifyFlowWeb) {
     when (flow) {
       VerifyFlowWeb.CREDIT_CARD -> {
         showCreditCardVerification(false)

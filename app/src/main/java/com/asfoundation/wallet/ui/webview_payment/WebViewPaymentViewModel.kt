@@ -39,14 +39,13 @@ class WebViewPaymentViewModel @Inject constructor(
   private val paymentAnalytics: PaymentMethodsAnalytics
 ) : ViewModel() {
 
-  private var _uiState = MutableStateFlow<UiState>(UiState.Idle)
+  private var _uiState = MutableStateFlow<UiState>(UiState.ShowPaymentMethods)
   var uiState: StateFlow<UiState> = _uiState
 
   private val compositeDisposable = CompositeDisposable()
   private val TAG = "WebViewModel"
   var runningCustomTab = false
   var isFirstRun: Boolean = true
-  @SuppressLint("StaticFieldLeak")
   var webView: WebView? = null
 
   fun createSuccessBundleAndFinish(
@@ -76,7 +75,7 @@ class WebViewPaymentViewModel @Inject constructor(
         .subscribeOn(rxSchedulers.io)
         .observeOn(rxSchedulers.io)
         .doOnError {
-          _uiState.value = UiState.FinishActivity
+          _uiState.value = UiState.Finish
         }
         .subscribe({}, { Log.i(TAG, "createSuccessBundleAndFinish: ${it.message}") })
     )
@@ -87,7 +86,7 @@ class WebViewPaymentViewModel @Inject constructor(
       Single.just(transactionBuilder)
       .subscribeOn(rxSchedulers.io)
       .subscribe { transaction ->
-        _uiState.value = UiState.StopTimingForPurchaseEvent(true, paymentMethod)
+        stopTimingForPurchaseEvent(true, paymentMethod)
         analytics.sendPaymentEvent(
           transaction.domain,
           transaction.skuId,
@@ -96,6 +95,11 @@ class WebViewPaymentViewModel @Inject constructor(
           transaction.type
         )
       })
+  }
+
+  private fun stopTimingForPurchaseEvent(success: Boolean, paymentMethod: String) {
+    val paymentMethodAnalytics = PaymentMethodAnalyticsMapper.mapPaymentToAnalytics(paymentMethod)
+    paymentAnalytics.stopTimingForPurchaseEvent(paymentMethodAnalytics, success, false)
   }
 
   fun sendPaymentSuccessEvent(
@@ -165,9 +169,9 @@ class WebViewPaymentViewModel @Inject constructor(
       .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
       .doOnSuccess {
         PerkBonusAndGamificationService.buildService(context, it.address)
-        _uiState.value = UiState.FinishWithBundle(bundle)
+        _uiState.value = UiState.FinishActivity(bundle)
       }
-      .doOnError {  _uiState.value = UiState.FinishWithBundle(bundle) }
+      .doOnError {  _uiState.value = UiState.FinishActivity(bundle) }
       .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -183,9 +187,9 @@ class WebViewPaymentViewModel @Inject constructor(
             walletAddress = notificationNeeded.walletAddress
           )
         }
-        _uiState.value = UiState.FinishWithBundle(bundle)
+        _uiState.value = UiState.FinishActivity(bundle)
       }
-      .doOnError {  _uiState.value = UiState.FinishWithBundle(bundle) }
+      .doOnError {  _uiState.value = UiState.FinishActivity(bundle) }
       .subscribe({ }, { it.printStackTrace() })
     )
   }
@@ -210,7 +214,7 @@ class WebViewPaymentViewModel @Inject constructor(
   }
 
   fun resetUiState() {
-    _uiState.value = UiState.Idle
+    _uiState.value = UiState.ShowPaymentMethods
   }
 
   fun showSupport() {
@@ -220,11 +224,9 @@ class WebViewPaymentViewModel @Inject constructor(
   }
 
   sealed class UiState {
-    data object Idle : UiState()
     data class FinishWithBundle(val bundle: Bundle) : UiState()
-    data object FinishActivity : UiState()
-    data object LoadingPayment : UiState()
+    data class FinishActivity(val bundle: Bundle) : UiState()
+    data object Finish : UiState()
     data object ShowPaymentMethods : UiState()
-    data class StopTimingForPurchaseEvent(val success: Boolean, val paymentMethod: String) : UiState()
   }
 }
