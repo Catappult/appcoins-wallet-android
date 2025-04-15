@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.home
 
+import android.app.AlertDialog
 import android.content.res.Configuration
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -7,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -44,13 +43,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -60,7 +57,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import coil.compose.rememberAsyncImagePainter
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -74,7 +70,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.widgets.BalanceCard
+import com.appcoins.wallet.ui.widgets.BalanceNewCard
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.ConfirmEmailCard
 import com.appcoins.wallet.ui.widgets.GamesBundle
@@ -126,6 +122,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   private val navBarViewModel: NavBarViewModel by activityViewModels()
   private val hasGetSomeValidBalanceResult = mutableStateOf(false)
   private val fragmentName = this::class.java.simpleName
+  private var balanceCurrency: String = ""
+  private var balanceValue: String = ""
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -191,12 +189,26 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   @Composable
   internal fun HomeScreenContent(padding: PaddingValues) {
+    getBalanceText(viewModel)
     Column(
       modifier = Modifier
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
-      BalanceCard(
+      BalanceNewCard(
+        onClickTopUp = { viewModel.onTopUpClick() },
+        isLoading = (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
+            !viewModel.isLoadingTransactions.value,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics,
+        onClickPromoCode = { navigator.navigateToPromoCode()},
+        onClickBackup = { viewModel.onBackupClick() },
+        onClickMore = { navigator.navigateToManageBottomSheet(viewModel.canTransfer.value) },
+        balance = balanceValue,
+        showBackup = viewModel.showBackup.value,
+        onClickDetailsBalance = { navigator.navigateToDetailsBalanceBottomSheet(balanceValue, balanceCurrency) },
+      )
+      /*BalanceCard(
         newWallet = viewModel.newWallet.value,
         showBackup = viewModel.showBackup.value,
         balanceContent = { BalanceContent() },
@@ -209,7 +221,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             !viewModel.isLoadingTransactions.value,
         fragmentName = fragmentName,
         buttonsAnalytics = buttonsAnalytics
-      )
+      )*/
       if(viewModel.showRebrandingBanner.value) {
         RebrandingBanner()
       }
@@ -230,6 +242,20 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         viewModel.referenceSendPromotionClickEvent()
       ) { viewModel.fetchGamesListing() }
       Spacer(modifier = Modifier.padding(40.dp))
+    }
+  }
+
+  @Composable
+  fun getBalanceText(viewModel: HomeViewModel): String {
+    return when (val balanceState = viewModel.uiBalanceState.collectAsState().value) {
+      is HomeViewModel.UiBalanceState.Success -> {
+        val balance = balanceState.balance.creditsOnlyFiat
+        balanceCurrency = balance.currency
+        balanceValue = balance.symbol + formatter.formatCurrency(balance.amount, FIAT)
+        balanceValue
+
+      }
+      else -> ""
     }
   }
 
@@ -525,16 +551,16 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     if (RootUtil.isDeviceRooted() && pref.getBoolean("should_show_root_warning", true)) {
       pref.edit().putBoolean("should_show_root_warning", false).apply()
       val alertDialog =
-        android.app.AlertDialog.Builder(context)
+        AlertDialog.Builder(context)
           .setTitle(R.string.root_title)
           .setMessage(R.string.root_body)
           .setNegativeButton(R.string.ok) { _, _ -> }
           .show()
       alertDialog
-        .getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
+        .getButton(AlertDialog.BUTTON_NEGATIVE)
         .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
       alertDialog
-        .getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
+        .getButton(AlertDialog.BUTTON_NEGATIVE)
         .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_primary, null))
     }
   }

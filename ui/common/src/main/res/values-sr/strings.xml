@@ -304,6 +304,8 @@
   <string name="topup_button">Dopunite</string>
   <string name="extra_bonus_title">Osvojite dodatni bonus od %s%%</string>
   <string name="max">Maks.</string>
+  <string name="month">month</string>
+  <string name="week">week</string>
   <string name="payment_method">Način plaćanja</string>
   <string name="credit_debit_card">Kreditna/debitna kartica</string>
   <string name="paypal">PayPal</string>
@@ -567,6 +569,12 @@
   <string name="subscriptions_per_several_month">%1$s na svakih %2$s meseci</string>
   <string name="subscriptions_per_several_year">%1$s na svakih %2$s godina</string>
   <string name="subscriptions_error_already_subscribed">Ups, izgleda da ste već pretplaćeni na ovu uslugu! Slobodno nas kontaktirajte.</string>
+  <string name="subscriptions_starting_today_body">Starting Today</string>
+  <string name="subscriptions_starting_on_body">Starting on %s</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
+  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_renew_title">Renews on %s</string>
   <!--New Gamification-->
   <string name="gamif_title">Do %s%% bonusa!</string>
   <string name="gamif_bonus_received">bounsa je dobijeno</string>
@@ -827,6 +835,23 @@
   <string name="rebranding_disclaimer_long_body"> Radimo na uzbudljivom redizajnu našeg brenda i utiska. Ostanite u toku i otkrijte omiljene funkcije i nagrade uz potpuno novi izgled!</string>
   <string name="rebranding_post_title">AppCoins Wallet je sada Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Otkrijte omiljene funkcije i nagrade uz potpuno novi izgled. Nadamo se da će vam se dopasti!</string>
+  <!-- App store screenshots -->
+  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
+  <string name="app_store_screen_2">Your tool for in-app purchases</string>
+  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
+  <string name="app_store_screen_4">Your favorite payment methods</string>
+  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_6">and more...</string>
+  <!-- Home buttons -->
+  <string name="home_promo_code_button">Promo Code</string>
+  <string name="home_top_up_button">Top Up</string>
+  <string name="home_manage_wallet_button">Manage Wallets</string>
+  <string name="home_backup_wallet_button">Back Up Wallet</string>
+  <string name="home_restore_wallet_button">Restore Wallet</string>
+  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <!-- Discord -->
+  <string name="discord_card_title">Join Our Discord Community!</string>
+  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

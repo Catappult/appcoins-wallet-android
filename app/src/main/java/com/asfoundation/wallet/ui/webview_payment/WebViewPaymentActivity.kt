@@ -42,6 +42,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
@@ -92,6 +93,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   @Inject
   lateinit var paymentAnalytics: PaymentMethodsAnalytics
+
+  @Inject
+  lateinit var logger: Logger
 
   private val compositeDisposable = CompositeDisposable()
 
@@ -260,6 +264,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
             addJavascriptInterface(
               WebViewPaymentInterface(
+                logger = logger,
                 intercomCallback = { showSupport() },
                 allowExternalAppsCallback = {
                   shouldAllowExternalApps = it

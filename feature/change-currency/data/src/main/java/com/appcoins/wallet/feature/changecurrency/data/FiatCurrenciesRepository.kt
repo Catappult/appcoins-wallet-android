@@ -55,7 +55,9 @@ class FiatCurrenciesRepository @Inject constructor(
     return if (fiatCurrenciesPreferencesDataSource.getSelectCurrency()) {
       val fiatValue: FiatValue = conversionService.localCurrency.await()
       fiatCurrenciesPreferencesDataSource.setSelectedCurrency(fiatValue.currency)
+      fiatCurrenciesPreferencesDataSource.setSelectedCurrencySymbol(fiatValue.symbol)
       fiatCurrenciesPreferencesDataSource.setSelectFirstTime()
+      fiatCurrenciesPreferencesDataSource.setSelectFirstTimeSymbol()
       fiatValue.currency.toDataResult()
     } else {
       getCachedResultSelectedCurrency()
@@ -65,7 +67,9 @@ class FiatCurrenciesRepository @Inject constructor(
   suspend fun getSelectedCurrencySymbol(): DataResult<String> {
     return if (fiatCurrenciesPreferencesDataSource.getSelectCurrencySymbol()) {
       val fiatValue: FiatValue = conversionService.localCurrency.await()
+      fiatCurrenciesPreferencesDataSource.setSelectedCurrency(fiatValue.currency)
       fiatCurrenciesPreferencesDataSource.setSelectedCurrencySymbol(fiatValue.symbol)
+      fiatCurrenciesPreferencesDataSource.setSelectFirstTimeSymbol()
       fiatCurrenciesPreferencesDataSource.setSelectFirstTime()
       fiatValue.symbol.toDataResult()
     } else {
@@ -91,6 +95,12 @@ class FiatCurrenciesRepository @Inject constructor(
   suspend fun setSelectedCurrency(currency: String) {
     withContext(dispatchers.io) {
       fiatCurrenciesPreferencesDataSource.setSelectedCurrency(currency)
+    }
+  }
+
+  suspend fun setSelectedCurrencySymbol(symbol: String) {
+    withContext(dispatchers.io) {
+      fiatCurrenciesPreferencesDataSource.setSelectedCurrencySymbol(symbol)
     }
   }
 }

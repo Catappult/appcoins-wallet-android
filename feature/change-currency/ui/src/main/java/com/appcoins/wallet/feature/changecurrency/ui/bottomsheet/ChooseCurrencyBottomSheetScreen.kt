@@ -57,7 +57,7 @@ internal fun ChooseCurrencyRoute(
 @Composable
 fun ChooseCurrencyScreen(
   chosenCurrency: FiatCurrency?,
-  currencyConfirmationClick: (String) -> Unit,
+  currencyConfirmationClick: (String, String?) -> Unit,
   fragmentName: String,
   buttonsAnalytics: ButtonsAnalytics?
 ) {
@@ -87,7 +87,7 @@ fun ChooseCurrencyScreen(
     ButtonWithText(
       label = stringResource(id = R.string.confirm_button),
       onClick = {
-        currencyConfirmationClick(chosenCurrency.currency)
+        currencyConfirmationClick(chosenCurrency.currency, chosenCurrency.sign)
       },
       backgroundColor = WalletColors.styleguide_primary,
       labelColor = MaterialTheme.colorScheme.primaryContainer,
@@ -107,7 +107,7 @@ private fun ChooseCurrencyPreview() {
       flag = "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
       sign = "€"
     ),
-    currencyConfirmationClick = {},
+    currencyConfirmationClick = { a,b -> },
     fragmentName = "HomeFragment",
     buttonsAnalytics = null
   )
