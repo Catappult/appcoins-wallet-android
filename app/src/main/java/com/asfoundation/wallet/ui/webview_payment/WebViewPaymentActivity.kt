@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Rect
 import android.net.Uri.parse
@@ -72,8 +73,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   private var shouldAllowExternalApps = true
 
-  private var webViewInstance: WebView? = null
-
   @Inject
   lateinit var logger: Logger
 
@@ -97,7 +96,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    //requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay)
     setKeyboardListener()
     setContent {
@@ -109,11 +108,11 @@ class WebViewPaymentActivity : AppCompatActivity() {
     super.onNewIntent(intent)
     val data = intent?.data?.toString().orEmpty()
 
-    webViewInstance?.post {
+    viewModel.webView?.post {
       if (data.isNotBlank()) {
-        webViewInstance?.loadUrl("javascript:onPaymentStateUpdated(\"$data\")")
+        viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated(\"$data\")")
       } else {
-        webViewInstance?.loadUrl("javascript:onPaymentStateUpdated()")
+        viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated()")
       }
     }
   }
@@ -124,7 +123,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
       viewModel.isFirstRun = false
     } else {
       if (viewModel.runningCustomTab) {
-        webViewInstance?.loadUrl("javascript:onPaymentStateUpdated()")
+        viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated()")
         viewModel.runningCustomTab = false
       }
     }
