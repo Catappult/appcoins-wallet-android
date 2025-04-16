@@ -42,7 +42,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
@@ -53,6 +57,10 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ApplicationContext
+import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
+import java.math.BigDecimal
 import javax.inject.Inject
 import androidx.core.net.toUri
 
@@ -72,6 +80,20 @@ class WebViewPaymentActivity : AppCompatActivity() {
   lateinit var logger: Logger
 
   private val viewModel: WebViewPaymentViewModel by viewModels()
+  @Inject
+  @ApplicationContext
+  lateinit var context: Context
+
+  @Inject
+  lateinit var commonsPreferencesDataSource: CommonsPreferencesDataSource
+
+  lateinit var userAgentInterceptor: UserAgentInterceptor
+
+  private val compositeDisposable = CompositeDisposable()
+
+  private var shouldAllowExternalApps = true
+
+  private var webViewInstance: WebView? = null
 
   companion object {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
@@ -94,6 +116,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay)
     setKeyboardListener()
+    userAgentInterceptor = UserAgentInterceptor(context, commonsPreferencesDataSource)
+
     setContent {
       MainContent(url)
     }
@@ -152,6 +176,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
         settings.domStorageEnabled = true
         settings.useWideViewPort = true
         settings.databaseEnabled = true
+        settings.userAgentString = userAgentInterceptor.userAgent
         CookieManager.getInstance().setAcceptThirdPartyCookies(this, true)
         CookieManager.getInstance().setAcceptCookie(true)
 
