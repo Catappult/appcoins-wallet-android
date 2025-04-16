@@ -74,8 +74,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
   @Inject
   lateinit var analytics: BillingAnalytics
 
-  private var shouldAllowExternalApps = true
-
   @Inject
   lateinit var logger: Logger
 
