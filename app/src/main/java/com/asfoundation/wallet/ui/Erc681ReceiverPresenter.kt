@@ -36,7 +36,6 @@ internal class Erc681ReceiverPresenter(
   private val billingAnalytics: BillingAnalytics,
   private var addressService: AddressService,
   private val logger: Logger,
-  private val appVersionName: String?,
   private val appVersionCode: Int?
 ) {
   private var firstImpression = true
@@ -98,7 +97,7 @@ internal class Erc681ReceiverPresenter(
   private fun startWebViewPayment(
     transaction: TransactionBuilder,
   ): Single<String> {
-    return createWebViewPaymentSdkUseCase(transaction, appVersionName)
+    return createWebViewPaymentSdkUseCase(transaction, appVersionCode.toString())
       .doOnSuccess { url ->
         view.launchWebViewPayment(url, transaction)
       }
