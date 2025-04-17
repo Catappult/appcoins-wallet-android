@@ -201,15 +201,24 @@ class RemoteRepository(
     walletSignature: String,
     externalBuyerReference: String?,
     isFreeTrial: Boolean?
-  ): Single<String> = subsApi.getSkuSubscriptionToken(
-    domain = domain,
-    sku = skuId,
-    currency = null,
-    walletAddress = walletAddress,
-    walletSignature = walletSignature,
-    externalBuyerReference = externalBuyerReference,
-    isFreeTrial = isFreeTrial
-  )
+  ): Single<String> = if (isFreeTrial == true)
+    subsApi.getSkuSubscriptionFreeTrialToken(
+      domain = domain,
+      sku = skuId,
+      currency = null,
+      walletAddress = walletAddress,
+      walletSignature = walletSignature,
+      externalBuyerReference = externalBuyerReference,
+      isFreeTrial = isFreeTrial
+    )
+  else
+    subsApi.getSkuSubscriptionToken(
+      domain = domain,
+      sku = skuId,
+      currency = null,
+      walletAddress = walletAddress,
+      walletSignature = walletSignature,
+    )
 
   fun registerAuthorizationProof(
     origin: String?,

@@ -98,15 +98,25 @@ class AdyenPaymentRepository @Inject constructor(
     } else
       "Ecommerce"
     return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
-      subscriptionsApi.getSkuSubscriptionToken(
-        domain = packageName!!,
-        sku = sku!!,
-        currency = currency,
-        walletAddress = walletAddress,
-        walletSignature = walletSignature,
-        externalBuyerReference = externalBuyerReference,
-        isFreeTrial = isFreeTrial
-      )
+      if (isFreeTrial == true) {
+        subscriptionsApi.getSkuSubscriptionFreeTrialToken(
+          domain = packageName!!,
+          sku = sku!!,
+          currency = currency,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          externalBuyerReference = externalBuyerReference,
+          isFreeTrial = isFreeTrial
+        )
+      } else {
+        subscriptionsApi.getSkuSubscriptionToken(
+          domain = packageName!!,
+          sku = sku!!,
+          currency = currency,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+        )
+      }
         .subscribeOn(rxSchedulers.io)
         .map {
           TokenPayment(

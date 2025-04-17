@@ -794,7 +794,8 @@ class PaymentMethodsPresenter(
         appcEnabled,
         creditsEnabled,
         frequency,
-        paymentMethodsData.subscription
+        paymentMethodsData.subscription,
+        paymentMethodsData.isFreeTrial,
       )
       sendPaymentMethodsEvents()
     }
@@ -814,7 +815,8 @@ class PaymentMethodsPresenter(
       fiatAmount,
       isBonusActive,
       frequency,
-      paymentMethodsData.subscription
+      paymentMethodsData.subscription,
+      paymentMethodsData.isFreeTrial,
     )
     sendPreSelectedPaymentMethodsEvents()
   }
@@ -1060,7 +1062,9 @@ class PaymentMethodsPresenter(
 
     view.updatePriceAndCurrency(
       currency = price.currency,
-      amount = sumPriceAndFee(price.amount, fee)
+      amount = sumPriceAndFee(price.amount, fee),
+      frequency = paymentMethodsData.frequency,
+      isFreeTrial = paymentMethodsData.isFreeTrial,
     )
   }
 

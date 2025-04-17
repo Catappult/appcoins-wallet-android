@@ -13,13 +13,13 @@ interface PaymentMethodsView {
     paymentMethods: MutableList<PaymentMethod>,
     currency: String, paymentMethodId: String, fiatAmount: String,
     appcEnabled: Boolean, creditsEnabled: Boolean,
-    frequency: String?, isSubscription: Boolean
+    frequency: String?, isSubscription: Boolean, isFreeTrial: Boolean
   )
 
   fun showPreSelectedPaymentMethod(
     paymentMethod: PaymentMethod, currency: String,
     fiatAmount: String, isBonusActive: Boolean,
-    frequency: String?, isSubscription: Boolean
+    frequency: String?, isSubscription: Boolean, isFreeTrial: Boolean
   )
 
   fun showError(message: Int)
@@ -163,11 +163,17 @@ interface PaymentMethodsView {
 
   fun showFee(hasFee: Boolean)
 
-  fun updatePriceAndCurrency(currency: String, amount: BigDecimal)
+  fun updatePriceAndCurrency(
+    currency: String,
+    amount: BigDecimal,
+    frequency: String?,
+    isFreeTrial: Boolean
+  )
 
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS,
-    EARN_APPC, CARRIER_BILLING, ERROR, SANDBOX, CHALLENGE_REWARD, VKPAY, GOOGLEPAY_WEB, MI_PAY, AMAZONPAY
+    EARN_APPC, CARRIER_BILLING, ERROR, SANDBOX, CHALLENGE_REWARD, VKPAY, GOOGLEPAY_WEB, MI_PAY,
+    AMAZONPAY
   }
 
   enum class PaymentMethodId(val id: String) {

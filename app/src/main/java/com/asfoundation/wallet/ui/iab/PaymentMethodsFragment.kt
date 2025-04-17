@@ -177,8 +177,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         sku = transactionBuilder!!.skuId,
         frequency = getFrequency(),
         subscription = getIsSubscription(),
-        externalBuyerReference = transactionBuilder!!.externalBuyerReference,
-        isFreeTrial = transactionBuilder!!.isFreeTrial
+        externalBuyerReference = transactionBuilder?.externalBuyerReference,
+        isFreeTrial = transactionBuilder?.isFreeTrial ?: false
       )
     presenter =
       PaymentMethodsPresenter(
@@ -246,9 +246,16 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     appcEnabled: Boolean,
     creditsEnabled: Boolean,
     frequency: String?,
-    isSubscription: Boolean
+    isSubscription: Boolean,
+    isFreeTrial: Boolean
   ) {
-    updateHeaderInfo(currency, fiatAmount, frequency, isSubscription)
+    updateHeaderInfo(
+      currency = currency,
+      fiatAmount = fiatAmount,
+      frequency = frequency,
+      isSubscription = isSubscription,
+      isFreeTrial = isFreeTrial
+    )
     setupPaymentMethods(paymentMethods, paymentMethodId)
     if (paymentMethods.size == 1 && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id) {
       hideBonus()
@@ -271,11 +278,34 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.paymentMethodsHeader.infoFeesGroup.visibility = if (hasFee) View.VISIBLE else View.GONE
   }
 
-  override fun updatePriceAndCurrency(currency: String, amount: BigDecimal) {
-    val price = if (isPortraitMode(requireContext())) {
-      getString(R.string.purchase_total_header, amount, currency)
-    } else {
-      getString(R.string.gas_price_value, amount, currency)
+  override fun updatePriceAndCurrency(currency: String, amount: BigDecimal, frequency: String?, isFreeTrial: Boolean) {
+    var fiatPrice = "$amount $currency"
+    val period = Period.parse(frequency ?: "")
+    period?.mapToSubsFrequency(requireContext(), fiatPrice)?.let { fiatPrice = it }
+    val price = when {
+      isPortraitMode(requireContext()) -> if (getIsSubscription()) {
+        if (isFreeTrial) {
+          binding.paymentMethodsHeader.freeTrialLayout.visibility = View.VISIBLE
+          "0.00 $currency"
+        } else {
+          binding.paymentMethodsHeader.freeTrialLayout.visibility = View.GONE
+          fiatPrice
+        }
+      } else {
+        getString(R.string.purchase_total_header, amount, currency)
+      }
+
+      else -> if (getIsSubscription()) {
+        if (isFreeTrial) {
+          binding.paymentMethodsHeader.freeTrialLayout.visibility = View.VISIBLE
+          "0.00 $currency"
+        } else {
+          binding.paymentMethodsHeader.freeTrialLayout.visibility = View.GONE
+          fiatPrice
+        }
+      } else {
+        getString(R.string.gas_price_value, amount, currency)
+      }
     }
 
     with(binding.paymentMethodsHeader.fiatPrice) {
@@ -374,15 +404,24 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     currency: String,
     fiatAmount: String,
     frequency: String?,
-    isSubscription: Boolean
+    isSubscription: Boolean,
+    isFreeTrial: Boolean
   ) {
     var fiatPrice = "$fiatAmount $currency"
     if (isSubscription) {
       val period = Period.parse(frequency!!)
       period?.mapToSubsFrequency(requireContext(), fiatPrice)?.let { fiatPrice = it }
+      binding.paymentMethodsHeader.fiatPrice.text = if (isFreeTrial) {
+        binding.paymentMethodsHeader.freeTrialLayout.visibility = View.VISIBLE
+        "0.00 $currency"
+      } else {
+        binding.paymentMethodsHeader.freeTrialLayout.visibility = View.GONE
+        fiatPrice
+      }
+    } else {
+      binding.paymentMethodsHeader.fiatPrice.text =
+        getString(R.string.purchase_total_header, fiatAmount, currency)
     }
-    binding.paymentMethodsHeader.fiatPrice.text =
-      getString(R.string.purchase_total_header, fiatAmount, currency)
     binding.paymentMethodsHeader.fiatPriceSkeleton.root.visibility = View.GONE
     binding.paymentMethodsHeader.appcPriceSkeleton.root.visibility = View.GONE
     binding.paymentMethodsHeader.fiatPrice.visibility = View.VISIBLE
@@ -400,10 +439,17 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     fiatAmount: String,
     isBonusActive: Boolean,
     frequency: String?,
-    isSubscription: Boolean
+    isSubscription: Boolean,
+    isFreeTrial: Boolean
   ) {
     preSelectedPaymentMethod!!.onNext(paymentMethod)
-    updateHeaderInfo(currency, fiatAmount, frequency, isSubscription)
+    updateHeaderInfo(
+      currency = currency,
+      fiatAmount = fiatAmount,
+      frequency = frequency,
+      isSubscription = isSubscription,
+      isFreeTrial = isFreeTrial,
+    )
 
     setupPaymentMethod(paymentMethod, isBonusActive, isSubscription)
     setupSubject!!.onNext(true)
