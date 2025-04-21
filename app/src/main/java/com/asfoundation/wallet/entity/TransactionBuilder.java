@@ -57,6 +57,8 @@ public class TransactionBuilder implements Parcelable {
   @Nullable private String guestWalletId;
   @Nullable private String externalBuyerReference;
   @Nullable private Boolean isFreeTrial;
+  @Nullable private String freeTrialDuration;
+  @Nullable private String subscriptionStartingDate;
 
   public TransactionBuilder(TransactionBuilder transactionBuilder) {
     this.contractAddress = transactionBuilder.contractAddress;
@@ -91,6 +93,8 @@ public class TransactionBuilder implements Parcelable {
     this.guestWalletId = transactionBuilder.guestWalletId;
     this.externalBuyerReference = transactionBuilder.externalBuyerReference;
     this.isFreeTrial = transactionBuilder.isFreeTrial;
+    this.freeTrialDuration = transactionBuilder.freeTrialDuration;
+    this.subscriptionStartingDate = transactionBuilder.subscriptionStartingDate;
   }
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
@@ -136,6 +140,8 @@ public class TransactionBuilder implements Parcelable {
     guestWalletId = in.readString();
     externalBuyerReference = in.readString();
     isFreeTrial = in.readInt() == 1 ? Boolean.TRUE : null;
+    freeTrialDuration = in.readString();
+    subscriptionStartingDate = in.readString();
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
@@ -183,29 +189,14 @@ public class TransactionBuilder implements Parcelable {
   }
 
   //Subs
-  public TransactionBuilder(String symbol,
-      String contractAddress,
-      Long chainId,
-      String receiverAddress,
-      BigDecimal tokenTransferAmount,
-      String skuId,
-      int decimals,
-      String iabContract,
-      String type,
-      String origin,
-      String domain,
-      String payload,
-      String callbackUrl,
-      String orderReference,
-      String referrerUrl,
-      String productName,
-      @Nullable String subscriptionPeriod,
-      @Nullable String trialPeriod,
-      @Nullable String oemId,
-      @Nullable String guestWalletId,
-      @Nullable String externalBuyerReference,
-      @Nullable Boolean isFreeTrial
-  ) {
+  public TransactionBuilder(String symbol, String contractAddress, Long chainId,
+      String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
+      String iabContract, String type, String origin, String domain, String payload,
+      String callbackUrl, String orderReference, String referrerUrl, String productName,
+      @Nullable String subscriptionPeriod, @Nullable String trialPeriod, @Nullable String oemId,
+      @Nullable String guestWalletId, @Nullable String externalBuyerReference,
+      @Nullable Boolean isFreeTrial, @Nullable String freeTrialDuration,
+      @Nullable String subscriptionStartingDate) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
         type, origin, domain, payload, callbackUrl, orderReference, referrerUrl, productName);
     this.iabContract = iabContract;
@@ -215,6 +206,8 @@ public class TransactionBuilder implements Parcelable {
     this.guestWalletId = guestWalletId;
     this.externalBuyerReference = externalBuyerReference;
     this.isFreeTrial = isFreeTrial;
+    this.freeTrialDuration = freeTrialDuration;
+    this.subscriptionStartingDate = subscriptionStartingDate;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
@@ -494,6 +487,22 @@ public class TransactionBuilder implements Parcelable {
     this.isFreeTrial = isFreeTrial;
   }
 
+  public String getFreeTrialDuration() {
+    return freeTrialDuration;
+  }
+
+  public void setFreeTrialDuration(String freeTrialDuration) {
+    this.freeTrialDuration = freeTrialDuration;
+  }
+
+  public String getSubscriptionStartingDate() {
+    return subscriptionStartingDate;
+  }
+
+  public void setSubscriptionStartingDate(String subscriptionStartingDate) {
+    this.subscriptionStartingDate = subscriptionStartingDate;
+  }
+
   public void setReferrerUrl(String referrerUrl) {
     this.referrerUrl = referrerUrl;
   }
@@ -557,6 +566,8 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(guestWalletId);
     dest.writeString(externalBuyerReference);
     dest.writeInt(isFreeTrial != null && isFreeTrial ? 1 : 0);
+    dest.writeString(freeTrialDuration);
+    dest.writeString(subscriptionStartingDate);
   }
 
   public byte[] approveData() {

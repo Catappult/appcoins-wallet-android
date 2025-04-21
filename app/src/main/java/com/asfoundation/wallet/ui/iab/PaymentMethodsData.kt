@@ -10,4 +10,6 @@ data class PaymentMethodsData(
   val subscription: Boolean,
   val externalBuyerReference: String?,
   val isFreeTrial: Boolean,
+  val freeTrialDuration: String?,
+  val subscriptionStartingDate: String?,
 )

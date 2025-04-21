@@ -32,6 +32,8 @@ class BillingIntentBuilder(val context: Context) {
     trialPeriod: String?,
     oemid: String?,
     guestWalletId: String?,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?,
   ): Bundle {
     val intent = buildPaymentIntent(
       type = type,
@@ -46,7 +48,9 @@ class BillingIntentBuilder(val context: Context) {
       subscriptionPeriod = subscriptionPeriod,
       trialPeriod = trialPeriod,
       oemid = oemid,
-      guestWalletId = guestWalletId
+      guestWalletId = guestWalletId,
+      freeTrialDuration = freeTrialDuration,
+      subscriptionStartingDate = subscriptionStartingDate
     )
     return Bundle().apply {
       val pendingIntent = buildPaymentPendingIntent(intent)
@@ -83,6 +87,8 @@ class BillingIntentBuilder(val context: Context) {
     trialPeriod: String?,
     oemid: String?,
     guestWalletId: String?,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   ): Intent {
     val value = amount.multiply(BigDecimal.TEN.pow(18))
     val uri = buildUriString(
@@ -101,7 +107,9 @@ class BillingIntentBuilder(val context: Context) {
       oemid = oemid,
       guestWalletId = guestWalletId,
       externalBuyerReference = PayloadHelper.getExternalBuyerReference(payload),
-      isFreeTrial = PayloadHelper.isFreeTrial(payload)
+      isFreeTrial = PayloadHelper.isFreeTrial(payload),
+      freeTrialDuration = freeTrialDuration,
+      subscriptionStartingDate = subscriptionStartingDate
     ).toUri()
 
 
@@ -126,7 +134,9 @@ class BillingIntentBuilder(val context: Context) {
     oemid: String?,
     guestWalletId: String?,
     externalBuyerReference: String?,
-    isFreeTrial: Boolean?
+    isFreeTrial: Boolean?,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   ): String {
     val stringBuilder = StringBuilder(4)
     try {
@@ -146,7 +156,9 @@ class BillingIntentBuilder(val context: Context) {
             oemid = oemid,
             guestWalletId = guestWalletId,
             externalBuyerReference = externalBuyerReference,
-            isFreeTrial = isFreeTrial
+            isFreeTrial = isFreeTrial,
+            freeTrialDuration = freeTrialDuration,
+            subscriptionStartingDate = subscriptionStartingDate
           ),
           iabContractAddress
         )
@@ -166,7 +178,9 @@ class BillingIntentBuilder(val context: Context) {
     oemid: String?,
     guestWalletId: String?,
     externalBuyerReference: String?,
-    isFreeTrial: Boolean?
+    isFreeTrial: Boolean?,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   ): String {
     return "0x" + Hex.toHexString(
       Gson().toJson(
@@ -183,6 +197,8 @@ class BillingIntentBuilder(val context: Context) {
           _guestWalletId = guestWalletId,
           _externalBuyerReference = externalBuyerReference,
           _isFreeTrial = isFreeTrial,
+          _freeTrialDuration = freeTrialDuration,
+          _subscriptionStartingDate = subscriptionStartingDate
         )
       )
         .toByteArray(charset("UTF-8"))

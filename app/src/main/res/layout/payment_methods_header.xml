@@ -177,7 +177,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="Starting Today"
+        android:text="@string/subscriptions_starting_today_body"
         android:textColor="@color/styleguide_dark_grey"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -191,11 +191,11 @@
         android:ellipsize="end"
         android:fontFamily="sans-serif-medium"
         android:maxLines="1"
-        android:text="1-Month Free Trial"
         android:textColor="@color/styleguide_payments_main_text"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/subs_trial_description"
+        tools:text="1-Month Free Trial"
         />
 
     <TextView
@@ -205,7 +205,7 @@
         android:layout_marginTop="12dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="Starting on 1st of January"
+        android:text="@string/subscriptions_starting_on_body"
         android:textColor="@color/styleguide_dark_grey"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -219,11 +219,11 @@
         android:ellipsize="end"
         android:fontFamily="sans-serif-medium"
         android:maxLines="1"
-        android:text="$8.00/month"
         android:textColor="@color/styleguide_payments_main_text"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/subs_trial_staring_date_description"
+        tools:text="2.99$/month"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>

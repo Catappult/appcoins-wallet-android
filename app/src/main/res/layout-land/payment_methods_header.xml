@@ -197,11 +197,11 @@
         android:ellipsize="end"
         android:fontFamily="sans-serif-medium"
         android:maxLines="1"
-        android:text="1-Month Free Trial"
         android:textColor="@color/styleguide_payments_main_text"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/subs_trial_description"
+        tools:text="1-Month Free Trial"
         />
 
     <TextView
@@ -211,12 +211,12 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:ellipsize="end"
-        android:text="Starting on 1st of January"
         android:textColor="@color/styleguide_dark_grey"
         android:textSize="13sp"
         app:layout_constraintEnd_toStartOf="@+id/subs_trial_staring_date_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subs_trial_description"
+        tools:text="Starting on 1st of January"
         />
 
     <TextView
@@ -226,11 +226,11 @@
         android:ellipsize="end"
         android:fontFamily="sans-serif-medium"
         android:maxLines="1"
-        android:text="$8.00/month"
         android:textColor="@color/styleguide_payments_main_text"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/subs_trial_staring_date_description"
+        tools:text="$8.00/month"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>

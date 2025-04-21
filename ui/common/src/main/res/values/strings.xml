@@ -647,8 +647,10 @@
   <string name="subscriptions_error_already_subscribed">Oops, you\'re already subscribed to this service! Feel free to contact us.</string>
   <string name="subscriptions_starting_today_body">Starting Today</string>
   <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
+  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
   <string name="subscriptions_free_trial_title">free trial</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
 

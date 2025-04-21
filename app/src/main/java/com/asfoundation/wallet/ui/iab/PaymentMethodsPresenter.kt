@@ -796,6 +796,8 @@ class PaymentMethodsPresenter(
         frequency,
         paymentMethodsData.subscription,
         paymentMethodsData.isFreeTrial,
+        paymentMethodsData.freeTrialDuration,
+        paymentMethodsData.subscriptionStartingDate
       )
       sendPaymentMethodsEvents()
     }
@@ -806,7 +808,7 @@ class PaymentMethodsPresenter(
     paymentMethod: PaymentMethod,
     fiatAmount: String,
     isBonusActive: Boolean,
-    frequency: String?
+    frequency: String?,
   ) {
     setLoadedPayment(paymentMethod.id)
     view.showPreSelectedPaymentMethod(
@@ -817,6 +819,8 @@ class PaymentMethodsPresenter(
       frequency,
       paymentMethodsData.subscription,
       paymentMethodsData.isFreeTrial,
+      paymentMethodsData.freeTrialDuration,
+      paymentMethodsData.subscriptionStartingDate
     )
     sendPreSelectedPaymentMethodsEvents()
   }
@@ -1065,6 +1069,8 @@ class PaymentMethodsPresenter(
       amount = sumPriceAndFee(price.amount, fee),
       frequency = paymentMethodsData.frequency,
       isFreeTrial = paymentMethodsData.isFreeTrial,
+      freeTrialDuration = paymentMethodsData.freeTrialDuration,
+      subscriptionStartingDate = paymentMethodsData.subscriptionStartingDate,
     )
   }
 
@@ -1139,6 +1145,8 @@ class PaymentMethodsPresenter(
         // converting, avoiding this way a additional call to the backend
         transaction.amount(BigDecimal(price.appcoinsAmount.toString()))
         transaction.productName = product.title
+        transaction.freeTrialDuration = product.freeTrialDuration
+        transaction.subscriptionStartingDate = product.subscriptionStartingDate
         return@map FiatValue(
           BigDecimal(price.amount.toString()),
           price.currency,

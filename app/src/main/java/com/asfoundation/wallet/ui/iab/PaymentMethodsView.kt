@@ -13,13 +13,17 @@ interface PaymentMethodsView {
     paymentMethods: MutableList<PaymentMethod>,
     currency: String, paymentMethodId: String, fiatAmount: String,
     appcEnabled: Boolean, creditsEnabled: Boolean,
-    frequency: String?, isSubscription: Boolean, isFreeTrial: Boolean
+    frequency: String?, isSubscription: Boolean, isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   )
 
   fun showPreSelectedPaymentMethod(
     paymentMethod: PaymentMethod, currency: String,
     fiatAmount: String, isBonusActive: Boolean,
-    frequency: String?, isSubscription: Boolean, isFreeTrial: Boolean
+    frequency: String?, isSubscription: Boolean, isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   )
 
   fun showError(message: Int)
@@ -167,7 +171,9 @@ interface PaymentMethodsView {
     currency: String,
     amount: BigDecimal,
     frequency: String?,
-    isFreeTrial: Boolean
+    isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?,
   )
 
   enum class SelectedPaymentMethod {

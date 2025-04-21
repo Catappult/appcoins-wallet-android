@@ -178,7 +178,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         frequency = getFrequency(),
         subscription = getIsSubscription(),
         externalBuyerReference = transactionBuilder?.externalBuyerReference,
-        isFreeTrial = transactionBuilder?.isFreeTrial ?: false
+        isFreeTrial = transactionBuilder?.isFreeTrial ?: false,
+        freeTrialDuration = transactionBuilder?.freeTrialDuration,
+        subscriptionStartingDate = transactionBuilder?.subscriptionStartingDate
       )
     presenter =
       PaymentMethodsPresenter(
@@ -247,14 +249,18 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     creditsEnabled: Boolean,
     frequency: String?,
     isSubscription: Boolean,
-    isFreeTrial: Boolean
+    isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   ) {
     updateHeaderInfo(
       currency = currency,
       fiatAmount = fiatAmount,
       frequency = frequency,
       isSubscription = isSubscription,
-      isFreeTrial = isFreeTrial
+      isFreeTrial = isFreeTrial,
+      freeTrialDuration = freeTrialDuration,
+      subscriptionStartingDate = subscriptionStartingDate
     )
     setupPaymentMethods(paymentMethods, paymentMethodId)
     if (paymentMethods.size == 1 && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id) {
@@ -278,14 +284,32 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.paymentMethodsHeader.infoFeesGroup.visibility = if (hasFee) View.VISIBLE else View.GONE
   }
 
-  override fun updatePriceAndCurrency(currency: String, amount: BigDecimal, frequency: String?, isFreeTrial: Boolean) {
+  override fun updatePriceAndCurrency(
+    currency: String,
+    amount: BigDecimal,
+    frequency: String?,
+    isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?,
+  ) {
     var fiatPrice = "$amount $currency"
     val period = Period.parse(frequency ?: "")
     period?.mapToSubsFrequency(requireContext(), fiatPrice)?.let { fiatPrice = it }
+    val freeTrialPeriod = try {
+      Period.parse(freeTrialDuration ?: "")
+    } catch (e: Exception) {
+      null
+    }
+
     val price = when {
       isPortraitMode(requireContext()) -> if (getIsSubscription()) {
         if (isFreeTrial) {
-          binding.paymentMethodsHeader.freeTrialLayout.visibility = View.VISIBLE
+          showFreeTrialInfo(
+            period = period ?: Period(0,0,0,1),
+            freeTrialPeriod = freeTrialPeriod ?: Period(0,0,0,1),
+            startingDate = subscriptionStartingDate ?: "",
+            price = "$amount $currency"
+          )
           "0.00 $currency"
         } else {
           binding.paymentMethodsHeader.freeTrialLayout.visibility = View.GONE
@@ -297,7 +321,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
       else -> if (getIsSubscription()) {
         if (isFreeTrial) {
-          binding.paymentMethodsHeader.freeTrialLayout.visibility = View.VISIBLE
+          showFreeTrialInfo(
+            period = period ?: Period(0,0,0,1),
+            freeTrialPeriod = freeTrialPeriod ?: Period(0,0,0,1),
+            startingDate = subscriptionStartingDate ?: "",
+            price = "$amount $currency"
+          )
           "0.00 $currency"
         } else {
           binding.paymentMethodsHeader.freeTrialLayout.visibility = View.GONE
@@ -405,14 +434,27 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     fiatAmount: String,
     frequency: String?,
     isSubscription: Boolean,
-    isFreeTrial: Boolean
+    isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?,
   ) {
     var fiatPrice = "$fiatAmount $currency"
     if (isSubscription) {
       val period = Period.parse(frequency!!)
       period?.mapToSubsFrequency(requireContext(), fiatPrice)?.let { fiatPrice = it }
+      val freeTrialPeriod = try {
+        Period.parse(freeTrialDuration ?: "")
+      } catch (e: Exception) {
+        null
+      }
+
       binding.paymentMethodsHeader.fiatPrice.text = if (isFreeTrial) {
-        binding.paymentMethodsHeader.freeTrialLayout.visibility = View.VISIBLE
+        showFreeTrialInfo(
+          period = period ?: Period(0,0,0,1),
+          freeTrialPeriod = freeTrialPeriod ?: Period(0,0,0,1),
+          startingDate = subscriptionStartingDate ?: "",
+          price = "$fiatAmount $currency"
+        )
         "0.00 $currency"
       } else {
         binding.paymentMethodsHeader.freeTrialLayout.visibility = View.GONE
@@ -440,7 +482,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     isBonusActive: Boolean,
     frequency: String?,
     isSubscription: Boolean,
-    isFreeTrial: Boolean
+    isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   ) {
     preSelectedPaymentMethod!!.onNext(paymentMethod)
     updateHeaderInfo(
@@ -449,6 +493,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       frequency = frequency,
       isSubscription = isSubscription,
       isFreeTrial = isFreeTrial,
+      freeTrialDuration = freeTrialDuration,
+      subscriptionStartingDate = subscriptionStartingDate
     )
 
     setupPaymentMethod(paymentMethod, isBonusActive, isSubscription)
@@ -624,6 +670,24 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         if (getCachedShowRefundDisclaimerUseCase()) View.VISIBLE else View.GONE
       binding.loadingAnimation.visibility = View.GONE
     }
+  }
+
+  fun showFreeTrialInfo(
+    period: Period?,
+    freeTrialPeriod: Period?,
+    startingDate: String,
+    price: String,
+  ) {
+    if (period == null || freeTrialPeriod == null) return
+
+    binding.bonusLayout.root.visibility = View.GONE
+    binding.paymentMethodsHeader.freeTrialLayout.visibility = View.VISIBLE
+    binding.paymentMethodsHeader.subsTrialText.text =
+      freeTrialPeriod.mapToFreeTrialDuration(requireContext())
+    binding.paymentMethodsHeader.subsTrialStaringDateDescription.text =
+      getString(R.string.subscriptions_starting_on_body, Period.formatDayMonth(startingDate))
+    binding.paymentMethodsHeader.subsTrialStaringDateText.text =
+      period.mapToSubsFrequency(requireContext(), price)
   }
 
   override fun getCancelClick(): Observable<Any> =

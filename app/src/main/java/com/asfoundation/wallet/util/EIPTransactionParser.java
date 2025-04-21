@@ -73,7 +73,8 @@ public class EIPTransactionParser {
               tokenInfo.decimals, getIabContract(payment), data.getType(), data.getOrigin(),
               data.getDomain(), data.getPayload(), null, data.getOrderReference(), null, null,
               data.getPeriod(), data.getTrialPeriod(), data.getOemId(), data.getGuestWalletId(),
-              data.getExternalBuyerReference(), data.isFreeTrial()).shouldSendToken(true);
+              data.getExternalBuyerReference(), data.isFreeTrial(), data.getFreeTrialDuration(),
+              data.getSubscriptionStartingDate()).shouldSendToken(true);
         });
   }
 

@@ -184,7 +184,9 @@ class AppcoinsBillingBinder(
           subscriptionPeriod = product.subscriptionPeriod,
           trialPeriod = product.trialPeriod,
           oemid = oemid,
-          guestWalletId = guestWalletId
+          guestWalletId = guestWalletId,
+          freeTrialDuration = product.freeTrialDuration,
+          subscriptionStartingDate = product.subscriptionStartingDate
         )
       } catch (exception: Exception) {
         if (skuDetails.isEmpty()) {
