@@ -306,6 +306,7 @@
   <string name="max">Tối đa</string>
   <string name="month">month</string>
   <string name="week">week</string>
+  <string name="join_button">Join</string>
   <string name="payment_method">Phương thức thanh toán</string>
   <string name="credit_debit_card">Thẻ tín dụng/ghi nợ</string>
   <string name="paypal">PayPal</string>
