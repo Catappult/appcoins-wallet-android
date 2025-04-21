@@ -306,6 +306,7 @@
   <string name="max">최대</string>
   <string name="month">month</string>
   <string name="week">week</string>
+  <string name="join_button">Join</string>
   <string name="payment_method">지불 방법</string>
   <string name="credit_debit_card">신용/직불 카드</string>
   <string name="paypal">페이팔</string>
