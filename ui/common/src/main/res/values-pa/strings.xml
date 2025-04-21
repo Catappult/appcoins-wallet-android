@@ -306,6 +306,7 @@
   <string name="max">Max</string>
   <string name="month">month</string>
   <string name="week">week</string>
+  <string name="join_button">Join</string>
   <string name="payment_method">ਭੁਗਤਾਨ ਦੇ ਢੰਗ</string>
   <string name="credit_debit_card">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ</string>
   <string name="paypal">ਪੇਪਾਲ</string>
