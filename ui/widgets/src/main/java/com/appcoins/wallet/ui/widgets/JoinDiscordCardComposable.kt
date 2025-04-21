@@ -108,7 +108,7 @@ fun JoinDiscordCardComposable(
       Spacer(modifier = Modifier.width(8.dp))
 
       ButtonWithText(
-        label = stringResource(id = com.appcoins.wallet.ui.common.R.string.send_button),
+        label = stringResource(id = com.appcoins.wallet.ui.common.R.string.join_button),
         onClick = { onJoinClick() },
         backgroundColor = WalletColors.styleguide_rebranding_blue,
         labelColor = WalletColors.styleguide_light_grey,
