@@ -304,6 +304,8 @@
   <string name="topup_button">Alimentează</string>
   <string name="extra_bonus_title">Primești un bonus extra de %s%%</string>
   <string name="max">Maxim</string>
+  <string name="month">month</string>
+  <string name="week">week</string>
   <string name="payment_method">Metoda de plată</string>
   <string name="credit_debit_card">Card de credit/debit</string>
   <string name="paypal">PayPal</string>
@@ -567,6 +569,12 @@
   <string name="subscriptions_per_several_month">%1$s la fiecare %2$s luni</string>
   <string name="subscriptions_per_several_year">%1$s la fiecare %2$s ani</string>
   <string name="subscriptions_error_already_subscribed">Ups, te-ai abonat deja la acest serviciu! Nu ezita să ne contactezi.</string>
+  <string name="subscriptions_starting_today_body">Starting Today</string>
+  <string name="subscriptions_starting_on_body">Starting on %s</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
+  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_renew_title">Renews on %s</string>
   <!--New Gamification-->
   <string name="gamif_title">Bonus de până la %s%%!</string>
   <string name="gamif_bonus_received">Bonus primit</string>

@@ -1,6 +1,7 @@
 package com.appcoins.wallet.billing
 
 import android.os.Bundle
+import android.os.Looper
 import android.os.Parcelable
 import android.util.Log
 import android.view.WindowManager
@@ -22,6 +23,8 @@ import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.runBlocking
 import java.math.BigDecimal
 
 class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
@@ -45,6 +48,8 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
   private lateinit var serializer: ExternalBillingSerializer
   private lateinit var proxyService: ProxyService
   private lateinit var intentBuilder: BillingIntentBuilder
+
+  private val initializationComplete = CompletableDeferred<Unit>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -78,10 +83,19 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     intentBuilder = BillingIntentBuilder(applicationContext)
 
     billing = AndroidBilling(bdsBilling)
+
+    initializationComplete.complete(Unit)
   }
 
   override fun processValue(methodId: Int, arguments: Parcelable): Parcelable {
     Log.d(TAG, "processValue() called with: methodId = [$methodId], arguments = [$arguments]")
+    if (!Looper.getMainLooper().isCurrentThread) {
+      runBlocking {
+        Log.d(TAG, "Awaiting Billing Receiver initialization")
+        initializationComplete.await()
+        Log.d(TAG, "Billing Receiver initialization complete")
+      }
+    }
     val args = arguments as Bundle
     val apiVersion = args.getInt(VERSION_VERSION_ARGUMENT)
     val packageName = args.getString(PACKAGE_NAME_ARGUMENT)

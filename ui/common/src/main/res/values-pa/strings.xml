@@ -304,6 +304,8 @@
   <string name="topup_button">ਟੋਪ ਅੱਪ</string>
   <string name="extra_bonus_title">Get an extra %s%% bonus</string>
   <string name="max">Max</string>
+  <string name="month">month</string>
+  <string name="week">week</string>
   <string name="payment_method">ਭੁਗਤਾਨ ਦੇ ਢੰਗ</string>
   <string name="credit_debit_card">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ</string>
   <string name="paypal">ਪੇਪਾਲ</string>
@@ -566,6 +568,12 @@
   <string name="subscriptions_per_several_month">ਹਰ %2$s ਮਹੀਨਿਆਂ ਦੇ %1$s</string>
   <string name="subscriptions_per_several_year">ਹਰ %2$s ਸਾਲਾਂ ਦੇ %1$s</string>
   <string name="subscriptions_error_already_subscribed">ਓਹ ਹੋ, ਤੁਸੀਂ ਪਹਿਲਾਂ ਹੀ ਇਸ ਸੇਵਾ ਦੇ ਗਾਹਕ ਹੋ! ਸਾਡੇ ਨਾਲ ਕਦੇ ਵੀ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="subscriptions_starting_today_body">Starting Today</string>
+  <string name="subscriptions_starting_on_body">Starting on %s</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
+  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_renew_title">Renews on %s</string>
   <!--New Gamification-->
   <string name="gamif_title">%s%% ਤੱਕ ਦਾ ਬੋਨਸ!</string>
   <string name="gamif_bonus_received">ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
