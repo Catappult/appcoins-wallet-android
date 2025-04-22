@@ -174,7 +174,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
         settings.domStorageEnabled = true
         settings.useWideViewPort = true
         settings.databaseEnabled = true
-        settings.userAgentString = userAgentInterceptor.userAgent
+        //settings.userAgentString = userAgentInterceptor.userAgent
         CookieManager.getInstance().setAcceptThirdPartyCookies(this, true)
         CookieManager.getInstance().setAcceptCookie(true)
 
