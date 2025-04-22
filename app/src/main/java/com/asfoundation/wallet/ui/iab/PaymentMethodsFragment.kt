@@ -672,7 +672,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     }
   }
 
-  fun showFreeTrialInfo(
+  private fun showFreeTrialInfo(
     period: Period?,
     freeTrialPeriod: Period?,
     startingDate: String,
@@ -755,7 +755,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       null,
       gamificationLevel,
       isSubscription,
-      frequency
+      frequency,
+      isFreeTrial = false,
+      freeTrialDuration = null,
+      subscriptionStartingDate = null
     )
   }
 
@@ -806,20 +809,26 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     iconUrl: String?,
     gamificationLevel: Int,
     frequency: String?,
-    isSubscription: Boolean
+    isSubscription: Boolean,
+    isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   ) {
     if (!itemAlreadyOwnedError) {
       iabView.showAdyenPayment(
-        fiatAmount,
-        fiatCurrency,
-        isBds,
-        paymentType,
-        bonusMessageValue,
-        true,
-        iconUrl,
-        gamificationLevel,
-        isSubscription,
-        frequency
+        amount = fiatAmount,
+        currency = fiatCurrency,
+        isBds = isBds,
+        paymentType = paymentType,
+        bonus = bonusMessageValue,
+        isPreselected = true,
+        iconUrl = iconUrl,
+        gamificationLevel = gamificationLevel,
+        isSubscription = isSubscription,
+        frequency = frequency,
+        isFreeTrial = isFreeTrial,
+        freeTrialDuration = freeTrialDuration,
+        subscriptionStartingDate = subscriptionStartingDate
       )
     }
   }
@@ -897,7 +906,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     gamificationLevel: Int,
     fiatValue: FiatValue,
     frequency: String?,
-    isSubscription: Boolean
+    isSubscription: Boolean,
+    isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   ) =
     iabView.showAdyenPayment(
       fiatValue.amount,
@@ -909,7 +921,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       null,
       gamificationLevel,
       isSubscription,
-      frequency
+      frequency,
+      isFreeTrial,
+      freeTrialDuration,
+      subscriptionStartingDate
     )
 
   override fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder) =

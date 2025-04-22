@@ -210,7 +210,10 @@ class PaymentMethodsPresenter(
                   cachedGamificationLevel,
                   cachedFiatValue!!,
                   paymentMethodsData.frequency,
-                  paymentMethodsData.subscription
+                  paymentMethodsData.subscription,
+                  paymentMethodsData.isFreeTrial,
+                  paymentMethodsData.freeTrialDuration,
+                  paymentMethodsData.subscriptionStartingDate
                 )
 
                 APPC -> view.showAppCoins(cachedGamificationLevel, transaction)
@@ -347,14 +350,20 @@ class PaymentMethodsPresenter(
           paymentNavigationData.paymentIconUrl,
           cachedGamificationLevel,
           paymentMethodsData.frequency,
-          paymentMethodsData.subscription
+          paymentMethodsData.subscription,
+          paymentMethodsData.isFreeTrial,
+          paymentMethodsData.freeTrialDuration,
+          paymentMethodsData.subscriptionStartingDate
         )
       } else {
         view.showCreditCard(
           cachedGamificationLevel,
           cachedFiatValue!!,
           paymentMethodsData.frequency,
-          paymentMethodsData.subscription
+          paymentMethodsData.subscription,
+          paymentMethodsData.isFreeTrial,
+          paymentMethodsData.freeTrialDuration,
+          paymentMethodsData.subscriptionStartingDate
         )
       }
 
@@ -679,13 +688,16 @@ class PaymentMethodsPresenter(
                 hasStartedAuth = true
               } else if (paymentMethod.id == PaymentMethodId.CREDIT_CARD.id) {
                 view.showAdyen(
-                  fiatValue.amount,
-                  fiatValue.currency,
-                  PaymentType.CARD,
-                  paymentMethod.iconUrl,
-                  cachedGamificationLevel,
-                  paymentMethodsData.frequency,
-                  paymentMethodsData.subscription
+                  fiatAmount = fiatValue.amount,
+                  fiatCurrency = fiatValue.currency,
+                  paymentType = PaymentType.CARD,
+                  iconUrl = paymentMethod.iconUrl,
+                  gamificationLevel = cachedGamificationLevel,
+                  frequency = paymentMethodsData.frequency,
+                  isSubscription = paymentMethodsData.subscription,
+                  isFreeTrial = paymentMethodsData.isFreeTrial,
+                  freeTrialDuration = paymentMethodsData.freeTrialDuration,
+                  subscriptionStartingDate = paymentMethodsData.subscriptionStartingDate
                 )
               } else if (paymentMethod.id == PaymentMethodId.CARRIER_BILLING.id) {
                 view.showCarrierBilling(fiatValue, true)

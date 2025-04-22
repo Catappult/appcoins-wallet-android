@@ -83,12 +83,15 @@ interface PaymentMethodsView {
     fiatCurrency: String,
     paymentType: PaymentType,
     iconUrl: String?, gamificationLevel: Int, frequency: String?,
-    isSubscription: Boolean
+    isSubscription: Boolean,
+    isFreeTrial: Boolean, freeTrialDuration: String?,
+    subscriptionStartingDate: String?,
   )
 
   fun showCreditCard(
     gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
-    isSubscription: Boolean
+    isSubscription: Boolean, isFreeTrial: Boolean, freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   )
 
   fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder)
