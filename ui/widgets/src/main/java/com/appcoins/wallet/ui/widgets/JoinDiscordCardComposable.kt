@@ -53,6 +53,7 @@ fun JoinDiscordCardComposable(
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
       .clip(RoundedCornerShape(16.dp))
       .heightIn(max = 176.dp)
+      .clickable { onJoinClick() }
       .paint(
         painter = painterResource(R.drawable.background_join_discord),
         contentScale = ContentScale.FillBounds,
