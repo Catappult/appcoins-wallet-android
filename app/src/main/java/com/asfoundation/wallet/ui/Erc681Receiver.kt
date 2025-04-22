@@ -97,7 +97,6 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         billingAnalytics = billingAnalytics,
         addressService = partnerAddressService,
         logger = logger,
-        appVersionName = BuildConfig.VERSION_NAME,
         appVersionCode = BuildConfig.VERSION_CODE
       )
 

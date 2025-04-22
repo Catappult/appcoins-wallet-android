@@ -165,7 +165,7 @@ class OneStepPaymentReceiver : BaseActivity() {
   private fun startWebViewPayment(
     transaction: TransactionBuilder,
   ): Single<String> {
-    return createWebViewPaymentOspUseCase(transaction, BuildConfig.VERSION_NAME)
+    return createWebViewPaymentOspUseCase(transaction, BuildConfig.VERSION_CODE.toString())
       .doOnSuccess { url ->
         launchWebViewPayment(url, transaction)
       }
