@@ -53,6 +53,9 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
+    moveTaskToBack(true)
+
     if (applicationContext !is BillingDependenciesProvider) {
       throw IllegalArgumentException(
         "application must implement ${BillingDependenciesProvider::class.java.simpleName}"
