@@ -67,7 +67,6 @@
   <color name="statusBarColor">@color/styleguide_dark</color> <!-- Android system status bar -->
   <!-- Android controls -->
 
-  <!-- Still used, but to be replaced -->
   <!-- Used in gradient_progress, to replace with the new loading -->
   <color name="btn_start_gradient_color">#fc9d48</color>
   <color name="btn_end_gradient_color">#ff578c</color>>
@@ -91,4 +90,10 @@
 
   <!-- External Apps -->
   <color name="gojek_green">#00B55D</color>
+
+  <!-- subscriptions -->
+  <color name="free_trial_badge">#2E149D</color>
+  <color name="canceled_sub_badge">#821A1A</color>
+  <color name="expired_sub_badge">#47484C</color>
+
 </resources>

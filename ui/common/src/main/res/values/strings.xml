@@ -625,6 +625,7 @@
   <string name="subscriptions_details_start_date_title">Start date:</string>
   <string name="subscriptions_details_cancelled_body">Cancelled - It expires on %s</string>
   <string name="subscriptions_expiration_body">It expires on %s</string>
+  <string name="subscriptions_renew_body">Renews on %s</string>
   <string name="subscriptions_canceled_body">Canceled</string>
   <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
   <string name="subscriptions_manage_button">Manage subscription</string>
@@ -641,6 +642,10 @@
   <string name="subscriptions_per_week">%1$s/week</string>
   <string name="subscriptions_per_month">%1$s/month</string>
   <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_day">/day</string>
+  <string name="subscriptions_week">/week</string>
+  <string name="subscriptions_month">/month</string>
+  <string name="subscriptions_year">/year</string>
   <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
   <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
   <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
@@ -652,7 +657,9 @@
   <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
   <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_cancelled_badge">Cancelled</string>
+  <string name="subscriptions_expired_badge">Expired</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
 
 

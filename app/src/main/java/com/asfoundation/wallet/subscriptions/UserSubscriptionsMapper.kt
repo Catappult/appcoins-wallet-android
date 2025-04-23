@@ -42,7 +42,8 @@ class UserSubscriptionsMapper @Inject constructor() {
         paymentIcon = order.method.logo,
         appcAmount = order.appc.value,
         appcLabel = order.appc.label,
-        uid = it.uid
+        uid = it.uid,
+        isFreeTrial = it.trialing,
       )
     }
   }

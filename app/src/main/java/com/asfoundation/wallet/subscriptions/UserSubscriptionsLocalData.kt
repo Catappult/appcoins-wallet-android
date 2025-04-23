@@ -93,7 +93,8 @@ class UserSubscriptionsLocalData @Inject constructor(
         methodTitle = method.title,
         methodLogo = method.logo,
         appcValue = appc.value,
-        appcLabel = appc.label
+        appcLabel = appc.label,
+        trialing = response.trialing
       )
       entityList.add(entity)
     }
@@ -106,15 +107,28 @@ class UserSubscriptionsLocalData @Inject constructor(
     val responseList: MutableList<UserSubscriptionResponse> = ArrayList()
     for (entity in entityList) {
       val response = UserSubscriptionResponse(
-        entity.uid, entity.sku, entity.title, entity.period,
-        entity.subStatus, entity.started, entity.renewal, entity.expire, entity.ended,
-        ApplicationInfoResponse(entity.appName, entity.appTitle, entity.appIcon),
-        OrderResponse(
-          entity.gateway, entity.reference, entity.value, entity.label,
-          entity.currency, entity.symbol, entity.created,
-          MethodResponse(entity.methodName, entity.methodTitle, entity.methodLogo),
-          AppcPrice(entity.appcValue, entity.appcLabel)
-        )
+        uid = entity.uid,
+        sku = entity.sku,
+        title = entity.title,
+        period = entity.period,
+        subStatus = entity.subStatus,
+        started = entity.started,
+        renewal = entity.renewal,
+        expiry = entity.expire,
+        ended = entity.ended,
+        application = ApplicationInfoResponse(entity.appName, entity.appTitle, entity.appIcon),
+        order = OrderResponse(
+          gateway = entity.gateway,
+          reference = entity.reference,
+          value = entity.value,
+          label = entity.label,
+          currency = entity.currency,
+          symbol = entity.symbol,
+          created = entity.created,
+          method = MethodResponse(entity.methodName, entity.methodTitle, entity.methodLogo),
+          appc = AppcPrice(entity.appcValue, entity.appcLabel)
+        ),
+        trialing = entity.trialing
       )
       responseList.add(response)
     }

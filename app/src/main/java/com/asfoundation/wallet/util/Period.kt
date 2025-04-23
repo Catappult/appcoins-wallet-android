@@ -159,6 +159,17 @@ data class Period(val years: Int, val months: Int, val weeks: Int, val days: Int
     }
   }
 
+  fun mapToFrequency(context: Context): String {
+    return when {
+      years >= 1 -> context.getString(R.string.subscriptions_year)
+      months >= 1 -> context.getString(R.string.subscriptions_month)
+      weeks >= 1 -> context.getString(R.string.subscriptions_week)
+      days >= 1 -> context.getString(R.string.subscriptions_day)
+
+      else -> ""
+    }
+  }
+
   fun mapToFreeTrialDuration(context: Context): String {
     return when {
       years >= 1 -> context.getString(

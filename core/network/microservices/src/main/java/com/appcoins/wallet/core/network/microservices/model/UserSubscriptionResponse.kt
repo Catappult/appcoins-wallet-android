@@ -25,7 +25,8 @@ data class UserSubscriptionResponse(
   val expiry: String?,
   val ended: String?,
   val application: ApplicationInfoResponse,
-  val order: OrderResponse
+  val order: OrderResponse,
+  val trialing: Boolean,
 )
 
 enum class SubscriptionSubStatus {
