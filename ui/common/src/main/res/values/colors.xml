@@ -95,5 +95,6 @@
   <color name="free_trial_badge">#2E149D</color>
   <color name="canceled_sub_badge">#821A1A</color>
   <color name="expired_sub_badge">#47484C</color>
+  <color name="active_sub_badge">#13542F</color>
 
 </resources>

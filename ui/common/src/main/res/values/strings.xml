@@ -619,6 +619,7 @@
   <string name="subscriptions_empty_title">No Subscriptions Yet</string>
   <string name="subscriptions_empty_body">Subscribe to services in your favorite apps and games and we\'ll deal with periodic payments.</string>
   <string name="subscriptions_details_billing_title">Billing:</string>
+  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
   <string name="subscriptions_details_next_payment_title">Next payment:</string>
   <string name="subscriptions_details_payment_method_title">Payment method:</string>
   <string name="subscriptions_details_last_bill">Last bill:</string>
@@ -658,9 +659,10 @@
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
   <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
   <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Cancelled</string>
+  <string name="subscriptions_cancelled_badge">Canceled</string>
   <string name="subscriptions_expired_badge">Expired</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
 
 
 
