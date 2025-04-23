@@ -69,11 +69,31 @@ class UserSubscriptionsLocalData @Inject constructor(
       val method = order.method
       val appc = order.appc
       val entity = UserSubscriptionEntity(
-        response.uid, walletAddress, response.sku, response.title,
-        response.period, response.subStatus, response.started, response.renewal, response.expiry,
-        response.ended, application.name, application.title, application.icon, order.gateway,
-        order.reference, order.value, order.label, order.currency, order.symbol, order.created,
-        method.name, method.title, method.logo, appc.value, appc.label
+        uid = response.uid,
+        walletAddress = walletAddress,
+        sku = response.sku,
+        title = response.title,
+        period = response.period,
+        subStatus = response.subStatus,
+        started = response.started,
+        renewal = response.renewal,
+        expire = response.expiry,
+        ended = response.ended,
+        appName = application.name,
+        appTitle = application.title ?: "",
+        appIcon = application.icon ?: "",
+        gateway = order.gateway,
+        reference = order.reference,
+        value = order.value,
+        label = order.label,
+        currency = order.currency,
+        symbol = order.symbol,
+        created = order.created,
+        methodName = method.name,
+        methodTitle = method.title,
+        methodLogo = method.logo,
+        appcValue = appc.value,
+        appcLabel = appc.label
       )
       entityList.add(entity)
     }

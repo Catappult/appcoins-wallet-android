@@ -24,11 +24,25 @@ class UserSubscriptionsMapper @Inject constructor() {
       val order = it.order
 
       SubscriptionItem(
-        it.sku, it.title, mapPeriod(it.period), mapStatus(it.subStatus),
-        mapDate(it.started), mapDate(it.renewal), mapDate(it.expiry), mapDate(it.ended),
-        application.name, application.title, application.icon, order.value, order.symbol,
-        order.currency, order.method.title, order.method.logo, order.appc.value,
-        order.appc.label, it.uid
+        sku = it.sku,
+        itemName = it.title,
+        period = mapPeriod(it.period),
+        status = mapStatus(it.subStatus),
+        started = mapDate(it.started),
+        renewal = mapDate(it.renewal),
+        expiry = mapDate(it.expiry),
+        ended = mapDate(it.ended),
+        packageName = application.name,
+        appName = application.title ?: "",
+        appIcon = application.icon ?: "",
+        fiatAmount = order.value,
+        fiatSymbol = order.symbol,
+        currency = order.currency,
+        paymentMethod = order.method.title,
+        paymentIcon = order.method.logo,
+        appcAmount = order.appc.value,
+        appcLabel = order.appc.label,
+        uid = it.uid
       )
     }
   }
