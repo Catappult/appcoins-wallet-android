@@ -306,6 +306,7 @@
   <string name="max">最大</string>
   <string name="month">month</string>
   <string name="week">week</string>
+  <string name="join_button">Join</string>
   <string name="payment_method">支払方法</string>
   <string name="credit_debit_card">クレジット/デビットカード</string>
   <string name="paypal">PayPal</string>

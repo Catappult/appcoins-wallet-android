@@ -306,6 +306,7 @@
   <string name="max">نهایت</string>
   <string name="month">month</string>
   <string name="week">week</string>
+  <string name="join_button">Join</string>
   <string name="payment_method">روش پرداخت</string>
   <string name="credit_debit_card">کارت اعتباری / بانکی</string>
   <string name="paypal">پی‌پال</string>
