@@ -48,12 +48,6 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
           binding.statusBadge.background =
             ContextCompat.getDrawable(context, R.drawable.bg_badge_red)
         }
-//        Status.PAUSED -> {
-//          binding.statusBadge.visibility = View.VISIBLE
-//          binding.statusBadge.text = context.getString(R.string.subscriptions_paused_badge)
-//          binding.statusBadge.background =
-//            ContextCompat.getDrawable(context, R.drawable.bg_badge_yellow)
-//        }
         Status.EXPIRED -> {
           binding.statusBadge.visibility = View.VISIBLE
           binding.statusBadge.text = context.getString(R.string.subscriptions_expired_badge)
