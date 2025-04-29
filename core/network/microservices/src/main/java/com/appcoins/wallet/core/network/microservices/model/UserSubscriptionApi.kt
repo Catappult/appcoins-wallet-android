@@ -3,6 +3,7 @@ package com.appcoins.wallet.core.network.microservices.model
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UserSubscriptionApi {
@@ -23,4 +24,12 @@ interface UserSubscriptionApi {
     @Query("application.name")
     applicationName: String? = null
   ): Single<UserSubscriptionsListResponse>
+
+  @GET("8.20200701/applications/{domain}/inapp/subscriptions/{sku}")
+  fun getSkuSubscriptionDetails(
+    @Path("domain") domain: String,
+    @Path("sku") sku: String,
+    @Query("currency") currency: String?,
+  ): Single<UserSubscriptionDetailResponse>
+
 }
