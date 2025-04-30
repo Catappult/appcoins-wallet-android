@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.home
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -74,6 +75,7 @@ import com.appcoins.wallet.ui.widgets.BalanceNewCard
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.ConfirmEmailCard
 import com.appcoins.wallet.ui.widgets.GamesBundle
+import com.appcoins.wallet.ui.widgets.JoinDiscordCardComposable
 import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingTransactionCard
@@ -101,6 +103,7 @@ import io.intercom.android.sdk.Intercom
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import javax.inject.Inject
+import androidx.core.net.toUri
 
 // Before moving this screen into the :home module, all home dependencies need to be independent
 // from the :app module.
@@ -225,6 +228,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       if(viewModel.showRebrandingBanner.value) {
         RebrandingBanner()
       }
+      if(viewModel.showDiscordBanner.value) {
+        DiscordBannerContent()
+      }
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       UserEmailCard()
@@ -258,7 +264,25 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       else -> ""
     }
   }
-
+  @Composable
+  fun DiscordBannerContent() {
+    val showDiscordBanner =
+      remember { mutableStateOf(viewModel.isShowDiscordBanner()) }
+    if(showDiscordBanner.value == true) {
+      JoinDiscordCardComposable(
+        {
+          val intent = Intent(Intent.ACTION_VIEW, "https://discord.com/invite/Byec5eetAG".toUri())
+          context?.startActivity(intent)
+        },
+        {
+          viewModel.saveShowDiscordBanner(false)
+          showDiscordBanner.value = false
+        },
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
+      )
+    }
+  }
   @Composable
   fun BalanceContent() =
     when (val state = viewModel.uiBalanceState.collectAsState().value) {
@@ -417,7 +441,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           Row(
             modifier = Modifier
               .fillMaxWidth()
-              .padding(end = 16.dp,  top = 8.dp),
+              .padding(end = 16.dp, top = 8.dp),
             verticalAlignment = Alignment.CenterVertically
           ) {
             Spacer(modifier = Modifier.weight(1f))
@@ -520,6 +544,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     setPromotions(state.promotionsModelAsync)
     setBackup(state.hasBackup)
     setRebrandingBanner(state.showRebrandingBanner)
+    setDiscordBanner(state.showDiscordBanner)
   }
 
   override fun onSideEffect(sideEffect: HomeSideEffect) {
@@ -634,6 +659,13 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   private fun setRebrandingBanner(showBanner: Async<Boolean>) {
     when (showBanner) {
       is Async.Success -> viewModel.showRebrandingBanner.value = (showBanner.value ?: false)
+      else -> Unit
+    }
+  }
+
+  private fun setDiscordBanner(showBanner: Async<Boolean>) {
+    when (showBanner) {
+      is Async.Success -> viewModel.showDiscordBanner.value = (showBanner.value ?: false)
       else -> Unit
     }
   }
