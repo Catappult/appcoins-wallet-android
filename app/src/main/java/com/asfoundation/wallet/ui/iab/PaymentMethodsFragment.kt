@@ -24,7 +24,6 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
 import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.IAP
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
@@ -259,11 +258,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     val firstRun = paymentMethodList.isEmpty() && !isPreSelected
     presenter.onResume(firstRun)
     super.onResume()
-  }
-
-  override fun showChallengeReward() {
-    challengeRewardAnalytics.sendChallengeRewardEvent(IAP.id)
-    iabView.showChallengeReward()
   }
 
   override fun showFee(hasFee: Boolean) {

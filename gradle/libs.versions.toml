@@ -81,7 +81,6 @@ jacoco_version = "0.8.8"
 mockk_version = "1.13.13"
 paging_version = "3.1.1"
 paging_compose_version = "1.0.0-alpha19"
-fyber_sdk_version = "3.42.0"
 vk_pay_version = "0.112-beta24429"
 vk_pay_checkout_version = "0.112-beta24429"
 truelayer_payments_version = "2.6.0"
@@ -217,8 +216,8 @@ paging_compose = { module = "androidx.paging:paging-compose", version.ref = "pag
 
 web3j = { module = "org.web3j:core", version.ref = "web3j_version" }
 kethereum-erc681 = { module = "com.github.walleth.kethereum:erc681", version.ref = "erc681_version" }
+#Avalite better its possible remove because this lib used in sharedPref
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "androidx_securitycrypto_version" }
-fyber_sdk = { module = "com.fyber:fairbid-sdk", version.ref = "fyber_sdk_version" }
 
 test-mockito = { module = "org.mockito:mockito-core", version.ref = "mockito_version" }
 test-mockk = { module = "io.mockk:mockk", version.ref = "mockk_version" }

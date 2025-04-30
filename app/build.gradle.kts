@@ -44,7 +44,6 @@ dependencies {
   implementation(project(":core:legacy-base"))
   implementation(project(":ui:common"))
   implementation(project(":ui:widgets"))
-  implementation(project(":feature:challenge-reward:data"))
   implementation(project(":feature:change-currency:data"))
   implementation(project(":feature:change-currency:ui"))
   implementation(project(":feature:wallet-info:data"))

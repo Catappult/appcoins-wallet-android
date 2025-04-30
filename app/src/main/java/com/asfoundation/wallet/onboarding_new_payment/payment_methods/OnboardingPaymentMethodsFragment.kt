@@ -100,7 +100,6 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
 
         is PaymentMethodClick.CarrierBillingClick -> navigator.navigateToCarrierBilling()
         is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
-        is PaymentMethodClick.ChallengeRewardClick -> navigator.navigateToChallengeReward()
         is PaymentMethodClick.VkPayPaymentClick -> navigator.navigateToVkPayPayment(
           args.transactionBuilder,
           args.amount,

@@ -13,7 +13,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
@@ -257,14 +256,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   override fun launchPerkBonusAndGamificationService(address: String) {
     PerkBonusAndGamificationService.buildService(this, address)
   }
-
-  override fun createChallengeReward(walletAddress: String) = ChallengeRewardManager.create(
-    appId = BuildConfig.FYBER_APP_ID,
-    activity = this,
-    walletAddress = walletAddress,
-  )
-
-  override fun navigateToChallengeReward() = ChallengeRewardManager.onNavigate()
 
   override fun navigateToVkPayPayment(topUpData: TopUpPaymentData) {
     val fragmentVk = VkPaymentTopUpFragment()
