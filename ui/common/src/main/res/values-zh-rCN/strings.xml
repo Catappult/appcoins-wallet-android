@@ -541,12 +541,14 @@
   <string name="subscriptions_empty_title">尚无订购</string>
   <string name="subscriptions_empty_body">订购最喜欢的应用和游戏的服务，我们将处理定期付款。</string>
   <string name="subscriptions_details_billing_title">支付：</string>
+  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
   <string name="subscriptions_details_next_payment_title">下次付款：</string>
   <string name="subscriptions_details_payment_method_title">付款方式：</string>
   <string name="subscriptions_details_last_bill">上次支付：</string>
   <string name="subscriptions_details_start_date_title">开始日期：</string>
   <string name="subscriptions_details_cancelled_body">已取消——到期日期%s</string>
   <string name="subscriptions_expiration_body">到期日期%s</string>
+  <string name="subscriptions_renew_body">Renews on %s</string>
   <string name="subscriptions_canceled_body">已取消</string>
   <string name="subscriptions_details_disclaimer">您的下次付款金额可能会因汇率变化而有所不同。</string>
   <string name="subscriptions_manage_button">管理订购</string>
@@ -563,6 +565,10 @@
   <string name="subscriptions_per_week">%1$s/周</string>
   <string name="subscriptions_per_month">%1$s/月</string>
   <string name="subscriptions_per_year">%1$s/年</string>
+  <string name="subscriptions_day">/day</string>
+  <string name="subscriptions_week">/week</string>
+  <string name="subscriptions_month">/month</string>
+  <string name="subscriptions_year">/year</string>
   <string name="subscriptions_per_several_day">%1$s/%2$s天</string>
   <string name="subscriptions_per_several_week">%1$s/%2$s周</string>
   <string name="subscriptions_per_several_month">%1$s/%2$s月</string>
@@ -570,10 +576,15 @@
   <string name="subscriptions_error_already_subscribed">呀，你已经订阅了此服务！请随时联系我们。</string>
   <string name="subscriptions_starting_today_body">Starting Today</string>
   <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
+  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_cancelled_badge">Canceled</string>
+  <string name="subscriptions_expired_badge">Expired</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
   <string name="gamif_title">高达 %s%% 的奖金！</string>
   <string name="gamif_bonus_received">已收到的奖金</string>
