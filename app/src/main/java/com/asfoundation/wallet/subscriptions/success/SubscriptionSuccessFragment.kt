@@ -50,7 +50,7 @@ class SubscriptionSuccessFragment : BottomSheetDialogFragment(), SubscriptionSuc
   override fun setupUi(successType: SubscriptionSuccess) {
     when (successType) {
       SubscriptionSuccess.CANCEL -> {
-        binding.successAnimation.setAnimation(R.raw.subscription_cancel_success)
+        binding.successAnimation.setAnimation(R.raw.success_animation)
         binding.updateTitle.text = getString(R.string.subscriptions_cancel_confirmation_title)
       }
 

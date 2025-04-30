@@ -1,7 +1,16 @@
 package com.asfoundation.wallet.di.temp_gradle_modules
 
-import com.appcoins.wallet.bdsbilling.*
-import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.bdsbilling.BdsBilling
+import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmissionImpl
+import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper
+import com.appcoins.wallet.bdsbilling.ProxyService
+import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.InAppMapper
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.SubscriptionsMapper
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi

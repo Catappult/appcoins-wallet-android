@@ -107,8 +107,10 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           sku = args.transactionBuilder.skuId,
           callbackUrl = args.transactionBuilder.callbackUrl,
           transactionType = args.transactionBuilder.type,
-          referrerUrl =  args.transactionBuilder.referrerUrl,
-          guestWalletId = args.transactionBuilder.guestWalletId
+          referrerUrl = args.transactionBuilder.referrerUrl,
+          guestWalletId = args.transactionBuilder.guestWalletId,
+          externalBuyerReference = args.transactionBuilder.externalBuyerReference,
+          isFreeTrial = args.transactionBuilder.isFreeTrial
         )
       }
       .doOnSuccess { paymentModel ->
@@ -197,7 +199,9 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           callbackUrl = args.transactionBuilder.callbackUrl,
           transactionType = args.transactionBuilder.type,
           referrerUrl = args.transactionBuilder.referrerUrl,
-          guestWalletId = args.transactionBuilder.guestWalletId
+          guestWalletId = args.transactionBuilder.guestWalletId,
+          externalBuyerReference = args.transactionBuilder.externalBuyerReference,
+          isFreeTrial = args.transactionBuilder.isFreeTrial
         )
       }
       .doOnSuccess { paymentModel ->

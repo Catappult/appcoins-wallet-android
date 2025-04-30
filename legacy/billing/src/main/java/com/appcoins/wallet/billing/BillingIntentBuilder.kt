@@ -3,9 +3,9 @@ package com.appcoins.wallet.billing
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import androidx.core.net.toUri
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_DEVELOPER_PAYLOAD
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -32,11 +32,25 @@ class BillingIntentBuilder(val context: Context) {
     trialPeriod: String?,
     oemid: String?,
     guestWalletId: String?,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?,
   ): Bundle {
     val intent = buildPaymentIntent(
-      type, appcAmount, tokenContractAddress, iabContractAddress,
-      skuId, packageName, payload, skuTitle, bdsIap, subscriptionPeriod,
-      trialPeriod, oemid, guestWalletId
+      type = type,
+      amount = appcAmount,
+      tokenContractAddress = tokenContractAddress,
+      iabContractAddress = iabContractAddress,
+      skuId = skuId,
+      packageName = packageName,
+      payload = payload,
+      skuTitle = skuTitle,
+      bdsIap = bdsIap,
+      subscriptionPeriod = subscriptionPeriod,
+      trialPeriod = trialPeriod,
+      oemid = oemid,
+      guestWalletId = guestWalletId,
+      freeTrialDuration = freeTrialDuration,
+      subscriptionStartingDate = subscriptionStartingDate
     )
     return Bundle().apply {
       val pendingIntent = buildPaymentPendingIntent(intent)
@@ -60,26 +74,43 @@ class BillingIntentBuilder(val context: Context) {
   }
 
   private fun buildPaymentIntent(
-    type: String, amount: BigDecimal,
+    type: String,
+    amount: BigDecimal,
     tokenContractAddress: String,
     iabContractAddress: String,
-    skuId: String, packageName: String,
-    payload: String?, skuTitle: String,
+    skuId: String,
+    packageName: String,
+    payload: String?,
+    skuTitle: String,
     bdsIap: Boolean,
     subscriptionPeriod: String?,
     trialPeriod: String?,
     oemid: String?,
     guestWalletId: String?,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   ): Intent {
     val value = amount.multiply(BigDecimal.TEN.pow(18))
-    val uri = Uri.parse(
-      buildUriString(
-        type, tokenContractAddress, iabContractAddress, value,
-        skuId, MiscProperties.NETWORK_ID, packageName,
-        PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload),
-        PayloadHelper.getOrigin(payload), subscriptionPeriod, trialPeriod, oemid, guestWalletId
-      )
-    )
+    val uri = buildUriString(
+      type = type,
+      tokenContractAddress = tokenContractAddress,
+      iabContractAddress = iabContractAddress,
+      amount = value,
+      skuId = skuId,
+      networkId = MiscProperties.NETWORK_ID,
+      packageName = packageName,
+      developerPayload = PayloadHelper.getPayload(payload),
+      orderReference = PayloadHelper.getOrderReference(payload),
+      origin = PayloadHelper.getOrigin(payload),
+      subscriptionPeriod = subscriptionPeriod,
+      trialPeriod = trialPeriod,
+      oemid = oemid,
+      guestWalletId = guestWalletId,
+      externalBuyerReference = PayloadHelper.getExternalBuyerReference(payload),
+      isFreeTrial = PayloadHelper.isFreeTrial(payload),
+      freeTrialDuration = freeTrialDuration,
+      subscriptionStartingDate = subscriptionStartingDate
+    ).toUri()
 
 
     return Intent(Intent.ACTION_VIEW).apply {
@@ -102,6 +133,10 @@ class BillingIntentBuilder(val context: Context) {
     subscriptionPeriod: String?, trialPeriod: String?,
     oemid: String?,
     guestWalletId: String?,
+    externalBuyerReference: String?,
+    isFreeTrial: Boolean?,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   ): String {
     val stringBuilder = StringBuilder(4)
     try {
@@ -110,8 +145,20 @@ class BillingIntentBuilder(val context: Context) {
           "ethereum:%s@%d/buy?uint256=%s&address=%s&data=%s&iabContractAddress=%s",
           tokenContractAddress, networkId, amount.toString(), "",
           buildUriData(
-            type, skuId, packageName, developerPayload, orderReference, origin,
-            subscriptionPeriod, trialPeriod, oemid, guestWalletId
+            type = type,
+            skuId = skuId,
+            packageName = packageName,
+            developerPayload = developerPayload,
+            orderReference = orderReference,
+            origin = origin,
+            subscriptionPeriod = subscriptionPeriod,
+            trialPeriod = trialPeriod,
+            oemid = oemid,
+            guestWalletId = guestWalletId,
+            externalBuyerReference = externalBuyerReference,
+            isFreeTrial = isFreeTrial,
+            freeTrialDuration = freeTrialDuration,
+            subscriptionStartingDate = subscriptionStartingDate
           ),
           iabContractAddress
         )
@@ -130,12 +177,28 @@ class BillingIntentBuilder(val context: Context) {
     trialPeriod: String?,
     oemid: String?,
     guestWalletId: String?,
+    externalBuyerReference: String?,
+    isFreeTrial: Boolean?,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   ): String {
     return "0x" + Hex.toHexString(
       Gson().toJson(
         TransactionData(
-          type.toUpperCase(Locale.ROOT), packageName, skuId, developerPayload,
-          orderReference, origin, subscriptionPeriod, trialPeriod, oemid, guestWalletId
+          _type = type.toUpperCase(Locale.ROOT),
+          _domain = packageName,
+          _skuId = skuId,
+          _payload = developerPayload,
+          _orderReference = orderReference,
+          _origin = origin,
+          _period = subscriptionPeriod,
+          _trialPeriod = trialPeriod,
+          _oemId = oemid,
+          _guestWalletId = guestWalletId,
+          _externalBuyerReference = externalBuyerReference,
+          _isFreeTrial = isFreeTrial,
+          _freeTrialDuration = freeTrialDuration,
+          _subscriptionStartingDate = subscriptionStartingDate
         )
       )
         .toByteArray(charset("UTF-8"))

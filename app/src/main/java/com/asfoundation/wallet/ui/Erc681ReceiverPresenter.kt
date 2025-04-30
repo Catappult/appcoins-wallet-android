@@ -6,6 +6,7 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -18,7 +19,6 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 
 internal class Erc681ReceiverPresenter(
   private val view: Erc681ReceiverView,
@@ -57,7 +57,9 @@ internal class Erc681ReceiverPresenter(
               .flatMap { transactionBuilder ->
                 partnerAddressService.setOemIdFromSdk(transactionBuilder.oemIdSdk)
                 Single.zip(
-                  isWebViewPaymentFlowUseCase(transactionBuilder, appVersionCode).subscribeOn(rxSchedulers.io),
+                  isWebViewPaymentFlowUseCase(transactionBuilder, appVersionCode).subscribeOn(
+                    rxSchedulers.io
+                  ),
                   inAppPurchaseInteractor.isWalletFromBds(
                     transactionBuilder.domain,
                     transactionBuilder.toAddress()
@@ -72,7 +74,7 @@ internal class Erc681ReceiverPresenter(
                     if (
                       isWebPaymentFlow.paymentMethods?.walletWebViewPayment != null &&
                       !transactionBuilder.type.equals("INAPP_SUBSCRIPTION", ignoreCase = true)
-                      ) {
+                    ) {
                       handlePurchaseStartAnalytics(transactionBuilder)
                       startWebViewPayment(transactionBuilder)
                     } else {

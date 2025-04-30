@@ -93,13 +93,23 @@ class BdsBilling(
   }
 
   override fun getSubscriptionToken(
-    packageName: String, skuId: String,
-    networkThread: Scheduler
+    packageName: String,
+    skuId: String,
+    networkThread: Scheduler,
+    externalBuyerReference: String?,
+    isFreeTrial: Boolean?
   ): Single<String> {
     return walletService.getAndSignCurrentWalletAddress()
       .observeOn(networkThread)
       .flatMap {
-        repository.getSubscriptionToken(packageName, skuId, it.address, it.signedAddress)
+        repository.getSubscriptionToken(
+          packageName = packageName,
+          skuId = skuId,
+          walletAddress = it.address,
+          walletSignature = it.signedAddress,
+          externalBuyerReference = externalBuyerReference,
+          isFreeTrial = isFreeTrial
+        )
       }
   }
 

@@ -12,6 +12,7 @@
       android:id="@+id/app_icon"
       android:layout_width="42dp"
       android:layout_height="42dp"
+      android:importantForAccessibility="no"
       android:src="@drawable/ic_app_logo_icon"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/app_name"
@@ -20,7 +21,6 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0"
-      android:importantForAccessibility="no"
       app:layout_constraintVertical_chainStyle="packed"
       />
   <TextView
@@ -159,5 +159,73 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/free_trial_layout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/app_icon"
+      tools:visibility="visible"
+      >
+
+    <TextView
+        android:id="@+id/subs_trial_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/subscriptions_starting_today_body"
+        android:textColor="@color/styleguide_dark_grey"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/subs_trial_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:textColor="@color/styleguide_payments_main_text"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/subs_trial_description"
+        tools:text="1-Month Free Trial"
+        />
+
+    <TextView
+        android:id="@+id/subs_trial_staring_date_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/subscriptions_starting_on_body"
+        android:textColor="@color/styleguide_dark_grey"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/subs_trial_description"
+        />
+
+    <TextView
+        android:id="@+id/subs_trial_staring_date_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:textColor="@color/styleguide_payments_main_text"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/subs_trial_staring_date_description"
+        tools:text="2.99$/month"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

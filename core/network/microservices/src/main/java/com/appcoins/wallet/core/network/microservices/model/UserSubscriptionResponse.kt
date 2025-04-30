@@ -14,12 +14,19 @@ import com.google.gson.annotations.SerializedName
  *
  */
 data class UserSubscriptionResponse(
-  val uid: String, val sku: String, val title: String,
-  val period: String, @SerializedName("substatus")
-  val subStatus: SubscriptionSubStatus, val started: String?,
-  val renewal: String?, val expiry: String?, val ended: String?,
+  val uid: String,
+  val sku: String,
+  val title: String,
+  val period: String,
+  @SerializedName("substatus")
+  val subStatus: SubscriptionSubStatus,
+  val started: String?,
+  val renewal: String?,
+  val expiry: String?,
+  val ended: String?,
   val application: ApplicationInfoResponse,
-  val order: OrderResponse
+  val order: OrderResponse,
+  val trialing: Boolean,
 )
 
 enum class SubscriptionSubStatus {

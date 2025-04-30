@@ -17,11 +17,27 @@ data class SubscriptionResponse(
 )
 
 data class SubscriptionPrice(
-  val currency: String, val value: BigDecimal, val label: String, val symbol: String,
-  val micros: Long, val appc: SubscriptionAppcPrice
+  val currency: String,
+  val value: BigDecimal,
+  val label: String,
+  val symbol: String,
+  val micros: Long,
+  val appc: SubscriptionAppcPrice,
+  val trial: SubscriptionTrial?
 )
 
-data class SubscriptionAppcPrice(val value: BigDecimal, val label: String, val micros: Long)
+data class SubscriptionTrial(
+  @SerializedName("period")
+  val freeTrialDuration: String?,
+  @SerializedName("end_date")
+  val subscriptionStartingDate: String?
+)
+
+data class SubscriptionAppcPrice(
+  val value: BigDecimal,
+  val label: String,
+  val micros: Long
+)
 
 data class SubscriptionPurchaseListResponse(val items: List<SubscriptionPurchaseResponse>)
 

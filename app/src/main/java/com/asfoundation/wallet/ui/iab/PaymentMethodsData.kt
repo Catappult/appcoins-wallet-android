@@ -7,5 +7,9 @@ data class PaymentMethodsData(
   val uri: String?,
   val sku: String,
   val frequency: String?,
-  val subscription: Boolean
+  val subscription: Boolean,
+  val externalBuyerReference: String?,
+  val isFreeTrial: Boolean,
+  val freeTrialDuration: String?,
+  val subscriptionStartingDate: String?,
 )

@@ -48,12 +48,17 @@ interface Billing {
   }
 
   fun getSkuTransaction(
-    merchantName: String, sku: String?,
-    scheduler: Scheduler, type: BillingSupportedType
+    merchantName: String,
+    sku: String?,
+    scheduler: Scheduler,
+    type: BillingSupportedType,
   ): Single<Transaction>
 
   fun getSubscriptionToken(
-    packageName: String, skuId: String,
-    networkThread: Scheduler
+    packageName: String,
+    skuId: String,
+    networkThread: Scheduler,
+    externalBuyerReference: String?,
+    isFreeTrial: Boolean?
   ): Single<String>
 }

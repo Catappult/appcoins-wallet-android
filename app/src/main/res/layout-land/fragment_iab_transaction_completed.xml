@@ -35,7 +35,7 @@
       android:text="@string/transaction_status_success"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/lottie_transaction_success"
+      app:layout_constraintTop_toBottomOf="@+id/next_payment_date"
       />
 
   <LinearLayout
@@ -83,5 +83,6 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/lottie_transaction_success"
       tools:text="Next payment: 10/12/20"
+      tools:visibility="visible"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

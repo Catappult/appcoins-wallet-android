@@ -44,7 +44,8 @@ interface BillingRepository {
 
   fun getSubscriptionToken(
     packageName: String, skuId: String, walletAddress: String,
-    walletSignature: String
+    walletSignature: String, externalBuyerReference: String?,
+    isFreeTrial: Boolean?
   ): Single<String>
 
   fun registerAuthorizationProof(

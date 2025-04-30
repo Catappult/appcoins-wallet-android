@@ -127,9 +127,19 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     binding.layoutExpiredSubscriptionContent.root.visibility = View.GONE
     binding.layoutActiveSubscriptionContent.root.visibility = View.VISIBLE
 
-    binding.status.text = getString(R.string.subscriptions_active_title)
+    if (subscriptionItem.isFreeTrial) {
+      binding.statusBadge.visibility = View.VISIBLE
+      binding.statusBadge.text = getString(R.string.subscriptions_free_trial_title)
+      binding.statusBadge.background =
+        ContextCompat.getDrawable(requireContext(), R.drawable.bg_badge_blue)
+    } else {
+      binding.statusBadge.visibility = View.VISIBLE
+      binding.statusBadge.text = getString(R.string.subscriptions_active_title)
+      binding.statusBadge.background =
+        ContextCompat.getDrawable(requireContext(), R.drawable.bg_badge_green)
+    }
+
     binding.layoutActiveSubscriptionContent.paymentMethodValue.text = subscriptionItem.paymentMethod
-    binding.status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_green, null))
 
     binding.skuName.text = subscriptionItem.itemName
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
@@ -138,6 +148,10 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     if (subscriptionItem.status == Status.CANCELED) {
       setCanceledInfo(subscriptionItem)
       binding.renewSubscription.visibility = View.VISIBLE
+      binding.statusBadge.visibility = View.VISIBLE
+      binding.statusBadge.text = getString(R.string.subscriptions_cancelled_badge)
+      binding.statusBadge.background =
+        ContextCompat.getDrawable(requireContext(), R.drawable.bg_badge_red)
     } else {
       binding.cancelSubscription.visibility = View.VISIBLE
       subscriptionItem.renewal?.let {
@@ -166,19 +180,16 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
 
     binding.layoutActiveSubscriptionContent.root.visibility = View.GONE
     binding.layoutExpiredSubscriptionContent.root.visibility = View.VISIBLE
-    binding.info.visibility = View.GONE
     binding.infoText.visibility = View.GONE
     binding.cancelSubscription.visibility = View.GONE
 
     binding.renewSubscription.visibility = View.GONE
-    binding.status.setTextColor(
-      ResourcesCompat.getColor(
-        resources,
-        R.color.styleguide_medium_grey,
-        null
-      )
-    )
-    binding.status.text = getString(R.string.subscriptions_inactive_title)
+
+    binding.statusBadge.visibility = View.VISIBLE
+    binding.statusBadge.text = getString(R.string.subscriptions_expired_badge)
+    binding.statusBadge.background =
+      ContextCompat.getDrawable(requireContext(), R.drawable.bg_badge_grey)
+
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
 
     subscriptionItem.ended?.let {

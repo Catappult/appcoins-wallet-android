@@ -3,7 +3,11 @@ package com.asfoundation.wallet.util
 import android.content.Context
 import com.asf.wallet.R
 import java.io.Serializable
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.time.format.DateTimeParseException
+import java.util.Date
+import java.util.Locale
 import java.util.Objects
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -105,19 +109,88 @@ data class Period(val years: Int, val months: Int, val weeks: Int, val days: Int
         throw Exception("Text cannot be parsed to a Period")
       }
     }
+
+    fun formatDayMonth(isoString: String): String {
+      return try {
+        val sanitized = isoString.replace(Regex("\\.\\d+Z\$"), "Z")
+
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault())
+        val date = parser.parse(sanitized) ?: return ""
+
+        val formatter = SimpleDateFormat("dd/MM", Locale.getDefault())
+        formatter.format(date)
+      } catch (e: Exception) {
+        ""
+      }
+    }
   }
 
   fun mapToSubsFrequency(context: Context, fiatText: String): String {
     return when {
       years == 1 -> context.getString(R.string.subscriptions_per_year, fiatText)
-      years > 1 -> context.getString(R.string.subscriptions_per_several_year, fiatText)
+      years > 1 -> context.getString(
+        R.string.subscriptions_per_several_year,
+        fiatText,
+        years.toString()
+      )
+
       months == 1 -> context.getString(R.string.subscriptions_per_month, fiatText)
-      months > 1 -> context.getString(R.string.subscriptions_per_several_month, fiatText)
+      months > 1 -> context.getString(
+        R.string.subscriptions_per_several_month,
+        fiatText,
+        months.toString()
+      )
+
       weeks == 1 -> context.getString(R.string.subscriptions_per_week, fiatText)
-      weeks > 1 -> context.getString(R.string.subscriptions_per_several_week, fiatText)
+      weeks > 1 -> context.getString(
+        R.string.subscriptions_per_several_week,
+        fiatText,
+        weeks.toString()
+      )
+
       days == 1 -> context.getString(R.string.subscriptions_per_day, fiatText)
-      days > 1 -> context.getString(R.string.subscriptions_per_several_day, fiatText)
+      days > 1 -> context.getString(
+        R.string.subscriptions_per_several_day,
+        fiatText,
+        days.toString()
+      )
+
       else -> fiatText
     }
   }
+
+  fun mapToFrequency(context: Context): String {
+    return when {
+      years >= 1 -> context.getString(R.string.subscriptions_year)
+      months >= 1 -> context.getString(R.string.subscriptions_month)
+      weeks >= 1 -> context.getString(R.string.subscriptions_week)
+      days >= 1 -> context.getString(R.string.subscriptions_day)
+
+      else -> ""
+    }
+  }
+
+  fun mapToFreeTrialDuration(context: Context): String {
+    return when {
+      years >= 1 -> context.getString(
+        R.string.subscriptions_year_free_trial_title,
+        years.toString()
+      )
+      months >= 1 -> context.getString(
+        R.string.subscriptions_month_free_trial_title,
+        months.toString()
+      )
+
+      weeks >= 1 -> context.getString(
+        R.string.subscriptions_week_free_trial_title,
+        weeks.toString()
+      )
+      days >= 1 -> context.getString(
+        R.string.subscriptions_day_free_trial_title,
+        days.toString()
+      )
+      else -> "Free Trial"
+    }
+  }
+
 }

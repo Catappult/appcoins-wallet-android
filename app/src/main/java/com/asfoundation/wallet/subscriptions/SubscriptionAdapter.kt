@@ -24,7 +24,7 @@ class SubscriptionAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubscriptionViewHolder {
     val view = LayoutInflater.from(parent.context)
-      .inflate(R.layout.subscription_item, parent, false)
+      .inflate(R.layout.subscription_new_item, parent, false)
     return SubscriptionViewHolder(view, CurrencyFormatUtils())
   }
 
