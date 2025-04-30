@@ -7,7 +7,9 @@ import android.util.Log
 import android.webkit.WebView
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.feature.promocode.data.use_cases.VerifyAndSavePromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.analytics.PaymentMethodAnalyticsMapper
 import com.asfoundation.wallet.backup.BackupNotificationUtils
@@ -36,7 +38,9 @@ class WebViewPaymentViewModel @Inject constructor(
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
   private val analytics: BillingAnalytics,
-  private val paymentAnalytics: PaymentMethodsAnalytics
+  private val paymentAnalytics: PaymentMethodsAnalytics,
+  private val verifyAndSavePromoCodeUseCase: VerifyAndSavePromoCodeUseCase,
+  private var rewardsAnalytics: RewardsAnalytics
 ) : ViewModel() {
 
   private var _uiState = MutableStateFlow<UiState>(UiState.ShowPaymentMethods)
@@ -191,6 +195,19 @@ class WebViewPaymentViewModel @Inject constructor(
       }
       .doOnError {  _uiState.value = UiState.FinishActivity(bundle) }
       .subscribe({ }, { it.printStackTrace() })
+    )
+  }
+
+  fun setPromoCode(promoCode: String) {
+    CompositeDisposable().add(
+      verifyAndSavePromoCodeUseCase(promoCode)
+        .subscribeOn(rxSchedulers.io)
+        .observeOn(rxSchedulers.io)
+        .doOnSuccess {
+          rewardsAnalytics.submitNewPromoCodeClickEvent(promoCode)
+        }
+        .doOnError {}
+        .subscribe({ }, { it.printStackTrace() })
     )
   }
 
