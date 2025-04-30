@@ -546,12 +546,14 @@
   <string name="subscriptions_empty_title">Ще немає підписок</string>
   <string name="subscriptions_empty_body">Підпишіться на послуги у ваших улюблених додатках та іграх, і ми розберемося з періодичними платежами.</string>
   <string name="subscriptions_details_billing_title">Оплата:</string>
+  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
   <string name="subscriptions_details_next_payment_title">Наступний платіж:</string>
   <string name="subscriptions_details_payment_method_title">Спосіб оплати:</string>
   <string name="subscriptions_details_last_bill">Остання оплата:</string>
   <string name="subscriptions_details_start_date_title">Дата початку:</string>
   <string name="subscriptions_details_cancelled_body">Скасовано – термін дії закінчується %s</string>
   <string name="subscriptions_expiration_body">Термін дії закінчується %s</string>
+  <string name="subscriptions_renew_body">Renews on %s</string>
   <string name="subscriptions_canceled_body">Скасовано</string>
   <string name="subscriptions_details_disclaimer">Сума наступного платежу може змінитися через курс валют.</string>
   <string name="subscriptions_manage_button">Керувати підпискою</string>
@@ -568,6 +570,10 @@
   <string name="subscriptions_per_week">%1$s/тиждень</string>
   <string name="subscriptions_per_month">%1$s/місяць</string>
   <string name="subscriptions_per_year">%1$s/рік</string>
+  <string name="subscriptions_day">/day</string>
+  <string name="subscriptions_week">/week</string>
+  <string name="subscriptions_month">/month</string>
+  <string name="subscriptions_year">/year</string>
   <string name="subscriptions_per_several_day">%1$s кожні %2$s днів</string>
   <string name="subscriptions_per_several_week">%1$s кожні %2$s тижнів</string>
   <string name="subscriptions_per_several_month">%1$s кожні %2$s місяців</string>
@@ -575,10 +581,15 @@
   <string name="subscriptions_error_already_subscribed">Ой, ви вже підписалися на цю послугу! Не соромтеся звертатися до нас.</string>
   <string name="subscriptions_starting_today_body">Starting Today</string>
   <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
+  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_cancelled_badge">Canceled</string>
+  <string name="subscriptions_expired_badge">Expired</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
   <string name="gamif_title">Бонус до %s%%!</string>
   <string name="gamif_bonus_received">Бонус отримано</string>
