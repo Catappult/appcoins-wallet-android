@@ -73,9 +73,6 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
         clickListener?.invoke(PaymentMethodClick.PaypalDirectClick)
       }
 
-      PaymentMethodsView.SelectedPaymentMethod.CHALLENGE_REWARD -> {
-        clickListener?.invoke(PaymentMethodClick.ChallengeRewardClick)
-      }
 
       PaymentMethodsView.SelectedPaymentMethod.VKPAY -> {
         clickListener?.invoke(PaymentMethodClick.VkPayPaymentClick)

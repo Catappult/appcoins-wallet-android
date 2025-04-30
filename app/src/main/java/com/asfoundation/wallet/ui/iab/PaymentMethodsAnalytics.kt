@@ -35,7 +35,6 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val PAYMENT_METHOD_SANDBOX = "sandbox"
     const val PAYMENT_METHOD_GOOGLEPAY_WEB = "googlepay"
     const val PAYMENT_METHOD_ASK_FRIEND = "ask_friend"
-    const val PAYMENT_METHOD_CHALLENGE_REWARD = "challenge_reward"
     const val PAYMENT_METHOD_MI_PAY = "mipay"
     const val PAYMENT_METHOD_TRUE_LAYER = "truelayer"
     const val PAYMENT_METHOD_AMAZON_PAY = "amazon_pay"

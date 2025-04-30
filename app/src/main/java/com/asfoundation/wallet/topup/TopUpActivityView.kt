@@ -55,10 +55,6 @@ interface TopUpActivityView {
 
   fun launchPerkBonusAndGamificationService(address: String)
 
-  fun createChallengeReward(walletAddress: String)
-
-  fun navigateToChallengeReward()
-
   fun navigateToVkPayPayment(topUpData: TopUpPaymentData)
 
   fun navigateToGooglePay(paymentType: PaymentType, data: TopUpPaymentData)

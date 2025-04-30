@@ -92,7 +92,6 @@ class TopUpFragmentPresenter(
     handlePaymentMethodSelected()
     handleValuesClicks()
     handleKeyboardEvents()
-    handleChallengeRewardWalletAddress()
     getCardIdSharedPreferences()
   }
 
@@ -216,11 +215,7 @@ class TopUpFragmentPresenter(
   private fun handleBonus(bonusAndLevel: ForecastBonusAndLevel) {
     if (interactor.isBonusValidAndActive(bonusAndLevel)) {
       val scaledBonus = formatter.scaleFiat(bonusAndLevel.amount)
-      if (view.getCurrentPaymentMethod()?.id == PaymentMethodId.CHALLENGE_REWARD.id) {
-        view.hideBonusAndSkeletons()
-      } else {
-        view.showBonus(scaledBonus, bonusAndLevel.currency)
-      }
+      view.showBonus(scaledBonus, bonusAndLevel.currency)
     } else {
       view.removeBonus()
     }
@@ -404,11 +399,7 @@ class TopUpFragmentPresenter(
         .distinctUntilChanged()
         .doOnError { it.printStackTrace() }
         .subscribe { paymentMethod ->
-          if (paymentMethod.id == PaymentMethodId.CHALLENGE_REWARD.id)
-            view.hideBonus()
-          else
-            view.showBonus()
-
+          view.showBonus()
           view.paymentMethodsFocusRequest()
           setNextButton(paymentMethod.id)
           reloadUiByCurrency(paymentMethod)
@@ -648,16 +639,6 @@ class TopUpFragmentPresenter(
     )
   }
 
-  private fun handleChallengeRewardWalletAddress() {
-    disposables.add(
-      getWalletInfoUseCase(null, false)
-        .subscribeOn(networkScheduler)
-        .subscribe(
-          { activity?.createChallengeReward(it.wallet) },
-          { logger.log(TAG, "Error creating challenge reward") }
-        )
-    )
-  }
 
   fun setCardIdSharedPreferences(recurringReference: String) {
     disposables.add(
@@ -749,10 +730,6 @@ class TopUpFragmentPresenter(
           paymentType = paymentMethod.paymentType,
           data = mapTopUpPaymentData(topUpData, gamificationLevel)
         )
-      }
-
-      PaymentType.CHALLENGE_REWARD -> {
-        activity?.navigateToChallengeReward()
       }
 
       else -> {}
