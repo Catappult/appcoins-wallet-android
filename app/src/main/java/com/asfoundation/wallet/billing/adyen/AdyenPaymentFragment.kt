@@ -812,7 +812,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
           }
       } else {
         val period = Period.parse(frequency!!)
-        period?.mapToSubsFrequency(requireContext(), fiatText)?.let { fiatText = it }
         bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice?.text =
           if (isPortraitMode(requireContext())) {
             getString(R.string.purchase_total_header, fiatText, "")
