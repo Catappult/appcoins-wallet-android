@@ -7,7 +7,9 @@ abstract class Product(
   open val transactionPrice: TransactionPrice,
   open val billingType: String,
   open val subscriptionPeriod: String? = null, //Subs only
-  open val trialPeriod: String? = null //Subs only
+  open val trialPeriod: String? = null, //Subs only
+  open val freeTrialDuration: String? = null,  //Subs only
+  open val subscriptionStartingDate: String? = null  //Subs only
 )
 
 data class InAppProduct(
@@ -26,9 +28,12 @@ data class SubsProduct(
   override val transactionPrice: TransactionPrice,
   override val billingType: String,
   override val subscriptionPeriod: String,
-  override val trialPeriod: String?
+  override val trialPeriod: String?,
+  override val freeTrialDuration: String?,
+  override val subscriptionStartingDate: String?
 ) :
-  Product(sku, title, description, transactionPrice, billingType, subscriptionPeriod, trialPeriod)
+  Product(sku, title, description, transactionPrice, billingType, subscriptionPeriod, trialPeriod,
+    freeTrialDuration, subscriptionStartingDate)
 
 data class TransactionPrice(
   val base: String?,

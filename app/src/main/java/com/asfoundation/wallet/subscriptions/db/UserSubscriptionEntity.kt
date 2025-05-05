@@ -32,5 +32,6 @@ data class UserSubscriptionEntity(
   @ColumnInfo(name = "method_title") val methodTitle: String,
   @ColumnInfo(name = "method_logo") val methodLogo: String,
   @ColumnInfo(name = "appc_value") val appcValue: BigDecimal,
-  @ColumnInfo(name = "appc_label") val appcLabel: String
+  @ColumnInfo(name = "appc_label") val appcLabel: String,
+  val trialing: Boolean,
 )

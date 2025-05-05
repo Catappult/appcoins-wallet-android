@@ -215,7 +215,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
-    frequency: String?
+    frequency: String?,
+    isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   ) {
     replaceFragment(
       AdyenPaymentFragment.newInstance(
@@ -231,7 +234,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         isSubscription = isSubscription,
         isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
         frequency = frequency,
-        paymentStateEnum = null
+        paymentStateEnum = null,
+        isFreeTrial = isFreeTrial,
+        freeTrialDuration = freeTrialDuration,
+        subscriptionStartingDate = subscriptionStartingDate,
       )
     )
   }

@@ -150,13 +150,17 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     packageName: String,
     skuId: String,
     walletAddress: String,
-    walletSignature: String
+    walletSignature: String,
+    externalBuyerReference: String?,
+    isFreeTrial: Boolean?
   ): Single<String> =
     remoteRepository.getSubscriptionToken(
       domain = packageName,
       skuId = skuId,
       walletAddress = walletAddress,
-      walletSignature = walletSignature
+      walletSignature = walletSignature,
+      externalBuyerReference = externalBuyerReference,
+      isFreeTrial = isFreeTrial
     )
 
   override fun getPaymentMethods(

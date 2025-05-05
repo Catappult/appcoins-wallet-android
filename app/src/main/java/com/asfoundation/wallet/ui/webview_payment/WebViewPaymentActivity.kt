@@ -174,7 +174,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
         settings.domStorageEnabled = true
         settings.useWideViewPort = true
         settings.databaseEnabled = true
-        settings.userAgentString = userAgentInterceptor.userAgent
+        //settings.userAgentString = userAgentInterceptor.userAgent
         CookieManager.getInstance().setAcceptThirdPartyCookies(this, true)
         CookieManager.getInstance().setAcceptCookie(true)
 
@@ -246,6 +246,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
             },
             openVerifyFlowCallback = { verifyFlow ->
               goToVerify(verifyFlow)
+            },
+            setPromoCodeCallback = { promoCode ->
+              viewModel.setPromoCode(promoCode)
             }
           ),
           "WebViewPaymentInterface"

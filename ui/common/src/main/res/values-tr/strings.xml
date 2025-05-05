@@ -306,6 +306,7 @@
   <string name="max">Maks</string>
   <string name="month">month</string>
   <string name="week">week</string>
+  <string name="join_button">Join</string>
   <string name="payment_method">Ödeme yöntemi</string>
   <string name="credit_debit_card">Kredi/banka kartı</string>
   <string name="paypal">PayPal</string>

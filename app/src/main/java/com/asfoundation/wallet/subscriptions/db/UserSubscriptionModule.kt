@@ -22,6 +22,7 @@ class UserSubscriptionModule {
       context, UserSubscriptionsDatabase::class.java,
       "user_subscription_database"
     )
+      .addMigrations(MIGRATION_1_2)
       .build()
   }
 

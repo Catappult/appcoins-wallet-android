@@ -22,15 +22,21 @@ class SubscriptionsMapper {
   fun map(subscriptionsResponse: SubscriptionsResponse): List<Product> {
     return ArrayList(subscriptionsResponse.items.map {
       SubsProduct(
-        it.sku, it.title, it.description,
-        TransactionPrice(
-          it.subscriptionPrice.currency,
-          it.subscriptionPrice.appc.value.toDouble(),
-          it.subscriptionPrice.value.toDouble(),
-          it.subscriptionPrice.currency,
-          it.subscriptionPrice.symbol
-        ), BillingSupportedType.SUBS_TYPE,
-        it.period, it.trialPeriod
+        sku = it.sku,
+        title = it.title,
+        description = it.description,
+        transactionPrice = TransactionPrice(
+          base = it.subscriptionPrice.currency,
+          appcoinsAmount = it.subscriptionPrice.appc.value.toDouble(),
+          amount = it.subscriptionPrice.value.toDouble(),
+          currency = it.subscriptionPrice.currency,
+          currencySymbol = it.subscriptionPrice.symbol
+        ),
+        billingType = BillingSupportedType.SUBS_TYPE,
+        subscriptionPeriod = it.period,
+        trialPeriod = it.trialPeriod,
+        freeTrialDuration = it.subscriptionPrice.trial?.freeTrialDuration,
+        subscriptionStartingDate = it.subscriptionPrice.trial?.subscriptionStartingDate
       )
     })
   }

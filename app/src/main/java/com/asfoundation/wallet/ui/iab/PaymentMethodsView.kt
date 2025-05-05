@@ -13,13 +13,17 @@ interface PaymentMethodsView {
     paymentMethods: MutableList<PaymentMethod>,
     currency: String, paymentMethodId: String, fiatAmount: String,
     appcEnabled: Boolean, creditsEnabled: Boolean,
-    frequency: String?, isSubscription: Boolean
+    frequency: String?, isSubscription: Boolean, isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   )
 
   fun showPreSelectedPaymentMethod(
     paymentMethod: PaymentMethod, currency: String,
     fiatAmount: String, isBonusActive: Boolean,
-    frequency: String?, isSubscription: Boolean
+    frequency: String?, isSubscription: Boolean, isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   )
 
   fun showError(message: Int)
@@ -79,12 +83,15 @@ interface PaymentMethodsView {
     fiatCurrency: String,
     paymentType: PaymentType,
     iconUrl: String?, gamificationLevel: Int, frequency: String?,
-    isSubscription: Boolean
+    isSubscription: Boolean,
+    isFreeTrial: Boolean, freeTrialDuration: String?,
+    subscriptionStartingDate: String?,
   )
 
   fun showCreditCard(
     gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
-    isSubscription: Boolean
+    isSubscription: Boolean, isFreeTrial: Boolean, freeTrialDuration: String?,
+    subscriptionStartingDate: String?
   )
 
   fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder)
@@ -163,11 +170,19 @@ interface PaymentMethodsView {
 
   fun showFee(hasFee: Boolean)
 
-  fun updatePriceAndCurrency(currency: String, amount: BigDecimal)
+  fun updatePriceAndCurrency(
+    currency: String,
+    amount: BigDecimal,
+    frequency: String?,
+    isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?,
+  )
 
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS,
-    EARN_APPC, CARRIER_BILLING, ERROR, SANDBOX, CHALLENGE_REWARD, VKPAY, GOOGLEPAY_WEB, MI_PAY, AMAZONPAY
+    EARN_APPC, CARRIER_BILLING, ERROR, SANDBOX, CHALLENGE_REWARD, VKPAY, GOOGLEPAY_WEB, MI_PAY,
+    AMAZONPAY
   }
 
   enum class PaymentMethodId(val id: String) {

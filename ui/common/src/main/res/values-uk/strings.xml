@@ -308,6 +308,7 @@
   <string name="max">Макс.</string>
   <string name="month">month</string>
   <string name="week">week</string>
+  <string name="join_button">Join</string>
   <string name="payment_method">Спосіб оплати</string>
   <string name="credit_debit_card">Кредитна/дебетова карта</string>
   <string name="paypal">PayPal</string>
