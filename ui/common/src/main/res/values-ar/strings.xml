@@ -546,12 +546,14 @@
   <string name="subscriptions_empty_title">لا توجد اشتراكات بعد</string>
   <string name="subscriptions_empty_body">اشترك في الخدمات التي في تطبيقاتك وألعابك المفضلة وسنتفق معك على دفعات منتظمة.</string>
   <string name="subscriptions_details_billing_title">الفوترة:</string>
+  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
   <string name="subscriptions_details_next_payment_title">الدفعة المقبلة:</string>
   <string name="subscriptions_details_payment_method_title">وسيلة الدفع:</string>
   <string name="subscriptions_details_last_bill">الفاتورة الأخيرة:</string>
   <string name="subscriptions_details_start_date_title">من تاريخ:</string>
   <string name="subscriptions_details_cancelled_body">ملغية - تنتهي صلاحيتها في %s</string>
   <string name="subscriptions_expiration_body">تنتهي صلاحيتها في %s</string>
+  <string name="subscriptions_renew_body">Renews on %s</string>
   <string name="subscriptions_canceled_body">ملغية</string>
   <string name="subscriptions_details_disclaimer">إن قيمة مدفوعاتك التالية يمكن أن تختلف حسب سعر الصرف.</string>
   <string name="subscriptions_manage_button">إدارة الاشتراك</string>
@@ -568,6 +570,10 @@
   <string name="subscriptions_per_week">%1$s/للأسبوع</string>
   <string name="subscriptions_per_month">%1$s/للشهر</string>
   <string name="subscriptions_per_year">%1$s/للسنة</string>
+  <string name="subscriptions_day">/day</string>
+  <string name="subscriptions_week">/week</string>
+  <string name="subscriptions_month">/month</string>
+  <string name="subscriptions_year">/year</string>
   <string name="subscriptions_per_several_day">%1$s كل %2$s يوم</string>
   <string name="subscriptions_per_several_week">%1$s كل %2$s أسبوع</string>
   <string name="subscriptions_per_several_month">%1$s كل %2$s شهر</string>
@@ -575,10 +581,15 @@
   <string name="subscriptions_error_already_subscribed">يييي، أنت مشرتك أصلًا بهذه الخدمة! لا تتردد بالتواصل معنا.</string>
   <string name="subscriptions_starting_today_body">Starting Today</string>
   <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
+  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_cancelled_badge">Canceled</string>
+  <string name="subscriptions_expired_badge">Expired</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
   <string name="gamif_title">مكافأة حتى %s%%!</string>
   <string name="gamif_bonus_received">تلقيت المكافأة</string>

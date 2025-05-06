@@ -543,12 +543,14 @@
   <string name="subscriptions_empty_title">Još nema pretplata</string>
   <string name="subscriptions_empty_body">Pretplatite se na usluge u svojim omiljenim aplikacijama i igrama, a mi ćemo obraditi periodična plaćanja.</string>
   <string name="subscriptions_details_billing_title">Naplata:</string>
+  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
   <string name="subscriptions_details_next_payment_title">Sledeća uplata:</string>
   <string name="subscriptions_details_payment_method_title">Način plaćanja:</string>
   <string name="subscriptions_details_last_bill">Poslednji račun:</string>
   <string name="subscriptions_details_start_date_title">Datum početka:</string>
   <string name="subscriptions_details_cancelled_body">Otkazano – ističe: %s</string>
   <string name="subscriptions_expiration_body">Ističe: %s</string>
+  <string name="subscriptions_renew_body">Renews on %s</string>
   <string name="subscriptions_canceled_body">Otkazano</string>
   <string name="subscriptions_details_disclaimer">Vrednost vaše sledeće uplate može varirati usled kursne liste.</string>
   <string name="subscriptions_manage_button">Upravljanje pretplatom</string>
@@ -565,6 +567,10 @@
   <string name="subscriptions_per_week">%1$s nedeljno</string>
   <string name="subscriptions_per_month">%1$s mesečno</string>
   <string name="subscriptions_per_year">%1$s godišnje</string>
+  <string name="subscriptions_day">/day</string>
+  <string name="subscriptions_week">/week</string>
+  <string name="subscriptions_month">/month</string>
+  <string name="subscriptions_year">/year</string>
   <string name="subscriptions_per_several_day">%1$s na svakih %2$s dana</string>
   <string name="subscriptions_per_several_week">%1$s na svakih %2$s nedelja</string>
   <string name="subscriptions_per_several_month">%1$s na svakih %2$s meseci</string>
@@ -572,10 +578,15 @@
   <string name="subscriptions_error_already_subscribed">Ups, izgleda da ste već pretplaćeni na ovu uslugu! Slobodno nas kontaktirajte.</string>
   <string name="subscriptions_starting_today_body">Starting Today</string>
   <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
+  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_cancelled_badge">Canceled</string>
+  <string name="subscriptions_expired_badge">Expired</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
   <string name="gamif_title">Do %s%% bonusa!</string>
   <string name="gamif_bonus_received">bounsa je dobijeno</string>
