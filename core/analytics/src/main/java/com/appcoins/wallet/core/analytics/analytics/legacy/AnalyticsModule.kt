@@ -1,7 +1,15 @@
 package com.appcoins.wallet.core.analytics.analytics.legacy
 
+import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
-import com.appcoins.wallet.core.analytics.analytics.*
+import com.appcoins.wallet.core.analytics.analytics.BackendEventLogger
+import com.appcoins.wallet.core.analytics.analytics.GAEventLogger
+import com.appcoins.wallet.core.analytics.analytics.HttpClientKnockLogger
+import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
+import com.appcoins.wallet.core.analytics.analytics.IndicativeEventLogger
+import com.appcoins.wallet.core.analytics.analytics.KeysNormalizer
+import com.appcoins.wallet.core.analytics.analytics.LogcatAnalyticsLogger
+import com.appcoins.wallet.core.analytics.analytics.SentryEventLogger
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics.Companion.WALLET_APP_ACTIVE_PROMOTION_CLICK
 import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics.Companion.WALLET_APP_EMAIL_SUBMITTED
 import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics.Companion.WALLET_APP_HOME_SCREEN_CLICK
@@ -18,6 +26,7 @@ import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import javax.inject.Named
@@ -173,11 +182,16 @@ class AnalyticsModule {
     @Named("sentry_event_list") sentryEventList: List<String>,
     indicativeAnalytics: IndicativeAnalytics,
     appStartPreferencesDataSource: AppStartPreferencesDataSource,
+    @ApplicationContext context: Context
   ): AnalyticsManager {
     return AnalyticsManager.Builder()
       .addLogger(BackendEventLogger(api, VERSION_CODE, APPLICATION_ID), biEventList)
       .addLogger(
         IndicativeEventLogger(indicativeAnalytics, appStartPreferencesDataSource),
+        indicativeEventList
+      )
+      .addLogger(
+        GAEventLogger(indicativeAnalytics, appStartPreferencesDataSource, context),
         indicativeEventList
       )
       .addLogger(SentryEventLogger(), sentryEventList)
