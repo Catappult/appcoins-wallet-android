@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.webview_payment
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -77,15 +76,31 @@ class WebViewPaymentViewModel @Inject constructor(
         .doOnSuccess {
           sendPaymentEvent(paymentMethod, transactionBuilder)
           _uiState.value = UiState.FinishWithBundle(it.bundle)
+          logger.log(
+            "createSuccessBundleAndFinish",
+            "Success in createSuccessBundleAndFinish for WebViewPayment ${it.bundle.toString()}",
+            true,
+            true
+          )
         }
         .subscribeOn(rxSchedulers.io)
         .observeOn(rxSchedulers.io)
         .doOnError {
-          logger.log("createSuccessBundleAndFinish" , "onError in createSuccessBundleAndFinish for WebViewPayment ${it.message} ${it.stackTrace}", true, true)
+          logger.log(
+            "createSuccessBundleAndFinish",
+            "onError in createSuccessBundleAndFinish for WebViewPayment ${it.message} ${it.stackTrace}",
+            true,
+            true
+          )
           _uiState.value = UiState.Finish
         }
         .subscribe({}, {
-          logger.log("createSuccessBundleAndFinish" , "onError subscribe in createSuccessBundleAndFinish for WebViewPayment ${it.message} ${it.stackTrace}", true, true)
+          logger.log(
+            "createSuccessBundleAndFinish",
+            "onError subscribe in createSuccessBundleAndFinish for WebViewPayment ${it.message} ${it.stackTrace}",
+            true,
+            true
+          )
           Log.i(TAG, "createSuccessBundleAndFinish: ${it.message}")
         })
     )
@@ -94,17 +109,17 @@ class WebViewPaymentViewModel @Inject constructor(
   private fun sendPaymentEvent(paymentMethod: String, transactionBuilder: TransactionBuilder) {
     compositeDisposable.add(
       Single.just(transactionBuilder)
-      .subscribeOn(rxSchedulers.io)
-      .subscribe { transaction ->
-        stopTimingForPurchaseEvent(true, paymentMethod)
-        analytics.sendPaymentEvent(
-          transaction.domain,
-          transaction.skuId,
-          transaction.amount().toString(),
-          PaymentMethodAnalyticsMapper.mapPaymentToAnalytics(paymentMethod),
-          transaction.type
-        )
-      })
+        .subscribeOn(rxSchedulers.io)
+        .subscribe { transaction ->
+          stopTimingForPurchaseEvent(true, paymentMethod)
+          analytics.sendPaymentEvent(
+            transaction.domain,
+            transaction.skuId,
+            transaction.amount().toString(),
+            PaymentMethodAnalyticsMapper.mapPaymentToAnalytics(paymentMethod),
+            transaction.type
+          )
+        })
   }
 
   private fun stopTimingForPurchaseEvent(success: Boolean, paymentMethod: String) {
@@ -153,7 +168,8 @@ class WebViewPaymentViewModel @Inject constructor(
     paymentMethod: String,
     transactionBuilder: TransactionBuilder
   ) {
-    compositeDisposable.add(Single.just(transactionBuilder)
+    compositeDisposable.add(
+      Single.just(transactionBuilder)
       .observeOn(rxSchedulers.io)
       .doOnSuccess { transaction ->
         analytics.sendPaymentErrorWithDetailsAndRiskEvent(
@@ -173,7 +189,8 @@ class WebViewPaymentViewModel @Inject constructor(
   }
 
   fun handlePerkNotifications(bundle: Bundle, context: Context) {
-    compositeDisposable.add(iabInteract.getWalletAddress()
+    compositeDisposable.add(
+      iabInteract.getWalletAddress()
       .subscribeOn(rxSchedulers.io)
       .observeOn(rxSchedulers.io)
       .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
@@ -181,13 +198,14 @@ class WebViewPaymentViewModel @Inject constructor(
         PerkBonusAndGamificationService.buildService(context, it.address)
         _uiState.value = UiState.FinishActivity(bundle)
       }
-      .doOnError {  _uiState.value = UiState.FinishActivity(bundle) }
+      .doOnError { _uiState.value = UiState.FinishActivity(bundle) }
       .subscribe({}, { it.printStackTrace() })
     )
   }
 
   fun handleBackupNotifications(bundle: Bundle, context: Context) {
-    compositeDisposable.add(iabInteract.incrementAndValidateNotificationNeeded()
+    compositeDisposable.add(
+      iabInteract.incrementAndValidateNotificationNeeded()
       .subscribeOn(rxSchedulers.io)
       .observeOn(rxSchedulers.io)
       .doOnSuccess { notificationNeeded ->
@@ -199,7 +217,7 @@ class WebViewPaymentViewModel @Inject constructor(
         }
         _uiState.value = UiState.FinishActivity(bundle)
       }
-      .doOnError {  _uiState.value = UiState.FinishActivity(bundle) }
+      .doOnError { _uiState.value = UiState.FinishActivity(bundle) }
       .subscribe({ }, { it.printStackTrace() })
     )
   }
@@ -218,7 +236,8 @@ class WebViewPaymentViewModel @Inject constructor(
   }
 
   fun sendRevenueEvent(transactionBuilder: TransactionBuilder) {
-    compositeDisposable.add(Single.just(transactionBuilder)
+    compositeDisposable.add(
+      Single.just(transactionBuilder)
       .doOnSuccess { transaction ->
         analytics.sendRevenueEvent(
           inAppPurchaseInteractor.convertToFiat(
