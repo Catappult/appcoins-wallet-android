@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.promocode.data.use_cases.VerifyAndSavePromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.analytics.PaymentMethodAnalyticsMapper
@@ -40,7 +41,8 @@ class WebViewPaymentViewModel @Inject constructor(
   private val analytics: BillingAnalytics,
   private val paymentAnalytics: PaymentMethodsAnalytics,
   private val verifyAndSavePromoCodeUseCase: VerifyAndSavePromoCodeUseCase,
-  private var rewardsAnalytics: RewardsAnalytics
+  private var rewardsAnalytics: RewardsAnalytics,
+  private val logger: Logger,
 ) : ViewModel() {
 
   private var _uiState = MutableStateFlow<UiState>(UiState.ShowPaymentMethods)
@@ -79,9 +81,13 @@ class WebViewPaymentViewModel @Inject constructor(
         .subscribeOn(rxSchedulers.io)
         .observeOn(rxSchedulers.io)
         .doOnError {
+          logger.log("createSuccessBundleAndFinish" , "onError in createSuccessBundleAndFinish for WebViewPayment ${it.message} ${it.stackTrace}", true, true)
           _uiState.value = UiState.Finish
         }
-        .subscribe({}, { Log.i(TAG, "createSuccessBundleAndFinish: ${it.message}") })
+        .subscribe({}, {
+          logger.log("createSuccessBundleAndFinish" , "onError subscribe in createSuccessBundleAndFinish for WebViewPayment ${it.message} ${it.stackTrace}", true, true)
+          Log.i(TAG, "createSuccessBundleAndFinish: ${it.message}")
+        })
     )
   }
 
