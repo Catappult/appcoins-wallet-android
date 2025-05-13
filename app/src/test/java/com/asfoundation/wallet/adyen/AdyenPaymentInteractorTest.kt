@@ -229,7 +229,9 @@ class AdyenPaymentInteractorTest {
         userWallet = TEST_WALLET_ADDRESS,
         walletSignature = TEST_WALLET_SIGNATURE,
         referrerUrl = null,
-        guestWalletId = null
+        guestWalletId = null,
+        externalBuyerReference = null,
+        isFreeTrial = null
       )
     )
       .thenReturn(Single.just(expectedModel))
@@ -251,7 +253,9 @@ class AdyenPaymentInteractorTest {
       callbackUrl = null,
       transactionType = "INAPP",
       referrerUrl = null,
-      guestWalletId = null
+      guestWalletId = null,
+      externalBuyerReference = null,
+      isFreeTrial = null,
     )
       .subscribe(testObserver)
 
@@ -306,7 +310,9 @@ class AdyenPaymentInteractorTest {
         userWallet = null,
         walletSignature = TEST_WALLET_SIGNATURE,
         referrerUrl = null,
-        guestWalletId = null
+        guestWalletId = null,
+        externalBuyerReference = null,
+        isFreeTrial = null
       )
     )
       .thenReturn(Single.just(expectedModel))

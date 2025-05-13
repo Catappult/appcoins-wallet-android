@@ -129,7 +129,7 @@
               android:layout_height="wrap_content"
               android:layout_marginHorizontal="16dp"
               android:layout_marginTop="12dp"
-              app:cardBackgroundColor="@color/styleguide_dark_secondary"
+              app:cardBackgroundColor="@color/styleguide_dark"
               app:cardCornerRadius="16dp"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
@@ -142,7 +142,7 @@
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/subscription_item"
+                tools:listitem="@layout/subscription_new_item"
                 />
           </androidx.cardview.widget.CardView>
 
@@ -169,7 +169,7 @@
               android:layout_height="wrap_content"
               android:layout_marginHorizontal="16dp"
               android:layout_marginTop="8dp"
-              app:cardBackgroundColor="@color/styleguide_dark_secondary"
+              app:cardBackgroundColor="@color/styleguide_dark"
               app:cardCornerRadius="16dp"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
@@ -183,7 +183,7 @@
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/subscription_item"
+                tools:listitem="@layout/subscription_new_item"
                 />
           </androidx.cardview.widget.CardView>
 

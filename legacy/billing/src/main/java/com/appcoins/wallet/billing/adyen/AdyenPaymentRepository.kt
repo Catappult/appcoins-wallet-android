@@ -90,19 +90,33 @@ class AdyenPaymentRepository @Inject constructor(
     walletSignature: String,
     referrerUrl: String?,
     guestWalletId: String?,
+    externalBuyerReference: String?,
+    isFreeTrial: Boolean?
   ): Single<PaymentModel> {
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
     } else
       "Ecommerce"
     return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
-      subscriptionsApi.getSkuSubscriptionToken(
-        domain = packageName!!,
-        sku = sku!!,
-        currency = currency,
-        walletAddress = walletAddress,
-        walletSignature = walletSignature
-      )
+      if (isFreeTrial == true) {
+        subscriptionsApi.getSkuSubscriptionFreeTrialToken(
+          domain = packageName!!,
+          sku = sku!!,
+          currency = currency,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          externalBuyerReference = externalBuyerReference,
+          isFreeTrial = isFreeTrial
+        )
+      } else {
+        subscriptionsApi.getSkuSubscriptionToken(
+          domain = packageName!!,
+          sku = sku!!,
+          currency = currency,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+        )
+      }
         .subscribeOn(rxSchedulers.io)
         .map {
           TokenPayment(

@@ -6,14 +6,26 @@ import java.math.BigDecimal
 import java.util.Date
 
 data class SubscriptionItem(
-  val sku: String, val itemName: String, val period: Period?,
+  val sku: String,
+  val itemName: String,
+  val period: Period?,
   val status: Status,
-  val started: Date?, val renewal: Date?, val expiry: Date?,
-  val ended: Date?, val packageName: String, val appName: String,
-  val appIcon: String, val fiatAmount: BigDecimal, val fiatSymbol: String,
-  val currency: String, val paymentMethod: String,
-  val paymentIcon: String, val appcAmount: BigDecimal,
-  val appcLabel: String, val uid: String
+  val started: Date?,
+  val renewal: Date?,
+  val expiry: Date?,
+  val ended: Date?,
+  val packageName: String,
+  val appName: String,
+  val appIcon: String,
+  val fiatAmount: BigDecimal,
+  val fiatSymbol: String,
+  val currency: String,
+  val paymentMethod: String,
+  val paymentIcon: String,
+  val appcAmount: BigDecimal,
+  val appcLabel: String,
+  val uid: String,
+  val isFreeTrial: Boolean,
 ) : Serializable {
 
   fun isActiveSubscription(): Boolean {

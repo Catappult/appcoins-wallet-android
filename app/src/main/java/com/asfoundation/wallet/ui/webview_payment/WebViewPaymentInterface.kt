@@ -17,7 +17,8 @@ class WebViewPaymentInterface(
   private val onOpenDeepLink: (deepLink: String?) -> Unit,
   private val onStartExternalPayment: (deepLink: String?) -> Unit,
   private val onErrorCallback: (WebViewPaymentErrorResponse?) -> Unit,
-  private val openVerifyFlowCallback: (VerifyFlowWeb) -> Unit
+  private val openVerifyFlowCallback: (VerifyFlowWeb) -> Unit,
+  private val setPromoCodeCallback: (promoCode:  String) -> Unit
 ) {
 
   @JavascriptInterface
@@ -57,8 +58,13 @@ class WebViewPaymentInterface(
     openVerifyFlowCallback(parseVerifyFlow(value))
   }
 
+  @JavascriptInterface
+  fun setPromoCode(promoCode: String) {
+    setPromoCodeCallback(promoCode)
+  }
+
+
   private fun parsePurchaseResult(result: String?): WebViewPaymentResponse? {
-    logger.log("WebCheckoutEvent" , result, true, true)
     try {
       val responseModel = Gson().fromJson(result, WebViewPaymentResponse::class.java)
       return responseModel

@@ -25,7 +25,7 @@ interface SubscriptionBillingApi {
     @Path("domain") domain: String,
     @Query("skus") skus: String?,
     @Query("limit") limit: Long? = null,
-    @Query("currency") currency: String? = null
+    @Query("currency") currency: String? = null,
   ): Single<SubscriptionsResponse>
 
   /**
@@ -40,7 +40,24 @@ interface SubscriptionBillingApi {
     @Path("sku") sku: String,
     @Query("currency") currency: String?,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String
+    @Query("wallet.signature") walletSignature: String,
+  ): Single<String>
+
+  /**
+   * Retrieves the token for a given subscription
+   * @param domain PackageName of the app from which we are requesting the sku
+   * @param sku the product of the subscription
+   * @param currency The preferred currency to generate the in-app subscription token with, as an ISO 4217 alphabetic code.
+   */
+  @GET("8.20200701/applications/{domain}/inapp/subscriptions/{sku}/token")
+  fun getSkuSubscriptionFreeTrialToken(
+    @Path("domain") domain: String,
+    @Path("sku") sku: String,
+    @Query("currency") currency: String?,
+    @Query("wallet.address") walletAddress: String,
+    @Query("wallet.signature") walletSignature: String,
+    @Query("external_buyer_reference") externalBuyerReference: String?,
+    @Query("enable_trial_period") isFreeTrial: Boolean?,
   ): Single<String>
 
   /**

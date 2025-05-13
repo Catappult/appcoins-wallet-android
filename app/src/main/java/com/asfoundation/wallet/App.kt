@@ -20,7 +20,6 @@ import com.appcoins.wallet.core.network.base.MagnesUtils
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
-import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.MiscProperties
@@ -34,13 +33,13 @@ import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
-import com.asfoundation.wallet.promotions.worker.GetVipReferralWorkerFactory
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.flurry.android.FlurryAgent
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.hilt.android.HiltAndroidApp
 import io.intercom.android.sdk.Intercom
 import io.reactivex.exceptions.UndeliverableException
@@ -140,6 +139,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     appcoinsRewards.start()
     initializeWorkerManager()
     initializeIndicative()
+    initializeGoogleAnalytics()
     initiateIntercom()
     initializeSentry()
     initializeMagnes()
@@ -175,6 +175,10 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initilizeDataAnalytics.initializeIndicative()
       .subscribeOn(Schedulers.io())
       .subscribe()
+  }
+
+  private fun initializeGoogleAnalytics() {
+    FirebaseAnalytics.getInstance(this)
   }
 
   private fun initializeSentry() {

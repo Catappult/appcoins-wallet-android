@@ -69,11 +69,32 @@ class UserSubscriptionsLocalData @Inject constructor(
       val method = order.method
       val appc = order.appc
       val entity = UserSubscriptionEntity(
-        response.uid, walletAddress, response.sku, response.title,
-        response.period, response.subStatus, response.started, response.renewal, response.expiry,
-        response.ended, application.name, application.title, application.icon, order.gateway,
-        order.reference, order.value, order.label, order.currency, order.symbol, order.created,
-        method.name, method.title, method.logo, appc.value, appc.label
+        uid = response.uid,
+        walletAddress = walletAddress,
+        sku = response.sku,
+        title = response.title,
+        period = response.period,
+        subStatus = response.subStatus,
+        started = response.started,
+        renewal = response.renewal,
+        expire = response.expiry,
+        ended = response.ended,
+        appName = application.name,
+        appTitle = application.title ?: "",
+        appIcon = application.icon ?: "",
+        gateway = order.gateway,
+        reference = order.reference,
+        value = order.value,
+        label = order.label,
+        currency = order.currency,
+        symbol = order.symbol,
+        created = order.created,
+        methodName = method.name,
+        methodTitle = method.title,
+        methodLogo = method.logo,
+        appcValue = appc.value,
+        appcLabel = appc.label,
+        trialing = response.trialing
       )
       entityList.add(entity)
     }
@@ -86,15 +107,28 @@ class UserSubscriptionsLocalData @Inject constructor(
     val responseList: MutableList<UserSubscriptionResponse> = ArrayList()
     for (entity in entityList) {
       val response = UserSubscriptionResponse(
-        entity.uid, entity.sku, entity.title, entity.period,
-        entity.subStatus, entity.started, entity.renewal, entity.expire, entity.ended,
-        ApplicationInfoResponse(entity.appName, entity.appTitle, entity.appIcon),
-        OrderResponse(
-          entity.gateway, entity.reference, entity.value, entity.label,
-          entity.currency, entity.symbol, entity.created,
-          MethodResponse(entity.methodName, entity.methodTitle, entity.methodLogo),
-          AppcPrice(entity.appcValue, entity.appcLabel)
-        )
+        uid = entity.uid,
+        sku = entity.sku,
+        title = entity.title,
+        period = entity.period,
+        subStatus = entity.subStatus,
+        started = entity.started,
+        renewal = entity.renewal,
+        expiry = entity.expire,
+        ended = entity.ended,
+        application = ApplicationInfoResponse(entity.appName, entity.appTitle, entity.appIcon),
+        order = OrderResponse(
+          gateway = entity.gateway,
+          reference = entity.reference,
+          value = entity.value,
+          label = entity.label,
+          currency = entity.currency,
+          symbol = entity.symbol,
+          created = entity.created,
+          method = MethodResponse(entity.methodName, entity.methodTitle, entity.methodLogo),
+          appc = AppcPrice(entity.appcValue, entity.appcLabel)
+        ),
+        trialing = entity.trialing
       )
       responseList.add(response)
     }

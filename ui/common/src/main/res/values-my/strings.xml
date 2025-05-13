@@ -541,12 +541,14 @@
   <string name="subscriptions_empty_title">ပံုမွန္၀ယ္ယူမႈမ်ား မရွိေသးပါ</string>
   <string name="subscriptions_empty_body">သင့့္စိတ္ႀကိဳက္အက္ပ္မ်ားနွင့္ ဂိမ္မ်ားတြင္ ၀န္ေဆာင္မႈမ်ားကို ပံုမွန္၀ယ္ယူလိုက္ပါ။ ကာလအလိုက္ ေငြေပးေခ်မႈမ်ားကို ကၽြႏ္ုပ္တို႔ လုပ္ေဆာင္ေပးပါမည္။</string>
   <string name="subscriptions_details_billing_title">က်သင့္ေငြေကာက္ခံျခင္း -</string>
+  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
   <string name="subscriptions_details_next_payment_title">ေနာက္ထပ္ေငြေပးေခ်မႈ -</string>
   <string name="subscriptions_details_payment_method_title">ေငြေပးေခ်မႈနည္းလမ္း -</string>
   <string name="subscriptions_details_last_bill">ေနာက္ဆံုးက်သင့္ေငြေကာက္ခံမႈ -</string>
   <string name="subscriptions_details_start_date_title">စတင္သည့္ေန႔စြဲ -</string>
   <string name="subscriptions_details_cancelled_body">ပယ္ဖ်က္လိုက္ပါသည္ - %s တြင္ သက္တမ္းကုန္ပါမည္</string>
   <string name="subscriptions_expiration_body">%s တြင္ သက္တမ္းကုန္ပါမည္</string>
+  <string name="subscriptions_renew_body">Renews on %s</string>
   <string name="subscriptions_canceled_body">ပယ္ဖ်က္လိုက္ပါသည္</string>
   <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
   <string name="subscriptions_manage_button">ပုံမွန္ဝယ္ယူမႈကို စီမံမည္</string>
@@ -563,6 +565,10 @@
   <string name="subscriptions_per_week">တစ္ပတ္လွ်င္ %1$s</string>
   <string name="subscriptions_per_month">တစ္လလွ်င္ %1$s</string>
   <string name="subscriptions_per_year">တစ္ႏွစ္လွ်င္ %1$s</string>
+  <string name="subscriptions_day">/day</string>
+  <string name="subscriptions_week">/week</string>
+  <string name="subscriptions_month">/month</string>
+  <string name="subscriptions_year">/year</string>
   <string name="subscriptions_per_several_day">%2$s ရက္တိုင္းတြင္ %1$s</string>
   <string name="subscriptions_per_several_week">%2$s ပတ္တိုင္းတြင္ %1$s</string>
   <string name="subscriptions_per_several_month">%2$s လတိုင္းတြင္ %1$s</string>
@@ -570,10 +576,15 @@
   <string name="subscriptions_error_already_subscribed">အိုး ဤဝန္ေဆာင္မႈကို သင္ပံုမွန္ရယူထားၿပီး ျဖစ္ပါသည္။ ကၽြႏ္ုပ္တို႔ထံသို႔ လိုအပ္သလို ဆက္သြယ္ႏိုင္ပါသည္။</string>
   <string name="subscriptions_starting_today_body">Starting Today</string>
   <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
+  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_cancelled_badge">Canceled</string>
+  <string name="subscriptions_expired_badge">Expired</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
   <string name="gamif_title">%s%% အထိ ေဘာနပ္စ္။</string>
   <string name="gamif_bonus_received">ေဘာနပ္စ္ ရရွိၿပီးပါၿပီ</string>

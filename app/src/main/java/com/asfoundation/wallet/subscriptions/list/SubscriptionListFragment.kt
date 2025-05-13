@@ -49,19 +49,7 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
     expiredAdapter = SubscriptionAdapter(clickSubject)
 
     binding.rvActiveSubs.adapter = activeAdapter
-    binding.rvActiveSubs.addItemDecoration(
-      DividerItemDecoration(
-        context,
-        DividerItemDecoration.VERTICAL
-      )
-    )
     binding.rvExpiredSubs.adapter = expiredAdapter
-    binding.rvExpiredSubs.addItemDecoration(
-      DividerItemDecoration(
-        context,
-        DividerItemDecoration.VERTICAL
-      )
-    )
 
     presenter.present()
   }

@@ -127,6 +127,7 @@
               android:orientation="vertical"
               android:overScrollMode="never"
               android:paddingStart="16dp"
+              android:paddingBottom="16dp"
               android:paddingTop="16dp"
               android:paddingEnd="16dp"
               app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

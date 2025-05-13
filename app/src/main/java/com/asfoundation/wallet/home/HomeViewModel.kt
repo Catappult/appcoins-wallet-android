@@ -51,6 +51,7 @@ import com.asfoundation.wallet.home.usecases.GetLastShownUserLevelUseCase
 import com.asfoundation.wallet.home.usecases.GetLevelsUseCase
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import com.asfoundation.wallet.home.usecases.ShouldOpenRatingDialogUseCase
+import com.asfoundation.wallet.home.usecases.ShowDiscordBannerFlagUseCase
 import com.asfoundation.wallet.home.usecases.ShowRebrandingBannerFlagUseCase
 import com.asfoundation.wallet.home.usecases.UpdateLastShownUserLevelUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsModel
@@ -103,7 +104,8 @@ data class HomeState(
   val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
   val hasBackup: Async<Boolean> = Async.Uninitialized,
-  val showRebrandingBanner: Async<Boolean> = Async.Uninitialized
+  val showRebrandingBanner: Async<Boolean> = Async.Uninitialized,
+  val showDiscordBanner: Async<Boolean> = Async.Uninitialized
 ) : ViewState
 
 data class PromotionsState(
@@ -144,6 +146,7 @@ constructor(
   private val emailAnalytics: EmailAnalytics,
   private val getImpressionUseCase: GetImpressionUseCase,
   private val showRebrandingBannerFlagUseCase: ShowRebrandingBannerFlagUseCase,
+  private val showDiscordBannerFlagUseCase: ShowDiscordBannerFlagUseCase,
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private lateinit var defaultCurrency: String
@@ -152,6 +155,7 @@ constructor(
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val showBackup = mutableStateOf(false)
   val showRebrandingBanner = mutableStateOf(false)
+  val showDiscordBanner = mutableStateOf(false)
   val newWallet = mutableStateOf(false)
   val isLoadingTransactions = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
@@ -183,6 +187,7 @@ constructor(
     handleRateUsDialogVisibility()
     fetchPromotions()
     handleRebrandingBanner()
+    handleDiscordBanner()
   }
 
   private fun handleWalletData() {
@@ -280,6 +285,14 @@ constructor(
 
   fun isShowRebrandingBanner(): Boolean {
     return homePreferencesDataSource.isShowRebrandingBanner()
+  }
+
+  fun saveShowDiscordBanner(showDiscordBanner: Boolean) {
+    homePreferencesDataSource.saveShowDiscordBanner(showDiscordBanner)
+  }
+
+  fun isShowDiscordBanner(): Boolean {
+    return homePreferencesDataSource.isShowDiscordBanner()
   }
 
   fun getImpression() {
@@ -514,6 +527,16 @@ constructor(
       .asAsyncToState(HomeState::showRebrandingBanner) {
         Log.d(TAG, "handleRebrandingBanner: $it")
         copy(showRebrandingBanner = it)
+      }
+      .scopedSubscribe { e -> e.printStackTrace() }
+  }
+
+  private fun handleDiscordBanner() {
+    showDiscordBannerFlagUseCase()
+      .subscribeOn(rxSchedulers.io)
+      .asAsyncToState(HomeState::showDiscordBanner) {
+        Log.d(TAG, "handleDiscordBanner: $it")
+        copy(showDiscordBanner = it)
       }
       .scopedSubscribe { e -> e.printStackTrace() }
   }

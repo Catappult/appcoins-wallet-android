@@ -12,7 +12,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:lineSpacingExtra="0.25sp"
-      android:text="@string/subscriptions_details_billing_title"
+      android:text="@string/subscriptions_details_recurring_payment_title"
       android:textColor="@color/styleguide_dark_grey"
       app:layout_constraintEnd_toStartOf="@id/guideline_mid"
       app:layout_constraintHorizontal_bias="0"
@@ -27,8 +27,7 @@
       android:layout_height="wrap_content"
       android:fontFamily="sans-serif"
       android:textColor="@color/styleguide_light_grey"
-      android:textSize="16sp"
-      android:textStyle="bold"
+      android:textSize="14sp"
       app:layout_constraintBottom_toBottomOf="@id/billing_title"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
@@ -57,6 +56,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:textSize="11sp"
+        android:visibility="gone"
         tools:text="~69.90 APPC"
         />
 
@@ -65,6 +65,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="4dp"
         android:src="@drawable/ic_info_grey_fill"
+        android:visibility="gone"
         />
 
   </LinearLayout>
@@ -88,6 +89,7 @@
       style="@style/TransactionDetailsTextStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:textSize="14sp"
       app:layout_constraintBottom_toBottomOf="@id/next_payment_label"
       app:layout_constraintEnd_toEndOf="@+id/total_value"
       app:layout_constraintHorizontal_bias="1"
@@ -115,6 +117,7 @@
       style="@style/TransactionDetailsTextStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:textSize="14sp"
       app:layout_constraintEnd_toEndOf="@+id/next_payment_value"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toEndOf="@id/guideline_mid"

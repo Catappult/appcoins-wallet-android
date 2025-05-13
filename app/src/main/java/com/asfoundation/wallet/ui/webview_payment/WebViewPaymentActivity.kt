@@ -246,6 +246,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
             },
             openVerifyFlowCallback = { verifyFlow ->
               goToVerify(verifyFlow)
+            },
+            setPromoCodeCallback = { promoCode ->
+              viewModel.setPromoCode(promoCode)
             }
           ),
           "WebViewPaymentInterface"

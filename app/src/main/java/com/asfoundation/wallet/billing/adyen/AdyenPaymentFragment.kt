@@ -460,7 +460,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
         txtStoredCardNumber?.visibility = VISIBLE
         imgStoredCardBrand?.visibility = VISIBLE
         morePaymentStoredMethods?.visibility = VISIBLE
-        bindingCreditCardLayout?.bonusLayout?.root?.visibility = VISIBLE
+        bindingCreditCardLayout?.bonusLayout?.root?.visibility = if (!isFreeTrial) VISIBLE else GONE
       }
 
     }
@@ -784,18 +784,49 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
 
   @SuppressLint("SetTextI18n")
-  fun showProductPrice(amount: String, currencyCode: String) {
+  fun showProductPrice(
+    amount: String,
+    currencyCode: String,
+  ) {
     var fiatText = "$amount $currencyCode"
-    if (isSubscription) {
-      val period = Period.parse(frequency!!)
-      period?.mapToSubsFrequency(requireContext(), fiatText)?.let { fiatText = it }
+    val period = Period.parse(frequency ?: "")
+    period?.mapToSubsFrequency(requireContext(), fiatText)?.let { fiatText = it }
+    val freeTrialPeriod = try {
+      Period.parse(freeTrialDuration ?: "")
+    } catch (e: Exception) {
+      null
     }
-    bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice?.text =
-      if (isPortraitMode(requireContext())) {
-        getString(R.string.purchase_total_header, amount, currencyCode)
+    if (isSubscription) {
+      if (isFreeTrial) {
+        showFreeTrialInfo(
+          period = period ?: Period(0, 0, 0, 1),
+          freeTrialPeriod = freeTrialPeriod ?: Period(0, 0, 0, 1),
+          startingDate = subscriptionStartingDate ?: "",
+          price = "$amount $currency"
+        )
+        bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice?.text =
+          if (isPortraitMode(requireContext())) {
+            getString(R.string.purchase_total_header, "0.00", currencyCode)
+          } else {
+            getString(R.string.gas_price_value, "0.00", currencyCode)
+          }
       } else {
-        getString(R.string.gas_price_value, amount, currencyCode)
+        val period = Period.parse(frequency!!)
+        bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice?.text =
+          if (isPortraitMode(requireContext())) {
+            getString(R.string.purchase_total_header, fiatText, "")
+          } else {
+            fiatText
+          }
       }
+    } else {
+      bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice?.text =
+        if (isPortraitMode(requireContext())) {
+          getString(R.string.purchase_total_header, amount, currencyCode)
+        } else {
+          getString(R.string.gas_price_value, amount, currencyCode)
+        }
+    }
     if (!isPortraitMode(requireContext())) {
       bindingCreditCardLayout?.paymentMethodsHeader?.fiatTotalPriceLabel?.visibility = VISIBLE
       bindingCreditCardLayout?.paymentMethodsHeader?.infoFeesGroup?.visibility = GONE
@@ -803,6 +834,25 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     fiatPriceSkeleton.visibility = GONE
     appcPriceSkeleton.visibility = GONE
     bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice?.visibility = VISIBLE
+  }
+
+  private fun showFreeTrialInfo(
+    period: Period?,
+    freeTrialPeriod: Period?,
+    startingDate: String,
+    price: String,
+  ) {
+    if (period == null || freeTrialPeriod == null) return
+
+    bindingCreditCardLayout?.bonusLayout?.root?.visibility = GONE
+    bonusLayoutPreSelected?.visibility = GONE
+    bindingCreditCardLayout?.paymentMethodsHeader?.freeTrialLayout?.visibility = VISIBLE
+    bindingCreditCardLayout?.paymentMethodsHeader?.subsTrialText?.text =
+      freeTrialPeriod.mapToFreeTrialDuration(requireContext())
+    bindingCreditCardLayout?.paymentMethodsHeader?.subsTrialStaringDateDescription?.text =
+      getString(R.string.subscriptions_starting_on_body, Period.formatDayMonth(startingDate))
+    bindingCreditCardLayout?.paymentMethodsHeader?.subsTrialStaringDateText?.text =
+      period.mapToSubsFrequency(requireContext(), price)
   }
 
   fun buyButtonClicked() = RxView.clicks(buyButton).map {
@@ -820,7 +870,8 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   fun getPaymentDetails(): Observable<AdyenComponentResponseModel> = paymentDetailsSubject!!
 
   fun getVerificationClicks(): Observable<Boolean> =
-    Observable.merge(RxView.clicks(errorVerifyWalletButton).map { false },
+    Observable.merge(
+      RxView.clicks(errorVerifyWalletButton).map { false },
       RxView.clicks(errorVerifyCardButton).map { true })
 
   fun lockRotation() = iabView.lockRotation()
@@ -862,7 +913,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   }
 
   private fun setupTransactionComplete() {
-    if (bonus.isNotEmpty()) {
+    if (bonus.isNotEmpty() && !isFreeTrial) {
       bindingCreditCardLayout?.fragmentIabTransactionCompleted?.transactionSuccessBonusText?.text =
         getString(R.string.purchase_success_bonus_received_title, bonus)
     } else {
@@ -872,7 +923,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   }
 
   private fun showBonus() {
-    if (bonus.isNotEmpty() && bonus != " ") {
+    if (bonus.isNotEmpty() && bonus != " " && !isFreeTrial) {
       bonusLayout?.visibility = VISIBLE
       bonusLayoutPreSelected?.visibility = VISIBLE
       bonusValue.text = if (isPortraitMode(requireContext())) context?.getString(
@@ -980,19 +1031,20 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   @Composable
   private fun ShowCardListExpandedLayout() {
     var isGotItVisible by remember { mutableStateOf(cardPaymentDataSource.isGotItVisible()) }
-    CardListExpandedScreen(onAddNewCardClick = {
-      isExpandedCardsList = false
-      viewModel.paymentStateEnum = PaymentStateEnum.PAYMENT_WITH_NEW_CARD
-      restartFragment()
-    }, onChangeCardClick = { storedCard, _ ->
-      setSelectedCard(storedCard)
-      isExpandedCardsList = false
-      restartFragment()
+    CardListExpandedScreen(
+      onAddNewCardClick = {
+        isExpandedCardsList = false
+        viewModel.paymentStateEnum = PaymentStateEnum.PAYMENT_WITH_NEW_CARD
+        restartFragment()
+      }, onChangeCardClick = { storedCard, _ ->
+        setSelectedCard(storedCard)
+        isExpandedCardsList = false
+        restartFragment()
 
-    }, onGotItClick = {
-      cardPaymentDataSource.setGotItManageCard(false)
-      isGotItVisible = false
-    }, cardList = viewModel.cardsList, isGotItVisible = isGotItVisible
+      }, onGotItClick = {
+        cardPaymentDataSource.setGotItManageCard(false)
+        isGotItVisible = false
+      }, cardList = viewModel.cardsList, isGotItVisible = isGotItVisible
     )
   }
 
@@ -1042,19 +1094,22 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   fun restartFragment(paymentType: PaymentType = PaymentType.CARD) {
     this.fragmentManager?.beginTransaction()?.replace(
       R.id.fragment_container, newInstance(
-        paymentType,
-        origin,
-        transactionBuilder,
-        amount,
-        currency,
-        bonus,
-        isPreSelected,
-        gamificationLevel,
-        skuDescription,
-        isSubscription,
-        skills,
-        frequency,
-        viewModel.paymentStateEnum.state
+        paymentType = paymentType,
+        origin = origin,
+        transactionBuilder = transactionBuilder,
+        amount = amount,
+        currency = currency,
+        bonus = bonus,
+        isPreSelected = isPreSelected,
+        gamificationLevel = gamificationLevel,
+        skuDescription = skuDescription,
+        isSubscription = isSubscription,
+        isSkills = skills,
+        frequency = frequency,
+        paymentStateEnum = viewModel.paymentStateEnum.state,
+        isFreeTrial = isFreeTrial,
+        freeTrialDuration = freeTrialDuration,
+        subscriptionStartingDate = subscriptionStartingDate
       )
     )?.commit()
   }
@@ -1074,6 +1129,9 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
     private const val PAYMENT_STATE_ENUM = "payment_state_enum"
+    private const val IS_FREE_TRIAL = "is_free_trial"
+    private const val FREE_TRIAL_DURATION = "free_trial_duration"
+    private const val SUBSCRIPTION_STARTING_DATE = "subscription_starting_date"
 
     @JvmStatic
     fun newInstance(
@@ -1089,7 +1147,10 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       isSubscription: Boolean,
       isSkills: Boolean,
       frequency: String?,
-      paymentStateEnum: String?
+      paymentStateEnum: String?,
+      isFreeTrial: Boolean,
+      freeTrialDuration: String?,
+      subscriptionStartingDate: String?
     ): AdyenPaymentFragment = AdyenPaymentFragment().apply {
       arguments = Bundle().apply {
         putString(PAYMENT_TYPE_KEY, paymentType.name)
@@ -1105,6 +1166,9 @@ class AdyenPaymentFragment : BasePageViewFragment() {
         putBoolean(IS_SKILLS, isSkills)
         putString(FREQUENCY, frequency)
         putString(PAYMENT_STATE_ENUM, paymentStateEnum)
+        putBoolean(IS_FREE_TRIAL, isFreeTrial)
+        putString(FREE_TRIAL_DURATION, freeTrialDuration)
+        putString(SUBSCRIPTION_STARTING_DATE, subscriptionStartingDate)
       }
     }
   }
@@ -1206,4 +1270,29 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       null
     }
   }
+
+  private val isFreeTrial: Boolean by lazy {
+    if (requireArguments().containsKey(IS_FREE_TRIAL)) {
+      requireArguments().getBoolean(IS_FREE_TRIAL)
+    } else {
+      false
+    }
+  }
+
+  private val freeTrialDuration: String? by lazy {
+    if (requireArguments().containsKey(FREE_TRIAL_DURATION)) {
+      requireArguments().getString(FREE_TRIAL_DURATION)
+    } else {
+      null
+    }
+  }
+
+  private val subscriptionStartingDate: String? by lazy {
+    if (requireArguments().containsKey(SUBSCRIPTION_STARTING_DATE)) {
+      requireArguments().getString(SUBSCRIPTION_STARTING_DATE)
+    } else {
+      null
+    }
+  }
+
 }

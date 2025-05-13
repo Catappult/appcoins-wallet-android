@@ -12,8 +12,8 @@ android {
   namespace = "com.asf.wallet"
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 356
-    versionName = "4.3.0"
+    versionCode = 359
+    versionName = "4.4.1"
   }
 }
 
@@ -102,6 +102,7 @@ dependencies {
   }
   implementation(platform(libs.firebase.bom))
   implementation(libs.firebase.messaging)
+  implementation(libs.firebase.analytics)
   implementation(libs.intercom) { exclude(group = "com.google.android", module = "flexbox") }
   implementation(libs.paranoid)
   implementation(libs.flexbox)

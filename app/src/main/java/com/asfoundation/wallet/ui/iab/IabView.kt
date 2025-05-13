@@ -45,7 +45,10 @@ interface IabView {
     iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
-    frequency: String?
+    frequency: String?,
+    isFreeTrial: Boolean,
+    freeTrialDuration: String?,
+    subscriptionStartingDate: String?,
   )
 
   fun showPayPalV2(
