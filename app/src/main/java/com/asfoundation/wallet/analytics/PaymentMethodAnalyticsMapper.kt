@@ -17,7 +17,6 @@ class PaymentMethodAnalyticsMapper {
         PaymentType.TRUE_LAYER.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_TRUE_LAYER
         PaymentType.LOCAL_PAYMENTS.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_LOCAL
         PaymentType.SANDBOX.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_SANDBOX
-        PaymentType.CHALLENGE_REWARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CHALLENGE_REWARD
 
         else -> paymentType
       }
