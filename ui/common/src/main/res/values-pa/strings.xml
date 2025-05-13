@@ -542,12 +542,14 @@
   <string name="subscriptions_empty_title">ਅਜੇ ਕੋਈ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨਹੀਂ</string>
   <string name="subscriptions_empty_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਦੀਆਂ ਸੇਵਾਵਾਂ ਦੀ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਲਓ ਅਤੇ ਅਸੀਂ ਸਮੇਂ-ਸਮੇਂ ਤੇ ਭੁਗਤਾਨਾਂ ਨਾਲ ਕੰਮ ਕਰਾਂਗੇ|</string>
   <string name="subscriptions_details_billing_title">ਬਿਲਿੰਗ:</string>
+  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
   <string name="subscriptions_details_next_payment_title">ਅਗਲਾ ਭੁਗਤਾਨ:</string>
   <string name="subscriptions_details_payment_method_title">ਭੁਗਤਾਨ ਦੇ ਢੰਗ:</string>
   <string name="subscriptions_details_last_bill">ਆਖਰੀ ਬਿੱਲ:</string>
   <string name="subscriptions_details_start_date_title">ਸ਼ੁਰੂਆਤੀ ਤਾਰੀਖ:</string>
   <string name="subscriptions_details_cancelled_body">ਰੱਦ - %s ਨੂੰ ਇਹ ਖਤਮ ਹੁੰਦਾ ਹੈ</string>
   <string name="subscriptions_expiration_body">%s ਨੂੰ ਇਹ ਖਤਮ ਹੁੰਦਾ ਹੈ</string>
+  <string name="subscriptions_renew_body">Renews on %s</string>
   <string name="subscriptions_canceled_body">ਰੱਦ</string>
   <string name="subscriptions_details_disclaimer">ਐਕਸਚੇਂਜ ਰੇਟ ਕਾਰਨ ਅਗਲੇ ਭੁਗਤਾਨ ਲਈ ਮੁੱਲ ਵੱਖਰਾ ਹੋ ਸਕਦਾ ਹੈ|</string>
   <string name="subscriptions_manage_button">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ</string>
@@ -564,6 +566,10 @@
   <string name="subscriptions_per_week">%1$s/ਹਫ਼ਤਾ</string>
   <string name="subscriptions_per_month">%1$s/ਮਹੀਨਾ</string>
   <string name="subscriptions_per_year">%1$s/ਸਾਲ</string>
+  <string name="subscriptions_day">/day</string>
+  <string name="subscriptions_week">/week</string>
+  <string name="subscriptions_month">/month</string>
+  <string name="subscriptions_year">/year</string>
   <string name="subscriptions_per_several_day">ਹਰ %2$s ਦਿਨਾਂ ਦੇ %1$s</string>
   <string name="subscriptions_per_several_week">ਹਰ %2$s ਹਫਤੇਆਂ ਦੇ %1$s</string>
   <string name="subscriptions_per_several_month">ਹਰ %2$s ਮਹੀਨਿਆਂ ਦੇ %1$s</string>
@@ -571,10 +577,15 @@
   <string name="subscriptions_error_already_subscribed">ਓਹ ਹੋ, ਤੁਸੀਂ ਪਹਿਲਾਂ ਹੀ ਇਸ ਸੇਵਾ ਦੇ ਗਾਹਕ ਹੋ! ਸਾਡੇ ਨਾਲ ਕਦੇ ਵੀ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="subscriptions_starting_today_body">Starting Today</string>
   <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
+  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_cancelled_badge">Canceled</string>
+  <string name="subscriptions_expired_badge">Expired</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
   <string name="gamif_title">%s%% ਤੱਕ ਦਾ ਬੋਨਸ!</string>
   <string name="gamif_bonus_received">ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
