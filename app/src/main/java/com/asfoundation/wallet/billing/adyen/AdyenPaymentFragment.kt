@@ -913,7 +913,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   }
 
   private fun setupTransactionComplete() {
-    if (bonus.isNotEmpty()) {
+    if (bonus.isNotEmpty() && !isFreeTrial) {
       bindingCreditCardLayout?.fragmentIabTransactionCompleted?.transactionSuccessBonusText?.text =
         getString(R.string.purchase_success_bonus_received_title, bonus)
     } else {
