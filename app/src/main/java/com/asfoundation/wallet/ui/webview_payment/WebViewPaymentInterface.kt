@@ -65,7 +65,6 @@ class WebViewPaymentInterface(
 
 
   private fun parsePurchaseResult(result: String?): WebViewPaymentResponse? {
-    logger.log("WebCheckoutEvent" , result, true, true)
     try {
       val responseModel = Gson().fromJson(result, WebViewPaymentResponse::class.java)
       return responseModel

@@ -32,7 +32,6 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.A
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.APPC
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.CARRIER_BILLING
-import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.CHALLENGE_REWARD
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.EARN_APPC
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB
@@ -111,7 +110,6 @@ class PaymentMethodsPresenter(
     handleSupportClicks()
     handleAuthenticationResult()
     handleTopupClicks()
-    handleChallengeRewardWalletAddress()
     if (paymentMethodsData.isBds) handlePaymentSelection()
   }
 
@@ -229,7 +227,6 @@ class PaymentMethodsPresenter(
                 )
 
                 CARRIER_BILLING -> view.showCarrierBilling(cachedFiatValue!!, false)
-                CHALLENGE_REWARD -> view.showChallengeReward()
                 SANDBOX -> view.showSandbox(
                   cachedGamificationLevel,
                   cachedFiatValue!!,
@@ -385,7 +382,6 @@ class PaymentMethodsPresenter(
         paymentNavigationData.isPreselected
       )
 
-      CHALLENGE_REWARD -> view.showChallengeReward()
       SANDBOX -> view.showSandbox(
         cachedGamificationLevel,
         cachedFiatValue!!,
@@ -1047,7 +1043,6 @@ class PaymentMethodsPresenter(
       paymentMethodsMapper.map(EARN_APPC) -> view.replaceBonus()
       paymentMethodsMapper.map(MERGED_APPC) -> view.hideBonus()
       paymentMethodsMapper.map(APPC_CREDITS) -> view.hideBonus()
-      paymentMethodsMapper.map(CHALLENGE_REWARD) -> view.hideBonus()
       paymentMethodsMapper.map(SANDBOX) -> view.hideBonus()
       else -> if (paymentMethodsData.subscription) {
         view.showBonus(R.string.subscriptions_bonus_body)
@@ -1283,7 +1278,6 @@ class PaymentMethodsPresenter(
       PaymentMethodId.VKPAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_VKPAY
       PaymentMethodId.CARRIER_BILLING.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_LOCAL
       PaymentMethodId.ASK_FRIEND.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_ASK_FRIEND
-      PaymentMethodId.CHALLENGE_REWARD.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_CHALLENGE_REWARD
       PaymentMethodId.SANDBOX.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_SANDBOX
       PaymentMethodId.GOOGLEPAY_WEB.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
       PaymentMethodId.MI_PAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_MI_PAY
@@ -1296,17 +1290,6 @@ class PaymentMethodsPresenter(
     val paymentMethod = loadedPaymentMethodEvent ?: return
     loadedPaymentMethodEvent = null
     analytics.stopTimingForTotalEvent(paymentMethod)
-  }
-
-  private fun handleChallengeRewardWalletAddress() {
-    disposables.add(
-      getWalletInfoUseCase(null, false)
-        .subscribeOn(networkThread)
-        .subscribe(
-          { activity?.createChallengeReward(it.wallet) },
-          { logger.log(TAG, "Error getting agreement") }
-        )
-    )
   }
 
   enum class ViewState {

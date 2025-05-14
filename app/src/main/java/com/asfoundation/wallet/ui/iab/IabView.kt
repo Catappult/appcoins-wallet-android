@@ -157,9 +157,6 @@ interface IabView {
     guestWalletId: String?,
   )
 
-  fun createChallengeReward(walletAddress: String)
-
-  fun showChallengeReward()
 
   fun showPaymentMethodsView()
 

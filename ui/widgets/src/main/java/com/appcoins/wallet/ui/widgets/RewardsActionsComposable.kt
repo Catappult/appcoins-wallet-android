@@ -39,7 +39,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 fun RewardsActions(
   onClickPromoCode: () -> Unit,
   onClickGiftCard: () -> Unit,
-  onClickChallengeReward: (() -> Unit)?,
   fragmentName: String,
   buttonsAnalytics: ButtonsAnalytics?
 ) {
@@ -52,16 +51,6 @@ fun RewardsActions(
       .height(IntrinsicSize.Max),
     horizontalArrangement = Arrangement.spacedBy(8.dp),
   ) {
-    onClickChallengeReward?.let {
-      ActionCard(
-        image = R.drawable.ic_challenge_reward,
-        title = R.string.challenge_reward_card_title,
-        description = R.string.challenge_reward_card_body,
-        onClick = onClickChallengeReward,
-        fragmentName = fragmentName,
-        buttonsAnalytics = buttonsAnalytics
-      )
-    }
     ActionCard(
       image = R.drawable.ic_promocode,
       title = R.string.rewards_promo_code_card_title,
@@ -208,7 +197,6 @@ private fun PreviewRewardsActions() {
   RewardsActions(
     onClickPromoCode = { },
     onClickGiftCard = { },
-    onClickChallengeReward = { },
     fragmentName = "RewardFragment",
     buttonsAnalytics = null
   )

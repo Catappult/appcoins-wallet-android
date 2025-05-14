@@ -542,12 +542,14 @@
   <string name="subscriptions_empty_title">Bisher keine Abonnements</string>
   <string name="subscriptions_empty_body">Abonniere Dienste in deinen Lieblings-Apps und -Spielen und wir sorgen für die regelmäßige Bezahlung.</string>
   <string name="subscriptions_details_billing_title">Bezahlung:</string>
+  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
   <string name="subscriptions_details_next_payment_title">Nächte Zahlung:</string>
   <string name="subscriptions_details_payment_method_title">Zahlungsmethode:</string>
   <string name="subscriptions_details_last_bill">Letzte Rechnung:</string>
   <string name="subscriptions_details_start_date_title">Startdatum:</string>
   <string name="subscriptions_details_cancelled_body">Gekündigt – Ablauf am %s</string>
   <string name="subscriptions_expiration_body">Ablauf am %s</string>
+  <string name="subscriptions_renew_body">Renews on %s</string>
   <string name="subscriptions_canceled_body">Gekündigt</string>
   <string name="subscriptions_details_disclaimer">Der Wert deiner nächsten Zahlung kann aufgrund von Wechselkursschwankungen variieren.</string>
   <string name="subscriptions_manage_button">Abonnement verwalten</string>
@@ -564,6 +566,10 @@
   <string name="subscriptions_per_week">%1$s/Woche</string>
   <string name="subscriptions_per_month">%1$s/Monat</string>
   <string name="subscriptions_per_year">%1$s/Jahr</string>
+  <string name="subscriptions_day">/day</string>
+  <string name="subscriptions_week">/week</string>
+  <string name="subscriptions_month">/month</string>
+  <string name="subscriptions_year">/year</string>
   <string name="subscriptions_per_several_day">%1$s alle %2$s Tage</string>
   <string name="subscriptions_per_several_week">%1$s alle %2$s Wochen</string>
   <string name="subscriptions_per_several_month">%1$s alle %2$s Monate</string>
@@ -571,10 +577,15 @@
   <string name="subscriptions_error_already_subscribed">Hoppla, du hast diesen Dienst bereits abonniert! Wenn du willst, kannst du gerne Kontakt mit uns aufnehmen.</string>
   <string name="subscriptions_starting_today_body">Starting Today</string>
   <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free tria</string>
+  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
+  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_free_trial_title">free trial</string>
+  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
+  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_cancelled_badge">Canceled</string>
+  <string name="subscriptions_expired_badge">Expired</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
   <string name="gamif_title">Bis zu %s%% Bonus!</string>
   <string name="gamif_bonus_received">Bonus erhalten</string>

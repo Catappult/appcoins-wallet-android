@@ -81,10 +81,10 @@ jacoco_version = "0.8.8"
 mockk_version = "1.13.13"
 paging_version = "3.1.1"
 paging_compose_version = "1.0.0-alpha19"
-fyber_sdk_version = "3.42.0"
 vk_pay_version = "0.112-beta24429"
 vk_pay_checkout_version = "0.112-beta24429"
 truelayer_payments_version = "2.6.0"
+firebase_version = "21.2.0"
 
 [libraries]
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation_version" }
@@ -154,8 +154,9 @@ zxing-android = { module = "com.journeyapps:zxing-android-embedded", version.ref
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase_bom" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+#firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-performance = { group = "com.google.firebase", name = "firebase-perf-ktx" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebase_version" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt_version" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt_version" }
@@ -217,8 +218,8 @@ paging_compose = { module = "androidx.paging:paging-compose", version.ref = "pag
 
 web3j = { module = "org.web3j:core", version.ref = "web3j_version" }
 kethereum-erc681 = { module = "com.github.walleth.kethereum:erc681", version.ref = "erc681_version" }
+#Avalite better its possible remove because this lib used in sharedPref
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "androidx_securitycrypto_version" }
-fyber_sdk = { module = "com.fyber:fairbid-sdk", version.ref = "fyber_sdk_version" }
 
 test-mockito = { module = "org.mockito:mockito-core", version.ref = "mockito_version" }
 test-mockk = { module = "io.mockk:mockk", version.ref = "mockk_version" }
@@ -254,7 +255,7 @@ androidx-compose = ["compose-ui-viewbinding", "compose-ui-util", "compose-ui-ui"
 coil = ["coil-kt", "coil-kt-compose", "coil-kt-svg"]
 network = ["network-retrofit", "network-retrofit-adapter-rxjava", "network-retrofit-converter-gson", "network-retrofit-converter-jackson", "network-okhttp", "google-gson"]
 adyen = ["adyen-card", "adyen-redirect", "adyen-3ds2"]
-analytics = ["analytics-sentry", "analytics-indicative", "analytics-flurry", "analytics-appsflyer"]
+analytics = ["analytics-sentry", "analytics-indicative", "analytics-flurry", "analytics-appsflyer", "firebase-analytics"]
 testing = ["test-junit", "test-mockito", "test-espresso", "test-mockk"]
 jackson = ["jackson-annotation", "jackson-databind"]
 rx = ["rx-rxjava", "rx-rxandroid", "rx-rxbinding"]

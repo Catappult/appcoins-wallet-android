@@ -166,7 +166,6 @@ interface PaymentMethodsView {
 
   fun showTopupFlow()
 
-  fun showChallengeReward()
 
   fun showFee(hasFee: Boolean)
 
@@ -181,8 +180,7 @@ interface PaymentMethodsView {
 
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS,
-    EARN_APPC, CARRIER_BILLING, ERROR, SANDBOX, CHALLENGE_REWARD, VKPAY, GOOGLEPAY_WEB, MI_PAY,
-    AMAZONPAY
+    EARN_APPC, CARRIER_BILLING, ERROR, SANDBOX, VKPAY, GOOGLEPAY_WEB, MI_PAY, AMAZONPAY
   }
 
   enum class PaymentMethodId(val id: String) {
@@ -195,7 +193,6 @@ interface PaymentMethodsView {
     CARRIER_BILLING("onebip"),
     SANDBOX("sandbox"),
     ASK_FRIEND("ask_friend"),
-    CHALLENGE_REWARD("challenge_reward"),
     VKPAY("vk_pay"),
     GOOGLEPAY_WEB("googlepay"),
     MI_PAY("mipay"),
