@@ -304,8 +304,8 @@
   <string name="topup_button">Aufladen</string>
   <string name="extra_bonus_title">Erhalte einen zusätzlichen Bonus von %s%%</string>
   <string name="max">Max.</string>
-  <string name="month">month</string>
-  <string name="week">week</string>
+  <string name="month">Monat</string>
+  <string name="week">woche</string>
   <string name="join_button">Join</string>
   <string name="payment_method">Zahlungsmethode</string>
   <string name="credit_debit_card">Kredit-/Debitkarte</string>
@@ -566,10 +566,10 @@
   <string name="subscriptions_per_week">%1$s/Woche</string>
   <string name="subscriptions_per_month">%1$s/Monat</string>
   <string name="subscriptions_per_year">%1$s/Jahr</string>
-  <string name="subscriptions_day">/day</string>
-  <string name="subscriptions_week">/week</string>
-  <string name="subscriptions_month">/month</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_day">/tag</string>
+  <string name="subscriptions_week">/woche</string>
+  <string name="subscriptions_month">/Monat</string>
+  <string name="subscriptions_year">/Jahr</string>
   <string name="subscriptions_per_several_day">%1$s alle %2$s Tage</string>
   <string name="subscriptions_per_several_week">%1$s alle %2$s Wochen</string>
   <string name="subscriptions_per_several_month">%1$s alle %2$s Monate</string>
@@ -582,8 +582,8 @@
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
   <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
   <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Canceled</string>
-  <string name="subscriptions_expired_badge">Expired</string>
+  <string name="subscriptions_cancelled_badge">Gekündigt</string>
+  <string name="subscriptions_expired_badge">Abgelaufen</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
   <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
@@ -846,12 +846,12 @@
   <string name="app_store_screen_3">Receive a bonus in all purchases</string>
   <string name="app_store_screen_4">Your favorite payment methods</string>
   <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
-  <string name="app_store_screen_6">and more...</string>
+  <string name="app_store_screen_6">und mehr...</string>
   <!-- Home buttons -->
-  <string name="home_promo_code_button">Promo Code</string>
-  <string name="home_top_up_button">Top Up</string>
-  <string name="home_manage_wallet_button">Manage Wallets</string>
-  <string name="home_backup_wallet_button">Back Up Wallet</string>
+  <string name="home_promo_code_button">Promo-Code</string>
+  <string name="home_top_up_button">Aufladen</string>
+  <string name="home_manage_wallet_button">Wallets verwalten</string>
+  <string name="home_backup_wallet_button">Wallet-Backup erstellen</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
   <string name="home_transfer_balance_button">Transfer Balance</string>
   <!-- Discord -->
