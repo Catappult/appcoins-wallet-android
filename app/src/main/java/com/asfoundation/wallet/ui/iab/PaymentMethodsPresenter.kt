@@ -447,7 +447,7 @@ class PaymentMethodsPresenter(
         packageName = paymentMethodsData.appPackage,
         skuId = skuId,
         networkThread = networkThread,
-        externalBuyerReference = paymentMethodsData.developerPayload,
+        externalBuyerReference = paymentMethodsData.externalBuyerReference,
         isFreeTrial = paymentMethodsData.isFreeTrial
       )
         .subscribeOn(networkThread)

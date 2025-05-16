@@ -98,7 +98,7 @@ class AdyenPaymentRepository @Inject constructor(
     } else
       "Ecommerce"
     return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
-      if (isFreeTrial == true) {
+      if (isFreeTrial == true && externalBuyerReference != null) {
         subscriptionsApi.getSkuSubscriptionFreeTrialToken(
           domain = packageName!!,
           sku = sku!!,
