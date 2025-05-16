@@ -304,7 +304,7 @@
   <string name="topup_button">Befizetés</string>
   <string name="extra_bonus_title">Szerezz %s%% extra bónuszt</string>
   <string name="max">Max</string>
-  <string name="month">month</string>
+  <string name="month">hónap</string>
   <string name="week">week</string>
   <string name="join_button">Join</string>
   <string name="payment_method">Fizetési mód</string>
@@ -566,10 +566,10 @@
   <string name="subscriptions_per_week">%1$s/hetente</string>
   <string name="subscriptions_per_month">%1$s/havonta</string>
   <string name="subscriptions_per_year">%1$s/évente</string>
-  <string name="subscriptions_day">/day</string>
+  <string name="subscriptions_day">/nap</string>
   <string name="subscriptions_week">/week</string>
-  <string name="subscriptions_month">/month</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_month">/hónap</string>
+  <string name="subscriptions_year">/év</string>
   <string name="subscriptions_per_several_day">%1$s %2$s naponta</string>
   <string name="subscriptions_per_several_week">%1$s %2$s hetente</string>
   <string name="subscriptions_per_several_month">%1$s %2$s havonta</string>
@@ -582,8 +582,8 @@
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
   <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
   <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Canceled</string>
-  <string name="subscriptions_expired_badge">Expired</string>
+  <string name="subscriptions_cancelled_badge">Lemondva</string>
+  <string name="subscriptions_expired_badge">Lejárt</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
   <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
@@ -846,12 +846,12 @@
   <string name="app_store_screen_3">Receive a bonus in all purchases</string>
   <string name="app_store_screen_4">Your favorite payment methods</string>
   <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
-  <string name="app_store_screen_6">and more...</string>
+  <string name="app_store_screen_6">és még...</string>
   <!-- Home buttons -->
-  <string name="home_promo_code_button">Promo Code</string>
-  <string name="home_top_up_button">Top Up</string>
-  <string name="home_manage_wallet_button">Manage Wallets</string>
-  <string name="home_backup_wallet_button">Back Up Wallet</string>
+  <string name="home_promo_code_button">Promóciós kód</string>
+  <string name="home_top_up_button">Befizetés</string>
+  <string name="home_manage_wallet_button">Walletek kezelése</string>
+  <string name="home_backup_wallet_button">Biztonsági mentés készítése</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
   <string name="home_transfer_balance_button">Transfer Balance</string>
   <!-- Discord -->

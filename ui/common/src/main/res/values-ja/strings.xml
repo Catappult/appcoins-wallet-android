@@ -304,8 +304,8 @@
   <string name="topup_button">トップアップ</string>
   <string name="extra_bonus_title">さらに%s%のボーナスを獲得</string>
   <string name="max">最大</string>
-  <string name="month">month</string>
-  <string name="week">week</string>
+  <string name="month">月</string>
+  <string name="week">週</string>
   <string name="join_button">Join</string>
   <string name="payment_method">支払方法</string>
   <string name="credit_debit_card">クレジット/デビットカード</string>
@@ -566,8 +566,8 @@
   <string name="subscriptions_per_month">%1$s/月</string>
   <string name="subscriptions_per_year">%1$s/年</string>
   <string name="subscriptions_day">/day</string>
-  <string name="subscriptions_week">/week</string>
-  <string name="subscriptions_month">/month</string>
+  <string name="subscriptions_week">/週</string>
+  <string name="subscriptions_month">/月</string>
   <string name="subscriptions_year">/year</string>
   <string name="subscriptions_per_several_day">%2$s日ごとに%1$s</string>
   <string name="subscriptions_per_several_week">%2$s週ごとに%1$s</string>
@@ -581,8 +581,8 @@
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
   <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
   <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Canceled</string>
-  <string name="subscriptions_expired_badge">Expired</string>
+  <string name="subscriptions_cancelled_badge">キャンセル済み</string>
+  <string name="subscriptions_expired_badge">期限切れ</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
   <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
@@ -839,12 +839,12 @@
   <string name="app_store_screen_3">Receive a bonus in all purchases</string>
   <string name="app_store_screen_4">Your favorite payment methods</string>
   <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
-  <string name="app_store_screen_6">and more...</string>
+  <string name="app_store_screen_6">その他...</string>
   <!-- Home buttons -->
-  <string name="home_promo_code_button">Promo Code</string>
-  <string name="home_top_up_button">Top Up</string>
-  <string name="home_manage_wallet_button">Manage Wallets</string>
-  <string name="home_backup_wallet_button">Back Up Wallet</string>
+  <string name="home_promo_code_button">プロモーションコード</string>
+  <string name="home_top_up_button">トップアップ</string>
+  <string name="home_manage_wallet_button">ウォレットの管理</string>
+  <string name="home_backup_wallet_button">ウォレットをバックアップする</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
   <string name="home_transfer_balance_button">Transfer Balance</string>
   <!-- Discord -->

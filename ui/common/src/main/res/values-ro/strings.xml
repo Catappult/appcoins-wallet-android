@@ -304,8 +304,8 @@
   <string name="topup_button">Alimentează</string>
   <string name="extra_bonus_title">Primești un bonus extra de %s%%</string>
   <string name="max">Maxim</string>
-  <string name="month">month</string>
-  <string name="week">week</string>
+  <string name="month">lună</string>
+  <string name="week">săptămână</string>
   <string name="join_button">Join</string>
   <string name="payment_method">Metoda de plată</string>
   <string name="credit_debit_card">Card de credit/debit</string>
@@ -567,10 +567,10 @@
   <string name="subscriptions_per_week">%1$s/săptămână</string>
   <string name="subscriptions_per_month">%1$s/lună</string>
   <string name="subscriptions_per_year">%1$s/an</string>
-  <string name="subscriptions_day">/day</string>
-  <string name="subscriptions_week">/week</string>
-  <string name="subscriptions_month">/month</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_day">/zi</string>
+  <string name="subscriptions_week">/săptămână</string>
+  <string name="subscriptions_month">/lună</string>
+  <string name="subscriptions_year">/an</string>
   <string name="subscriptions_per_several_day">%1$s la fiecare %2$s zile</string>
   <string name="subscriptions_per_several_week">%1$s la fiecare %2$s săptămâni</string>
   <string name="subscriptions_per_several_month">%1$s la fiecare %2$s luni</string>
@@ -583,8 +583,8 @@
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
   <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
   <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Canceled</string>
-  <string name="subscriptions_expired_badge">Expired</string>
+  <string name="subscriptions_cancelled_badge">Anulată</string>
+  <string name="subscriptions_expired_badge">Expirat</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
   <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
@@ -853,12 +853,12 @@
   <string name="app_store_screen_3">Receive a bonus in all purchases</string>
   <string name="app_store_screen_4">Your favorite payment methods</string>
   <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
-  <string name="app_store_screen_6">and more...</string>
+  <string name="app_store_screen_6">și multe altele...</string>
   <!-- Home buttons -->
-  <string name="home_promo_code_button">Promo Code</string>
-  <string name="home_top_up_button">Top Up</string>
-  <string name="home_manage_wallet_button">Manage Wallets</string>
-  <string name="home_backup_wallet_button">Back Up Wallet</string>
+  <string name="home_promo_code_button">Cod Promo</string>
+  <string name="home_top_up_button">Alimentează</string>
+  <string name="home_manage_wallet_button">Gestionează portofele</string>
+  <string name="home_backup_wallet_button">Copie de rezervă portofel</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
   <string name="home_transfer_balance_button">Transfer Balance</string>
   <!-- Discord -->
