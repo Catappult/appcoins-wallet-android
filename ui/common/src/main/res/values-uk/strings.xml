@@ -306,8 +306,8 @@
   <string name="topup_button">Поповнити</string>
   <string name="extra_bonus_title">Отримайте додатковий бонус %s%%</string>
   <string name="max">Макс.</string>
-  <string name="month">month</string>
-  <string name="week">week</string>
+  <string name="month">місяць</string>
+  <string name="week">тиждень</string>
   <string name="join_button">Join</string>
   <string name="payment_method">Спосіб оплати</string>
   <string name="credit_debit_card">Кредитна/дебетова карта</string>
@@ -570,9 +570,9 @@
   <string name="subscriptions_per_week">%1$s/тиждень</string>
   <string name="subscriptions_per_month">%1$s/місяць</string>
   <string name="subscriptions_per_year">%1$s/рік</string>
-  <string name="subscriptions_day">/day</string>
-  <string name="subscriptions_week">/week</string>
-  <string name="subscriptions_month">/month</string>
+  <string name="subscriptions_day">/день</string>
+  <string name="subscriptions_week">/тиждень</string>
+  <string name="subscriptions_month">/місяць</string>
   <string name="subscriptions_year">/year</string>
   <string name="subscriptions_per_several_day">%1$s кожні %2$s днів</string>
   <string name="subscriptions_per_several_week">%1$s кожні %2$s тижнів</string>
@@ -586,8 +586,8 @@
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
   <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
   <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Canceled</string>
-  <string name="subscriptions_expired_badge">Expired</string>
+  <string name="subscriptions_cancelled_badge">Скасовано</string>
+  <string name="subscriptions_expired_badge">Термін дії закінчився</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
   <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
@@ -862,12 +862,12 @@
   <string name="app_store_screen_3">Receive a bonus in all purchases</string>
   <string name="app_store_screen_4">Your favorite payment methods</string>
   <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
-  <string name="app_store_screen_6">and more...</string>
+  <string name="app_store_screen_6">і більше...</string>
   <!-- Home buttons -->
-  <string name="home_promo_code_button">Promo Code</string>
-  <string name="home_top_up_button">Top Up</string>
-  <string name="home_manage_wallet_button">Manage Wallets</string>
-  <string name="home_backup_wallet_button">Back Up Wallet</string>
+  <string name="home_promo_code_button">Промокод</string>
+  <string name="home_top_up_button">Поповнити</string>
+  <string name="home_manage_wallet_button">Керувати гаманцями</string>
+  <string name="home_backup_wallet_button">Резервний гаманець</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
   <string name="home_transfer_balance_button">Transfer Balance</string>
   <!-- Discord -->
