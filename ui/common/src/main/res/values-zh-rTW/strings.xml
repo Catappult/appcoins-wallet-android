@@ -581,8 +581,8 @@
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
   <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
   <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Canceled</string>
-  <string name="subscriptions_expired_badge">Expired</string>
+  <string name="subscriptions_cancelled_badge">已取消訂閱</string>
+  <string name="subscriptions_expired_badge">已到期</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
   <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
@@ -842,9 +842,9 @@
   <string name="app_store_screen_6">and more...</string>
   <!-- Home buttons -->
   <string name="home_promo_code_button">Promo Code</string>
-  <string name="home_top_up_button">Top Up</string>
+  <string name="home_top_up_button">儲值</string>
   <string name="home_manage_wallet_button">Manage Wallets</string>
-  <string name="home_backup_wallet_button">Back Up Wallet</string>
+  <string name="home_backup_wallet_button">備份錢包</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
   <string name="home_transfer_balance_button">Transfer Balance</string>
   <!-- Discord -->
