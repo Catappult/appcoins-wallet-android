@@ -43,6 +43,7 @@ sealed class OnboardingSideEffect : SideEffect {
   object NavigateToOnboardingPayment : OnboardingSideEffect()
   data class UpdateGuestBonus(val bonus: FiatValue) : OnboardingSideEffect()
   data class NavigateToVerify(val flow: String) : OnboardingSideEffect()
+  object OpenLogin : OnboardingSideEffect()
 }
 
 data class OnboardingState(
@@ -103,12 +104,14 @@ class OnboardingViewModel @Inject constructor(
 
   fun handleLaunchWalletClick() {
     hasWalletUseCase().observeOn(rxSchedulers.main).doOnSuccess {
-      setOnboardingCompletedUseCase()
+//      setOnboardingCompletedUseCase()   // TODO set this after login is done
       sendSideEffect {
         if (it) {
-          OnboardingSideEffect.NavigateToFinish
+//          OnboardingSideEffect.NavigateToFinish
+          OnboardingSideEffect.OpenLogin  //TODO send wallet is exists
         } else {
-          OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
+//          OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
+          OnboardingSideEffect.OpenLogin
         }
       }
     }.scopedSubscribe { it.printStackTrace() }

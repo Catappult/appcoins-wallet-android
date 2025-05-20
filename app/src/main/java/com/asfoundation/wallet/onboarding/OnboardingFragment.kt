@@ -179,6 +179,10 @@ class OnboardingFragment : BasePageViewFragment(),
 
       OnboardingSideEffect.NavigateToOnboardingPayment ->
         navigator.navigateToOnboardingPayment()
+
+      OnboardingSideEffect.OpenLogin -> {
+        navigator.navigateToLogin()
+      }
     }
   }
 

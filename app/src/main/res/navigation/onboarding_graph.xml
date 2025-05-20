@@ -56,6 +56,13 @@
         app:destination="@id/onboarding_payment_fragment"
         app:popUpTo="@+id/onboarding_fragment"
         app:popUpToInclusive="true"/>
+
+    <action
+        android:id="@+id/action_navigate_to_login"
+        app:destination="@id/login_activity"
+        app:popUpTo="@+id/onboarding_fragment"
+        app:popUpToInclusive="true" />
+
   </fragment>
 
   <fragment
@@ -70,6 +77,15 @@
         android:name="is_wallet_verified"
         android:defaultValue="false"
         app:argType="boolean" />
+  </activity>
+
+  <activity
+      android:id="@+id/login_activity"
+      android:name="com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity">
+    <argument
+        android:name="url"
+        app:argType="string"
+        app:nullable="false"/>
   </activity>
 
   <fragment

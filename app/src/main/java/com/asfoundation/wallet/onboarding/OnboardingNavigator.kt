@@ -4,11 +4,14 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity
 import javax.inject.Inject
 
 class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
@@ -75,5 +78,19 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
       fragment.findNavController(),
       OnboardingFragmentDirections.actionNavigateToFirstPaymentFragment()
     )
+  }
+
+  fun navigateToLogin() {
+//    navigate(
+//      fragment.findNavController(),
+//      OnboardingFragmentDirections.actionNavigateToLogin(
+//        url = "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in?domain=com.appcoins.diceroll.sdk.dev"
+//      )
+//    )
+
+    val url = "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in?domain=com.appcoins.diceroll.sdk.dev"
+    val intent = Intent(fragment.requireContext(), WebViewLoginActivity::class.java)
+    intent.putExtra(WebViewLoginActivity.URL, url)
+    fragment.startActivity(intent)
   }
 }

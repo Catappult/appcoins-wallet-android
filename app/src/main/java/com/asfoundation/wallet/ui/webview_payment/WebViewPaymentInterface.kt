@@ -18,7 +18,9 @@ class WebViewPaymentInterface(
   private val onStartExternalPayment: (deepLink: String?) -> Unit,
   private val onErrorCallback: (WebViewPaymentErrorResponse?) -> Unit,
   private val openVerifyFlowCallback: (VerifyFlowWeb) -> Unit,
-  private val setPromoCodeCallback: (promoCode:  String) -> Unit
+  private val setPromoCodeCallback: (promoCode:  String) -> Unit,
+  private val onLoginCallback: (authToken: String) -> Unit,
+  private val goToUrlCallback: (url: String) -> Unit,
 ) {
 
   @JavascriptInterface
@@ -61,6 +63,18 @@ class WebViewPaymentInterface(
   @JavascriptInterface
   fun setPromoCode(promoCode: String) {
     setPromoCodeCallback(promoCode)
+  }
+
+  @JavascriptInterface
+  fun onLogin(authToken: String) {
+    Log.d("WebViewPaymentInterface", "onLogin: $authToken")
+    onLoginCallback(authToken)
+  }
+
+  @JavascriptInterface
+  fun goToUrl(url: String) {
+    Log.d("WebViewPaymentInterface", "goToUrl: $url")
+    goToUrlCallback(url)
   }
 
 

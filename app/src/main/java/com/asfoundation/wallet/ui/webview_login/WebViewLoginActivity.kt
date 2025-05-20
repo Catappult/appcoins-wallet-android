@@ -1,13 +1,12 @@
-package com.asfoundation.wallet.ui.webview_payment
+package com.asfoundation.wallet.ui.webview_login
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Rect
-import android.net.Uri.parse
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -20,7 +19,6 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -43,29 +41,21 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
-import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
+import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentInterface
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import java.math.BigDecimal
 import javax.inject.Inject
-import androidx.core.net.toUri
 
 @AndroidEntryPoint
-class WebViewPaymentActivity : AppCompatActivity() {
+class WebViewLoginActivity : AppCompatActivity() {
 
 
   @Inject
@@ -77,7 +67,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
   @Inject
   lateinit var logger: Logger
 
-  private val viewModel: WebViewPaymentViewModel by viewModels()
+  private val viewModel: WebViewLoginViewModel by viewModels()
+
   @Inject
   @ApplicationContext
   lateinit var context: Context
@@ -94,8 +85,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
   private var webViewInstance: WebView? = null
 
   companion object {
-    private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
-    const val TRANSACTION_BUILDER = "transactionBuilder"
     const val URL = "url"
     private val TAG = "WebView"
   }
@@ -104,13 +93,10 @@ class WebViewPaymentActivity : AppCompatActivity() {
     intent.getStringExtra(URL) ?: throw IllegalArgumentException("URL not provided")
   }
 
-  private val transactionBuilder: TransactionBuilder by lazy<TransactionBuilder> {
-    intent.getParcelableExtra(TRANSACTION_BUILDER)
-      ?: throw IllegalArgumentException("TransactionBuilder not provided")
-  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setResult(Activity.RESULT_CANCELED, Intent())
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay)
     setKeyboardListener()
@@ -174,7 +160,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
         settings.domStorageEnabled = true
         settings.useWideViewPort = true
         settings.databaseEnabled = true
-        //settings.userAgentString = userAgentInterceptor.userAgent
+        settings.userAgentString = "Mozilla/5.0 (Linux; Android 14; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.78 Mobile Safari/537.36" //userAgentInterceptor.userAgent
         CookieManager.getInstance().setAcceptThirdPartyCookies(this, true)
         CookieManager.getInstance().setAcceptCookie(true)
 
@@ -182,77 +168,43 @@ class WebViewPaymentActivity : AppCompatActivity() {
           override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             if (url.isNullOrEmpty()) return false
 
-            return if (shouldAllowExternalApps) {
-              if (url.startsWith("http://") || url.startsWith("https://")) {
-                false
-              } else {
-                try {
-                  val intent = Intent(Intent.ACTION_VIEW, url.toUri())
-                  context.startActivity(intent)
-                  true
-                } catch (e: ActivityNotFoundException) {
-                  true
-                }
-              }
-            } else {
-              false
-            }
+//            return if (shouldAllowExternalApps) {
+//              if (url.startsWith("http://") || url.startsWith("https://")) {
+//                false
+//              } else {
+//                try {
+//                  val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+//                  context.startActivity(intent)
+//                  true
+//                } catch (e: ActivityNotFoundException) {
+//                  true
+//                }
+//              }
+//            } else {
+//              false
+//            }
+            return false
           }
         }
 
         addJavascriptInterface(
           WebViewPaymentInterface(
             logger = logger,
-            intercomCallback = { viewModel.showSupport() },
-            allowExternalAppsCallback = {
-              shouldAllowExternalApps = it
+            intercomCallback = {},
+            allowExternalAppsCallback = {},
+            onPurchaseResultCallback = {},
+            onOpenDeepLink = {},
+            onStartExternalPayment = {},
+            onErrorCallback = {},
+            openVerifyFlowCallback = {},
+            setPromoCodeCallback = {},
+            onLoginCallback = { authToken ->
+              viewModel.fetchUserKey(authToken)
             },
-            onPurchaseResultCallback = { webResult ->
-              viewModel.sendPaymentSuccessEvent(
-                webResult?.uid ?: "",
-                webResult?.paymentMethod ?: "",
-                webResult?.isStoredCard ?: false,
-                webResult?.wasCvcRequired ?: false,
-                transactionBuilder = transactionBuilder
-              )
-              viewModel.createSuccessBundleAndFinish(
-                type = transactionBuilder.type,
-                merchantName = transactionBuilder.domain,
-                sku = transactionBuilder.skuId,
-                purchaseUid = webResult?.uid ?: "",
-                orderReference = webResult?.orderReference ?: "",
-                hash = webResult?.hash ?: "",
-                paymentMethod = webResult?.paymentMethod ?: "",
-                transactionBuilder = transactionBuilder
-              )
+            goToUrlCallback = { url ->
+              loadUrl(url)
             },
-            onErrorCallback = { webError ->
-              viewModel.sendPaymentErrorEvent(
-                errorCode = webError?.errorCode ?: "",
-                errorReason = webError?.errorDetails ?: "",
-                paymentMethod = webError?.paymentMethod ?: "",
-                transactionBuilder = transactionBuilder
-              )
-            },
-            onStartExternalPayment = { deepLink: String? ->
-              val intent = CustomTabsIntent.Builder().build()
-              intent.launchUrl(getContext(), parse(deepLink))
-              viewModel.runningCustomTab = true
-            },
-            onOpenDeepLink = { deepLink: String? ->
-              val intent = Intent(Intent.ACTION_VIEW, parse(deepLink))
-              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-              startActivity(intent)
-            },
-            openVerifyFlowCallback = { verifyFlow ->
-              goToVerify(verifyFlow)
-            },
-            setPromoCodeCallback = { promoCode ->
-              viewModel.setPromoCode(promoCode)
-            },
-            onLoginCallback = { },
-            goToUrlCallback = { },
-          ),
+            ),
           "WebViewPaymentInterface"
         )
         loadUrl(url)
@@ -323,12 +275,11 @@ class WebViewPaymentActivity : AppCompatActivity() {
         factory = { webView }
       )
       when (val uiState = viewModel.uiState.collectAsState().value) {
-        is WebViewPaymentViewModel.UiState.FinishActivity -> finishActivity(uiState.bundle)
-        WebViewPaymentViewModel.UiState.Finish -> finish()
-        is WebViewPaymentViewModel.UiState.FinishWithBundle -> {
-          viewModel.sendRevenueEvent(transactionBuilder)
-          finish(uiState.bundle)
+        is WebViewLoginViewModel.UiState.FinishActivity -> {
+          Log.d(TAG, "FinishActivity")
+          finishActivity()
         }
+
         else -> {}
       }
     }
@@ -340,18 +291,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
     overridePendingTransition(R.anim.stay, R.anim.slide_out_bottom)
   }
 
-  fun finish(bundle: Bundle) =
-    if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
-      viewModel.handleBackupNotifications(bundle, context = this)
-      viewModel.handlePerkNotifications(bundle, context = this)
-    } else {
-      Log.i(TAG, "finish bundle: ${bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE)}")
-      finishActivity(bundle)
-    }
-
-  private fun finishActivity(data: Bundle) {
-    data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
-    setResult(RESULT_OK, Intent().putExtras(data))
+  private fun finishActivity() {
+    setResult(RESULT_OK)
     finish()
   }
 
@@ -359,36 +300,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
   private fun isDarkModeEnabled(context: Context): Boolean {
     return (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
         Configuration.UI_MODE_NIGHT_YES
-  }
-
-
-  private fun goToVerify(flow: VerifyFlowWeb) {
-    when (flow) {
-      VerifyFlowWeb.CREDIT_CARD -> {
-        showCreditCardVerification(false)
-      }
-
-      VerifyFlowWeb.PAYPAL -> {
-        showPayPalVerification()
-      }
-    }
-  }
-
-  fun showCreditCardVerification(isWalletVerified: Boolean) {
-    val intent = VerificationCreditCardActivity.newIntent(this, isWalletVerified)
-      .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
-    startActivity(intent)
-    finish()
-  }
-
-  fun showPayPalVerification() {
-    val intent = MainActivity.newIntent(
-      context = this,
-      supportNotificationClicked = false,
-      isPayPalVerificationRequired = true
-    ).apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
-    startActivity(intent)
-    finish()
   }
 
 }
