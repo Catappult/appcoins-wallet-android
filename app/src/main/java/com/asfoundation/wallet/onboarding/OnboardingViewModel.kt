@@ -102,16 +102,23 @@ class OnboardingViewModel @Inject constructor(
     }
   }
 
+  fun handleOpenLoginResult(resultOk: Boolean) {
+    if (resultOk) {
+      setOnboardingCompletedUseCase()
+      sendSideEffect { OnboardingSideEffect.NavigateToFinish }
+    }
+  }
+
   fun handleLaunchWalletClick() {
     hasWalletUseCase().observeOn(rxSchedulers.main).doOnSuccess {
-//      setOnboardingCompletedUseCase()   // TODO set this after login is done
+      setOnboardingCompletedUseCase()
       sendSideEffect {
         if (it) {
-//          OnboardingSideEffect.NavigateToFinish
-          OnboardingSideEffect.OpenLogin  //TODO send wallet is exists
+          OnboardingSideEffect.NavigateToFinish
+//          OnboardingSideEffect.OpenLogin  //TODO send wallet is exists
         } else {
-//          OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
-          OnboardingSideEffect.OpenLogin
+          OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
+//          OnboardingSideEffect.OpenLogin
         }
       }
     }.scopedSubscribe { it.printStackTrace() }
@@ -177,7 +184,10 @@ class OnboardingViewModel @Inject constructor(
         )
         deleteCachedGuest()
         saveIsFirstPaymentUseCase(
-          isFirstPayment = paymentFunnel == null || paymentFunnel.equals("first_payment_try", true) || paymentFunnel.equals("first_payment", true)
+          isFirstPayment = paymentFunnel == null || paymentFunnel.equals(
+            "first_payment_try",
+            true
+          ) || paymentFunnel.equals("first_payment", true)
         )
         onboardingAnalytics.sendRecoverGuestWalletEvent(
           bonus = guestBonus.amount.toString(),

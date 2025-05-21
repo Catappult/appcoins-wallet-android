@@ -24,6 +24,37 @@
       />
 
   <androidx.appcompat.widget.LinearLayoutCompat
+      android:id="@+id/sign_in_wallet_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/big_margin"
+      android:orientation="horizontal"
+      android:paddingVertical="@dimen/big_margin"
+      >
+
+    <ImageView
+        android:id="@+id/sign_in_wallet_img"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_login"
+        />
+
+    <TextView
+        android:id="@+id/sign_in_wallet_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="22dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/home_sign_in_button"
+        android:textColor="@color/styleguide_light_grey"
+        android:textSize="14sp"
+        />
+  </androidx.appcompat.widget.LinearLayoutCompat>
+
+  <androidx.appcompat.widget.LinearLayoutCompat
       android:id="@+id/manage_wallet_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

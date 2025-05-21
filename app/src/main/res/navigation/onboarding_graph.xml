@@ -12,14 +12,14 @@
 
     <argument
         android:name="createWalletAutomatically"
-        app:nullable="false"
-        app:argType="boolean" />
+        app:argType="boolean"
+        app:nullable="false" />
 
     <argument
         android:name="backupModel"
-        app:nullable="true"
         android:defaultValue="@null"
-        app:argType="com.asfoundation.wallet.onboarding.BackupModel" />
+        app:argType="com.asfoundation.wallet.onboarding.BackupModel"
+        app:nullable="true" />
 
     <action
         android:id="@+id/action_navigate_to_recover_wallet_graph"
@@ -55,7 +55,7 @@
         android:id="@+id/action_navigate_to_first_payment_fragment"
         app:destination="@id/onboarding_payment_fragment"
         app:popUpTo="@+id/onboarding_fragment"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true" />
 
     <action
         android:id="@+id/action_navigate_to_login"
@@ -85,7 +85,7 @@
     <argument
         android:name="url"
         app:argType="string"
-        app:nullable="false"/>
+        app:nullable="false" />
   </activity>
 
   <fragment

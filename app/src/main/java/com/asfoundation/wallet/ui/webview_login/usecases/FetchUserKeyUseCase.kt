@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.webview_login.usecases
 
-import com.appcoins.wallet.core.network.microservices.model.PayFlowResponse
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import com.asfoundation.wallet.entity.WalletKeyStore
@@ -26,13 +25,15 @@ class FetchUserKeyUseCase @Inject constructor(
 
   operator fun invoke(
     authToken: String,
-  ): Completable{
+  ): Completable {
     return loginRepository.fetchUserKey(authToken)
       .flatMap { key ->
-        recoverEntryPrivateKeyUseCase(keyStore = WalletKeyStore(null, key))
+        recoverEntryPrivateKeyUseCase(keyStore = WalletKeyStore(null, key.userKey))
       }
-      .flatMapCompletable { recoverResult ->
+      .flatMap { recoverResult ->
         setDefaultWallet(recoverResult)
+      }
+      .flatMapCompletable {
         Completable.complete()
       }
   }

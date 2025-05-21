@@ -38,7 +38,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -46,7 +45,6 @@ import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentInterface
 import dagger.hilt.android.AndroidEntryPoint
@@ -150,7 +148,7 @@ class WebViewLoginActivity : AppCompatActivity() {
   @SuppressLint("SetJavaScriptEnabled")
   @Composable
   fun MainContent(url: String) {
-    Log.d("WebView", "starting url: $url")
+    Log.d("WebViewLogin", "starting login url: $url")
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
     val webView = remember {
@@ -160,7 +158,8 @@ class WebViewLoginActivity : AppCompatActivity() {
         settings.domStorageEnabled = true
         settings.useWideViewPort = true
         settings.databaseEnabled = true
-        settings.userAgentString = "Mozilla/5.0 (Linux; Android 14; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.78 Mobile Safari/537.36" //userAgentInterceptor.userAgent
+        settings.userAgentString =
+          "Mozilla/5.0 (Linux; Android 14; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.78 Mobile Safari/537.36" //userAgentInterceptor.userAgent
         CookieManager.getInstance().setAcceptThirdPartyCookies(this, true)
         CookieManager.getInstance().setAcceptCookie(true)
 
@@ -204,7 +203,7 @@ class WebViewLoginActivity : AppCompatActivity() {
             goToUrlCallback = { url ->
               loadUrl(url)
             },
-            ),
+          ),
           "WebViewPaymentInterface"
         )
         loadUrl(url)
@@ -233,44 +232,44 @@ class WebViewLoginActivity : AppCompatActivity() {
         .padding(horizontal = if (isLandscape) 56.dp else 0.dp)
     ) {
       if (isLandscape) {
-        Spacer(
-          modifier = Modifier
-            .height(36.dp)
-            .fillMaxWidth()
-            .clickable { finish() }
-        )
+//        Spacer(
+//          modifier = Modifier
+//            .height(36.dp)
+//            .fillMaxWidth()
+//            .clickable { finish() }
+//        )
       } else {
-        Spacer(
-          modifier = Modifier
-            .fillMaxWidth()
-            .weight(if (isPortraitSpaceForWeb.value) 0.2f else 0.02f)
-            .clickable { finish() }
-        )
+//        Spacer(
+//          modifier = Modifier
+//            .fillMaxWidth()
+//            .weight(if (isPortraitSpaceForWeb.value) 0.2f else 0.02f)
+//            .clickable { finish() }
+//        )
       }
-      Box(
-        modifier = Modifier
-          .fillMaxWidth()
-          .height(16.dp)
-          .background(
-            color = if (isDarkModeEnabled(context))
-              styleguide_blue_webview_payment
-            else
-              styleguide_light_grey,
-            shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
-          )
-      )
+//      Box(
+//        modifier = Modifier
+//          .fillMaxWidth()
+//          .height(16.dp)
+//          .background(
+//            color = if (isDarkModeEnabled(context))
+//              styleguide_blue_webview_payment
+//            else
+//              styleguide_light_grey,
+//            shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
+//          )
+//      )
       AndroidView(
         modifier = Modifier
           .fillMaxWidth()
-          .weight(
-            if (isLandscape)
-              1f
-            else
-              if (isPortraitSpaceForWeb.value)
-                0.8f
-              else
-                0.98f
-          )
+//          .weight(
+//            if (isLandscape)
+//              1f
+//            else
+//              if (isPortraitSpaceForWeb.value)
+//                0.8f
+//              else
+//                0.98f
+//          )
           .background(styleguide_light_grey),
         factory = { webView }
       )

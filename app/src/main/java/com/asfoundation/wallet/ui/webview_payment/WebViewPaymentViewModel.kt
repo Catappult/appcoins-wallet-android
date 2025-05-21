@@ -170,55 +170,55 @@ class WebViewPaymentViewModel @Inject constructor(
   ) {
     compositeDisposable.add(
       Single.just(transactionBuilder)
-      .observeOn(rxSchedulers.io)
-      .doOnSuccess { transaction ->
-        analytics.sendPaymentErrorWithDetailsAndRiskEvent(
-          packageName = transaction.domain,
-          skuDetails = transaction.skuId,
-          value = transaction.amount().toString(),
-          purchaseDetails = paymentMethod,
-          transactionType = transaction.type,
-          errorCode = errorCode,
-          errorDetails = errorReason,
-          riskRules = null,
-          isWebViewPayment = true,
-        )
-      }
-      .subscribe({}, { it.printStackTrace() })
+        .observeOn(rxSchedulers.io)
+        .doOnSuccess { transaction ->
+          analytics.sendPaymentErrorWithDetailsAndRiskEvent(
+            packageName = transaction.domain,
+            skuDetails = transaction.skuId,
+            value = transaction.amount().toString(),
+            purchaseDetails = paymentMethod,
+            transactionType = transaction.type,
+            errorCode = errorCode,
+            errorDetails = errorReason,
+            riskRules = null,
+            isWebViewPayment = true,
+          )
+        }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   fun handlePerkNotifications(bundle: Bundle, context: Context) {
     compositeDisposable.add(
       iabInteract.getWalletAddress()
-      .subscribeOn(rxSchedulers.io)
-      .observeOn(rxSchedulers.io)
-      .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
-      .doOnSuccess {
-        PerkBonusAndGamificationService.buildService(context, it.address)
-        _uiState.value = UiState.FinishActivity(bundle)
-      }
-      .doOnError { _uiState.value = UiState.FinishActivity(bundle) }
-      .subscribe({}, { it.printStackTrace() })
+        .subscribeOn(rxSchedulers.io)
+        .observeOn(rxSchedulers.io)
+        .flatMap { startVipReferralPollingUseCase(Wallet(it)) }
+        .doOnSuccess {
+          PerkBonusAndGamificationService.buildService(context, it.address)
+          _uiState.value = UiState.FinishActivity(bundle)
+        }
+        .doOnError { _uiState.value = UiState.FinishActivity(bundle) }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   fun handleBackupNotifications(bundle: Bundle, context: Context) {
     compositeDisposable.add(
       iabInteract.incrementAndValidateNotificationNeeded()
-      .subscribeOn(rxSchedulers.io)
-      .observeOn(rxSchedulers.io)
-      .doOnSuccess { notificationNeeded ->
-        if (notificationNeeded.isNeeded) {
-          BackupNotificationUtils.showBackupNotification(
-            context = context,
-            walletAddress = notificationNeeded.walletAddress
-          )
+        .subscribeOn(rxSchedulers.io)
+        .observeOn(rxSchedulers.io)
+        .doOnSuccess { notificationNeeded ->
+          if (notificationNeeded.isNeeded) {
+            BackupNotificationUtils.showBackupNotification(
+              context = context,
+              walletAddress = notificationNeeded.walletAddress
+            )
+          }
+          _uiState.value = UiState.FinishActivity(bundle)
         }
-        _uiState.value = UiState.FinishActivity(bundle)
-      }
-      .doOnError { _uiState.value = UiState.FinishActivity(bundle) }
-      .subscribe({ }, { it.printStackTrace() })
+        .doOnError { _uiState.value = UiState.FinishActivity(bundle) }
+        .subscribe({ }, { it.printStackTrace() })
     )
   }
 
@@ -238,20 +238,20 @@ class WebViewPaymentViewModel @Inject constructor(
   fun sendRevenueEvent(transactionBuilder: TransactionBuilder) {
     compositeDisposable.add(
       Single.just(transactionBuilder)
-      .doOnSuccess { transaction ->
-        analytics.sendRevenueEvent(
-          inAppPurchaseInteractor.convertToFiat(
-            transaction.amount().toDouble(),
-            BillingAnalytics.EVENT_REVENUE_CURRENCY
+        .doOnSuccess { transaction ->
+          analytics.sendRevenueEvent(
+            inAppPurchaseInteractor.convertToFiat(
+              transaction.amount().toDouble(),
+              BillingAnalytics.EVENT_REVENUE_CURRENCY
+            )
+              .subscribeOn(rxSchedulers.io)
+              .blockingGet()
+              .amount
+              .setScale(2, BigDecimal.ROUND_UP)
+              .toString()
           )
-            .subscribeOn(rxSchedulers.io)
-            .blockingGet()
-            .amount
-            .setScale(2, BigDecimal.ROUND_UP)
-            .toString()
-        )
-      }
-      .subscribe({}, { it.printStackTrace() })
+        }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 

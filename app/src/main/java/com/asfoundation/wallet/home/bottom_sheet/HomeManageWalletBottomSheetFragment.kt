@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.home.bottom_sheet
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.HomeManageWalletBottomSheetLayoutBinding
 import com.asfoundation.wallet.home.bottom_sheet.HomeDetailsBalanceBottomSheetFragment.Companion.BALANCE_VALUE
+import com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,21 +73,34 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   private fun setListeners() {
+    views.signInWalletView.setOnClickListener {
+      buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.home_sign_in_button))
+      this.dismiss()
+//      navigator.navigateToManageWallet(navController())
+      //TODO:
+      val url =
+        "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in?domain=com.appcoins.wallet.dev&payment_channel=wallet_app"
+      val intent = Intent(requireContext(), WebViewLoginActivity::class.java)
+      intent.putExtra(WebViewLoginActivity.URL, url)
+      startActivity(intent)  //openLoginLauncher.launch(intent)
+    }
+
     views.backupWalletView.setOnClickListener {
       buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.my_wallets_action_backup_wallet))
       viewModel.onBackupClick()
     }
     views.manageWalletView.setOnClickListener {
-
       buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.manage_wallet_button))
       this.dismiss()
       navigator.navigateToManageWallet(navController())
     }
+
     views.recoverWalletView.setOnClickListener {
       buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.my_wallets_action_recover_wallet))
       this.dismiss()
       navigator.navigateToRecoverWallet()
     }
+
     views.transferWalletView.setOnClickListener {
       buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.home_transfer_balance_button))
       this.dismiss()

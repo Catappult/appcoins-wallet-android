@@ -2,11 +2,11 @@ package com.asfoundation.wallet.ui.webview_payment
 
 import android.util.Log
 import android.webkit.JavascriptInterface
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentErrorResponse
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentResponse
 import com.google.gson.Gson
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 
 
 class WebViewPaymentInterface(
@@ -18,7 +18,7 @@ class WebViewPaymentInterface(
   private val onStartExternalPayment: (deepLink: String?) -> Unit,
   private val onErrorCallback: (WebViewPaymentErrorResponse?) -> Unit,
   private val openVerifyFlowCallback: (VerifyFlowWeb) -> Unit,
-  private val setPromoCodeCallback: (promoCode:  String) -> Unit,
+  private val setPromoCodeCallback: (promoCode: String) -> Unit,
   private val onLoginCallback: (authToken: String) -> Unit,
   private val goToUrlCallback: (url: String) -> Unit,
 ) {
@@ -42,12 +42,13 @@ class WebViewPaymentInterface(
   @JavascriptInterface
   fun openDeeplink(deepLink: String?): Boolean {
     onOpenDeepLink(deepLink)
-    return deepLink!= null
+    return deepLink != null
   }
+
   @JavascriptInterface
   fun startExternalPayment(deepLink: String?): Boolean {
     onStartExternalPayment(deepLink)
-    return deepLink!= null
+    return deepLink != null
   }
 
   @JavascriptInterface
@@ -89,7 +90,7 @@ class WebViewPaymentInterface(
   }
 
   private fun parseError(result: String?): WebViewPaymentErrorResponse? {
-    logger.log("WebCheckoutEvent" , result, true, true)
+    logger.log("WebCheckoutEvent", result, true, true)
     try {
       val responseModel = Gson().fromJson(result, WebViewPaymentErrorResponse::class.java)
       return responseModel

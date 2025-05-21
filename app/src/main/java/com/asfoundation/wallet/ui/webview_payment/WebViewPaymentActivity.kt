@@ -40,12 +40,11 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.net.toUri
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
@@ -58,11 +57,8 @@ import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import java.math.BigDecimal
 import javax.inject.Inject
-import androidx.core.net.toUri
 
 @AndroidEntryPoint
 class WebViewPaymentActivity : AppCompatActivity() {
@@ -78,6 +74,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
   lateinit var logger: Logger
 
   private val viewModel: WebViewPaymentViewModel by viewModels()
+
   @Inject
   @ApplicationContext
   lateinit var context: Context
@@ -329,6 +326,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
           viewModel.sendRevenueEvent(transactionBuilder)
           finish(uiState.bundle)
         }
+
         else -> {}
       }
     }

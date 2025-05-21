@@ -1,34 +1,14 @@
 package com.asfoundation.wallet.ui.webview_login
 
-import android.content.Context
-import android.os.Bundle
-import android.util.Log
 import android.webkit.WebView
 import androidx.lifecycle.ViewModel
-import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
-import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.feature.promocode.data.use_cases.VerifyAndSavePromoCodeUseCase
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
-import com.asfoundation.wallet.analytics.PaymentMethodAnalyticsMapper
-import com.asfoundation.wallet.backup.BackupNotificationUtils
-import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
-import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
-import com.asfoundation.wallet.ui.iab.IabInteract
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.webview_login.usecases.FetchUserKeyUseCase
-import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState
-import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import java.math.BigDecimal
 import javax.inject.Inject
 
 @HiltViewModel
@@ -55,7 +35,8 @@ class WebViewLoginViewModel @Inject constructor(
         .subscribe({
           _uiState.value = UiState.FinishActivity
         }, {
-          it.printStackTrace() }
+          it.printStackTrace()
+        }
         )
     )
   }

@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.ui.webview_login.repository
 
-import android.util.Log
 import com.appcoins.wallet.core.network.backend.api.LoginApi
-import com.appcoins.wallet.core.network.microservices.api.payflow.PayFlowApi
-import com.appcoins.wallet.core.network.microservices.model.PayFlowResponse
+import com.appcoins.wallet.core.network.backend.model.FetchUserKeyResponse
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import io.reactivex.Single
@@ -17,9 +15,9 @@ class LoginRepository @Inject constructor(
 
   fun fetchUserKey(
     authToken: String,
-  ): Single<String> {  //TODO model
+  ): Single<FetchUserKeyResponse> {  //TODO model
     return loginApi.fetchUserKey(
-      jwt = authToken,
+      jwt = "Bearer $authToken",
     )
       .subscribeOn(rxSchedulers.io)
       .doOnSuccess { /*TODO*/ }

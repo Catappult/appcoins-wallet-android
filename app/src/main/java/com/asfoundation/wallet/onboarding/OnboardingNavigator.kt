@@ -4,8 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.arch.data.Navigator
@@ -88,7 +86,8 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
 //      )
 //    )
 
-    val url = "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in?domain=com.appcoins.diceroll.sdk.dev"
+    val url =
+      "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in?domain=com.appcoins.wallet.dev&payment_channel=wallet_app"
     val intent = Intent(fragment.requireContext(), WebViewLoginActivity::class.java)
     intent.putExtra(WebViewLoginActivity.URL, url)
     fragment.startActivity(intent)
