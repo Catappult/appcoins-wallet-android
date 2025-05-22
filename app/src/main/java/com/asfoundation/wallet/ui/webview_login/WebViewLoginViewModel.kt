@@ -44,6 +44,7 @@ class WebViewLoginViewModel @Inject constructor(
 
   sealed class UiState {
     data object FinishActivity : UiState()
+    data object FinishWithError : UiState()
     data object ShowPaymentMethods : UiState()
   }
 }

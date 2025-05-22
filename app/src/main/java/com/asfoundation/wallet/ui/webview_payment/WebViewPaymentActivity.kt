@@ -247,7 +247,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
             setPromoCodeCallback = { promoCode ->
               viewModel.setPromoCode(promoCode)
             },
-            onLoginCallback = { },
+            onLoginCallback = { _, _ -> },  // TODO save wallet from web checkout
             goToUrlCallback = { },
           ),
           "WebViewPaymentInterface"

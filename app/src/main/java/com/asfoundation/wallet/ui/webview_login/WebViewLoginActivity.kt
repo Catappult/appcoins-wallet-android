@@ -20,15 +20,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -42,14 +37,12 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentInterface
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -75,10 +68,6 @@ class WebViewLoginActivity : AppCompatActivity() {
   lateinit var commonsPreferencesDataSource: CommonsPreferencesDataSource
 
   lateinit var userAgentInterceptor: UserAgentInterceptor
-
-  private val compositeDisposable = CompositeDisposable()
-
-  private var shouldAllowExternalApps = true
 
   private var webViewInstance: WebView? = null
 
@@ -166,22 +155,6 @@ class WebViewLoginActivity : AppCompatActivity() {
         webViewClient = object : WebViewClient() {
           override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             if (url.isNullOrEmpty()) return false
-
-//            return if (shouldAllowExternalApps) {
-//              if (url.startsWith("http://") || url.startsWith("https://")) {
-//                false
-//              } else {
-//                try {
-//                  val intent = Intent(Intent.ACTION_VIEW, url.toUri())
-//                  context.startActivity(intent)
-//                  true
-//                } catch (e: ActivityNotFoundException) {
-//                  true
-//                }
-//              }
-//            } else {
-//              false
-//            }
             return false
           }
         }
@@ -197,7 +170,7 @@ class WebViewLoginActivity : AppCompatActivity() {
             onErrorCallback = {},
             openVerifyFlowCallback = {},
             setPromoCodeCallback = {},
-            onLoginCallback = { authToken ->
+            onLoginCallback = { authToken, safeLogin ->
               viewModel.fetchUserKey(authToken)
             },
             goToUrlCallback = { url ->
@@ -231,45 +204,9 @@ class WebViewLoginActivity : AppCompatActivity() {
         .fillMaxSize()
         .padding(horizontal = if (isLandscape) 56.dp else 0.dp)
     ) {
-      if (isLandscape) {
-//        Spacer(
-//          modifier = Modifier
-//            .height(36.dp)
-//            .fillMaxWidth()
-//            .clickable { finish() }
-//        )
-      } else {
-//        Spacer(
-//          modifier = Modifier
-//            .fillMaxWidth()
-//            .weight(if (isPortraitSpaceForWeb.value) 0.2f else 0.02f)
-//            .clickable { finish() }
-//        )
-      }
-//      Box(
-//        modifier = Modifier
-//          .fillMaxWidth()
-//          .height(16.dp)
-//          .background(
-//            color = if (isDarkModeEnabled(context))
-//              styleguide_blue_webview_payment
-//            else
-//              styleguide_light_grey,
-//            shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
-//          )
-//      )
       AndroidView(
         modifier = Modifier
           .fillMaxWidth()
-//          .weight(
-//            if (isLandscape)
-//              1f
-//            else
-//              if (isPortraitSpaceForWeb.value)
-//                0.8f
-//              else
-//                0.98f
-//          )
           .background(styleguide_light_grey),
         factory = { webView }
       )
@@ -279,15 +216,14 @@ class WebViewLoginActivity : AppCompatActivity() {
           finishActivity()
         }
 
+        is WebViewLoginViewModel.UiState.FinishWithError -> {
+          Log.d(TAG, "FinishWithError")
+          finishWithError()
+        }
+
         else -> {}
       }
     }
-  }
-
-
-  override fun finish() {
-    super.finish()
-    overridePendingTransition(R.anim.stay, R.anim.slide_out_bottom)
   }
 
   private fun finishActivity() {
@@ -295,6 +231,15 @@ class WebViewLoginActivity : AppCompatActivity() {
     finish()
   }
 
+  private fun finishWithError() {
+    setResult(RESULT_CANCELED)
+    finish()
+  }
+
+  override fun finish() {
+    super.finish()
+    overridePendingTransition(R.anim.stay, R.anim.slide_out_bottom)
+  }
 
   private fun isDarkModeEnabled(context: Context): Boolean {
     return (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==

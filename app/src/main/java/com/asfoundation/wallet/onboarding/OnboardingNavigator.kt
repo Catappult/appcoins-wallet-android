@@ -77,19 +77,4 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
       OnboardingFragmentDirections.actionNavigateToFirstPaymentFragment()
     )
   }
-
-  fun navigateToLogin() {
-//    navigate(
-//      fragment.findNavController(),
-//      OnboardingFragmentDirections.actionNavigateToLogin(
-//        url = "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in?domain=com.appcoins.diceroll.sdk.dev"
-//      )
-//    )
-
-    val url =
-      "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in?domain=com.appcoins.wallet.dev&payment_channel=wallet_app"
-    val intent = Intent(fragment.requireContext(), WebViewLoginActivity::class.java)
-    intent.putExtra(WebViewLoginActivity.URL, url)
-    fragment.startActivity(intent)
-  }
 }
