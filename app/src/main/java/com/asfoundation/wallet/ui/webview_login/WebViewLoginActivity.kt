@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
@@ -33,6 +34,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -147,8 +149,7 @@ class WebViewLoginActivity : AppCompatActivity() {
         settings.domStorageEnabled = true
         settings.useWideViewPort = true
         settings.databaseEnabled = true
-        settings.userAgentString =
-          "Mozilla/5.0 (Linux; Android 14; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.78 Mobile Safari/537.36" //userAgentInterceptor.userAgent
+        settings.userAgentString = buildUA()
         CookieManager.getInstance().setAcceptThirdPartyCookies(this, true)
         CookieManager.getInstance().setAcceptCookie(true)
 
@@ -213,12 +214,12 @@ class WebViewLoginActivity : AppCompatActivity() {
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is WebViewLoginViewModel.UiState.FinishActivity -> {
           Log.d(TAG, "FinishActivity")
-          finishActivity()
+          //finishActivity()  //TODO descomentar
         }
 
         is WebViewLoginViewModel.UiState.FinishWithError -> {
           Log.d(TAG, "FinishWithError")
-          finishWithError()
+//          finishWithError()    //TODO descomentar
         }
 
         else -> {}
@@ -244,6 +245,13 @@ class WebViewLoginActivity : AppCompatActivity() {
   private fun isDarkModeEnabled(context: Context): Boolean {
     return (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
         Configuration.UI_MODE_NIGHT_YES
+  }
+
+  private fun buildUA(): String {
+    return WebSettings.getDefaultUserAgent(context)
+      .replace("; wv", "")
+      .replace(Regex("""\s*Version/\d+\.\d+\s*"""), "")
+      .trim()
   }
 
 }

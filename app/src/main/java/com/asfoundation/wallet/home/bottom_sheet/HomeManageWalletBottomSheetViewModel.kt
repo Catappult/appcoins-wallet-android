@@ -74,7 +74,6 @@ constructor(
     return generateWebLoginUrlUseCase()
       .doOnError { error -> Log.d("getLoginUrl", "Error: ${error.message}") }
       .blockingGet()
-
   }
 
 }

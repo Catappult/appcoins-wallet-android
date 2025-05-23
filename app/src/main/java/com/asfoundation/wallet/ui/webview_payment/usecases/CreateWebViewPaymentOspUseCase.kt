@@ -12,6 +12,7 @@ import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeU
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.util.tuples.Quintuple
 import io.reactivex.Single
 import javax.inject.Inject
@@ -25,6 +26,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
   val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
   val analytics: IndicativeAnalytics,
   val getCachedCurrencyUseCase: GetCachedCurrencyUseCase,
+  val generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
   val rxSchedulers: RxSchedulers
 ) {
 
@@ -57,7 +59,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
             "&country=$country" +
             "&address=${walletModel.address}" +
             "&signature=${walletModel.signedAddress}" +
-            "&payment_channel=wallet_app" +
+            "&payment_channel=${generateWebLoginUrlUseCase.mapPaymentChannel()}" +
             "&token=${ewt}" +
             "&origin=BDS" +
             "&product=${transaction.skuId ?: ""}" +

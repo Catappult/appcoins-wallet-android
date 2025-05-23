@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.webview_login
 
 import android.webkit.WebView
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -36,8 +37,9 @@ class WebViewLoginViewModel @Inject constructor(
           _uiState.value = UiState.FinishActivity
         }, {
           it.printStackTrace()
-        }
-        )
+          logger.log(TAG, "error in fetchUserKey: ${it.message}", it)
+          _uiState.value = UiState.FinishWithError
+        })
     )
   }
 

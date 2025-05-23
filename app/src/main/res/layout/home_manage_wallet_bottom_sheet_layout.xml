@@ -58,7 +58,6 @@
       android:id="@+id/manage_wallet_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/big_margin"
       android:orientation="horizontal"
       android:paddingVertical="@dimen/big_margin"
       >
