@@ -32,4 +32,8 @@ class GenerateWebLoginUrlUseCase @Inject constructor(
     }
   }
 
+  fun isCloudGaming(): Boolean {
+    return mapPaymentChannel() == "wallet_app_cloud"
+  }
+
 }

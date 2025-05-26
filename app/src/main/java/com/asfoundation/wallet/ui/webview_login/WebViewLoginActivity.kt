@@ -16,6 +16,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -214,12 +215,12 @@ class WebViewLoginActivity : AppCompatActivity() {
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is WebViewLoginViewModel.UiState.FinishActivity -> {
           Log.d(TAG, "FinishActivity")
-          //finishActivity()  //TODO descomentar
+          finishActivity()
         }
 
         is WebViewLoginViewModel.UiState.FinishWithError -> {
           Log.d(TAG, "FinishWithError")
-//          finishWithError()    //TODO descomentar
+          finishWithError()
         }
 
         else -> {}
@@ -234,6 +235,11 @@ class WebViewLoginActivity : AppCompatActivity() {
 
   private fun finishWithError() {
     setResult(RESULT_CANCELED)
+    Toast.makeText(
+      this,
+      "Login failed",
+      Toast.LENGTH_LONG
+    ).show()
     finish()
   }
 
