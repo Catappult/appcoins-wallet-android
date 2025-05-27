@@ -4,9 +4,11 @@ import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import androidx.navigation.NavController
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
+import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.github.michaelbull.result.get
 import io.reactivex.Scheduler
@@ -27,8 +29,8 @@ class SettingsPresenter(
   private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
   private val getStoredCardsUseCase: GetStoredCardsUseCase,
-
-  ) {
+  private val generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
+) {
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
@@ -56,7 +58,7 @@ class SettingsPresenter(
     view.setCreditsPreference()
     view.setVersionPreference()
     view.setManageWalletPreference()
-    view.setAccountPreference()
+    view.setLoginPreference()
     view.setManageSubscriptionsPreference()
     view.setFaqsPreference()
     setCurrencyPreference()
@@ -164,10 +166,17 @@ class SettingsPresenter(
   }
 
   private fun onFingerPrintPreferenceChange() {
-    disposables.add(view.switchPreferenceChange()
+    disposables.add(
+      view.switchPreferenceChange()
       .doOnNext { navigator.showAuthentication(view.authenticationResult()) }
       .subscribe({}, { it.printStackTrace() })
     )
+  }
+
+  fun getLoginUrl(): String {
+    return generateWebLoginUrlUseCase()
+      .doOnError { error -> Log.d("getLoginUrl", "Error: ${error.message}") }
+      .blockingGet()
   }
 
   fun hasAuthenticationPermission() = settingsInteractor.hasAuthenticationPermission()
