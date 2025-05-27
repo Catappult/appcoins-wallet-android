@@ -16,7 +16,6 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -35,7 +34,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -235,11 +233,6 @@ class WebViewLoginActivity : AppCompatActivity() {
 
   private fun finishWithError() {
     setResult(RESULT_CANCELED)
-    Toast.makeText(
-      this,
-      "Login failed",
-      Toast.LENGTH_LONG
-    ).show()
     finish()
   }
 

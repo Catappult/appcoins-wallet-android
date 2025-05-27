@@ -20,6 +20,7 @@ import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.iab.IabInteract
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.webview_login.usecases.FetchUserKeyUseCase
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
@@ -40,6 +41,7 @@ class WebViewPaymentViewModel @Inject constructor(
   private val analytics: BillingAnalytics,
   private val paymentAnalytics: PaymentMethodsAnalytics,
   private val verifyAndSavePromoCodeUseCase: VerifyAndSavePromoCodeUseCase,
+  private val fetchUserKeyUseCase: FetchUserKeyUseCase,
   private var rewardsAnalytics: RewardsAnalytics,
   private val logger: Logger,
 ) : ViewModel() {
@@ -258,6 +260,21 @@ class WebViewPaymentViewModel @Inject constructor(
   fun showSupport() {
     compositeDisposable.add(
       supportInteractor.showSupport().subscribe({}, {})
+    )
+  }
+
+  fun fetchUserKey(authToken: String) {
+    CompositeDisposable().add(
+      fetchUserKeyUseCase(authToken)
+        .subscribeOn(rxSchedulers.io)
+        .observeOn(rxSchedulers.io)
+        .subscribe({ //success
+          Log.d(TAG, "fetchUserKey: success")
+          //TODO check if restart is needed
+        }, { //error
+          it.printStackTrace()
+          logger.log(TAG, "error in fetchUserKey: ${it.message}", it)
+        })
     )
   }
 

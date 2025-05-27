@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
@@ -95,6 +96,12 @@ class WebViewPaymentActivity : AppCompatActivity() {
     const val TRANSACTION_BUILDER = "transactionBuilder"
     const val URL = "url"
     private val TAG = "WebView"
+    val LOGIN_URLS = arrayOf(
+      "iap/sign-in",
+      "wallet/sign-in",
+      "accounts.google.com",
+      "/api/auth/google/callback"
+    )
   }
 
   private val url: String by lazy {
@@ -171,13 +178,31 @@ class WebViewPaymentActivity : AppCompatActivity() {
         settings.domStorageEnabled = true
         settings.useWideViewPort = true
         settings.databaseEnabled = true
-        //settings.userAgentString = userAgentInterceptor.userAgent
         CookieManager.getInstance().setAcceptThirdPartyCookies(this, true)
         CookieManager.getInstance().setAcceptCookie(true)
 
         webViewClient = object : WebViewClient() {
           override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             if (url.isNullOrEmpty()) return false
+
+            if (LOGIN_URLS.any { url.contains(it, ignoreCase = true) }) {
+              Log.d(TAG, "Login URL detected: $url")
+              val newUa = buildUA()
+              Log.d(TAG, "Setting user agent Google")
+              if (settings.userAgentString != newUa) {
+                settings.userAgentString = newUa
+                loadUrl(url)
+                return true
+              }
+            } else {
+              val defaultUa = WebSettings.getDefaultUserAgent(context)
+              if (settings.userAgentString != defaultUa) {
+                Log.d(TAG, "Setting user agent Default")
+                settings.userAgentString = defaultUa
+                loadUrl(url)
+                return true
+              }
+            }
 
             return if (shouldAllowExternalApps) {
               if (url.startsWith("http://") || url.startsWith("https://")) {
@@ -247,7 +272,10 @@ class WebViewPaymentActivity : AppCompatActivity() {
             setPromoCodeCallback = { promoCode ->
               viewModel.setPromoCode(promoCode)
             },
-            onLoginCallback = { _, _ -> },  // TODO save wallet from web checkout
+            onLoginCallback = { authToken, safeLogin ->
+              Log.d(TAG, "onLoginCallback called")
+              viewModel.fetchUserKey(authToken)
+            },
             goToUrlCallback = { },
           ),
           "WebViewPaymentInterface"
@@ -387,6 +415,13 @@ class WebViewPaymentActivity : AppCompatActivity() {
     ).apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
     startActivity(intent)
     finish()
+  }
+
+  private fun buildUA(): String {
+    return WebSettings.getDefaultUserAgent(context)
+      .replace("; wv", "")
+      .replace(Regex("""\s*Version/\d+\.\d+\s*"""), "")
+      .trim()
   }
 
 }

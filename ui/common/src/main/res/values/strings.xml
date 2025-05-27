@@ -392,6 +392,7 @@
   <!--Settings-->
   <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Contact Support Team</string>
+  <string name="settings_sign_in">Sign in</string>
 
   <!--Local Payments-->
 
