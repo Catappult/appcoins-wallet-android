@@ -167,7 +167,7 @@ class OneStepPaymentReceiver : BaseActivity() {
   ): Single<String> {
     return createWebViewPaymentOspUseCase(transaction, BuildConfig.VERSION_CODE.toString())
       .doOnSuccess { url ->
-        launchWebViewPayment(url, transaction)
+        launchWebViewPayment(url, transaction, WebViewPaymentActivity.OSP_TRANSACTION)
       }
   }
 
@@ -178,10 +178,11 @@ class OneStepPaymentReceiver : BaseActivity() {
     startActivityForResult(intent, REQUEST_CODE)
   }
 
-  private fun launchWebViewPayment(url: String, transaction: TransactionBuilder) {
+  private fun launchWebViewPayment(url: String, transaction: TransactionBuilder, type: String) {
     val intentWebView = Intent(this, WebViewPaymentActivity::class.java).apply {
       putExtra(WebViewPaymentActivity.URL, url)
       putExtra(WebViewPaymentActivity.TRANSACTION_BUILDER, transaction)
+      putExtra(WebViewPaymentActivity.TYPE, type)
     }
     @Suppress("DEPRECATION")
     startActivityForResult(intentWebView, REQUEST_CODE)

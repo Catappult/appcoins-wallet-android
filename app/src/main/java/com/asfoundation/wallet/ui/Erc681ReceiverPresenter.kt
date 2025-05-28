@@ -11,6 +11,7 @@ import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
 import com.asfoundation.wallet.util.TransferParser
@@ -101,7 +102,7 @@ internal class Erc681ReceiverPresenter(
   ): Single<String> {
     return createWebViewPaymentSdkUseCase(transaction, appVersionCode.toString())
       .doOnSuccess { url ->
-        view.launchWebViewPayment(url, transaction)
+        view.launchWebViewPayment(url, transaction, WebViewPaymentActivity.SDK_TRANSACTION)
       }
   }
 

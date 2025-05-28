@@ -14,5 +14,5 @@ internal interface Erc681ReceiverView {
 
   fun showLoadingAnimation()
 
-  fun launchWebViewPayment(url: String, transaction: TransactionBuilder)
+  fun launchWebViewPayment(url: String, transaction: TransactionBuilder, type: String)
 }

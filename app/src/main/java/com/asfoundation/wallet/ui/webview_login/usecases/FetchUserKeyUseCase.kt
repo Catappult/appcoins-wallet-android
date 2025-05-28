@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.webview_login.usecases
 
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetActiveWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import com.asfoundation.wallet.entity.WalletKeyStore
@@ -21,6 +22,7 @@ class FetchUserKeyUseCase @Inject constructor(
   val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
   val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   val updateWalletNameUseCase: UpdateWalletNameUseCase,
+  val setActiveWalletUseCase: SetActiveWalletUseCase
 ) {
 
   operator fun invoke(
@@ -45,6 +47,7 @@ class FetchUserKeyUseCase @Inject constructor(
         .mergeWith(updateWalletInfoUseCase(recoverResult.address))
         .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
         .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
+        .andThen(setActiveWalletUseCase(recoverResult.address))
         .toSingleDefault(recoverResult)
     }
 

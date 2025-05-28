@@ -52,6 +52,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.ui.OneStepPaymentReceiver
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
@@ -95,6 +96,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
     const val TRANSACTION_BUILDER = "transactionBuilder"
     const val URL = "url"
+    const val TYPE = "type"
+    const val SDK_TRANSACTION = "sdkTransaction"
+    const val OSP_TRANSACTION = "ospTransaction"
     private val TAG = "WebView"
     val LOGIN_URLS = arrayOf(
       "iap/sign-in",
@@ -111,6 +115,10 @@ class WebViewPaymentActivity : AppCompatActivity() {
   private val transactionBuilder: TransactionBuilder by lazy<TransactionBuilder> {
     intent.getParcelableExtra(TRANSACTION_BUILDER)
       ?: throw IllegalArgumentException("TransactionBuilder not provided")
+  }
+
+  private val type: String by lazy {
+    intent.getStringExtra(TYPE) ?: throw IllegalArgumentException("Type not provided")
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -274,7 +282,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
             },
             onLoginCallback = { authToken, safeLogin ->
               Log.d(TAG, "onLoginCallback called")
-              viewModel.fetchUserKey(authToken)
+              viewModel.fetchUserKey(authToken, type, transactionBuilder)
             },
             goToUrlCallback = { },
           ),
@@ -353,6 +361,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
         is WebViewPaymentViewModel.UiState.FinishWithBundle -> {
           viewModel.sendRevenueEvent(transactionBuilder)
           finish(uiState.bundle)
+        }
+        is WebViewPaymentViewModel.UiState.LoadUrl -> {
+          webView.loadUrl(uiState.url)
         }
 
         else -> {}
