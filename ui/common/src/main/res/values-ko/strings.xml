@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">기프트 카드 리딤</string>
   <string name="settings_item_support">지원 팀으로 연락하기</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">전화번호를 입력하세요</string>
@@ -843,6 +844,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">프로모션 코드</string>
   <string name="home_top_up_button">충전</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">지갑 관리</string>
   <string name="home_backup_wallet_button">지갑 백업하기</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
