@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">လက္ေဆာင္ကဒ္ကို လဲလွယ္မည္</string>
   <string name="settings_item_support">ပံ့ပိုးေရးအဖြဲ့အား ဆက္သြယ္ပါ</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">သင့္ဖုန္းနံပါတ္ကိုထည့္ပါ</string>
@@ -843,6 +844,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">ပ႐ိုမိုကုဒ္</string>
   <string name="home_top_up_button">ေငြျဖည့္မည္</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">Manage Wallets</string>
   <string name="home_backup_wallet_button">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
