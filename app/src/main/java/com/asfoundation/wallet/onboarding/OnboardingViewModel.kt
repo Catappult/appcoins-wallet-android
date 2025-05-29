@@ -115,10 +115,10 @@ class OnboardingViewModel @Inject constructor(
       sendSideEffect {
         if (it) {
           OnboardingSideEffect.NavigateToFinish
-//          OnboardingSideEffect.OpenLogin  //TODO send wallet is exists
+//          OnboardingSideEffect.OpenLogin  // to be added
         } else {
           OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
-//          OnboardingSideEffect.OpenLogin
+//          OnboardingSideEffect.OpenLogin  // to be added
         }
       }
     }.scopedSubscribe { it.printStackTrace() }

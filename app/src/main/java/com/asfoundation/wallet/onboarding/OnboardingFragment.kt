@@ -190,7 +190,7 @@ class OnboardingFragment : BasePageViewFragment(),
         navigator.navigateToOnboardingPayment()
 
       OnboardingSideEffect.OpenLogin -> {
-        //TODO:
+        // to be added:
 //        val url =
 //          "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in?domain=com.appcoins.wallet.dev&payment_channel=wallet_app"
 //        val intent = Intent(requireContext(), WebViewLoginActivity::class.java)
