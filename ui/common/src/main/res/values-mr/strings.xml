@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">गिफ्ट कार्ड रिडीम करा</string>
   <string name="settings_item_support">समर्थन गटाशी संपर्क साधा</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">आपला फोन नंबर घाला</string>
@@ -850,6 +851,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">प्रोमो कोड</string>
   <string name="home_top_up_button">भरणा करा</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">वॉलेटस् व्यवस्थापन</string>
   <string name="home_backup_wallet_button">वॉलेट बॅकअप करा</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
