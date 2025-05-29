@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Cadeaubon inwisselen</string>
   <string name="settings_item_support">Neem contact op met support</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Voer je telefoonnummer in</string>
@@ -850,6 +851,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">Actiecode</string>
   <string name="home_top_up_button">Opwaarderen</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">Wallets beheren</string>
   <string name="home_backup_wallet_button">Back-up van wallet maken</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
