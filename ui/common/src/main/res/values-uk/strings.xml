@@ -351,6 +351,7 @@
   <!--Settings-->
   <string name="title_redeem">Активувати подарункову картку</string>
   <string name="settings_item_support">Зв\'язатися зі службою підтримки</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Введіть свій номер телефону</string>
@@ -866,6 +867,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">Промокод</string>
   <string name="home_top_up_button">Поповнити</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">Керувати гаманцями</string>
   <string name="home_backup_wallet_button">Резервний гаманець</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
