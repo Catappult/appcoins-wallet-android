@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Geschenkkarte einlösen</string>
   <string name="settings_item_support">Support-Team kontaktieren</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Gib bitte deine Telefonnummer ein</string>
@@ -850,6 +851,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">Promo-Code</string>
   <string name="home_top_up_button">Aufladen</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">Wallets verwalten</string>
   <string name="home_backup_wallet_button">Wallet-Backup erstellen</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
