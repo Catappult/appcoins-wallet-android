@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Revendică Card Cadou</string>
   <string name="settings_item_support">Contactează echipa de asistență</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Introdu numărul tău de telefon</string>
@@ -857,6 +858,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">Cod Promo</string>
   <string name="home_top_up_button">Alimentează</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">Gestionează portofele</string>
   <string name="home_backup_wallet_button">Copie de rezervă portofel</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
