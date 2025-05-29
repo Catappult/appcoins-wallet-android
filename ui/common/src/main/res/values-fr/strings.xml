@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Échanger la carte cadeau</string>
   <string name="settings_item_support">Contacter le Support</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Saisissez votre numéro de téléphone</string>
@@ -850,6 +851,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">Code Promo</string>
   <string name="home_top_up_button">Recharger</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">Gérer les portefeuilles</string>
   <string name="home_backup_wallet_button">Sauvegarder portefeuille</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
