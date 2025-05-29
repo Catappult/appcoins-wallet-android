@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.webview_login.usecases
 
 import android.os.Build
 import com.appcoins.wallet.core.utils.properties.HostProperties
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetEncryptedPrivateKeyUseCase
+import com.asfoundation.wallet.ui.webview_payment.usecases.GetEncryptedPrivateKeyUseCase
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -25,6 +25,7 @@ class GenerateWebLoginUrlUseCase @Inject constructor(
   }
 
   fun mapPaymentChannel(): String {
+//    return "wallet_app_cloud"  //TODO remove. to test web login
     return if (isAnbox()) {
       "wallet_app_cloud"
     } else {

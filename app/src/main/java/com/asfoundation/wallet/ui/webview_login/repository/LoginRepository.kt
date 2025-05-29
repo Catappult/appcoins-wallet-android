@@ -26,4 +26,14 @@ class LoginRepository @Inject constructor(
       }
   }
 
+  fun fetchPublicKey(): Single<String> {
+    return loginApi.fetchPublicKey()
+      .subscribeOn(rxSchedulers.io)
+      .map { it.publicKey }
+      .doOnError {
+        Log.d("LoginRepository", "error in fetchPublicKey: ${it.message}")
+        logger.log("LoginRepository", "error in fetchPublicKey: ${it.message}", it)
+      }
+  }
+
 }
