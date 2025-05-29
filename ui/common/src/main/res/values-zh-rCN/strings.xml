@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">兑换礼品卡</string>
   <string name="settings_item_support">联系支持团队</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">输入你的电话号码</string>
@@ -843,6 +844,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">促销代码</string>
   <string name="home_top_up_button">充值</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">钱包管理</string>
   <string name="home_backup_wallet_button">备份钱包</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
