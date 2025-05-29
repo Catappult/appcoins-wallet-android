@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">تحرير بطاقة هدية</string>
   <string name="settings_item_support">تواصل مع فريق الدعم</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">أدخل رقم هاتفك</string>
@@ -878,6 +879,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">رمز ترويجي</string>
   <string name="home_top_up_button">إضافة</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">إدارة المَحافظ</string>
   <string name="home_backup_wallet_button">محفظة احتياطية</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
