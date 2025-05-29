@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">استفاده از کارت هدیه</string>
   <string name="settings_item_support">تماس با تیم پشتیبانی</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">شماره تلفن خود را وارد کنید</string>
@@ -850,6 +851,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">کد پرومو</string>
   <string name="home_top_up_button">افزایش اعتبار</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">مدیریت کیف‌پول‌ها</string>
   <string name="home_backup_wallet_button">بک‌آپ کیف پول</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
