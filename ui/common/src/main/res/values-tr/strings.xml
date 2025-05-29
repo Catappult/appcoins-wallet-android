@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Hediye Kartını Kullan</string>
   <string name="settings_item_support">Destek Ekibiyle iletişime geçin</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Telefon numaranızı girin</string>
@@ -850,6 +851,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">Promosyon Kodu</string>
   <string name="home_top_up_button">Yükle</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">Cüzdanları Yönet</string>
   <string name="home_backup_wallet_button">Yedek Cüzdan</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
