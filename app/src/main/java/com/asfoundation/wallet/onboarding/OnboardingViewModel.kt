@@ -43,6 +43,7 @@ sealed class OnboardingSideEffect : SideEffect {
   object NavigateToOnboardingPayment : OnboardingSideEffect()
   data class UpdateGuestBonus(val bonus: FiatValue) : OnboardingSideEffect()
   data class NavigateToVerify(val flow: String) : OnboardingSideEffect()
+  object OpenLogin : OnboardingSideEffect()
 }
 
 data class OnboardingState(
@@ -101,14 +102,23 @@ class OnboardingViewModel @Inject constructor(
     }
   }
 
+  fun handleOpenLoginResult(resultOk: Boolean) {
+    if (resultOk) {
+      setOnboardingCompletedUseCase()
+      sendSideEffect { OnboardingSideEffect.NavigateToFinish }
+    }
+  }
+
   fun handleLaunchWalletClick() {
     hasWalletUseCase().observeOn(rxSchedulers.main).doOnSuccess {
       setOnboardingCompletedUseCase()
       sendSideEffect {
         if (it) {
           OnboardingSideEffect.NavigateToFinish
+//          OnboardingSideEffect.OpenLogin  // to be added
         } else {
           OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
+//          OnboardingSideEffect.OpenLogin  // to be added
         }
       }
     }.scopedSubscribe { it.printStackTrace() }
@@ -174,7 +184,10 @@ class OnboardingViewModel @Inject constructor(
         )
         deleteCachedGuest()
         saveIsFirstPaymentUseCase(
-          isFirstPayment = paymentFunnel == null || paymentFunnel.equals("first_payment_try", true) || paymentFunnel.equals("first_payment", true)
+          isFirstPayment = paymentFunnel == null || paymentFunnel.equals(
+            "first_payment_try",
+            true
+          ) || paymentFunnel.equals("first_payment", true)
         )
         onboardingAnalytics.sendRecoverGuestWalletEvent(
           bonus = guestBonus.amount.toString(),

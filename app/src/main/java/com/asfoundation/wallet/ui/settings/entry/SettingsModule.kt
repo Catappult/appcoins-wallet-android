@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
+import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import dagger.Module
 import dagger.Provides
@@ -25,7 +26,8 @@ class SettingsModule {
     buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
     getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
     displayChatUseCase: DisplayChatUseCase,
-    getStoredCardsUseCase: GetStoredCardsUseCase
+    getStoredCardsUseCase: GetStoredCardsUseCase,
+    generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase
   ): SettingsPresenter {
     return SettingsPresenter(
       settingsFragment as SettingsView,
@@ -38,7 +40,8 @@ class SettingsModule {
       buildUpdateIntentUseCase,
       getChangeFiatCurrencyModelUseCase,
       displayChatUseCase,
-      getStoredCardsUseCase
+      getStoredCardsUseCase,
+      generateWebLoginUrlUseCase
     )
   }
 

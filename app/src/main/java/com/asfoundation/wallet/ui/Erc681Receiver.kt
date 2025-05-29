@@ -136,10 +136,11 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     finish()
   }
 
-  override fun launchWebViewPayment(url: String, transaction: TransactionBuilder) {
+  override fun launchWebViewPayment(url: String, transaction: TransactionBuilder, type: String) {
     val intentWebView = Intent(this, WebViewPaymentActivity::class.java).apply {
       putExtra(WebViewPaymentActivity.URL, url)
       putExtra(WebViewPaymentActivity.TRANSACTION_BUILDER, transaction)
+      putExtra(WebViewPaymentActivity.TYPE, type)
     }
     @Suppress("DEPRECATION")
     startActivityForResult(intentWebView, OneStepPaymentReceiver.REQUEST_CODE)

@@ -43,7 +43,7 @@ interface SettingsView {
 
   fun setManageWalletPreference()
 
-  fun setAccountPreference()
+  fun setLoginPreference()
 
   fun setManageSubscriptionsPreference()
 

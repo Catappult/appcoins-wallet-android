@@ -12,7 +12,8 @@ import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeU
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.util.tuples.Quintuple
+import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.util.tuples.Sextuple
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -25,7 +26,9 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
   val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
   val getCachedCurrencyUseCase: GetCachedCurrencyUseCase,
   val analytics: IndicativeAnalytics,
-  val rxSchedulers: RxSchedulers
+  val generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
+  val getEncryptedPrivateKeyUseCase: GetEncryptedPrivateKeyUseCase,
+  val rxSchedulers: RxSchedulers,
 ) {
 
   val baseWebViewPaymentUrl = HostProperties.WEBVIEW_PAYMENT_URL
@@ -41,8 +44,9 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
       getCountryCodeUseCase().subscribeOn(rxSchedulers.io),
       addressService.getAttribution(transaction?.domain ?: "").subscribeOn(rxSchedulers.io),
       getCurrentPromoCodeUseCase().subscribeOn(rxSchedulers.io),
-    ) { walletModel, ewt, country, oemId, promoCode ->
-      Quintuple(walletModel, ewt, country, oemId, promoCode)
+      getEncryptedPrivateKeyUseCase().subscribeOn(rxSchedulers.io),
+    ) { walletModel, ewt, country, oemId, promoCode, encrypt ->
+      Sextuple(walletModel, ewt, country, oemId, promoCode, encrypt)
     }
       .map { args ->
         val walletModel = args.first
@@ -50,12 +54,13 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
         val country = args.third
         val oemId = args.fourth.oemId
         val promoCode = args.fifth
+        val encrypt = args.sixth
 
         "$baseWebViewPaymentUrl?" +
             "&country=$country" +
             "&address=${walletModel.address}" +
             "&signature=${walletModel.signedAddress}" +
-            "&payment_channel=wallet_app" +
+            "&payment_channel=${generateWebLoginUrlUseCase.mapPaymentChannel()}" +
             "&token=${ewt}" +
             "&origin=BDS" +
             "&product=${transaction.skuId ?: ""}" +
@@ -74,7 +79,10 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
             "&trial_period=${transaction.trialPeriod ?: ""}" +
             "&version=${appVersion ?: ""}" +
             "&currency=".plus(if (getCachedCurrencyUseCase().equals("null")) "" else getCachedCurrencyUseCase()) +
-            "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}"
+            "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}" +
+            if (generateWebLoginUrlUseCase.isCloudGaming())
+              "&user=${encrypt}"
+            else ""
       }
   }
 

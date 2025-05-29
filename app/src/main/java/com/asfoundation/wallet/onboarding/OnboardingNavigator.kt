@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity
 import javax.inject.Inject
 
 class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :

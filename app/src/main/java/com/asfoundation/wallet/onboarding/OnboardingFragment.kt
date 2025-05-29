@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.onboarding
 
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.net.Uri
@@ -14,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -30,6 +33,7 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -59,6 +63,11 @@ class OnboardingFragment : BasePageViewFragment(),
       activity?.finishAffinity()
     }
   }
+
+  private val openLoginLauncher =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      viewModel.handleOpenLoginResult(result.resultCode == Activity.RESULT_OK)
+    }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -179,6 +188,15 @@ class OnboardingFragment : BasePageViewFragment(),
 
       OnboardingSideEffect.NavigateToOnboardingPayment ->
         navigator.navigateToOnboardingPayment()
+
+      OnboardingSideEffect.OpenLogin -> {
+        // to be added:
+//        val url =
+//          "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in?domain=com.appcoins.wallet.dev&payment_channel=wallet_app"
+//        val intent = Intent(requireContext(), WebViewLoginActivity::class.java)
+//        intent.putExtra(WebViewLoginActivity.URL, url)
+//        openLoginLauncher.launch(intent)
+      }
     }
   }
 
@@ -278,7 +296,12 @@ class OnboardingFragment : BasePageViewFragment(),
     setLinkToString(spannableString, privacyPolicy, privacyPolicyUrl)
 
     views.onboardingTermsConditions.termsConditionsBody.text = spannableString
-    views.onboardingTermsConditions.termsConditionsBody.setTextColor(resources.getColor(R.color.styleguide_dark_grey, requireActivity().theme))
+    views.onboardingTermsConditions.termsConditionsBody.setTextColor(
+      resources.getColor(
+        R.color.styleguide_dark_grey,
+        requireActivity().theme
+      )
+    )
     views.onboardingTermsConditions.termsConditionsBody.isClickable = true
     views.onboardingTermsConditions.termsConditionsBody.movementMethod =
       LinkMovementMethod.getInstance()
