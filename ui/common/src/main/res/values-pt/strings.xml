@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Redimir Cartão Oferta</string>
   <string name="settings_item_support">Contacta a Equipa Apoio</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Insere o teu número de telemóvel</string>
@@ -850,6 +851,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">Código Promocional</string>
   <string name="home_top_up_button">Carregar</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">Gerir Wallets</string>
   <string name="home_backup_wallet_button">Fazer backup da Wallet</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
