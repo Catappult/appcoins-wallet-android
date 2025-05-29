@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">ギフトカードの交換</string>
   <string name="settings_item_support">サポートチームへのお問い合わせ</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">電話番号を入力</string>
@@ -843,6 +844,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">プロモーションコード</string>
   <string name="home_top_up_button">トップアップ</string>
+  <string name="home_sign_in_button">Sign in or sign up</string>
   <string name="home_manage_wallet_button">ウォレットの管理</string>
   <string name="home_backup_wallet_button">ウォレットをバックアップする</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
