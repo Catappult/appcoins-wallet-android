@@ -32,7 +32,6 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.math.BigDecimal
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -278,7 +277,7 @@ class WebViewPaymentViewModel @Inject constructor(
         .andThen(
           ewtObtainer.getEwtAuthenticationNoBearer()
         )
-        .flatMap{
+        .flatMap {
           when (type) {
             WebViewPaymentActivity.OSP_TRANSACTION -> createWebViewPaymentOspUseCase(
               transaction = transaction,
@@ -304,6 +303,7 @@ class WebViewPaymentViewModel @Inject constructor(
         }, {
           it.printStackTrace()
           logger.log(TAG, "error in fetchUserKey or createUrl: ${it.message}", it)
+          _uiState.value = UiState.Finish
         })
     )
   }

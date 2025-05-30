@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.webview_payment
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -52,7 +53,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
-import com.asfoundation.wallet.ui.OneStepPaymentReceiver
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
@@ -194,9 +194,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
             if (url.isNullOrEmpty()) return false
 
             if (LOGIN_URLS.any { url.contains(it, ignoreCase = true) }) {
-              Log.d(TAG, "Login URL detected: $url")
               val newUa = buildUA()
-              Log.d(TAG, "Setting user agent Google")
               if (settings.userAgentString != newUa) {
                 settings.userAgentString = newUa
                 loadUrl(url)
@@ -205,7 +203,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
             } else {
               val defaultUa = WebSettings.getDefaultUserAgent(context)
               if (settings.userAgentString != defaultUa) {
-                Log.d(TAG, "Setting user agent Default")
                 settings.userAgentString = defaultUa
                 loadUrl(url)
                 return true
@@ -362,8 +359,10 @@ class WebViewPaymentActivity : AppCompatActivity() {
           viewModel.sendRevenueEvent(transactionBuilder)
           finish(uiState.bundle)
         }
+
         is WebViewPaymentViewModel.UiState.LoadUrl -> {
-          webView.loadUrl(uiState.url)
+//          webView.loadUrl(uiState.url)
+          context.restartWebViewPayment(uiState.url, transactionBuilder, type)
         }
 
         else -> {}
@@ -434,5 +433,33 @@ class WebViewPaymentActivity : AppCompatActivity() {
       .replace(Regex("""\s*Version/\d+\.\d+\s*"""), "")
       .trim()
   }
+
+  private fun Context.restartWebViewPayment(
+    newUrl: String,
+    transactionBuilder: TransactionBuilder,
+    type: String
+  ) {
+    val current = this as Activity
+
+    val next = Intent(current, WebViewPaymentActivity::class.java).apply {
+      putExtra(URL, newUrl)
+      putExtra(TRANSACTION_BUILDER, transactionBuilder)
+      putExtra(TYPE, type)
+
+      addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT)
+      addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    }
+
+    current.setResult(Activity.RESULT_CANCELED)
+
+    current.startActivity(next)
+    current.overridePendingTransition(
+      R.anim.slide_in_bottom,
+      R.anim.slide_out_bottom
+    )
+
+    current.finish()
+  }
+
 
 }
