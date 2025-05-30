@@ -34,5 +34,5 @@ private const val AMAZON_PAY_REDIRECT_BASE_URL_DEV = "https://apichain.dev.catap
 private const val AMAZON_PAY_REDIRECT_BASE_URL_PROD = "https://apichain.catappult.io/amazonpay/result"
 private const val WEBVIEW_PAYMENT_URL_PROD = "https://developers.catappult.io/iap"
 private const val WEBVIEW_PAYMENT_URL_DEV = "https://wallet.dev.appcoins.io/iap"
-private const val WEBVIEW_LOGIN_URL_PROD = "https://wallet.aptoide.com/pt_PT/wallet/sign-in"
-private const val WEBVIEW_LOGIN_URL_DEV = "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in"
+private const val WEBVIEW_LOGIN_URL_PROD = "https://wallet.aptoide.com/en/wallet/sign-in"
+private const val WEBVIEW_LOGIN_URL_DEV = "https://wallet.dev.aptoide.com/en/wallet/sign-in"
