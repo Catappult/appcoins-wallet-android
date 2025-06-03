@@ -340,27 +340,34 @@
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
         android:windowSoftInputMode="adjustResize" >
-    <intent-filter>
-      <action android:name="android.intent.action.VIEW" />
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
 
-      <category android:name="android.intent.category.DEFAULT" />
-      <category android:name="android.intent.category.BROWSABLE" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
 
-      <data
-          android:host="${applicationId}"
-          android:scheme="web-wallet-result" />
-      <data
-          android:host="${applicationId}"
-          android:scheme="googlepayresult" />
-      <data
-          android:host="wallet.dev.appcoins.io"
-          android:pathPrefix="/app/googlepay/result"
-          android:scheme="http" />
-      <data
-          android:host="wallet.dev.appcoins.io"
-          android:pathPrefix="/app/googlepay/result"
-          android:scheme="https" />
-    </intent-filter>
+        <data
+            android:host="${applicationId}"
+            android:scheme="web-wallet-result" />
+        <data
+            android:host="${applicationId}"
+            android:scheme="googlepayresult" />
+        <data
+            android:host="wallet.dev.appcoins.io"
+            android:pathPrefix="/app/googlepay/result"
+            android:scheme="http" />
+        <data
+            android:host="wallet.dev.appcoins.io"
+            android:pathPrefix="/app/googlepay/result"
+            android:scheme="https" />
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
+        android:windowSoftInputMode="adjustResize" >
     </activity>
 
     <service

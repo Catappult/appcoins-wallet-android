@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.webview_payment
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -13,6 +14,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
@@ -40,12 +42,11 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.net.toUri
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
@@ -58,11 +59,8 @@ import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import java.math.BigDecimal
 import javax.inject.Inject
-import androidx.core.net.toUri
 
 @AndroidEntryPoint
 class WebViewPaymentActivity : AppCompatActivity() {
@@ -78,6 +76,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
   lateinit var logger: Logger
 
   private val viewModel: WebViewPaymentViewModel by viewModels()
+
   @Inject
   @ApplicationContext
   lateinit var context: Context
@@ -97,7 +96,16 @@ class WebViewPaymentActivity : AppCompatActivity() {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
     const val TRANSACTION_BUILDER = "transactionBuilder"
     const val URL = "url"
+    const val TYPE = "type"
+    const val SDK_TRANSACTION = "sdkTransaction"
+    const val OSP_TRANSACTION = "ospTransaction"
     private val TAG = "WebView"
+    val LOGIN_URLS = arrayOf(
+      "iap/sign-in",
+      "wallet/sign-in",
+      "accounts.google.com",
+      "/api/auth/google/callback"
+    )
   }
 
   private val url: String by lazy {
@@ -107,6 +115,10 @@ class WebViewPaymentActivity : AppCompatActivity() {
   private val transactionBuilder: TransactionBuilder by lazy<TransactionBuilder> {
     intent.getParcelableExtra(TRANSACTION_BUILDER)
       ?: throw IllegalArgumentException("TransactionBuilder not provided")
+  }
+
+  private val type: String by lazy {
+    intent.getStringExtra(TYPE) ?: throw IllegalArgumentException("Type not provided")
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -174,13 +186,28 @@ class WebViewPaymentActivity : AppCompatActivity() {
         settings.domStorageEnabled = true
         settings.useWideViewPort = true
         settings.databaseEnabled = true
-        //settings.userAgentString = userAgentInterceptor.userAgent
         CookieManager.getInstance().setAcceptThirdPartyCookies(this, true)
         CookieManager.getInstance().setAcceptCookie(true)
 
         webViewClient = object : WebViewClient() {
           override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             if (url.isNullOrEmpty()) return false
+
+            if (LOGIN_URLS.any { url.contains(it, ignoreCase = true) }) {
+              val newUa = buildUA()
+              if (settings.userAgentString != newUa) {
+                settings.userAgentString = newUa
+                loadUrl(url)
+                return true
+              }
+            } else {
+              val defaultUa = WebSettings.getDefaultUserAgent(context)
+              if (settings.userAgentString != defaultUa) {
+                settings.userAgentString = defaultUa
+                loadUrl(url)
+                return true
+              }
+            }
 
             return if (shouldAllowExternalApps) {
               if (url.startsWith("http://") || url.startsWith("https://")) {
@@ -249,7 +276,12 @@ class WebViewPaymentActivity : AppCompatActivity() {
             },
             setPromoCodeCallback = { promoCode ->
               viewModel.setPromoCode(promoCode)
-            }
+            },
+            onLoginCallback = { authToken, safeLogin ->
+              Log.d(TAG, "onLoginCallback called")
+              viewModel.fetchUserKey(authToken, type, transactionBuilder)
+            },
+            goToUrlCallback = { },
           ),
           "WebViewPaymentInterface"
         )
@@ -327,6 +359,12 @@ class WebViewPaymentActivity : AppCompatActivity() {
           viewModel.sendRevenueEvent(transactionBuilder)
           finish(uiState.bundle)
         }
+
+        is WebViewPaymentViewModel.UiState.LoadUrl -> {
+//          webView.loadUrl(uiState.url)
+          context.restartWebViewPayment(uiState.url, transactionBuilder, type)
+        }
+
         else -> {}
       }
     }
@@ -388,5 +426,40 @@ class WebViewPaymentActivity : AppCompatActivity() {
     startActivity(intent)
     finish()
   }
+
+  private fun buildUA(): String {
+    return WebSettings.getDefaultUserAgent(context)
+      .replace("; wv", "")
+      .replace(Regex("""\s*Version/\d+\.\d+\s*"""), "")
+      .trim()
+  }
+
+  private fun Context.restartWebViewPayment(
+    newUrl: String,
+    transactionBuilder: TransactionBuilder,
+    type: String
+  ) {
+    val current = this as Activity
+
+    val next = Intent(current, WebViewPaymentActivity::class.java).apply {
+      putExtra(URL, newUrl)
+      putExtra(TRANSACTION_BUILDER, transactionBuilder)
+      putExtra(TYPE, type)
+
+      addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT)
+      addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    }
+
+    current.setResult(Activity.RESULT_CANCELED)
+
+    current.startActivity(next)
+    current.overridePendingTransition(
+      R.anim.slide_in_bottom,
+      R.anim.slide_out_bottom
+    )
+
+    current.finish()
+  }
+
 
 }

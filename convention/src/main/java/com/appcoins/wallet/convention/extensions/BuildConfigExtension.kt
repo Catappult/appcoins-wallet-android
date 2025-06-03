@@ -28,6 +28,7 @@ val debugBuildConfigList = mutableListOf(
   BuildConfigField("String", "VK_SDK_APP_ID", "VK_SDK_APP_ID_DEV"),
   BuildConfigField("String", "VK_EXTERNAL_URL_REDIRECT", "VK_EXTERNAL_URL_REDIRECT_DEV"),
   BuildConfigField("String", "VK_APP_NAME", "VK_APP_NAME_DEV"),
+  BuildConfigField("String", "BACKEND_PUBLIC_KEY", "BACKEND_PUBLIC_KEY_DEV"),
 )
 
 val releaseBuildConfigList = mutableListOf(
@@ -40,6 +41,7 @@ val releaseBuildConfigList = mutableListOf(
   BuildConfigField("String", "VK_SDK_APP_ID"),
   BuildConfigField("String", "VK_EXTERNAL_URL_REDIRECT"),
   BuildConfigField("String", "VK_APP_NAME"),
+  BuildConfigField("String", "BACKEND_PUBLIC_KEY", "BACKEND_PUBLIC_KEY"),
 )
 
 internal fun ApplicationDefaultConfig.buildConfigFields(project: Project, rootDir: File) {

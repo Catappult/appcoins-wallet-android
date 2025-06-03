@@ -14,6 +14,7 @@ object HostProperties {
   const val FEEDBACK_ZENDESK_BASE_HOST = "https://aptoide.zendesk.com/api/v2/"
   val AMAZON_PAY_REDIRECT_BASE_URL = if (BuildConfig.DEBUG) AMAZON_PAY_REDIRECT_BASE_URL_DEV else AMAZON_PAY_REDIRECT_BASE_URL_PROD
   val WEBVIEW_PAYMENT_URL = if (BuildConfig.DEBUG) WEBVIEW_PAYMENT_URL_DEV else WEBVIEW_PAYMENT_URL_PROD
+  val WEBVIEW_LOGIN_URL = if (BuildConfig.DEBUG) WEBVIEW_LOGIN_URL_DEV else WEBVIEW_LOGIN_URL_PROD
   const val FLAGR_BASE_HOST = "https://flagr.aptoide.com/api/v1/"
 }
 
@@ -33,3 +34,5 @@ private const val AMAZON_PAY_REDIRECT_BASE_URL_DEV = "https://apichain.dev.catap
 private const val AMAZON_PAY_REDIRECT_BASE_URL_PROD = "https://apichain.catappult.io/amazonpay/result"
 private const val WEBVIEW_PAYMENT_URL_PROD = "https://developers.catappult.io/iap"
 private const val WEBVIEW_PAYMENT_URL_DEV = "https://wallet.dev.appcoins.io/iap"
+private const val WEBVIEW_LOGIN_URL_PROD = "https://wallet.aptoide.com/en/wallet/sign-in"
+private const val WEBVIEW_LOGIN_URL_DEV = "https://wallet.dev.aptoide.com/en/wallet/sign-in"

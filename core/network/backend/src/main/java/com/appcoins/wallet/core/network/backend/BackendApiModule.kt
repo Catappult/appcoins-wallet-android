@@ -13,6 +13,7 @@ import com.appcoins.wallet.core.network.backend.api.GamesApi
 import com.appcoins.wallet.core.network.backend.api.GamificationApi
 import com.appcoins.wallet.core.network.backend.api.GasServiceApi
 import com.appcoins.wallet.core.network.backend.api.ImpressionApi
+import com.appcoins.wallet.core.network.backend.api.LoginApi
 import com.appcoins.wallet.core.network.backend.api.PartnerAttributionApi
 import com.appcoins.wallet.core.network.backend.api.PromoCodeApi
 import com.appcoins.wallet.core.network.backend.api.RedeemGiftApi
@@ -267,4 +268,13 @@ class BackendApiModule {
   ): ImpressionApi {
     return retrofit.create(ImpressionApi::class.java)
   }
+
+  @Singleton
+  @Provides
+  fun providesLoginApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): LoginApi {
+    return retrofit.create(LoginApi::class.java)
+  }
+
 }
