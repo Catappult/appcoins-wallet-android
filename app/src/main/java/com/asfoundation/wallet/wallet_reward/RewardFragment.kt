@@ -2,7 +2,6 @@ package com.asfoundation.wallet.wallet_reward
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -41,6 +39,7 @@ import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.PromoCodeBonusResponse.App
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -54,11 +53,11 @@ import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
 import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingGamificationCard
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
-import com.appcoins.wallet.ui.widgets.SkeletonLoadingRewardsActionsCard
-import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.VipReferralCard
+import com.appcoins.wallet.ui.widgets.VipReferralCardComposable
 import com.appcoins.wallet.ui.widgets.expanded
 import com.appcoins.wallet.ui.widgets.openGame
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
 import com.asfoundation.wallet.promotions.model.DefaultItem
@@ -191,23 +190,50 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               GamificationHeaderNoPurchases()
             }
           }
+
+          val vipRefModel = //viewModel.vipReferralModel.value
+            VipReferralInfo(
+              vipBonus = "5",
+              vipCode = "VIP123",
+              totalEarned = "100",
+              numberReferrals = "10",
+              endDate = (System.currentTimeMillis() / 1000L) + 60L * 60L * 24L * 2L,
+              startDate = (System.currentTimeMillis() / 1000L),
+              app = App(
+                packageName = "com.example.app",
+                appName = "Example App",
+                appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg"
+              )
+            )
+          if (vipRefModel != null) {
+            VipReferralCardComposable(
+              modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+              vipBonus = vipRefModel.vipBonus,
+              endDate = vipRefModel.endDate,
+              referralCode = vipRefModel.vipCode,
+              onClick = { },  //TODO
+              onShare = { code -> },  //TODO
+            )
+          }
+
           RewardsActions(
-              onClickPromoCode = {
-                analytics.promoCodeClickEvent()
-                navigator.showPromoCodeFragment()
-              },
-              onClickGiftCard = { navigator.showGiftCardFragment() },
-              fragmentName = fragmentName,
-              buttonsAnalytics = buttonsAnalytics
-            )
-          }
-          viewModel.activePromoCode.value?.let {
-            ActivePromoCodeComposable(
-              cardItem = it,
-              fragmentName = fragmentName,
-              buttonsAnalytics = buttonsAnalytics
-            )
-          }
+            onClickPromoCode = {
+              analytics.promoCodeClickEvent()
+              navigator.showPromoCodeFragment()
+            },
+            onClickGiftCard = { navigator.showGiftCardFragment() },
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
+          )
+        }
+
+        viewModel.activePromoCode.value?.let {
+          ActivePromoCodeComposable(
+            cardItem = it,
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
+          )
+        }
       }
       item {
         if (viewModel.promotions.isNotEmpty() && !viewModel.isLoadingOrIdlePromotionState()) {
@@ -310,7 +336,11 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   }
 
   override fun onStateChanged(state: RewardState) {
-    setPromotions(state.promotionsModelAsync, state.promotionsGamificationStatsAsync, state.selectedCurrency)
+    setPromotions(
+      state.promotionsModelAsync,
+      state.promotionsGamificationStatsAsync,
+      state.selectedCurrency
+    )
   }
 
   override fun onSideEffect(sideEffect: RewardSideEffect) {
