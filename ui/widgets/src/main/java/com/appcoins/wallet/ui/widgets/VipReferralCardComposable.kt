@@ -50,11 +50,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
-/**
- * VIP referral card that can expand/collapse itself.
- *
- * @param initialExpanded only used by previews/tests – default keeps behaviour unchanged.
- */
+
 @Composable
 fun VipReferralCardComposable(
   modifier: Modifier = Modifier,
@@ -64,10 +60,12 @@ fun VipReferralCardComposable(
   earnedLabel: String = "25$ earned from 5 referrals",
   onCardClick: () -> Unit = {},
   onShare: (String) -> Unit = {},
-  initialExpanded: Boolean = false
+  initialExpanded: Boolean = false,
+  initialFuture: Boolean = false,
 ) {
   /* ────────── state & animation ────────── */
   var expanded by rememberSaveable { mutableStateOf(initialExpanded) }
+  var futureCode by rememberSaveable { mutableStateOf(initialFuture) }
   val arrowRotation by animateFloatAsState(
     targetValue = if (expanded) 180f else 0f, label = ""
   )
@@ -75,7 +73,6 @@ fun VipReferralCardComposable(
   /* ────────── colours ────────── */
   val darkCard = WalletColors.styleguide_dark_secondary
   val darkCardSub = WalletColors.styleguide_dark
-  val lightCardColor = WalletColors.styleguide_dark.copy(alpha = 0.85f)   // lighter-grey inner card
   val yellow = WalletColors.styleguide_vip_yellow
   val greyText = WalletColors.styleguide_dark_grey
 
@@ -91,7 +88,7 @@ fun VipReferralCardComposable(
     /* ───── ACTIVE BADGE ───── */
     Box(Modifier.fillMaxWidth()) {
       Surface(
-        color = yellow,
+        color = if (futureCode) WalletColors.styleguide_inactive_grey else yellow,
         shape = RoundedCornerShape(bottomStart = 12.dp),
         shadowElevation = 2.dp,
         modifier = Modifier
@@ -99,13 +96,13 @@ fun VipReferralCardComposable(
           .zIndex(1f)
       ) {
         Text(
-          "Active",
+          text = if (futureCode) "Available soon" else "Active",
           modifier = Modifier.padding(horizontal = 12.dp, vertical = 3.dp),
           style = TextStyle(
             fontSize = 10.sp,
             fontFamily = FontFamily(Font(R.font.roboto_regular)),
             fontWeight = FontWeight.W400,
-            color = WalletColors.styleguide_dark_secondary
+            color = if (futureCode) WalletColors.styleguide_disabled_text else WalletColors.styleguide_dark_secondary
           )
         )
       }
@@ -117,7 +114,7 @@ fun VipReferralCardComposable(
       /***** HEADER *****/
       Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
-          painter = painterResource(R.drawable.ic_vip_logo),
+          painter = painterResource(if (futureCode) R.drawable.ic_future_code else R.drawable.ic_vip_logo),
           contentDescription = "VIP logo",
           tint = Color.Unspecified,
           modifier = Modifier.size(56.dp)
@@ -147,16 +144,31 @@ fun VipReferralCardComposable(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
       ) {
-        Text(
-          "Referral ends in",
-          style = TextStyle(
-            fontSize = 14.sp,
-            fontFamily = FontFamily(Font(R.font.roboto_medium)),
-            fontWeight = FontWeight.W600,
-            color = WalletColors.styleguide_white
+        if (futureCode) {
+          Icon(
+            painter = painterResource(R.drawable.ic_clock_available_soon),
+            contentDescription = "Clock icon",
+            tint = Color.Unspecified,
+            modifier = Modifier.size(20.dp)
           )
-        )
-        CountDownTimer(endDateTime = endDate)
+          Spacer(Modifier.width(4.dp))
+        }
+        Row(
+          modifier = Modifier.fillMaxWidth(),
+          horizontalArrangement = Arrangement.SpaceBetween,
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          Text(
+            if (futureCode) "Available in" else "Referral ends in",
+            style = TextStyle(
+              fontSize = 14.sp,
+              fontFamily = FontFamily(Font(R.font.roboto_medium)),
+              fontWeight = FontWeight.W600,
+              color = WalletColors.styleguide_white
+            )
+          )
+          CountDownTimer(endDateTime = endDate)
+        }
       }
 
       Spacer(Modifier.height(12.dp))
@@ -164,7 +176,7 @@ fun VipReferralCardComposable(
       /***** REFERRAL CODE (collapsed only) *****/
       referralCode?.let { code ->
         if (!expanded) {
-          ReferralCodeRow(code, darkCardSub, yellow, onShare)
+          ReferralCodeRow(code, darkCardSub, yellow, futureCode, onShare)
           Spacer(Modifier.height(16.dp))
         }
       }
@@ -176,9 +188,9 @@ fun VipReferralCardComposable(
           referralCode,
           earnedLabel,
           darkCardSub,
-          lightCardColor,
           greyText,
           yellow,
+          futureCode,
           onShare
         )
         Spacer(Modifier.height(16.dp))
@@ -198,13 +210,13 @@ fun VipReferralCardComposable(
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.roboto_regular)),
             fontWeight = FontWeight.W400,
-            color = yellow
+            color = if (futureCode) WalletColors.styleguide_primary else yellow
           )
         )
         Icon(
           Icons.Filled.KeyboardArrowDown,
           contentDescription = null,
-          tint = yellow,
+          tint = if (futureCode) WalletColors.styleguide_primary else yellow,
           modifier = Modifier.rotate(arrowRotation)
         )
       }
@@ -218,6 +230,7 @@ private fun ReferralCodeRow(
   code: String,
   containerColor: Color,
   buttonColor: Color,
+  futureCode: Boolean = false,
   onShare: (String) -> Unit
 ) {
   Row(
@@ -242,7 +255,12 @@ private fun ReferralCodeRow(
       onClick = { onShare(code) },
       shape = RoundedCornerShape(36.dp),
       contentPadding = PaddingValues(horizontal = 16.dp),
-      colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
+      colors = ButtonDefaults.buttonColors(
+        containerColor = if (futureCode)
+          WalletColors.styleguide_dark_variant
+        else
+          buttonColor
+      )
     ) {
       Text(
         "Share",
@@ -250,7 +268,7 @@ private fun ReferralCodeRow(
           fontSize = 12.sp,
           fontFamily = FontFamily(Font(R.font.roboto_regular)),
           fontWeight = FontWeight.W400,
-          color = WalletColors.styleguide_dark_secondary
+          color = if (futureCode) WalletColors.styleguide_white else WalletColors.styleguide_dark_secondary
         )
       )
     }
@@ -263,9 +281,9 @@ private fun ExpandedSection(
   referralCode: String?,
   earnedLabel: String,
   darkCardSub: Color,
-  lightCardColor: Color,
   greyText: Color,
   yellow: Color,
+  futureCode: Boolean,
   onShare: (String) -> Unit
 ) {
   /* Everything below sits inside a lighter-grey card */
@@ -314,7 +332,7 @@ private fun ExpandedSection(
       Spacer(Modifier.height(16.dp))
 
       referralCode?.let {
-        ReferralCodeRow(it, darkCardSub, yellow, onShare)
+        ReferralCodeRow(it, darkCardSub, yellow, futureCode, onShare)
       }
 
       Spacer(Modifier.height(12.dp))
@@ -323,6 +341,14 @@ private fun ExpandedSection(
         "Each in-app purchase gives you and your friends a $vipBonus% bonus, plus other offers for 7 days.",
         style = MaterialTheme.typography.bodySmall.copy(color = greyText)
       )
+
+      if (futureCode) {
+        Spacer(Modifier.height(12.dp))
+        Text(
+          "The promo code will work once the referral program is active.",
+          style = MaterialTheme.typography.bodySmall.copy(color = greyText)
+        )
+      }
 
       Spacer(Modifier.height(12.dp))
 
@@ -333,14 +359,19 @@ private fun ExpandedSection(
         modifier = Modifier.fillMaxWidth()
       ) {
         Icon(
-          painter = painterResource(R.drawable.ic_coins_stack),
+          painter = painterResource(
+            if (futureCode)
+              R.drawable.ic_lock_referral
+            else
+              R.drawable.ic_coins_stack
+          ),
           contentDescription = null,
           tint = Color.Unspecified,
-          modifier = Modifier.size(30.dp)
+          modifier = Modifier.size(if (futureCode) 20.dp else 30.dp)
         )
         Spacer(Modifier.width(6.dp))
         Text(
-          earnedLabel,
+          if (futureCode) "Referral Program not active yet" else earnedLabel,
           style = TextStyle(
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.roboto_regular)),
@@ -387,5 +418,24 @@ private fun VipReferralCardPreviewExpanded() {
     referralCode = "1456152810291",
     onShare = {},
     initialExpanded = true      // start expanded
+  )
+}
+
+/** Expanded inactive code (future code) */
+@Preview(
+  name = "VIP Referral – future",
+  showBackground = true,
+  backgroundColor = 0xFF121212
+)
+@Composable
+private fun VipReferralCardPreviewFuture() {
+  val threeDays = System.currentTimeMillis() + 1_000L * 60 * 60 * 24 * 3
+  VipReferralCardComposable(
+    vipBonus = "5",
+    endDate = threeDays,
+    referralCode = "1456152810291",
+    onShare = {},
+    initialExpanded = true,
+    initialFuture = true,
   )
 }

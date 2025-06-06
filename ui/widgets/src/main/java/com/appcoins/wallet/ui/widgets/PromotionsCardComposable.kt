@@ -264,8 +264,9 @@ fun CountDownTimer(endDateTime: Long) {
 @Composable
 fun CardWithTextAndDetail(modifier: Modifier = Modifier, text: String, detail: String) {
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_black.copy(alpha = 0.2F)),
-    modifier = modifier.height(44.dp).width(46.dp),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_dark_variant),
+    shape = RoundedCornerShape(4.dp),
+    modifier = modifier.height(40.dp).width(40.dp),
   ) {
     Column(
       modifier = Modifier.fillMaxSize(),
