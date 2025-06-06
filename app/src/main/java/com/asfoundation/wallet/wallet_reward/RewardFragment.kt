@@ -211,6 +211,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               vipBonus = vipRefModel.vipBonus,
               endDate = vipRefModel.endDate,
               referralCode = vipRefModel.vipCode,
+              numberReferrals = vipRefModel.numberReferrals,
+              totalEarned = vipRefModel.totalEarned,
               onShare = { code -> },  //TODO
             )
           }

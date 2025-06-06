@@ -39,6 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -57,20 +58,22 @@ fun VipReferralCardComposable(
   vipBonus: String,
   endDate: Long,
   referralCode: String? = null,
-  earnedLabel: String = "25$ earned from 5 referrals",
+  numberReferrals: String,
+  totalEarned: String,
   onCardClick: () -> Unit = {},
   onShare: (String) -> Unit = {},
   initialExpanded: Boolean = false,
   initialFuture: Boolean = false,
 ) {
-  /* ────────── state & animation ────────── */
+
   var expanded by rememberSaveable { mutableStateOf(initialExpanded) }
   var futureCode by rememberSaveable { mutableStateOf(initialFuture) }
   val arrowRotation by animateFloatAsState(
     targetValue = if (expanded) 180f else 0f, label = ""
   )
 
-  /* ────────── colours ────────── */
+  val earnedLabel = stringResource(R.string.earned_from_referrals_vip, totalEarned, numberReferrals)
+
   val darkCard = WalletColors.styleguide_dark_secondary
   val darkCardSub = WalletColors.styleguide_dark
   val yellow = WalletColors.styleguide_vip_yellow
@@ -85,7 +88,6 @@ fun VipReferralCardComposable(
     colors = CardDefaults.cardColors(containerColor = darkCard),
     shape = RoundedCornerShape(8.dp)
   ) {
-    /* ───── ACTIVE BADGE ───── */
     Box(Modifier.fillMaxWidth()) {
       Surface(
         color = if (futureCode) WalletColors.styleguide_inactive_grey else yellow,
@@ -96,7 +98,7 @@ fun VipReferralCardComposable(
           .zIndex(1f)
       ) {
         Text(
-          text = if (futureCode) "Available soon" else "Active",
+          text = if (futureCode) stringResource(R.string.available_soon_vip) else stringResource(R.string.active_vip),
           modifier = Modifier.padding(horizontal = 12.dp, vertical = 3.dp),
           style = TextStyle(
             fontSize = 10.sp,
@@ -108,10 +110,8 @@ fun VipReferralCardComposable(
       }
     }
 
-    /* ───── MAIN CONTENT ───── */
     Column(Modifier.padding(start = 16.dp, end = 16.dp, bottom = 18.dp)) {
 
-      /***** HEADER *****/
       Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
           painter = painterResource(if (futureCode) R.drawable.ic_future_code else R.drawable.ic_vip_logo),
@@ -122,7 +122,7 @@ fun VipReferralCardComposable(
         Spacer(Modifier.width(12.dp))
         Column {
           Text(
-            "VIP referral program",
+            stringResource(R.string.vip_referral_program),
             style = MaterialTheme.typography.titleMedium.copy(
               fontWeight = FontWeight.Bold,
               color = Color.White
@@ -130,7 +130,7 @@ fun VipReferralCardComposable(
             modifier = Modifier.padding(bottom = 6.dp)
           )
           Text(
-            "$vipBonus% Bonus for you and your friends",
+            stringResource(R.string.bonus_for_you_vip, vipBonus),
             style = MaterialTheme.typography.bodySmall.copy(color = greyText)
           )
         }
@@ -138,7 +138,6 @@ fun VipReferralCardComposable(
 
       Spacer(Modifier.height(6.dp))
 
-      /***** COUNT-DOWN *****/
       Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -159,7 +158,7 @@ fun VipReferralCardComposable(
           verticalAlignment = Alignment.CenterVertically
         ) {
           Text(
-            if (futureCode) "Available in" else "Referral ends in",
+            if (futureCode) stringResource(R.string.available_in_vip) else stringResource(R.string.referral_ends_in_vip),
             style = TextStyle(
               fontSize = 14.sp,
               fontFamily = FontFamily(Font(R.font.roboto_medium)),
@@ -173,7 +172,6 @@ fun VipReferralCardComposable(
 
       Spacer(Modifier.height(12.dp))
 
-      /***** REFERRAL CODE (collapsed only) *****/
       referralCode?.let { code ->
         if (!expanded) {
           ReferralCodeRow(code, darkCardSub, yellow, futureCode, onShare)
@@ -181,7 +179,6 @@ fun VipReferralCardComposable(
         }
       }
 
-      /* ───────── expanded content ───────── */
       if (expanded) {
         ExpandedSection(
           vipBonus,
@@ -196,7 +193,6 @@ fun VipReferralCardComposable(
         Spacer(Modifier.height(16.dp))
       }
 
-      /* ────── SEE MORE / LESS ────── */
       Row(
         modifier = Modifier
           .fillMaxWidth()
@@ -205,7 +201,7 @@ fun VipReferralCardComposable(
         verticalAlignment = Alignment.CenterVertically
       ) {
         Text(
-          if (expanded) "See Less" else "See More",
+          if (expanded) stringResource(R.string.see_less_vip) else stringResource(R.string.see_more_vip),
           style = TextStyle(
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.roboto_regular)),
@@ -224,7 +220,6 @@ fun VipReferralCardComposable(
   }
 }
 
-/*──────────────────── helpers ────────────────────*/
 @Composable
 private fun ReferralCodeRow(
   code: String,
@@ -263,7 +258,7 @@ private fun ReferralCodeRow(
       )
     ) {
       Text(
-        "Share",
+        stringResource(R.string.share_vip),
         style = TextStyle(
           fontSize = 12.sp,
           fontFamily = FontFamily(Font(R.font.roboto_regular)),
@@ -286,7 +281,6 @@ private fun ExpandedSection(
   futureCode: Boolean,
   onShare: (String) -> Unit
 ) {
-  /* Everything below sits inside a lighter-grey card */
   Card(
     modifier = Modifier.fillMaxWidth(),
     shape = RoundedCornerShape(12.dp),
@@ -295,7 +289,7 @@ private fun ExpandedSection(
     Column(Modifier.padding(16.dp)) {
 
       Text(
-        "Share this code with your friends",
+        stringResource(R.string.share_this_code_with_your_friends_vip),
         style = MaterialTheme.typography.bodyLarge.copy(
           fontWeight = FontWeight.SemiBold,
           color = Color.White
@@ -316,11 +310,11 @@ private fun ExpandedSection(
         Spacer(Modifier.width(12.dp))
         Column {
           Text(
-            "Only for purchases on",
+            stringResource(R.string.only_for_purchases_on_vip),
             style = MaterialTheme.typography.bodySmall.copy(color = greyText)
           )
           Text(
-            "Royal Match",
+            stringResource(R.string.royal_match_vip),
             style = MaterialTheme.typography.bodyMedium.copy(
               fontWeight = FontWeight.Bold,
               color = Color.White
@@ -338,21 +332,20 @@ private fun ExpandedSection(
       Spacer(Modifier.height(12.dp))
 
       Text(
-        "Each in-app purchase gives you and your friends a $vipBonus% bonus, plus other offers for 7 days.",
+        stringResource(R.string.each_in_app_purchase_vip, vipBonus),
         style = MaterialTheme.typography.bodySmall.copy(color = greyText)
       )
 
       if (futureCode) {
         Spacer(Modifier.height(12.dp))
         Text(
-          "The promo code will work once the referral program is active.",
+          stringResource(R.string.promo_code_referral_program_vip),
           style = MaterialTheme.typography.bodySmall.copy(color = greyText)
         )
       }
 
       Spacer(Modifier.height(12.dp))
 
-      /* centered coins + label */
       Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
@@ -371,7 +364,7 @@ private fun ExpandedSection(
         )
         Spacer(Modifier.width(6.dp))
         Text(
-          if (futureCode) "Referral Program not active yet" else earnedLabel,
+          if (futureCode) stringResource(R.string.referral_program_not_active_yet_vip) else earnedLabel,
           style = TextStyle(
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.roboto_regular)),
@@ -384,9 +377,6 @@ private fun ExpandedSection(
   }
 }
 
-/*──────────────────── previews ────────────────────*/
-
-/** Collapsed – default look */
 @Preview(
   name = "VIP Referral – Collapsed",
   showBackground = true,
@@ -399,11 +389,12 @@ private fun VipReferralCardPreviewCollapsed() {
     vipBonus = "5",
     endDate = threeDays,
     referralCode = "1456152810291",
+    numberReferrals = "5",
+    totalEarned = "25$",
     onShare = {}
   )
 }
 
-/** Expanded – card starts open */
 @Preview(
   name = "VIP Referral – Expanded",
   showBackground = true,
@@ -417,11 +408,12 @@ private fun VipReferralCardPreviewExpanded() {
     endDate = threeDays,
     referralCode = "1456152810291",
     onShare = {},
-    initialExpanded = true      // start expanded
+    initialExpanded = true,
+    numberReferrals = "5",
+    totalEarned = "25$",
   )
 }
 
-/** Expanded inactive code (future code) */
 @Preview(
   name = "VIP Referral – future",
   showBackground = true,
@@ -437,5 +429,7 @@ private fun VipReferralCardPreviewFuture() {
     onShare = {},
     initialExpanded = true,
     initialFuture = true,
+    numberReferrals = "5",
+    totalEarned = "25$",
   )
 }
