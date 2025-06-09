@@ -6,6 +6,7 @@ data class VipReferralInfo(
   val vipBonus: String,
   val vipCode: String,
   val totalEarned: String,
+  val totalEarnedConvertedCurrency: String,
   val numberReferrals: String,
   val endDate: Long,
   val startDate: Long,

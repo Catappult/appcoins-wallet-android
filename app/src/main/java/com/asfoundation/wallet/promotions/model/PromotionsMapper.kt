@@ -133,6 +133,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
         vipBonus = vipBonus,
         vipCode = code,
         totalEarned = earnedUsdAmount,
+        totalEarnedConvertedCurrency = earnedCurrencyAmount ?: "",
         numberReferrals = referrals,
         endDate = transformDateToTimestampSeconds(
           date = endDate,

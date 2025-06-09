@@ -14,7 +14,8 @@ data class VipReferralResponse(
   @SerializedName("revenue_share") val vipBonus: String,
   @SerializedName("end_date") val endDate: String,
   @SerializedName("start_date") val startDate: String,
-  @SerializedName("app") val app: App
+  @SerializedName("app") val app: App,
+  @SerializedName("earned_currency_amount") val earnedCurrencyAmount: String? = null,
 ) {
 
   private val simpleDateFormat
