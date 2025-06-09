@@ -143,6 +143,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
           date = startDate,
           fromPattern = ISO_8601_DATE_TIME_FORMAT
         ),
+        active = active,
         app = app
       )
     else

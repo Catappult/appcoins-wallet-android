@@ -62,7 +62,9 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 fun VipReferralCardComposable(
   modifier: Modifier = Modifier,
   vipBonus: String,
+  startDate: Long,
   endDate: Long,
+  isActive: Boolean,
   referralCode: String? = null,
   numberReferrals: String,
   totalEarned: String,
@@ -71,11 +73,12 @@ fun VipReferralCardComposable(
   onCardClick: () -> Unit = {},
   onShare: (String) -> Unit = {},
   initialExpanded: Boolean = false,
-  initialFuture: Boolean = false,
 ) {
 
   var expanded by rememberSaveable { mutableStateOf(initialExpanded) }
-  var futureCode by rememberSaveable { mutableStateOf(initialFuture) }
+  var futureCode by rememberSaveable { mutableStateOf(
+    ((System.currentTimeMillis()/1000L) < startDate) || !isActive
+  ) }
   val arrowRotation by animateFloatAsState(
     targetValue = if (expanded) 180f else 0f, label = ""
   )
@@ -90,7 +93,7 @@ fun VipReferralCardComposable(
   Card(
     modifier = modifier
       .fillMaxWidth()
-      .border(BorderStroke(1.dp, yellow), RoundedCornerShape(12.dp))
+      .border(BorderStroke(1.dp, if (futureCode) darkCard else yellow), RoundedCornerShape(12.dp))
       .animateContentSize(),
 //      .clickable { onCardClick() },
     colors = CardDefaults.cardColors(containerColor = darkCard),
@@ -422,7 +425,9 @@ private fun VipReferralCardPreviewCollapsed() {
   val threeDays = System.currentTimeMillis() + 1_000L * 60 * 60 * 24 * 3
   VipReferralCardComposable(
     vipBonus = "5",
+    startDate = System.currentTimeMillis(),
     endDate = threeDays,
+    isActive = true,
     referralCode = "1456152810291",
     numberReferrals = "5",
     totalEarned = "25$",
@@ -442,7 +447,9 @@ private fun VipReferralCardPreviewExpanded() {
   val threeDays = System.currentTimeMillis() + 1_000L * 60 * 60 * 24 * 3
   VipReferralCardComposable(
     vipBonus = "5",
+    startDate = System.currentTimeMillis(),
     endDate = threeDays,
+    isActive = true,
     referralCode = "1456152810291",
     onShare = {},
     initialExpanded = true,
@@ -463,11 +470,12 @@ private fun VipReferralCardPreviewFuture() {
   val threeDays = System.currentTimeMillis() + 1_000L * 60 * 60 * 24 * 3
   VipReferralCardComposable(
     vipBonus = "5",
+    startDate = System.currentTimeMillis(),
     endDate = threeDays,
+    isActive = false,
     referralCode = "1456152810291",
     onShare = {},
     initialExpanded = true,
-    initialFuture = true,
     numberReferrals = "5",
     totalEarned = "25$",
     appName = "Example App",
