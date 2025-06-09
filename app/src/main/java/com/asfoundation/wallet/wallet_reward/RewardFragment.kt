@@ -53,7 +53,6 @@ import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
 import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingGamificationCard
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
-import com.appcoins.wallet.ui.widgets.VipReferralCard
 import com.appcoins.wallet.ui.widgets.VipReferralCardComposable
 import com.appcoins.wallet.ui.widgets.expanded
 import com.appcoins.wallet.ui.widgets.openGame
@@ -171,7 +170,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         with(viewModel.gamificationHeaderModel.value) {
           when {
             this != null && walletOrigin == APTOIDE -> {
-              GamificationContentAptoide(this, viewModel.vipReferralModel.value)
+              GamificationContentAptoide(this)
             }
 
             this != null && walletOrigin == PARTNER -> {
@@ -191,20 +190,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             }
           }
 
-          val vipRefModel = //viewModel.vipReferralModel.value
-            VipReferralInfo(
-              vipBonus = "5",
-              vipCode = "VIP123",
-              totalEarned = "100",
-              numberReferrals = "10",
-              endDate = (System.currentTimeMillis() / 1000L) + 60L * 60L * 24L * 2L,
-              startDate = (System.currentTimeMillis() / 1000L),
-              app = App(
-                packageName = "com.example.app",
-                appName = "Example App",
-                appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg"
-              )
-            )
+          val vipRefModel = viewModel.vipReferralModel.value
           if (vipRefModel != null) {
             VipReferralCardComposable(
               modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
@@ -213,7 +199,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               referralCode = vipRefModel.vipCode,
               numberReferrals = vipRefModel.numberReferrals,
               totalEarned = vipRefModel.totalEarned,
-              onShare = { code -> },  //TODO
+              appName = vipRefModel.app.appName,
+              appIcon = vipRefModel.app.appIcon,
+              onShare = { code -> },
             )
           }
 
@@ -273,8 +261,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   @Composable
   fun GamificationContentAptoide(
-    gamificationHeader: GamificationHeaderModel,
-    vipReferralInfo: VipReferralInfo?
+    gamificationHeader: GamificationHeaderModel
   ) {
     BoxWithConstraints {
       if (expanded()) {
@@ -282,15 +269,10 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           Column(modifier = Modifier.weight(1f)) {
             GamificationHeaderAptoide(gamificationHeader = gamificationHeader)
           }
-          if (vipReferralInfo != null)
-            Column(modifier = Modifier.weight(1f)) {
-              VipReferralCard(vipReferralInfo = vipReferralInfo)
-            }
         }
       } else {
         Column {
           GamificationHeaderAptoide(gamificationHeader = gamificationHeader)
-          VipReferralCard(vipReferralInfo = vipReferralInfo)
         }
       }
     }
@@ -314,20 +296,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         buttonsAnalytics = buttonsAnalytics
       )
     }
-  }
-
-  @Composable
-  fun VipReferralCard(vipReferralInfo: VipReferralInfo?) {
-    if (vipReferralInfo != null)
-      VipReferralCard(
-        {
-          buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, "VipReferral")
-          navigator.navigateToVipReferral(vipReferralInfo, navController())
-        },
-        vipReferralInfo.vipBonus,
-        vipReferralInfo.endDate,
-        vipReferralInfo.startDate,
-      )
   }
 
   @Preview(showBackground = true)

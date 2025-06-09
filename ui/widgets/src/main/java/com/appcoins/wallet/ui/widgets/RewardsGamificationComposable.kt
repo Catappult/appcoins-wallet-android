@@ -317,64 +317,6 @@ fun GamificationHeaderPartner(bonusPerkDescription: String) {
 }
 
 @Composable
-fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long, startDateTime: Long) {
-  val referralAvailable = isVipReferralAlreadyAvailable(startDateTime)
-  Card(
-    colors = CardDefaults.cardColors(styleguide_dark_secondary),
-    modifier = Modifier
-      .fillMaxSize()
-      .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-      .clip(shape = RoundedCornerShape(8.dp))
-      .clickable { if (referralAvailable) onClick() },
-  ) {
-    Column(verticalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxSize()) {
-      Row(
-        modifier = Modifier
-          .fillMaxWidth()
-          .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp),
-        horizontalArrangement = Arrangement.Start,
-        verticalAlignment = Alignment.CenterVertically
-      ) {
-        Image(
-          painter = painterResource(
-            if (referralAvailable) R.drawable.ic_vip_symbol
-            else R.drawable.ic_soon_lock
-          ),
-          contentDescription = stringResource(R.string.vip),
-          modifier = Modifier
-            .size(48.dp)
-            .align(Alignment.CenterVertically)
-        )
-        Column(modifier = Modifier.weight(1f)) {
-          Text(
-            text = stringResource(R.string.vip_program_referral_button_title),
-            style = MaterialTheme.typography.titleSmall,
-            color = WalletColors.styleguide_white,
-            modifier = Modifier.padding(horizontal = 20.dp),
-            fontWeight = FontWeight.Bold,
-          )
-          Text(
-            text = stringResource(R.string.vip_program_referral_button_body, vipBonus),
-            style = MaterialTheme.typography.bodySmall,
-            color = WalletColors.styleguide_dark_grey,
-            modifier = Modifier.padding(horizontal = 20.dp)
-          )
-        }
-        if (referralAvailable) Image(
-          painter = painterResource(R.drawable.ic_arrow_right),
-          contentDescription = null,
-          modifier = Modifier.size(32.dp)
-        )
-      }
-      VipReferralCountDownTimer(
-        dateTime = if (referralAvailable) endDateTime else startDateTime,
-        referralAvailable = referralAvailable
-      )
-    }
-  }
-}
-
-@Composable
 fun VipReferralCountDownTimer(
   dateTime: Long,
   modifier: Modifier = Modifier,
@@ -517,12 +459,6 @@ fun PreviewRewardsGamificationNoPurchases() {
 @Composable
 fun PreviewRewardsGamificationPartner() {
   GamificationHeaderPartner(stringResource(id = R.string.vip_program_max_bonus_short, "5"))
-}
-
-@Preview
-@Composable
-fun PreviewRewardsVip() {
-  VipReferralCard({}, "5", 0L, 0L)
 }
 
 @Preview

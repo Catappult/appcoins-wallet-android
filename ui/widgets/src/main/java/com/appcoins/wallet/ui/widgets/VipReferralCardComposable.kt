@@ -1,11 +1,13 @@
 package com.appcoins.wallet.ui.widgets
 
+import android.content.Intent
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,7 +19,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Button
@@ -38,6 +42,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -49,8 +55,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.appcoins.wallet.ui.common.theme.WalletColors
-
 
 @Composable
 fun VipReferralCardComposable(
@@ -60,6 +67,8 @@ fun VipReferralCardComposable(
   referralCode: String? = null,
   numberReferrals: String,
   totalEarned: String,
+  appName: String?,
+  appIcon: String?,
   onCardClick: () -> Unit = {},
   onShare: (String) -> Unit = {},
   initialExpanded: Boolean = false,
@@ -83,8 +92,8 @@ fun VipReferralCardComposable(
     modifier = modifier
       .fillMaxWidth()
       .border(BorderStroke(1.dp, yellow), RoundedCornerShape(12.dp))
-      .animateContentSize()
-      .clickable { onCardClick() },
+      .animateContentSize(),
+//      .clickable { onCardClick() },
     colors = CardDefaults.cardColors(containerColor = darkCard),
     shape = RoundedCornerShape(8.dp)
   ) {
@@ -188,6 +197,8 @@ fun VipReferralCardComposable(
           greyText,
           yellow,
           futureCode,
+          appName,
+          appIcon,
           onShare
         )
         Spacer(Modifier.height(16.dp))
@@ -228,26 +239,43 @@ private fun ReferralCodeRow(
   futureCode: Boolean = false,
   onShare: (String) -> Unit
 ) {
+
   Row(
     modifier = Modifier
       .fillMaxWidth()
       .clip(RoundedCornerShape(24.dp))
       .background(containerColor)
       .padding(start = 16.dp, end = 8.dp, top = 2.dp, bottom = 2.dp),
-    verticalAlignment = Alignment.CenterVertically
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.SpaceBetween
   ) {
-    Text(
-      code,
-      modifier = Modifier.weight(1f),
-      maxLines = 1,
-      overflow = TextOverflow.Ellipsis,
-      style = MaterialTheme.typography.bodyMedium.copy(
-        color = Color.White,
-        letterSpacing = 0.5.sp
+    SelectionContainer(
+      modifier = Modifier.weight(1f)
+    ) {
+      Text(
+        text = code,
+        maxLines = 1,
+        modifier = Modifier.horizontalScroll(rememberScrollState()),
+        style = MaterialTheme.typography.bodyMedium.copy(
+          color = Color.White,
+          letterSpacing = 0.5.sp
+        )
       )
-    )
+    }
+
+    val context = LocalContext.current
     Button(
-      onClick = { onShare(code) },
+      onClick = {
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+          putExtra(Intent.EXTRA_TEXT, code)
+          type = "text/plain"
+        }
+        val chooser = Intent.createChooser(
+          sendIntent,
+          context.getString(R.string.share_vip)
+        )
+        context.startActivity(chooser)
+      },
       shape = RoundedCornerShape(36.dp),
       contentPadding = PaddingValues(horizontal = 16.dp),
       colors = ButtonDefaults.buttonColors(
@@ -279,6 +307,8 @@ private fun ExpandedSection(
   greyText: Color,
   yellow: Color,
   futureCode: Boolean,
+  appName: String?,
+  appIcon: String? = null,
   onShare: (String) -> Unit
 ) {
   Card(
@@ -295,14 +325,20 @@ private fun ExpandedSection(
           color = Color.White
         )
       )
+
       Spacer(Modifier.height(12.dp))
 
       /* icon + game name */
       Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-          painter = painterResource(R.drawable.ic_appcoins_notification_icon),
+        AsyncImage(
+          model = ImageRequest.Builder(LocalContext.current)
+            .data(appIcon)
+            .crossfade(true)
+            .placeholder(R.drawable.ic_appcoins_notification_icon)
+            .error(R.drawable.ic_appcoins_notification_icon)
+            .build(),
           contentDescription = null,
-          tint = Color.Unspecified,
+          contentScale = ContentScale.Crop,
           modifier = Modifier
             .size(40.dp)
             .clip(RoundedCornerShape(12.dp))
@@ -314,7 +350,7 @@ private fun ExpandedSection(
             style = MaterialTheme.typography.bodySmall.copy(color = greyText)
           )
           Text(
-            stringResource(R.string.royal_match_vip),
+            appName ?: "",
             style = MaterialTheme.typography.bodyMedium.copy(
               fontWeight = FontWeight.Bold,
               color = Color.White
@@ -391,6 +427,8 @@ private fun VipReferralCardPreviewCollapsed() {
     referralCode = "1456152810291",
     numberReferrals = "5",
     totalEarned = "25$",
+    appName = "Example App",
+    appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     onShare = {}
   )
 }
@@ -411,6 +449,8 @@ private fun VipReferralCardPreviewExpanded() {
     initialExpanded = true,
     numberReferrals = "5",
     totalEarned = "25$",
+    appName = "Example App",
+    appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg"
   )
 }
 
@@ -431,5 +471,7 @@ private fun VipReferralCardPreviewFuture() {
     initialFuture = true,
     numberReferrals = "5",
     totalEarned = "25$",
+    appName = "Example App",
+    appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg"
   )
 }

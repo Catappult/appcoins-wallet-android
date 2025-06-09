@@ -6,8 +6,6 @@ import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
-import com.asfoundation.wallet.promotions.model.VipReferralInfo
-import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import javax.inject.Inject
@@ -34,20 +32,4 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     fragment.startActivity(GamificationActivity.newIntent(fragment.requireContext(), cachedBonus))
   }
 
-  fun navigateToVipReferral(
-    vipReferralInfo: VipReferralInfo,
-    mainNavController: NavController,
-  ) {
-    val bundle = Bundle()
-    with(vipReferralInfo) {
-      bundle.putString(PromotionsVipReferralFragment.BONUS_PERCENT, vipBonus)
-      bundle.putString(PromotionsVipReferralFragment.PROMO_REFERRAL, vipCode)
-      bundle.putString(PromotionsVipReferralFragment.EARNED_VALUE, totalEarned)
-      bundle.putString(PromotionsVipReferralFragment.EARNED_TOTAL, numberReferrals)
-      bundle.putLong(PromotionsVipReferralFragment.END_DATE, endDate)
-      bundle.putString(PromotionsVipReferralFragment.APP_NAME, app.appName)
-      bundle.putString(PromotionsVipReferralFragment.APP_ICON_URL, app.appIcon)
-    }
-    mainNavController.navigate(R.id.action_navigate_to_vip_referral, bundle)
-  }
 }
