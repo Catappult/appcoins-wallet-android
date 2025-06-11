@@ -76,9 +76,11 @@ fun VipReferralCardComposable(
 ) {
 
   var expanded by rememberSaveable { mutableStateOf(initialExpanded) }
-  var futureCode by rememberSaveable { mutableStateOf(
-    ((System.currentTimeMillis()/1000L) < startDate) || !isActive
-  ) }
+  var futureCode by rememberSaveable {
+    mutableStateOf(
+      ((System.currentTimeMillis() / 1000L) < startDate) || !isActive
+    )
+  }
   val arrowRotation by animateFloatAsState(
     targetValue = if (expanded) 180f else 0f, label = ""
   )
@@ -93,7 +95,10 @@ fun VipReferralCardComposable(
   Card(
     modifier = modifier
       .fillMaxWidth()
-      .border(BorderStroke(1.dp, if (futureCode) darkCard else yellow), RoundedCornerShape(12.dp))
+      .border(
+        BorderStroke(1.dp, if (futureCode) Color.Transparent else yellow),
+        RoundedCornerShape(12.dp)
+      )
       .animateContentSize(),
 //      .clickable { onCardClick() },
     colors = CardDefaults.cardColors(containerColor = darkCard),
@@ -209,6 +214,7 @@ fun VipReferralCardComposable(
       Row(
         modifier = Modifier
           .fillMaxWidth()
+          .clip(RoundedCornerShape(12.dp))
           .clickable { expanded = !expanded },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -247,7 +253,7 @@ private fun ReferralCodeRow(
       .fillMaxWidth()
       .clip(RoundedCornerShape(24.dp))
       .background(containerColor)
-      .padding(start = 16.dp, end = 8.dp, top = 2.dp, bottom = 2.dp),
+      .padding(start = 16.dp, end = 6.dp, top = 2.dp, bottom = 2.dp),
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
@@ -422,11 +428,11 @@ private fun ExpandedSection(
 )
 @Composable
 private fun VipReferralCardPreviewCollapsed() {
-  val threeDays = System.currentTimeMillis() + 1_000L * 60 * 60 * 24 * 3
+  val threeDays = System.currentTimeMillis() + 1_000L * 60L * 60L * 24L * 3L
   VipReferralCardComposable(
     vipBonus = "5",
-    startDate = System.currentTimeMillis(),
-    endDate = threeDays,
+    startDate = (System.currentTimeMillis() / 1000L) - 100L,
+    endDate = (threeDays / 1000L),
     isActive = true,
     referralCode = "1456152810291",
     numberReferrals = "5",
@@ -444,11 +450,11 @@ private fun VipReferralCardPreviewCollapsed() {
 )
 @Composable
 private fun VipReferralCardPreviewExpanded() {
-  val threeDays = System.currentTimeMillis() + 1_000L * 60 * 60 * 24 * 3
+  val threeDays = System.currentTimeMillis() + 1_000L * 60L * 60L * 24L * 3L
   VipReferralCardComposable(
     vipBonus = "5",
-    startDate = System.currentTimeMillis(),
-    endDate = threeDays,
+    startDate = (System.currentTimeMillis() / 1000L) - 100L,
+    endDate = (threeDays / 1000L),
     isActive = true,
     referralCode = "1456152810291",
     onShare = {},
@@ -467,11 +473,11 @@ private fun VipReferralCardPreviewExpanded() {
 )
 @Composable
 private fun VipReferralCardPreviewFuture() {
-  val threeDays = System.currentTimeMillis() + 1_000L * 60 * 60 * 24 * 3
+  val threeDays = System.currentTimeMillis() + 1_000L * 60L * 60L * 24L * 3L
   VipReferralCardComposable(
     vipBonus = "5",
-    startDate = System.currentTimeMillis(),
-    endDate = threeDays,
+    startDate = (System.currentTimeMillis() / 1000L) + 100L,
+    endDate = (threeDays / 1000L),
     isActive = false,
     referralCode = "1456152810291",
     onShare = {},
