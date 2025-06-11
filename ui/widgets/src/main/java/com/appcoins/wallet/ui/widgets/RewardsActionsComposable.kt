@@ -67,12 +67,6 @@ fun RewardsActions(
       fragmentName = fragmentName,
       buttonsAnalytics = buttonsAnalytics
     )
-//    ActionCard(  // TODO remove after moving eSkills
-//      image = R.drawable.ic_eskills,
-//      title = R.string.rewards_eskills_card_title,
-//      description = R.string.rewards_eskills_card_body,
-//      onClick = onClickEskills,
-//    )
   }
 }
 
@@ -91,8 +85,9 @@ fun ActionCard(
       .width(width = 160.dp)
       .fillMaxHeight()
       .clickable {
-        buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, actionCardString )
-        onClick() },
+        buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, actionCardString)
+        onClick()
+      },
     shape = RoundedCornerShape(8.dp),
     colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary),
   ) {
