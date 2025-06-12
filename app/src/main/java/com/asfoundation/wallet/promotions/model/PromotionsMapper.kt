@@ -144,7 +144,9 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
           fromPattern = ISO_8601_DATE_TIME_FORMAT
         ),
         active = active,
-        app = app
+        app = app,
+        maxReward = revenueCapCurrencyAmount,
+        currencySymbol = currencySymbol,
       )
     else
       null

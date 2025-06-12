@@ -375,12 +375,6 @@ class BdsPromotionsRepository @Inject constructor(
       wallet = wallet,
       currency = currency
     )
-      .map { response ->
-        response.copy(
-          earnedCurrencyAmount =
-            "${formatter.formatCurrency(response.earnedCurrencyAmount ?: "", FIAT)}$currencySymbol",
-        )
-      }
       .subscribeOn(Schedulers.io())
       .onErrorReturn { VipReferralResponse.invalidReferral }
   }

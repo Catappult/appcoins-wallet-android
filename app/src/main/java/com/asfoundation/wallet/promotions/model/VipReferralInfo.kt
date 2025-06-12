@@ -11,5 +11,7 @@ data class VipReferralInfo(
   val endDate: Long,
   val startDate: Long,
   val active: Boolean,
-  val app: App
+  val app: App,
+  val maxReward: String,
+  val currencySymbol: String,
 )
