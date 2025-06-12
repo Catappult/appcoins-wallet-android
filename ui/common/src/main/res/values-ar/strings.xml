@@ -903,6 +903,7 @@
   <string name="share_this_code_with_your_friends_vip">Share this code with your friends</string>
   <string name="only_for_purchases_on_vip">Only for purchases on</string>
   <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
+  <string name="each_in_app_purchase2_vip">Each in-app purchase gives you and your friends an %1$s%% bonus for 7 days. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
   <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
   <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
