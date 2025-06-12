@@ -304,7 +304,7 @@
   <string name="topup_button">Recharger</string>
   <string name="extra_bonus_title">Obtenir un bonus supplémentaire de  %s%%</string>
   <string name="max">Max</string>
-  <string name="month">month</string>
+  <string name="month">mois</string>
   <string name="week">week</string>
   <string name="join_button">Join</string>
   <string name="payment_method">Mode de paiement</string>
@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Échanger la carte cadeau</string>
   <string name="settings_item_support">Contacter le Support</string>
+  <string name="settings_sign_in">Sign in</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Saisissez votre numéro de téléphone</string>
@@ -566,10 +567,10 @@
   <string name="subscriptions_per_week">%1$s/semaine</string>
   <string name="subscriptions_per_month">%1$s/mois</string>
   <string name="subscriptions_per_year">%1$s/an</string>
-  <string name="subscriptions_day">/day</string>
+  <string name="subscriptions_day">/jour</string>
   <string name="subscriptions_week">/week</string>
-  <string name="subscriptions_month">/month</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_month">/mois</string>
+  <string name="subscriptions_year">/an</string>
   <string name="subscriptions_per_several_day">%1$s tous les %2$s jours</string>
   <string name="subscriptions_per_several_week">%1$s toutes les %2$s semaines</string>
   <string name="subscriptions_per_several_month">%1$s tous les %2$s mois</string>
@@ -582,8 +583,8 @@
   <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
   <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
   <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Canceled</string>
-  <string name="subscriptions_expired_badge">Expired</string>
+  <string name="subscriptions_cancelled_badge">Annulé</string>
+  <string name="subscriptions_expired_badge">Expiré</string>
   <string name="subscriptions_renew_title">Renews on %s</string>
   <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
   <!--New Gamification-->
@@ -846,12 +847,13 @@
   <string name="app_store_screen_3">Receive a bonus in all purchases</string>
   <string name="app_store_screen_4">Your favorite payment methods</string>
   <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
-  <string name="app_store_screen_6">and more...</string>
+  <string name="app_store_screen_6">et plus...</string>
   <!-- Home buttons -->
-  <string name="home_promo_code_button">Promo Code</string>
-  <string name="home_top_up_button">Top Up</string>
-  <string name="home_manage_wallet_button">Manage Wallets</string>
-  <string name="home_backup_wallet_button">Back Up Wallet</string>
+  <string name="home_promo_code_button">Code Promo</string>
+  <string name="home_top_up_button">Recharger</string>
+  <string name="home_sign_in_button">Sign in</string>
+  <string name="home_manage_wallet_button">Gérer les portefeuilles</string>
+  <string name="home_backup_wallet_button">Sauvegarder portefeuille</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
   <string name="home_transfer_balance_button">Transfer Balance</string>
   <!-- Discord -->
@@ -861,4 +863,19 @@
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
+  <string name="available_soon_vip">Available soon</string>
+  <string name="active_vip">Active</string>
+  <string name="vip_referral_program">VIP referral program</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
+  <string name="available_in_vip">Available in</string>
+  <string name="referral_ends_in_vip">Referral ends in</string>
+  <string name="see_less_vip">See Less</string>
+  <string name="see_more_vip">See More</string>
+  <string name="share_vip">Share</string>
+  <string name="share_this_code_with_your_friends_vip">Share this code with your friends</string>
+  <string name="only_for_purchases_on_vip">Only for purchases on</string>
+  <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
+  <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
+  <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
+  <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
 </resources>
