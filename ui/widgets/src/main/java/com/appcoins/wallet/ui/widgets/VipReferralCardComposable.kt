@@ -70,6 +70,8 @@ fun VipReferralCardComposable(
   totalEarned: String,
   appName: String?,
   appIcon: String?,
+  currencySymbol: String,
+  maxReward: String,
   onCardClick: () -> Unit = {},
   onShare: (String) -> Unit = {},
   initialExpanded: Boolean = false,
@@ -85,7 +87,12 @@ fun VipReferralCardComposable(
     targetValue = if (expanded) 180f else 0f, label = ""
   )
 
-  val earnedLabel = stringResource(R.string.earned_from_referrals_vip, totalEarned, numberReferrals)
+  val totalEarnedFormated = stringResource(
+    R.string.value_fiat,
+    currencySymbol,
+    totalEarned
+  )
+  val earnedLabel = stringResource(R.string.earned_from_referrals_vip, totalEarnedFormated, numberReferrals)
 
   val darkCard = WalletColors.styleguide_dark_secondary
   val darkCardSub = WalletColors.styleguide_dark
@@ -100,7 +107,6 @@ fun VipReferralCardComposable(
         RoundedCornerShape(12.dp)
       )
       .animateContentSize(),
-//      .clickable { onCardClick() },
     colors = CardDefaults.cardColors(containerColor = darkCard),
     shape = RoundedCornerShape(8.dp)
   ) {
@@ -197,16 +203,18 @@ fun VipReferralCardComposable(
 
       if (expanded) {
         ExpandedSection(
-          vipBonus,
-          referralCode,
-          earnedLabel,
-          darkCardSub,
-          greyText,
-          yellow,
-          futureCode,
-          appName,
-          appIcon,
-          onShare
+          vipBonus = vipBonus,
+          referralCode = referralCode,
+          earnedLabel = earnedLabel,
+          darkCardSub = darkCardSub,
+          greyText = greyText,
+          yellow = yellow,
+          futureCode = futureCode,
+          appName = appName,
+          appIcon = appIcon,
+          maxReward = maxReward,
+          currencySymbol = currencySymbol,
+          onShare = onShare
         )
         Spacer(Modifier.height(16.dp))
       }
@@ -317,6 +325,8 @@ private fun ExpandedSection(
   futureCode: Boolean,
   appName: String?,
   appIcon: String? = null,
+  maxReward: String,
+  currencySymbol: String,
   onShare: (String) -> Unit
 ) {
   Card(
@@ -375,8 +385,13 @@ private fun ExpandedSection(
 
       Spacer(Modifier.height(12.dp))
 
+      val maxRewardFormated = stringResource(
+        R.string.value_fiat,
+        currencySymbol,
+        maxReward
+      )
       Text(
-        stringResource(R.string.each_in_app_purchase_vip, vipBonus),
+        stringResource(R.string.each_in_app_purchase2_vip, vipBonus, maxRewardFormated),
         style = MaterialTheme.typography.bodySmall.copy(color = greyText)
       )
 
@@ -436,9 +451,11 @@ private fun VipReferralCardPreviewCollapsed() {
     isActive = true,
     referralCode = "1456152810291",
     numberReferrals = "5",
-    totalEarned = "25$",
+    totalEarned = "25",
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
+    currencySymbol = "$",
+    maxReward = "100",
     onShare = {}
   )
 }
@@ -460,9 +477,11 @@ private fun VipReferralCardPreviewExpanded() {
     onShare = {},
     initialExpanded = true,
     numberReferrals = "5",
-    totalEarned = "25$",
+    totalEarned = "25",
     appName = "Example App",
-    appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg"
+    appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
+    currencySymbol = "$",
+    maxReward = "100"
   )
 }
 
@@ -483,8 +502,10 @@ private fun VipReferralCardPreviewFuture() {
     onShare = {},
     initialExpanded = true,
     numberReferrals = "5",
-    totalEarned = "25$",
+    totalEarned = "25",
     appName = "Example App",
-    appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg"
+    appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
+    currencySymbol = "$",
+    maxReward = "100"
   )
 }

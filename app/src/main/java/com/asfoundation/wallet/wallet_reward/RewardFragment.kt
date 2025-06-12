@@ -39,8 +39,8 @@ import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
-import com.appcoins.wallet.core.network.backend.model.PromoCodeBonusResponse.App
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
@@ -68,7 +68,6 @@ import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.APT
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.PARTNER
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.PARTNER_NO_BONUS
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.UNKNOWN
-import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -200,9 +199,17 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               isActive = vipRefModel.active,
               referralCode = vipRefModel.vipCode,
               numberReferrals = vipRefModel.numberReferrals,
-              totalEarned = vipRefModel.totalEarnedConvertedCurrency,
+              totalEarned = currencyFormatUtils.formatCurrency(
+                vipRefModel.totalEarnedConvertedCurrency,
+                FIAT
+              ),
               appName = vipRefModel.app.appName,
               appIcon = vipRefModel.app.appIcon,
+              maxReward = currencyFormatUtils.formatCurrency(
+                vipRefModel.maxReward,
+                FIAT
+              ),
+              currencySymbol = vipRefModel.currencySymbol,
               onShare = { code -> },
             )
           }
