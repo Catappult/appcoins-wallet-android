@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
-"PO-Revision-Date: 2025-02-26 17:27\n"
+"PO-Revision-Date: 2025-06-24 14:02\n"
 
 #. Card Title
 #:
 msgid "Earn Aptoide balance!"
-msgstr ""
+msgstr "Zdobądź saldo Aptoide!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Otrzymaj dodatkowy bonus w wysokości {0}% do wszystkich zakupów w {1}, z wyjątkiem sytuacji, gdy korzystasz z salda Aptoide."
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
-msgstr ""
+msgstr "Dokonaj zakupu w {0} i otrzymaj {1} na saldo Aptoide."
 
 #. Receipt - Purchase Promotion.
 #:
@@ -35,7 +35,7 @@ msgstr "Ponieważ dokonałeś zakupu w {0}."
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
-msgstr ""
+msgstr "Wydaj {0} {1} w ciągu {2} dni i otrzymaj {3} na saldo Aptoide."
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -45,7 +45,7 @@ msgstr "Ponieważ wydałeś ponad {0} {1} w ciągu ostatnich {2} dni."
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} in Aptoide balance!"
-msgstr ""
+msgstr "Osiągnij kolejny poziom i otrzymaj {0} w saldzie Aptoide!"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -55,7 +55,7 @@ msgstr "Ponieważ osiągnąłeś następny poziom."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "Otrzymaj dodatkowy bonus w wysokości {0}% do wszystkich zakupów w {1}, z wyjątkiem sytuacji, gdy korzystasz z salda Aptoide."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -65,7 +65,7 @@ msgstr "Otrzymaj {0}% Bonusu za wszystkie zakupy."
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Otrzymaj dodatkowy bonus w wysokości {0}% przy pierwszym zakupie, z wyjątkiem salda Aptoide, w {1}"
 
 #. Receipt - First Purchase.
 #:
@@ -75,7 +75,7 @@ msgstr "Za twój pierwszy zakup w {0}."
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "Otrzymaj dodatkowy bonus w wysokości {0}% przy pierwszym zakupie w danym dniu, z wyjątkiem salda Aptoide, w {1}"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -85,7 +85,7 @@ msgstr "Za twój pierwszy zakup w {0}."
 #. Title for bonus receipts.
 #:
 msgid "+{0} Bonus in Aptoide balance!"
-msgstr ""
+msgstr "+{0} Bonus na konto Aptoide!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
@@ -105,12 +105,12 @@ msgstr ""
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in compatible apps."
-msgstr ""
+msgstr "Ponieważ wydałeś {0} {1} w kompatybilnych aplikacjach."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
-msgstr ""
+msgstr "Otrzymaj dodatkowy bonus w wysokości {0}% do wszystkich zakupów, z wyjątkiem sytuacji, gdy korzystasz z salda Aptoide."
 
 #. Card - Title - Common
 #:
@@ -125,10 +125,10 @@ msgstr "Ciesz się {0}% Bonusu przy każdym zakupie."
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "Zdobądź {0}% dodatkowego bonusu przy wszystkich doładowaniach dokonanych za pomocą łatwego przelewu bankowego."
 
 #. Payment Method - Title - Bank Transfer
 #:
 msgid "Easy bank transfer"
-msgstr ""
+msgstr "Łatwy przelew bankowy"
 
