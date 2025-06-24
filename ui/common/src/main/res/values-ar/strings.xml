@@ -306,7 +306,7 @@
   <string name="max">حد أقصى</string>
   <string name="month">شهر</string>
   <string name="week">أسبوع</string>
-  <string name="join_button">Join</string>
+  <string name="join_button">انضم</string>
   <string name="payment_method">وسيلة الدفع</string>
   <string name="credit_debit_card">بطاقة ائتمان/مسبقة الدفع</string>
   <string name="paypal">بايبال</string>
@@ -349,7 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">تحرير بطاقة هدية</string>
   <string name="settings_item_support">تواصل مع فريق الدعم</string>
-  <string name="settings_sign_in">Sign in</string>
+  <string name="settings_sign_in">تسجيل الدخول</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">أدخل رقم هاتفك</string>
@@ -547,14 +547,14 @@
   <string name="subscriptions_empty_title">لا توجد اشتراكات بعد</string>
   <string name="subscriptions_empty_body">اشترك في الخدمات التي في تطبيقاتك وألعابك المفضلة وسنتفق معك على دفعات منتظمة.</string>
   <string name="subscriptions_details_billing_title">الفوترة:</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">الدفع المتكرر</string>
   <string name="subscriptions_details_next_payment_title">الدفعة المقبلة:</string>
   <string name="subscriptions_details_payment_method_title">وسيلة الدفع:</string>
   <string name="subscriptions_details_last_bill">الفاتورة الأخيرة:</string>
   <string name="subscriptions_details_start_date_title">من تاريخ:</string>
   <string name="subscriptions_details_cancelled_body">ملغية - تنتهي صلاحيتها في %s</string>
   <string name="subscriptions_expiration_body">تنتهي صلاحيتها في %s</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">تجديد على %s</string>
   <string name="subscriptions_canceled_body">ملغية</string>
   <string name="subscriptions_details_disclaimer">إن قيمة مدفوعاتك التالية يمكن أن تختلف حسب سعر الصرف.</string>
   <string name="subscriptions_manage_button">إدارة الاشتراك</string>
@@ -574,23 +574,23 @@
   <string name="subscriptions_day">/يوم</string>
   <string name="subscriptions_week">/أسبوع</string>
   <string name="subscriptions_month">/شهر</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_year">/سنة</string>
   <string name="subscriptions_per_several_day">%1$s كل %2$s يوم</string>
   <string name="subscriptions_per_several_week">%1$s كل %2$s أسبوع</string>
   <string name="subscriptions_per_several_month">%1$s كل %2$s شهر</string>
   <string name="subscriptions_per_several_year">%1$s كل %2$s سنة</string>
   <string name="subscriptions_error_already_subscribed">يييي، أنت مشرتك أصلًا بهذه الخدمة! لا تتردد بالتواصل معنا.</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_starting_today_body">ابتداءً من اليوم</string>
+  <string name="subscriptions_starting_on_body">ابتداءً من %s</string>
+  <string name="subscriptions_year_free_trial_title">%s- تجربة مجانية لمدة عام</string>
+  <string name="subscriptions_month_free_trial_title">%s- شهر تجريبي مجاني</string>
+  <string name="subscriptions_week_free_trial_title">%s- أسبوع تجريبي مجاني</string>
+  <string name="subscriptions_day_free_trial_title">%sتجربة مجانية لمدة يوم واحد</string>
+  <string name="subscriptions_free_trial_title">تجربة مجانية</string>
   <string name="subscriptions_cancelled_badge">ملغية</string>
   <string name="subscriptions_expired_badge">منتهي الصلاحية</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_renew_title">تجديد على %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">يمكنك إلغاء اشتراكك في أي وقت، وسيظل نشطًا حتى موعد الدفعة التالية.</string>
   <!--New Gamification-->
   <string name="gamif_title">مكافأة حتى %s%%!</string>
   <string name="gamif_bonus_received">تلقيت المكافأة</string>
@@ -870,41 +870,41 @@
   <string name="rebranding_post_title">محفظة AppCoins أصبحت محفظة Aptoide!</string>
   <string name="rebrandinh_post_body">اكتشف المزايا والجوائز التي تفضّلها بشكلها الجديد. نتمنى أن تنال إعجابك!</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_1">أفضل محفظة للمستخدمين المتنقلين</string>
+  <string name="app_store_screen_2">أداة الشراء داخل التطبيق</string>
+  <string name="app_store_screen_3">احصل على مكافأة في جميع المشتريات</string>
+  <string name="app_store_screen_4">طرق الدفع المفضلة لديك</string>
+  <string name="app_store_screen_5">كن عضوًا VIP واحصل على مكافآت حصرية</string>
   <string name="app_store_screen_6">والمزيد...</string>
   <!-- Home buttons -->
   <string name="home_promo_code_button">رمز ترويجي</string>
   <string name="home_top_up_button">إضافة</string>
-  <string name="home_sign_in_button">Sign in</string>
+  <string name="home_sign_in_button">تسجيل الدخول</string>
   <string name="home_manage_wallet_button">إدارة المَحافظ</string>
   <string name="home_backup_wallet_button">محفظة احتياطية</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_restore_wallet_button">استعادة المحفظة</string>
+  <string name="home_transfer_balance_button">تحويل الرصيد</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">انضم إلى مجتمع Discord الخاص بنا!</string>
+  <string name="discord_card_body">استرخ مع زملائك اللاعبين واحصل على المزيد من المكافآت!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
-  <string name="available_soon_vip">Available soon</string>
-  <string name="active_vip">Active</string>
-  <string name="vip_referral_program">VIP referral program</string>
-  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
-  <string name="available_in_vip">Available in</string>
-  <string name="referral_ends_in_vip">Referral ends in</string>
-  <string name="see_less_vip">See Less</string>
-  <string name="see_more_vip">See More</string>
-  <string name="share_vip">Share</string>
-  <string name="share_this_code_with_your_friends_vip">Share this code with your friends</string>
-  <string name="only_for_purchases_on_vip">Only for purchases on</string>
-  <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
-  <string name="each_in_app_purchase2_vip">Each in-app purchase gives you and your friends an %1$s%% bonus for 7 days. As a VIP user, you can earn up to %2$s per promo code.</string>
-  <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
-  <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
-  <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
+  <string name="available_soon_vip">سيتوفر قريبًا</string>
+  <string name="active_vip">نشط</string>
+  <string name="vip_referral_program">برنامج إحالة العملاء المتميزين</string>
+  <string name="bonus_for_you_vip">%1$s%% مكافأة لك ولأصدقائك</string>
+  <string name="available_in_vip">متوفر في</string>
+  <string name="referral_ends_in_vip">تنتهي الإحالة في</string>
+  <string name="see_less_vip">عرض أقل</string>
+  <string name="see_more_vip">شاهد المزيد</string>
+  <string name="share_vip">مشاركة</string>
+  <string name="share_this_code_with_your_friends_vip">شارك هذا الرمز مع أصدقائك</string>
+  <string name="only_for_purchases_on_vip">فقط للمشتريات على</string>
+  <string name="each_in_app_purchase_vip">كل عملية شراء داخل التطبيق تمنحك أنت وأصدقائك مكافأة %1$s، بالإضافة إلى عروض أخرى لمدة 7 أيام.</string>
+  <string name="each_in_app_purchase2_vip">كل عملية شراء داخل التطبيق تمنحك أنت وأصدقائك مكافأة بنسبة %1$s٪ لمدة 7 أيام. كمستخدم VIP، يمكنك كسب ما يصل إلى %2$s لكل رمز ترويجي.</string>
+  <string name="promo_code_referral_program_vip">سيعمل الرمز الترويجي بمجرد تفعيل برنامج الإحالة.</string>
+  <string name="referral_program_not_active_yet_vip">برنامج الإحالة غير نشط بعد</string>
+  <string name="earned_from_referrals_vip">%1$s المكتسبة من %2$s الإحالات</string>
 </resources>
