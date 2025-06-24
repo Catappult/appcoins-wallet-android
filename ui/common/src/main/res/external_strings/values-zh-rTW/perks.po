@@ -10,22 +10,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2025-02-26 17:27\n"
+"PO-Revision-Date: 2025-06-24 14:02\n"
 
 #. Card Title
 #:
 msgid "Earn Aptoide balance!"
-msgstr ""
+msgstr "赚取Aptoide余额！"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "在 {1}上所有购买均可获得额外 {0}%的奖金，使用Aptoide余额除外。"
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} in Aptoide balance."
-msgstr ""
+msgstr "在 {0} 进行购买，即可获得 {1} 的Aptoide余额。"
 
 #. Receipt - Purchase Promotion.
 #:
@@ -35,7 +35,7 @@ msgstr "因為您在{0}上進行了購買。"
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} in Aptoide balance."
-msgstr ""
+msgstr "在 {2} 天内消费 {0} {1} ，即可获得 {3} 的Aptoide余额。"
 
 #. Receipt - Expenditure per days Promotion.
 #:
@@ -45,7 +45,7 @@ msgstr "因為您在過去{2}天內花費了超過{0} {1}。"
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} in Aptoide balance!"
-msgstr ""
+msgstr "達到下一個等級，即可獲得 Aptoide 餘額中的《 {0}》！"
 
 #. Receipt - Expenditure bonus.
 #:
@@ -55,17 +55,17 @@ msgstr "因為您已達到下一個級別。"
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use Aptoide balance."
-msgstr ""
+msgstr "在 {1}上所有购买均可获得额外 {0}%的奖金，使用Aptoide余额除外。"
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "在所有购买中额外获得 {0}%的奖金。"
 
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "首次购买可获得额外 {0}%的奖金，Aptoide余额除外，网址为 {1}"
 
 #. Receipt - First Purchase.
 #:
@@ -75,7 +75,7 @@ msgstr "因為您在{0}進行了首次購買。"
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except Aptoide balance, in {1}"
-msgstr ""
+msgstr "在 {1}上，您当天首次购买（不包括Aptoide余额）可额外获得 {0}%的奖金。"
 
 #. Receipt - First Purchase of the day.
 #:
@@ -85,7 +85,7 @@ msgstr "因為您在{0}中的當日首購。"
 #. Title for bonus receipts.
 #:
 msgid "+{0} Bonus in Aptoide balance!"
-msgstr ""
+msgstr "+{0} Aptoide 余額獎勵！"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
@@ -105,12 +105,12 @@ msgstr ""
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in compatible apps."
-msgstr ""
+msgstr "因為您在相容應用程式中使用了 {0} {1} 。"
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% bonus in all your purchases, except when you use Aptoide balance."
-msgstr ""
+msgstr "在所有购买中额外获得 {0}%的奖金，使用Aptoide余额除外。"
 
 #. Card - Title - Common
 #:
@@ -120,15 +120,15 @@ msgstr "有新的獎勵"
 #. Card - Title - Enjoy
 #:
 msgid "Enjoy {0}% bonus in every purchase."
-msgstr ""
+msgstr "享受 {0}%的额外奖励。"
 
 #. Card - Title - Bank Transfer
 #:
 msgid "Get {0}% extra bonus in all top-ups made with easy bank transfer."
-msgstr ""
+msgstr "使用便捷的银行转账进行充值，即可获得 {0}%的额外奖金。"
 
 #. Payment Method - Title - Bank Transfer
 #:
 msgid "Easy bank transfer"
-msgstr ""
+msgstr "輕鬆銀行轉帳"
 
