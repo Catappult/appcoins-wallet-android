@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Aptoide Wallet</string>
+  <string name="app_name">Portfel Aptoide</string>
   <string name="title_send_with_token">Wyślij %s</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">Portfele</string>
@@ -20,13 +20,13 @@
   <string name="vip">VIP</string>
   <string name="faq">FAQ</string>
   <string name="low_storage_error">Nie ma wystarczająco dużo miejsca</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">Aptoide Wallet potrzebuje dostępu do aparatu, żeby skanować kody QR.</string>
   <string name="no_camera_available">Aparat niedostępny!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Nieprawidłowy format kodu kreskowego: %s</string>
   <string name="title_delete_account">Czy na pewno chcesz usunąć ten portfel?</string>
   <string name="twitter">X</string>
-  <string name="discord">Discord</string>
+  <string name="discord">Niezgodność</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Społeczność</string>
   <string name="title_opensource">Rozwój Open Source</string>
@@ -62,7 +62,7 @@
   <string name="toast_qr_code_no_address">QR kod nie zawiera prawidłowego adresu</string>
   <!-- Intro resources-->
   <string name="intro_wallet_created_short">Stworzono portfel!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the Aptoide Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Wchodząc do portfela Aptoide, wyrażasz zgodę na %1$s i %2$s.</string>
   <string name="intro_get_started_button">Utwórz portfel</string>
   <!-- New Intro -->
   <!-- Intro from game -->
@@ -114,7 +114,7 @@
   <string name="error_already_added">Już dodane</string>
   <string name="error_export">Nie udało się eksportować portfela</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the Aptoide Wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">Rozwidliliśmy projekt Trust Wallet dla systemu Android, aby rozpocząć rozwój portfela Aptoide Wallet. Uznaliśmy go za najlepszą alternatywę pod względem już zaimplementowanych funkcji. Rozgałęziliśmy go z zamiarem wniesienia wkładu w postaci implementacji i prac, które uznamy za istotne.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transakcja w toku</string>
   <string name="activity_aib_loading_message">To może potrwać chwilę…</string>
@@ -186,7 +186,7 @@
   <string name="transaction_rejected_body">Ten zakup został odrzucony.\nAby uzyskać więcej informacji, skontaktuj się z nami.</string>
   <string name="transaction_reverted_body">Ten zakup został cofnięty.\nAby uzyskać więcej informacji, skontaktuj się z nami.</string>
   <string name="transaction_status_rejected">Odrzucono</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">Szczegóły transakcji</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
@@ -205,29 +205,29 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Bonus zakupowy:</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">%s w saldzie Aptoide</string>
   <string name="gamification_purchase_body">Możesz wykorzystać ten bonus przy następnych zakupach.</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Otrzymany</string>
   <string name="gamification_leveled_up_notification_body">Gratulacje, teraz otrzymasz bonus %s przy każdych zakupach!</string>
   <string name="gamification_how_max_level_notification_title">Udało ci się!</string>
   <string name="gamification_how_max_level_body">Jesteś na najwyższym poziomie! %s bonusu przy każdym zakupie!</string>
   <string name="gamification_level_up_notification_title">Prawie gotowe!</string>
-  <string name="gamification_level_up_notification_body">Spend %s more to reach the next level.</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
+  <string name="gamification_level_up_notification_body">Wydaj %s więcej, aby przejść do następnego poziomu.</string>
+  <string name="gamification_bonus_plus_perk_body">Skorzystaj z bonusu „ %1$s ” i „ %2$s ” w dodatkowym saldzie Aptoide.</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">Zezwól aplikacji Aptoide Wallet na przekazanie adresu Twojego portfela do %s.</string>
   <string name="provide_wallet_always_allow_button">Zawsze Zezwalaj</string>
   <string name="provide_wallet_allow_once_button">Zezwól raz</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the Aptoide Wallet.</string>
+  <string name="provide_wallet_create_body">Potrzebujesz adresu portfela! Wykonaj poniższe kroki, aby utworzyć adres w portfelu Aptoide.</string>
   <string name="provide_wallet_create_wallet_button">Stwórz</string>
   <string name="provide_wallet_creating_wallet_header">Przygotowywanie portfela&#8230;</string>
   <string name="provide_wallet_created_header">Adres portfela stworzony!</string>
-  <string name="provide_wallet_empty_state">You haven\'t allowed Aptoide Wallet to provide your address to any other app yet.</string>
+  <string name="provide_wallet_empty_state">Nie zezwoliłeś jeszcze aplikacji Aptoide Wallet na udostępnianie Twojego adresu innym aplikacjom.</string>
   <string name="provide_wallet_status">Pozwól na dostęp do adresu portfela</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">Doładowanie</string>
-  <string name="topup_completed_1">%s in Aptoide balance</string>
+  <string name="topup_completed_1">%s w saldzie Aptoide</string>
   <string name="topup_completed_2_with_bonus">zostały dodane do Twojego konta...wraz z bonusem!</string>
   <string name="topup_completed_2_without_bonus">zostały dodane do Twojego konta.</string>
   <string name="topup_minimum_value">Minimalne doładowanie to %s</string>
@@ -238,7 +238,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
   <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">Token do kupowania przedmiotów w aplikacji! Doładuj saldo Aptoide lub zdobądź tokeny za darmo, korzystając z aplikacji. Tokeny można również przesyłać między znajomymi!</string>
   <string name="my_wallets_action_new_wallet">Nowy portfel</string>
   <string name="my_wallets_action_recover_wallet">Odzyskaj portfel</string>
   <string name="my_wallets_action_backup_wallet">Kopia zapasowa portfela</string>
@@ -273,7 +273,7 @@
   <string name="discover_button">Odkryj</string>
   <string name="connection_error_title">Brak połączenia z Internetem</string>
   <string name="connection_error_body">Wygląda na to że nie jesteś podłączony do internetu. Sprawdź połączenie i spróbuj ponownie!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">lub</string>
   <string name="share_via">Podziel się:</string>
   <string name="password">Hasło</string>
   <string name="repeat_password">Powtórz hasło</string>
@@ -297,21 +297,21 @@
   <string name="ending_in_title">Kończy się</string>
   <string name="send_button">Wyślij</string>
   <string name="continue_button">Dalej</string>
-  <string name="start_again_button">Start again</string>
-  <string name="total_title">Total</string>
+  <string name="start_again_button">Zacznij od nowa</string>
+  <string name="total_title">Całkowita</string>
   <string name="buy_button">Kup</string>
   <string name="copied_to_clipboard">Skopiowano do schowka</string>
   <string name="topup_button">Doładowanie</string>
-  <string name="extra_bonus_title">Get an extra %s%% bonus</string>
-  <string name="max">Max</string>
+  <string name="extra_bonus_title">Zdobądź dodatkowy %s%% bonus</string>
+  <string name="max">Maks</string>
   <string name="month">miesiąc</string>
   <string name="week">tydzień</string>
-  <string name="join_button">Join</string>
+  <string name="join_button">Dołącz</string>
   <string name="payment_method">Metoda płatności</string>
   <string name="credit_debit_card">Karta kredytowa/debetowa</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
-  <string name="bank_transfer">Easy bank transfer</string>
+  <string name="appc">Saldo Aptoide</string>
+  <string name="bank_transfer">Łatwy przelew bankowy</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
   <string name="google_pay">Google Pay</string>
@@ -335,21 +335,21 @@
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
-  <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
-  <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
-  <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
+  <string name="onboarding_title">Twoje narzędzie do dokonywania zakupów w aplikacji</string>
+  <string name="onboarding_bonus_title">Zdobądź do %s%% wartości zakupów w aplikacji na saldo Aptoide.</string>
+  <string name="onboarding_payment_methods_title">Użyj karty bankowej, PayPal i swoich ulubionych metod płatności.</string>
+  <string name="onboarding_vip_title">Zostań członkiem VIP, aby uzyskać dostęp do pomocy technicznej premium i ofert specjalnych.</string>
   <string name="terms_and_conditions">Regulamin</string>
   <string name="privacy_policy">Polityka prywatności</string>
   <string name="existent_wallet">Mam już portfel</string>
-  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
+  <string name="onboarding_verification_body">Zweryfikuj metodę płatności, aby sfinalizować zakup.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Saldo Aptoide</string>
   <!--Settings-->
   <string name="title_redeem">Użyj karty podarunkowej</string>
   <string name="settings_item_support">Pomoc</string>
-  <string name="settings_sign_in">Sign in</string>
+  <string name="settings_sign_in">Zaloguj się</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Wpisz numer telefonu</string>
@@ -366,9 +366,9 @@
   <string name="verification_verify_paypal_description">W celu potwierdzenia konta nastąpi transakcja na sumę %s, którą natychmiast zwrócimy.</string>
   <string name="verification_settings_card_verified_title">Karta zweryfikowana</string>
   <string name="verification_error_attempts_reached">Wygląda na to, że wykorzystałeś limit prób. Spróbuj za chwilę.</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Zweryfikowane przez PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Zweryfikowano za pomocą karty kredytowej/debetowej.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Zweryfikowane za pomocą karty kredytowej/debetowej i PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Już prawie!</string>
   <string name="paypal_verification_home_one_step_card_body">Wprowadź kod otrzymany na adres email w celu weryfikacji konta PayPal.</string>
@@ -383,16 +383,16 @@
   <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
   <string name="purchase_no_eth_body">Masz za mało ETH by zapłacić.</string>
   <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Nie masz wystarczającego salda Aptoide, spróbuj doładować konto!</string>
+  <string name="purchase_appcoins_credits_default_body">Zgromadziłeś wystarczającą ilość środków na koncie Aptoide, aby dokonać tego zakupu. Miłego korzystania!</string>
   <string name="purchase_poa_item">Zarabiaj środki próbując aplikacji</string>
   <string name="purchase_poa_view_title">Brak środków? Bez problemu!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
+  <string name="purchase_poa_view_body">Wypróbuj aplikację przez 2 minuty i otrzymaj nagrodę w postaci kredytów Aptoide, które możesz wykorzystać na zakupy!</string>
   <string name="purchase_current_balance_body">Aktualne saldo:</string>
   <string name="purchase_current_balance_appcc_body">%s Kredytów APPC.</string>
   <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
-  <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_wallet_blocked_title">Twoje saldo Aptoide zostało zablokowane.</string>
+  <string name="purchase_wallet_blocked_body">Z powodu nietypowej historii transakcji saldo Aptoide zostało zablokowane. Nadal będziesz mógł dokonywać płatności i transakcji innymi metodami, z wyjątkiem salda Aptoide.\n\nJeśli uważasz, że to błąd, skontaktuj się z nami pod adresem:</string>
   <string name="purchase_card_error_general_1">Wystąpił problem z kartą. Spróbuj użyć innej karty lub innej metody płatności.</string>
   <string name="purchase_card_error_general_2">Transakcja została odrzucona przez twój bank. Spróbuj z inną kartą lub metodą płatności.</string>
   <string name="purchase_card_error_no_funds">Wygląda na to, że masz niewystarczająco dużo środków lub limit na karcie. Spróbuj z inną metodą płatności.</string>
@@ -421,34 +421,34 @@
   <string name="purchase_error_3d_body">Pojawił się problem z twoją autentykacją 3D. Spróbuj ponownie.</string>
   <string name="purchase_error_generic_contact_us_body">Oj, coś poszło nie tak. Spróbuj jeszcze raz lub skontaktuj się z nami.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Możliwe dodatkowe opłaty.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
-  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s z opłatami i podatkiem VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">dodatkowe opłaty wliczone w cenę</string>
   <string name="purchase_error_paypal">Wystąpił problem z płatnością PayPal. Spróbuj ponownie lub użyj innej metody płatności.</string>
   <string name="purchase_error_google_pay">Wystąpił problem z płatnością Google Pay. Spróbuj ponownie lub użyj innej metody płatności.</string>
   <string name="purchase_success_bonus_received_title">Otrzymano %s bonusu.</string>
   <string name="purchase_making_purchase_title">Zakup w toku&#8230;</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
-  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
-  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">W przypadku tej metody płatności zostanie naliczona opłata manipulacyjna oraz podatek VAT.</string>
+  <string name="purchase_error_open_banking_wallet_generic">Wystąpił problem z płatnością. Spróbuj ponownie lub skorzystaj z innej metody płatności.</string>
+  <string name="purchase_error_no_method_available_body">W tej chwili w Twoim regionie nie są dostępne żadne metody płatności umożliwiające sfinalizowanie tego zakupu. Bądź na bieżąco!</string>
+  <string name="purchase_legal_disclaimer">Dokonując płatności, wyrażasz zgodę na dostarczenie treści po dokonaniu płatności i tym samym tracisz prawo do odstąpienia od umowy.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Bonus znajduje się na koncie Aptoide.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
-    <item quantity="one">It may take up to %s day.</item>
-    <item quantity="few">It may take up to %s days.</item>
-    <item quantity="many">It may take up to %s days.</item>
-    <item quantity="other">It may take up to %s days.</item>
+    <item quantity="one">Może to potrwać do %s dnia.</item>
+    <item quantity="few">Może to potrwać do %s dni.</item>
+    <item quantity="many">Może to potrwać do %s dni.</item>
+    <item quantity="other">Może to potrwać do %s dni.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
-  <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
-  <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
+  <string name="purchase_bank_transfer_success_1">%s W Aptoide saldo zostanie zdeponowane w Twoim portfelu.</string>
+  <string name="purchase_bank_transfer_success_2">Przekazanie środków przez bank może potrwać do 2 dni.</string>
+  <string name="purchase_bank_transfer_success_bonus">Otrzymasz bonus w wysokości %s na saldo Aptoide.</string>
+  <string name="purchase_bank_transfer_pending_disclaimer">Czekamy na wpłynięcie środków z Twojego banku.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
   <!--Async Payments-->
   <string name="async_steps_title">Kolejne kroki</string>
   <string name="async_steps_1_no_notification">Dokończ transakcję za pomocą %s.</string>
-  <string name="async_steps_2_no_notification">Once you receive the Aptoide balance, go back to the game and make the purchase using Aptoide balance as a payment method.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide balance, use it to make purchases in your favorite games!</string>
+  <string name="async_steps_2_no_notification">Po otrzymaniu środków na koncie Aptoide wróć do gry i dokonaj zakupu, wybierając saldo Aptoide jako metodę płatności.</string>
+  <string name="async_steps_2_toptup_no_notification">Po otrzymaniu środków na koncie Aptoide możesz je wykorzystać do zakupów w swoich ulubionych grach!</string>
   <!--Referral Program-->
   <string name="referral_verification_title">Zweryfikuj metodę płatności</string>
   <string name="referral_view_verify_button">Zweryfikuj metodę płatności</string>
@@ -456,10 +456,10 @@
   <string name="promotions_new">NOWE</string>
   <!--Update-->
   <string name="update_wallet_purchase_title">Musisz zaktualizować!</string>
-  <string name="update_wallet_purchase_body">Update the Aptoide Wallet to complete this purchase.</string>
-  <string name="update_wallet_hard_body">It seems you\'re using an old version of the Aptoide Wallet. Please update it to guarantee the best experience and security.</string>
+  <string name="update_wallet_purchase_body">Zaktualizuj portfel Aptoide, aby sfinalizować zakup.</string>
+  <string name="update_wallet_hard_body">Wygląda na to, że korzystasz ze starej wersji portfela Aptoide. Zaktualizuj go, aby zapewnić sobie najlepsze wrażenia i bezpieczeństwo.</string>
   <string name="update_wallet_soft_title">Nie zostań w tyle!</string>
-  <string name="update_wallet_soft_body">Keeping the Aptoide Wallet updated guarantees the best experience.</string>
+  <string name="update_wallet_soft_body">Aktualizowanie portfela Aptoide gwarantuje najlepsze wrażenia.</string>
   <string name="update_button">Aktualizuj</string>
   <string name="update_backup_title">Nie trać swoich środków!</string>
   <string name="update_backup_body">Przed aktualizacją stwórz backup swojego portfela.</string>
@@ -525,9 +525,9 @@
   <!--Tranfer-->
   <string name="transfer_send_recipient_title">Adres portfela</string>
   <string name="transfer_send_button">Wyślij</string>
-  <string name="transfer_send_to_title">Send to</string>
+  <string name="transfer_send_to_title">Wyślij do</string>
   <string name="transfer_send_amount_title">Kwota</string>
-  <string name="transfer_public_wallet_address_title">My public wallet address</string>
+  <string name="transfer_public_wallet_address_title">Mój publiczny adres portfela</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Masz nową wiadomość!</string>
   <string name="support_new_message_button">Otwórz</string>
@@ -545,16 +545,16 @@
   <string name="subscriptions_empty_title">Brak subskrypcji</string>
   <string name="subscriptions_empty_body">Subskrybuj usługi w ulubionych aplikacjach i grach, a my zajmiemy się cyklicznymi opłatami.</string>
   <string name="subscriptions_details_billing_title">Rachunki:</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">Płatność cykliczna</string>
   <string name="subscriptions_details_next_payment_title">Następna opłata:</string>
   <string name="subscriptions_details_payment_method_title">Metoda płatności:</string>
   <string name="subscriptions_details_last_bill">Ostatni rachunek:</string>
   <string name="subscriptions_details_start_date_title">Początek:</string>
   <string name="subscriptions_details_cancelled_body">Anulowano - wygasa %s</string>
   <string name="subscriptions_expiration_body">Wygasa %s</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">Odnawia się na stronie %s</string>
   <string name="subscriptions_canceled_body">Anulowano</string>
-  <string name="subscriptions_details_disclaimer">The value of your next payment may vary due to exchange rate.</string>
+  <string name="subscriptions_details_disclaimer">Wartość następnej płatności może się różnić w zależności od kursu wymiany walut.</string>
   <string name="subscriptions_manage_button">Zarządzaj subskrypcją</string>
   <string name="subscriptions_cancel_button">Rezygnuj</string>
   <string name="subscriptions_renew_subscription_button">Odnów subskrybcję</string>
@@ -578,30 +578,30 @@
   <string name="subscriptions_per_several_month">%1$s co %2$s miesiące</string>
   <string name="subscriptions_per_several_year">%1$s co %2$s lata</string>
   <string name="subscriptions_error_already_subscribed">Ależ już subskrybujesz tę usługę! Jeśli chcesz, skontaktuj się z nami.</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_starting_today_body">Od dzisiaj</string>
+  <string name="subscriptions_starting_on_body">Począwszy od %s</string>
+  <string name="subscriptions_year_free_trial_title">%s-rok bezpłatnego okresu próbnego</string>
+  <string name="subscriptions_month_free_trial_title">%s-miesięczny bezpłatny okres próbny</string>
+  <string name="subscriptions_week_free_trial_title">%s-tygodniowy bezpłatny okres próbny</string>
+  <string name="subscriptions_day_free_trial_title">%s-dniowy bezpłatny okres próbny</string>
+  <string name="subscriptions_free_trial_title">Bezpłatna wersja próbna</string>
   <string name="subscriptions_cancelled_badge">Anulowano</string>
   <string name="subscriptions_expired_badge">Wygasł</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_renew_title">Odnawia się na stronie %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">Możesz anulować subskrypcję w dowolnym momencie, pozostanie ona aktywna do momentu dokonania kolejnej płatności.</string>
   <!--New Gamification-->
   <string name="gamif_title">Nawet %s%% Bonusu!</string>
   <string name="gamif_bonus_received">Bonus Otrzymany</string>
   <string name="gamif_spent">Wydana kwota do tego poziomu</string>
   <string name="gamif_show_previous">Pokaż wcześniejsze sukcesy</string>
   <string name="gamif_hide_previous">Ukryj wcześniejsze sukcesy</string>
-  <string name="gamif_next_goals">Spend %s to reach next level</string>
+  <string name="gamif_next_goals">Wydaj %s , aby przejść do następnego poziomu.</string>
   <string name="gamif_achievement_start">Rozpocząłeś swoją podróż</string>
   <string name="gamif_achievement_start_sub">Opuściłeś Ziemię!</string>
   <string name="gamif_achievement_reach">Osiągnąłeś %s</string>
   <string name="gamif_card_start">Wciąż jesteś na Ziemi</string>
   <string name="gamif_card_title">Jesteś na %s</string>
-  <string name="gamif_card_body">Spend %s more to reach the next level.</string>
+  <string name="gamif_card_body">Wydaj %s więcej, aby przejść do następnego poziomu.</string>
   <string name="gamif_bonus">%s%% Bonusu</string>
   <string name="gamif_quote_earth">\"Łączy nas Ziemia\" – Wendell Berry</string>
   <string name="gamif_placeholder_moon">Księżyc</string>
@@ -648,25 +648,25 @@
   <string name="manage_cards_settings_manage_title">Zarządzaj kartami</string>
   <string name="manage_cards_add_credit_debit_card_button_">Dodaj kartę kredytową/debetową</string>
   <string name="manage_cards_view_manage_subtitle">Zarządzaj kartami płatniczymi</string>
-  <string name="manage_cards_add_title">Add New Card</string>
-  <string name="manage_cards_add_button">Add card</string>
+  <string name="manage_cards_add_title">Dodaj nową kartę</string>
+  <string name="manage_cards_add_button">Dodaj kartę</string>
   <string name="manage_cards_remove_confirmation">Czy na pewno chcesz usunąć tę kartę?</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">Nie, anuluj</string>
+  <string name="manage_cards_remove_yes">Tak, usuń to.</string>
   <string name="manage_cards_card_ending_body">Karta kończąca się %s</string>
   <string name="manage_cards_error_details">Czy jesteś pewny że dane twojej karty są prawidłowe? Spróbuj ponownie!</string>
   <string name="manage_cards_select_title">Wybierz kartę płatniczą</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="card_added_title">Karta dodana</string>
+  <string name="card_removed">Karta usunięta</string>
+  <string name="manage_cards_update_disclaimer_1">Aby zaktualizować lub usunąć karty, przejdź do:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_title">Promocje</string>
   <string name="promotion_ends_short_title">Koniec promocji za</string>
   <string name="perks_available_soon_short">Już niedługo</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_notification">Właśnie otrzymałeś %s na konto Aptoide jako bonus.</string>
+  <string name="perks_purchases_disclaimer_body">Wszystkie zakupy i doładowania dokonane za pomocą dowolnej metody płatności innej niż saldo Aptoide kwalifikują się do podwyższenia poziomu i otrzymania nagród.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Blokada biometryczna</string>
   <string name="fingerprint_failed_title">Nie udało się!</string>
@@ -675,7 +675,7 @@
   <string name="fingerprint_authentication_required_body">By kontynuować, użyj odcisku palca lub hasła.</string>
   <!--Send Logs to Support-->
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the Aptoide Wallet?</string>
+  <string name="rate_us_question_title">Podoba Ci się portfel Aptoide?</string>
   <string name="rate_us_no">Niezbyt</string>
   <string name="rate_us_yes">Tak!</string>
   <string name="rate_us_improve_title">Co możemy robić lepiej?</string>
@@ -683,10 +683,10 @@
   <string name="rate_us_improve_field__empty_error">Napisz coś</string>
   <string name="rate_us_possitive_thanks_title">Dziękujemy!</string>
   <string name="rate_us_possitive_thanks_body">Fajnie, że podoba ci się nasza aplikacja. Może ocenisz ją w app storze?</string>
-  <string name="rate_us_possitive_rate_button">Rate the Aptoide Wallet</string>
+  <string name="rate_us_possitive_rate_button">Oceń portfel Aptoide</string>
   <string name="rate_us_possitive_done_title">Dziękujemy za opinię!</string>
   <string name="rate_us_back_title">Pomożesz nam?</string>
-  <string name="rate_us_back_body">Rate the Aptoide Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">Oceń portfel Aptoide w sklepie z aplikacjami, abyśmy mogli go ulepszyć.</string>
   <!--Card verification-->
   <string name="card_verification_code_title">Sprawdź kod w szczegółach transakcji</string>
   <string name="card_verification_code_body">Indywidualny kod pojawi się w podsumowaniu transakcji obsługiwanej przez wydawcę karty.</string>
@@ -758,7 +758,7 @@
   <string name="mywallet_backup_again_button">Ponownie utwórz kopię</string>
   <string name="mywallet_choose_name_field">Nazwa portfela...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the Aptoide Wallet.</string>
+  <string name="onboarding_1st_title">Gratulacje! Zainstalowałeś portfel Aptoide.</string>
   <string name="onboarding_1st_body">Wróć do gry, by zakończyć zakup.</string>
   <string name="onboarding_1st_back_to_game_button">Wróć do gry</string>
   <string name="onboarding_1st_explore_wallet_button">Lub poznaj Portfel</string>
@@ -773,7 +773,7 @@
   <string name="vip_program_referral_button_title">Program Poleceń VIP</string>
   <string name="vip_program_referral_button_body">%s%% Bonusu dla Ciebie i znajomych.</string>
   <string name="vip_program_referral_page_title">Program Poleceń VIP</string>
-  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
+  <string name="vip_program_referral_page_body_2">Podziel się tym kodem ze znajomymi, a oboje otrzymacie %s%% bonusu do wszystkich zakupów, które dokonają.</string>
   <string name="vip_program_referral_page_share_title">Udostępnij ten kod swoim znajomym</string>
   <string name="vip_program_referral_page_only_app_title">Tylko na zakupy w</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s zarobił za %3$s poleceń</string>
@@ -782,10 +782,10 @@
   <string name="vip_program_referral_notification_title">Dostępny kod polecający VIP!</string>
   <string name="vip_program_referral_notification_body">Podziel się kodem ze swoją paczką – wszyscy będziecie zarabiać grając!</string>
   <string name="vip_program_title_vip_offer">Oferta VIP</string>
-  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_code_error_body">Nie możesz używać własnego kodu VIP. Podziel się nim ze znajomymi!</string>
   <!-- Refactor Home -->
-  <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any compatible app or game.</string>
+  <string name="intro_welcome_header">Witamy w portfelu Aptoide</string>
+  <string name="intro_welcome_body">Doładuj swój portfel lub dokonaj zakupu w dowolnej kompatybilnej aplikacji lub grze.</string>
   <string name="intro_active_promotions_header">Aktywne promocje</string>
   <string name="topup_home_button">Doładuj</string>
   <string name="intro_home_button">Home</string>
@@ -821,17 +821,17 @@
   <string name="rewards_promo_code_card_body">Wpisz kod promocyjny i zgarniaj okazje!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktywny</string>
-  <string name="home_appcoins_compatible_games_title">Games with Rewards</string>
+  <string name="home_appcoins_compatible_games_title">Gry z nagrodami</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in a compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_make_first_purchase_body">Dokonaj pierwszego zakupu w kompatybilnej grze i odblokuj bonus przy każdym kolejnym zakupie.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% bonusu przy każdym zakupie</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Zarządzaj portfelami</string>
+  <string name="manage_wallet_view_title">Zarządzaj portfelami</string>
   <string name="manage_wallet_wallet_changed_title">Zmieniono portfel</string>
   <string name="manage_wallet_change_active_wallet_title">Chcesz wybrać ten portfel?</string>
   <string name="manage_wallet_set_a_name_button">Nazwij swój portfel</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Dla uproszczenia saldo jest wyświetlane w lokalnej walucie, ale jest powiązane z dolarem amerykańskim (USD), więc zmiany wartości USD mogą mieć wpływ na saldo.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Zweryfikuj metodę płatności</string>
   <string name="verify_card_verified">Zweryfikowane!</string>
@@ -840,57 +840,57 @@
   <string name="verify_card_view_title_2">Wpisz dane karty</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Wykonaj zadanie, aby otrzymać saldo Aptoide.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">Ciesz się grą „ %s ” w Aptoide balance w swoim portfelu.</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
+  <string name="mail_list_card_title">Bądźcie na bieżąco!</string>
+  <string name="mail_list_card_body">Dołącz do naszej listy mailingowej, aby otrzymywać ekskluzywne aktualności i szansę na wygranie karty podarunkowej.</string>
+  <string name="mail_list_card_confirmation_title">Potwierdź swój adres e-mail</string>
+  <string name="mail_list_card_confirmation_body">Wysłaliśmy wiadomość e-mail na adres %s</string>
   <!-- Rebranding -->
-  <string name="rebranding_disclaimer_short_title">The AppCoins Wallet is soon becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_title">The AppCoins Wallet is becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_shortest_title">We\'re becoming Aptoide Wallet!</string>
-  <string name="rebranding_disclaimer_long_body"> We\'re working on an exciting redesign of our brand and feeling. Stay tuned to discover your favorite features and rewards with a completely new image!</string>
-  <string name="rebranding_post_title">AppCoins Wallet is now Aptoide Wallet!</string>
-  <string name="rebrandinh_post_body">Discover your favorite features and rewards with a completely new image. We hope you like it!</string>
+  <string name="rebranding_disclaimer_short_title">Portfel AppCoins wkrótce stanie się portfelem Aptoide!</string>
+  <string name="rebranding_disclaimer_long_title">Portfel AppCoins zmienia nazwę na Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_shortest_title">Stajemy się Aptoide Wallet!</string>
+  <string name="rebranding_disclaimer_long_body"> Pracujemy nad ekscytującym przeprojektowaniem naszej marki i wizerunku. Bądź na bieżąco, aby odkryć swoje ulubione funkcje i nagrody w zupełnie nowej odsłonie!</string>
+  <string name="rebranding_post_title">Portfel AppCoins Wallet to teraz Aptoide Wallet!</string>
+  <string name="rebrandinh_post_body">Odkryj swoje ulubione funkcje i nagrody w zupełnie nowej odsłonie. Mamy nadzieję, że Ci się spodoba!</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
-  <string name="app_store_screen_6">and more...</string>
+  <string name="app_store_screen_1">Najlepszy portfel dla graczy mobilnych</string>
+  <string name="app_store_screen_2">Twoje narzędzie do zakupów w aplikacji</string>
+  <string name="app_store_screen_3">Otrzymaj bonus przy wszystkich zakupach</string>
+  <string name="app_store_screen_4">Twoje ulubione metody płatności</string>
+  <string name="app_store_screen_5">Zostań VIP-em i odblokuj ekskluzywne nagrody</string>
+  <string name="app_store_screen_6">i wiele więcej...</string>
   <!-- Home buttons -->
   <string name="home_promo_code_button">Kod promocyjny</string>
   <string name="home_top_up_button">Doładuj</string>
-  <string name="home_sign_in_button">Sign in</string>
-  <string name="home_manage_wallet_button">Manage Wallets</string>
+  <string name="home_sign_in_button">Zaloguj się</string>
+  <string name="home_manage_wallet_button">Zarządzaj portfelami</string>
   <string name="home_backup_wallet_button">Kopia zapasowa portfela</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_restore_wallet_button">Przywróć portfel</string>
+  <string name="home_transfer_balance_button">Przenieś saldo</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">Dołącz do naszej społeczności Discord!</string>
+  <string name="discord_card_body">Zrelaksuj się z innymi graczami i odblokuj jeszcze więcej nagród!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
-  <string name="available_soon_vip">Available soon</string>
-  <string name="active_vip">Active</string>
-  <string name="vip_referral_program">VIP referral program</string>
-  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
-  <string name="available_in_vip">Available in</string>
-  <string name="referral_ends_in_vip">Referral ends in</string>
-  <string name="see_less_vip">See Less</string>
-  <string name="see_more_vip">See More</string>
-  <string name="share_vip">Share</string>
-  <string name="share_this_code_with_your_friends_vip">Share this code with your friends</string>
-  <string name="only_for_purchases_on_vip">Only for purchases on</string>
-  <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
-  <string name="each_in_app_purchase2_vip">Each in-app purchase gives you and your friends an %1$s%% bonus for 7 days. As a VIP user, you can earn up to %2$s per promo code.</string>
-  <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
-  <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
-  <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
+  <string name="available_soon_vip">Już niedługo</string>
+  <string name="active_vip">Aktywny</string>
+  <string name="vip_referral_program">Program poleceń VIP</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonusu dla Ciebie i znajomych</string>
+  <string name="available_in_vip">Dostępne w</string>
+  <string name="referral_ends_in_vip">Skierowanie kończy się w</string>
+  <string name="see_less_vip">Zobacz mniej</string>
+  <string name="see_more_vip">Zobacz więcej</string>
+  <string name="share_vip">Udostępnij</string>
+  <string name="share_this_code_with_your_friends_vip">Udostępnij ten kod swoim znajomym</string>
+  <string name="only_for_purchases_on_vip">Tylko na zakupy w</string>
+  <string name="each_in_app_purchase_vip">Każdy zakup w aplikacji zapewnia Tobie i Twoim znajomym %1$s%% premii oraz inne oferty przez 7 dni.</string>
+  <string name="each_in_app_purchase2_vip">Każdy zakup w aplikacji zapewnia Tobie i Twoim znajomym %1$s%% premii przez 7 dni. Jako użytkownik VIP możesz zarobić nawet %2$s na każdy kod promocyjny.</string>
+  <string name="promo_code_referral_program_vip">Kod promocyjny będzie działał po aktywowaniu programu poleceń.</string>
+  <string name="referral_program_not_active_yet_vip">Program poleceń nie jest jeszcze aktywny.</string>
+  <string name="earned_from_referrals_vip">%1$s zarobione dzięki poleceniom z %2$s</string>
 </resources>
