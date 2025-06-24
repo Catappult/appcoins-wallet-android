@@ -305,8 +305,8 @@
   <string name="extra_bonus_title">Szerezz %s%% extra bónuszt</string>
   <string name="max">Max</string>
   <string name="month">hónap</string>
-  <string name="week">week</string>
-  <string name="join_button">Join</string>
+  <string name="week">hét</string>
+  <string name="join_button">Csatlakozz</string>
   <string name="payment_method">Fizetési mód</string>
   <string name="credit_debit_card">Hitelkártya/bankkártya</string>
   <string name="paypal">PayPal</string>
@@ -349,7 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Ajándékkártya beváltása</string>
   <string name="settings_item_support">Kapcsolatfelvétel az ügyfélszolgálattal</string>
-  <string name="settings_sign_in">Sign in</string>
+  <string name="settings_sign_in">Bejelentkezés</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Add meg a telefonszámod</string>
@@ -543,14 +543,14 @@
   <string name="subscriptions_empty_title">Még nincsenek feliratkozások</string>
   <string name="subscriptions_empty_body">Iratkozz fel szolgáltatásokra a kedvenc appjaidban és játékaidban, mi pedig intézzük az időszakos fizetéseket.</string>
   <string name="subscriptions_details_billing_title">Számlázás:</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">Ismétlődő fizetés</string>
   <string name="subscriptions_details_next_payment_title">Következő fizetés:</string>
   <string name="subscriptions_details_payment_method_title">Fizetési mód:</string>
   <string name="subscriptions_details_last_bill">Utolsó számla:</string>
   <string name="subscriptions_details_start_date_title">Kezdő dátum:</string>
   <string name="subscriptions_details_cancelled_body">Lemondva - Ekkor jár le: %s</string>
   <string name="subscriptions_expiration_body">Ekkor jár le: %s</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">Megújul a %s</string>
   <string name="subscriptions_canceled_body">Lemondva</string>
   <string name="subscriptions_details_disclaimer">A következő vásárlás értéke eltérő lehet az árfolyamváltozások miatt.</string>
   <string name="subscriptions_manage_button">Feliratkozás kezelése</string>
@@ -568,7 +568,7 @@
   <string name="subscriptions_per_month">%1$s/havonta</string>
   <string name="subscriptions_per_year">%1$s/évente</string>
   <string name="subscriptions_day">/nap</string>
-  <string name="subscriptions_week">/week</string>
+  <string name="subscriptions_week">/hét</string>
   <string name="subscriptions_month">/hónap</string>
   <string name="subscriptions_year">/év</string>
   <string name="subscriptions_per_several_day">%1$s %2$s naponta</string>
@@ -576,17 +576,17 @@
   <string name="subscriptions_per_several_month">%1$s %2$s havonta</string>
   <string name="subscriptions_per_several_year">%1$s %2$s évente</string>
   <string name="subscriptions_error_already_subscribed">Hoppá, úgy tűnik, már feliratkoztál erre a szolgáltatásra. Fordulj hozzánk bizalommal.</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_starting_today_body">Ma kezdődik</string>
+  <string name="subscriptions_starting_on_body">%s</string>
+  <string name="subscriptions_year_free_trial_title">%s-év ingyenes próba</string>
+  <string name="subscriptions_month_free_trial_title">%s-hónapos ingyenes próba</string>
+  <string name="subscriptions_week_free_trial_title">%s-hetes ingyenes próba</string>
+  <string name="subscriptions_day_free_trial_title">%s-napos ingyenes próba</string>
+  <string name="subscriptions_free_trial_title">Ingyenes próba</string>
   <string name="subscriptions_cancelled_badge">Lemondva</string>
   <string name="subscriptions_expired_badge">Lejárt</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_renew_title">Megújul a %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">Az előfizetést bármikor lemondhatja, az a következő fizetésig aktív marad.</string>
   <!--New Gamification-->
   <string name="gamif_title">Akár %s%% bónusz!</string>
   <string name="gamif_bonus_received">Bónusz érkezett</string>
@@ -842,41 +842,41 @@
   <string name="rebranding_post_title">Az AppCoins Wallet mostantól Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Fedezd fel a kedvenc funkcióidat és jutalmaidat egy teljesen új kiadásban. Reméljük, neked is tetszik!</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_1">A legjobb pénztárca mobil játékosok számára</string>
+  <string name="app_store_screen_2">Az alkalmazáson belüli vásárlásokhoz szükséges eszköz</string>
+  <string name="app_store_screen_3">Minden vásárlás után bónuszt kapsz</string>
+  <string name="app_store_screen_4">Kedvenc fizetési módjai</string>
+  <string name="app_store_screen_5">Legyen VIP és szerezzen exkluzív jutalmakat</string>
   <string name="app_store_screen_6">és még...</string>
   <!-- Home buttons -->
   <string name="home_promo_code_button">Promóciós kód</string>
   <string name="home_top_up_button">Befizetés</string>
-  <string name="home_sign_in_button">Sign in</string>
+  <string name="home_sign_in_button">Bejelentkezés</string>
   <string name="home_manage_wallet_button">Walletek kezelése</string>
   <string name="home_backup_wallet_button">Biztonsági mentés készítése</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_restore_wallet_button">Pénztárca visszaállítása</string>
+  <string name="home_transfer_balance_button">Egyenleg átutalása</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">Csatlakozz a Discord közösségünkhöz!</string>
+  <string name="discord_card_body">Lazíts a többi játékossal, és nyerj még több jutalmat!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
-  <string name="available_soon_vip">Available soon</string>
-  <string name="active_vip">Active</string>
-  <string name="vip_referral_program">VIP referral program</string>
-  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
-  <string name="available_in_vip">Available in</string>
-  <string name="referral_ends_in_vip">Referral ends in</string>
-  <string name="see_less_vip">See Less</string>
-  <string name="see_more_vip">See More</string>
-  <string name="share_vip">Share</string>
-  <string name="share_this_code_with_your_friends_vip">Share this code with your friends</string>
-  <string name="only_for_purchases_on_vip">Only for purchases on</string>
-  <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
-  <string name="each_in_app_purchase2_vip">Each in-app purchase gives you and your friends an %1$s%% bonus for 7 days. As a VIP user, you can earn up to %2$s per promo code.</string>
-  <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
-  <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
-  <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
+  <string name="available_soon_vip">Hamarosan elérhetővé válik</string>
+  <string name="active_vip">Aktív</string>
+  <string name="vip_referral_program">VIP ajánlóprogram</string>
+  <string name="bonus_for_you_vip">%1$s%% Bónusz neked és a barátaidnak</string>
+  <string name="available_in_vip">Elérhető</string>
+  <string name="referral_ends_in_vip">Az ajánlás vége</string>
+  <string name="see_less_vip">Kevesebb</string>
+  <string name="see_more_vip">További információk</string>
+  <string name="share_vip">Megosztás</string>
+  <string name="share_this_code_with_your_friends_vip">Oszd meg ezt a kódot a barátaiddal</string>
+  <string name="only_for_purchases_on_vip">Csak, ha itt vásárolsz:</string>
+  <string name="each_in_app_purchase_vip">Minden alkalmazáson belüli vásárlás után Ön és barátai %1$s%% bónuszt kapnak, valamint további ajánlatokat 7 napig.</string>
+  <string name="each_in_app_purchase2_vip">Minden alkalmazáson belüli vásárlás után Ön és barátai 7 napig %1$s%% bónuszt kapnak. VIP felhasználóként promóciós kódonként akár %2$s bónuszt is szerezhet.</string>
+  <string name="promo_code_referral_program_vip">A promóciós kód akkor lesz érvényes, ha az ajánlóprogram aktív.</string>
+  <string name="referral_program_not_active_yet_vip">Az ajánlóprogram még nem aktív.</string>
+  <string name="earned_from_referrals_vip">%1$s %2$s ajánlásokból szerzett</string>
 </resources>
