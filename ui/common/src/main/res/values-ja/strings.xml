@@ -306,7 +306,7 @@
   <string name="max">最大</string>
   <string name="month">月</string>
   <string name="week">週</string>
-  <string name="join_button">Join</string>
+  <string name="join_button">参加する</string>
   <string name="payment_method">支払方法</string>
   <string name="credit_debit_card">クレジット/デビットカード</string>
   <string name="paypal">PayPal</string>
@@ -349,7 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">ギフトカードの交換</string>
   <string name="settings_item_support">サポートチームへのお問い合わせ</string>
-  <string name="settings_sign_in">Sign in</string>
+  <string name="settings_sign_in">サインイン</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">電話番号を入力</string>
@@ -542,14 +542,14 @@
   <string name="subscriptions_empty_title">まだ購読はありません</string>
   <string name="subscriptions_empty_body">お気に入りのアプリやゲームでサービスを申し込めば、定期的な支払いにも対応します。</string>
   <string name="subscriptions_details_billing_title">支払い:</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">定期支払い</string>
   <string name="subscriptions_details_next_payment_title">次の支払い:</string>
   <string name="subscriptions_details_payment_method_title">支払方法:</string>
   <string name="subscriptions_details_last_bill">前回の請求:</string>
   <string name="subscriptions_details_start_date_title">開始日:</string>
   <string name="subscriptions_details_cancelled_body">キャンセル済み - %sに期限切れ</string>
   <string name="subscriptions_expiration_body">%sに期限切れ</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">%sで更新されます。</string>
   <string name="subscriptions_canceled_body">キャンセル済み</string>
   <string name="subscriptions_details_disclaimer">次回の支払額は為替レートにより異なる場合があります。</string>
   <string name="subscriptions_manage_button">サブスクリプションの管理</string>
@@ -566,26 +566,26 @@
   <string name="subscriptions_per_week">%1$s/週</string>
   <string name="subscriptions_per_month">%1$s/月</string>
   <string name="subscriptions_per_year">%1$s/年</string>
-  <string name="subscriptions_day">/day</string>
+  <string name="subscriptions_day">/日</string>
   <string name="subscriptions_week">/週</string>
   <string name="subscriptions_month">/月</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_year">/年</string>
   <string name="subscriptions_per_several_day">%2$s日ごとに%1$s</string>
   <string name="subscriptions_per_several_week">%2$s週ごとに%1$s</string>
   <string name="subscriptions_per_several_month">%2$sか月ごとに%1$s</string>
   <string name="subscriptions_per_several_year">%2$s年ごとに%1$s</string>
   <string name="subscriptions_error_already_subscribed">すでにご登録済みです！ お気軽にお問い合わせください。</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_starting_today_body">本日より開始</string>
+  <string name="subscriptions_starting_on_body">%sから開始します。</string>
+  <string name="subscriptions_year_free_trial_title">%s1年間の無料トライアル</string>
+  <string name="subscriptions_month_free_trial_title">%s1ヶ月間の無料トライアル</string>
+  <string name="subscriptions_week_free_trial_title">%s1週間無料トライアル</string>
+  <string name="subscriptions_day_free_trial_title">%s1日間の無料トライアル</string>
+  <string name="subscriptions_free_trial_title">無料トライアル</string>
   <string name="subscriptions_cancelled_badge">キャンセル済み</string>
   <string name="subscriptions_expired_badge">期限切れ</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_renew_title">%sで更新されます。</string>
+  <string name="subscriptions_details_disclaimer_cancel">サブスクリプションはいつでもキャンセルできます。キャンセル後も、次の支払い日まで有効です。</string>
   <!--New Gamification-->
   <string name="gamif_title">最大 %s%% のボーナス!</string>
   <string name="gamif_bonus_received">受け取ったボーナス</string>
@@ -835,41 +835,41 @@
   <string name="rebranding_post_title">AppCoins WalletはまもなくAptoide Wallet!になります！</string>
   <string name="rebrandinh_post_body">全く新しいデザインで、お気に入りの機能や特典を発見してください。どうぞお楽しみに！</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_1">モバイルゲーマーのための最高のウォレット</string>
+  <string name="app_store_screen_2">アプリ内購入のためのツール</string>
+  <string name="app_store_screen_3">すべての購入でボーナスを獲得できます。</string>
+  <string name="app_store_screen_4">お好みの支払い方法</string>
+  <string name="app_store_screen_5">VIP会員になって、限定特典を解除しましょう。</string>
   <string name="app_store_screen_6">その他...</string>
   <!-- Home buttons -->
   <string name="home_promo_code_button">プロモーションコード</string>
   <string name="home_top_up_button">トップアップ</string>
-  <string name="home_sign_in_button">Sign in</string>
+  <string name="home_sign_in_button">サインイン</string>
   <string name="home_manage_wallet_button">ウォレットの管理</string>
   <string name="home_backup_wallet_button">ウォレットをバックアップする</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_restore_wallet_button">ウォレットを復元する</string>
+  <string name="home_transfer_balance_button">残高の移動</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">当社のDiscordコミュニティに参加しましょう！</string>
+  <string name="discord_card_body">仲間とゲームを楽しんで、さらに多くの報酬をゲットしよう！</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
-  <string name="available_soon_vip">Available soon</string>
-  <string name="active_vip">Active</string>
-  <string name="vip_referral_program">VIP referral program</string>
-  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
-  <string name="available_in_vip">Available in</string>
-  <string name="referral_ends_in_vip">Referral ends in</string>
-  <string name="see_less_vip">See Less</string>
-  <string name="see_more_vip">See More</string>
-  <string name="share_vip">Share</string>
-  <string name="share_this_code_with_your_friends_vip">Share this code with your friends</string>
-  <string name="only_for_purchases_on_vip">Only for purchases on</string>
-  <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
-  <string name="each_in_app_purchase2_vip">Each in-app purchase gives you and your friends an %1$s%% bonus for 7 days. As a VIP user, you can earn up to %2$s per promo code.</string>
-  <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
-  <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
-  <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
+  <string name="available_soon_vip">まもなく利用可能</string>
+  <string name="active_vip">有効</string>
+  <string name="vip_referral_program">VIP紹介プログラム</string>
+  <string name="bonus_for_you_vip">%1$s%% あなたとあなたの友達へのボーナス</string>
+  <string name="available_in_vip">利用可能です</string>
+  <string name="referral_ends_in_vip">紹介が終了します</string>
+  <string name="see_less_vip">表示を少なくする</string>
+  <string name="see_more_vip">もっと見る</string>
+  <string name="share_vip">共有する</string>
+  <string name="share_this_code_with_your_friends_vip">このコードを友達にシェア</string>
+  <string name="only_for_purchases_on_vip">次でのご購入に限ります</string>
+  <string name="each_in_app_purchase_vip">アプリ内購入ごとに、あなたとあなたの友達に %1$s%%のボーナスがもらえ、さらに7日間限定の他の特典も利用できます。</string>
+  <string name="each_in_app_purchase2_vip">アプリ内購入ごとに、あなたとあなたの友達に7日間有効な %1$s%%のボーナスがもらえます。VIPユーザーとして、1つのプロモーションコードにつき最大 %2$s を獲得できます。</string>
+  <string name="promo_code_referral_program_vip">プロモーションコードは、紹介プログラムが有効になった時点で利用可能になります。</string>
+  <string name="referral_program_not_active_yet_vip">紹介プログラムは現在利用できません。</string>
+  <string name="earned_from_referrals_vip">%1$s %2$s からの紹介で獲得した</string>
 </resources>
