@@ -304,9 +304,9 @@
   <string name="topup_button">充值</string>
   <string name="extra_bonus_title">额外获得 %s%% 奖金</string>
   <string name="max">最高</string>
-  <string name="month">month</string>
-  <string name="week">week</string>
-  <string name="join_button">Join</string>
+  <string name="month">月</string>
+  <string name="week">周</string>
+  <string name="join_button">加入</string>
   <string name="payment_method">付款方式</string>
   <string name="credit_debit_card">信用卡/借记卡</string>
   <string name="paypal">PayPal</string>
@@ -349,7 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">兑换礼品卡</string>
   <string name="settings_item_support">联系支持团队</string>
-  <string name="settings_sign_in">Sign in</string>
+  <string name="settings_sign_in">登录</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">输入你的电话号码</string>
@@ -542,14 +542,14 @@
   <string name="subscriptions_empty_title">尚无订购</string>
   <string name="subscriptions_empty_body">订购最喜欢的应用和游戏的服务，我们将处理定期付款。</string>
   <string name="subscriptions_details_billing_title">支付：</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">定期付款</string>
   <string name="subscriptions_details_next_payment_title">下次付款：</string>
   <string name="subscriptions_details_payment_method_title">付款方式：</string>
   <string name="subscriptions_details_last_bill">上次支付：</string>
   <string name="subscriptions_details_start_date_title">开始日期：</string>
   <string name="subscriptions_details_cancelled_body">已取消——到期日期%s</string>
   <string name="subscriptions_expiration_body">到期日期%s</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">在 %s上续订。</string>
   <string name="subscriptions_canceled_body">已取消</string>
   <string name="subscriptions_details_disclaimer">您的下次付款金额可能会因汇率变化而有所不同。</string>
   <string name="subscriptions_manage_button">管理订购</string>
@@ -566,26 +566,26 @@
   <string name="subscriptions_per_week">%1$s/周</string>
   <string name="subscriptions_per_month">%1$s/月</string>
   <string name="subscriptions_per_year">%1$s/年</string>
-  <string name="subscriptions_day">/day</string>
-  <string name="subscriptions_week">/week</string>
-  <string name="subscriptions_month">/month</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_day">/天</string>
+  <string name="subscriptions_week">/周</string>
+  <string name="subscriptions_month">/月</string>
+  <string name="subscriptions_year">/年</string>
   <string name="subscriptions_per_several_day">%1$s/%2$s天</string>
   <string name="subscriptions_per_several_week">%1$s/%2$s周</string>
   <string name="subscriptions_per_several_month">%1$s/%2$s月</string>
   <string name="subscriptions_per_several_year">%1$s/%2$s年</string>
   <string name="subscriptions_error_already_subscribed">呀，你已经订阅了此服务！请随时联系我们。</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_starting_today_body">从今天开始</string>
+  <string name="subscriptions_starting_on_body">从 %s开始</string>
+  <string name="subscriptions_year_free_trial_title">%s-年免费试用</string>
+  <string name="subscriptions_month_free_trial_title">%s-个月免费试用</string>
+  <string name="subscriptions_week_free_trial_title">%s-周免费试用</string>
+  <string name="subscriptions_day_free_trial_title">%s-天免费试用</string>
+  <string name="subscriptions_free_trial_title">免费试用</string>
   <string name="subscriptions_cancelled_badge">已取消</string>
   <string name="subscriptions_expired_badge">已到期</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_renew_title">在 %s上续订。</string>
+  <string name="subscriptions_details_disclaimer_cancel">您可以随时取消订阅，订阅服务将保持有效直至下一次付款。</string>
   <!--New Gamification-->
   <string name="gamif_title">高达 %s%% 的奖金！</string>
   <string name="gamif_bonus_received">已收到的奖金</string>
@@ -835,41 +835,41 @@
   <string name="rebranding_post_title">AppCoins Wallet 现已更名为 Aptoide Wallet！</string>
   <string name="rebrandinh_post_body">为您呈现全新的视觉盛宴，带您发现更多喜爱的功能和奖励。相信您会喜欢！</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_1">专为移动游戏玩家设计的最佳钱包</string>
+  <string name="app_store_screen_2">您在应用内购买的工具</string>
+  <string name="app_store_screen_3">所有购买均可获得额外奖励</string>
+  <string name="app_store_screen_4">您最常用的支付方式</string>
+  <string name="app_store_screen_5">成为VIP，解锁专属奖励</string>
   <string name="app_store_screen_6">以及更多……</string>
   <!-- Home buttons -->
   <string name="home_promo_code_button">促销代码</string>
   <string name="home_top_up_button">充值</string>
-  <string name="home_sign_in_button">Sign in</string>
+  <string name="home_sign_in_button">登录</string>
   <string name="home_manage_wallet_button">钱包管理</string>
   <string name="home_backup_wallet_button">备份钱包</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_restore_wallet_button">恢复钱包</string>
+  <string name="home_transfer_balance_button">转账余额</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">加入我们的Discord社区！</string>
+  <string name="discord_card_body">与游戏好友一起放松，解锁更多奖励！</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
-  <string name="available_soon_vip">Available soon</string>
-  <string name="active_vip">Active</string>
-  <string name="vip_referral_program">VIP referral program</string>
-  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
-  <string name="available_in_vip">Available in</string>
-  <string name="referral_ends_in_vip">Referral ends in</string>
-  <string name="see_less_vip">See Less</string>
-  <string name="see_more_vip">See More</string>
-  <string name="share_vip">Share</string>
-  <string name="share_this_code_with_your_friends_vip">Share this code with your friends</string>
-  <string name="only_for_purchases_on_vip">Only for purchases on</string>
-  <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
-  <string name="each_in_app_purchase2_vip">Each in-app purchase gives you and your friends an %1$s%% bonus for 7 days. As a VIP user, you can earn up to %2$s per promo code.</string>
-  <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
-  <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
-  <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
+  <string name="available_soon_vip">即将推出</string>
+  <string name="active_vip">激活</string>
+  <string name="vip_referral_program">VIP推荐计划</string>
+  <string name="bonus_for_you_vip">%1$s%% 专属福利，您和您的朋友均可享受</string>
+  <string name="available_in_vip">提供</string>
+  <string name="referral_ends_in_vip">推荐已结束</string>
+  <string name="see_less_vip">查看更少</string>
+  <string name="see_more_vip">查看更多</string>
+  <string name="share_vip">分享</string>
+  <string name="share_this_code_with_your_friends_vip">与好友分享此代码</string>
+  <string name="only_for_purchases_on_vip">该应用内购买促销活动仅适用于：</string>
+  <string name="each_in_app_purchase_vip">每次应用内购买，您和您的朋友都将获得 %1$s的%%奖励，此外还有为期7天的其他优惠。</string>
+  <string name="each_in_app_purchase2_vip">每次应用内购买，您和您的朋友都将获得 %1$s的7天限时奖励。作为VIP用户，您可通过每个促销码最高赚取 %2$s。</string>
+  <string name="promo_code_referral_program_vip">促销码将在推荐计划激活后生效。</string>
+  <string name="referral_program_not_active_yet_vip">推荐计划尚未启用</string>
+  <string name="earned_from_referrals_vip">%1$s 来自 %2$s 的推荐</string>
 </resources>
