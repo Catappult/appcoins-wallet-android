@@ -306,7 +306,7 @@
   <string name="max">Max.</string>
   <string name="month">maand</string>
   <string name="week">week</string>
-  <string name="join_button">Join</string>
+  <string name="join_button">Word lid</string>
   <string name="payment_method">Betalingsmethode</string>
   <string name="credit_debit_card">Creditcard/betaalkaart</string>
   <string name="paypal">PayPal</string>
@@ -349,7 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Cadeaubon inwisselen</string>
   <string name="settings_item_support">Neem contact op met support</string>
-  <string name="settings_sign_in">Sign in</string>
+  <string name="settings_sign_in">Aanmelden</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Voer je telefoonnummer in</string>
@@ -543,14 +543,14 @@
   <string name="subscriptions_empty_title">Nog geen abonnementen</string>
   <string name="subscriptions_empty_body">Abonneer je op services in je favoriete apps en games, dan zorgen wij voor de periodieke betalingen.</string>
   <string name="subscriptions_details_billing_title">Facturatie:</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">Terugkerende betaling</string>
   <string name="subscriptions_details_next_payment_title">Volgende betaling:</string>
   <string name="subscriptions_details_payment_method_title">Betalingsmethode:</string>
   <string name="subscriptions_details_last_bill">Laatste factuur:</string>
   <string name="subscriptions_details_start_date_title">Startdatum:</string>
   <string name="subscriptions_details_cancelled_body">Geannuleerd - dit verloopt op %s</string>
   <string name="subscriptions_expiration_body">Dit verloopt op %s</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">Vernieuwt op %s</string>
   <string name="subscriptions_canceled_body">Geannuleerd</string>
   <string name="subscriptions_details_disclaimer">De waarde van je volgende betaling kan verschillen vanwege de wisselkoers.</string>
   <string name="subscriptions_manage_button">Abonnementen beheren</string>
@@ -576,17 +576,17 @@
   <string name="subscriptions_per_several_month">%1$s elke %2$s maanden</string>
   <string name="subscriptions_per_several_year">%1$s elk %2$s jaar</string>
   <string name="subscriptions_error_already_subscribed">Oeps! Je bent al op deze dienst geabonneerd! Je kunt altijd contact met ons opnemen.</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_starting_today_body">Vanaf vandaag</string>
+  <string name="subscriptions_starting_on_body">Beginnend op %s</string>
+  <string name="subscriptions_year_free_trial_title">%s-jaar gratis proefperiode</string>
+  <string name="subscriptions_month_free_trial_title">%s-maanden gratis proefperiode</string>
+  <string name="subscriptions_week_free_trial_title">%s-week gratis proefperiode</string>
+  <string name="subscriptions_day_free_trial_title">%s-dagen gratis proefperiode</string>
+  <string name="subscriptions_free_trial_title">Gratis proefperiode</string>
   <string name="subscriptions_cancelled_badge">Geannuleerd</string>
   <string name="subscriptions_expired_badge">Verlopen</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_renew_title">Vernieuwt op %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">Je kunt je abonnement op elk moment opzeggen, het blijft actief tot de volgende betaling.</string>
   <!--New Gamification-->
   <string name="gamif_title">Tot %s%% bonus!</string>
   <string name="gamif_bonus_received">Bonus ontvangen</string>
@@ -842,41 +842,41 @@
   <string name="rebranding_post_title">De AppCoins Wallet heet nu de Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Ontdek je favoriete functies en beloningen in een compleet nieuw jasje. We hopen dat je net zo enthousiast bent als wij!</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_1">De beste portemonnee voor mobiele gamers</string>
+  <string name="app_store_screen_2">Uw tool voor in-app aankopen</string>
+  <string name="app_store_screen_3">Ontvang een bonus bij alle aankopen</string>
+  <string name="app_store_screen_4">Uw favoriete betaalmethoden</string>
+  <string name="app_store_screen_5">Word VIP en ontgrendel exclusieve beloningen</string>
   <string name="app_store_screen_6">en meer...</string>
   <!-- Home buttons -->
   <string name="home_promo_code_button">Actiecode</string>
   <string name="home_top_up_button">Opwaarderen</string>
-  <string name="home_sign_in_button">Sign in</string>
+  <string name="home_sign_in_button">Aanmelden</string>
   <string name="home_manage_wallet_button">Wallets beheren</string>
   <string name="home_backup_wallet_button">Back-up van wallet maken</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_restore_wallet_button">Portemonnee herstellen</string>
+  <string name="home_transfer_balance_button">Saldo overboeken</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">Word lid van onze Discord-community!</string>
+  <string name="discord_card_body">Chill met andere gamers en ontgrendel nog meer beloningen!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
-  <string name="available_soon_vip">Available soon</string>
-  <string name="active_vip">Active</string>
-  <string name="vip_referral_program">VIP referral program</string>
-  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
-  <string name="available_in_vip">Available in</string>
-  <string name="referral_ends_in_vip">Referral ends in</string>
-  <string name="see_less_vip">See Less</string>
-  <string name="see_more_vip">See More</string>
-  <string name="share_vip">Share</string>
-  <string name="share_this_code_with_your_friends_vip">Share this code with your friends</string>
-  <string name="only_for_purchases_on_vip">Only for purchases on</string>
-  <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
-  <string name="each_in_app_purchase2_vip">Each in-app purchase gives you and your friends an %1$s%% bonus for 7 days. As a VIP user, you can earn up to %2$s per promo code.</string>
-  <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
-  <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
-  <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
+  <string name="available_soon_vip">Binnenkort beschikbaar</string>
+  <string name="active_vip">Actief</string>
+  <string name="vip_referral_program">VIP-verwijzingsprogramma</string>
+  <string name="bonus_for_you_vip">%1$s%% bonus voor jou en je vrienden</string>
+  <string name="available_in_vip">Verkrijgbaar in</string>
+  <string name="referral_ends_in_vip">Verwijzing eindigt in</string>
+  <string name="see_less_vip">Minder weergeven</string>
+  <string name="see_more_vip">Meer zien</string>
+  <string name="share_vip">Delen</string>
+  <string name="share_this_code_with_your_friends_vip">Deel deze code met je vrienden</string>
+  <string name="only_for_purchases_on_vip">Alleen voor aankopen in</string>
+  <string name="each_in_app_purchase_vip">Elke aankoop in de app levert jou en je vrienden een bonus van %1$s% op, plus andere aanbiedingen gedurende 7 dagen.</string>
+  <string name="each_in_app_purchase2_vip">Elke aankoop in de app levert jou en je vrienden een bonus van %1$s% op gedurende 7 dagen. Als VIP-gebruiker kun je tot %2$s verdienen per promotiecode.</string>
+  <string name="promo_code_referral_program_vip">De promotiecode werkt zodra het verwijzingsprogramma actief is.</string>
+  <string name="referral_program_not_active_yet_vip">Verwijzingsprogramma nog niet actief</string>
+  <string name="earned_from_referrals_vip">%1$s verdiend met %2$s verwijzingen</string>
 </resources>
