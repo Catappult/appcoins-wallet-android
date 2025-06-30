@@ -866,7 +866,7 @@
   <string name="available_soon_vip">Hamarosan elérhetővé válik</string>
   <string name="active_vip">Aktív</string>
   <string name="vip_referral_program">VIP ajánlóprogram</string>
-  <string name="bonus_for_you_vip">%1$s%% Bónusz neked és a barátaidnak</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
   <string name="available_in_vip">Elérhető</string>
   <string name="referral_ends_in_vip">Az ajánlás vége</string>
   <string name="see_less_vip">Kevesebb</string>
@@ -875,7 +875,7 @@
   <string name="share_this_code_with_your_friends_vip">Oszd meg ezt a kódot a barátaiddal</string>
   <string name="only_for_purchases_on_vip">Csak, ha itt vásárolsz:</string>
   <string name="each_in_app_purchase_vip">Minden alkalmazáson belüli vásárlás után Ön és barátai %1$s%% bónuszt kapnak, valamint további ajánlatokat 7 napig.</string>
-  <string name="each_in_app_purchase2_vip">Minden alkalmazáson belüli vásárlás után Ön és barátai 7 napig %1$s%% bónuszt kapnak. VIP felhasználóként promóciós kódonként akár %2$s bónuszt is szerezhet.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">A promóciós kód akkor lesz érvényes, ha az ajánlóprogram aktív.</string>
   <string name="referral_program_not_active_yet_vip">Az ajánlóprogram még nem aktív.</string>
   <string name="earned_from_referrals_vip">%1$s %2$s ajánlásokból szerzett</string>
