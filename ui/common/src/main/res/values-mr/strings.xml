@@ -866,7 +866,7 @@
   <string name="available_soon_vip">लवकरच उपलब्ध होईल</string>
   <string name="active_vip">सक्रिय</string>
   <string name="vip_referral_program">VIP referral program</string>
-  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
   <string name="available_in_vip">Available in</string>
   <string name="referral_ends_in_vip">Referral ends in</string>
   <string name="see_less_vip">See Less</string>
@@ -875,7 +875,7 @@
   <string name="share_this_code_with_your_friends_vip">हा कोड आपल्या मित्रांसह सामायिक करा</string>
   <string name="only_for_purchases_on_vip">फक्त वरील खरेदीवर</string>
   <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
-  <string name="each_in_app_purchase2_vip">Each in-app purchase gives you and your friends an %1$s%% bonus for 7 days. As a VIP user, you can earn up to %2$s per promo code.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
   <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
   <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
