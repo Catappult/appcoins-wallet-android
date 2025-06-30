@@ -859,7 +859,7 @@
   <string name="available_soon_vip">Segera hadir</string>
   <string name="active_vip">Aktif</string>
   <string name="vip_referral_program">Program Rujukan VIP</string>
-  <string name="bonus_for_you_vip">Bonus %1$s%% untuk Anda dan teman</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
   <string name="available_in_vip">Tersedia dalam</string>
   <string name="referral_ends_in_vip">Rujukan berakhir pada</string>
   <string name="see_less_vip">Lihat Lebih Sedikit</string>
@@ -868,7 +868,7 @@
   <string name="share_this_code_with_your_friends_vip">Bagikan kode ini dengan teman Anda</string>
   <string name="only_for_purchases_on_vip">Hanya untuk pembelian di</string>
   <string name="each_in_app_purchase_vip">Setiap pembelian dalam aplikasi memberikan Anda dan teman-teman Anda bonus %1$s%, plus penawaran lain selama 7 hari.</string>
-  <string name="each_in_app_purchase2_vip">Setiap pembelian dalam aplikasi memberikan Anda dan teman-teman Anda bonus %1$s%% selama 7 hari. Sebagai pengguna VIP, Anda dapat mendapatkan hingga %2$s per kode promo.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">Kode promo akan berlaku setelah program rujukan diaktifkan.</string>
   <string name="referral_program_not_active_yet_vip">Program Rujukan belum aktif.</string>
   <string name="earned_from_referrals_vip">%1$s Dapatkan dari %2$s referral</string>
