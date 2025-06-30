@@ -1010,7 +1010,7 @@
   <string name="available_soon_vip">Available soon</string>
   <string name="active_vip">Active</string>
   <string name="vip_referral_program">VIP referral program</string>
-  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
   <string name="available_in_vip">Available in</string>
   <string name="referral_ends_in_vip">Referral ends in</string>
   <string name="see_less_vip">See Less</string>
