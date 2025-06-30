@@ -188,7 +188,7 @@ fun VipReferralCardComposable(
               color = WalletColors.styleguide_white
             )
           )
-          CountDownTimer(endDateTime = endDate)
+          CountDownTimer(endDateTime = if (futureCode) startDate else endDate)
         }
       }
 
