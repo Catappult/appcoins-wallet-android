@@ -866,7 +866,7 @@
   <string name="available_soon_vip">Binnenkort beschikbaar</string>
   <string name="active_vip">Actief</string>
   <string name="vip_referral_program">VIP-verwijzingsprogramma</string>
-  <string name="bonus_for_you_vip">%1$s%% bonus voor jou en je vrienden</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
   <string name="available_in_vip">Verkrijgbaar in</string>
   <string name="referral_ends_in_vip">Verwijzing eindigt in</string>
   <string name="see_less_vip">Minder weergeven</string>
@@ -875,7 +875,7 @@
   <string name="share_this_code_with_your_friends_vip">Deel deze code met je vrienden</string>
   <string name="only_for_purchases_on_vip">Alleen voor aankopen in</string>
   <string name="each_in_app_purchase_vip">Elke aankoop in de app levert jou en je vrienden een bonus van %1$s% op, plus andere aanbiedingen gedurende 7 dagen.</string>
-  <string name="each_in_app_purchase2_vip">Elke aankoop in de app levert jou en je vrienden een bonus van %1$s% op gedurende 7 dagen. Als VIP-gebruiker kun je tot %2$s verdienen per promotiecode.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">De promotiecode werkt zodra het verwijzingsprogramma actief is.</string>
   <string name="referral_program_not_active_yet_vip">Verwijzingsprogramma nog niet actief</string>
   <string name="earned_from_referrals_vip">%1$s verdiend met %2$s verwijzingen</string>
