@@ -866,7 +866,7 @@
   <string name="available_soon_vip">Disponible prochainement</string>
   <string name="active_vip">Activer</string>
   <string name="vip_referral_program">Programme de parrainage VIP</string>
-  <string name="bonus_for_you_vip">%1$s%% de Bonus pour vous et vos amis</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
   <string name="available_in_vip">Disponible en</string>
   <string name="referral_ends_in_vip">La recommandation prend fin dans</string>
   <string name="see_less_vip">Voir moins</string>
@@ -875,7 +875,7 @@
   <string name="share_this_code_with_your_friends_vip">Partagez ce code avec vos amis</string>
   <string name="only_for_purchases_on_vip">Uniquement pour les achats sur</string>
   <string name="each_in_app_purchase_vip">Chaque achat intégré à l\'application vous offre, à vous et à vos amis, un bonus %1$s, ainsi que d\'autres offres pendant 7 jours.</string>
-  <string name="each_in_app_purchase2_vip">Chaque achat intégré à l\'application vous offre, à vous et à vos amis, un bonus de %1$s% pendant 7 jours. En tant qu\'utilisateur VIP, vous pouvez gagner jusqu\'à %2$s par code promotionnel.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">Le code promotionnel fonctionnera dès que le programme de parrainage sera actif.</string>
   <string name="referral_program_not_active_yet_vip">Programme de parrainage pas encore actif</string>
   <string name="earned_from_referrals_vip">%1$s gagné grâce aux recommandations sur %2$s</string>
