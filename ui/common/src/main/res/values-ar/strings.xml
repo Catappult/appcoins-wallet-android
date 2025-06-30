@@ -894,7 +894,7 @@
   <string name="available_soon_vip">سيتوفر قريبًا</string>
   <string name="active_vip">نشط</string>
   <string name="vip_referral_program">برنامج إحالة العملاء المتميزين</string>
-  <string name="bonus_for_you_vip">%1$s%% مكافأة لك ولأصدقائك</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
   <string name="available_in_vip">متوفر في</string>
   <string name="referral_ends_in_vip">تنتهي الإحالة في</string>
   <string name="see_less_vip">عرض أقل</string>
@@ -903,7 +903,7 @@
   <string name="share_this_code_with_your_friends_vip">شارك هذا الرمز مع أصدقائك</string>
   <string name="only_for_purchases_on_vip">فقط للمشتريات على</string>
   <string name="each_in_app_purchase_vip">كل عملية شراء داخل التطبيق تمنحك أنت وأصدقائك مكافأة %1$s، بالإضافة إلى عروض أخرى لمدة 7 أيام.</string>
-  <string name="each_in_app_purchase2_vip">كل عملية شراء داخل التطبيق تمنحك أنت وأصدقائك مكافأة بنسبة %1$s٪ لمدة 7 أيام. كمستخدم VIP، يمكنك كسب ما يصل إلى %2$s لكل رمز ترويجي.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">سيعمل الرمز الترويجي بمجرد تفعيل برنامج الإحالة.</string>
   <string name="referral_program_not_active_yet_vip">برنامج الإحالة غير نشط بعد</string>
   <string name="earned_from_referrals_vip">%1$s المكتسبة من %2$s الإحالات</string>
