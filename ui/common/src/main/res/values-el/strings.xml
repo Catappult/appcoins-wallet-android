@@ -866,7 +866,7 @@
   <string name="available_soon_vip">Σύντομα διαθέσιμο</string>
   <string name="active_vip">Ενεργές</string>
   <string name="vip_referral_program">Πρόγραμμα παραπομπής VIP</string>
-  <string name="bonus_for_you_vip">%1$s%% μπόνους για εσάς και τους φίλους σας</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
   <string name="available_in_vip">Διαθέσιμο σε</string>
   <string name="referral_ends_in_vip">Η παραπομπή λήγει σε</string>
   <string name="see_less_vip">Δείτε λιγότερα</string>
@@ -875,7 +875,7 @@
   <string name="share_this_code_with_your_friends_vip">Μοιραστείτε αυτόν τον κωδικό με τους φίλους σας</string>
   <string name="only_for_purchases_on_vip">Μόνο για αγορές στο</string>
   <string name="each_in_app_purchase_vip">Κάθε αγορά εντός της εφαρμογής προσφέρει σε εσάς και τους φίλους σας ένα μπόνους %1$s, καθώς και άλλες προσφορές για 7 ημέρες.</string>
-  <string name="each_in_app_purchase2_vip">Κάθε αγορά εντός της εφαρμογής δίνει σε εσάς και τους φίλους σας ένα μπόνους %1$s%% για 7 ημέρες. Ως VIP χρήστης, μπορείτε να κερδίσετε έως και %2$s ανά κωδικό προσφοράς.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">Ο κωδικός προσφοράς θα λειτουργήσει μόλις ενεργοποιηθεί το πρόγραμμα παραπομπής.</string>
   <string name="referral_program_not_active_yet_vip">Το πρόγραμμα παραπομπής δεν είναι ακόμη ενεργό</string>
   <string name="earned_from_referrals_vip">%1$s κερδισμένα από %2$s παραπομπές</string>
