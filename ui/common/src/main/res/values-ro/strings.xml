@@ -873,7 +873,7 @@
   <string name="available_soon_vip">Disponibilă în curând</string>
   <string name="active_vip">Activ</string>
   <string name="vip_referral_program">Program de recomandare VIP</string>
-  <string name="bonus_for_you_vip">Bonus %1$s%% pentru tine și prietenii tăi</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
   <string name="available_in_vip">Disponibil în</string>
   <string name="referral_ends_in_vip">Referința se încheie în</string>
   <string name="see_less_vip">Vezi mai puțin</string>
@@ -882,7 +882,7 @@
   <string name="share_this_code_with_your_friends_vip">Distribuie acest cod prietenilor tăi</string>
   <string name="only_for_purchases_on_vip">Doar pentru achiziții în</string>
   <string name="each_in_app_purchase_vip">Fiecare achiziție în aplicație vă oferă dvs. și prietenilor dvs. un bonus de %1$s%, plus alte oferte timp de 7 zile.</string>
-  <string name="each_in_app_purchase2_vip">Fiecare achiziție în aplicație vă oferă dvs. și prietenilor dvs. un bonus de %1$s%% timp de 7 zile. În calitate de utilizator VIP, puteți câștiga până la %2$s per cod promoțional.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">Codul promoțional va funcționa odată ce programul de recomandare este activ.</string>
   <string name="referral_program_not_active_yet_vip">Programul de recomandare nu este încă activ</string>
   <string name="earned_from_referrals_vip">%1$s câștigați din recomandări %2$s</string>
