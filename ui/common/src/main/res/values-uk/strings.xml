@@ -882,7 +882,7 @@
   <string name="available_soon_vip">Буде доступна найближчим часом</string>
   <string name="active_vip">Активний</string>
   <string name="vip_referral_program">Програма рекомендацій VIP</string>
-  <string name="bonus_for_you_vip">%1$s%% Бонус для вас і ваших друзів</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
   <string name="available_in_vip">Доступний в</string>
   <string name="referral_ends_in_vip">Реферальна програма закінчується через</string>
   <string name="see_less_vip">Показати менше</string>
@@ -891,7 +891,7 @@
   <string name="share_this_code_with_your_friends_vip">Поділіться цим кодом з друзями</string>
   <string name="only_for_purchases_on_vip">Тільки для покупок у</string>
   <string name="each_in_app_purchase_vip">Кожна покупка в додатку дає вам і вашим друзям %1$s%% бонус, а також інші пропозиції протягом 7 днів.</string>
-  <string name="each_in_app_purchase2_vip">Кожна покупка в додатку дає вам і вашим друзям %1$s%% бонус протягом 7 днів. Як VIP-користувач, ви можете заробити до %2$s за промокодом.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">Промокод буде діяти після активації програми рекомендацій.</string>
   <string name="referral_program_not_active_yet_vip">Програма рекомендацій ще не активна</string>
   <string name="earned_from_referrals_vip">%1$s зароблено за рекомендаціями з %2$s</string>
