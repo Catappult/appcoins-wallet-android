@@ -2,14 +2,14 @@
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
   <string name="iab_wallet_not_installed_popup_body">要購買此商品，您需要安裝%s。</string>
-  <string name="appcoins_wallet">Aptoide Wallet</string>
+  <string name="appcoins_wallet">Aptoide 錢包</string>
   <string name="iab_wallet_not_installed_popup_close_button">關閉</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the Aptoide Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">您需要 Aptoide 錢包才能完成此購買。從 Aptoide 或 Play Store 下載該應用程式，然後返回完成購買！</string>
   <string name="iap_wallet_and_appstore_not_installed_popup_button">了解!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the Aptoide Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the Aptoide Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">您需要 Aptoide 錢包！</string>
+  <string name="poa_wallet_not_installed_notification_body">要获得奖励，您需要 Aptoide 钱包。</string>
   <!-- SDK - Pay as a guest-->
   <string name="iab_pay_as_guest_title">以訪客身份付款</string>
   <string name="iab_pay_as_guest_credit_card">信用卡</string>
@@ -21,14 +21,14 @@
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">更改卡片</string>
-  <string name="iab_pay_with_wallet_title">Pay with Aptoide Wallet</string>
+  <string name="iab_pay_with_wallet_title">使用 Aptoide 钱包支付</string>
   <string name="iab_pay_with_wallet_reward_title">獲得高達%s%% 獎勵！</string>
   <string name="iab_pay_with_wallet_reward_body">您將在此購買中獲得%s 獎勵。</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">您將在此購買中獲得獎勵。</string>
   <string name="iab_best_deal">最佳優惠</string>
   <string name="iab_purchase_done_title">恭喜您完成購買！</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% bonus with the Aptoide Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a bonus with the Aptoide Wallet!</string>
+  <string name="iab_purchase_done_reward_title">下次，使用 Aptoide 錢包，最高可獲得 %s% 的獎勵！</string>
+  <string name="iab_purchase_done_reward_no_connection_title">下次使用 Aptoide 錢包，即可獲得額外獎勵！</string>
   <string name="iab_purchase_done_reward_body">您本來可以透過本次購買獲得%s 獎勵。</string>
   <string name="iab_purchase_done_title_long">完成購買！</string>
   <string name="iab_purchase_change_payment_method_button">更多付款方式</string>

@@ -349,7 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">استفاده از کارت هدیه</string>
   <string name="settings_item_support">تماس با تیم پشتیبانی</string>
-  <string name="settings_sign_in">Sign in</string>
+  <string name="settings_sign_in">ورود به سیستم</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">شماره تلفن خود را وارد کنید</string>
@@ -851,7 +851,7 @@
   <!-- Home buttons -->
   <string name="home_promo_code_button">کد پرومو</string>
   <string name="home_top_up_button">افزایش اعتبار</string>
-  <string name="home_sign_in_button">Sign in</string>
+  <string name="home_sign_in_button">ورود به سیستم</string>
   <string name="home_manage_wallet_button">مدیریت کیف‌پول‌ها</string>
   <string name="home_backup_wallet_button">بک‌آپ کیف پول</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
@@ -863,19 +863,19 @@
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
-  <string name="available_soon_vip">Available soon</string>
-  <string name="active_vip">Active</string>
+  <string name="available_soon_vip">بزودی در دسترس</string>
+  <string name="active_vip">فعال</string>
   <string name="vip_referral_program">VIP referral program</string>
-  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
   <string name="available_in_vip">Available in</string>
   <string name="referral_ends_in_vip">Referral ends in</string>
   <string name="see_less_vip">See Less</string>
   <string name="see_more_vip">See More</string>
-  <string name="share_vip">Share</string>
-  <string name="share_this_code_with_your_friends_vip">Share this code with your friends</string>
-  <string name="only_for_purchases_on_vip">Only for purchases on</string>
+  <string name="share_vip">اشتراک‌گذاری</string>
+  <string name="share_this_code_with_your_friends_vip">این کد را با دوستان خود به شاتراک بگذارید</string>
+  <string name="only_for_purchases_on_vip">تنها برای خریدها در</string>
   <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
-  <string name="each_in_app_purchase2_vip">Each in-app purchase gives you and your friends an %1$s%% bonus for 7 days. As a VIP user, you can earn up to %2$s per promo code.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
   <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
   <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>

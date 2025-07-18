@@ -306,7 +306,7 @@
   <string name="max">Максимум</string>
   <string name="month">месяц</string>
   <string name="week">неделя</string>
-  <string name="join_button">Join</string>
+  <string name="join_button">Присоединяйтесь</string>
   <string name="payment_method">Способ оплаты</string>
   <string name="credit_debit_card">Кредитная/дебитовая карта</string>
   <string name="paypal">PayPal</string>
@@ -349,7 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Погасить подарочную карту</string>
   <string name="settings_item_support">Связаться с поддержкой</string>
-  <string name="settings_sign_in">Sign in</string>
+  <string name="settings_sign_in">Войти</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Введите свой номер телефона</string>
@@ -545,14 +545,14 @@
   <string name="subscriptions_empty_title">Пока нет подписок</string>
   <string name="subscriptions_empty_body">Подпишисывайтесь на сервисы ваших любимых приложений и игр, а мы разберёмся с периодическими платежами.</string>
   <string name="subscriptions_details_billing_title">Оплата:</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">Повторяющийся платеж</string>
   <string name="subscriptions_details_next_payment_title">Следующая оплата:</string>
   <string name="subscriptions_details_payment_method_title">Способ оплаты:</string>
   <string name="subscriptions_details_last_bill">Последний счёт:</string>
   <string name="subscriptions_details_start_date_title">Начало:</string>
   <string name="subscriptions_details_cancelled_body">Отменена – истекает %s</string>
   <string name="subscriptions_expiration_body">Истекает %s</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">Продлевается на %s</string>
   <string name="subscriptions_canceled_body">Отменена</string>
   <string name="subscriptions_details_disclaimer">Сумма вашего следующего платежа может измениться из-за колебания обменного курса.</string>
   <string name="subscriptions_manage_button">Управление подписками</string>
@@ -572,23 +572,23 @@
   <string name="subscriptions_day">/день</string>
   <string name="subscriptions_week">/неделя</string>
   <string name="subscriptions_month">/месяц</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_year">/год</string>
   <string name="subscriptions_per_several_day">%1$s каждые %2$s дней</string>
   <string name="subscriptions_per_several_week">%1$s каждые %2$s недель</string>
   <string name="subscriptions_per_several_month">%1$s каждые %2$s месяцев</string>
   <string name="subscriptions_per_several_year">%1$s каждые %2$s лет</string>
   <string name="subscriptions_error_already_subscribed">Ой, на этот сервис вы уже подписаны! Пожалуйста, свяжитесь с нами.</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_starting_today_body">Начиная с сегодняшнего дня</string>
+  <string name="subscriptions_starting_on_body">Начиная с %s</string>
+  <string name="subscriptions_year_free_trial_title">%s-летняя бесплатная пробная версия</string>
+  <string name="subscriptions_month_free_trial_title">%s-месяц бесплатного пробного периода</string>
+  <string name="subscriptions_week_free_trial_title">%s-недельная бесплатная пробная версия</string>
+  <string name="subscriptions_day_free_trial_title">%s-дневная бесплатная пробная версия</string>
+  <string name="subscriptions_free_trial_title">Бесплатная пробная версия</string>
   <string name="subscriptions_cancelled_badge">Отменена</string>
   <string name="subscriptions_expired_badge">Истёк</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_renew_title">Продлевается на %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">Вы можете отменить подписку в любое время, она останется активной до следующего платежа.</string>
   <!--New Gamification-->
   <string name="gamif_title">Получите бонус до %s%%!</string>
   <string name="gamif_bonus_received">Бонус получен</string>
@@ -856,41 +856,41 @@
   <string name="rebranding_post_title">AppCoins Wallet теперь Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Откройте для себя ваши любимые функции и награды с совершенно новым изображением. Надеемся, вам понравится!</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_1">Лучший кошелек для мобильных геймеров</string>
+  <string name="app_store_screen_2">Ваш инструмент для покупок в приложениях</string>
+  <string name="app_store_screen_3">Получите бонус на все покупки</string>
+  <string name="app_store_screen_4">Ваши любимые способы оплаты</string>
+  <string name="app_store_screen_5">Станьте VIP-клиентом и получите эксклюзивные награды</string>
   <string name="app_store_screen_6">и это не всё...</string>
   <!-- Home buttons -->
   <string name="home_promo_code_button">Промо-код</string>
   <string name="home_top_up_button">Пополнить</string>
-  <string name="home_sign_in_button">Sign in</string>
+  <string name="home_sign_in_button">Войти</string>
   <string name="home_manage_wallet_button">Управление кошельками</string>
   <string name="home_backup_wallet_button">Сделать бэкап бумажника</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_restore_wallet_button">Восстановить кошелек</string>
+  <string name="home_transfer_balance_button">Перевести баланс</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">Присоединяйтесь к нашему сообществу Discord!</string>
+  <string name="discord_card_body">Общайтесь с другими игроками и получайте еще больше наград!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
-  <string name="available_soon_vip">Available soon</string>
-  <string name="active_vip">Active</string>
-  <string name="vip_referral_program">VIP referral program</string>
-  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
-  <string name="available_in_vip">Available in</string>
-  <string name="referral_ends_in_vip">Referral ends in</string>
-  <string name="see_less_vip">See Less</string>
-  <string name="see_more_vip">See More</string>
-  <string name="share_vip">Share</string>
-  <string name="share_this_code_with_your_friends_vip">Share this code with your friends</string>
-  <string name="only_for_purchases_on_vip">Only for purchases on</string>
-  <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
-  <string name="each_in_app_purchase2_vip">Each in-app purchase gives you and your friends an %1$s%% bonus for 7 days. As a VIP user, you can earn up to %2$s per promo code.</string>
-  <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
-  <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
-  <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
+  <string name="available_soon_vip">Скоро появится</string>
+  <string name="active_vip">Активен</string>
+  <string name="vip_referral_program">Программа VIP-рефералов</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
+  <string name="available_in_vip">Доступно в</string>
+  <string name="referral_ends_in_vip">Реферальная программа заканчивается через</string>
+  <string name="see_less_vip">Смотреть меньше</string>
+  <string name="see_more_vip">Смотреть больше</string>
+  <string name="share_vip">Поделиться</string>
+  <string name="share_this_code_with_your_friends_vip">Поделитесь этим кодом с друзьями</string>
+  <string name="only_for_purchases_on_vip">Только для покупок в</string>
+  <string name="each_in_app_purchase_vip">Каждая покупка в приложении дает вам и вашим друзьям %1$s%% бонус, а также другие предложения в течение 7 дней.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
+  <string name="promo_code_referral_program_vip">Промокод будет работать после активации реферальной программы.</string>
+  <string name="referral_program_not_active_yet_vip">Реферальная программа еще не активна</string>
+  <string name="earned_from_referrals_vip">%1$s заработано на %2$s рефералах</string>
 </resources>

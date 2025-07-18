@@ -20,7 +20,7 @@
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
   <string name="low_storage_error">Não há espaço de armazenamento livre</string>
-  <string name="no_camera_permission">Aptoide Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">A Carteira Aptoide precisa de permissão para acessar sua câmera para escanear códigos QR.</string>
   <string name="no_camera_available">Nenhuma câmera disponível!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato de código de barras inválido: %s</string>
@@ -306,7 +306,7 @@
   <string name="max">Máx</string>
   <string name="month">mês</string>
   <string name="week">semana</string>
-  <string name="join_button">Join</string>
+  <string name="join_button">Participe</string>
   <string name="payment_method">Método de pagamento</string>
   <string name="credit_debit_card">Cartão de crédito/débito</string>
   <string name="paypal">PayPal</string>
@@ -349,7 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Resgatar Cartão Presente</string>
   <string name="settings_item_support">Falar com a Equipe de Suporte</string>
-  <string name="settings_sign_in">Sign in</string>
+  <string name="settings_sign_in">Registrar-se</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Insira seu número de telefone</string>
@@ -543,14 +543,14 @@
   <string name="subscriptions_empty_title">Sem Assinaturas</string>
   <string name="subscriptions_empty_body">Assine os serviços dos seus aplicativos e jogos favoritos que nós lidamos com pagamentos periódicos.</string>
   <string name="subscriptions_details_billing_title">Fatura:</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">Pagamento recorrente</string>
   <string name="subscriptions_details_next_payment_title">Próximo pagamento:</string>
   <string name="subscriptions_details_payment_method_title">Método de pagamento:</string>
   <string name="subscriptions_details_last_bill">Última fatura:</string>
   <string name="subscriptions_details_start_date_title">Data de início:</string>
   <string name="subscriptions_details_cancelled_body">Cancelada - Expira em %s</string>
   <string name="subscriptions_expiration_body">Expira em %s</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">Renova em %s</string>
   <string name="subscriptions_canceled_body">Cancelada</string>
   <string name="subscriptions_details_disclaimer">O valor em AppCoins pode variar no próximo pagamento devido à taxa de câmbio.</string>
   <string name="subscriptions_manage_button">Gerenciar assinatura</string>
@@ -576,17 +576,17 @@
   <string name="subscriptions_per_several_month">%1$s a cada %2$s mês</string>
   <string name="subscriptions_per_several_year">%1$s a cada %2$s anos</string>
   <string name="subscriptions_error_already_subscribed">Opa, você já está inscrito neste serviço! Fique à vontade se quiser entrar em contato conosco.</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
+  <string name="subscriptions_starting_today_body">A partir de hoje</string>
+  <string name="subscriptions_starting_on_body">A partir de %s</string>
+  <string name="subscriptions_year_free_trial_title">%s- ano de teste gratuito</string>
+  <string name="subscriptions_month_free_trial_title">%s-mês de teste gratuito</string>
+  <string name="subscriptions_week_free_trial_title">%s-semana de teste gratuito</string>
+  <string name="subscriptions_day_free_trial_title">%s-dia de teste gratuito</string>
+  <string name="subscriptions_free_trial_title">Teste gratuito</string>
   <string name="subscriptions_cancelled_badge">Cancelada</string>
   <string name="subscriptions_expired_badge">Expirado</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_renew_title">Renova em %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">Você pode cancelar sua assinatura a qualquer momento, ela permanecerá ativa até o próximo pagamento.</string>
   <!--New Gamification-->
   <string name="gamif_title">Receba até %s%% de Bônus!</string>
   <string name="gamif_bonus_received">Bônus recebido</string>
@@ -842,41 +842,41 @@
   <string name="rebranding_post_title">O AppCoins Wallet agora é Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Redescubra seus recursos e recompensas favoritos com um visual totalmente novo. Esperamos que goste!</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
+  <string name="app_store_screen_1">A melhor carteira para jogadores móveis</string>
+  <string name="app_store_screen_2">Sua ferramenta para compras no aplicativo</string>
+  <string name="app_store_screen_3">Receba um bônus em todas as compras</string>
+  <string name="app_store_screen_4">Seus métodos de pagamento favoritos</string>
+  <string name="app_store_screen_5">Torne-se um VIP e desbloqueie recompensas exclusivas</string>
   <string name="app_store_screen_6">e mais...</string>
   <!-- Home buttons -->
   <string name="home_promo_code_button">Código Promocional</string>
   <string name="home_top_up_button">Depositar</string>
-  <string name="home_sign_in_button">Sign in</string>
+  <string name="home_sign_in_button">Registrar-se</string>
   <string name="home_manage_wallet_button">Gerenciar Carteiras</string>
   <string name="home_backup_wallet_button">Fazer Backup da Wallet</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_restore_wallet_button">Restaurar carteira</string>
+  <string name="home_transfer_balance_button">Transferir saldo</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">Junte-se à nossa comunidade Discord!</string>
+  <string name="discord_card_body">Relaxe com outros jogadores e desbloqueie ainda mais recompensas!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
-  <string name="available_soon_vip">Available soon</string>
-  <string name="active_vip">Active</string>
-  <string name="vip_referral_program">VIP referral program</string>
-  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends</string>
-  <string name="available_in_vip">Available in</string>
-  <string name="referral_ends_in_vip">Referral ends in</string>
-  <string name="see_less_vip">See Less</string>
-  <string name="see_more_vip">See More</string>
-  <string name="share_vip">Share</string>
-  <string name="share_this_code_with_your_friends_vip">Share this code with your friends</string>
-  <string name="only_for_purchases_on_vip">Only for purchases on</string>
-  <string name="each_in_app_purchase_vip">Each in-app purchase gives you and your friends a %1$s%% bonus, plus other offers for 7 days.</string>
-  <string name="each_in_app_purchase2_vip">Each in-app purchase gives you and your friends an %1$s%% bonus for 7 days. As a VIP user, you can earn up to %2$s per promo code.</string>
-  <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
-  <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
-  <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
+  <string name="available_soon_vip">Disponível em breve</string>
+  <string name="active_vip">Ativo</string>
+  <string name="vip_referral_program">Programa de indicação VIP</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
+  <string name="available_in_vip">Disponível em</string>
+  <string name="referral_ends_in_vip">A indicação termina em</string>
+  <string name="see_less_vip">Ver menos</string>
+  <string name="see_more_vip">Ver mais</string>
+  <string name="share_vip">Compartilhar</string>
+  <string name="share_this_code_with_your_friends_vip">Compartilhe esse código com seus amigos</string>
+  <string name="only_for_purchases_on_vip">Apenas para compras em</string>
+  <string name="each_in_app_purchase_vip">Cada compra no aplicativo dá a você e aos seus amigos um bônus de %1$s, além de outras ofertas por 7 dias.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
+  <string name="promo_code_referral_program_vip">O código promocional funcionará assim que o programa de indicação estiver ativo.</string>
+  <string name="referral_program_not_active_yet_vip">Programa de indicação ainda não está ativo</string>
+  <string name="earned_from_referrals_vip">%1$s ganho com referências do site %2$s</string>
 </resources>
