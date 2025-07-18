@@ -5,8 +5,8 @@ import org.gradle.api.JavaVersion
 object Config {
   val android = AndroidConfig(
     minSdk = 24,
-    targetSdk = 34,
-    compileSdkVersion = 34,
+    targetSdk = 35,
+    compileSdkVersion = 35,
     ndkVersion = "21.3.6528147"
   )
   val jvm = JvmConfig(

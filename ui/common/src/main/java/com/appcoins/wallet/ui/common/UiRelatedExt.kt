@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.graphics.createBitmap
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 
@@ -29,17 +30,19 @@ fun Drawable.toBitmap(): Bitmap {
 }
 
 fun Bitmap.mergeWith(centeredImage: Bitmap): Bitmap {
+  config?.let {
+    val combined = createBitmap(width, height, it)
+    val canvas = Canvas(combined)
+    canvas.drawBitmap(this, Matrix(), null)
 
-  val combined = Bitmap.createBitmap(width, height, config)
-  val canvas = Canvas(combined)
-  canvas.drawBitmap(this, Matrix(), null)
-
-  val resizeLogo =
-    Bitmap.createScaledBitmap(centeredImage, canvas.width / 5, canvas.height / 5, true)
-  val centreX = (canvas.width - resizeLogo.width) / 2f
-  val centreY = (canvas.height - resizeLogo.height) / 2f
-  canvas.drawBitmap(resizeLogo, centreX, centreY, null)
-  return combined
+    val resizeLogo =
+      Bitmap.createScaledBitmap(centeredImage, canvas.width / 5, canvas.height / 5, true)
+    val centreX = (canvas.width - resizeLogo.width) / 2f
+    val centreY = (canvas.height - resizeLogo.height) / 2f
+    canvas.drawBitmap(resizeLogo, centreX, centreY, null)
+    return combined
+  }
+  return this
 }
 
 fun Int.convertDpToPx(resources: Resources): Int {
