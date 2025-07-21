@@ -147,6 +147,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
         app = app,
         maxReward = revenueCapCurrencyAmount,
         currencySymbol = currencySymbol,
+        type = type
       )
     else
       null
