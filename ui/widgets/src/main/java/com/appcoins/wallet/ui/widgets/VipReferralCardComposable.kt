@@ -65,6 +65,7 @@ fun VipReferralCardComposable(
   startDate: Long,
   endDate: Long,
   isActive: Boolean,
+  isAmbassador: Boolean,
   referralCode: String? = null,
   numberReferrals: String,
   totalEarned: String,
@@ -92,18 +93,23 @@ fun VipReferralCardComposable(
     currencySymbol,
     totalEarned
   )
-  val earnedLabel = stringResource(R.string.earned_from_referrals_vip, totalEarnedFormated, numberReferrals)
+  val earnedLabel =
+    stringResource(R.string.earned_from_referrals_vip, totalEarnedFormated, numberReferrals)
 
   val darkCard = WalletColors.styleguide_dark_secondary
   val darkCardSub = WalletColors.styleguide_dark
   val yellow = WalletColors.styleguide_vip_yellow
   val greyText = WalletColors.styleguide_dark_grey
+  val orange = WalletColors.styleguide_rebranding_orange
 
   Card(
     modifier = modifier
       .fillMaxWidth()
       .border(
-        BorderStroke(1.dp, if (futureCode) Color.Transparent else yellow),
+        BorderStroke(
+          1.dp,
+          if (futureCode) Color.Transparent else if (isAmbassador) orange else yellow
+        ),
         RoundedCornerShape(12.dp)
       )
       .animateContentSize(),
@@ -112,7 +118,7 @@ fun VipReferralCardComposable(
   ) {
     Box(Modifier.fillMaxWidth()) {
       Surface(
-        color = if (futureCode) WalletColors.styleguide_inactive_grey else yellow,
+        color = if (futureCode) WalletColors.styleguide_inactive_grey else if (isAmbassador) orange else yellow,
         shape = RoundedCornerShape(bottomStart = 12.dp),
         shadowElevation = 2.dp,
         modifier = Modifier
@@ -135,16 +141,32 @@ fun VipReferralCardComposable(
     Column(Modifier.padding(start = 16.dp, end = 16.dp, bottom = 18.dp)) {
 
       Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-          painter = painterResource(if (futureCode) R.drawable.ic_future_code else R.drawable.ic_vip_logo),
-          contentDescription = "VIP logo",
-          tint = Color.Unspecified,
-          modifier = Modifier.size(56.dp)
-        )
+        if (isAmbassador) {
+          AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+              .data(appIcon)
+              .crossfade(true)
+              .placeholder(R.drawable.ic_appcoins_notification_icon)
+              .error(R.drawable.ic_appcoins_notification_icon)
+              .build(),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+              .size(52.dp)
+              .clip(RoundedCornerShape(12.dp))
+          )
+        } else {
+          Icon(
+            painter = painterResource(if (futureCode) R.drawable.ic_future_code else R.drawable.ic_vip_logo),
+            contentDescription = "VIP logo",
+            tint = Color.Unspecified,
+            modifier = Modifier.size(56.dp)
+          )
+        }
         Spacer(Modifier.width(12.dp))
         Column {
           Text(
-            stringResource(R.string.vip_referral_program),
+            stringResource(if (isAmbassador) R.string.ambassador_title else R.string.vip_referral_program),
             style = MaterialTheme.typography.titleMedium.copy(
               fontWeight = FontWeight.Bold,
               color = Color.White
@@ -196,7 +218,13 @@ fun VipReferralCardComposable(
 
       referralCode?.let { code ->
         if (!expanded) {
-          ReferralCodeRow(code, darkCardSub, yellow, futureCode, onShare)
+          ReferralCodeRow(
+            code = code,
+            containerColor = darkCardSub,
+            buttonColor = if (isAmbassador) orange else yellow,
+            futureCode = futureCode,
+            onShare = onShare
+          )
           Spacer(Modifier.height(16.dp))
         }
       }
@@ -208,13 +236,14 @@ fun VipReferralCardComposable(
           earnedLabel = earnedLabel,
           darkCardSub = darkCardSub,
           greyText = greyText,
-          yellow = yellow,
+          yellow = if (isAmbassador) orange else yellow,
           futureCode = futureCode,
           appName = appName,
           appIcon = appIcon,
           maxReward = maxReward,
           currencySymbol = currencySymbol,
-          onShare = onShare
+          onShare = onShare,
+          isAmbassador = isAmbassador
         )
         Spacer(Modifier.height(16.dp))
       }
@@ -233,13 +262,13 @@ fun VipReferralCardComposable(
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.roboto_regular)),
             fontWeight = FontWeight.W400,
-            color = if (futureCode) WalletColors.styleguide_primary else yellow
+            color = if (futureCode) WalletColors.styleguide_primary else if (isAmbassador) orange else yellow
           )
         )
         Icon(
           Icons.Filled.KeyboardArrowDown,
           contentDescription = null,
-          tint = if (futureCode) WalletColors.styleguide_primary else yellow,
+          tint = if (futureCode) WalletColors.styleguide_primary else if (isAmbassador) orange else yellow,
           modifier = Modifier.rotate(arrowRotation)
         )
       }
@@ -327,7 +356,8 @@ private fun ExpandedSection(
   appIcon: String? = null,
   maxReward: String,
   currencySymbol: String,
-  onShare: (String) -> Unit
+  onShare: (String) -> Unit,
+  isAmbassador: Boolean
 ) {
   Card(
     modifier = Modifier.fillMaxWidth(),
@@ -348,25 +378,35 @@ private fun ExpandedSection(
 
       /* icon + game name */
       Row(verticalAlignment = Alignment.CenterVertically) {
-        AsyncImage(
-          model = ImageRequest.Builder(LocalContext.current)
-            .data(appIcon)
-            .crossfade(true)
-            .placeholder(R.drawable.ic_appcoins_notification_icon)
-            .error(R.drawable.ic_appcoins_notification_icon)
-            .build(),
-          contentDescription = null,
-          contentScale = ContentScale.Crop,
-          modifier = Modifier
-            .size(40.dp)
-            .clip(RoundedCornerShape(12.dp))
-        )
+        if (isAmbassador) {
+          Icon(
+            painter = painterResource(R.drawable.ic_info_message),
+            contentDescription = "Info logo",
+            tint = Color.Unspecified,
+            modifier = Modifier.size(36.dp)
+          )
+        } else {
+          AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+              .data(appIcon)
+              .crossfade(true)
+              .placeholder(R.drawable.ic_appcoins_notification_icon)
+              .error(R.drawable.ic_appcoins_notification_icon)
+              .build(),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+              .size(40.dp)
+              .clip(RoundedCornerShape(12.dp))
+          )
+        }
         Spacer(Modifier.width(12.dp))
         Column {
           Text(
             stringResource(R.string.only_for_purchases_on_vip),
             style = MaterialTheme.typography.bodySmall.copy(color = greyText)
           )
+          Spacer(Modifier.height(2.dp))
           Text(
             appName ?: "",
             style = MaterialTheme.typography.bodyMedium.copy(
@@ -391,14 +431,20 @@ private fun ExpandedSection(
         maxReward
       )
       Text(
-        stringResource(R.string.each_in_app_purchase2_vip, vipBonus, maxRewardFormated),
+        text = stringResource(
+          if (isAmbassador) R.string.each_in_app_purchase_ambassador else R.string.each_in_app_purchase2_vip,
+          vipBonus,
+          maxRewardFormated
+        ),
         style = MaterialTheme.typography.bodySmall.copy(color = greyText)
       )
 
       if (futureCode) {
         Spacer(Modifier.height(12.dp))
         Text(
-          stringResource(R.string.promo_code_referral_program_vip),
+          stringResource(
+            if (isAmbassador) R.string.promo_code_ambassador_program else R.string.promo_code_referral_program_vip
+          ),
           style = MaterialTheme.typography.bodySmall.copy(color = greyText)
         )
       }
@@ -423,7 +469,12 @@ private fun ExpandedSection(
         )
         Spacer(Modifier.width(6.dp))
         Text(
-          if (futureCode) stringResource(R.string.referral_program_not_active_yet_vip) else earnedLabel,
+          if (futureCode)
+            stringResource(
+              if (isAmbassador) R.string.ambassador_program_not_active_yet else R.string.referral_program_not_active_yet_vip
+            )
+          else
+            earnedLabel,
           style = TextStyle(
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.roboto_regular)),
@@ -456,7 +507,8 @@ private fun VipReferralCardPreviewCollapsed() {
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
     maxReward = "100",
-    onShare = {}
+    onShare = {},
+    isAmbassador = false
   )
 }
 
@@ -481,7 +533,8 @@ private fun VipReferralCardPreviewExpanded() {
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
-    maxReward = "100"
+    maxReward = "100",
+    isAmbassador = false
   )
 }
 
@@ -506,6 +559,59 @@ private fun VipReferralCardPreviewFuture() {
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
-    maxReward = "100"
+    maxReward = "100",
+    isAmbassador = false
+  )
+}
+
+@Preview(
+  name = "Ambassadors – Expanded",
+  showBackground = true,
+  backgroundColor = 0xFF121212
+)
+@Composable
+private fun AmbassadorReferralCardPreviewExpanded() {
+  val threeDays = System.currentTimeMillis() + 1_000L * 60L * 60L * 24L * 3L
+  VipReferralCardComposable(
+    vipBonus = "5",
+    startDate = (System.currentTimeMillis() / 1000L) - 100L,
+    endDate = (threeDays / 1000L),
+    isActive = true,
+    referralCode = "1456152810291",
+    onShare = {},
+    initialExpanded = true,
+    numberReferrals = "5",
+    totalEarned = "25",
+    appName = "Example App",
+    appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
+    currencySymbol = "$",
+    maxReward = "100",
+    isAmbassador = true
+  )
+}
+
+@Preview(
+  name = "Ambassadors – future",
+  showBackground = true,
+  backgroundColor = 0xFF121212
+)
+@Composable
+private fun AmbassadorReferralCardPreviewFuture() {
+  val threeDays = System.currentTimeMillis() + 1_000L * 60L * 60L * 24L * 3L
+  VipReferralCardComposable(
+    vipBonus = "5",
+    startDate = (System.currentTimeMillis() / 1000L) + 100L,
+    endDate = (threeDays / 1000L),
+    isActive = false,
+    referralCode = "1456152810291",
+    onShare = {},
+    initialExpanded = true,
+    numberReferrals = "5",
+    totalEarned = "25",
+    appName = "Example App",
+    appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
+    currencySymbol = "$",
+    maxReward = "100",
+    isAmbassador = true
   )
 }
