@@ -197,6 +197,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               startDate = vipRefModel.startDate,
               endDate = vipRefModel.endDate,
               isActive = vipRefModel.active,
+              isAmbassador = vipRefModel.isAmbassador(),
               referralCode = vipRefModel.vipCode,
               numberReferrals = vipRefModel.numberReferrals,
               totalEarned = currencyFormatUtils.formatCurrency(

@@ -14,4 +14,11 @@ data class VipReferralInfo(
   val app: App,
   val maxReward: String,
   val currencySymbol: String,
-)
+  val type: String,
+) {
+
+  fun isAmbassador(): Boolean {
+    return type == "AMBASSADOR"
+  }
+
+}
