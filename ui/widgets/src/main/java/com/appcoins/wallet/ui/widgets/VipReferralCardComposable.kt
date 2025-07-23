@@ -367,7 +367,9 @@ private fun ExpandedSection(
     Column(Modifier.padding(16.dp)) {
 
       Text(
-        stringResource(R.string.share_this_code_with_your_friends_vip),
+        stringResource(
+          if(isAmbassador) R.string.share_this_code_with_your_friends_ambassador else R.string.share_this_code_with_your_friends_vip
+        ),
         style = MaterialTheme.typography.bodyLarge.copy(
           fontWeight = FontWeight.SemiBold,
           color = Color.White
