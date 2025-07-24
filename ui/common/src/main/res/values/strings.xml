@@ -1023,6 +1023,10 @@
   <string name="promo_code_referral_program_vip">The promo code will work once the referral program is active.</string>
   <string name="referral_program_not_active_yet_vip">Referral Program not active yet</string>
   <string name="earned_from_referrals_vip">%1$s earned from %2$s referrals</string>
-
+  <string name="ambassador_title">Ambassador\'s Program</string>
+  <string name="each_in_app_purchase_ambassador">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As an ambassador user, you can earn up to %2$s per promo code.</string>
+  <string name="promo_code_ambassador_program">The promo code will work once the Ambassador\'s Program is active.</string>
+  <string name="ambassador_program_not_active_yet">Ambassador\'s Program not active yet</string>
+  <string name="share_this_code_with_your_friends_ambassador">Share this code with your friends, earn extra cashback</string>
 
 </resources>

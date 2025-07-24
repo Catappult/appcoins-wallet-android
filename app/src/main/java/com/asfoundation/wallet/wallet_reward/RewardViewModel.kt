@@ -3,7 +3,6 @@ package com.asfoundation.wallet.wallet_reward
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
-import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
