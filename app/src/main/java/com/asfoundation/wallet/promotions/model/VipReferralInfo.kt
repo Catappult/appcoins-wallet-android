@@ -6,8 +6,19 @@ data class VipReferralInfo(
   val vipBonus: String,
   val vipCode: String,
   val totalEarned: String,
+  val totalEarnedConvertedCurrency: String,
   val numberReferrals: String,
   val endDate: Long,
   val startDate: Long,
-  val app: App
-)
+  val active: Boolean,
+  val app: App,
+  val maxReward: String,
+  val currencySymbol: String,
+  val type: String,
+) {
+
+  fun isAmbassador(): Boolean {
+    return type == "AMBASSADOR"
+  }
+
+}

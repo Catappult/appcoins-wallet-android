@@ -52,7 +52,7 @@ class GamificationApiTest : GamificationApi {
     return aux
   }
 
-  override fun getVipReferral(wallet: String): Single<VipReferralResponse> {
+  override fun getVipReferral(wallet: String, currency: String): Single<VipReferralResponse> {
     val aux = vipReferralResponse!!
     vipReferralResponse = null
     return aux

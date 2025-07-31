@@ -304,9 +304,9 @@
   <string name="topup_button">Alimentează</string>
   <string name="extra_bonus_title">Primești un bonus extra de %s%%</string>
   <string name="max">Maxim</string>
-  <string name="month">month</string>
-  <string name="week">week</string>
-  <string name="join_button">Join</string>
+  <string name="month">lună</string>
+  <string name="week">săptămână</string>
+  <string name="join_button">Alăturați-vă</string>
   <string name="payment_method">Metoda de plată</string>
   <string name="credit_debit_card">Card de credit/debit</string>
   <string name="paypal">PayPal</string>
@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Revendică Card Cadou</string>
   <string name="settings_item_support">Contactează echipa de asistență</string>
+  <string name="settings_sign_in">Conectează-te</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Introdu numărul tău de telefon</string>
@@ -543,14 +544,14 @@
   <string name="subscriptions_empty_title">Fără abonamente</string>
   <string name="subscriptions_empty_body">Abonează-te la servicii în aplicațiile și jocurile tale preferate și ne vom ocupa noi de plățile periodice.</string>
   <string name="subscriptions_details_billing_title">Facturare:</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">Plată recurentă</string>
   <string name="subscriptions_details_next_payment_title">Următoarea plată:</string>
   <string name="subscriptions_details_payment_method_title">Metoda de plată:</string>
   <string name="subscriptions_details_last_bill">Ultima factură:</string>
   <string name="subscriptions_details_start_date_title">Data începerii:</string>
   <string name="subscriptions_details_cancelled_body">Anulat - expiră pe %s</string>
   <string name="subscriptions_expiration_body">Expiră pe %s</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">Reînnoire pe %s</string>
   <string name="subscriptions_canceled_body">Anulată</string>
   <string name="subscriptions_details_disclaimer">Valoarea în AppCoins poate varia pentru următoarea plată din cauza cursului de schimb.</string>
   <string name="subscriptions_manage_button">Gestionează abonament</string>
@@ -567,26 +568,26 @@
   <string name="subscriptions_per_week">%1$s/săptămână</string>
   <string name="subscriptions_per_month">%1$s/lună</string>
   <string name="subscriptions_per_year">%1$s/an</string>
-  <string name="subscriptions_day">/day</string>
-  <string name="subscriptions_week">/week</string>
-  <string name="subscriptions_month">/month</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_day">/zi</string>
+  <string name="subscriptions_week">/săptămână</string>
+  <string name="subscriptions_month">/lună</string>
+  <string name="subscriptions_year">/an</string>
   <string name="subscriptions_per_several_day">%1$s la fiecare %2$s zile</string>
   <string name="subscriptions_per_several_week">%1$s la fiecare %2$s săptămâni</string>
   <string name="subscriptions_per_several_month">%1$s la fiecare %2$s luni</string>
   <string name="subscriptions_per_several_year">%1$s la fiecare %2$s ani</string>
   <string name="subscriptions_error_already_subscribed">Ups, te-ai abonat deja la acest serviciu! Nu ezita să ne contactezi.</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Canceled</string>
-  <string name="subscriptions_expired_badge">Expired</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_starting_today_body">Începând de astăzi</string>
+  <string name="subscriptions_starting_on_body">Începând cu %s</string>
+  <string name="subscriptions_year_free_trial_title">%s- ani de utilizare gratuită</string>
+  <string name="subscriptions_month_free_trial_title">%s-lună de încercare gratuită</string>
+  <string name="subscriptions_week_free_trial_title">%s- săptămână de încercare gratuită</string>
+  <string name="subscriptions_day_free_trial_title">%s-zi de încercare gratuită</string>
+  <string name="subscriptions_free_trial_title">Încercare gratuită</string>
+  <string name="subscriptions_cancelled_badge">Anulată</string>
+  <string name="subscriptions_expired_badge">Expirat</string>
+  <string name="subscriptions_renew_title">Reînnoire pe %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">Vă puteți anula abonamentul în orice moment, acesta rămânând activ până la următoarea plată.</string>
   <!--New Gamification-->
   <string name="gamif_title">Bonus de până la %s%%!</string>
   <string name="gamif_bonus_received">Bonus primit</string>
@@ -848,24 +849,41 @@
   <string name="rebranding_post_title">AppCoins Wallet este acum Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Descoperă funcțiile și recompensele tale preferate cu un aspect nou-nouț! Sperăm că o să îți placă ce vezi!</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
-  <string name="app_store_screen_6">and more...</string>
+  <string name="app_store_screen_1">Cel mai bun portofel pentru jucătorii pe mobil</string>
+  <string name="app_store_screen_2">Instrumentul dvs. pentru achiziții în aplicație</string>
+  <string name="app_store_screen_3">Primești un bonus la toate achizițiile</string>
+  <string name="app_store_screen_4">Metodele tale preferate de plată</string>
+  <string name="app_store_screen_5">Deveniți VIP și deblocați recompense exclusive</string>
+  <string name="app_store_screen_6">și multe altele...</string>
   <!-- Home buttons -->
-  <string name="home_promo_code_button">Promo Code</string>
-  <string name="home_top_up_button">Top Up</string>
-  <string name="home_manage_wallet_button">Manage Wallets</string>
-  <string name="home_backup_wallet_button">Back Up Wallet</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_promo_code_button">Cod Promo</string>
+  <string name="home_top_up_button">Alimentează</string>
+  <string name="home_sign_in_button">Conectează-te</string>
+  <string name="home_manage_wallet_button">Gestionează portofele</string>
+  <string name="home_backup_wallet_button">Copie de rezervă portofel</string>
+  <string name="home_restore_wallet_button">Restabiliți portofelul</string>
+  <string name="home_transfer_balance_button">Transfer sold</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">Alătură-te comunității noastre Discord!</string>
+  <string name="discord_card_body">Relaxează-te alături de alți jucători și deblochează și mai multe recompense!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
+  <string name="available_soon_vip">Disponibilă în curând</string>
+  <string name="active_vip">Activ</string>
+  <string name="vip_referral_program">Program de recomandare VIP</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
+  <string name="available_in_vip">Disponibil în</string>
+  <string name="referral_ends_in_vip">Referința se încheie în</string>
+  <string name="see_less_vip">Vezi mai puțin</string>
+  <string name="see_more_vip">Vezi mai multe</string>
+  <string name="share_vip">Distribuie</string>
+  <string name="share_this_code_with_your_friends_vip">Distribuie acest cod prietenilor tăi</string>
+  <string name="only_for_purchases_on_vip">Doar pentru achiziții în</string>
+  <string name="each_in_app_purchase_vip">Fiecare achiziție în aplicație vă oferă dvs. și prietenilor dvs. un bonus de %1$s%, plus alte oferte timp de 7 zile.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
+  <string name="promo_code_referral_program_vip">Codul promoțional va funcționa odată ce programul de recomandare este activ.</string>
+  <string name="referral_program_not_active_yet_vip">Programul de recomandare nu este încă activ</string>
+  <string name="earned_from_referrals_vip">%1$s câștigați din recomandări %2$s</string>
 </resources>

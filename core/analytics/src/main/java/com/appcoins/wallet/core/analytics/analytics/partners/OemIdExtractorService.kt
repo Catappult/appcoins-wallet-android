@@ -21,8 +21,8 @@ class OemIdExtractorService @Inject constructor(
 }
 
 @Throws(PackageManager.NameNotFoundException::class)
-fun getPackageName(context: Context, packageName: String): String {
+fun getPackageName(context: Context, packageName: String): String? {
   return context.packageManager
     .getPackageInfo(packageName, 0)
-    .applicationInfo.sourceDir
+    .applicationInfo?.sourceDir
 }

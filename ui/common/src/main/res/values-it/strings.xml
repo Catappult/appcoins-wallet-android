@@ -304,9 +304,9 @@
   <string name="topup_button">Ricarica</string>
   <string name="extra_bonus_title">Ricevi un bonus extra del %s%%</string>
   <string name="max">Max.</string>
-  <string name="month">month</string>
-  <string name="week">week</string>
-  <string name="join_button">Join</string>
+  <string name="month">mese</string>
+  <string name="week">settimana</string>
+  <string name="join_button">Iscriviti</string>
   <string name="payment_method">Metodo di pagamento</string>
   <string name="credit_debit_card">Carta di credito/debito</string>
   <string name="paypal">PayPal</string>
@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Riscatta buono regalo</string>
   <string name="settings_item_support">Contatta l\'assistenza clienti</string>
+  <string name="settings_sign_in">Accedi</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Inserisci il tuo numero di telefono</string>
@@ -542,14 +543,14 @@
   <string name="subscriptions_empty_title">Nessun abbonamento</string>
   <string name="subscriptions_empty_body">Abbonati ai servizi delle tue app e dei tuoi giochi preferiti e penseremo noi ai pagamenti periodici.</string>
   <string name="subscriptions_details_billing_title">Costo:</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">Pagamento ricorrente</string>
   <string name="subscriptions_details_next_payment_title">Prossimo pagamento:</string>
   <string name="subscriptions_details_payment_method_title">Metodo di pagamento:</string>
   <string name="subscriptions_details_last_bill">Ultimo pagamento:</string>
   <string name="subscriptions_details_start_date_title">Data di inizio:</string>
   <string name="subscriptions_details_cancelled_body">Annullato - Scadenza in data %s</string>
   <string name="subscriptions_expiration_body">Scade in data %s</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">Rinnova su %s</string>
   <string name="subscriptions_canceled_body">Annullato</string>
   <string name="subscriptions_details_disclaimer">Il valore del tuo prossimo pagamento potrebbe variare a causa del tasso di cambio.</string>
   <string name="subscriptions_manage_button">Gestisci abbonamento</string>
@@ -566,26 +567,26 @@
   <string name="subscriptions_per_week">%1$s a settimana</string>
   <string name="subscriptions_per_month">%1$s al mese</string>
   <string name="subscriptions_per_year">%1$s</string>
-  <string name="subscriptions_day">/day</string>
-  <string name="subscriptions_week">/week</string>
-  <string name="subscriptions_month">/month</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_day">/giorno</string>
+  <string name="subscriptions_week">/settimana</string>
+  <string name="subscriptions_month">/mese</string>
+  <string name="subscriptions_year">/anno</string>
   <string name="subscriptions_per_several_day">%1$s ogni %2$s giorni</string>
   <string name="subscriptions_per_several_week">%1$s ogni %2$s settimane</string>
   <string name="subscriptions_per_several_month">%1$s ogni %2$s mesi</string>
   <string name="subscriptions_per_several_year">%1$s ogni %2$s anni</string>
   <string name="subscriptions_error_already_subscribed">Ops, hai già effettuato l\'iscrizione a questo servizio. Per informazioni non esitare a contattarci.</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Canceled</string>
-  <string name="subscriptions_expired_badge">Expired</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_starting_today_body">A partire da oggi</string>
+  <string name="subscriptions_starting_on_body">A partire da %s</string>
+  <string name="subscriptions_year_free_trial_title">%s-anno di prova gratuita</string>
+  <string name="subscriptions_month_free_trial_title">%s- mese di prova gratuita</string>
+  <string name="subscriptions_week_free_trial_title">%s- settimana di prova gratuita</string>
+  <string name="subscriptions_day_free_trial_title">%s-giorni di prova gratuita</string>
+  <string name="subscriptions_free_trial_title">Prova gratuita</string>
+  <string name="subscriptions_cancelled_badge">Annullato</string>
+  <string name="subscriptions_expired_badge">Scaduto</string>
+  <string name="subscriptions_renew_title">Rinnova su %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">Puoi cancellare l\'abbonamento in qualsiasi momento, ma rimarrà attivo fino al prossimo pagamento.</string>
   <!--New Gamification-->
   <string name="gamif_title">Fino al %s%% di bonus!</string>
   <string name="gamif_bonus_received">Bonus ricevuto</string>
@@ -841,24 +842,41 @@
   <string name="rebranding_post_title">L\'AppCoins Wallet è diventato Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Scopri i premi e le funzioni che preferisci con un aspetto totalmente nuovo. Speriamo che ti piaccia!</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
-  <string name="app_store_screen_6">and more...</string>
+  <string name="app_store_screen_1">Il miglior portafoglio per i giocatori mobili</string>
+  <string name="app_store_screen_2">Il tuo strumento per gli acquisti in-app</string>
+  <string name="app_store_screen_3">Ricevi un bonus su tutti gli acquisti</string>
+  <string name="app_store_screen_4">I tuoi metodi di pagamento preferiti</string>
+  <string name="app_store_screen_5">Diventa VIP e sblocca premi esclusivi</string>
+  <string name="app_store_screen_6">e molto altro...</string>
   <!-- Home buttons -->
-  <string name="home_promo_code_button">Promo Code</string>
-  <string name="home_top_up_button">Top Up</string>
-  <string name="home_manage_wallet_button">Manage Wallets</string>
-  <string name="home_backup_wallet_button">Back Up Wallet</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_promo_code_button">Codice promozionale</string>
+  <string name="home_top_up_button">Ricarica</string>
+  <string name="home_sign_in_button">Accedi</string>
+  <string name="home_manage_wallet_button">Gestisci Wallet</string>
+  <string name="home_backup_wallet_button">Backup del Wallet</string>
+  <string name="home_restore_wallet_button">Ripristina portafoglio</string>
+  <string name="home_transfer_balance_button">Trasferisci saldo</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">Unisciti alla nostra community su Discord!</string>
+  <string name="discord_card_body">Rilassati con altri giocatori e sblocca ancora più premi!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
+  <string name="available_soon_vip">Disponibile a breve</string>
+  <string name="active_vip">Attiva</string>
+  <string name="vip_referral_program">Programma di segnalazione VIP</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
+  <string name="available_in_vip">Disponibile in</string>
+  <string name="referral_ends_in_vip">Il rinvio termina in</string>
+  <string name="see_less_vip">Vedi meno</string>
+  <string name="see_more_vip">Vedi altro</string>
+  <string name="share_vip">Condividi</string>
+  <string name="share_this_code_with_your_friends_vip">Condividi questo codice con i tuoi amici</string>
+  <string name="only_for_purchases_on_vip">Solo per acquisti su</string>
+  <string name="each_in_app_purchase_vip">Ogni acquisto in-app offre a te e ai tuoi amici un bonus del %1$s, oltre ad altre offerte per 7 giorni.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
+  <string name="promo_code_referral_program_vip">Il codice promozionale funzionerà una volta attivato il programma di referral.</string>
+  <string name="referral_program_not_active_yet_vip">Programma di referral non ancora attivo</string>
+  <string name="earned_from_referrals_vip">%1$s guadagnato da %2$s referral</string>
 </resources>

@@ -304,9 +304,9 @@
   <string name="topup_button">충전</string>
   <string name="extra_bonus_title">추가 %s%% 보너스 받기</string>
   <string name="max">최대</string>
-  <string name="month">month</string>
-  <string name="week">week</string>
-  <string name="join_button">Join</string>
+  <string name="month">월</string>
+  <string name="week">주</string>
+  <string name="join_button">참여하세요</string>
   <string name="payment_method">지불 방법</string>
   <string name="credit_debit_card">신용/직불 카드</string>
   <string name="paypal">페이팔</string>
@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">기프트 카드 리딤</string>
   <string name="settings_item_support">지원 팀으로 연락하기</string>
+  <string name="settings_sign_in">로그인</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">전화번호를 입력하세요</string>
@@ -541,14 +542,14 @@
   <string name="subscriptions_empty_title">아직 구독이 없습니다</string>
   <string name="subscriptions_empty_body">자주사용하는 앱과 게임의 서비스에 가입하시면 정기 결제를 처리해 드립니다.</string>
   <string name="subscriptions_details_billing_title">빌링:</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">반복 결제</string>
   <string name="subscriptions_details_next_payment_title">다음 지불:</string>
   <string name="subscriptions_details_payment_method_title">지불 방법:</string>
   <string name="subscriptions_details_last_bill">최근 청구:</string>
   <string name="subscriptions_details_start_date_title">시작 일자:</string>
   <string name="subscriptions_details_cancelled_body">취소됨 - %s에 만료됩니다</string>
   <string name="subscriptions_expiration_body">%s에 만료됩니다</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">%s에서 갱신됩니다.</string>
   <string name="subscriptions_canceled_body">취소됨</string>
   <string name="subscriptions_details_disclaimer">다음 결제 금액은 환율에 따라 달라질 수 있습니다.</string>
   <string name="subscriptions_manage_button">구독 관리</string>
@@ -565,26 +566,26 @@
   <string name="subscriptions_per_week">%1$s/주</string>
   <string name="subscriptions_per_month">%1$s/월</string>
   <string name="subscriptions_per_year">%1$s/년</string>
-  <string name="subscriptions_day">/day</string>
-  <string name="subscriptions_week">/week</string>
-  <string name="subscriptions_month">/month</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_day">/일</string>
+  <string name="subscriptions_week">/주</string>
+  <string name="subscriptions_month">/월</string>
+  <string name="subscriptions_year">/년</string>
   <string name="subscriptions_per_several_day">매 %2$s 일 마다 %1$s</string>
   <string name="subscriptions_per_several_week">매 %2$s 주 마다 %1$s</string>
   <string name="subscriptions_per_several_month">매 %2$s 월 마다 %1$s</string>
   <string name="subscriptions_per_several_year">매 %2$s 년 마다 %1$s</string>
   <string name="subscriptions_error_already_subscribed">이 서비스에 이미 가입되어 있습니다! 언제든 연락 주세요.</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Canceled</string>
-  <string name="subscriptions_expired_badge">Expired</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_starting_today_body">오늘부터</string>
+  <string name="subscriptions_starting_on_body">%s에서 시작됩니다.</string>
+  <string name="subscriptions_year_free_trial_title">%s-년 무료 체험 기간</string>
+  <string name="subscriptions_month_free_trial_title">%s-개월 무료 체험 기간</string>
+  <string name="subscriptions_week_free_trial_title">%s-주 무료 체험</string>
+  <string name="subscriptions_day_free_trial_title">%s-일 무료 체험</string>
+  <string name="subscriptions_free_trial_title">무료 체험</string>
+  <string name="subscriptions_cancelled_badge">취소됨</string>
+  <string name="subscriptions_expired_badge">만료됨</string>
+  <string name="subscriptions_renew_title">%s에서 갱신됩니다.</string>
+  <string name="subscriptions_details_disclaimer_cancel">구독을 언제든지 취소할 수 있습니다. 취소 시까지 구독은 유효하며, 다음 결제일까지 계속됩니다.</string>
   <!--New Gamification-->
   <string name="gamif_title">최대 %% 보너스!</string>
   <string name="gamif_bonus_received">받은 보너스</string>
@@ -834,24 +835,41 @@
   <string name="rebranding_post_title">AppCoins 지갑이 이제 Aptoide 지갑이 되었습니다!</string>
   <string name="rebrandinh_post_body">완전히 새로운 이미지로 좋아하는 기능과 보상을 찾아보세요. 마음에 드시길 바랍니다!</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
-  <string name="app_store_screen_6">and more...</string>
+  <string name="app_store_screen_1">모바일 게이머를 위한 최고의 지갑</string>
+  <string name="app_store_screen_2">앱 내 구매를 위한 도구</string>
+  <string name="app_store_screen_3">모든 구매 시 보너스를 받으세요.</string>
+  <string name="app_store_screen_4">귀하의 선호하는 결제 방법</string>
+  <string name="app_store_screen_5">VIP가 되어 독점적인 보상을 해금하세요</string>
+  <string name="app_store_screen_6">그리고 더...</string>
   <!-- Home buttons -->
-  <string name="home_promo_code_button">Promo Code</string>
-  <string name="home_top_up_button">Top Up</string>
-  <string name="home_manage_wallet_button">Manage Wallets</string>
-  <string name="home_backup_wallet_button">Back Up Wallet</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_promo_code_button">프로모션 코드</string>
+  <string name="home_top_up_button">충전</string>
+  <string name="home_sign_in_button">로그인</string>
+  <string name="home_manage_wallet_button">지갑 관리</string>
+  <string name="home_backup_wallet_button">지갑 백업하기</string>
+  <string name="home_restore_wallet_button">지갑 복원</string>
+  <string name="home_transfer_balance_button">잔액 이체</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">디스코드 커뮤니티에 가입하세요!</string>
+  <string name="discord_card_body">동료 게이머들과 함께 즐기며 더 많은 보상을 획득하세요!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
+  <string name="available_soon_vip">곧 사용할 수 있습니다</string>
+  <string name="active_vip">활성</string>
+  <string name="vip_referral_program">VIP 추천 프로그램</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
+  <string name="available_in_vip">사용 가능</string>
+  <string name="referral_ends_in_vip">추천이 종료됩니다.</string>
+  <string name="see_less_vip">더 적게 보기</string>
+  <string name="see_more_vip">더 보기</string>
+  <string name="share_vip">공유</string>
+  <string name="share_this_code_with_your_friends_vip">친구에게 이 코드를 공유하기</string>
+  <string name="only_for_purchases_on_vip">다음에서 구매하는 경우에만 해당</string>
+  <string name="each_in_app_purchase_vip">각 인앱 구매 시 당신과 친구들에게 %1$s% 보너스가 제공되며, 7일 동안 다른 혜택도 함께 제공됩니다.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
+  <string name="promo_code_referral_program_vip">프로모션 코드는 추천 프로그램이 활성화되면 사용 가능합니다.</string>
+  <string name="referral_program_not_active_yet_vip">추천 프로그램이 아직 활성화되지 않았습니다.</string>
+  <string name="earned_from_referrals_vip">%1$s %2$s 추천을 통해 얻은 수익</string>
 </resources>

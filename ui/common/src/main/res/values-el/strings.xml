@@ -304,9 +304,9 @@
   <string name="topup_button">Φόρτιση</string>
   <string name="extra_bonus_title">Λάβετε ένα επιπρόσθετο bonus %s%%</string>
   <string name="max">Μέγιστο</string>
-  <string name="month">month</string>
-  <string name="week">week</string>
-  <string name="join_button">Join</string>
+  <string name="month">μήνας</string>
+  <string name="week">εβδομάδα</string>
+  <string name="join_button">Εγγραφή</string>
   <string name="payment_method">Μέθοδος πληρωμής</string>
   <string name="credit_debit_card">Πιστωτική/χρεωστική κάρτα</string>
   <string name="paypal">PayPal</string>
@@ -349,6 +349,7 @@
   <!--Settings-->
   <string name="title_redeem">Εξαργύρωση Δωροκάρτας</string>
   <string name="settings_item_support">Επικοινωνήστε με την Ομάδα Υποστήριξης</string>
+  <string name="settings_sign_in">Σύνδεση</string>
   <!--Local Payments-->
   <!--Wallet Verification-->
   <string name="verification_insert_phone_title">Εισαγάγετε τον αριθμό τηλεφώνου σας</string>
@@ -542,14 +543,14 @@
   <string name="subscriptions_empty_title">Δεν υπάρχουν ακόμη εγγραφές</string>
   <string name="subscriptions_empty_body">Εγγραφείτε σε υπηρεσίες των αγαπημένων σας εφαρμογών και παιχνιδιών και θα αναλάβουμε εμείς τις περιοδικές πληρωμές.</string>
   <string name="subscriptions_details_billing_title">Χρέωση:</string>
-  <string name="subscriptions_details_recurring_payment_title">Recurring Payment</string>
+  <string name="subscriptions_details_recurring_payment_title">Επαναλαμβανόμενη πληρωμή</string>
   <string name="subscriptions_details_next_payment_title">Επόμενη πληρωμή:</string>
   <string name="subscriptions_details_payment_method_title">Μέθοδος πληρωμής:</string>
   <string name="subscriptions_details_last_bill">Τελευταία χρέωση:</string>
   <string name="subscriptions_details_start_date_title">Ημερομηνία έναρξης:</string>
   <string name="subscriptions_details_cancelled_body">Ακυρώθηκε - Λήξη στις %s</string>
   <string name="subscriptions_expiration_body">Λήξη στις %s</string>
-  <string name="subscriptions_renew_body">Renews on %s</string>
+  <string name="subscriptions_renew_body">Ανανεώνεται στο %s</string>
   <string name="subscriptions_canceled_body">Ακυρώθηκε</string>
   <string name="subscriptions_details_disclaimer">Η αξία της επόμενης πληρωμής σας μπορεί να διαφέρει εξαιτίας της συναλλαγματικής ισοτιμίας.</string>
   <string name="subscriptions_manage_button">Διαχείριση εγγραφής</string>
@@ -566,26 +567,26 @@
   <string name="subscriptions_per_week">%1$s/εβδομάδα</string>
   <string name="subscriptions_per_month">%1$s/μήνα</string>
   <string name="subscriptions_per_year">%1$s/έτος</string>
-  <string name="subscriptions_day">/day</string>
-  <string name="subscriptions_week">/week</string>
-  <string name="subscriptions_month">/month</string>
-  <string name="subscriptions_year">/year</string>
+  <string name="subscriptions_day">/ημέρα</string>
+  <string name="subscriptions_week">/εβδομάδα</string>
+  <string name="subscriptions_month">/μήνας</string>
+  <string name="subscriptions_year">/έτος</string>
   <string name="subscriptions_per_several_day">%1$s κάθε %2$s ημέρες</string>
   <string name="subscriptions_per_several_week">%1$s κάθε %2$s εβδομάδες</string>
   <string name="subscriptions_per_several_month">%1$s κάθε %2$s μήνες</string>
   <string name="subscriptions_per_several_year">%1$s κάθε %2$s έτη</string>
   <string name="subscriptions_error_already_subscribed">Φαίνεται πως ήδη έχετε εγγραφεί σε αυτήν την υπηρεσία! Μη διστάσετε να επικοινωνήσετε μαζί μας.</string>
-  <string name="subscriptions_starting_today_body">Starting Today</string>
-  <string name="subscriptions_starting_on_body">Starting on %s</string>
-  <string name="subscriptions_year_free_trial_title">%s-year free trial</string>
-  <string name="subscriptions_month_free_trial_title">%s-month free trial</string>
-  <string name="subscriptions_week_free_trial_title">%s-week free trial</string>
-  <string name="subscriptions_day_free_trial_title">%s-day free trial</string>
-  <string name="subscriptions_free_trial_title">Free trial</string>
-  <string name="subscriptions_cancelled_badge">Canceled</string>
-  <string name="subscriptions_expired_badge">Expired</string>
-  <string name="subscriptions_renew_title">Renews on %s</string>
-  <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
+  <string name="subscriptions_starting_today_body">Ξεκινώντας από σήμερα</string>
+  <string name="subscriptions_starting_on_body">Ξεκινώντας από %s</string>
+  <string name="subscriptions_year_free_trial_title">%s-ετήσια δωρεάν δοκιμή</string>
+  <string name="subscriptions_month_free_trial_title">%s-μήνες δωρεάν δοκιμή</string>
+  <string name="subscriptions_week_free_trial_title">%s-εβδομάδα δωρεάν δοκιμή</string>
+  <string name="subscriptions_day_free_trial_title">%s-ημερήσια δωρεάν δοκιμή</string>
+  <string name="subscriptions_free_trial_title">Δωρεάν δοκιμή</string>
+  <string name="subscriptions_cancelled_badge">Ακυρώθηκε</string>
+  <string name="subscriptions_expired_badge">Έληξε</string>
+  <string name="subscriptions_renew_title">Ανανεώνεται στο %s</string>
+  <string name="subscriptions_details_disclaimer_cancel">Μπορείτε να ακυρώσετε τη συνδρομή σας ανά πάσα στιγμή, η οποία παραμένει ενεργή μέχρι την επόμενη πληρωμή.</string>
   <!--New Gamification-->
   <string name="gamif_title">Bonus έως %s%%!</string>
   <string name="gamif_bonus_received">Bonus που ελήφθη</string>
@@ -841,24 +842,41 @@
   <string name="rebranding_post_title">Το AppCoins Wallet τώρα είναι το Aptoide Wallet!</string>
   <string name="rebrandinh_post_body">Ανακαλύψτε τα αγαπημένα σας χαρακτηριστικά και ανταμοιβές με μια ολοκαίνουργια εμφάνιση! Ελπίζουμε να σας αρέσει!</string>
   <!-- App store screenshots -->
-  <string name="app_store_screen_1">The best Wallet for Mobile Gamers</string>
-  <string name="app_store_screen_2">Your tool for in-app purchases</string>
-  <string name="app_store_screen_3">Receive a bonus in all purchases</string>
-  <string name="app_store_screen_4">Your favorite payment methods</string>
-  <string name="app_store_screen_5">Become a VIP and unlock exclusive rewards</string>
-  <string name="app_store_screen_6">and more...</string>
+  <string name="app_store_screen_1">Το καλύτερο πορτοφόλι για παίκτες κινητών παιχνιδιών</string>
+  <string name="app_store_screen_2">Το εργαλείο σας για αγορές εντός της εφαρμογής</string>
+  <string name="app_store_screen_3">Λάβετε μπόνους σε όλες τις αγορές</string>
+  <string name="app_store_screen_4">Οι αγαπημένοι σας τρόποι πληρωμής</string>
+  <string name="app_store_screen_5">Γίνετε VIP και ξεκλειδώστε αποκλειστικές ανταμοιβές</string>
+  <string name="app_store_screen_6">και άλλα...</string>
   <!-- Home buttons -->
-  <string name="home_promo_code_button">Promo Code</string>
-  <string name="home_top_up_button">Top Up</string>
-  <string name="home_manage_wallet_button">Manage Wallets</string>
-  <string name="home_backup_wallet_button">Back Up Wallet</string>
-  <string name="home_restore_wallet_button">Restore Wallet</string>
-  <string name="home_transfer_balance_button">Transfer Balance</string>
+  <string name="home_promo_code_button">Κωδικός Προσφοράς</string>
+  <string name="home_top_up_button">Φόρτιση</string>
+  <string name="home_sign_in_button">Σύνδεση</string>
+  <string name="home_manage_wallet_button">Διαχείριση Wallet</string>
+  <string name="home_backup_wallet_button">Αντίγραφο Ασφαλείας Wallet</string>
+  <string name="home_restore_wallet_button">Επαναφορά πορτοφολιού</string>
+  <string name="home_transfer_balance_button">Μεταφορά υπολοίπου</string>
   <!-- Discord -->
-  <string name="discord_card_title">Join Our Discord Community!</string>
-  <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_title">Γίνετε μέλος της κοινότητας Discord!</string>
+  <string name="discord_card_body">Χαλαρώστε με άλλους παίκτες και ξεκλειδώστε ακόμα περισσότερες ανταμοιβές!</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
+  <string name="available_soon_vip">Σύντομα διαθέσιμο</string>
+  <string name="active_vip">Ενεργές</string>
+  <string name="vip_referral_program">Πρόγραμμα παραπομπής VIP</string>
+  <string name="bonus_for_you_vip">%1$s%% Bonus for you and your friends.</string>
+  <string name="available_in_vip">Διαθέσιμο σε</string>
+  <string name="referral_ends_in_vip">Η παραπομπή λήγει σε</string>
+  <string name="see_less_vip">Δείτε λιγότερα</string>
+  <string name="see_more_vip">Δείτε περισσότερα</string>
+  <string name="share_vip">Κοινοποίηση</string>
+  <string name="share_this_code_with_your_friends_vip">Μοιραστείτε αυτόν τον κωδικό με τους φίλους σας</string>
+  <string name="only_for_purchases_on_vip">Μόνο για αγορές στο</string>
+  <string name="each_in_app_purchase_vip">Κάθε αγορά εντός της εφαρμογής προσφέρει σε εσάς και τους φίλους σας ένα μπόνους %1$s, καθώς και άλλες προσφορές για 7 ημέρες.</string>
+  <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
+  <string name="promo_code_referral_program_vip">Ο κωδικός προσφοράς θα λειτουργήσει μόλις ενεργοποιηθεί το πρόγραμμα παραπομπής.</string>
+  <string name="referral_program_not_active_yet_vip">Το πρόγραμμα παραπομπής δεν είναι ακόμη ενεργό</string>
+  <string name="earned_from_referrals_vip">%1$s κερδισμένα από %2$s παραπομπές</string>
 </resources>

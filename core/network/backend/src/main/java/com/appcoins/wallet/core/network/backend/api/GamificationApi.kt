@@ -1,6 +1,10 @@
 package com.appcoins.wallet.core.network.backend.api
 
-import com.appcoins.wallet.core.network.backend.model.*
+import com.appcoins.wallet.core.network.backend.model.ForecastBonusResponse
+import com.appcoins.wallet.core.network.backend.model.LevelsResponse
+import com.appcoins.wallet.core.network.backend.model.ReferralResponse
+import com.appcoins.wallet.core.network.backend.model.UserStatusResponse
+import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -16,7 +20,10 @@ interface GamificationApi {
   ): Single<UserStatusResponse>
 
   @GET("gamification/levels")
-  fun getLevels(@Query("address") address: String, @Query("currency") currency: String?): Single<LevelsResponse>
+  fun getLevels(
+    @Query("address") address: String,
+    @Query("currency") currency: String?
+  ): Single<LevelsResponse>
 
   @GET("gamification/bonus_forecast")
   fun getForecastBonus(
@@ -31,8 +38,9 @@ interface GamificationApi {
   @GET("gamification/referral_info")
   fun getReferralInfo(): Single<ReferralResponse>
 
-  @GET("gamification/1.20240305/perks/promo_code/")
+  @GET("gamification/1.20250718/perks/promo_code/")
   fun getVipReferral(
-    @Query("wallet") wallet: String
+    @Query("wallet") wallet: String,
+    @Query("currency") currency: String,
   ): Single<VipReferralResponse>
 }

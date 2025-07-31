@@ -67,7 +67,7 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
   private fun getSignature(callingPackage: String): String {
     val signature = StringBuilder()
     for (sig in packageManager
-      .getPackageInfo(callingPackage, PackageManager.GET_SIGNATURES).signatures) {
+      .getPackageInfo(callingPackage, PackageManager.GET_SIGNATURES).signatures ?: emptyArray()) {
       signature.append(String(sig.toByteArray()))
     }
     return signature.toString()

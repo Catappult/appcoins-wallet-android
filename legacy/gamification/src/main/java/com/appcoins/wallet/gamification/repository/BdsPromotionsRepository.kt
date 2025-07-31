@@ -11,6 +11,8 @@ import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.appcoins.wallet.core.network.backend.model.UserStatusResponse
 import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import io.reactivex.Observable
@@ -27,7 +29,8 @@ import javax.inject.Inject
 class BdsPromotionsRepository @Inject constructor(
   private val api: GamificationApi,
   private val local: UserStatsLocalData,
-  private val fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
+  private val fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource,
+  private val formatter: CurrencyFormatUtils,
 ) :
   PromotionsRepository {
 
@@ -74,7 +77,12 @@ class BdsPromotionsRepository @Inject constructor(
     promoCodeString: String?,
     useDbOnError: Boolean = false
   ): Observable<UserStats> =
-    api.getUserStats(wallet, Locale.getDefault().language, promoCodeString, fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency())
+    api.getUserStats(
+      wallet,
+      Locale.getDefault().language,
+      promoCodeString,
+      fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
+    )
       .subscribeOn(Schedulers.io())
       .map { filterByDate(it) }
       .flatMapObservable {
@@ -164,12 +172,13 @@ class BdsPromotionsRepository @Inject constructor(
     wallet: String,
     promoCodeString: String?,
     offlineFirst: Boolean
-  ): Observable<PromotionsGamificationStats> = getUserStatsFromResponses(wallet, promoCodeString, offlineFirst)
-    .map {
-      val gamificationStats = mapToGamificationStats(it)
-      if (!it.fromCache && it.error == null) local.setGamificationLevel(gamificationStats.level)
-      gamificationStats
-    }
+  ): Observable<PromotionsGamificationStats> =
+    getUserStatsFromResponses(wallet, promoCodeString, offlineFirst)
+      .map {
+        val gamificationStats = mapToGamificationStats(it)
+        if (!it.fromCache && it.error == null) local.setGamificationLevel(gamificationStats.level)
+        gamificationStats
+      }
 
   override fun getGamificationLevel(wallet: String, promoCodeString: String?): Single<Int> =
     getUserStats(wallet, promoCodeString)
@@ -358,10 +367,17 @@ class BdsPromotionsRepository @Inject constructor(
   private fun isNoNetworkException(throwable: Throwable): Boolean = throwable is IOException ||
       throwable.cause != null && throwable.cause is IOException
 
-  override fun getVipReferral(wallet: String): Single<VipReferralResponse> =
-    api.getVipReferral(wallet)
+  override fun getVipReferral(wallet: String): Single<VipReferralResponse> {
+    val currency = fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency() ?: "USD"
+    val currencySymbol =
+      fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrencySymbol() ?: "$"
+    return api.getVipReferral(
+      wallet = wallet,
+      currency = currency
+    )
       .subscribeOn(Schedulers.io())
       .onErrorReturn { VipReferralResponse.invalidReferral }
+  }
 
   override fun isVipCalloutAlreadySeen(wallet: String): Boolean =
     local.isVipCalloutAlreadySeen(wallet)
