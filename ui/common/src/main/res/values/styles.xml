@@ -21,6 +21,7 @@
     <item name="actionMenuTextColor">@color/styleguide_white</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowContentTransitions">true</item>
+    <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
 
     <item name="android:windowBackground">@color/white</item>
     <item name="colorSecondaryContainer">@android:color/transparent</item>
