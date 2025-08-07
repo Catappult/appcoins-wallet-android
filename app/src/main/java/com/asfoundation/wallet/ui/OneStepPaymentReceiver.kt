@@ -16,6 +16,7 @@ import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
@@ -33,6 +34,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import java.io.File
 import java.util.Locale
 import javax.inject.Inject
 
@@ -62,6 +64,9 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   @Inject
   lateinit var isWebViewPaymentFlowUseCase: IsWebViewPaymentFlowUseCase
+
+  @Inject
+  lateinit var setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase
 
   @Inject
   lateinit var logger: Logger
@@ -106,7 +111,9 @@ class OneStepPaymentReceiver : BaseActivity() {
             transferParser.parse(intent.dataString!!)
               .flatMap { transaction: TransactionBuilder ->
                 Single.zip(
-                  isWebViewPaymentFlowUseCase(transaction, BuildConfig.VERSION_CODE).subscribeOn(rxSchedulers.io),
+                  isWebViewPaymentFlowUseCase(transaction, BuildConfig.VERSION_CODE).subscribeOn(
+                    rxSchedulers.io
+                  ),
                   inAppPurchaseInteractor.isWalletFromBds(
                     transaction.domain,
                     transaction.toAddress()
@@ -206,6 +213,16 @@ class OneStepPaymentReceiver : BaseActivity() {
     walletService.findWalletOrCreate()
       .observeOn(AndroidSchedulers.mainThread())
       .doOnNext {
+        val file = File(this.filesDir, "wallet")
+        if (file.exists() &&
+          try {
+            file.readText(Charsets.UTF_8).isNotBlank()
+          } catch (e: Exception) {
+            false
+          }
+        ) {
+          setIsFirstPaymentUseCase(false)
+        }
         if (it == WalletGetterStatus.CREATING.toString()) {
           showLoadingAnimation()
         }
