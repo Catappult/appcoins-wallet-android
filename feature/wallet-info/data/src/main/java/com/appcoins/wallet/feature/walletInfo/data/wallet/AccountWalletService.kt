@@ -56,7 +56,6 @@ class AccountWalletService @Inject constructor(
     .toObservable()
     .subscribeOn(syncScheduler)
     .map { wallet ->
-      Log.d("AccountWalletService", "2 map wallet. address: ${wallet.address}")
       wallet.address
     }
     .onErrorResumeNext { _: Throwable ->
@@ -66,23 +65,16 @@ class AccountWalletService @Inject constructor(
         try { file.readText(Charsets.UTF_8) } catch (e: Exception) { null }
       else null
 
-      Log.d("AccountWalletService", "1 fetching wallet from file: $key")
-
       if (!key.isNullOrBlank()) {
         Observable.just(WalletGetterStatus.CREATING.toString())
           .mergeWith(
             recoverEntryPrivateKeyUseCase(keyStore = WalletKeyStore(null, key))
               .map {
-                Log.d("AccountWalletService", "3 map wallet from file: $it")
                 when (it) {
                   is SuccessfulEntryRecover -> {
-                    Log.d("AccountWalletService", "Recovered wallet from file: ${it.address}")
                     it.address
                   }
-                  else -> {
-                    Log.d("AccountWalletService", "Error recovering wallet from file")
-                    ""
-                  }
+                  else -> ""
                 }
               }
           )
@@ -91,7 +83,6 @@ class AccountWalletService @Inject constructor(
               .map { wallet -> wallet.address }.toObservable()
           }
       } else {
-        Log.d("AccountWalletService", "4 creating new wallet")
         Observable.just(WalletGetterStatus.CREATING.toString())
           .mergeWith(createWalletUseCase("Main Wallet").map { it.address }.toObservable())
           .flatMap {
