@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.service
 
+import android.content.Context
 import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService
 import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
@@ -9,6 +10,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepos
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.CreateWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetPrivateKeyUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RecoverEntryPrivateKeyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RegisterFirebaseTokenUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SignUseCase
 import io.reactivex.Completable
@@ -31,6 +33,9 @@ class AccountWalletServiceTest {
   private val signUseCase = SignUseCase()
 
   @Mock
+  lateinit var context: Context
+
+  @Mock
   lateinit var accountKeyService: AccountKeystoreService
 
   @Mock
@@ -46,6 +51,9 @@ class AccountWalletServiceTest {
 
   @Mock
   lateinit var registerFirebaseTokenUseCase: RegisterFirebaseTokenUseCase
+
+  @Mock
+  lateinit var recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase
 
   @Mock
   lateinit var walletRepositoryType: WalletRepositoryType
@@ -81,7 +89,9 @@ class AccountWalletServiceTest {
       getPrivateKeyUseCase = getPrivateKeyUseCase,
       signUseCase = signUseCase,
       createWalletUseCase = createWalletUseCase,
-      getCurrentWalletUseCase = getCurrentWalletUseCase
+      getCurrentWalletUseCase = getCurrentWalletUseCase,
+      context = context,
+      recoverEntryPrivateKeyUseCase = recoverEntryPrivateKeyUseCase,
     )
   }
 

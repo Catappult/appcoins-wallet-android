@@ -12,6 +12,7 @@ import com.appcoins.wallet.core.walletservices.WalletService
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityIabWalletCreationBinding
+import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.PRODUCT_NAME
@@ -28,7 +29,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -56,6 +56,9 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   lateinit var isWebViewPaymentFlowUseCase: IsWebViewPaymentFlowUseCase
 
   @Inject
+  lateinit var setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase
+
+  @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
   @Inject
@@ -81,9 +84,9 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     setContentView(R.layout.activity_iab_wallet_creation)
     val productName = intent.extras?.getString(PRODUCT_NAME, "")
     presenter =
-        Erc681ReceiverPresenter(
-          view = this,
-          transferParser = transferParser,
+      Erc681ReceiverPresenter(
+        view = this,
+        transferParser = transferParser,
         inAppPurchaseInteractor = inAppPurchaseInteractor,
         walletService = walletService,
         data = intent.dataString!!,
@@ -93,11 +96,13 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         partnerAddressService = partnerAddressService,
         createWebViewPaymentSdkUseCase = createWebViewPaymentSdkUseCase,
         isWebViewPaymentFlowUseCase = isWebViewPaymentFlowUseCase,
+        setIsFirstPaymentUseCase = setIsFirstPaymentUseCase,
         rxSchedulers = rxSchedulers,
         billingAnalytics = billingAnalytics,
         addressService = partnerAddressService,
         logger = logger,
-        appVersionCode = BuildConfig.VERSION_CODE
+        appVersionCode = BuildConfig.VERSION_CODE,
+        context = this,
       )
 
     CoroutineScope(Dispatchers.Main).launch {

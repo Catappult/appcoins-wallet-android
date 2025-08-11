@@ -204,7 +204,7 @@ internal class TopUpDefaultValueUseCaseTest {
       userId: String,
       profileData: Map<String, Any>
     ): FeatureFlag? {
-      return data.removeFirst()
+      return if (data.isEmpty()) null else data.removeAt(0)
     }
 
     override suspend fun sendImpression(flagId: String, userId: String) {

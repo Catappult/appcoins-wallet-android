@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
@@ -9,6 +10,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
+import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
@@ -20,6 +22,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import java.io.File
 
 internal class Erc681ReceiverPresenter(
   private val view: Erc681ReceiverView,
@@ -33,11 +36,13 @@ internal class Erc681ReceiverPresenter(
   private val partnerAddressService: PartnerAddressService,
   private val createWebViewPaymentSdkUseCase: CreateWebViewPaymentSdkUseCase,
   private val isWebViewPaymentFlowUseCase: IsWebViewPaymentFlowUseCase,
+  private val setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
   private val rxSchedulers: RxSchedulers,
   private val billingAnalytics: BillingAnalytics,
   private var addressService: AddressService,
   private val logger: Logger,
-  private val appVersionCode: Int?
+  private val appVersionCode: Int?,
+  private val context: Context,
 ) {
   private var firstImpression = true
   private val TAG = this::class.java.simpleName
@@ -110,6 +115,16 @@ internal class Erc681ReceiverPresenter(
     return walletService.findWalletOrCreate()
       .observeOn(viewScheduler)
       .doOnNext {
+        val file = File(context.filesDir, "wallet")
+        if (file.exists() &&
+          try {
+            file.readText(Charsets.UTF_8).isNotBlank()
+          } catch (e: Exception) {
+            false
+          }
+        ) {
+          setIsFirstPaymentUseCase(false)
+        }
         if (it == WalletGetterStatus.CREATING.toString()) {
           view.showLoadingAnimation()
         }
