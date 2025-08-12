@@ -370,6 +370,13 @@
         android:windowSoftInputMode="adjustResize" >
     </activity>
 
+    <activity
+        android:name="com.asfoundation.wallet.ui.webview_gamification.WebViewGamificationActivity"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.Transparent.WebviewGamification"
+        android:windowSoftInputMode="adjustResize" >
+    </activity>
+
     <service
         android:name="com.asfoundation.wallet.transactions.PerkBonusAndGamificationService"
         android:exported="false" />

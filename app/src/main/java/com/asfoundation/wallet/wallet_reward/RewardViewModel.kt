@@ -22,6 +22,7 @@ import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.ui.webview_gamification.usecases.GenerateWebGamificationUrlUseCase
 import com.github.michaelbull.result.get
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.rx2.rxSingle
@@ -29,6 +30,7 @@ import javax.inject.Inject
 
 sealed class RewardSideEffect : SideEffect {
   data class NavigateToSettings(val turnOnFingerprint: Boolean = false) : RewardSideEffect()
+  data class NavigateToWebGamification(val url: String) : RewardSideEffect()
 }
 
 data class RewardState(
@@ -45,9 +47,9 @@ class RewardViewModel @Inject constructor(
   private val getPromotionsUseCase: GetPromotionsUseCase,
   private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
   private val gamificationInteractor: GamificationInteractor,
+  private val generateWebGamificationUrlUseCase: GenerateWebGamificationUrlUseCase,
   private val rxSchedulers: RxSchedulers,
   private val dispatchers: Dispatchers,
-
   private val compatibleAppsAnalytics: CompatibleAppsAnalytics,
   private val getSelectedCurrencySymbolUseCase: GetSelectedCurrencySymbolUseCase
 ) : BaseViewModel<RewardState, RewardSideEffect>(initialState()) {
@@ -117,5 +119,21 @@ class RewardViewModel @Inject constructor(
 
   fun referenceSendPromotionClickEvent(): (String?, String) -> Unit {
     return compatibleAppsAnalytics::sendPromotionClickEvent
+  }
+
+  fun getUrlAndOpenGamification() {
+    gamificationInteractor.getUserStats()
+      .flatMapSingle { userStats ->
+        generateWebGamificationUrlUseCase(
+          userStatsBonusReceived = userStats.totalEarned,
+          userStatsAmount = userStats.totalSpend,
+          userStatsLevel = userStats.level
+        )
+      }
+      .subscribeOn(rxSchedulers.io)
+      .doOnNext { url ->
+        sendSideEffect { RewardSideEffect.NavigateToWebGamification(url) }
+      }
+      .scopedSubscribe()
   }
 }
