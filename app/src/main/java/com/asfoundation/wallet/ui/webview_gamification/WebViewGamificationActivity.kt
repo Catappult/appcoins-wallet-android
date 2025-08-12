@@ -170,7 +170,7 @@ class WebViewGamificationActivity : AppCompatActivity() {
             onErrorCallback = {},
             openVerifyFlowCallback = {},
             setPromoCodeCallback = {},
-            onLoginCallback = {_,_ -> },
+            onLoginCallback = { _, _ -> },
             goToUrlCallback = { url ->
               loadUrl(url)
             },

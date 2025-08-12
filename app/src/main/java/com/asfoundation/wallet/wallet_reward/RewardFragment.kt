@@ -1,10 +1,13 @@
 package com.asfoundation.wallet.wallet_reward
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -69,6 +72,7 @@ import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.PAR
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.PARTNER_NO_BONUS
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.UNKNOWN
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
+import com.asfoundation.wallet.ui.webview_gamification.WebViewGamificationActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
@@ -102,6 +106,17 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   @Inject
   lateinit var buttonsAnalytics: ButtonsAnalytics
   private val fragmentName = this::class.java.simpleName
+
+  private val openGamificationLauncher =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      when (result.resultCode) {
+        Activity.RESULT_OK -> {}
+
+        Activity.RESULT_CANCELED -> {}
+
+        else -> {}
+      }
+    }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -292,7 +307,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   fun GamificationHeaderAptoide(gamificationHeader: GamificationHeaderModel) {
     with(gamificationHeader) {
       GamificationHeader(
-        onClick = { navigator.navigateToGamification(cachedBonus = this.bonusPercentage) },
+        onClick = { viewModel.getUrlAndOpenGamification() },
         indicatorColor = Color(color),
         valueSpendForNextLevel = spendMoreAmount,
         currencySpend = currency ?: "",
@@ -326,6 +341,10 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     when (sideEffect) {
       is RewardSideEffect.NavigateToSettings ->
         navigator.navigateToSettings(navController(), sideEffect.turnOnFingerprint)
+
+      is RewardSideEffect.NavigateToWebGamification -> {
+        launchGamification(sideEffect.url)
+      }
     }
   }
 
@@ -405,6 +424,14 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     } else {
       viewModel.gamificationHeaderModel.value = null
     }
+  }
+
+  private fun launchGamification(
+    url: String
+  ) {
+    val intent = Intent(requireContext(), WebViewGamificationActivity::class.java)
+    intent.putExtra(WebViewGamificationActivity.URL, url)
+    openGamificationLauncher.launch(intent)
   }
 
   private fun navController(): NavController {

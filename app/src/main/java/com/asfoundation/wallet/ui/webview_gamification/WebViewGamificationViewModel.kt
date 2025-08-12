@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.webview_gamification
 
 import android.webkit.WebView
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -27,21 +26,6 @@ class WebViewGamificationViewModel @Inject constructor(
   var runningCustomTab = false
   var isFirstRun: Boolean = true
   var webView: WebView? = null
-
-  fun fetchUserKey(authToken: String) {
-    CompositeDisposable().add(
-      fetchUserKeyUseCase(authToken)
-        .subscribeOn(rxSchedulers.io)
-        .observeOn(rxSchedulers.io)
-        .subscribe({
-          _uiState.value = UiState.FinishActivity
-        }, {
-          it.printStackTrace()
-          logger.log(TAG, "error in fetchUserKey: ${it.message}", it)
-          _uiState.value = UiState.FinishWithError
-        })
-    )
-  }
 
 
   sealed class UiState {
