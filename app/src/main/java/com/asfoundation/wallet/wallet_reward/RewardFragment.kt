@@ -24,6 +24,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -75,6 +79,8 @@ import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.asfoundation.wallet.ui.webview_gamification.WebViewGamificationActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import javax.inject.Inject
 
@@ -305,9 +311,24 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   @Composable
   fun GamificationHeaderAptoide(gamificationHeader: GamificationHeaderModel) {
+    var coolingDown by rememberSaveable { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    val cooldownMs = 800L
+
     with(gamificationHeader) {
       GamificationHeader(
-        onClick = { viewModel.getUrlAndOpenGamification() },
+        onClick = {
+          if (coolingDown) return@GamificationHeader
+          coolingDown = true
+          viewModel.getUrlAndOpenGamification()
+          scope.launch {
+            try {
+              delay(cooldownMs)
+            } finally {
+              coolingDown = false
+            }
+          }
+        },
         indicatorColor = Color(color),
         valueSpendForNextLevel = spendMoreAmount,
         currencySpend = currency ?: "",

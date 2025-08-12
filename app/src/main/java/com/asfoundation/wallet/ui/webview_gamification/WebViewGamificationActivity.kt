@@ -25,6 +25,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -34,11 +36,14 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
+import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
+import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentInterface
@@ -68,6 +73,10 @@ class WebViewGamificationActivity : AppCompatActivity() {
   @Inject
   lateinit var commonsPreferencesDataSource: CommonsPreferencesDataSource
 
+  @Inject lateinit var buttonsAnalytics: ButtonsAnalytics
+
+  private val screenName = this::class.java.simpleName
+
   lateinit var userAgentInterceptor: UserAgentInterceptor
 
   private var webViewInstance: WebView? = null
@@ -86,7 +95,6 @@ class WebViewGamificationActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setResult(Activity.RESULT_CANCELED, Intent())
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
-    overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay)
     setKeyboardListener()
     userAgentInterceptor = UserAgentInterceptor(context, commonsPreferencesDataSource)
 
@@ -141,6 +149,7 @@ class WebViewGamificationActivity : AppCompatActivity() {
     Log.d("WebViewGamification", "starting Gamification url: $url")
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
+
     val webView = remember {
       viewModel.webView ?: WebView(context).apply {
         setBackgroundColor(context.resources.getColor(R.color.transparent))
@@ -171,9 +180,7 @@ class WebViewGamificationActivity : AppCompatActivity() {
             openVerifyFlowCallback = {},
             setPromoCodeCallback = {},
             onLoginCallback = { _, _ -> },
-            goToUrlCallback = { url ->
-              loadUrl(url)
-            },
+            goToUrlCallback = { url -> loadUrl(url) },
           ),
           "WebViewPaymentInterface"
         )
@@ -193,33 +200,48 @@ class WebViewGamificationActivity : AppCompatActivity() {
       }
     }
 
-    BackHandler(enabled = true) {
-      finish()
-    }
+    BackHandler(enabled = true) { finish() }
+
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-    Column(
-      modifier = Modifier
-        .fillMaxSize()
-        .padding(horizontal = if (isLandscape) 56.dp else 0.dp)
-    ) {
-      AndroidView(
+
+    Scaffold(
+      topBar = {
+        Surface {
+          TopBar(
+            isMainBar = false,
+            onClickSupport = { viewModel.displayChat() },
+            fragmentName = screenName,
+            buttonsAnalytics = buttonsAnalytics
+          )
+        }
+      },
+      containerColor = WalletColors.styleguide_dark
+    ) { padding ->
+      Column(
         modifier = Modifier
-          .fillMaxWidth()
-          .background(styleguide_light_grey),
-        factory = { webView }
-      )
-      when (val uiState = viewModel.uiState.collectAsState().value) {
-        is WebViewGamificationViewModel.UiState.FinishActivity -> {
-          Log.d(TAG, "FinishActivity")
-          finishActivity()
-        }
+          .fillMaxSize()
+          .padding(horizontal = if (isLandscape) 56.dp else 0.dp)
+          .padding(padding)
+      ) {
+        AndroidView(
+          modifier = Modifier
+            .fillMaxWidth()
+            .weight(1f)
+            .background(styleguide_light_grey),
+          factory = { webView }
+        )
 
-        is WebViewGamificationViewModel.UiState.FinishWithError -> {
-          Log.d(TAG, "FinishWithError")
-          finishWithError()
+        when (val uiState = viewModel.uiState.collectAsState().value) {
+          is WebViewGamificationViewModel.UiState.FinishActivity -> {
+            Log.d(TAG, "FinishActivity")
+            finishActivity()
+          }
+          is WebViewGamificationViewModel.UiState.FinishWithError -> {
+            Log.d(TAG, "FinishWithError")
+            finishWithError()
+          }
+          else -> {}
         }
-
-        else -> {}
       }
     }
   }
@@ -236,7 +258,6 @@ class WebViewGamificationActivity : AppCompatActivity() {
 
   override fun finish() {
     super.finish()
-    overridePendingTransition(R.anim.stay, R.anim.slide_out_bottom)
   }
 
   private fun isDarkModeEnabled(context: Context): Boolean {

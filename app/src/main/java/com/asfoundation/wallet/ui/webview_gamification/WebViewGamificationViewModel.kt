@@ -4,6 +4,7 @@ import android.webkit.WebView
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.ui.webview_login.usecases.FetchUserKeyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class WebViewGamificationViewModel @Inject constructor(
   private val rxSchedulers: RxSchedulers,
   private val fetchUserKeyUseCase: FetchUserKeyUseCase,
+  private val displayChatUseCase: DisplayChatUseCase,
   private val logger: Logger,
 ) : ViewModel() {
 
@@ -27,6 +29,9 @@ class WebViewGamificationViewModel @Inject constructor(
   var isFirstRun: Boolean = true
   var webView: WebView? = null
 
+  fun displayChat() {
+    displayChatUseCase()
+  }
 
   sealed class UiState {
     data object FinishActivity : UiState()
