@@ -22,6 +22,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
@@ -67,6 +68,9 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   @Inject
   lateinit var setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase
+
+  @Inject
+  lateinit var generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase
 
   @Inject
   lateinit var logger: Logger
@@ -224,7 +228,7 @@ class OneStepPaymentReceiver : BaseActivity() {
           setIsFirstPaymentUseCase(false)
         }
         if (it == WalletGetterStatus.CREATING.toString()) {
-          showLoadingAnimation()
+          showLoadingAnimation(generateWebLoginUrlUseCase.isCloudGaming())
         }
       }
       .filter { it != WalletGetterStatus.CREATING.toString() }
@@ -242,10 +246,10 @@ class OneStepPaymentReceiver : BaseActivity() {
     walletCreationAnimation!!.removeAllLottieOnCompositionLoadedListener()
   }
 
-  private fun showLoadingAnimation() {
+  private fun showLoadingAnimation(isCloudGaming: Boolean) {
     walletCreationAnimation!!.visibility = View.VISIBLE
     walletCreationCard!!.visibility = View.VISIBLE
-    walletCreationText!!.visibility = View.VISIBLE
+    walletCreationText!!.visibility = if (isCloudGaming) View.INVISIBLE else View.VISIBLE
     walletCreationAnimation!!.playAnimation()
   }
 

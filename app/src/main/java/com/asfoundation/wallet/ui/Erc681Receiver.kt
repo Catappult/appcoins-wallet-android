@@ -19,6 +19,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity.Companion.PRODUCT_NAME
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
@@ -59,6 +60,9 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   lateinit var setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase
 
   @Inject
+  lateinit var generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase
+
+  @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
   @Inject
@@ -97,6 +101,7 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         createWebViewPaymentSdkUseCase = createWebViewPaymentSdkUseCase,
         isWebViewPaymentFlowUseCase = isWebViewPaymentFlowUseCase,
         setIsFirstPaymentUseCase = setIsFirstPaymentUseCase,
+        generateWebLoginUrlUseCase = generateWebLoginUrlUseCase,
         rxSchedulers = rxSchedulers,
         billingAnalytics = billingAnalytics,
         addressService = partnerAddressService,
@@ -160,10 +165,10 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     binding.createWalletAnimation.removeAllLottieOnCompositionLoadedListener()
   }
 
-  override fun showLoadingAnimation() {
+  override fun showLoadingAnimation(isCloudGaming: Boolean) {
     binding.createWalletAnimation.visibility = View.VISIBLE
     binding.createWalletCard.visibility = View.VISIBLE
-    binding.createWalletText.visibility = View.VISIBLE
+    binding.createWalletText.visibility = if (isCloudGaming) View.INVISIBLE else View.VISIBLE
     binding.createWalletAnimation.playAnimation()
   }
 
