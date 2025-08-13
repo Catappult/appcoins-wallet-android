@@ -12,7 +12,7 @@ internal interface Erc681ReceiverView {
 
   fun endAnimation()
 
-  fun showLoadingAnimation()
+  fun showLoadingAnimation(isCloudGaming: Boolean)
 
   fun launchWebViewPayment(url: String, transaction: TransactionBuilder, type: String)
 }
