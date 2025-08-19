@@ -124,7 +124,7 @@ class SandboxViewModel @Inject constructor(
           {
             when (it.status) {
               PaymentModel.Status.COMPLETED -> {
-                getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
+                getSuccessBundle(it.hash, null, it.purchaseUid, transactionBuilder)
               }
 
               PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
@@ -158,77 +158,84 @@ class SandboxViewModel @Inject constructor(
     transactionBuilder: TransactionBuilder
   ) {
     sendPaymentSuccessEvent(transactionBuilder, purchaseUid ?: "")
-    createSuccessBundleUseCase(
-      transactionBuilder.type,
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      purchaseUid,
-      orderReference,
-      hash,
-      networkScheduler
-    )
-      .doOnSuccess {
-        sendPaymentEvent(transactionBuilder)
+    compositeDisposable.add(
+      createSuccessBundleUseCase(
+        transactionBuilder.type,
+        transactionBuilder.domain,
+        transactionBuilder.skuId,
+        purchaseUid,
+        orderReference,
+        hash,
+        networkScheduler
+      )
+        .doOnSuccess {
+          sendPaymentEvent(transactionBuilder)
 //        sendRevenueEvent(transactionBuilder)
-        _state.postValue(State.SuccessPurchase(it.bundle))
-      }
-      .subscribeOn(viewScheduler)
-      .observeOn(viewScheduler)
-      .doOnError {
-        _state.postValue(State.Error(R.string.unknown_error))
-      }
-      .subscribe()
+          _state.postValue(State.SuccessPurchase(it.bundle))
+        }
+        .subscribeOn(viewScheduler)
+        .observeOn(viewScheduler)
+        .doOnError {
+          _state.postValue(State.Error(R.string.unknown_error))
+        }
+        .subscribe({}, { error ->
+          Log.e(TAG, "Error creating success bundle", error)
+        })
+    )
   }
 
   private fun sendPaymentConfirmationEvent(transactionBuilder: TransactionBuilder) {
-    compositeDisposable.add(Single.just(transactionBuilder)
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .subscribe { it ->
-        analytics.sendPaymentConfirmationEvent(
-          it.domain,
-          it.skuId,
-          it.amount().toString(),
-          BillingAnalytics.PAYMENT_METHOD_SANDBOX,
-          it.type,
-          BillingAnalytics.ACTION_BUY
-        )
-      }
+    compositeDisposable.add(
+      Single.just(transactionBuilder)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .subscribe { it ->
+          analytics.sendPaymentConfirmationEvent(
+            it.domain,
+            it.skuId,
+            it.amount().toString(),
+            BillingAnalytics.PAYMENT_METHOD_SANDBOX,
+            it.type,
+            BillingAnalytics.ACTION_BUY
+          )
+        }
     )
   }
 
   private fun sendPaymentEvent(transactionBuilder: TransactionBuilder) {
-    compositeDisposable.add(Single.just(transactionBuilder)
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .subscribe { it ->
-        stopTimingForPurchaseEvent(true)
-        analytics.sendPaymentEvent(
-          it.domain,
-          it.skuId,
-          it.amount().toString(),
-          BillingAnalytics.PAYMENT_METHOD_SANDBOX,
-          it.type
-        )
-      }
+    compositeDisposable.add(
+      Single.just(transactionBuilder)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .subscribe { it ->
+          stopTimingForPurchaseEvent(true)
+          analytics.sendPaymentEvent(
+            it.domain,
+            it.skuId,
+            it.amount().toString(),
+            BillingAnalytics.PAYMENT_METHOD_SANDBOX,
+            it.type
+          )
+        }
     )
   }
 
   private fun sendPaymentSuccessEvent(transactionBuilder: TransactionBuilder, txId: String) {
-    compositeDisposable.add(Single.just(transactionBuilder)
-      .observeOn(networkScheduler)
-      .doOnSuccess { transaction ->
-        analytics.sendPaymentSuccessEvent(
-          packageName = transactionBuilder.domain,
-          skuDetails = transaction.skuId,
-          value = transaction.amount().toString(),
-          purchaseDetails = BillingAnalytics.PAYMENT_METHOD_SANDBOX,
-          transactionType = transaction.type,
-          txId = txId,
-          valueUsd = transaction.amountUsd.toString()
-        )
-      }
-      .subscribe({}, { it.printStackTrace() })
+    compositeDisposable.add(
+      Single.just(transactionBuilder)
+        .observeOn(networkScheduler)
+        .doOnSuccess { transaction ->
+          analytics.sendPaymentSuccessEvent(
+            packageName = transactionBuilder.domain,
+            skuDetails = transaction.skuId,
+            value = transaction.amount().toString(),
+            purchaseDetails = BillingAnalytics.PAYMENT_METHOD_SANDBOX,
+            transactionType = transaction.type,
+            txId = txId,
+            valueUsd = transaction.amountUsd.toString()
+          )
+        }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -237,22 +244,23 @@ class SandboxViewModel @Inject constructor(
     errorMessage: String?,
     transactionBuilder: TransactionBuilder
   ) {
-    compositeDisposable.add(Single.just(transactionBuilder)
-      .observeOn(networkScheduler)
-      .doOnSuccess { transaction ->
-        stopTimingForPurchaseEvent(false)
-        analytics.sendPaymentErrorWithDetailsAndRiskEvent(
-          transaction.domain,
-          transaction.skuId,
-          transaction.amount().toString(),
-          BillingAnalytics.PAYMENT_METHOD_SANDBOX,
-          transaction.type,
-          errorCode ?: "",
-          errorMessage ?: "",
-          ""
-        )
-      }
-      .subscribe({}, { it.printStackTrace() })
+    compositeDisposable.add(
+      Single.just(transactionBuilder)
+        .observeOn(networkScheduler)
+        .doOnSuccess { transaction ->
+          stopTimingForPurchaseEvent(false)
+          analytics.sendPaymentErrorWithDetailsAndRiskEvent(
+            transaction.domain,
+            transaction.skuId,
+            transaction.amount().toString(),
+            BillingAnalytics.PAYMENT_METHOD_SANDBOX,
+            transaction.type,
+            errorCode ?: "",
+            errorMessage ?: "",
+            ""
+          )
+        }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
