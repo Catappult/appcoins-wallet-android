@@ -13,6 +13,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
 import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
@@ -37,6 +38,7 @@ internal class Erc681ReceiverPresenter(
   private val createWebViewPaymentSdkUseCase: CreateWebViewPaymentSdkUseCase,
   private val isWebViewPaymentFlowUseCase: IsWebViewPaymentFlowUseCase,
   private val setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
+  private val generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
   private val rxSchedulers: RxSchedulers,
   private val billingAnalytics: BillingAnalytics,
   private var addressService: AddressService,
@@ -126,7 +128,7 @@ internal class Erc681ReceiverPresenter(
           setIsFirstPaymentUseCase(false)
         }
         if (it == WalletGetterStatus.CREATING.toString()) {
-          view.showLoadingAnimation()
+          view.showLoadingAnimation(generateWebLoginUrlUseCase.isCloudGaming())
         }
       }
       .filter { it != WalletGetterStatus.CREATING.toString() }
