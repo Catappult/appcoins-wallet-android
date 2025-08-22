@@ -37,5 +37,5 @@ private const val WEBVIEW_PAYMENT_URL_PROD = "https://developers.catappult.io/ia
 private const val WEBVIEW_PAYMENT_URL_DEV = "https://wallet.dev.appcoins.io/iap"
 private const val WEBVIEW_LOGIN_URL_PROD = "https://wallet.aptoide.com/en/wallet/sign-in"
 private const val WEBVIEW_LOGIN_URL_DEV = "https://wallet.dev.aptoide.com/en/wallet/sign-in"
-private const val WEBVIEW_GAMIFICATION_URL_PROD = "https://developers.catappult.io/gamification-value-prop"
+private const val WEBVIEW_GAMIFICATION_URL_PROD = "https://wallet.aptoide.com/gamification-value-prop"
 private const val WEBVIEW_GAMIFICATION_URL_DEV = "https://wallet.dev.aptoide.com/gamification-value-prop"
