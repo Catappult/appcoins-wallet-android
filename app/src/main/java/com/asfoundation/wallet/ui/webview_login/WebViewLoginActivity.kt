@@ -176,6 +176,7 @@ class WebViewLoginActivity : AppCompatActivity() {
             goToUrlCallback = { url ->
               loadUrl(url)
             },
+            updateCloseBehaviorCallback = {}
           ),
           "WebViewPaymentInterface"
         )
