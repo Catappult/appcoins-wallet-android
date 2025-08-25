@@ -15,6 +15,7 @@ object HostProperties {
   val AMAZON_PAY_REDIRECT_BASE_URL = if (BuildConfig.DEBUG) AMAZON_PAY_REDIRECT_BASE_URL_DEV else AMAZON_PAY_REDIRECT_BASE_URL_PROD
   val WEBVIEW_PAYMENT_URL = if (BuildConfig.DEBUG) WEBVIEW_PAYMENT_URL_DEV else WEBVIEW_PAYMENT_URL_PROD
   val WEBVIEW_LOGIN_URL = if (BuildConfig.DEBUG) WEBVIEW_LOGIN_URL_DEV else WEBVIEW_LOGIN_URL_PROD
+  val WEBVIEW_GAMIFICATION_URL = if (BuildConfig.DEBUG) WEBVIEW_GAMIFICATION_URL_DEV else WEBVIEW_GAMIFICATION_URL_PROD
   const val FLAGR_BASE_HOST = "https://flagr.aptoide.com/api/v1/"
 }
 
@@ -36,3 +37,5 @@ private const val WEBVIEW_PAYMENT_URL_PROD = "https://developers.catappult.io/ia
 private const val WEBVIEW_PAYMENT_URL_DEV = "https://wallet.dev.appcoins.io/iap"
 private const val WEBVIEW_LOGIN_URL_PROD = "https://wallet.aptoide.com/en/wallet/sign-in"
 private const val WEBVIEW_LOGIN_URL_DEV = "https://wallet.dev.aptoide.com/en/wallet/sign-in"
+private const val WEBVIEW_GAMIFICATION_URL_PROD = "https://wallet.aptoide.com/gamification-value-prop"
+private const val WEBVIEW_GAMIFICATION_URL_DEV = "https://wallet.dev.aptoide.com/gamification-value-prop"

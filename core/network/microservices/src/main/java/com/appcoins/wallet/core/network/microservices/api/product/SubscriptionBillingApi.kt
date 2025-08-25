@@ -73,7 +73,7 @@ interface SubscriptionBillingApi {
     @Query("limit") limit: Long? = null
   ): Single<SubscriptionPurchaseListResponse>
 
-  @GET("8.20200701/applications/{domain}/inapp/subscription/purchases/{uid}")
+  @GET("8.20250730/applications/{domain}/inapp/subscription/purchases/{uid}")
   fun getPurchase(
     @Path("domain") domain: String,
     @Path("uid") uid: String,
