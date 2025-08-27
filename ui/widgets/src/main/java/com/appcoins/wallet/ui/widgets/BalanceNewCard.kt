@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -61,7 +62,8 @@ fun BalanceNewCard(
       Spacer(modifier = Modifier.height(24.dp))
 
       Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+          .fillMaxWidth()
           .clickable { onClickDetailsBalance() },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
@@ -155,7 +157,8 @@ fun BalanceButton(
       .background(styleguide_dark_secondary, shape = RoundedCornerShape(16.dp))
       .clickable {
         buttonsAnalytics?.sendDefaultButtonClickAnalytics(fragmentName, text)
-        onClickFunction()},
+        onClickFunction()
+      },
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Box(
@@ -175,6 +178,7 @@ fun BalanceButton(
       text = text,
       color = Color.White,
       fontSize = 12.sp,
+      textAlign = TextAlign.Center,
       modifier = Modifier.padding(bottom = 16.dp)
     )
   }
@@ -246,9 +250,11 @@ fun SkeletonLoadingNewBalanceCardExpanded() {
           .size(115.dp)
           .padding(all = 8.dp)
           .clip(RoundedCornerShape(16.dp))
-          .background(brush = shimmerSkeleton(shimmerColor = styleguide_shimmer
-
-          ))
+          .background(
+            brush = shimmerSkeleton(
+              shimmerColor = styleguide_shimmer
+            )
+          )
       ) {}
     }
   }
