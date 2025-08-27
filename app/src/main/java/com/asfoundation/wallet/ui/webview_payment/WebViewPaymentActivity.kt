@@ -11,6 +11,8 @@ import android.graphics.Rect
 import android.net.Uri.parse
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
@@ -35,8 +37,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -55,6 +59,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.webview_payment.models.CloseBehaviorConfig
 import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,7 +69,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class WebViewPaymentActivity : AppCompatActivity() {
-
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -91,6 +95,11 @@ class WebViewPaymentActivity : AppCompatActivity() {
   private var shouldAllowExternalApps = true
 
   private var webViewInstance: WebView? = null
+
+  private var lockCloseView by mutableStateOf(false)
+  private var lockBackButton by mutableStateOf(false)
+  private val handler = Handler(Looper.getMainLooper())
+  private var unlockRunnable: Runnable? = null
 
   companion object {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
@@ -170,6 +179,21 @@ class WebViewPaymentActivity : AppCompatActivity() {
       } else {
         isPortraitSpaceForWeb.value = false
       }
+    }
+  }
+
+  private fun updateCloseBehavior(config: CloseBehaviorConfig) {
+    this.lockCloseView = config.lockCloseView
+    this.lockBackButton = config.lockBackButton
+
+    unlockRunnable?.let { handler.removeCallbacks(it) }
+
+    if ((config.lockCloseView || config.lockBackButton) && config.timeout > 0) {
+      unlockRunnable = Runnable {
+        this.lockCloseView = false
+        this.lockBackButton = false
+      }
+      handler.postDelayed(unlockRunnable!!, config.timeout * 1000L)
     }
   }
 
@@ -282,6 +306,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
               viewModel.fetchUserKey(authToken, type, transactionBuilder)
             },
             goToUrlCallback = { },
+            updateCloseBehaviorCallback = ::updateCloseBehavior
           ),
           "WebViewPaymentInterface"
         )
@@ -301,8 +326,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
       }
     }
 
-    BackHandler(enabled = true) {
-      finish()
+    BackHandler(enabled = !lockBackButton) {
+      if (!lockBackButton) finish()
     }
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     Column(
@@ -315,14 +340,14 @@ class WebViewPaymentActivity : AppCompatActivity() {
           modifier = Modifier
             .height(36.dp)
             .fillMaxWidth()
-            .clickable { finish() }
+            .clickable(enabled = !lockCloseView) { if (!lockCloseView) finish() }
         )
       } else {
         Spacer(
           modifier = Modifier
             .fillMaxWidth()
             .weight(if (isPortraitSpaceForWeb.value) 0.2f else 0.02f)
-            .clickable { finish() }
+            .clickable(enabled = !lockCloseView) { if (!lockCloseView) finish() }
         )
       }
       Box(
@@ -370,13 +395,18 @@ class WebViewPaymentActivity : AppCompatActivity() {
     }
   }
 
+  override fun onDestroy() {
+    super.onDestroy()
+    unlockRunnable?.let { handler.removeCallbacks(it) }
+  }
 
   override fun finish() {
+    if (lockCloseView || lockBackButton) return // Prevent finishing if locked
     super.finish()
     overridePendingTransition(R.anim.stay, R.anim.slide_out_bottom)
   }
 
-  fun finish(bundle: Bundle) =
+  fun finish(bundle: Bundle) = //This is not the activity finish, but a function to set the result and finish
     if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
       viewModel.handleBackupNotifications(bundle, context = this)
       viewModel.handlePerkNotifications(bundle, context = this)
@@ -388,15 +418,13 @@ class WebViewPaymentActivity : AppCompatActivity() {
   private fun finishActivity(data: Bundle) {
     data.remove(PRE_SELECTED_PAYMENT_METHOD_KEY)
     setResult(RESULT_OK, Intent().putExtras(data))
-    finish()
+    if (!lockCloseView && !lockBackButton) finish() // Check lock before finishing
   }
-
 
   private fun isDarkModeEnabled(context: Context): Boolean {
     return (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
         Configuration.UI_MODE_NIGHT_YES
   }
-
 
   private fun goToVerify(flow: VerifyFlowWeb) {
     when (flow) {
@@ -414,7 +442,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
     val intent = VerificationCreditCardActivity.newIntent(this, isWalletVerified)
       .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
     startActivity(intent)
-    finish()
+    if (!lockCloseView && !lockBackButton) finish()
   }
 
   fun showPayPalVerification() {
@@ -424,7 +452,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
       isPayPalVerificationRequired = true
     ).apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
     startActivity(intent)
-    finish()
+    if (!lockCloseView && !lockBackButton) finish()
   }
 
   private fun buildUA(): String {
@@ -458,8 +486,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
       R.anim.slide_out_bottom
     )
 
-    current.finish()
+    if (!lockCloseView && !lockBackButton) current.finish()
   }
-
-
 }

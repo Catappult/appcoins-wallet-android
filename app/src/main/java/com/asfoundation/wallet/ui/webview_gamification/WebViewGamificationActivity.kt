@@ -181,6 +181,7 @@ class WebViewGamificationActivity : AppCompatActivity() {
             setPromoCodeCallback = {},
             onLoginCallback = { _, _ -> },
             goToUrlCallback = { url -> loadUrl(url) },
+            updateCloseBehaviorCallback = {}
           ),
           "WebViewPaymentInterface"
         )
