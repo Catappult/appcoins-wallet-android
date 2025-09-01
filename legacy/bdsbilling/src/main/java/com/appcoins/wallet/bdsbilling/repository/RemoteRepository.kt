@@ -124,8 +124,7 @@ class RemoteRepository(
   internal fun getSkuPurchaseSubs(
     packageName: String,
     purchaseUid: String,
-    walletAddress: String,
-    walletSignature: String
+    walletAddress: String
   ): Single<Purchase> = subsApi.getPurchase(
     domain = packageName,
     uid = purchaseUid,
@@ -160,8 +159,7 @@ class RemoteRepository(
 
   internal fun getPurchasesSubs(
     packageName: String,
-    walletAddress: String,
-    walletSignature: String
+    walletAddress: String
   ): Single<List<Purchase>> = subsApi.getPurchases(
     domain = packageName,
     walletAddress = walletAddress,

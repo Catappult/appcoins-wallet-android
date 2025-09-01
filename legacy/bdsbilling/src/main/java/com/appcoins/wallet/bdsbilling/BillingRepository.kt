@@ -22,8 +22,7 @@ interface BillingRepository {
 
   fun getSkuPurchase(
     packageName: String, skuId: String?, purchaseUid: String?,
-    walletAddress: String, walletSignature: String,
-    type: BillingSupportedType
+    walletAddress: String, type: BillingSupportedType
   ): Single<Purchase>
 
   fun getSkuTransaction(
@@ -32,8 +31,7 @@ interface BillingRepository {
   ): Single<Transaction>
 
   fun getPurchases(
-    packageName: String, walletAddress: String, walletSignature: String,
-    type: BillingSupportedType
+    packageName: String, walletAddress: String, type: BillingSupportedType
   ): Single<List<Purchase>>
 
   fun consumePurchases(
@@ -48,9 +46,9 @@ interface BillingRepository {
   ): Single<String>
 
   fun registerAuthorizationProof(
-    id: String, paymentType: String, walletAddress: String,
-    walletSignature: String, productName: String?, packageName: String,
-    priceValue: BigDecimal,
+    id: String, paymentType: String,
+    walletAddress: String, productName: String?,
+    packageName: String, priceValue: BigDecimal,
     entityOemId: String?, entityDomainId: String?,
     origin: String, type: String, developerPayload: String?,
     callback: String?, orderReference: String?,

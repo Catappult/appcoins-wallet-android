@@ -63,8 +63,11 @@ class BdsBilling(
       .observeOn(scheduler)
       .flatMap {
         repository.getSkuPurchase(
-          merchantName, sku, purchaseUid, it.address, it.signedAddress,
-          type
+          packageName = merchantName,
+          skuId = sku,
+          purchaseUid = purchaseUid,
+          walletAddress = it.address,
+          type = type
         )
       }
   }
@@ -77,7 +80,11 @@ class BdsBilling(
       walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap {
-          repository.getPurchases(packageName, it.address, it.signedAddress, type)
+          repository.getPurchases(
+            packageName = packageName,
+            walletAddress = it.address,
+            type = type
+          )
         }
         .onErrorReturn { emptyList() }
     } else Single.just(emptyList())

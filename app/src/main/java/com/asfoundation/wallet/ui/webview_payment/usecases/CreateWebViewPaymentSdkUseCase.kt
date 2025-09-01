@@ -59,7 +59,6 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
         "$baseWebViewPaymentUrl?" +
             "&country=$country" +
             "&address=${walletModel.address}" +
-            "&signature=${walletModel.signedAddress}" +
             "&payment_channel=${generateWebLoginUrlUseCase.mapPaymentChannel()}" +
             "&token=${ewt}" +
             "&origin=BDS" +
