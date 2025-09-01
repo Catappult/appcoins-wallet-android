@@ -108,7 +108,10 @@ class AdyenPaymentInteractorTest {
   fun isWalletVerifiedTest() {
     val testObserver = TestObserver<Boolean>()
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+      .thenReturn(Single.just(WalletAddressModel(
+        address = TEST_WALLET_ADDRESS,
+        signedAddress = TEST_WALLET_SIGNATURE
+      )))
     Mockito.`when`(
       walletVerificationInteractor.isVerified(
         address = TEST_WALLET_ADDRESS,
@@ -128,7 +131,10 @@ class AdyenPaymentInteractorTest {
   fun isWalletVerifiedErrorTest() {
     val testObserver = TestObserver<Boolean>()
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+      .thenReturn(Single.just(WalletAddressModel(
+        address = TEST_WALLET_ADDRESS,
+        signedAddress = TEST_WALLET_SIGNATURE
+      )))
     Mockito.`when`(
       walletVerificationInteractor.isVerified(
         address = TEST_WALLET_ADDRESS,
@@ -198,7 +204,10 @@ class AdyenPaymentInteractorTest {
       )
     val payment = CardPaymentMethod()
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+      .thenReturn(Single.just(WalletAddressModel(
+        address = TEST_WALLET_ADDRESS,
+        signedAddress = TEST_WALLET_SIGNATURE
+      )))
     Mockito.`when`(partnerAddressService.getAttribution("package"))
       .thenReturn(Single.just(AttributionEntity("store_address", "oem_address")))
     Mockito.`when`(getCurrentPromoCodeUseCase())
@@ -282,7 +291,10 @@ class AdyenPaymentInteractorTest {
       )
     val payment = CardPaymentMethod()
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+      .thenReturn(Single.just(WalletAddressModel(
+        address = TEST_WALLET_ADDRESS,
+        signedAddress = TEST_WALLET_SIGNATURE
+      )))
     Mockito.`when`(
       repository.makePayment(
         adyenPaymentMethod = payment,
@@ -488,8 +500,14 @@ class AdyenPaymentInteractorTest {
         errorCode = null
       )
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
-    Mockito.`when`(repository.getTransaction("uid", TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
+      .thenReturn(Single.just(WalletAddressModel(
+        address = TEST_WALLET_ADDRESS,
+        signedAddress = TEST_WALLET_SIGNATURE
+      )))
+    Mockito.`when`(repository.getTransaction(
+      uid = "uid",
+      walletAddress = TEST_WALLET_ADDRESS
+    ))
       .thenReturn(Single.just(expectedModel))
     interactor.getAuthorisedTransaction("uid")
       .subscribe(testObserver)
@@ -519,8 +537,14 @@ class AdyenPaymentInteractorTest {
         errorCode = 20
       )
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
-    Mockito.`when`(repository.getTransaction("uid", TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
+      .thenReturn(Single.just(WalletAddressModel(
+        address = TEST_WALLET_ADDRESS,
+        signedAddress = TEST_WALLET_SIGNATURE
+      )))
+    Mockito.`when`(repository.getTransaction(
+      uid = "uid",
+      walletAddress = TEST_WALLET_ADDRESS
+    ))
       .thenReturn(Single.just(expectedModel))
     interactor.getFailedTransactionReason("uid")
       .subscribe(testObserver)
@@ -567,8 +591,14 @@ class AdyenPaymentInteractorTest {
         errorCode = null
       )
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
-    Mockito.`when`(repository.getTransaction("uid", TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
+      .thenReturn(Single.just(WalletAddressModel(
+        address = TEST_WALLET_ADDRESS,
+        signedAddress = TEST_WALLET_SIGNATURE
+      )))
+    Mockito.`when`(repository.getTransaction(
+      uid = "uid",
+      walletAddress = TEST_WALLET_ADDRESS
+    ))
       .thenReturn(Single.just(expectedFailModel), Single.just(expectedSuccessModel))
     interactor.getFailedTransactionReason("uid")
       .subscribe(testObserver)
