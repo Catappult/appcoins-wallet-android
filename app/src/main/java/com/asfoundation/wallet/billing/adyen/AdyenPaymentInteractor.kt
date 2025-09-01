@@ -47,7 +47,6 @@ class AdyenPaymentInteractor @Inject constructor(
       .flatMap {
         walletVerificationInteractor.isVerified(
           address = it.address,
-          signature = it.signedAddress,
           type = verificationType
         )
       }

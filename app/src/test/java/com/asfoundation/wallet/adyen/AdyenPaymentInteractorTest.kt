@@ -112,7 +112,6 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(
       walletVerificationInteractor.isVerified(
         address = TEST_WALLET_ADDRESS,
-        signature = TEST_WALLET_SIGNATURE,
         type = VerificationType.CREDIT_CARD
       )
     )
@@ -133,7 +132,6 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(
       walletVerificationInteractor.isVerified(
         address = TEST_WALLET_ADDRESS,
-        signature = TEST_WALLET_SIGNATURE,
         type = VerificationType.CREDIT_CARD
       )
     )

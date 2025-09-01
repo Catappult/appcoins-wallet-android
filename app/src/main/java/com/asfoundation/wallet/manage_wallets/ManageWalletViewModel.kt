@@ -59,24 +59,22 @@ constructor(
   private fun getActiveWallet(wallets: WalletsModel) =
     observeWalletInfoUseCase(wallets.activeWalletAddress(), update = true)
       .firstOrError()
-      .flatMapCompletable {walletInfo ->
+      .flatMapCompletable { walletInfo ->
         walletService.getAndSignCurrentWalletAddress()
           .flatMap { wallet ->
             Single.zip(
               walletVerificationInteractor.getVerificationStatus(
-                wallet.address,
-                wallet.signedAddress,
-                VerificationType.PAYPAL
+                address = wallet.address,
+                type = VerificationType.PAYPAL
               ),
               walletVerificationInteractor.getVerificationStatus(
-                wallet.address,
-                wallet.signedAddress,
-                VerificationType.CREDIT_CARD
+                address = wallet.address,
+                type = VerificationType.CREDIT_CARD
               )
             ) { paypalStatus, creditCardStatus ->
               VerificationStatusCompound(
                 creditCardStatus = creditCardStatus,
-                payPalStatus =paypalStatus,
+                payPalStatus = paypalStatus,
                 currentVerificationType = walletVerificationInteractor
                   .getCurrentVerificationType(wallet.address)
               )

@@ -171,14 +171,15 @@ class CarrierInteractor @Inject constructor(
   }
 
   fun getWalletStatus(): Single<WalletStatus> {
-    return Single.zip(walletBlockedInteract.isWalletBlocked()
-      .subscribeOn(rxSchedulers.io), isWalletVerified().subscribeOn(rxSchedulers.io),
+    return Single.zip(
+      walletBlockedInteract.isWalletBlocked()
+        .subscribeOn(rxSchedulers.io), isWalletVerified().subscribeOn(rxSchedulers.io),
       BiFunction { blocked, verified -> WalletStatus(blocked, verified) })
   }
 
   private fun isWalletVerified(): Single<Boolean> =
     walletService.getAndSignCurrentWalletAddress()
-      .flatMap { walletVerificationInteractor.isAtLeastOneVerified(it.address, it.signedAddress) }
+      .flatMap { walletVerificationInteractor.isAtLeastOneVerified(it.address) }
       .onErrorReturn { true }
 
   fun retrieveAvailableCountries(): Single<AvailableCountryListModel> {

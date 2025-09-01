@@ -15,16 +15,22 @@ constructor(
   private val walletService: WalletService
 ) {
 
-  fun isVerified(address: String, signature: String, type: VerificationType): Single<Boolean> {
-    return getVerificationStatus(address, signature, type).map { status ->
+  fun isVerified(address: String, type: VerificationType): Single<Boolean> {
+    return getVerificationStatus(address, type).map { status ->
       status == VerificationStatus.VERIFIED
     }
   }
 
-  fun isAtLeastOneVerified(address: String, signature: String): Single<Boolean> {
+  fun isAtLeastOneVerified(address: String): Single<Boolean> {
     return Single.zip(
-      getVerificationStatus(address, signature, VerificationType.CREDIT_CARD),
-      getVerificationStatus(address, signature, VerificationType.PAYPAL)
+      getVerificationStatus(
+        address = address,
+        type = VerificationType.CREDIT_CARD
+      ),
+      getVerificationStatus(
+        address = address,
+        type = VerificationType.PAYPAL
+      )
     ) { creditCard, payPal ->
       creditCard == VerificationStatus.VERIFIED || payPal == VerificationStatus.VERIFIED
     }
@@ -32,7 +38,6 @@ constructor(
 
   fun getVerificationStatus(
     address: String,
-    signature: String,
     type: VerificationType
   ): Single<VerificationStatus> {
     return brokerVerificationRepository.getVerificationStatus(
