@@ -43,7 +43,6 @@ class CreateSandboxTransactionUseCase @Inject constructor(
               currency = currency,
               reference = reference,
               walletAddress = addressModel.address,
-              walletSignature = addressModel.signedAddress,
               origin = origin,
               packageName = packageName,
               metadata = metadata,

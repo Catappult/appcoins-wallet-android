@@ -130,7 +130,6 @@ class RemoteRepository(
     domain = packageName,
     uid = purchaseUid,
     walletAddress = walletAddress,
-    walletSignature = walletSignature
   ).map { responseMapper.map(packageName, it) }
 
   internal fun getSkuTransaction(
@@ -168,7 +167,6 @@ class RemoteRepository(
   ): Single<List<Purchase>> = subsApi.getPurchases(
     domain = packageName,
     walletAddress = walletAddress,
-    walletSignature = walletSignature
   ).map { responseMapper.map(packageName, it) }
 
   @Suppress("unused")
@@ -198,7 +196,6 @@ class RemoteRepository(
     domain: String,
     skuId: String,
     walletAddress: String,
-    walletSignature: String,
     externalBuyerReference: String?,
     isFreeTrial: Boolean?
   ): Single<String> = if (isFreeTrial == true)
@@ -207,7 +204,6 @@ class RemoteRepository(
       sku = skuId,
       currency = null,
       walletAddress = walletAddress,
-      walletSignature = walletSignature,
       externalBuyerReference = externalBuyerReference,
       isFreeTrial = isFreeTrial
     )
@@ -217,7 +213,6 @@ class RemoteRepository(
       sku = skuId,
       currency = null,
       walletAddress = walletAddress,
-      walletSignature = walletSignature,
     )
 
   fun registerAuthorizationProof(
@@ -412,7 +407,6 @@ class RemoteRepository(
     domain = packageName,
     uid = uid,
     walletAddress = walletAddress,
-    walletSignature = walletSignature
   )
 
   fun cancelSubscription(
@@ -424,7 +418,6 @@ class RemoteRepository(
     domain = packageName,
     uid = uid,
     walletAddress = walletAddress,
-    walletSignature = walletSignature
   )
 
   private fun createTransaction(

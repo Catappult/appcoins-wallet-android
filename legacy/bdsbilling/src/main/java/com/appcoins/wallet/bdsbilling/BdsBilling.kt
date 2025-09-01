@@ -106,7 +106,6 @@ class BdsBilling(
           packageName = packageName,
           skuId = skuId,
           walletAddress = it.address,
-          walletSignature = it.signedAddress,
           externalBuyerReference = externalBuyerReference,
           isFreeTrial = isFreeTrial
         )

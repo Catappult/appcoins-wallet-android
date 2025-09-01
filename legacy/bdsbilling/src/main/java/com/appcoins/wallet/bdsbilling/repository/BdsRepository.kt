@@ -150,7 +150,6 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     packageName: String,
     skuId: String,
     walletAddress: String,
-    walletSignature: String,
     externalBuyerReference: String?,
     isFreeTrial: Boolean?
   ): Single<String> =
@@ -158,7 +157,6 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
       domain = packageName,
       skuId = skuId,
       walletAddress = walletAddress,
-      walletSignature = walletSignature,
       externalBuyerReference = externalBuyerReference,
       isFreeTrial = isFreeTrial
     )
