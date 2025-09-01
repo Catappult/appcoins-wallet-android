@@ -35,7 +35,10 @@ constructor(
     signature: String,
     type: VerificationType
   ): Single<VerificationStatus> {
-    return brokerVerificationRepository.getVerificationStatus(address, signature, type)
+    return brokerVerificationRepository.getVerificationStatus(
+      walletAddress = address,
+      type = type
+    )
   }
 
   fun getCachedVerificationStatus(address: String, type: VerificationType): VerificationStatus {
@@ -91,8 +94,7 @@ constructor(
             adyenPaymentMethod,
             shouldStoreMethod,
             returnUrl,
-            addressModel.address,
-            addressModel.signedAddress
+            addressModel.address
           )
         }
 
@@ -102,8 +104,7 @@ constructor(
               adyenPaymentMethod,
               shouldStoreMethod,
               returnUrl,
-              addressModel.address,
-              addressModel.signedAddress
+              addressModel.address
             )
             .doOnSuccess { paymentModel ->
               if (paymentModel.success) {
@@ -123,7 +124,10 @@ constructor(
   ): Single<VerificationCodeResult> {
     return walletService.getAndSignCurrentWalletAddress().flatMap { addressModel ->
       brokerVerificationRepository
-        .validateCode(code, addressModel.address, addressModel.signedAddress)
+        .validateCode(
+          code = code,
+          walletAddress = addressModel.address
+        )
         .doOnSuccess { result ->
           if (result.success) {
             brokerVerificationRepository.saveVerificationStatus(

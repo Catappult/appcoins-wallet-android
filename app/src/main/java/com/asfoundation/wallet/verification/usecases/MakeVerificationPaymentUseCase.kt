@@ -22,15 +22,19 @@ class MakeVerificationPaymentUseCase @Inject constructor(
         when (verificationType) {
           VerificationType.PAYPAL -> {
             brokerVerificationRepository.makePaypalVerificationPayment(
-              adyenPaymentMethod,
-              shouldStoreMethod, returnUrl, addressModel.address, addressModel.signedAddress
+              adyenPaymentMethod = adyenPaymentMethod,
+              shouldStoreMethod = shouldStoreMethod,
+              returnUrl = returnUrl,
+              walletAddress = addressModel.address
             )
           }
 
           VerificationType.CREDIT_CARD -> {
             brokerVerificationRepository.makeCreditCardVerificationPayment(
-              adyenPaymentMethod,
-              shouldStoreMethod, returnUrl, addressModel.address, addressModel.signedAddress
+              adyenPaymentMethod = adyenPaymentMethod,
+              shouldStoreMethod = shouldStoreMethod,
+              returnUrl = returnUrl,
+              walletAddress = addressModel.address
             )
               .doOnSuccess { paymentModel ->
                 if (paymentModel.success) {

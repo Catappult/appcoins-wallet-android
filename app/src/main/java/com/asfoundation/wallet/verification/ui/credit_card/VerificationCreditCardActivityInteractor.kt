@@ -15,8 +15,7 @@ class VerificationCreditCardActivityInteractor @Inject constructor(
     return walletService.getAndSignCurrentWalletAddress()
       .flatMap { addressModel ->
         brokerVerificationRepository.getCardVerificationState(
-          addressModel.address,
-          addressModel.signedAddress
+          addressModel.address
         )
       }
       .onErrorReturn { VerificationStatus.UNVERIFIED }
