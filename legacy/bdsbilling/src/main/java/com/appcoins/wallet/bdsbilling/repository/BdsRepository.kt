@@ -103,13 +103,11 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     packageName: String,
     skuId: String?,
     walletAddress: String,
-    walletSignature: String,
     type: BillingSupportedType
   ): Single<Transaction> = remoteRepository.getSkuTransaction(
     packageName = packageName,
     skuId = skuId,
     walletAddress = walletAddress,
-    walletSignature = walletSignature,
     type = type
   )
     .flatMap {
@@ -187,11 +185,9 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
 
   override fun getAppcoinsTransaction(
     uid: String,
-    address: String,
-    signedContent: String
+    address: String
   ): Single<Transaction> = remoteRepository.getAppcoinsTransaction(
     uid = uid,
-    address = address,
-    signedContent = signedContent
+    address = address
   )
 }

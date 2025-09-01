@@ -60,8 +60,9 @@ class UserSubscriptionsInteractorTest {
       .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_ADDRESS)))
     Mockito.`when`(
       remoteRepository.cancelSubscription(
-        "packageName", "uid", TEST_WALLET_ADDRESS,
-        TEST_WALLET_ADDRESS
+        packageName = "packageName",
+        uid = "uid",
+        walletAddress = TEST_WALLET_ADDRESS
       )
     )
       .thenReturn(Completable.complete())

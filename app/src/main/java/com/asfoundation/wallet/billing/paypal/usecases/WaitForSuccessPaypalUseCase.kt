@@ -23,8 +23,8 @@ class WaitForSuccessPaypalUseCase @Inject constructor(
           .switchMap {
             if (!isEndingState(lastPaymentCheck?.status))
               payPalV2Repository.getTransaction(
-                uid, walletAddressModel.address,
-                walletAddressModel.signedAddress
+                uid = uid,
+                walletAddress = walletAddressModel.address
               )
                 .doOnSuccess { lastPaymentCheck = it }
                 .toObservable()

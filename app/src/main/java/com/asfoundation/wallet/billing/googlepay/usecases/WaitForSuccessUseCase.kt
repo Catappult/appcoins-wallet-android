@@ -23,8 +23,8 @@ class WaitForSuccessUseCase @Inject constructor(
           .switchMap {
             if (!isEndingState(lastPaymentCheck?.status))
               googlePayWebRepository.getTransaction(
-                uid, walletAddressModel.address,
-                walletAddressModel.signedAddress
+                uid = uid,
+                walletAddress = walletAddressModel.address
               )
                 .doOnSuccess { lastPaymentCheck = it }
                 .toObservable()

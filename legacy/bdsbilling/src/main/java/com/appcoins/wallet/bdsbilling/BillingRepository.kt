@@ -27,8 +27,8 @@ interface BillingRepository {
   ): Single<Purchase>
 
   fun getSkuTransaction(
-    packageName: String, skuId: String?, walletAddress: String,
-    walletSignature: String, type: BillingSupportedType
+    packageName: String, skuId: String?,
+    walletAddress: String, type: BillingSupportedType
   ): Single<Transaction>
 
   fun getPurchases(
@@ -74,8 +74,8 @@ interface BillingRepository {
   ): Single<List<PaymentMethodEntity>>
 
   fun getAppcoinsTransaction(
-    uid: String, address: String,
-    signedContent: String
+    uid: String,
+    address: String,
   ): Single<Transaction>
 
   fun replaceAppcPricesToOriginalPrices(

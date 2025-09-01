@@ -279,8 +279,8 @@ class AdyenPaymentInteractor @Inject constructor(
           .timeInterval()
           .switchMap {
             adyenPaymentRepository.getTransaction(
-              uid, walletAddressModel.address,
-              walletAddressModel.signedAddress
+              uid = uid,
+              walletAddress = walletAddressModel.address
             )
               .toObservable()
           }
@@ -296,8 +296,8 @@ class AdyenPaymentInteractor @Inject constructor(
         .flatMap { walletAddressModel ->
           Single.zip(
             adyenPaymentRepository.getTransaction(
-              uid, walletAddressModel.address,
-              walletAddressModel.signedAddress
+              uid = uid,
+              walletAddress = walletAddressModel.address
             ),
             Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS, rxSchedulers.io),
             BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })

@@ -136,11 +136,9 @@ class RemoteRepository(
     packageName: String,
     skuId: String?,
     walletAddress: String,
-    walletSignature: String,
     type: BillingSupportedType
   ): Single<TransactionsResponse> = brokerBdsApi.getSkuTransaction(
     walletAddress = walletAddress,
-    walletSignature = walletSignature,
     cursor = 0,
     type = type,
     limit = 1,
@@ -289,12 +287,10 @@ class RemoteRepository(
 
   fun getAppcoinsTransaction(
     uid: String,
-    address: String,
-    signedContent: String
+    address: String
   ): Single<Transaction> = brokerBdsApi.getAppcoinsTransaction(
     uId = uid,
-    walletAddress = address,
-    walletSignature = signedContent
+    walletAddress = address
   )
 
   fun transferCredits(
@@ -377,7 +373,6 @@ class RemoteRepository(
     walletAddress: String,
     entityOemId: String?,
     returnUrl: String?,
-    walletSignature: String?,
     orderReference: String?,
     guestWalletId: String?
   ): Single<MiPayTransaction> =
@@ -392,7 +387,6 @@ class RemoteRepository(
       callbackUrl = callback,
       referrerUrl = referrerUrl,
       walletAddress = walletAddress,
-      walletSignature = walletSignature,
       checkoutUrl = returnUrl,
       orderReference = orderReference,
       guestWalletId = guestWalletId
@@ -401,8 +395,7 @@ class RemoteRepository(
   fun activateSubscription(
     packageName: String,
     uid: String,
-    walletAddress: String,
-    walletSignature: String
+    walletAddress: String
   ): Completable = subsApi.activateSubscription(
     domain = packageName,
     uid = uid,
@@ -412,8 +405,7 @@ class RemoteRepository(
   fun cancelSubscription(
     packageName: String,
     uid: String,
-    walletAddress: String,
-    walletSignature: String
+    walletAddress: String
   ): Completable = subsApi.cancelSubscription(
     domain = packageName,
     uid = uid,

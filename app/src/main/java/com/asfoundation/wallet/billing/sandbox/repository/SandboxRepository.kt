@@ -113,13 +113,12 @@ class SandboxRepository @Inject constructor(
   }
 
   fun getTransaction(
-    uid: String, walletAddress: String,
-    signedWalletAddress: String
+    uid: String,
+    walletAddress: String,
   ): Single<PaymentModel> =
     brokerBdsApi.getAppcoinsTransaction(
       uId = uid,
-      walletAddress = walletAddress,
-      walletSignature = signedWalletAddress
+      walletAddress = walletAddress
     )
       .map { adyenResponseMapper.map(it) }
       .onErrorReturn {

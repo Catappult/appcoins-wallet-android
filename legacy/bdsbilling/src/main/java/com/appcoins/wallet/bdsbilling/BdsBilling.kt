@@ -40,7 +40,7 @@ class BdsBilling(
   override fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction> {
     return walletService.getAndSignCurrentWalletAddress()
       .observeOn(scheduler)
-      .flatMap { repository.getAppcoinsTransaction(uid, it.address, it.signedAddress) }
+      .flatMap { repository.getAppcoinsTransaction(uid, it.address) }
   }
 
   override fun getSkuTransaction(
@@ -51,7 +51,7 @@ class BdsBilling(
     return walletService.getAndSignCurrentWalletAddress()
       .observeOn(scheduler)
       .flatMap {
-        repository.getSkuTransaction(merchantName, sku, it.address, it.signedAddress, type)
+        repository.getSkuTransaction(merchantName, sku, it.address, type)
       }
   }
 

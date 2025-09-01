@@ -79,13 +79,11 @@ class TrueLayerRepository @Inject constructor(
 
   fun getTransaction(
     uid: String,
-    walletAddress: String,
-    signedWalletAddress: String
+    walletAddress: String
   ): Single<PaymentModel> {
     return brokerBdsApi.getAppcoinsTransaction(
       uId = uid,
-      walletAddress = walletAddress,
-      walletSignature = signedWalletAddress
+      walletAddress = walletAddress
     )
       .map { adyenResponseMapper.map(it) }
       .onErrorReturn {

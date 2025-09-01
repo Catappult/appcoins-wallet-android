@@ -16,9 +16,8 @@ class GetTransactionStatusUseCase @Inject constructor(
     return walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io)
       .flatMap {
         remoteRepository.getAppcoinsTransaction(
-          uid,
-          it.address,
-          it.signedAddress
+          uid = uid,
+          address = it.address
         )
       }
   }
