@@ -63,7 +63,7 @@ class VerificationIntroInteractor @Inject constructor(
   private fun getVerificationInfo(): Single<VerificationInfoModel> {
     return walletService.getAndSignCurrentWalletAddress()
       .flatMap {
-        brokerVerificationRepository.getVerificationInfo(it.address, it.signedAddress)
+        brokerVerificationRepository.getVerificationInfo(it.address)
           .map { info -> mapToVerificationInfoModel(info) }
       }
   }

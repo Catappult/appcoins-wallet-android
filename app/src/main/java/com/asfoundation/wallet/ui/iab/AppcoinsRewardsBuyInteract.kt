@@ -21,7 +21,7 @@ class AppcoinsRewardsBuyInteract @Inject constructor(
 
   fun isWalletVerified() =
     walletService.getAndSignCurrentWalletAddress()
-      .flatMap { walletVerificationInteractor.isAtLeastOneVerified(it.address, it.signedAddress) }
+      .flatMap { walletVerificationInteractor.isAtLeastOneVerified(it.address) }
       .onErrorReturn { true }
 
   fun showSupport(): Completable {

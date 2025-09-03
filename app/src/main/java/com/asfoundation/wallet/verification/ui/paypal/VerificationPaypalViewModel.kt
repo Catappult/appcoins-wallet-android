@@ -53,9 +53,8 @@ constructor(
       .getAndSignCurrentWalletAddress()
       .flatMap { wallet ->
         walletVerificationInteractor.getVerificationStatus(
-          wallet.address,
-          wallet.signedAddress,
-          PAYPAL
+          address = wallet.address,
+          type = PAYPAL
         )
       }
       .flatMap { verificationStatus ->

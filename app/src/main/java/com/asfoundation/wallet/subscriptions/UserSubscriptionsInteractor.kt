@@ -20,14 +20,22 @@ class UserSubscriptionsInteractor @Inject constructor(
   fun cancelSubscription(packageName: String, uid: String): Completable {
     return walletService.getAndSignCurrentWalletAddress()
       .flatMapCompletable {
-        remoteRepository.cancelSubscription(packageName, uid, it.address, it.signedAddress)
+        remoteRepository.cancelSubscription(
+          packageName = packageName,
+          uid = uid,
+          walletAddress = it.address
+        )
       }
   }
 
   fun activateSubscription(packageName: String, uid: String): Completable {
     return walletService.getAndSignCurrentWalletAddress()
       .flatMapCompletable {
-        remoteRepository.activateSubscription(packageName, uid, it.address, it.signedAddress)
+        remoteRepository.activateSubscription(
+          packageName = packageName,
+          uid = uid,
+          walletAddress = it.address
+        )
       }
   }
 }

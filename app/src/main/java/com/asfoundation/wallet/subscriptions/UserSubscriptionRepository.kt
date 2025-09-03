@@ -52,10 +52,15 @@ class UserSubscriptionRepository @Inject constructor(
         val languageTag = Locale.getDefault()
           .toLanguageTag()
         Observable.zip(
-          getUserSubscriptionAndSave(languageTag, walletAddress, it),
           getUserSubscriptionAndSave(
-            languageTag, walletAddress, it, EXPIRED,
-            EXPIRED_SUBS_LIMIT
+            languageTag = languageTag,
+            walletAddress = walletAddress
+          ),
+          getUserSubscriptionAndSave(
+            languageTag = languageTag,
+            walletAddress = walletAddress,
+            status = EXPIRED,
+            limit = EXPIRED_SUBS_LIMIT
           ),
           BiFunction { active: UserSubscriptionsListResponse, expired: UserSubscriptionsListResponse ->
             //for each subscription, gets the subscription details from the second endpoint
@@ -105,14 +110,14 @@ class UserSubscriptionRepository @Inject constructor(
   }
 
   private fun getUserSubscriptionAndSave(
-    languageTag: String, walletAddress: String,
-    signature: String, status: SubscriptionSubStatus? = null,
+    languageTag: String,
+    walletAddress: String,
+    status: SubscriptionSubStatus? = null,
     limit: Int? = null
   ): Observable<UserSubscriptionsListResponse> {
     return subscriptionApi.getUserSubscriptions(
       language = languageTag,
       walletAddress = walletAddress,
-      walletSignature = signature,
       subStatus = status?.name,
       limit = limit
     )

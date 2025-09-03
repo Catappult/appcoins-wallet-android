@@ -30,29 +30,29 @@ class BillingPaymentProofSubmissionImpl internal constructor(
   override fun processPurchaseProof(paymentProof: PaymentProof): Single<Transaction> =
     transactionFromApprove[paymentProof.approveProof]?.let { transaction ->
       registerPaymentProof(
-        transaction.uid,
-        paymentProof.paymentProof,
-        paymentProof.paymentType
+        paymentId = transaction.uid,
+        paymentProof = paymentProof.paymentProof,
+        paymentType = paymentProof.paymentType
       ).andThen(Single.just(transaction))
     } ?: Single.error(IllegalArgumentException("No payment id for {${paymentProof.approveProof}}"))
 
   override fun processAuthorizationProof(authorizationProof: AuthorizationProof): Single<Transaction> =
     registerAuthorizationProof(
-      authorizationProof.id,
-      authorizationProof.paymentType,
-      authorizationProof.productName,
-      authorizationProof.packageName,
-      authorizationProof.priceValue,
-      authorizationProof.developerAddress,
-      authorizationProof.entityOemId,
-      authorizationProof.entityDomain,
-      authorizationProof.origin,
-      authorizationProof.type,
-      authorizationProof.developerPayload,
-      authorizationProof.callback,
-      authorizationProof.orderReference,
-      authorizationProof.referrerUrl,
-      authorizationProof.guestWalletId,
+      id = authorizationProof.id,
+      paymentType = authorizationProof.paymentType,
+      productName = authorizationProof.productName,
+      packageName = authorizationProof.packageName,
+      priceValue = authorizationProof.priceValue,
+      developerWallet = authorizationProof.developerAddress,
+      entityOemId = authorizationProof.entityOemId,
+      entityDomain = authorizationProof.entityDomain,
+      origin = authorizationProof.origin,
+      type = authorizationProof.type,
+      developerPayload = authorizationProof.developerPayload,
+      callback = authorizationProof.callback,
+      orderReference = authorizationProof.orderReference,
+      referrerUrl = authorizationProof.referrerUrl,
+      guestWalletId = authorizationProof.guestWalletId,
     )
       .doOnSuccess { transaction -> transactionFromApprove[authorizationProof.id] = transaction }
 
@@ -66,11 +66,11 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         walletService.signContent(walletAddress).observeOn(networkScheduler)
           .flatMapCompletable { signedData ->
             repository.registerPaymentProof(
-              paymentId,
-              paymentType,
-              walletAddress,
-              signedData,
-              paymentProof
+              paymentId = paymentId,
+              paymentType = paymentType,
+              walletAddress = walletAddress,
+              signedData = signedData,
+              paymentProof = paymentProof
             )
           }
       }
@@ -96,22 +96,21 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     walletService.getWalletAddress().observeOn(networkScheduler).flatMap { walletAddress ->
       walletService.signContent(walletAddress).observeOn(networkScheduler).flatMap { signedData ->
         repository.registerAuthorizationProof(
-          id,
-          paymentType,
-          walletAddress,
-          signedData,
-          productName,
-          packageName,
-          priceValue,
-          entityOemId,
-          entityDomain,
-          origin,
-          type,
-          developerPayload,
-          callback,
-          orderReference,
-          referrerUrl,
-          guestWalletId
+          id = id,
+          paymentType = paymentType,
+          walletAddress = walletAddress,
+          productName = productName,
+          packageName = packageName,
+          priceValue = priceValue,
+          entityOemId = entityOemId,
+          entityDomainId = entityDomain,
+          origin = origin,
+          type = type,
+          developerPayload = developerPayload,
+          callback = callback,
+          orderReference = orderReference,
+          referrerUrl = referrerUrl,
+          guestWalletId = guestWalletId
         )
       }
     }
