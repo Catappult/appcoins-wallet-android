@@ -21,10 +21,7 @@ class GetVerificationInfoUseCase @Inject constructor(
   operator fun invoke(method: AdyenPaymentRepository.Methods): Single<VerificationIntroModel> {
     return walletService.getAndSignCurrentWalletAddress()
       .flatMap { walletModel ->
-        brokerVerificationRepository.getVerificationInfo(
-          walletModel.address,
-          walletModel.signedAddress
-        )
+        brokerVerificationRepository.getVerificationInfo(walletModel.address)
       }
       .flatMap { verificationInfo ->
         adyenPaymentInteractor.loadPaymentInfo(

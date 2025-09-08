@@ -3,11 +3,11 @@ package com.asfoundation.wallet.ui.webview_payment
 import android.util.Log
 import android.webkit.JavascriptInterface
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.asfoundation.wallet.ui.webview_payment.models.CloseBehaviorConfig
 import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentErrorResponse
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentResponse
 import com.google.gson.Gson
-
 
 class WebViewPaymentInterface(
   private val logger: Logger,
@@ -21,6 +21,7 @@ class WebViewPaymentInterface(
   private val setPromoCodeCallback: (promoCode: String) -> Unit,
   private val onLoginCallback: (authToken: String, safeLogin: Boolean) -> Unit,
   private val goToUrlCallback: (url: String) -> Unit,
+  private val updateCloseBehaviorCallback: (CloseBehaviorConfig) -> Unit,
 ) {
 
   @JavascriptInterface
@@ -37,7 +38,6 @@ class WebViewPaymentInterface(
   fun onPurchaseResult(result: String?) {
     onPurchaseResultCallback(parsePurchaseResult(result))
   }
-
 
   @JavascriptInterface
   fun openDeeplink(deepLink: String?): Boolean {
@@ -78,6 +78,22 @@ class WebViewPaymentInterface(
     goToUrlCallback(url)
   }
 
+  @JavascriptInterface
+  fun updateCloseBehavior(configJson: String) {
+    Log.d("WebViewPaymentInterface", "updateCloseBehavior: $configJson")
+    parseCloseBehaviorConfig(configJson)?.let {
+      updateCloseBehaviorCallback(it)
+    }
+  }
+
+  private fun parseCloseBehaviorConfig(json: String?): CloseBehaviorConfig? {
+    return try {
+      Gson().fromJson(json, CloseBehaviorConfig::class.java)
+    } catch (e: Exception) {
+      logger.log("WebViewPaymentInterface", "Failed to parse CloseBehaviorConfig: $json", e)
+      null
+    }
+  }
 
   private fun parsePurchaseResult(result: String?): WebViewPaymentResponse? {
     try {
@@ -107,5 +123,4 @@ class WebViewPaymentInterface(
       else -> VerifyFlowWeb.CREDIT_CARD
     }
   }
-
 }

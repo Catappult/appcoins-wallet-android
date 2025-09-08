@@ -15,16 +15,22 @@ constructor(
   private val walletService: WalletService
 ) {
 
-  fun isVerified(address: String, signature: String, type: VerificationType): Single<Boolean> {
-    return getVerificationStatus(address, signature, type).map { status ->
+  fun isVerified(address: String, type: VerificationType): Single<Boolean> {
+    return getVerificationStatus(address, type).map { status ->
       status == VerificationStatus.VERIFIED
     }
   }
 
-  fun isAtLeastOneVerified(address: String, signature: String): Single<Boolean> {
+  fun isAtLeastOneVerified(address: String): Single<Boolean> {
     return Single.zip(
-      getVerificationStatus(address, signature, VerificationType.CREDIT_CARD),
-      getVerificationStatus(address, signature, VerificationType.PAYPAL)
+      getVerificationStatus(
+        address = address,
+        type = VerificationType.CREDIT_CARD
+      ),
+      getVerificationStatus(
+        address = address,
+        type = VerificationType.PAYPAL
+      )
     ) { creditCard, payPal ->
       creditCard == VerificationStatus.VERIFIED || payPal == VerificationStatus.VERIFIED
     }
@@ -32,10 +38,12 @@ constructor(
 
   fun getVerificationStatus(
     address: String,
-    signature: String,
     type: VerificationType
   ): Single<VerificationStatus> {
-    return brokerVerificationRepository.getVerificationStatus(address, signature, type)
+    return brokerVerificationRepository.getVerificationStatus(
+      walletAddress = address,
+      type = type
+    )
   }
 
   fun getCachedVerificationStatus(address: String, type: VerificationType): VerificationStatus {
@@ -91,8 +99,7 @@ constructor(
             adyenPaymentMethod,
             shouldStoreMethod,
             returnUrl,
-            addressModel.address,
-            addressModel.signedAddress
+            addressModel.address
           )
         }
 
@@ -102,8 +109,7 @@ constructor(
               adyenPaymentMethod,
               shouldStoreMethod,
               returnUrl,
-              addressModel.address,
-              addressModel.signedAddress
+              addressModel.address
             )
             .doOnSuccess { paymentModel ->
               if (paymentModel.success) {
@@ -123,7 +129,10 @@ constructor(
   ): Single<VerificationCodeResult> {
     return walletService.getAndSignCurrentWalletAddress().flatMap { addressModel ->
       brokerVerificationRepository
-        .validateCode(code, addressModel.address, addressModel.signedAddress)
+        .validateCode(
+          code = code,
+          walletAddress = addressModel.address
+        )
         .doOnSuccess { result ->
           if (result.success) {
             brokerVerificationRepository.saveVerificationStatus(

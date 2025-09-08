@@ -22,18 +22,16 @@ interface BillingRepository {
 
   fun getSkuPurchase(
     packageName: String, skuId: String?, purchaseUid: String?,
-    walletAddress: String, walletSignature: String,
-    type: BillingSupportedType
+    walletAddress: String, type: BillingSupportedType
   ): Single<Purchase>
 
   fun getSkuTransaction(
-    packageName: String, skuId: String?, walletAddress: String,
-    walletSignature: String, type: BillingSupportedType
+    packageName: String, skuId: String?,
+    walletAddress: String, type: BillingSupportedType
   ): Single<Transaction>
 
   fun getPurchases(
-    packageName: String, walletAddress: String, walletSignature: String,
-    type: BillingSupportedType
+    packageName: String, walletAddress: String, type: BillingSupportedType
   ): Single<List<Purchase>>
 
   fun consumePurchases(
@@ -43,15 +41,14 @@ interface BillingRepository {
   ): Single<Boolean>
 
   fun getSubscriptionToken(
-    packageName: String, skuId: String, walletAddress: String,
-    walletSignature: String, externalBuyerReference: String?,
-    isFreeTrial: Boolean?
+    packageName: String, skuId: String,
+    walletAddress: String, externalBuyerReference: String?, isFreeTrial: Boolean?,
   ): Single<String>
 
   fun registerAuthorizationProof(
-    id: String, paymentType: String, walletAddress: String,
-    walletSignature: String, productName: String?, packageName: String,
-    priceValue: BigDecimal,
+    id: String, paymentType: String,
+    walletAddress: String, productName: String?,
+    packageName: String, priceValue: BigDecimal,
     entityOemId: String?, entityDomainId: String?,
     origin: String, type: String, developerPayload: String?,
     callback: String?, orderReference: String?,
@@ -75,8 +72,8 @@ interface BillingRepository {
   ): Single<List<PaymentMethodEntity>>
 
   fun getAppcoinsTransaction(
-    uid: String, address: String,
-    signedContent: String
+    uid: String,
+    address: String,
   ): Single<Transaction>
 
   fun replaceAppcPricesToOriginalPrices(

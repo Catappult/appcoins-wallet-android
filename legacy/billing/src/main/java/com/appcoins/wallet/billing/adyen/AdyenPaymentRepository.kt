@@ -87,7 +87,6 @@ class AdyenPaymentRepository @Inject constructor(
     entityDomain: String?,
     entityPromoCode: String?,
     userWallet: String?,
-    walletSignature: String,
     referrerUrl: String?,
     guestWalletId: String?,
     externalBuyerReference: String?,
@@ -104,7 +103,6 @@ class AdyenPaymentRepository @Inject constructor(
           sku = sku!!,
           currency = currency,
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
           externalBuyerReference = externalBuyerReference,
           isFreeTrial = isFreeTrial
         )
@@ -114,7 +112,6 @@ class AdyenPaymentRepository @Inject constructor(
           sku = sku!!,
           currency = currency,
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
         )
       }
         .subscribeOn(rxSchedulers.io)
@@ -219,13 +216,11 @@ class AdyenPaymentRepository @Inject constructor(
 
   fun getTransaction(
     uid: String,
-    walletAddress: String,
-    signedWalletAddress: String
+    walletAddress: String
   ): Single<PaymentModel> {
     return brokerBdsApi.getAppcoinsTransaction(
       uId = uid,
-      walletAddress = walletAddress,
-      walletSignature = signedWalletAddress
+      walletAddress = walletAddress
     )
       .map { adyenResponseMapper.map(it) }
       .onErrorReturn {

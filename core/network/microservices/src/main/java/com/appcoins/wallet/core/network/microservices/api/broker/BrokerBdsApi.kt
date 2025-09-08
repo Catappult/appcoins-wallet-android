@@ -10,7 +10,6 @@ interface BrokerBdsApi {
   @GET("8.20240524/transactions")
   fun getSkuTransaction(
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Query("cursor") cursor: Long,
     @Query("type") type: BillingSupportedType,
     @Query("limit") limit: Long,
@@ -23,8 +22,7 @@ interface BrokerBdsApi {
   @GET("8.20240524/transactions/{uId}")
   fun getAppcoinsTransaction(
     @Path("uId") uId: String,
-    @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String
+    @Query("wallet.address") walletAddress: String
   ): Single<Transaction>
 
   /**
@@ -180,8 +178,7 @@ interface BrokerBdsApi {
     @Field("entity.oemid") entityOemId: String?,
     @Field("reference") orderReference: String?,
     @Field("entity.guest_id") guestWalletId: String?,
-    @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String?,
+    @Query("wallet.address") walletAddress: String
   ): Single<MiPayTransaction>
 
 }
