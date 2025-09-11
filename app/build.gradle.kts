@@ -10,10 +10,29 @@ plugins {
 
 android {
   namespace = "com.asf.wallet"
+
+  externalNativeBuild {
+    cmake {
+    }
+  }
+
+  //packaging { jniLibs { excludes += listOf("**/x86_64/libnative-lib.so") } }
+
   defaultConfig {
     applicationId = "com.appcoins.wallet"
     versionCode = 373
     versionName = "4.10.1"
+
+    externalNativeBuild {
+      cmake {
+        arguments += listOf("-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON")
+      }
+    }
+
+    ndk {
+      abiFilters += listOf("arm64-v8a", "x86_64")
+    }
+
   }
 }
 
