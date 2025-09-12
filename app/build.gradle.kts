@@ -11,12 +11,10 @@ plugins {
 android {
   namespace = "com.asf.wallet"
 
+  packaging { jniLibs { excludes += listOf("**/x86_64/libnative-lib.so") } }
   externalNativeBuild {
-    cmake {
-    }
+    cmake { path = file("src/main/cpp/CMakeLists.txt") }
   }
-
-  //packaging { jniLibs { excludes += listOf("**/x86_64/libnative-lib.so") } }
 
   defaultConfig {
     applicationId = "com.appcoins.wallet"
@@ -28,7 +26,6 @@ android {
         arguments += listOf("-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON")
       }
     }
-
     ndk {
       abiFilters += listOf("arm64-v8a", "x86_64")
     }
