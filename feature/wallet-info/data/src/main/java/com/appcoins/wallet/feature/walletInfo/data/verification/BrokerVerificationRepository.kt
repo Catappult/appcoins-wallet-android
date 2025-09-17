@@ -25,23 +25,20 @@ constructor(
 ) {
 
   fun getVerificationInfo(
-    walletAddress: String,
-    signedWalletAddress: String
+    walletAddress: String
   ): Single<VerificationInfoResponse> {
-    return brokerVerificationApi.getVerificationInfo(walletAddress, signedWalletAddress)
+    return brokerVerificationApi.getVerificationInfo(walletAddress)
   }
 
   fun makeCreditCardVerificationPayment(
     adyenPaymentMethod: ModelObject,
     shouldStoreMethod: Boolean,
     returnUrl: String,
-    walletAddress: String,
-    walletSignature: String
+    walletAddress: String
   ): Single<VerificationPaymentModel> {
     return brokerVerificationApi
       .makeCreditCardVerificationPayment(
         walletAddress = walletAddress,
-        walletSignature = walletSignature,
         verificationPayment =
         VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl)
       )
@@ -53,13 +50,11 @@ constructor(
     adyenPaymentMethod: ModelObject,
     shouldStoreMethod: Boolean,
     returnUrl: String,
-    walletAddress: String,
-    walletSignature: String
+    walletAddress: String
   ): Single<VerificationPaymentModel> {
     return brokerVerificationApi
       .makePaypalVerificationPayment(
         walletAddress = walletAddress,
-        walletSignature = walletSignature,
         verificationPayment =
         VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl)
       )
@@ -69,18 +64,16 @@ constructor(
 
   fun validateCode(
     code: String,
-    walletAddress: String,
-    walletSignature: String
+    walletAddress: String
   ): Single<VerificationCodeResult> {
     return brokerVerificationApi
-      .validateCode(walletAddress = walletAddress, walletSignature = walletSignature, code = code)
+      .validateCode(walletAddress = walletAddress, code = code)
       .toSingle { VerificationCodeResult(true) }
       .onErrorReturn { adyenResponseMapper.mapVerificationCodeError(it) }
   }
 
   fun getVerificationStatus(
     walletAddress: String,
-    walletSignature: String,
     type: VerificationType
   ): Single<VerificationStatus> {
     return walletInfoRepository
@@ -98,7 +91,7 @@ constructor(
         } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.ERROR) {
           return@flatMap Single.just(VerificationStatus.ERROR)
         }
-        return@flatMap getCardVerificationState(walletAddress, walletSignature)
+        return@flatMap getCardVerificationState(walletAddress)
       }
       .doOnSuccess { status -> saveVerificationStatus(walletAddress, status, type) }
       .onErrorReturn {
@@ -108,10 +101,9 @@ constructor(
 
   fun getCardVerificationState(
     walletAddress: String,
-    walletSignature: String
   ): Single<VerificationStatus> {
     return brokerVerificationApi
-      .getVerificationState(wallet = walletAddress, walletSignature = walletSignature)
+      .getVerificationState(wallet = walletAddress)
       .map { verificationState ->
         if (
             verificationState == "ACTIVE" &&

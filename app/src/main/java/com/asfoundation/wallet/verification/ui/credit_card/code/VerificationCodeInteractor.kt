@@ -26,7 +26,7 @@ class VerificationCodeInteractor @Inject constructor(
   fun loadVerificationIntroModel(): Single<VerificationInfoModel> {
     return walletService.getAndSignCurrentWalletAddress()
       .flatMap {
-        brokerVerificationRepository.getVerificationInfo(it.address, it.signedAddress)
+        brokerVerificationRepository.getVerificationInfo(it.address)
           .map { info -> mapToVerificationInfoModel(info) }
       }
       .onErrorReturn { VerificationInfoModel(Error(true)) }

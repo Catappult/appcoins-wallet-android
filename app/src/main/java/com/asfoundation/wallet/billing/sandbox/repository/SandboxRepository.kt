@@ -7,8 +7,8 @@ import com.appcoins.wallet.core.network.microservices.api.broker.SandboxApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.SandboxPayment
-import com.appcoins.wallet.core.network.microservices.model.SandboxTokenPayment
 import com.appcoins.wallet.core.network.microservices.model.SandboxResponse
+import com.appcoins.wallet.core.network.microservices.model.SandboxTokenPayment
 import com.appcoins.wallet.core.network.microservices.model.SandboxTransaction
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -30,7 +30,6 @@ class SandboxRepository @Inject constructor(
     currency: String,
     reference: String?,
     walletAddress: String,
-    walletSignature: String,
     origin: String?,
     packageName: String?,
     metadata: String?,
@@ -43,56 +42,57 @@ class SandboxRepository @Inject constructor(
     userWallet: String?,
     referrerUrl: String?,
     guestWalletId: String?,
-  ): Single<SandboxTransaction> {    val responseSingle: Single<SandboxResponse> =
-    if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name &&
-      packageName != null && sku != null) {
-      subscriptionsApi.getSkuSubscriptionToken(
-        domain = packageName,
-        sku = sku,
-        currency = currency,
-        walletAddress = walletAddress,
-        walletSignature = walletSignature,
-      )
-        .flatMap { token ->
-          sandboxApi.createTokenTransaction(
-            walletAddress = walletAddress,
-            sandboxPayment = SandboxTokenPayment(
-              callbackUrl = callbackUrl,
-              metadata = metadata,
-              origin = origin,
-              reference = reference,
-              entityOemId = entityOemId,
-              entityDomain = entityDomain,
-              entityPromoCode = entityPromoCode,
-              user = userWallet,
-              referrerUrl = referrerUrl,
-              guestWalletId = guestWalletId,
-              productToken = token,
-            )
-          )
-        }
-    } else {
-      sandboxApi.createTransaction(
-        walletAddress = walletAddress,
-        sandboxPayment = SandboxPayment(
-          callbackUrl = callbackUrl,
+  ): Single<SandboxTransaction> {
+    val responseSingle: Single<SandboxResponse> =
+      if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name &&
+        packageName != null && sku != null
+      ) {
+        subscriptionsApi.getSkuSubscriptionToken(
           domain = packageName,
-          metadata = metadata,
-          origin = origin,
           sku = sku,
-          reference = reference,
-          type = transactionType,
           currency = currency,
-          value = value,
-          entityOemId = entityOemId,
-          entityDomain = entityDomain,
-          entityPromoCode = entityPromoCode,
-          user = userWallet,
-          referrerUrl = referrerUrl,
-          guestWalletId = guestWalletId,
+          walletAddress = walletAddress,
         )
-      )
-    }
+          .flatMap { token ->
+            sandboxApi.createTokenTransaction(
+              walletAddress = walletAddress,
+              sandboxPayment = SandboxTokenPayment(
+                callbackUrl = callbackUrl,
+                metadata = metadata,
+                origin = origin,
+                reference = reference,
+                entityOemId = entityOemId,
+                entityDomain = entityDomain,
+                entityPromoCode = entityPromoCode,
+                user = userWallet,
+                referrerUrl = referrerUrl,
+                guestWalletId = guestWalletId,
+                productToken = token,
+              )
+            )
+          }
+      } else {
+        sandboxApi.createTransaction(
+          walletAddress = walletAddress,
+          sandboxPayment = SandboxPayment(
+            callbackUrl = callbackUrl,
+            domain = packageName,
+            metadata = metadata,
+            origin = origin,
+            sku = sku,
+            reference = reference,
+            type = transactionType,
+            currency = currency,
+            value = value,
+            entityOemId = entityOemId,
+            entityDomain = entityDomain,
+            entityPromoCode = entityPromoCode,
+            user = userWallet,
+            referrerUrl = referrerUrl,
+            guestWalletId = guestWalletId,
+          )
+        )
+      }
 
     return responseSingle
       .subscribeOn(rxSchedulers.io)
@@ -113,13 +113,12 @@ class SandboxRepository @Inject constructor(
   }
 
   fun getTransaction(
-    uid: String, walletAddress: String,
-    signedWalletAddress: String
+    uid: String,
+    walletAddress: String,
   ): Single<PaymentModel> =
     brokerBdsApi.getAppcoinsTransaction(
       uId = uid,
-      walletAddress = walletAddress,
-      walletSignature = signedWalletAddress
+      walletAddress = walletAddress
     )
       .map { adyenResponseMapper.map(it) }
       .onErrorReturn {

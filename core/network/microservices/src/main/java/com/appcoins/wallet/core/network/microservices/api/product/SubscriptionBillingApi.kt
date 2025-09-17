@@ -40,7 +40,6 @@ interface SubscriptionBillingApi {
     @Path("sku") sku: String,
     @Query("currency") currency: String?,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
   ): Single<String>
 
   /**
@@ -55,7 +54,6 @@ interface SubscriptionBillingApi {
     @Path("sku") sku: String,
     @Query("currency") currency: String?,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Query("external_buyer_reference") externalBuyerReference: String?,
     @Query("enable_trial_period") isFreeTrial: Boolean?,
   ): Single<String>
@@ -69,7 +67,6 @@ interface SubscriptionBillingApi {
   fun getPurchases(
     @Path("domain") domain: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Query("limit") limit: Long? = null
   ): Single<SubscriptionPurchaseListResponse>
 
@@ -78,7 +75,6 @@ interface SubscriptionBillingApi {
     @Path("domain") domain: String,
     @Path("uid") uid: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String
   ): Single<SubscriptionPurchaseResponse>
 
   @POST("8.20200701/applications/{domain}/inapp/subscription/purchases/{uid}/activate")
@@ -86,7 +82,6 @@ interface SubscriptionBillingApi {
     @Path("domain") domain: String,
     @Path("uid") uid: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String
   ): Completable
 
   @POST("8.20200701/applications/{domain}/inapp/subscription/purchases/{uid}/cancel")
@@ -94,6 +89,5 @@ interface SubscriptionBillingApi {
     @Path("domain") domain: String,
     @Path("uid") uid: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String
   ): Completable
 }

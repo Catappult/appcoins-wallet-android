@@ -23,8 +23,8 @@ class WaitForSuccessSandboxUseCase @Inject constructor(
           .switchMap {
             if (!isEndingState(lastPaymentCheck?.status))
               sandboxRepository.getTransaction(
-                uid, walletAddressModel.address,
-                walletAddressModel.signedAddress
+                uid = uid,
+                walletAddress = walletAddressModel.address
               )
                 .doOnSuccess { lastPaymentCheck = it }
                 .toObservable()

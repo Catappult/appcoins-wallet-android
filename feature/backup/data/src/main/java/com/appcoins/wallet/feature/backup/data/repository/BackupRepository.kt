@@ -48,7 +48,6 @@ constructor(
       .flatMapCompletable {
         backupEmailApi.sendBackupEmail(
           walletAddress = it.address,
-          walletSignature = it.signedAddress,
           emailBody = EmailBody(email, keystore.convertToBase64())
         )
       }

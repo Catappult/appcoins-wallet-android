@@ -40,7 +40,7 @@ class BdsBilling(
   override fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction> {
     return walletService.getAndSignCurrentWalletAddress()
       .observeOn(scheduler)
-      .flatMap { repository.getAppcoinsTransaction(uid, it.address, it.signedAddress) }
+      .flatMap { repository.getAppcoinsTransaction(uid, it.address) }
   }
 
   override fun getSkuTransaction(
@@ -51,7 +51,7 @@ class BdsBilling(
     return walletService.getAndSignCurrentWalletAddress()
       .observeOn(scheduler)
       .flatMap {
-        repository.getSkuTransaction(merchantName, sku, it.address, it.signedAddress, type)
+        repository.getSkuTransaction(merchantName, sku, it.address, type)
       }
   }
 
@@ -63,8 +63,11 @@ class BdsBilling(
       .observeOn(scheduler)
       .flatMap {
         repository.getSkuPurchase(
-          merchantName, sku, purchaseUid, it.address, it.signedAddress,
-          type
+          packageName = merchantName,
+          skuId = sku,
+          purchaseUid = purchaseUid,
+          walletAddress = it.address,
+          type = type
         )
       }
   }
@@ -77,7 +80,11 @@ class BdsBilling(
       walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap {
-          repository.getPurchases(packageName, it.address, it.signedAddress, type)
+          repository.getPurchases(
+            packageName = packageName,
+            walletAddress = it.address,
+            type = type
+          )
         }
         .onErrorReturn { emptyList() }
     } else Single.just(emptyList())
@@ -106,7 +113,6 @@ class BdsBilling(
           packageName = packageName,
           skuId = skuId,
           walletAddress = it.address,
-          walletSignature = it.signedAddress,
           externalBuyerReference = externalBuyerReference,
           isFreeTrial = isFreeTrial
         )

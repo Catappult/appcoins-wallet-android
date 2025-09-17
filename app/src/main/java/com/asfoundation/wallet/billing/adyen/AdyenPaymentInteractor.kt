@@ -47,7 +47,6 @@ class AdyenPaymentInteractor @Inject constructor(
       .flatMap {
         walletVerificationInteractor.isVerified(
           address = it.address,
-          signature = it.signedAddress,
           type = verificationType
         )
       }
@@ -125,7 +124,6 @@ class AdyenPaymentInteractor @Inject constructor(
               entityDomain = attrEntity.domain,
               entityPromoCode = promoCode.code,
               userWallet = addressModel.address,
-              walletSignature = addressModel.signedAddress,
               referrerUrl = referrerUrl,
               guestWalletId = guestWalletId,
               externalBuyerReference = externalBuyerReference,
@@ -167,7 +165,6 @@ class AdyenPaymentInteractor @Inject constructor(
           entityDomain = null,
           entityPromoCode = null,
           userWallet = null,
-          walletSignature = addressModel.signedAddress,
           referrerUrl = null,
           guestWalletId = null,
           externalBuyerReference = null,
@@ -211,7 +208,6 @@ class AdyenPaymentInteractor @Inject constructor(
           entityDomain = null,
           entityPromoCode = null,
           userWallet = null,
-          walletSignature = it.signedAddress,
           referrerUrl = null,
           guestWalletId = null,
           externalBuyerReference = null,
@@ -282,8 +278,8 @@ class AdyenPaymentInteractor @Inject constructor(
           .timeInterval()
           .switchMap {
             adyenPaymentRepository.getTransaction(
-              uid, walletAddressModel.address,
-              walletAddressModel.signedAddress
+              uid = uid,
+              walletAddress = walletAddressModel.address
             )
               .toObservable()
           }
@@ -299,8 +295,8 @@ class AdyenPaymentInteractor @Inject constructor(
         .flatMap { walletAddressModel ->
           Single.zip(
             adyenPaymentRepository.getTransaction(
-              uid, walletAddressModel.address,
-              walletAddressModel.signedAddress
+              uid = uid,
+              walletAddress = walletAddressModel.address
             ),
             Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS, rxSchedulers.io),
             BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })
