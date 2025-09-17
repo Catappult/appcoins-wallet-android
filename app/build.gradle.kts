@@ -18,8 +18,8 @@ android {
 
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 374
-    versionName = "4.11.0"
+    versionCode = 375
+    versionName = "4.12.0"
 
     externalNativeBuild {
       cmake {
