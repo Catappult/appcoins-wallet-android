@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Rect
+import android.net.Uri
 import android.net.Uri.parse
 import android.os.Build
 import android.os.Bundle
@@ -64,7 +65,6 @@ import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -90,11 +90,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   lateinit var userAgentInterceptor: UserAgentInterceptor
 
-  private val compositeDisposable = CompositeDisposable()
-
   private var shouldAllowExternalApps = true
-
-  private var webViewInstance: WebView? = null
 
   private var lockCloseView by mutableStateOf(false)
   private var lockBackButton by mutableStateOf(false)
@@ -132,10 +128,12 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    PaymentOverlayHandle.register(this)
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay)
     setKeyboardListener()
     userAgentInterceptor = UserAgentInterceptor(context, commonsPreferencesDataSource)
+    //intent?.data?.let { handleDeepLink(it) }
 
     setContent {
       MainContent(url)
@@ -145,6 +143,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
   override fun onNewIntent(intent: Intent?) {
     super.onNewIntent(intent)
     val data = intent?.data?.toString().orEmpty()
+
+    intent?.data?.let { handleDeepLink(it) }
 
     viewModel.webView?.post {
       if (data.isNotBlank()) {
@@ -165,6 +165,10 @@ class WebViewPaymentActivity : AppCompatActivity() {
         viewModel.runningCustomTab = false
       }
     }
+  }
+
+  private fun handleDeepLink(uri: Uri) {
+
   }
 
   var isPortraitSpaceForWeb = mutableStateOf(false)
@@ -397,6 +401,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   override fun onDestroy() {
     super.onDestroy()
+    PaymentOverlayHandle.unregister(this)
     unlockRunnable?.let { handler.removeCallbacks(it) }
   }
 

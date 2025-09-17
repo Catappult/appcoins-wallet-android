@@ -338,28 +338,21 @@
     <activity
         android:name="com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity"
         android:exported="true"
+        android:launchMode="singleTop"
         android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
-        android:windowSoftInputMode="adjustResize" >
+        android:windowSoftInputMode="adjustResize">
+    </activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.webview_payment.WebWalletResultRouterActivity"
+        android:exported="true"
+        android:excludeFromRecents="true"
+        android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
-
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-
-        <data
-            android:host="${applicationId}"
-            android:scheme="web-wallet-result" />
-        <data
-            android:host="${applicationId}"
-            android:scheme="googlepayresult" />
-        <data
-            android:host="wallet.dev.appcoins.io"
-            android:pathPrefix="/app/googlepay/result"
-            android:scheme="http" />
-        <data
-            android:host="wallet.dev.appcoins.io"
-            android:pathPrefix="/app/googlepay/result"
-            android:scheme="https" />
+        <data android:scheme="web-wallet-result" android:host="com.appcoins.wallet" />
       </intent-filter>
     </activity>
 
