@@ -7,7 +7,7 @@ object Config {
     minSdk = 24,
     targetSdk = 35,
     compileSdkVersion = 35,
-    ndkVersion = "21.3.6528147"
+    ndkVersion = "28.2.13676358"
   )
   val jvm = JvmConfig(
     javaVersion = JavaVersion.VERSION_17,
