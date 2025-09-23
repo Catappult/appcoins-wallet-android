@@ -352,7 +352,9 @@
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="web-wallet-result" android:host="com.appcoins.wallet" />
+        <data
+            android:scheme="web-wallet-result"
+            />
       </intent-filter>
     </activity>
 
