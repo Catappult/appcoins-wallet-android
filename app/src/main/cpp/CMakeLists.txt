@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 3.4.1)
+cmake_minimum_required(VERSION 3.22)
+project(native-lib C)
 
-add_library(native-lib SHARED
-        native-lib.c)
+set(ANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES ON CACHE BOOL "Support 16K pages" FORCE)
 
-# Include libraries needed for native-lib lib
-target_link_libraries(native-lib
-        android
-        log)
+add_library(wallet-native SHARED native-lib.c)
+target_link_options(wallet-native PRIVATE "-Wl,-z,max-page-size=16384")
+target_link_libraries(wallet-native android log)
+
+set(CMAKE_VERBOSE_MAKEFILE ON)
