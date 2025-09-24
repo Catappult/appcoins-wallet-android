@@ -97,10 +97,12 @@ class WebViewPaymentInterface(
 
   private fun parsePurchaseResult(result: String?): WebViewPaymentResponse? {
     try {
+      Log.i("WalletWebViewSDK", "data from webview: $result")
       val responseModel = Gson().fromJson(result, WebViewPaymentResponse::class.java)
       return responseModel
     } catch (e: Exception) {
       e.printStackTrace()
+      Log.i("WalletWebViewSDK", "Failed to parse purchase result: ${e.message} ${e.printStackTrace()}")
       return null
     }
   }

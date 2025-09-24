@@ -1,5 +1,6 @@
 package com.appcoins.wallet.bdsbilling.repository
 
+import android.util.Log
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
@@ -110,7 +111,9 @@ class RemoteRepository(
     type = BillingSupportedType.INAPP.name.lowercase(Locale.ROOT),
     sku = skuId
   ).map {
+    Log.i("WalletWebViewSDK", "getSkuPurchase response: ${it.items}")
     if (it.items.isEmpty()) {
+      Log.i("WalletWebViewSDK", "getSkuPurchase empty items list, throwing 404")
       throw HttpException(
         Response.error<GetPurchasesResponse>(
           404,

@@ -72,6 +72,11 @@ class WebViewPaymentViewModel @Inject constructor(
     paymentMethod: String,
     transactionBuilder: TransactionBuilder
   ) {
+    Log.i("WalletWebViewSDK", "creating success bundle. " +
+        "type: $type, merchantName: $merchantName, sku: $sku, " +
+        "purchaseUid: $purchaseUid, orderReference: $orderReference, hash: $hash, " +
+        "paymentMethod: $paymentMethod, transactionBuilder: $transactionBuilder"
+    )
     compositeDisposable.add(
       createSuccessBundleUseCase(
         type = type,
@@ -91,6 +96,7 @@ class WebViewPaymentViewModel @Inject constructor(
             true,
             true
           )
+          Log.i(TAG, "Success in createSuccessBundleAndFinish for WebViewPayment ${it.bundle.toString()}")
         }
         .subscribeOn(rxSchedulers.io)
         .observeOn(rxSchedulers.io)
@@ -101,6 +107,7 @@ class WebViewPaymentViewModel @Inject constructor(
             true,
             true
           )
+          Log.i(TAG, "onError in createSuccessBundleAndFinish for WebViewPayment ${it.message} ${it.stackTrace}")
           _uiState.value = UiState.Finish
         }
         .subscribe({}, {
