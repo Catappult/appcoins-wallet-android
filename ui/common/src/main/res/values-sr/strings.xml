@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">Ovo će možda malo potrajati…</string>
   <string name="activity_iab_transaction_completed_title">Transakcija je dovršena</string>
   <string name="activity_iab_error_message">Došlo je do greške, pokušajte ponovo</string>
-  <string name="activity_iab_no_funds_message">Nema dovoljno ETH i AppCoins</string>
+  <string name="activity_iab_no_funds_message">Nema dovoljno ETH i Aptoide Balance</string>
   <string name="activity_iab_no_ethereum_funds_message">Nema dovoljno Ethereuma</string>
-  <string name="activity_iab_no_token_funds_message">Nema dovoljno AppCoins</string>
+  <string name="activity_iab_no_token_funds_message">Nema dovoljno Aptoide Balance</string>
   <string name="activity_iab_wrong_network_message">Pogrešna Ethereum mreža ili nepoznat token</string>
   <string name="activity_iab_no_network_message">Nema pristupa mreži</string>
   <string name="activity_iab_nonce_message">Došlo je do greške sa lancem blokova, pokušajte ponovo.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">Detalji o transakciji</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">Potvrdite da ste ljudsko biće da biste primili AppCoins</string>
+  <string name="activity_airdrop_title">Potvrdite da ste ljudsko biće da biste primili Aptoide Balance</string>
   <string name="activity_airdrop_details">Ovo je samo iz bezbednosnih razloga.</string>
   <string name="activity_airdrop_hint">Unesite reči sa slike</string>
   <string name="activity_airdrop_submit_btn">Pošalji</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">Trenutno nema načina za plaćanje dostupnih za dopunu u vašoj zemlji. Ostanite u toku!</string>
   <string name="topup_bonus_amount_body">Preuzmite %s bonusa uz ovu dopunu</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Ethereum je kriptovaluta na kojoj su zasnovani AppCoins. Možete da je kupite i prodate na većini berzi – veoma je popularna!</string>
-  <string name="balance_appcoins_body">AppCoins je kriptovaluta za ekonomiju aplikacija. Možete da je kupite i prodate na nekoliko berzi i koristite je za kupovine u aplikacijama.</string>
+  <string name="balance_ethereum_body">Ethereum je kriptovaluta na kojoj su zasnovani Aptoide Balance. Možete da je kupite i prodate na većini berzi – veoma je popularna!</string>
+  <string name="balance_appcoins_body">Aptoide Balance je kriptovaluta za ekonomiju aplikacija. Možete da je kupite i prodate na nekoliko berzi i koristite je za kupovine u aplikacijama.</string>
   <string name="balance_appccreditos_body">Token za kupovine u aplikacijama! Dopunite Aptoide bilans ili ga dobijte besplatno tako što ćete koristiti aplikacije. Možete i da ih prenesete prijateljima, kao i oni vama!</string>
   <string name="my_wallets_action_new_wallet">Novi novčanik</string>
   <string name="my_wallets_action_recover_wallet">Oporavite novčanik</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">Trenutno stanje: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Nema dovoljno sredstava</string>
   <string name="p2p_send_confirmation_header">Informacije o prenosu</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Ups</string>
   <string name="error_general">Došlo je do greške</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">Ukupno %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Izgleda da se ova kupovina već obrađuje. Sačekajte dok se transakcija ne obavi ili se obratite našem timu korisničke podrške.</string>
   <string name="purchase_more_payment_methods_lower_case_button">Drugi načini plaćanja</string>
-  <string name="purchase_appcoins_noavailable_body">Nemate dovoljno AppCoins ili Ethera za ovu kupovinu.</string>
+  <string name="purchase_appcoins_noavailable_body">Nemate dovoljno Aptoide Balance ili Ethera za ovu kupovinu.</string>
   <string name="purchase_no_eth_body">Nemate dovoljno Ethereuma da platite gas.</string>
-  <string name="purchase_no_appcoins_body">Nemate dovoljno AppCoins za ovu kupovinu.</string>
+  <string name="purchase_no_appcoins_body">Nemate dovoljno Aptoide Balance za ovu kupovinu.</string>
   <string name="purchase_appcoins_credits_noavailable_body">Nemate dovoljno Aptoide bilansa, dopunite ga!</string>
   <string name="purchase_appcoins_credits_default_body">Zaradili ste dovoljno Aptoide bilansa za ovu kupovinu. Uživajte!</string>
   <string name="purchase_poa_item">Zaradite sredstva tako što ćete isprobati aplikacije</string>
@@ -390,7 +389,7 @@
   <string name="purchase_poa_view_body">Isprobajte aplikaciju 2 minuta i osvojite nagradu u vidu Aptoide bilansa da biste obavili kupovinu!</string>
   <string name="purchase_current_balance_body">Trenutno stanje:</string>
   <string name="purchase_current_balance_appcc_body">%s u Aptoide bilansu.</string>
-  <string name="purchase_current_balance_appc_eth_body">AppCoins i Ether: %s</string>
+  <string name="purchase_current_balance_appc_eth_body">Aptoide Balance i Ether: %s</string>
   <string name="purchase_wallet_blocked_title">Stanje vašeg Aptoide bilansa je blokirano</string>
   <string name="purchase_wallet_blocked_body">Zbog neuobičajene istorije transakcija, vaše stanje Aptoide bilansa je blokirano. I dalje ćete moći da plaćate i obavljate transakcije pomoću drugih načina koji nisu Aptoide bilans.\n\nAko smatrate da je ovo greška, javite nam se:</string>
   <string name="purchase_card_error_general_1">Javio se problem sa vašom karticom. Pokušajte ponovo sa drugom karticom ili drugim načinom plaćanja.</string>

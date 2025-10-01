@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">ਮੌਜੂਦਾ ਬਕਾਇਆ: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">ਕਾਫ਼ੀ ਫੰਡ ਨਹੀਂ</string>
   <string name="p2p_send_confirmation_header">ਸੰਚਾਰ ਵੇਰਵਾ</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Oops</string>
   <string name="error_general">ਕੁੱਝ ਗਲਤ ਹੋ ਗਿਆ</string>

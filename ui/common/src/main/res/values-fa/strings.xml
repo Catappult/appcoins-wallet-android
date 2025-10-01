@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">اندکی زمان می‌برد…</string>
   <string name="activity_iab_transaction_completed_title">تراکنش کامل شد</string>
   <string name="activity_iab_error_message">خطایی رخ داد، دوباره امتحان کنید</string>
-  <string name="activity_iab_no_funds_message">ETH و AppCoins کافی نیست</string>
+  <string name="activity_iab_no_funds_message">ETH و Aptoide Balance کافی نیست</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereum کافی نیست</string>
-  <string name="activity_iab_no_token_funds_message">AppCoins کافی نیست</string>
+  <string name="activity_iab_no_token_funds_message">Aptoide Balance کافی نیست</string>
   <string name="activity_iab_wrong_network_message">شبکه Ethereum اشتباه یا ژتون نامعتبر</string>
   <string name="activity_iab_no_network_message">دسترسی به شبکه مقدور نیست</string>
   <string name="activity_iab_nonce_message">خطایی در ارتباط با blockchain رخ داد، لطفا بعدا دوباره امتحان کنید.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">جزییات تراکنش</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">تایید کنید که انسان هستید تا AppCoins دریافت کنید</string>
+  <string name="activity_airdrop_title">تایید کنید که انسان هستید تا Aptoide Balance دریافت کنید</string>
   <string name="activity_airdrop_details">این فقط یک کار امنیتی است.</string>
   <string name="activity_airdrop_hint">کلمات داخل تصویر را تایپ کنید</string>
   <string name="activity_airdrop_submit_btn">ارسال</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">هیچ روش پرداختی در حال حاضر برای کشور شما موجود نیست. در تماس بمانید!</string>
   <string name="topup_bonus_amount_body">%s بونوس با این شارژ دریافت کنید</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Ethereum همان cryptocurrency است که AppCoins بر اساس آن می باشد. شما می توانید آن ها را به اکثر واحدهای اعتباری خرید و فروش کنید. بسیار محبوب است!</string>
-  <string name="balance_appcoins_body">AppCoins همان cryptocurrency برای اقتصاد اپلیکیشن است. شما می توانید خرید و فروش آن را در مبادلات مختلف انجام دهید و از آن برای خریدهای داخل اپلیکیشنی استفاده کنید.</string>
+  <string name="balance_ethereum_body">Ethereum همان cryptocurrency است که Aptoide Balance بر اساس آن می باشد. شما می توانید آن ها را به اکثر واحدهای اعتباری خرید و فروش کنید. بسیار محبوب است!</string>
+  <string name="balance_appcoins_body">Aptoide Balance همان cryptocurrency برای اقتصاد اپلیکیشن است. شما می توانید خرید و فروش آن را در مبادلات مختلف انجام دهید و از آن برای خریدهای داخل اپلیکیشنی استفاده کنید.</string>
   <string name="balance_appccreditos_body">توکن برای خرید آیتم‌های داخل اپلیکیشنی! Aptoide balance را شارژ کنید یا آن ها را بصورت رایگان با استفاده کردن از اپلیکیشن‌ها بدست آورید. آن همچنین قابل انتقال در میان دوستان می‌باشد!</string>
   <string name="my_wallets_action_new_wallet">کیف‌پول جدید</string>
   <string name="my_wallets_action_recover_wallet">بازیابی کیف‌پول</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">تراز فعلی: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">بودجه کافی نیست</string>
   <string name="p2p_send_confirmation_header">جزییات انتقال‌ها</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">اوه</string>
   <string name="error_general">مشکلی پیش آمده است</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">مجموع %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">به نظر می‌رسد که این خرید پردازش شده است. لطفا منتظر بمانید تا تراکنش تکمیل شود یا با تیم پشتیبانی تماس بگیرید.</string>
   <string name="purchase_more_payment_methods_lower_case_button">سایر روش‌های پرداخت</string>
-  <string name="purchase_appcoins_noavailable_body">به مقدار کافی AppCoins یا Ether برای این خرید ندارید.</string>
+  <string name="purchase_appcoins_noavailable_body">به مقدار کافی Aptoide Balance یا Ether برای این خرید ندارید.</string>
   <string name="purchase_no_eth_body">به اندازه کافی ETH برای پرداخت گاز نداری.</string>
-  <string name="purchase_no_appcoins_body">به مقدار کافی AppCoins برای تکمیل این خرید ندارید.</string>
+  <string name="purchase_no_appcoins_body">به مقدار کافی Aptoide Balance برای تکمیل این خرید ندارید.</string>
   <string name="purchase_appcoins_credits_noavailable_body">به مقداری کافی Aptoide balance ندارید، شارژ کنید!</string>
   <string name="purchase_appcoins_credits_default_body">به مقدار کافی Aptoide balance برای این خرید دریافت‌ خواهید کرد. لذت ببرید!</string>
   <string name="purchase_poa_item">از طریق امتحان اپلیکیشن‌ها کسب درآمد کنید</string>
@@ -390,7 +389,7 @@
   <string name="purchase_poa_view_body">اپلیکیشنی را برای 2 دقیقه امتحان کنید و پاداشی در اعتبار Aptoide balance بدست آورید تا بتوانید خرید کنید!</string>
   <string name="purchase_current_balance_body">تراز فعلی:</string>
   <string name="purchase_current_balance_appcc_body">%s در Aptoide balance.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s در AppCoins و Ether.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s در Aptoide Balance و Ether.</string>
   <string name="purchase_wallet_blocked_title">Aptoide balance شما مسدود است</string>
   <string name="purchase_wallet_blocked_body">با توجه به تاریخچه تراکنش‌های غیرعادی، Aptoide balance شما مسدود شده است. کماکان قادر به انجام تراکنش‌ها و پرداخت با سایر روش‌ها به جز Aptoide balance هستید.\n\n اگر اعتقاد دارید که اشتباهی رخ داده‌ است، با ما تماس بگیرید از طریق:</string>
   <string name="purchase_card_error_general_1">مشکلی با کارت شما بود. لطفا با کارت یا روش پرداخت دیگری مجددا امتحان کنید.</string>

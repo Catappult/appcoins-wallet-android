@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">सद्य शिल्लक: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">पुरेसे पैसे नाहीत</string>
   <string name="p2p_send_confirmation_header">हस्तांतरण तपशील</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">अरेरे</string>
   <string name="error_general">काहीतरी चूक झाली</string>
@@ -392,7 +391,7 @@
   <string name="purchase_current_balance_appcc_body">Aptoide बॅलन्समध्ये %s.</string>
   <string name="purchase_current_balance_appc_eth_body">%s अॅपकॉइन्स आणि इथर.</string>
   <string name="purchase_wallet_blocked_title">आपला Aptoide बॅलन्स ब्लॉक केलाय</string>
-  <string name="purchase_wallet_blocked_body">विचित्र व्यवहार इतिहासामुळे आपला Aptoide बॅलन्स ब्लॉक केलाय. तरीही आपण Aptoide बॅलन्सच्या अपवादासह इतर पद्धतींनी आपली पेमेंटस आणि व्यवहार चालू ठेऊ शकता.\n\nजर ही चूक वाटत असेल तर आमच्याशी पुढीलवर संपर्क साधा:</string>
+  <string name="purchase_wallet_blocked_body">विचित्र व्यवहार इतिहासामुळे आपला Aptoide बॅलन्स ब्लॉक केलाय. तरीही आपण Aptoide बॅलन्सच्या अपवादासह इतर पद्धतींनी आपली पेमेंटस आणि व्यवहार चालू ठेऊ शकता.  जर ही चूक वाटत असेल तर आमच्याशी पुढीलवर संपर्क साधा:</string>
   <string name="purchase_card_error_general_1">आपल्या कार्डात समस्या आलीय. कृपया वेगळ कार्ड वा पेमेंट पद्धत वापरुन प्रयत्न करा.</string>
   <string name="purchase_card_error_general_2">आपल्या बँकेने हा व्यवहार नाकारलाय. कृपया वेगळ्या कार्ड वा पेमेंट पद्धतीसह प्रयत्न करा.</string>
   <string name="purchase_card_error_no_funds">असे दिसतेय कि आपल्याकडे पुरेसे पैसे नाहीत किंवा आपल्या कार्डावर लिमिट आहे. कृपया वेगळे कार्ड किंवा पेमेंट पद्धत वापरुन प्रयत्न करा.</string>

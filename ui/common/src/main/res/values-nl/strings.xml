@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">Dit kan even duren…</string>
   <string name="activity_iab_transaction_completed_title">Transactie voltooid</string>
   <string name="activity_iab_error_message">Er is een fout opgetreden, probeer het opnieuw</string>
-  <string name="activity_iab_no_funds_message">Niet genoeg ETH en AppCoins</string>
+  <string name="activity_iab_no_funds_message">Niet genoeg ETH en Aptoide Balance</string>
   <string name="activity_iab_no_ethereum_funds_message">Niet genoeg Ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Niet genoeg AppCoins</string>
+  <string name="activity_iab_no_token_funds_message">Niet genoeg Aptoide Balance</string>
   <string name="activity_iab_wrong_network_message">Onjuist Ethereum-netwerk of onbekende token</string>
   <string name="activity_iab_no_network_message">Geen netwerktoegang</string>
   <string name="activity_iab_nonce_message">Er is een fout in de blockchain opgetreden, probeer het later opnieuw.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">Transactiegegevens</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
+  <string name="activity_airdrop_title">Bevestig dat je geen robot bent om Aptoide Balance te kunnen ontvangen</string>
   <string name="activity_airdrop_details">Dit is alleen voor de veiligheid.</string>
   <string name="activity_airdrop_hint">Voer de tekens in die worden weergegeven</string>
   <string name="activity_airdrop_submit_btn">Versturen</string>
@@ -205,7 +205,7 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Bonus voor aankoop:</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide-tegoed</string>
+  <string name="gamification_purchase_header_part_2">%s in Aptoide-balans</string>
   <string name="gamification_purchase_body">Je kunt deze bonus bij je volgende aankoop gebruiken.</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus ontvangen</string>
   <string name="gamification_leveled_up_notification_body">Gefeliciteerd, je krijgt nu bij elke aankoop %s bonus!</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">Er zijn momenteel geen betaalmethoden beschikbaar om in jouw land op te waarderen. Blijf ons volgen!</string>
   <string name="topup_bonus_amount_body">Krijg %s bonus voor deze opwaardering</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Ethereum is de cryptovaluta waarop AppCoins zijn gebaseerd. Je kunt deze populaire cryptovaluta via de meeste platforms kopen!</string>
-  <string name="balance_appcoins_body">AppCoins is de cryptovaluta voor de app-economie. Je kunt deze cryptovaluta via verschillende platforms kopen en verkopen en gebruiken om in-app items te kopen.</string>
+  <string name="balance_ethereum_body">Ethereum is de cryptovaluta waarop Aptoide Balance zijn gebaseerd. Je kunt deze populaire cryptovaluta via de meeste platforms kopen!</string>
+  <string name="balance_appcoins_body">Aptoide Balance is de cryptovaluta voor de app-economie. Je kunt deze cryptovaluta via verschillende platforms kopen en verkopen en gebruiken om in-app items te kopen.</string>
   <string name="balance_appccreditos_body">De token om in-app items te kopen! Waardeer Aptoide-tegoed op via je wallet of krijg gratis tegoed door apps te gebruiken. Deze tokens kunnen ook tussen vrienden worden overgedragen!</string>
   <string name="my_wallets_action_new_wallet">Nieuwe wallet</string>
   <string name="my_wallets_action_recover_wallet">Wallet herstellen</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">Huidig saldo: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Onvoldoende saldo</string>
   <string name="p2p_send_confirmation_header">Gegevens voor overdracht</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Oeps</string>
   <string name="error_general">Er iets fout gegaan</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">Totaal %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Het lijkt erop dat deze aankoop al wordt verwerkt. Wacht totdat de transactie is voltooid of neem contact op met ons ondersteuningsteam.</string>
   <string name="purchase_more_payment_methods_lower_case_button">Andere betaalmethoden</string>
-  <string name="purchase_appcoins_noavailable_body">Je hebt niet genoeg AppCoins of Ether voor deze aankoop.</string>
+  <string name="purchase_appcoins_noavailable_body">Je hebt niet genoeg Aptoide Balance of Ether voor deze aankoop.</string>
   <string name="purchase_no_eth_body">Je hebt niet genoeg ETH om gas te betalen.</string>
-  <string name="purchase_no_appcoins_body">Je hebt niet genoeg AppCoins om deze aankoop te voltooien.</string>
+  <string name="purchase_no_appcoins_body">Je hebt niet genoeg Aptoide Balance om deze aankoop te voltooien.</string>
   <string name="purchase_appcoins_credits_noavailable_body">Je hebt niet genoeg Aptoide-tegoed, maar je kunt opwaarderen!</string>
   <string name="purchase_appcoins_credits_default_body">Je hebt genoeg Aptoide-tegoed verdiend voor deze aankoop. Veel plezier!</string>
   <string name="purchase_poa_item">Verdien geld door apps te proberen</string>
@@ -390,9 +389,9 @@
   <string name="purchase_poa_view_body">Gebruik een app 2 minuten en ontvang een beloning in Aptoide-tegoed om je aankoop te doen!</string>
   <string name="purchase_current_balance_body">Huidige saldo:</string>
   <string name="purchase_current_balance_appcc_body">%s in Aptoide-tegoed.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins en Ether.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in Aptoide Balance en Ether.</string>
   <string name="purchase_wallet_blocked_title">Je Aptoide-tegoed is geblokkeerd</string>
-  <string name="purchase_wallet_blocked_body">Vanwege een ongebruikelijke transactiegeschiedenis is je Aptoide-tegoed geblokkeerd. Je kunt nog steeds betalingen en transacties via andere methoden dan Aptoide-tegoed uitvoeren.\n\nAls je denkt dat dit een vergissing is, kun je contact met ons opnemen:</string>
+  <string name="purchase_wallet_blocked_body">Vanwege een ongebruikelijke transactiegeschiedenis is je Aptoide-tegoed geblokkeerd. Je kunt nog steeds betalingen en transacties via andere methoden dan Aptoide-tegoed uitvoeren.  Als je denkt dat dit een vergissing is, kun je contact met ons opnemen:</string>
   <string name="purchase_card_error_general_1">Er is een probleem met je kaart. Gebruik een andere kaart of betaalmethode.</string>
   <string name="purchase_card_error_general_2">De transactie is door je bank geweigerd. Gebruik een andere kaart of betaalmethode.</string>
   <string name="purchase_card_error_no_funds">Het lijkt erop dat je niet genoeg saldo hebt of je kaart heeft een limiet. Gebruik een andere kaart of betaalmethode.</string>

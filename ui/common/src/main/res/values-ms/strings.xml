@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">Ini akan mengambil masa sebentar…</string>
   <string name="activity_iab_transaction_completed_title">Transaksi Selesai</string>
   <string name="activity_iab_error_message">Ralat berlaku, sila cuba lagi</string>
-  <string name="activity_iab_no_funds_message">Tidak cukup ETH dan AppCoins</string>
+  <string name="activity_iab_no_funds_message">Tidak cukup ETH dan Aptoide Balance</string>
   <string name="activity_iab_no_ethereum_funds_message">Tidak cukup Ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Tidak cukup AppCoins</string>
+  <string name="activity_iab_no_token_funds_message">Tidak cukup Aptoide Balance</string>
   <string name="activity_iab_wrong_network_message">Salah rangkaian Ethereum atau token tidak diketahui</string>
   <string name="activity_iab_no_network_message">Tiada akses rangkaian</string>
   <string name="activity_iab_nonce_message">Ralat dengan rantaian blok berlaki, sila cuba lagi nanti.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">Butiran Transaksi</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">Sahkan anda ialah seorang manusia untuk terima AppCoins</string>
+  <string name="activity_airdrop_title">Sahkan anda ialah seorang manusia untuk terima Aptoide Balance</string>
   <string name="activity_airdrop_details">Ini hanyalah ciri keselamatan.</string>
   <string name="activity_airdrop_hint">Taipkan perkataan di dalam imej</string>
   <string name="activity_airdrop_submit_btn">Hantar</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">Tiada kaedah pembayaran tersedia untuk tambah nilai di negara anda buat masa ini. Ikuti perkembangan seterusnya!</string>
   <string name="topup_bonus_amount_body">Terima bonus %s dengan tambah nilai ini</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Ethereum ialah mata wang kripto yang digunakan dalam AppCoins. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga, ia sangat popular!</string>
-  <string name="balance_appcoins_body">AppCoins ialah mata wang kripto untuk ekonomi aplikasi. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga dan menggunakannya untuk membeli item dalam aplikasi.</string>
+  <string name="balance_ethereum_body">Ethereum ialah mata wang kripto yang digunakan dalam Aptoide Balance. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga, ia sangat popular!</string>
+  <string name="balance_appcoins_body">Aptoide Balance ialah mata wang kripto untuk ekonomi aplikasi. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga dan menggunakannya untuk membeli item dalam aplikasi.</string>
   <string name="balance_appccreditos_body">Token untuk membeli item dalam aplikasi! Tambah nilai baki Aptoide atau dapatkannya secara percuma dengan gunakan aplikasi. Ia juga boleh dipindahkan antara rakan!</string>
   <string name="my_wallets_action_new_wallet">Dompet baru</string>
   <string name="my_wallets_action_recover_wallet">Dapatkan semula dompet</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">Baki semasa: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Dana tidak cukup</string>
   <string name="p2p_send_confirmation_header">Butiran Pindahan</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Oops</string>
   <string name="error_general">Sesuatu tidak kena</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">Jumlah %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Nampaknya pembelian ini sedang diproses. Sila tunggu sehingga transaksi selesai atau hubungi Pasukan Sokongan kami.</string>
   <string name="purchase_more_payment_methods_lower_case_button">Kaedah pembayaran lain</string>
-  <string name="purchase_appcoins_noavailable_body">Anda tidak mempunyai AppCoins atau Ether yang cukup untuk pembelian ini.</string>
+  <string name="purchase_appcoins_noavailable_body">Anda tidak mempunyai Aptoide Balance atau Ether yang cukup untuk pembelian ini.</string>
   <string name="purchase_no_eth_body">Anda tidak cukup ETH untuk bayar gas.</string>
-  <string name="purchase_no_appcoins_body">Anda tidak cukup AppCoins untuk lengkapkan pembelian ini.</string>
+  <string name="purchase_no_appcoins_body">Anda tidak cukup Aptoide Balance untuk lengkapkan pembelian ini.</string>
   <string name="purchase_appcoins_credits_noavailable_body">Anda tidak cukup baki Aptoide, cuba tambah nilai!</string>
   <string name="purchase_appcoins_credits_default_body">Anda telah memperoleh baki Aptoide yang cukup untuk pembelian ini. Berseronoklah!</string>
   <string name="purchase_poa_item">Peroleh dana dengan mencuba aplikasi</string>
@@ -390,7 +389,7 @@
   <string name="purchase_poa_view_body">Cuba aplikasi selama 2 minit dan dapatkan ganjaran baki Aptoide untuk buat pembelian!</string>
   <string name="purchase_current_balance_body">Baki semasa:</string>
   <string name="purchase_current_balance_appcc_body">%s dalam baki Aptoide.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s dalam AppCoins dan Ether.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s dalam Aptoide Balance dan Ether.</string>
   <string name="purchase_wallet_blocked_title">Baki Aptoide anda disekat</string>
   <string name="purchase_wallet_blocked_body">Disebabkan sejarah transaksi yang luar biasa, baki Aptoide anda telah disekat. Anda masih boleh membuat bayaran dan transaksi menggunakan kaedah lain kecuali baki Aptoide.\n\nJika anda percaya bahawa ini ialah kesilapan, hubungi kami di:</string>
   <string name="purchase_card_error_general_1">Ada masalah dengan kad anda. Sila cuba semula dengan kad atau kaedah pembayaran lain.</string>

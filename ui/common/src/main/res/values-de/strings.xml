@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">Dies kann eine Weile dauern…</string>
   <string name="activity_iab_transaction_completed_title">Transaktion abgeschlossen</string>
   <string name="activity_iab_error_message">Es ist ein Fehler aufgetreten, bitte versuche es erneut</string>
-  <string name="activity_iab_no_funds_message">Nicht genügend ETH und AppCoins</string>
+  <string name="activity_iab_no_funds_message">Nicht genügend ETH und Aptoide Balance</string>
   <string name="activity_iab_no_ethereum_funds_message">Nicht genügend Ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Nicht genügend AppCoins</string>
+  <string name="activity_iab_no_token_funds_message">Nicht genügend Aptoide Balance</string>
   <string name="activity_iab_wrong_network_message">Falsches Ethereum-Netzwerk oder unbekanntes Token</string>
   <string name="activity_iab_no_network_message">Kein Netzwerkzugriff</string>
   <string name="activity_iab_nonce_message">Es ist ein Fehler mit der Blockchain aufgetreten, bitte versuche es später erneut.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">Transaktionsdetails</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">Um AppCoins zu erhalten, musst du bestätigen, dass du ein Mensch bist</string>
+  <string name="activity_airdrop_title">Um Aptoide Balance zu erhalten, musst du bestätigen, dass du ein Mensch bist</string>
   <string name="activity_airdrop_details">Dies ist nur ein Sicherheitsvorgang.</string>
   <string name="activity_airdrop_hint">Gib die Zeichen im Bild ein</string>
   <string name="activity_airdrop_submit_btn">Senden</string>
@@ -205,7 +205,7 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Einkaufsbonus:</string>
-  <string name="gamification_purchase_header_part_2">%s Aptoide-Guthaben</string>
+  <string name="gamification_purchase_header_part_2">%s Aptoide-guthaben</string>
   <string name="gamification_purchase_body">Du kannst diesen Bonus bei deinem nächsten Einkauf verwenden.</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus erhalten</string>
   <string name="gamification_leveled_up_notification_body">Gratulation, du erhältst ab jetzt bei jedem Einkauf einen Bonus von %s!</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">Zurzeit gibt es in deinem Land zum Aufladen keine Zahlungsmöglichkeiten. Bleib dran!</string>
   <string name="topup_bonus_amount_body">Erhalte %s Bonus mit diesem Top-Up</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">AppCoins basiert auf der Kryptowährung Ethereum. Sie kann in den Kryptobörsen gekauft und verkauft werden, da sie sehr beliebt ist!</string>
-  <string name="balance_appcoins_body">AppCoins ist die Kryptowährung für die App-Economy. Du kannst AppCoins an mehreren Börsen kaufen und verkaufen und sie für den In-App-Kauf von Gegenständen verwenden.</string>
+  <string name="balance_ethereum_body">Aptoide Balance basiert auf der Kryptowährung Ethereum. Sie kann in den Kryptobörsen gekauft und verkauft werden, da sie sehr beliebt ist!</string>
+  <string name="balance_appcoins_body">Aptoide Balance ist die Kryptowährung für die App-Economy. Du kannst AppCoins an mehreren Börsen kaufen und verkaufen und sie für den In-App-Kauf von Gegenständen verwenden.</string>
   <string name="balance_appccreditos_body">Das Token zum Kauf von In-App-Artikeln! Lade dein Aptoide-Guthaben auf oder erhalte es kostenlos, indem du Apps verwendest. Sie können auch zwischen Freunden übertragen werden!</string>
   <string name="my_wallets_action_new_wallet">Neue Wallet</string>
   <string name="my_wallets_action_recover_wallet">Wallet wiederherstellen</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">Aktuelles Guthaben: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Guthaben nicht ausreichend</string>
   <string name="p2p_send_confirmation_header">Überweisungsdetails</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Hoppla</string>
   <string name="error_general">Etwas ist schief gelaufen</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">Insgesamt %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Wie es scheint, wurde dieser Einkauf bereits verarbeitet. Bitte warte ab, bis die Transaktion verarbeitet wurde oder kontaktiere unser Support-Team.</string>
   <string name="purchase_more_payment_methods_lower_case_button">Weitere Zahlungsmethoden</string>
-  <string name="purchase_appcoins_noavailable_body">Für diesen Kauf verfügst du über zu wenige AppCoins oder Ethereum.</string>
+  <string name="purchase_appcoins_noavailable_body">Für diesen Kauf verfügst du über zu wenige Aptoide Balance oder Ethereum.</string>
   <string name="purchase_no_eth_body">Deine ETH reichen für die Bezahlung der Gasgebühren nicht aus.</string>
-  <string name="purchase_no_appcoins_body">Deine AppCoins reichen für den Abschluss dieses Einkaufs nicht aus.</string>
+  <string name="purchase_no_appcoins_body">Deine Aptoide Balance reichen für den Abschluss dieses Einkaufs nicht aus.</string>
   <string name="purchase_appcoins_credits_noavailable_body">Du hast nicht genügend Aptoide-Guthaben, bitte aufladen!</string>
   <string name="purchase_appcoins_credits_default_body">Du hast genug Aptoide-Guthaben für diesen Kauf verdient. Viel Spaß!</string>
   <string name="purchase_poa_item">Verdiene Guthaben durch das Testen von Apps</string>
@@ -390,9 +389,9 @@
   <string name="purchase_poa_view_body">Probiere eine App 2 Minuten lang aus und erhalte eine Belohnung in Form von Aptoide-Guthaben, mit dem du deinen Einkauf bezahlen kannst!</string>
   <string name="purchase_current_balance_body">Aktuelles Guthaben:</string>
   <string name="purchase_current_balance_appcc_body">%s Aptoide-Guthaben.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins und Ether.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in Aptoide Balance und Ether.</string>
   <string name="purchase_wallet_blocked_title">Dein Aptoide-Guthaben ist gesperrt</string>
-  <string name="purchase_wallet_blocked_body">Dein Aptoide-Guthaben wurde aufgrund eines ungewöhnlichen Transaktionsverlaufs gesperrt. Du kannst weiterhin Zahlungen und Transaktionen mit anderen Methoden als deinem Aptoide-Guthaben durchführen.\n\nWenn du glaubst, dass es sich um einen Fehler handelt, kontaktiere uns bitte unter:</string>
+  <string name="purchase_wallet_blocked_body">Dein Aptoide-Guthaben wurde aufgrund eines ungewöhnlichen Transaktionsverlaufs gesperrt. Du kannst weiterhin Zahlungen und Transaktionen mit anderen Methoden als deinem Aptoide-Guthaben durchführen.  Wenn du glaubst, dass es sich um einen Fehler handelt, kontaktiere uns bitte unter:</string>
   <string name="purchase_card_error_general_1">Es gab ein Problem mit deiner Karte. Bitte versuche es mit einer anderen Karte oder Zahlungsmethode.</string>
   <string name="purchase_card_error_general_2">Die Transaktion wurde von deiner Bank abgelehnt. Bitte versuche es mit einer anderen Karte oder Zahlungsmethode.</string>
   <string name="purchase_card_error_no_funds">Es scheint, als hättest du nicht genug Guthaben oder es gibt ein Limit auf deiner Karte. Bitte versuche es mit einer anderen Karte oder Zahlungsmethode.</string>
