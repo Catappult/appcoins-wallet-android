@@ -205,7 +205,7 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Bonus d\'achat :</string>
-  <string name="gamification_purchase_header_part_2">%s en Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">%s en Aptoide Balance</string>
   <string name="gamification_purchase_body">Vous pouvez utiliser ce bonus pour votre prochain achat.</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Reçu</string>
   <string name="gamification_leveled_up_notification_body">Félicitations, vous obtiendrez maintenant %s de bonus sur chaque achat !</string>
@@ -213,7 +213,7 @@
   <string name="gamification_how_max_level_body">Vous avez atteint le niveau le plus élevé : %s de Bonus sur chaque achat !</string>
   <string name="gamification_level_up_notification_title">Ca y est presque !</string>
   <string name="gamification_level_up_notification_body">Dépensez plus de %s pour atteindre le niveau suivant !</string>
-  <string name="gamification_bonus_plus_perk_body">Profitez d\'un bonus de %1$s et de %2$s Aptoide balance supplémentaires.</string>
+  <string name="gamification_bonus_plus_perk_body">Profitez d\'un bonus de %1$s et de %2$s Aptoide Balance supplémentaires.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Autoriser le portefeuille AppCoins à fournir votre adresse de portefeuille à %s.</string>
   <string name="provide_wallet_always_allow_button">Toujours autoriser</string>
@@ -227,7 +227,7 @@
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">Recharger</string>
-  <string name="topup_completed_1">%s en crédits Aptoide</string>
+  <string name="topup_completed_1">%s en Aptoide Balance</string>
   <string name="topup_completed_2_with_bonus">ont été déposés sur votre compte... Avec un bonus !</string>
   <string name="topup_completed_2_without_bonus">ont été crédités sur votre compte.</string>
   <string name="topup_minimum_value">La valeur minimale de la recharge est de %s</string>
@@ -238,7 +238,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">Ethereum est la cryptomonnaie sur laquelle est basée Aptoide Balance. Vous pouvez l\'acheter et la vendre dans la plupart des échanges, elle est très populaire !</string>
   <string name="balance_appcoins_body">Aptoide Balance est la cryptomonnaie de l’économie de l’application. Vous pouvez acheter et vendre sur plusieurs échanges et l\'utiliser pour acheter des articles in-app.</string>
-  <string name="balance_appccreditos_body">Le jeton pour acheter des articles in-app ! Rechargez les Aptoide balance depuis votre portefeuille ou obtenez-les gratuitement en utilisant des applications. Ils peuvent aussi être transférés entre amis !</string>
+  <string name="balance_appccreditos_body">Le jeton pour acheter des articles in-app ! Rechargez les Aptoide Balance depuis votre portefeuille ou obtenez-les gratuitement en utilisant des applications. Ils peuvent aussi être transférés entre amis !</string>
   <string name="my_wallets_action_new_wallet">Nouveau portefeuille</string>
   <string name="my_wallets_action_recover_wallet">Récupérer le portefeuille</string>
   <string name="my_wallets_action_backup_wallet">Sauvegarder le portefeuille</string>
@@ -335,7 +335,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">Votre outil pour les achats in-app</string>
-  <string name="onboarding_bonus_title">Obtenez jusqu\'à %s%% de vos achats in-app en Aptoide balance.</string>
+  <string name="onboarding_bonus_title">Obtenez jusqu\'à %s%% de vos achats in-app en Aptoide Balance.</string>
   <string name="onboarding_payment_methods_title">Utilisez la carte bancaire, PayPal et vos méthodes de paiement préférées.</string>
   <string name="onboarding_vip_title">Devenez membre VIP pour bénéficier d’une assistance et d’offres premium.</string>
   <string name="terms_and_conditions">Termes et Conditions</string>
@@ -386,9 +386,9 @@
   <string name="purchase_appcoins_credits_default_body">Vous avez gagné suffisamment de crédits Aptoide pour cet achat. Amusez-vous bien !</string>
   <string name="purchase_poa_item">Gagnez de l\'argent en essayant des applications</string>
   <string name="purchase_poa_view_title">Pas d\'argent, pas de soucis !</string>
-  <string name="purchase_poa_view_body">Essayez une application pendant 2 minutes et obtenez une récompense en crédits Aptoide balance pour faire votre achat !</string>
+  <string name="purchase_poa_view_body">Essayez une application pendant 2 minutes et obtenez une récompense en crédits Aptoide Balance pour faire votre achat !</string>
   <string name="purchase_current_balance_body">Solde actuel :</string>
-  <string name="purchase_current_balance_appcc_body">%s en crédits Aptoide balance.</string>
+  <string name="purchase_current_balance_appcc_body">%s en Aptoide Balance.</string>
   <string name="purchase_current_balance_appc_eth_body">%s en Aptoide Balance et Ether.</string>
   <string name="purchase_wallet_blocked_title">Votre solde de Aptoide Balance est bloqué</string>
   <string name="purchase_wallet_blocked_body">En raison d\'un historique de transactions inhabituel, le solde de vos Aptoide Balance a été bloqué. Vous serez toujours en mesure d\'effectuer des paiements et des transactions avec d\'autres méthodes sauf les crédits Aptoide Balance.   Si vous pensez que c\'est une erreur, contactez-nous à :</string>

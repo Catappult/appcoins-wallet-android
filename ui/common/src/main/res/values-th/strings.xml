@@ -213,7 +213,7 @@
   <string name="gamification_how_max_level_body">คุณถึงระดับสูงสุดแล้ว: %s โบนัสสำหรับทุกการซื้อ!</string>
   <string name="gamification_level_up_notification_title">เกือบเสร็จแล้ว!</string>
   <string name="gamification_level_up_notification_body">ใช้จ่าย %s มากขึ้นเพื่อไปอีกระดับ</string>
-  <string name="gamification_bonus_plus_perk_body">รับโบนัส%1$sและ %2$sในAptoide balance พิเศษ</string>
+  <string name="gamification_bonus_plus_perk_body">รับโบนัส%1$sและ %2$sในAptoide Balance พิเศษ</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">อนุญาตให้ Aptoide Wallet ระบุที่อยู่กระเป๋าเงินของคุณให้กับ %s</string>
   <string name="provide_wallet_always_allow_button">อนุญาตเสมอ</string>
@@ -309,7 +309,7 @@
   <string name="payment_method">วิธีการชำระเงิน</string>
   <string name="credit_debit_card">บัตรเครดิต/เดบิต</string>
   <string name="paypal">Paypal</string>
-  <string name="appc">เครดิต AppCoins</string>
+  <string name="appc">เครดิต Aptoide</string>
   <string name="bank_transfer">โอนเงินผ่านธนาคารง่ายๆ</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -344,7 +344,7 @@
   <string name="onboarding_verification_body">ยืนยันวิธีการชําระเงินของคุณเพื่อทําการซื้อให้เสร็จสมบูรณ์</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Aptoide Balance</string>
   <!--Settings-->
   <string name="title_redeem">แลกบัตรของขวัญ</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>

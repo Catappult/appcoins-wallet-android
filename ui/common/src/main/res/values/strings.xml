@@ -226,7 +226,7 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">%s in Aptoide Balance</string>
   <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
   <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
@@ -234,7 +234,7 @@
   <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
   <string name="gamification_level_up_notification_title">Almost there!</string>
   <string name="gamification_level_up_notification_body">Spend %s more to reach the next level.</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide balance extra.</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s in Aptoide Balance extra.</string>
 
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow Aptoide Wallet to provide your wallet address to %s.</string>
@@ -250,7 +250,7 @@
 
   <!-- Top Up -->
   <string name="topup_title">Top Up</string>
-  <string name="topup_completed_1">%s in Aptoide balance</string>
+  <string name="topup_completed_1">%s in Aptoide Balance</string>
   <string name="topup_completed_2_with_bonus">were deposited in your account... Along with a bonus!</string>
   <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
   <string name="topup_minimum_value">Minimum top-up value is %s</string>
@@ -262,7 +262,7 @@
   <!--Balance-->
   <string name="balance_ethereum_body">Ethereum is the cryptocurrency that Aptoide Balance are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
   <string name="balance_appcoins_body">Aptoide Balance is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide balance or get it for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide Balance or get it for free by using apps. They can also be transferred between friends!</string>
 
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
@@ -344,7 +344,7 @@
   <string name="payment_method">Payment method</string>
   <string name="credit_debit_card">Credit/debit card</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">Aptoide balance</string>
+  <string name="appc">Aptoide Balance</string>
   <string name="bank_transfer">Easy bank transfer</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -373,7 +373,7 @@
 
   <!--Onboarding-->
   <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
+  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide Balance.</string>
   <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
   <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
   <string name="terms_and_conditions">Terms and Conditions</string>
@@ -385,8 +385,8 @@
 
   <!--Tokens-->
   <string name="appc_token_name" translatable="false">Aptoide Balance</string>
-  <string name="appc_credits_token_name" translatable="false">Aptoide Balance Credits</string>
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="appc_credits_token_name" translatable="false">Aptoide Balance</string>
+  <string name="aptoide_balance_name">Aptoide Balance</string>
   <string name="ethereum_token_name" translatable="false">Ethereum</string>
 
   <!--Settings-->
@@ -432,16 +432,16 @@
   <string name="purchase_appcoins_noavailable_body">You don\'t have enough Aptoide Balance or Ether for this purchase.</string>
   <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
   <string name="purchase_no_appcoins_body">You don\'t have enough Aptoide Balance to complete this purchase.</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide balance, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide balance for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide Balance, try topping up!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">Earn funds by trying apps</string>
   <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide balance Credits to make your purchase!</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoide Balance to make your purchase!</string>
   <string name="purchase_current_balance_body">Current balance:</string>
-  <string name="purchase_current_balance_appcc_body">%s in Aptoide balance.</string>
+  <string name="purchase_current_balance_appcc_body">%s in Aptoide Balance.</string>
   <string name="purchase_current_balance_appc_eth_body">%s in Aptoide Balance and Ether.</string>
-  <string name="purchase_wallet_blocked_title">Your Aptoide balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide balance.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_wallet_blocked_title">Your Aptoide Balance is blocked</string>
+  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide Balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide Balance.  If you believe this is a mistake, contact us at:</string>
   <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
   <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
   <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
@@ -480,14 +480,14 @@
   <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide Balance.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
     <item quantity="one">It may take up to %s day.</item>
     <item quantity="other">It may take up to %s days.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_1">%s in Aptoide Balance will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
+  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide Balance.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
 
   <!--New Purchase flow-->
@@ -499,8 +499,8 @@
   <!--Async Payments-->
   <string name="async_steps_title">Next Steps</string>
   <string name="async_steps_1_no_notification">Complete your payment with %s.</string>
-  <string name="async_steps_2_no_notification">Once you receive the Aptoide balance, go back to the game and make the purchase using Aptoide balance as a payment method.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide balance, use it to make purchases in your favorite games!</string>
+  <string name="async_steps_2_no_notification">Once you receive the Aptoide Balance, go back to the game and make the purchase using Aptoide Balance as a payment method.</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide Balance, use it to make purchases in your favorite games!</string>
 
   <!--Referral Program-->
   <string name="referral_verification_title">Verify Payment Method</string>
@@ -748,8 +748,8 @@
   <string name="perks_title">Promotions</string>
   <string name="promotion_ends_short_title">Promotion ends in</string>
   <string name="perks_available_soon_short">Available soon</string>
-  <string name="perks_notification">You just received %s in Aptoide balance as a Bonus</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide balance will qualify to increase your level and receive rewards.</string>
+  <string name="perks_notification">You just received %s in Aptoide Balance as a Bonus</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide Balance will qualify to increase your level and receive rewards.</string>
 
 
   <!--Fingerprint Authentication-->
@@ -955,10 +955,10 @@
 
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide Balance.</string>
 
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
+  <string name="bonus_granted_body">Enjoy %s in Aptoide Balance in your wallet</string>
 
   <!-- Mailing list -->
   <string name="mail_list_card_title">Stay Tuned!</string>

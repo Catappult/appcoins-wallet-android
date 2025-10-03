@@ -388,7 +388,7 @@
   <string name="purchase_poa_view_title">Brak środków? Bez problemu!</string>
   <string name="purchase_poa_view_body">Wypróbuj aplikację przez 2 minuty i otrzymaj nagrodę w postaci kredytów Aptoide, które możesz wykorzystać na zakupy!</string>
   <string name="purchase_current_balance_body">Aktualne saldo:</string>
-  <string name="purchase_current_balance_appcc_body">%s Kredytów APPC.</string>
+  <string name="purchase_current_balance_appcc_body">%s Kredytów Aptoide.</string>
   <string name="purchase_current_balance_appc_eth_body">%s in Aptoide Balance and Ether.</string>
   <string name="purchase_wallet_blocked_title">Twoje saldo Aptoide zostało zablokowane.</string>
   <string name="purchase_wallet_blocked_body">Z powodu nietypowej historii transakcji saldo Aptoide zostało zablokowane. Nadal będziesz mógł dokonywać płatności i transakcji innymi metodami, z wyjątkiem salda Aptoide.\n\nJeśli uważasz, że to błąd, skontaktuj się z nami pod adresem:</string>

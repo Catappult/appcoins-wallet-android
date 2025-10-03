@@ -335,7 +335,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">Your tool to make in-app purchases</string>
-  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide balance.</string>
+  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide Balance.</string>
   <string name="onboarding_payment_methods_title">Use a bank card, PayPal, and your favorite payment methods.</string>
   <string name="onboarding_vip_title">Become a VIP member to get premium support and offers.</string>
   <string name="terms_and_conditions">ਨਿਬੰਧਨ ਅਤੇ ਸ਼ਰਤਾਂ</string>
@@ -344,7 +344,7 @@
   <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Aptoide Balance</string>
   <!--Settings-->
   <string name="title_redeem">ਗਿਫਟ ​​ਕਾਰਡ ਰੀਡੀਮ ਕਰੋ</string>
   <string name="settings_item_support">ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
@@ -430,14 +430,14 @@
   <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide balance.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in Aptoide Balance.</string>
   <plurals name="purchase_bank_transfer_time_disclaimer">
     <item quantity="one">It may take up to %s day.</item>
     <item quantity="other">It may take up to %s days.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s in Aptoide balance will be deposited in your wallet.</string>
+  <string name="purchase_bank_transfer_success_1">%s in Aptoide Balance will be deposited in your wallet.</string>
   <string name="purchase_bank_transfer_success_2">It may take up to 2 days for your bank to process it.</string>
-  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide balance.</string>
+  <string name="purchase_bank_transfer_success_bonus">You\'ll receive a bonus of %s in Aptoide Balance.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">We\'re waiting for the funds to arrive from your bank.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->
@@ -825,7 +825,7 @@
   <string name="verify_card_view_title_2">Insert your bank card details</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide balance.</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get Aptoide Balance.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Enjoy %s in Aptoide balance in your wallet</string>
   <!-- Mailing list -->

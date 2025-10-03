@@ -309,7 +309,7 @@
   <string name="payment_method">Método de pagamento</string>
   <string name="credit_debit_card">Cartão de crédito/débito</string>
   <string name="paypal">PayPal</string>
-  <string name="appc">saldo Aptoide</string>
+  <string name="appc">Saldo Aptoide</string>
   <string name="bank_transfer">Transferência easy bank</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -344,7 +344,7 @@
   <string name="onboarding_verification_body">Verifica o teu método de pagamento para concluíres a tua compra.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">saldo Aptoide</string>
+  <string name="aptoide_balance_name">Saldo Aptoide</string>
   <!--Settings-->
   <string name="title_redeem">Redimir Cartão Oferta</string>
   <string name="settings_item_support">Contacta a Equipa Apoio</string>
