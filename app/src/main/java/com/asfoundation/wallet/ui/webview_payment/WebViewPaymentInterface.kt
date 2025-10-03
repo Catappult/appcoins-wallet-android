@@ -5,6 +5,7 @@ import android.webkit.JavascriptInterface
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.ui.webview_payment.models.CloseBehaviorConfig
 import com.asfoundation.wallet.ui.webview_payment.models.VerifyFlowWeb
+import com.asfoundation.wallet.ui.webview_payment.models.WebPaymentSuccessParser
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentErrorResponse
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentResponse
 import com.google.gson.Gson
@@ -95,13 +96,36 @@ class WebViewPaymentInterface(
     }
   }
 
+//  private fun parsePurchaseResult(result: String?): WebViewPaymentResponse? {
+//    try {
+//      val responseModel = Gson().fromJson(result, WebViewPaymentResponse::class.java)
+//      return responseModel
+//    } catch (e: Exception) {
+//      e.printStackTrace()
+//      return null
+//    }
+//  }
+
   private fun parsePurchaseResult(result: String?): WebViewPaymentResponse? {
-    try {
-      val responseModel = Gson().fromJson(result, WebViewPaymentResponse::class.java)
-      return responseModel
+    Log.d("WebViewPaymentInterface", "Web Result before parse: $result")
+    if (result.isNullOrBlank()) return null
+    return try {
+      val parsed = WebPaymentSuccessParser.WebResponse.fromJson(result)
+      Log.d("WebViewPaymentInterface", "Web Result after parse: $parsed")
+      WebViewPaymentResponse(
+        responseCode = parsed.responseCode,
+        purchaseData = parsed.purchaseData,
+        dataSignature = parsed.dataSignature,
+        orderReference = parsed.orderReference,
+        paymentMethod = parsed.paymentMethod,
+        isStoredCard = parsed.isStoredCard,
+        wasCvcRequired = parsed.wasCvcRequired,
+        uid = parsed.uid,
+        hash = parsed.hash
+      )
     } catch (e: Exception) {
       e.printStackTrace()
-      return null
+      null
     }
   }
 
