@@ -39,7 +39,7 @@ object WebPaymentSuccessParser {
     const val RAW_JSON = "RAW_JSON"
   }
 
-data class WebResponse(
+  data class WebResponse(
     val responseCode: Int,
     val purchaseData: PurchaseData?,
     val dataSignature: String?,
@@ -64,8 +64,10 @@ data class WebResponse(
         val dataSignature = root.optString(JsonKeys.DATA_SIGNATURE).takeIf { it.isNotEmpty() }
         val orderReference = root.optString(JsonKeys.ORDER_REFERENCE).takeIf { it.isNotEmpty() }
         val paymentMethod = root.optString(JsonKeys.PAYMENT_METHOD).takeIf { it.isNotEmpty() }
-        val isStoredCard = if (root.has(JsonKeys.IS_STORED_CARD)) root.optBoolean(JsonKeys.IS_STORED_CARD) else null
-        val wasCvcRequired = if (root.has(JsonKeys.WAS_CVC_REQUIRED)) root.optBoolean(JsonKeys.WAS_CVC_REQUIRED) else null
+        val isStoredCard =
+          if (root.has(JsonKeys.IS_STORED_CARD)) root.optBoolean(JsonKeys.IS_STORED_CARD) else null
+        val wasCvcRequired =
+          if (root.has(JsonKeys.WAS_CVC_REQUIRED)) root.optBoolean(JsonKeys.WAS_CVC_REQUIRED) else null
         val uid = root.optString(JsonKeys.UID).takeIf { it.isNotEmpty() }
         val hash = root.optString(JsonKeys.HASH).takeIf { it.isNotEmpty() }
 
@@ -93,54 +95,43 @@ data class WebResponse(
     return try {
       val web = WebResponse.fromJson(json)
 
-      val intent = Intent().apply {  //TODO remover logs extras
-        Log.d(TAG, "Putting ${Extras.RESPONSE_CODE} -> ${web.responseCode}")
+      val intent = Intent().apply {
         putExtra(Extras.RESPONSE_CODE, web.responseCode)
 
         web.purchaseData?.toJson()?.let {
-          Log.d(TAG, "Putting ${Extras.INAPP_PURCHASE_DATA} -> $it")
           putExtra(Extras.INAPP_PURCHASE_DATA, it)
         }
 
         web.dataSignature?.let {
-          Log.d(TAG, "Putting ${Extras.INAPP_DATA_SIGNATURE} -> $it")
           putExtra(Extras.INAPP_DATA_SIGNATURE, it)
         }
 
         web.purchaseData?.purchaseToken?.let {
-          Log.d(TAG, "Putting ${Extras.INAPP_PURCHASE_ID} -> $it")
           putExtra(Extras.INAPP_PURCHASE_ID, it)
         }
 
         web.orderReference?.let {
-          Log.d(TAG, "Putting ${Extras.ORDER_REFERENCE} -> $it")
           putExtra(Extras.ORDER_REFERENCE, it)
         }
 
         (skuType ?: web.purchaseData?.productType)?.let {
-          Log.d(TAG, "Putting ${Extras.SKU_TYPE} -> $it")
           putExtra(Extras.SKU_TYPE, it)
         }
 
         web.paymentMethod?.let {
-          Log.d(TAG, "Putting ${Extras.PAYMENT_METHOD} -> $it")
           putExtra(Extras.PAYMENT_METHOD, it)
         }
         web.isStoredCard?.let {
-          Log.d(TAG, "Putting ${Extras.IS_STORED_CARD} -> $it")
           putExtra(Extras.IS_STORED_CARD, it)
         }
         web.wasCvcRequired?.let {
-          Log.d(TAG, "Putting ${Extras.WAS_CVC_REQUIRED} -> $it")
           putExtra(Extras.WAS_CVC_REQUIRED, it)
         }
 
         web.uid?.let {
-          Log.d(TAG, "Putting ${Extras.UID} -> $it")
           putExtra(Extras.UID, it)
         }
         web.hash?.let {
-          Log.d(TAG, "Putting ${Extras.HASH} -> $it")
           putExtra(Extras.HASH, it)
         }
       }
@@ -188,7 +179,8 @@ data class PurchaseData(
     purchaseState = json.optInt("purchaseState"),
     isAutoRenewing = json.optBoolean("isAutoRenewing"),
     developerPayload = json.optString("developerPayload").takeIf { it.isNotEmpty() },
-    obfuscatedExternalAccountId = json.optString("obfuscatedExternalAccountId").takeIf { it.isNotEmpty() }
+    obfuscatedExternalAccountId = json.optString("obfuscatedExternalAccountId")
+      .takeIf { it.isNotEmpty() }
   )
 
   fun toJson(): String =
@@ -199,7 +191,6 @@ data class PurchaseData(
       put("purchaseTime", purchaseTime)
       put("purchaseToken", purchaseToken)
       put("purchaseState", purchaseState)
-      put("isAutoRenewing", isAutoRenewing)
 
       developerPayload?.let { put("developerPayload", it) }
       obfuscatedExternalAccountId?.let { put("obfuscatedExternalAccountId", it) }

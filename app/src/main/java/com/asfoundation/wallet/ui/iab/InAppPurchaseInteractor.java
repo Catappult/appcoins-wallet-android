@@ -600,7 +600,8 @@ public class InAppPurchaseInteractor {
       if (successResult == null) {
         return billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
             .map(purchase -> new PurchaseBundleModel(
-                billingMessagesMapper.mapPurchase(purchase, orderReference), purchase.getRenewal()));
+                billingMessagesMapper.mapPurchase(purchase, orderReference),
+                purchase.getRenewal()));
       } else {
         Purchase purchase = mapToPurchase(successResult);
         return Single.just(
@@ -617,7 +618,8 @@ public class InAppPurchaseInteractor {
 
     String uid = web.getUid();
     if (uid == null || uid.isEmpty()) {
-      if (pd != null && pd.getOrderId() != null && !pd.getOrderId().isEmpty()) {
+      if (pd != null && pd.getOrderId() != null && !pd.getOrderId()
+          .isEmpty()) {
         uid = pd.getOrderId();
       } else if (pd != null && pd.getPurchaseToken() != null) {
         uid = pd.getPurchaseToken();
@@ -626,13 +628,15 @@ public class InAppPurchaseInteractor {
       }
     }
 
+    String purchaseToken =
+        (pd != null && pd.getPurchaseToken() != null) ? pd.getPurchaseToken() : "";
+
     String sku = (pd != null && pd.getProductId() != null) ? pd.getProductId() : "";
 
     State state = (pd != null && pd.getPurchaseState() == 2) ? State.PENDING : State.ACKNOWLEDGED;
 
-    boolean autoRenewing = pd != null
-        && "SUBS".equalsIgnoreCase(pd.getProductType())
-        && pd.isAutoRenewing();
+    boolean autoRenewing =
+        pd != null && "SUBS".equalsIgnoreCase(pd.getProductType()) && pd.isAutoRenewing();
 
     Date renewal = null;
 
@@ -641,15 +645,9 @@ public class InAppPurchaseInteractor {
     String signatureValue = web.getDataSignature() != null ? web.getDataSignature() : "";
     String signatureMessage = (pd != null) ? pd.toJson() : "";
 
-    return new Purchase(
-        uid,
-        new RemoteProduct(sku),
-        state,
-        autoRenewing,
-        renewal,
+    return new Purchase(purchaseToken, new RemoteProduct(sku), state, autoRenewing, renewal,
         new com.appcoins.wallet.bdsbilling.repository.entity.Package(pkgName),
-        new Signature(signatureValue, signatureMessage)
-    );
+        new Signature(signatureValue, signatureMessage));
   }
 
   private Boolean isManagedTransaction(BillingSupportedType type) {
