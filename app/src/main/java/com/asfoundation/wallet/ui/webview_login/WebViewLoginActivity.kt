@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.webview_login
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -84,7 +83,7 @@ class WebViewLoginActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setResult(Activity.RESULT_CANCELED, Intent())
+    setResult(RESULT_CANCELED, Intent())
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay)
     setKeyboardListener()

@@ -339,7 +339,7 @@
         android:name="com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
-        android:windowSoftInputMode="adjustResize" >
+        android:windowSoftInputMode="adjustResize">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
 
@@ -367,15 +367,32 @@
         android:name="com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
-        android:windowSoftInputMode="adjustResize" >
+        android:windowSoftInputMode="adjustResize"></activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.custom_tab_login.CustomTabLoginActivity"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.Transparent.CustomTabLogin"
+        android:windowSoftInputMode="adjustResize">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data
+            android:host="${applicationId}"
+            android:pathPrefix="/TODO(PATH)"
+            android:scheme="todo" />
+        <!-- TODO replace with real values -->
+      </intent-filter>
     </activity>
 
     <activity
         android:name="com.asfoundation.wallet.ui.webview_gamification.WebViewGamificationActivity"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.WebviewGamification"
-        android:windowSoftInputMode="adjustResize" >
-    </activity>
+        android:windowSoftInputMode="adjustResize"></activity>
 
     <service
         android:name="com.asfoundation.wallet.transactions.PerkBonusAndGamificationService"

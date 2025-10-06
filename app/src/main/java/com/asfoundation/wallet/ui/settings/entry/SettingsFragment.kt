@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -35,12 +36,12 @@ import com.asfoundation.wallet.manage_cards.ManageCardSharedViewModel
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
-import com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import java.util.Locale
 import javax.inject.Inject
+import androidx.core.net.toUri
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
@@ -73,6 +74,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
 
     const val MANAGE_WALLET_EVENT = "manage_wallet"
+
+    private const val CHROME_PACKAGE_NAME = "com.android.chrome"
 
     @JvmStatic
     fun newInstance(turnOnFingerprint: Boolean = false): SettingsFragment {
@@ -235,9 +238,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val loginPreference = findPreference<Preference>("pref_login")
     loginPreference?.setOnPreferenceClickListener {
       val url = presenter.getLoginUrl()
-      val intent = Intent(requireContext(), WebViewLoginActivity::class.java)
-      intent.putExtra(WebViewLoginActivity.URL, url)
-      openLoginLauncher.launch(intent)
+      val customTab = CustomTabsIntent.Builder().build() // basic custom tab intent, no special configuration.
+      customTab.intent.setPackage(CHROME_PACKAGE_NAME)
+      customTab.launchUrl(requireContext(), url.toUri())
       false
     }
   }
