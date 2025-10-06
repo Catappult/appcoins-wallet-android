@@ -96,16 +96,6 @@ class WebViewPaymentInterface(
     }
   }
 
-//  private fun parsePurchaseResult(result: String?): WebViewPaymentResponse? {
-//    try {
-//      val responseModel = Gson().fromJson(result, WebViewPaymentResponse::class.java)
-//      return responseModel
-//    } catch (e: Exception) {
-//      e.printStackTrace()
-//      return null
-//    }
-//  }
-
   private fun parsePurchaseResult(result: String?): WebViewPaymentResponse? {
     Log.d("WebViewPaymentInterface", "Web Result before parse: $result")
     if (result.isNullOrBlank()) return null
