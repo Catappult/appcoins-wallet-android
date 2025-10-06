@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.custom_tab_login.viewModel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.ui.custom_tab_login.viewModel.states.CustomTabVMStates
@@ -13,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -30,7 +32,7 @@ internal class CustomTabLoginViewModel @Inject constructor(
   private val rxSchedulers: RxSchedulers,
   private val fetchUserKeyUseCase: FetchUserKeyUseCase,
   private val logger: Logger,
-  initialStates: CustomTabVMStates = Initial
+  initialStates: CustomTabVMStates = Initial,
 ) : ViewModel() {
   companion object {
     private const val TAG = "CustomTabLoginVM"
@@ -39,7 +41,7 @@ internal class CustomTabLoginViewModel @Inject constructor(
   /**
    * MutableStateFlow to manage and observe the current state of the activity.
    */
-  private val _activityState = MutableStateFlow(initialStates)
+  private val _activityState = MutableStateFlow<CustomTabVMStates>(Initial)
 
   /**
    * StateFlow exposing the current activity state to observers.
@@ -64,18 +66,24 @@ internal class CustomTabLoginViewModel @Inject constructor(
    * @see FetchUserKeyUseCase
    */
   fun fetchUserKey(authToken: String) {
-    _activityState.value = FetchingUserKey
+    viewModelScope.launch {
+      _activityState.emit(FetchingUserKey)
+    }
     disposables
       .add(
         fetchUserKeyUseCase(authToken)
           .subscribeOn(rxSchedulers.io)
           .observeOn(rxSchedulers.io)
           .subscribe({
-            _activityState.value = FinishActivity
+            viewModelScope.launch {
+              _activityState.emit(FinishActivity)
+            }
           }, {
             it.printStackTrace()
             logger.log(TAG, "error in fetchUserKey: ${it.message}", it)
-            _activityState.value = FinishWithError
+            viewModelScope.launch {
+              _activityState.emit(FinishWithError)
+            }
           })
       )
   }

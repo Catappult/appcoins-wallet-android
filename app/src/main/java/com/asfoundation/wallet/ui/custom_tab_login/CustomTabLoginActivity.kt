@@ -2,14 +2,15 @@ package com.asfoundation.wallet.ui.custom_tab_login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.main.MainActivity
-import com.asfoundation.wallet.ui.webview_login.WebViewLoginViewModel
-import com.asfoundation.wallet.ui.webview_login.WebViewLoginViewModel.UiState.FinishActivity
-import com.asfoundation.wallet.ui.webview_login.WebViewLoginViewModel.UiState.FinishWithError
+import com.asfoundation.wallet.ui.custom_tab_login.viewModel.CustomTabLoginViewModel
+import com.asfoundation.wallet.ui.custom_tab_login.viewModel.states.CustomTabVMStates.FinishActivity
+import com.asfoundation.wallet.ui.custom_tab_login.viewModel.states.CustomTabVMStates.FinishWithError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class CustomTabLoginActivity : ComponentActivity() {
   @Inject
   lateinit var logger: Logger
 
-  private val viewModel: WebViewLoginViewModel by viewModels()
+  private val viewModel: CustomTabLoginViewModel by viewModels()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -50,7 +51,7 @@ class CustomTabLoginActivity : ComponentActivity() {
     }
 
     lifecycleScope.launch {
-      viewModel.uiState.collect { uiState ->
+      viewModel.activityState.collect { uiState ->
         when (uiState) {
           is FinishActivity -> {
             Intent(this@CustomTabLoginActivity, MainActivity::class.java)
@@ -59,6 +60,7 @@ class CustomTabLoginActivity : ComponentActivity() {
               }.also {
                 startActivity(it)
               }
+            Log.i(TAG, "User key fetched successfully, finishing activity")
             finish()
           }
 
@@ -69,6 +71,7 @@ class CustomTabLoginActivity : ComponentActivity() {
               }.also {
                 startActivity(it)
               }
+            Log.i(TAG, "Error fetching user key, finishing activity")
             logger.log(TAG, "Error fetching user key, finishing activity")
             finish()
           }
