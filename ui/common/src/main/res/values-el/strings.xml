@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">Αυτό μπορεί να διαρκέσει λίγη ώρα…</string>
   <string name="activity_iab_transaction_completed_title">Η Συναλλαγή Ολοκληρώθηκε</string>
   <string name="activity_iab_error_message">Παρουσιάστηκε σφάλμα, παρακαλούμε προσπαθήστε ξανά</string>
-  <string name="activity_iab_no_funds_message">Δεν υπάρχουν αρκετά ETH και AppCoins</string>
+  <string name="activity_iab_no_funds_message">Δεν υπάρχουν αρκετά ETH και Aptoide Balance</string>
   <string name="activity_iab_no_ethereum_funds_message">Δεν υπάρχει αρκετό Ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Δεν υπάρχουν αρκετά AppCoins</string>
+  <string name="activity_iab_no_token_funds_message">Δεν υπάρχουν αρκετά Aptoide Balance</string>
   <string name="activity_iab_wrong_network_message">Λανθασμένο δίκτυο Ethereum ή άγνωστο token</string>
   <string name="activity_iab_no_network_message">Δεν υπάρχει πρόσβαση στο δίκτυο</string>
   <string name="activity_iab_nonce_message">Παρουσιάστηκε σφάλμα με το blockchain, παρακαλούμε προσπαθήστε ξανά αργότερα.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">Λεπτομέρειες συναλλαγής</string>
   <string name="transaction_details_txid">ΑΦΜ</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">Επιβεβαιώστε ότι είστε άνθρωπος για να λάβετε AppCoins</string>
+  <string name="activity_airdrop_title">Επιβεβαιώστε ότι είστε άνθρωπος για να λάβετε Aptoide Balance</string>
   <string name="activity_airdrop_details">Αυτό γίνεται για λόγους ασφαλείας.</string>
   <string name="activity_airdrop_hint">Πληκτρολογήστε ό,τι βλέπετε στην εικόνα</string>
   <string name="activity_airdrop_submit_btn">Υποβολή</string>
@@ -205,7 +205,7 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">Bonus Αγοράς:</string>
-  <string name="gamification_purchase_header_part_2">%s σε υπόλοιπο Aptoide</string>
+  <string name="gamification_purchase_header_part_2">%s σε υπόλοιπο Aptoide Balance</string>
   <string name="gamification_purchase_body">Μπορείτε να χρησιμοποιήσετε αυτό το bonus στην επόμενη αγορά σας.</string>
   <string name="gamification_purchase_completed_bonus_received">Το bonus ελήφθη</string>
   <string name="gamification_leveled_up_notification_body">Συγχαρητήρια! Τώρα θα λαμβάνετε bonus %s σε κάθε αγορά!</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">Επί του παρόντος δεν υπάρχουν στη χώρα σας διαθέσιμες μέθοδοι πληρωμής για να γεμίσετε το πορτοφόλι. Μείνετε συντονισμένοι!</string>
   <string name="topup_bonus_amount_body">Λάβετε %s μπόνους μ\' αυτή τη φόρτιση</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Το Ethereum είναι το κρυπτονόμισμα στο οποίο βασίζονται τα AppCoins. Μπορείτε να το αγοράζετε και να το πουλάτε στα περισσότερα ανταλλακτήρια. Είναι πολύ δημοφιλές!</string>
-  <string name="balance_appcoins_body">Τα AppCoins αποτελούν το κρυπτονόμισμα της οικονομίας των εφαρμογών. Μπορείτε να τα αγοράζετε και να τα πουλάτε σε διάφορα ανταλλακτήρια και να τα χρησιμοποιείτε για αγορές εντός εφαρμογών.</string>
+  <string name="balance_ethereum_body">Το Ethereum είναι το κρυπτονόμισμα στο οποίο βασίζονται τα Aptoide Balance. Μπορείτε να το αγοράζετε και να το πουλάτε στα περισσότερα ανταλλακτήρια. Είναι πολύ δημοφιλές!</string>
+  <string name="balance_appcoins_body">Τα Aptoide Balance αποτελούν το κρυπτονόμισμα της οικονομίας των εφαρμογών. Μπορείτε να τα αγοράζετε και να τα πουλάτε σε διάφορα ανταλλακτήρια και να τα χρησιμοποιείτε για αγορές εντός εφαρμογών.</string>
   <string name="balance_appccreditos_body">Το token για την αγορά αντικειμένων εντός εφαρμογών! Φορτίστε το υπόλοιπο Aptoide ή λάβετέ το δωρεάν, χρησιμοποιώντας εφαρμογές. Επίσης, υπάρχει δυνατότητα μεταφοράς μεταξύ φίλων!</string>
   <string name="my_wallets_action_new_wallet">Νέο wallet</string>
   <string name="my_wallets_action_recover_wallet">Ανάκτηση wallet</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">Τρέχον υπόλοιπο: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Τα χρήματα δεν επαρκούν</string>
   <string name="p2p_send_confirmation_header">Λεπτομέρειες Μεταφοράς</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Ωχ</string>
   <string name="error_general">Κάτι πήγε στραβά</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">Σύνολο %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Φαίνεται πως αυτή η αγορά βρίσκεται ήδη υπό επεξεργασία. Παρακαλούμε περιμένετε μέχρι να ολοκληρωθεί η συναλλαγή ή επικοινωνήστε με την Ομάδα Υποστήριξης.</string>
   <string name="purchase_more_payment_methods_lower_case_button">Άλλες μέθοδοι πληρωμής</string>
-  <string name="purchase_appcoins_noavailable_body">Δεν έχετε αρκετά AppCoins ή Ether για αυτήν την αγορά.</string>
+  <string name="purchase_appcoins_noavailable_body">Δεν έχετε αρκετά Aptoide Balance ή Ether για αυτήν την αγορά.</string>
   <string name="purchase_no_eth_body">Δεν έχετε αρκετά ETH για την πληρωμή του gas.</string>
-  <string name="purchase_no_appcoins_body">Δεν έχετε αρκετά AppCoins για την ολοκλήρωση αυτής της αγοράς.</string>
+  <string name="purchase_no_appcoins_body">Δεν έχετε αρκετά Aptoide Balance για την ολοκλήρωση αυτής της αγοράς.</string>
   <string name="purchase_appcoins_credits_noavailable_body">Δεν έχετε αρκετό υπόλοιπο Aptoide, δοκιμάστε να κάνετε φόρτιση!</string>
   <string name="purchase_appcoins_credits_default_body">Κερδίσατε αρκετό υπόλοιπο Aptoide για αυτήν την αγορά. Καλή απόλαυση!</string>
   <string name="purchase_poa_item">Κερδίστε χρήματα δοκιμάζοντας εφαρμογές</string>
@@ -390,7 +389,7 @@
   <string name="purchase_poa_view_body">Δοκιμάστε μια εφαρμογή για 2 λεπτά και λάβετε αμοιβή σε υπόλοιπο Aptoide για να πραγματοποιήσετε την αγορά σας!</string>
   <string name="purchase_current_balance_body">Τρέχον υπόλοιπο:</string>
   <string name="purchase_current_balance_appcc_body">%s σε υπόλοιπο Aptoide.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s σε AppCoins και Ether.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s σε Aptoide Balance και Ether.</string>
   <string name="purchase_wallet_blocked_title">Το υπόλοιπό σας Aptoide είναι κλειδωμένο</string>
   <string name="purchase_wallet_blocked_body">Λόγω του ασυνήθιστου ιστορικού συναλλαγών, το υπόλοιπό σας Aptoide κλειδώθηκε. Μπορείτε να συνεχίσετε τις πληρωμές και τις συναλλαγές με άλλες μεθόδους, αλλά όχι με υπόλοιπο Aptoide.\n\nΕάν πιστεύετε ότι έχει γίνει λάθος, επικοινωνήστε μαζί μας στο:</string>
   <string name="purchase_card_error_general_1">Υπήρξε ένα πρόβλημα με την κάρτα σας. Παρακαλούμε δοκιμάστε με μία διαφορετική κάρτα ή μέθοδο πληρωμής.</string>

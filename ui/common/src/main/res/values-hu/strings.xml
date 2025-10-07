@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">Ez eltarthat egy ideig…</string>
   <string name="activity_iab_transaction_completed_title">Tranzakció befejezve</string>
   <string name="activity_iab_error_message">Hiba történt, kérjük próbáld ismét</string>
-  <string name="activity_iab_no_funds_message">Nincs elég ETH és AppCoin</string>
+  <string name="activity_iab_no_funds_message">Nincs elég ETH és Aptoide Balance</string>
   <string name="activity_iab_no_ethereum_funds_message">Nincs elég Ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Nincs elég AppCoins</string>
+  <string name="activity_iab_no_token_funds_message">Nincs elég Aptoide Balance</string>
   <string name="activity_iab_wrong_network_message">Helytelen Ethereum hálózati vagy ismeretlen token</string>
   <string name="activity_iab_no_network_message">Nincs hálózati hozzáférés</string>
   <string name="activity_iab_nonce_message">A blockchain hiba történt, kérjük, próbáld újra később.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">A tranzakció részletei</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">AppCoins-ok fogadásához igazold, hogy ember vagy</string>
+  <string name="activity_airdrop_title">Aptoide Balance-ok fogadásához igazold, hogy ember vagy</string>
   <string name="activity_airdrop_details">Ezt csak biztonsági okból kérjük.</string>
   <string name="activity_airdrop_hint">Írd be a képen látható szavakat</string>
   <string name="activity_airdrop_submit_btn">Küldés</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">Az országodban jelenleg nincs a befizetésre alkalmas fizetési mód. Ez viszont még változhat!</string>
   <string name="topup_bonus_amount_body">%s Bónuszt kaphatsz ezzel a feltöltéssel</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Az Ethereum kriptovalután alapulnak az AppCoins-ok. Mivel nagyon népszerű, a legtöbb váltónál adható és vehető!</string>
-  <string name="balance_appcoins_body">Az AppCoins az alkalmazások gazdaságának kriptovalutája. Bizonyos váltóknál adható-vehető, fizetésre pedig alkalmazásokon belüli vásárlásoknál használható.</string>
+  <string name="balance_ethereum_body">Az Ethereum kriptovalután alapulnak az Aptoide Balance-ok. Mivel nagyon népszerű, a legtöbb váltónál adható és vehető!</string>
+  <string name="balance_appcoins_body">Az Aptoide Balance az alkalmazások gazdaságának kriptovalutája. Bizonyos váltóknál adható-vehető, fizetésre pedig alkalmazásokon belüli vásárlásoknál használható.</string>
   <string name="balance_appccreditos_body">Alkalmazásokon belüli vásárlások tokenje! Töltsd fel tárcádat Aptoide egyenleggel, vagy szerezd meg őket appok használatával. Továbbá, barátok is küldhetnek belőle egymásnak!</string>
   <string name="my_wallets_action_new_wallet">Új tárca</string>
   <string name="my_wallets_action_recover_wallet">Tárca visszaállítása</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">Aktuális egyenleg: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Nem elegendő a fedezet</string>
   <string name="p2p_send_confirmation_header">Utalás részletei</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Hoppá</string>
   <string name="error_general">Valami hiba történt</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">Összesen %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Úgy tűnik, hogy a vásárlás feldolgozás alatt áll. Kérjük, várj míg befejeződik a tranzakció vagy lépj kapcsolatba az Ügyfélszolgálattal.</string>
   <string name="purchase_more_payment_methods_lower_case_button">Egyéb fizetési módok</string>
-  <string name="purchase_appcoins_noavailable_body">Nem rendelkezel elegendő AppCoins-szal vagy Etherrel a vásárláshoz.</string>
+  <string name="purchase_appcoins_noavailable_body">Nem rendelkezel elegendő Aptoide Balance-szal vagy Etherrel a vásárláshoz.</string>
   <string name="purchase_no_eth_body">Nem rendelkezel elég ETH-val a gas kifizetéséhez.</string>
-  <string name="purchase_no_appcoins_body">Nem rendelkezel elegendő AppCoins-szal a vásárláshoz.</string>
+  <string name="purchase_no_appcoins_body">Nem rendelkezel elegendő Aptoide Balance-szal a vásárláshoz.</string>
   <string name="purchase_appcoins_credits_noavailable_body">Nem elegendő az Aptoide egyenleged, próbáld meg feltölteni!</string>
   <string name="purchase_appcoins_credits_default_body">Elegendő Aptoide egyenleget szereztél a vásárláshoz! Jó szórakozást!</string>
   <string name="purchase_poa_item">Szerezz pénzt appok kipróbálásával</string>
@@ -390,7 +389,7 @@
   <string name="purchase_poa_view_body">Próbálj ki egy appot 2 percen át és szerezz jutalmat Aptoide egyenleg formájában a vásárlásokhoz!</string>
   <string name="purchase_current_balance_body">Aktuális egyenleg:</string>
   <string name="purchase_current_balance_appcc_body">%s Aptoide egyenleg formájában.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s AppCoins-ban és Etherben.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s Aptoide Balance-ban és Etherben.</string>
   <string name="purchase_wallet_blocked_title">Az Aptoide egyenleg blokkolásra került</string>
   <string name="purchase_wallet_blocked_body">Szokatlan tranzakciós előzményeket észleltünk ezért letiltottuk az Aptoide egyenleged. Az Aptoide egyenleget leszámítva más módokon továbbra is fizethetsz és végezhetsz tranzakciókat.\n\nHa úgy véled, hiba történt, vedd fel velünk a kapcsolatot itt:</string>
   <string name="purchase_card_error_general_1">Probléma volt a kártyáddal. Próbálkozz másik kártyával vagy fizetési móddal.</string>

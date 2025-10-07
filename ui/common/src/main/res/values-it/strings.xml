@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">Potrebbe volerci un po\'…</string>
   <string name="activity_iab_transaction_completed_title">Transazione completata</string>
   <string name="activity_iab_error_message">Si è verificato un errore, riprova più tardi</string>
-  <string name="activity_iab_no_funds_message">ETH e AppCoins non sufficienti</string>
+  <string name="activity_iab_no_funds_message">ETH e Aptoide Balance non sufficienti</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereum non sufficiente</string>
-  <string name="activity_iab_no_token_funds_message">AppCoin non sufficienti</string>
+  <string name="activity_iab_no_token_funds_message">Aptoide Balance non sufficienti</string>
   <string name="activity_iab_wrong_network_message">Rete Ethereum errata o token sconosciuto</string>
   <string name="activity_iab_no_network_message">Nessun accesso di rete</string>
   <string name="activity_iab_nonce_message">Si è verificato un errore con blockchain, riprova più tardi.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">Dettagli transazione</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">Conferma di essere un umano per ricevere AppCoin</string>
+  <string name="activity_airdrop_title">Conferma di essere un umano per ricevere Aptoide Balance</string>
   <string name="activity_airdrop_details">E\' solo una questione di sicurezza.</string>
   <string name="activity_airdrop_hint">Digita le parole nell\'immagine</string>
   <string name="activity_airdrop_submit_btn">Invia</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">Al momento nel tuo Paese non sono disponibili metodi di pagamento per le ricariche. Continua a seguirci per le ultime novità!</string>
   <string name="topup_bonus_amount_body">Ricevi %s di bonus con questa ricarica</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Ethereum è la criptovaluta su cui si basano gli AppCoins. È molto utilizzata: potrai acquistarla e venderla nella maggior parte dei cambi!</string>
-  <string name="balance_appcoins_body">AppCoins è la criptovaluta per l\'app economy. Potrai acquistarla e venderla in diversi cambi e usarla per acquisti in-app.</string>
+  <string name="balance_ethereum_body">Ethereum è la criptovaluta su cui si basano gli Aptoide Balance. È molto utilizzata: potrai acquistarla e venderla nella maggior parte dei cambi!</string>
+  <string name="balance_appcoins_body">Aptoide Balance è la criptovaluta per l\'app economy. Potrai acquistarla e venderla in diversi cambi e usarla per acquisti in-app.</string>
   <string name="balance_appccreditos_body">Il token per gli acquisti in-app! Ricarica il tuo saldo Aptoide o ricevine gratis usando le app. Si possono anche trasferire tra amici!</string>
   <string name="my_wallets_action_new_wallet">Nuovo wallet</string>
   <string name="my_wallets_action_recover_wallet">Recupera wallet</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">Saldo attuale: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Fondi insufficienti</string>
   <string name="p2p_send_confirmation_header">Dati per il trasferimento</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Oh no!</string>
   <string name="error_general">Si è verificato un errore</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">Totale %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Sembra che questo acquisto sia già stato processato. Attendi il completamento della transazione o contatta il nostro servizio clienti.</string>
   <string name="purchase_more_payment_methods_lower_case_button">Altri metodi di pagamento</string>
-  <string name="purchase_appcoins_noavailable_body">Non hai abbastanza AppCoins o Ether per questo acquisto.</string>
+  <string name="purchase_appcoins_noavailable_body">Non hai abbastanza Aptoide Balance o Ether per questo acquisto.</string>
   <string name="purchase_no_eth_body">Non hai abbastanza ETH per pagare il carburante.</string>
-  <string name="purchase_no_appcoins_body">Non hai abbastanza AppCoins per completare questo acquisto.</string>
+  <string name="purchase_no_appcoins_body">Non hai abbastanza Aptoide Balance per completare questo acquisto.</string>
   <string name="purchase_appcoins_credits_noavailable_body">Non hai abbastanza saldo Aptoide, fai una ricarica!</string>
   <string name="purchase_appcoins_credits_default_body">Hai guadagnato abbastanza saldo Aptoide per questo acquisto. Divertiti!</string>
   <string name="purchase_poa_item">Ricevi fondi provando app</string>
@@ -390,9 +389,9 @@
   <string name="purchase_poa_view_body">Prova un\'app per 2 minuti e ricevi un premio in saldo Aptoide per effettuare il tuo acquisto!</string>
   <string name="purchase_current_balance_body">Saldo attuale:</string>
   <string name="purchase_current_balance_appcc_body">%s in saldo Aptoide.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins ed Ether.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in Aptoide Balance ed Ether.</string>
   <string name="purchase_wallet_blocked_title">Il tuo saldo Aptoide è bloccato</string>
-  <string name="purchase_wallet_blocked_body">Il tuo saldo Aptoide è stato bloccato in seguito a uno storico di transazioni atipico. Potrai effettuare pagamenti e transazioni con altri metodi eccetto gli il saldo Aptoide.\n\nSe ritieni che questo sia un errore, contattaci:</string>
+  <string name="purchase_wallet_blocked_body">Il tuo saldo Aptoide è stato bloccato in seguito a uno storico di transazioni atipico. Potrai effettuare pagamenti e transazioni con altri metodi eccetto gli il saldo Aptoide.  Se ritieni che questo sia un errore, contattaci:</string>
   <string name="purchase_card_error_general_1">Sì è verificato un problema con la tua carta. Provane un\'altra o cambia metodo di pagamento.</string>
   <string name="purchase_card_error_general_2">La transazione è stata rifiutata dalla tua banca. Prova con un\'altra carta o cambia metodo di pagamento.</string>
   <string name="purchase_card_error_no_funds">Sembra che tu non abbia abbastanza fondi o che ci sia un limite alla tua carta. Provane un\'altra o cambia metodo di pagamento.</string>

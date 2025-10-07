@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">可能需要一点时间..…</string>
   <string name="activity_iab_transaction_completed_title">交易已完成</string>
   <string name="activity_iab_error_message">出现错误，请重试</string>
-  <string name="activity_iab_no_funds_message">以太币和AppCoins不足</string>
+  <string name="activity_iab_no_funds_message">以太币和Aptoide Balance不足</string>
   <string name="activity_iab_no_ethereum_funds_message">以太币不足</string>
-  <string name="activity_iab_no_token_funds_message">AppCoins不足</string>
+  <string name="activity_iab_no_token_funds_message">Aptoide Balance不足</string>
   <string name="activity_iab_wrong_network_message">以太网网络错误或代币不明</string>
   <string name="activity_iab_no_network_message">无网络访问</string>
   <string name="activity_iab_nonce_message">出现区块链错误，请稍后重试。</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">交易明细</string>
   <string name="transaction_details_txid">交易ID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">请确认你是接收AppCoins的人类</string>
+  <string name="activity_airdrop_title">请确认你是接收Aptoide Balance的人类</string>
   <string name="activity_airdrop_details">以保安全。</string>
   <string name="activity_airdrop_hint">输入图片中的字母</string>
   <string name="activity_airdrop_submit_btn">提交</string>
@@ -213,7 +213,7 @@
   <string name="gamification_how_max_level_body">您已达到最高等级：每次购买均可获得%s的奖励！</string>
   <string name="gamification_level_up_notification_title">离成功不远了！</string>
   <string name="gamification_level_up_notification_body">只需再消费 %s ，即可进入下一级别！</string>
-  <string name="gamification_bonus_plus_perk_body">享受 %1$s 奖金，并额外获得 %2$s 的 Aptoide 余额。</string>
+  <string name="gamification_bonus_plus_perk_body">享受 %1$s 奖金，并额外获得 %2$s 的 Aptoide Balance 余额。</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">允许 Aptoide Wallet 向 %s 提供您的钱包地址。</string>
   <string name="provide_wallet_always_allow_button">始终允许</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">你所在的国家/地区目前没有可用于充值的付款方式。敬请关注！</string>
   <string name="topup_bonus_amount_body">本次充值可获得%s奖金</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">以太币是AppCoins采用的加密货币。你可以在大多数交易平台交易以太币，以太币是现今非常热门的加密货币！</string>
-  <string name="balance_appcoins_body">AppCoins是应用经济的加密货币。你可以在多个交易平台交易，用它来购买应用内物品。</string>
+  <string name="balance_ethereum_body">以太币是Aptoide Balance采用的加密货币。你可以在大多数交易平台交易以太币，以太币是现今非常热门的加密货币！</string>
+  <string name="balance_appcoins_body">Aptoide Balance是应用经济的加密货币。你可以在多个交易平台交易，用它来购买应用内物品。</string>
   <string name="balance_appccreditos_body">用于购买应用内物品的代币！充值 Aptoide 余额，或通过使用应用免费获取。好友之间亦可使用它进行转账或交易！</string>
   <string name="my_wallets_action_new_wallet">新钱包</string>
   <string name="my_wallets_action_recover_wallet">恢复钱包</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">当前余额：%1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">资金不足</string>
   <string name="p2p_send_confirmation_header">转账详情</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">哎呀</string>
   <string name="error_general">出现错误</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">总计 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">此购买似乎已在处理中。请等待交易完成或联系我们的支持团队。</string>
   <string name="purchase_more_payment_methods_lower_case_button">其他支付方式</string>
-  <string name="purchase_appcoins_noavailable_body">你的AppCoins或以太币不足，无法进行此购买。</string>
+  <string name="purchase_appcoins_noavailable_body">你的Aptoide Balance或以太币不足，无法进行此购买。</string>
   <string name="purchase_no_eth_body">您的ETH不足，无法支付汽油费用。</string>
-  <string name="purchase_no_appcoins_body">您的AppCoins不足，无法完成此购买。</string>
+  <string name="purchase_no_appcoins_body">您的Aptoide Balance不足，无法完成此购买。</string>
   <string name="purchase_appcoins_credits_noavailable_body">您的 Aptoide 余额不足，请尝试充值！</string>
   <string name="purchase_appcoins_credits_default_body">您的 Aptoide 余额已足够完成此次购买，尽情享受吧！</string>
   <string name="purchase_poa_item">通过使用应用来赢得资金</string>
@@ -390,9 +389,9 @@
   <string name="purchase_poa_view_body">试用应用 2 分钟，即可获得 Aptoide 余额奖励，用于您的购买！</string>
   <string name="purchase_current_balance_body">当前余额：</string>
   <string name="purchase_current_balance_appcc_body">%s 的 Aptoide 余额。</string>
-  <string name="purchase_current_balance_appc_eth_body">%s的AppCoins和以太币。</string>
+  <string name="purchase_current_balance_appc_eth_body">%s的Aptoide Balance和以太币。</string>
   <string name="purchase_wallet_blocked_title">您的 Aptoide 余额已被锁定</string>
-  <string name="purchase_wallet_blocked_body">由于交易记录异常，您的 Aptoide 余额已被锁定。但您仍然可以使用除 Aptoide 余额以外的其他方式进行付款和交易。\n\n如果您认为这其中存在错误，请通过以下方式与我们联系：</string>
+  <string name="purchase_wallet_blocked_body">由于交易记录异常，您的 Aptoide 余额已被锁定。但您仍然可以使用除 Aptoide 余额以外的其他方式进行付款和交易。  如果您认为这其中存在错误，请通过以下方式与我们联系：</string>
   <string name="purchase_card_error_general_1">你的卡有问题。请尝试使用不同的卡或付款方式。</string>
   <string name="purchase_card_error_general_2">交易已被你的银行拒绝。请尝试使用其他卡或与付款方式。</string>
   <string name="purchase_card_error_no_funds">你的卡似乎资金不足或存在限制。请尝试使用其他卡或付款方式。</string>

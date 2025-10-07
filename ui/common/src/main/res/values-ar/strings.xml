@@ -120,7 +120,7 @@
   <string name="activity_aib_loading_message">قد يستغرق هذا بعض الوقت…</string>
   <string name="activity_iab_transaction_completed_title">اكتمل التحويل</string>
   <string name="activity_iab_error_message">حدث خطأ، يرجى المحاولة مرة أخرى</string>
-  <string name="activity_iab_no_funds_message">لا يوجد ETH وAppCoins كافية</string>
+  <string name="activity_iab_no_funds_message">لا يوجد ETH وAptoide Balance كافية</string>
   <string name="activity_iab_no_ethereum_funds_message">لا يوجد إيثيريوم كافية</string>
   <string name="activity_iab_no_token_funds_message">لا يوجد أبكوينز كافية</string>
   <string name="activity_iab_wrong_network_message">شبكة إيثيريوم خاطئة أو توكن غير معروف</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">لا تتوفر حاليًا أي وسائل دفع في بلدك لزيادة رصيدك. تابع باستمرار!</string>
   <string name="topup_bonus_amount_body">احصل على %s مع شحن الرصيد هذا</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">الإيثيريوم هي عملة مشفرة تعتمد عليها عملة AppCoins. يمكنك بيعها وشراؤها في معظم التبادلات، إن استخدامها شائع جدًّا!</string>
-  <string name="balance_appcoins_body">AppCoins هي عملة مشفرة من أجل العمليات الاقتصادية في التطبيق. يمكنك بيعها وشراؤها في عدة تبادلات واستخدامها لشراء العناصر داخل التطبيقات.</string>
+  <string name="balance_ethereum_body">الإيثيريوم هي عملة مشفرة تعتمد عليها عملة Aptoide Balance. يمكنك بيعها وشراؤها في معظم التبادلات، إن استخدامها شائع جدًّا!</string>
+  <string name="balance_appcoins_body">Aptoide Balance هي عملة مشفرة من أجل العمليات الاقتصادية في التطبيق. يمكنك بيعها وشراؤها في عدة تبادلات واستخدامها لشراء العناصر داخل التطبيقات.</string>
   <string name="balance_appccreditos_body">التوكن لشراء العناصر داخل التطبيقات! أضف مبلغًا إلى رصيد Aptoide أو احصل عليه مجانًا باستخدام التطبيقات الأخرى. يمكنك أيضًا تبادلها مع الأصدقاء!</string>
   <string name="my_wallets_action_new_wallet">محفظة جديدة</string>
   <string name="my_wallets_action_recover_wallet">استعادة المحفظة</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">الرصيد الحالي: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">رصيد غير كافٍ</string>
   <string name="p2p_send_confirmation_header">بيانات التحويل</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">يييي</string>
   <string name="error_general">حدث خطأ</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">المجموع %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">يبدو أن عملية الشراء قد تمت بالفعل. يرجى الانتظار حتى تتم عملية التحويل أو يمكنك التواصل مع فريق الدعم.</string>
   <string name="purchase_more_payment_methods_lower_case_button">وسائل دفع أخرى</string>
-  <string name="purchase_appcoins_noavailable_body">لا تتوفر لديك AppCoins ولا إيثر كافية لإتمام عملية الشراء هذه.</string>
+  <string name="purchase_appcoins_noavailable_body">لا تتوفر لديك Aptoide Balance ولا إيثر كافية لإتمام عملية الشراء هذه.</string>
   <string name="purchase_no_eth_body">لا يوجد لديك ETH كافية لتدفع رسوم عمولات التحويل.</string>
-  <string name="purchase_no_appcoins_body">لا توجد لديك AppCoins كافية لمتابعة عملية الشراء هذه.</string>
+  <string name="purchase_no_appcoins_body">لا توجد لديك Aptoide Balance كافية لمتابعة عملية الشراء هذه.</string>
   <string name="purchase_appcoins_credits_noavailable_body">ليس لديك رصيد Aptoide كافٍ، جرب زيادة الرصيد!</string>
   <string name="purchase_appcoins_credits_default_body">لقد كسبت رصيد Aptoide كافيًا لعملية الشراء هذه. استمتع!</string>
   <string name="purchase_poa_item">اربح الأموال من خلال تجربة التطبيقات</string>
@@ -390,9 +389,9 @@
   <string name="purchase_poa_view_body">جرّب استخدام تطبيق لمدة دقيقتين واحصل على رصيد Aptoide لإجراء عملية شراء!</string>
   <string name="purchase_current_balance_body">الرصيد الحالي:</string>
   <string name="purchase_current_balance_appcc_body">%s في رصيد Aptoide.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s برصيد AppCoins وإيثر.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s برصيد Aptoide Balance وإيثر.</string>
   <string name="purchase_wallet_blocked_title">لقد تم حجب رصيد Aptoide</string>
-  <string name="purchase_wallet_blocked_body">بناءً على سجل تحويلات غير معتاد، تم حجب رصيد Aptoide لديك. ستبقى قادرًا على إجراء الدفعات والتحويلات بوسائل دفع أخرى ما عدا رصيد Aptoide.\n\nإذا كنت تعتقد أن هناك خطأً، تواصل معنا من خلال:</string>
+  <string name="purchase_wallet_blocked_body">بناءً على سجل تحويلات غير معتاد، تم حجب رصيد Aptoide لديك. ستبقى قادرًا على إجراء الدفعات والتحويلات بوسائل دفع أخرى ما عدا رصيد Aptoide.  إذا كنت تعتقد أن هناك خطأً، تواصل معنا من خلال:</string>
   <string name="purchase_card_error_general_1">هناك مشكلة بالبطاقة. يرجى استخدام بطاقة أخرى أو وسيلة دفع أخرى.</string>
   <string name="purchase_card_error_general_2">التحويل مرفوض من جهة المصرف. يرجى استخدام بطاقة أخرى أو وسيلة دفع أخرى.</string>
   <string name="purchase_card_error_no_funds">يبدو أنك لا تملك رصيدًا كافيًا أو هناك هناك حدًّا للسحب على بطاقتك. يرجى المحاولة مع بطاقة أخرى أو وسيلة دفع أخرى.</string>

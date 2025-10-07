@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">اندکی زمان می‌برد…</string>
   <string name="activity_iab_transaction_completed_title">تراکنش کامل شد</string>
   <string name="activity_iab_error_message">خطایی رخ داد، دوباره امتحان کنید</string>
-  <string name="activity_iab_no_funds_message">ETH و AppCoins کافی نیست</string>
+  <string name="activity_iab_no_funds_message">ETH و Aptoide Balance کافی نیست</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereum کافی نیست</string>
-  <string name="activity_iab_no_token_funds_message">AppCoins کافی نیست</string>
+  <string name="activity_iab_no_token_funds_message">Aptoide Balance کافی نیست</string>
   <string name="activity_iab_wrong_network_message">شبکه Ethereum اشتباه یا ژتون نامعتبر</string>
   <string name="activity_iab_no_network_message">دسترسی به شبکه مقدور نیست</string>
   <string name="activity_iab_nonce_message">خطایی در ارتباط با blockchain رخ داد، لطفا بعدا دوباره امتحان کنید.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">جزییات تراکنش</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">تایید کنید که انسان هستید تا AppCoins دریافت کنید</string>
+  <string name="activity_airdrop_title">تایید کنید که انسان هستید تا Aptoide Balance دریافت کنید</string>
   <string name="activity_airdrop_details">این فقط یک کار امنیتی است.</string>
   <string name="activity_airdrop_hint">کلمات داخل تصویر را تایپ کنید</string>
   <string name="activity_airdrop_submit_btn">ارسال</string>
@@ -205,7 +205,7 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header_part_1">پاداش خرید:</string>
-  <string name="gamification_purchase_header_part_2">%s در Aptoide balance</string>
+  <string name="gamification_purchase_header_part_2">%s در Aptoide Balance</string>
   <string name="gamification_purchase_body">شما می‌توانید از این پاداش در خرید بعدی خود استفاده کنید.</string>
   <string name="gamification_purchase_completed_bonus_received">پاداش دریافت شد</string>
   <string name="gamification_leveled_up_notification_body">تبریک، پاداش %s برای هر خرید دریافت خواهید کرد!</string>
@@ -213,7 +213,7 @@
   <string name="gamification_how_max_level_body">به بالاترین مرحله رسیدید: %s پاداش در هر خرید!</string>
   <string name="gamification_level_up_notification_title">بسیار نزدیک!</string>
   <string name="gamification_level_up_notification_body">%s خرج کنید تا به مرحله بعدی برسید.</string>
-  <string name="gamification_bonus_plus_perk_body">از %1$s بونوس و %2$s بیشتر در Aptoide balance لذت ببرید.</string>
+  <string name="gamification_bonus_plus_perk_body">از %1$s بونوس و %2$s بیشتر در Aptoide Balance لذت ببرید.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">به Aptoide Wallet اجازه دهید که آدرس کیف پول شما را به %s بدهد.</string>
   <string name="provide_wallet_always_allow_button">همیشه اجازه بده</string>
@@ -227,7 +227,7 @@
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">افزایش اعتبار</string>
-  <string name="topup_completed_1">%s در Aptoide balance</string>
+  <string name="topup_completed_1">%s در Aptoide Balance</string>
   <string name="topup_completed_2_with_bonus">در حساب شما قرار گرفت... به همراه یک پاداش!</string>
   <string name="topup_completed_2_without_bonus">به حساب‌کاربری شما پرداخت شده‌است.</string>
   <string name="topup_minimum_value">حداقل مقدار افزایش برابر %s است</string>
@@ -236,9 +236,9 @@
   <string name="topup_no_method_available_body">هیچ روش پرداختی در حال حاضر برای کشور شما موجود نیست. در تماس بمانید!</string>
   <string name="topup_bonus_amount_body">%s بونوس با این شارژ دریافت کنید</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Ethereum همان cryptocurrency است که AppCoins بر اساس آن می باشد. شما می توانید آن ها را به اکثر واحدهای اعتباری خرید و فروش کنید. بسیار محبوب است!</string>
-  <string name="balance_appcoins_body">AppCoins همان cryptocurrency برای اقتصاد اپلیکیشن است. شما می توانید خرید و فروش آن را در مبادلات مختلف انجام دهید و از آن برای خریدهای داخل اپلیکیشنی استفاده کنید.</string>
-  <string name="balance_appccreditos_body">توکن برای خرید آیتم‌های داخل اپلیکیشنی! Aptoide balance را شارژ کنید یا آن ها را بصورت رایگان با استفاده کردن از اپلیکیشن‌ها بدست آورید. آن همچنین قابل انتقال در میان دوستان می‌باشد!</string>
+  <string name="balance_ethereum_body">Ethereum همان cryptocurrency است که Aptoide Balance بر اساس آن می باشد. شما می توانید آن ها را به اکثر واحدهای اعتباری خرید و فروش کنید. بسیار محبوب است!</string>
+  <string name="balance_appcoins_body">Aptoide Balance همان cryptocurrency برای اقتصاد اپلیکیشن است. شما می توانید خرید و فروش آن را در مبادلات مختلف انجام دهید و از آن برای خریدهای داخل اپلیکیشنی استفاده کنید.</string>
+  <string name="balance_appccreditos_body">توکن برای خرید آیتم‌های داخل اپلیکیشنی! Aptoide Balance را شارژ کنید یا آن ها را بصورت رایگان با استفاده کردن از اپلیکیشن‌ها بدست آورید. آن همچنین قابل انتقال در میان دوستان می‌باشد!</string>
   <string name="my_wallets_action_new_wallet">کیف‌پول جدید</string>
   <string name="my_wallets_action_recover_wallet">بازیابی کیف‌پول</string>
   <string name="my_wallets_action_backup_wallet">پشتیبان‌گیری از کیف‌پول</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">تراز فعلی: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">بودجه کافی نیست</string>
   <string name="p2p_send_confirmation_header">جزییات انتقال‌ها</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">اوه</string>
   <string name="error_general">مشکلی پیش آمده است</string>
@@ -336,7 +335,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">ابزار شما برای خریدهای داخل اپلیکیشنی</string>
-  <string name="onboarding_bonus_title">تا %s%% از خریدهای داخل اپلیکیشنی خود در Aptoide balance بدست آورید.</string>
+  <string name="onboarding_bonus_title">تا %s%% از خریدهای داخل اپلیکیشنی خود در Aptoide Balance بدست آورید.</string>
   <string name="onboarding_payment_methods_title">کارت‌ بانکی، پی‌پال و روش‌های پرداخت موردعلاقه خود را استفاده کنید.</string>
   <string name="onboarding_vip_title">یک عضو VIP شوید تا پشتیبانی و پیشنهادات ویژه بگیرید.</string>
   <string name="terms_and_conditions">شرایط و ضوابط</string>
@@ -345,7 +344,7 @@
   <string name="onboarding_verification_body">برای تکمیل خرید خود، روش پرداخت خود را تایید کنید.</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Aptoide Balance</string>
   <!--Settings-->
   <string name="title_redeem">استفاده از کارت هدیه</string>
   <string name="settings_item_support">تماس با تیم پشتیبانی</string>
@@ -380,18 +379,18 @@
   <string name="purchase_total_header">مجموع %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">به نظر می‌رسد که این خرید پردازش شده است. لطفا منتظر بمانید تا تراکنش تکمیل شود یا با تیم پشتیبانی تماس بگیرید.</string>
   <string name="purchase_more_payment_methods_lower_case_button">سایر روش‌های پرداخت</string>
-  <string name="purchase_appcoins_noavailable_body">به مقدار کافی AppCoins یا Ether برای این خرید ندارید.</string>
+  <string name="purchase_appcoins_noavailable_body">به مقدار کافی Aptoide Balance یا Ether برای این خرید ندارید.</string>
   <string name="purchase_no_eth_body">به اندازه کافی ETH برای پرداخت گاز نداری.</string>
-  <string name="purchase_no_appcoins_body">به مقدار کافی AppCoins برای تکمیل این خرید ندارید.</string>
-  <string name="purchase_appcoins_credits_noavailable_body">به مقداری کافی Aptoide balance ندارید، شارژ کنید!</string>
+  <string name="purchase_no_appcoins_body">به مقدار کافی Aptoide Balance برای تکمیل این خرید ندارید.</string>
+  <string name="purchase_appcoins_credits_noavailable_body">به مقداری کافی Aptoide Balance ندارید، شارژ کنید!</string>
   <string name="purchase_appcoins_credits_default_body">به مقدار کافی Aptoide balance برای این خرید دریافت‌ خواهید کرد. لذت ببرید!</string>
   <string name="purchase_poa_item">از طریق امتحان اپلیکیشن‌ها کسب درآمد کنید</string>
   <string name="purchase_poa_view_title">بدون درآمد، نگران نباشید!</string>
-  <string name="purchase_poa_view_body">اپلیکیشنی را برای 2 دقیقه امتحان کنید و پاداشی در اعتبار Aptoide balance بدست آورید تا بتوانید خرید کنید!</string>
+  <string name="purchase_poa_view_body">اپلیکیشنی را برای 2 دقیقه امتحان کنید و پاداشی در اعتبار Aptoide Balance بدست آورید تا بتوانید خرید کنید!</string>
   <string name="purchase_current_balance_body">تراز فعلی:</string>
   <string name="purchase_current_balance_appcc_body">%s در Aptoide balance.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s در AppCoins و Ether.</string>
-  <string name="purchase_wallet_blocked_title">Aptoide balance شما مسدود است</string>
+  <string name="purchase_current_balance_appc_eth_body">%s در Aptoide Balance و Ether.</string>
+  <string name="purchase_wallet_blocked_title">Aptoide Balance شما مسدود است</string>
   <string name="purchase_wallet_blocked_body">با توجه به تاریخچه تراکنش‌های غیرعادی، Aptoide balance شما مسدود شده است. کماکان قادر به انجام تراکنش‌ها و پرداخت با سایر روش‌ها به جز Aptoide balance هستید.\n\n اگر اعتقاد دارید که اشتباهی رخ داده‌ است، با ما تماس بگیرید از طریق:</string>
   <string name="purchase_card_error_general_1">مشکلی با کارت شما بود. لطفا با کارت یا روش پرداخت دیگری مجددا امتحان کنید.</string>
   <string name="purchase_card_error_general_2">تراکنش از طرف بانک شما رد شده است. لطفا با کارت یا روش پرداخت دیگری مجددا امتحان کنید.</string>
@@ -436,9 +435,9 @@
     <item quantity="one">می‌تواند تا %s روز طول بکشد.</item>
     <item quantity="other">می‌تواند تا %s روز طول بکشد.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_1">%s در Aptoide balance به کیف پول شما اضافه می شود.</string>
+  <string name="purchase_bank_transfer_success_1">%s در Aptoide Balance به کیف پول شما اضافه می شود.</string>
   <string name="purchase_bank_transfer_success_2">می‌تواند تا دو روز طول بکشد تا بانک شما آن را پردازش کند.</string>
-  <string name="purchase_bank_transfer_success_bonus">شما یک بونوس %s در Aptoide balance دریافت خواهید کرد.</string>
+  <string name="purchase_bank_transfer_success_bonus">شما یک بونوس %s در Aptoide Balance دریافت خواهید کرد.</string>
   <string name="purchase_bank_transfer_pending_disclaimer">منتظر ورود مبلغ از بانک شما هستیم.</string>
   <!--New Purchase flow-->
   <!--Billing address in purchase flow-->

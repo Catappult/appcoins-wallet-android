@@ -202,9 +202,9 @@
   <string name="activity_iab_error_message">An error occurred, please try again</string>
   <string name="action_try">try</string>
   <string name="activity_transactions_learn_more">Learn more</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and APPC</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and Aptoide Balance</string>
   <string name="activity_iab_no_ethereum_funds_message">Not enough Ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Not enough AppCoins</string>
+  <string name="activity_iab_no_token_funds_message">Not enough Aptoide Balance</string>
   <string name="activity_iab_wrong_network_message">Wrong Ethereum network or unknown token</string>
   <string name="activity_iab_no_network_message">No network access</string>
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
@@ -265,7 +265,7 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Expiry date</string>
-  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
+  <string name="activity_airdrop_title">Confirm you are a human to receive Aptoide Balance</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>
   <string name="activity_airdrop_hint">Type the words in the image</string>
   <string name="activity_airdrop_submit_btn">Submit</string>
@@ -325,7 +325,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_header_part_2">%s in Aptoide Balance</string>
   <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
@@ -345,7 +345,7 @@
   <string name="gamification_level_up_notification_title">Almost there!</string>
   <string name="gamification_level_up_notification_body">Spend %s AppCoins more to reach the next level.</string>
   <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s Aptoide Balance extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
@@ -365,7 +365,7 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">You\'ve got a Bonus!</string>
   <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
-  <string name="topup_completed_1">%s in AppCoins Credits</string>
+  <string name="topup_completed_1">%s in Aptoide Balance</string>
   <string name="topup_completed_2_with_bonus">were deposited in your account... Along with a bonus!</string>
   <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
   <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
@@ -377,9 +377,9 @@
   <string name="balance_title">Balance</string>
   <string name="balance_total_body">Total Balance in %s</string>
   <string name="balance_topup_body">You can top up your wallet with AppCoins Credits.</string>
-  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
-  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that Aptoide Balance are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
+  <string name="balance_appcoins_body">Aptoide Balance is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up Aptoide Balance from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
@@ -479,21 +479,21 @@
   <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
   <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
   <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
-  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
+  <string name="purchase_appcoins_noavailable_body">You don\'t have enough Aptoide Balance or Ether for this purchase.</string>
   <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
-  <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
+  <string name="purchase_no_appcoins_body">You don\'t have enough Aptoide Balance to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough Aptoide Balance, try topping up!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough Aptoide Balance for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">Earn funds by trying apps</string>
   <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
   <string name="purchase_poa_view_title">No Funds, No Worries!</string>
-  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
+  <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in Aptoite Balance to make your purchase!</string>
   <string name="purchase_current_balance_body">Current balance:</string>
-  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s in AppCoins and Ether.</string>
-  <string name="purchase_wallet_blocked_title">Your AppCoins Credits balance is blocked</string>
-  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'ll still be able to make payments and transaction with other methods except AppCoins Credits.\n\nIf you believe this is a mistake, contact us at:</string>
+  <string name="purchase_current_balance_appcc_body">%s in Aptoide Balance.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s in Aptoide Balance and Ether.</string>
+  <string name="purchase_wallet_blocked_title">Your Aptoide Balance is blocked</string>
+  <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your Aptoide Balance was blocked. You\'ll still be able to make payments and transaction with other methods except Aptoide Balance.  If you believe this is a mistake, contact us at:</string>
   <string name="purchase_card_error_title">Oops, something went wrong.</string>
   <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
   <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
@@ -530,8 +530,8 @@
   <string name="async_steps_2">Go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
   <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
   <string name="async_steps_1_no_notification">Complete your payment with %s.</string>
-  <string name="async_steps_2_no_notification">Once you receive the AppCoins Credits, go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
+  <string name="async_steps_2_no_notification">Once you receive the Aptoide Balance, go back to the game and make the purchase using Aptoide Balance as a payment method.</string>
+  <string name="async_steps_2_toptup_no_notification">Once you receive the Aptoide Balance use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">Your AppCoins Credits arrived!</string>
   <string name="async_notification_body">Go back to %s to make the purchase using AppCoins Credits.</string>
   <!--Referral Program-->
@@ -836,12 +836,12 @@
   <string name="perks_available_soon">Promotion available soon</string>
   <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
-  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
+  <string name="perks_notification">You just received %s Aptoide Balance as a Bonus</string>
   <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
   <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from Aptoide Balance will qualify to increase your level and receive reward.</string>
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
@@ -914,4 +914,7 @@
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <string name="appc">" Balanse ng Aptoide"</string>
+  <string name="onboarding_bonus_title">Get up to %s%% of your in-app purchases in Aptoide Balance.</string>
+  <string name="aptoide_balance_name">Aptoide Balance</string>
 </resources>
