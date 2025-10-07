@@ -133,7 +133,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
     overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay)
     setKeyboardListener()
     userAgentInterceptor = UserAgentInterceptor(context, commonsPreferencesDataSource)
-    //intent?.data?.let { handleDeepLink(it) }
 
     setContent {
       MainContent(url)
@@ -143,8 +142,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
   override fun onNewIntent(intent: Intent?) {
     super.onNewIntent(intent)
     val data = intent?.data?.toString().orEmpty()
-
-    intent?.data?.let { handleDeepLink(it) }
 
     viewModel.webView?.post {
       if (data.isNotBlank()) {
@@ -165,10 +162,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
         viewModel.runningCustomTab = false
       }
     }
-  }
-
-  private fun handleDeepLink(uri: Uri) {
-
   }
 
   var isPortraitSpaceForWeb = mutableStateOf(false)

@@ -12,7 +12,6 @@ class WebWalletResultRouterActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
 
     val handled = PaymentOverlayHandle.bringToFrontAndDeliver(intent?.data)
-    Log.d("WebWalletResultRouterActivity", "bringToFront: $handled")
 
     overridePendingTransition(0, 0)
     finish()
