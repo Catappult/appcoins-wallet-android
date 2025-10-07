@@ -274,7 +274,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
                 orderReference = webResult?.orderReference ?: "",
                 hash = webResult?.hash ?: "",
                 paymentMethod = webResult?.paymentMethod ?: "",
-                transactionBuilder = transactionBuilder
+                transactionBuilder = transactionBuilder,
+                successResult = webResult
               )
             },
             onErrorCallback = { webError ->

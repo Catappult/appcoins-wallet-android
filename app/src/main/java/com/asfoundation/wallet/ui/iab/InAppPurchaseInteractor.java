@@ -4,6 +4,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
+import com.appcoins.wallet.bdsbilling.repository.entity.RemoteProduct;
+import com.appcoins.wallet.bdsbilling.repository.entity.Signature;
+import com.appcoins.wallet.bdsbilling.repository.entity.State;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType;
@@ -22,6 +25,8 @@ import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel;
 import com.asfoundation.wallet.billing.paypal.PaypalSupportedCurrencies;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
+import com.asfoundation.wallet.ui.webview_payment.models.PurchaseData;
+import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentResponse;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -31,6 +36,7 @@ import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -496,18 +502,18 @@ public class InAppPurchaseInteractor {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
             paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null,
-            false, isToShowPaypalLogout(paymentMethod)  || isToShowAmazonPayLogout(paymentMethod), hasExtraFees(paymentMethod, currency),
-            new FiatValue(paymentMethod.getPrice()
-                .getValue(), paymentMethod.getPrice()
-                .getCurrency(), ""), paymentMethod.getMessage());
+            false, isToShowPaypalLogout(paymentMethod) || isToShowAmazonPayLogout(paymentMethod),
+            hasExtraFees(paymentMethod, currency), new FiatValue(paymentMethod.getPrice()
+            .getValue(), paymentMethod.getPrice()
+            .getCurrency(), ""), paymentMethod.getMessage());
       }
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
         paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false,
-        isToShowPaypalLogout(paymentMethod) || isToShowAmazonPayLogout(paymentMethod), hasExtraFees(paymentMethod, currency), new FiatValue(
-        paymentMethod.getPrice()
-            .getValue(), paymentMethod.getPrice()
+        isToShowPaypalLogout(paymentMethod) || isToShowAmazonPayLogout(paymentMethod),
+        hasExtraFees(paymentMethod, currency), new FiatValue(paymentMethod.getPrice()
+        .getValue(), paymentMethod.getPrice()
         .getCurrency(), ""), paymentMethod.getMessage());
   }
 
@@ -587,15 +593,61 @@ public class InAppPurchaseInteractor {
 
   @NotNull public Single<PurchaseBundleModel> getCompletedPurchaseBundle(@NotNull String type,
       @NotNull String merchantName, @Nullable String sku, @Nullable String purchaseUid,
-      @Nullable String orderReference, @Nullable String hash, @NotNull Scheduler scheduler) {
+      @Nullable String orderReference, @Nullable String hash,
+      @Nullable WebViewPaymentResponse successResult, @NotNull Scheduler scheduler) {
     BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(type);
     if (isManagedTransaction(billingType) && sku != null) {
-      return billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
-          .map(purchase -> new PurchaseBundleModel(
-              billingMessagesMapper.mapPurchase(purchase, orderReference), purchase.getRenewal()));
+      if (successResult == null) {
+        return billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
+            .map(purchase -> new PurchaseBundleModel(
+                billingMessagesMapper.mapPurchase(purchase, orderReference),
+                purchase.getRenewal()));
+      } else {
+        Purchase purchase = mapToPurchase(successResult);
+        return Single.just(
+            new PurchaseBundleModel(billingMessagesMapper.mapPurchase(purchase, orderReference),
+                purchase.getRenewal()));
+      }
     } else {
       return Single.just(new PurchaseBundleModel(billingMessagesMapper.successBundle(hash), null));
     }
+  }
+
+  public static Purchase mapToPurchase(WebViewPaymentResponse web) {
+    PurchaseData pd = web.getPurchaseData();
+
+    String uid = web.getUid();
+    if (uid == null || uid.isEmpty()) {
+      if (pd != null && pd.getOrderId() != null && !pd.getOrderId()
+          .isEmpty()) {
+        uid = pd.getOrderId();
+      } else if (pd != null && pd.getPurchaseToken() != null) {
+        uid = pd.getPurchaseToken();
+      } else {
+        uid = "";
+      }
+    }
+
+    String purchaseToken =
+        (pd != null && pd.getPurchaseToken() != null) ? pd.getPurchaseToken() : "";
+
+    String sku = (pd != null && pd.getProductId() != null) ? pd.getProductId() : "";
+
+    State state = (pd != null && pd.getPurchaseState() == 2) ? State.PENDING : State.ACKNOWLEDGED;
+
+    boolean autoRenewing =
+        pd != null && "SUBS".equalsIgnoreCase(pd.getProductType()) && pd.isAutoRenewing();
+
+    Date renewal = null;
+
+    String pkgName = (pd != null && pd.getPackageName() != null) ? pd.getPackageName() : "";
+
+    String signatureValue = web.getDataSignature() != null ? web.getDataSignature() : "";
+    String signatureMessage = (pd != null) ? pd.toJson() : "";
+
+    return new Purchase(purchaseToken, new RemoteProduct(sku), state, autoRenewing, renewal,
+        new com.appcoins.wallet.bdsbilling.repository.entity.Package(pkgName),
+        new Signature(signatureValue, signatureMessage));
   }
 
   private Boolean isManagedTransaction(BillingSupportedType type) {

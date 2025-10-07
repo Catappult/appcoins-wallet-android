@@ -138,7 +138,7 @@ class PaymentMethodsInteractor @Inject constructor(
     uid = purchaseUid
     return inAppPurchaseInteractor.getCompletedPurchaseBundle(
       type, appPackage, skuId, purchaseUid,
-      orderReference, hash, networkThread
+      orderReference, hash, null, networkThread
     )
   }
 
