@@ -9,7 +9,7 @@ class OnboardingAnalytics @Inject constructor(private val analyticsManager: Anal
     private const val WALLET = "WALLET"
     const val WALLET_ONBOARDING_RECOVER_WEB = "wallet_onboarding_recover_web"
     const val BONUS = "bonus"
-    const val BONUS_CURRENCY = "bonus_curency"
+    const val BONUS_CURRENCY = "bonus_currency"
   }
 
   fun sendRecoverGuestWalletEvent(bonus: String, bonusCurrency: String) {
