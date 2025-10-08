@@ -1,15 +1,9 @@
 package com.asfoundation.wallet.home.bottom_sheet
 
-
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.net.toUri
 import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +15,7 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.HomeManageWalletBottomSheetLayoutBinding
+import com.asfoundation.wallet.ui.custom_tab_login.launchCustomChromeTabIntent
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,26 +39,11 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
   companion object {
     const val CAN_TRANSFER = "can_transfer"
 
-    private const val CHROME_PACKAGE_NAME = "com.android.chrome"
-
     @JvmStatic
     fun newInstance(): HomeManageWalletBottomSheetFragment {
       return HomeManageWalletBottomSheetFragment()
     }
   }
-
-  private val openLoginLauncher =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      when (result.resultCode) {
-        Activity.RESULT_OK -> {}
-
-        Activity.RESULT_CANCELED -> {
-          Toast.makeText(requireContext(), "Sign-in error", Toast.LENGTH_SHORT).show()
-        }
-
-        else -> {}
-      }
-    }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -95,10 +75,10 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
         getString(R.string.home_sign_in_button)
       )
       this.dismiss()
-      val url = viewModel.getLoginUrl()
-      val customTab = CustomTabsIntent.Builder().build() // basic custom tab intent, no special configuration.
-      customTab.intent.setPackage(CHROME_PACKAGE_NAME)
-      customTab.launchUrl(requireContext(), url.toUri())
+      launchCustomChromeTabIntent(
+        url = viewModel.getLoginUrl(),
+        context = requireContext()
+      )
     }
 
     views.backupWalletView.setOnClickListener {
@@ -147,12 +127,11 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
     when (sideEffect) {
       is HomeManageWalletBottomSheetSideEffect.NavigateBack -> navigator.navigateBack()
       is HomeManageWalletBottomSheetSideEffect.OpenLogin -> {
-        val customTab = CustomTabsIntent.Builder().build() // basic custom tab intent, no special configuration.
-        customTab.intent.setPackage(CHROME_PACKAGE_NAME)
-        customTab.launchUrl(requireContext(), sideEffect.url.toUri())
+        launchCustomChromeTabIntent(
+          url = sideEffect.url,
+          context = requireContext()
+        )
       }
-
-      else -> {}
     }
   }
 

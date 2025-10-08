@@ -6,6 +6,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 
+/**
+ * Dagger Hilt module for providing dependencies related to CustomTabLoginViewModel.
+ *
+ * This module is installed in the ViewModelComponent, making its provided dependencies
+ * available for injection into ViewModels.
+ */
 @Module
 @InstallIn(ViewModelComponent::class)
 internal object CustomTabModule {

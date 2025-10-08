@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.custom_tab_login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -33,6 +34,20 @@ class CustomTabLoginActivity : ComponentActivity() {
 
   private val viewModel: CustomTabLoginViewModel by viewModels()
 
+  private fun navigateToMainActivity(
+    context: Context = this,
+    logMessage: String? = null,
+  ) {
+    logMessage?.let { Log.d(TAG, it) }
+    Intent(context, MainActivity::class.java)
+      .apply {
+        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+      }.also {
+        startActivity(it)
+      }
+    finish()
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     logger.log(TAG, "CustomTab Activity created")
@@ -40,40 +55,27 @@ class CustomTabLoginActivity : ComponentActivity() {
     authToken?.let {
       viewModel.fetchUserKey(it)
     } ?: run {
-      logger.log(TAG, "No auth token provided, finishing activity")
-      Intent(this, MainActivity::class.java)
-        .apply {
-          flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }.also {
-          startActivity(it)
-        }
-      finish()
+      navigateToMainActivity(
+        context = this@CustomTabLoginActivity,
+        logMessage = "No auth token provided, finishing activity"
+      )
     }
 
     lifecycleScope.launch {
       viewModel.activityState.collect { uiState ->
         when (uiState) {
           is FinishActivity -> {
-            Intent(this@CustomTabLoginActivity, MainActivity::class.java)
-              .apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-              }.also {
-                startActivity(it)
-              }
-            Log.i(TAG, "User key fetched successfully, finishing activity")
-            finish()
+            navigateToMainActivity(
+              context = this@CustomTabLoginActivity,
+              logMessage = "User key fetched successfully, finishing activity",
+            )
           }
 
           is FinishWithError -> {
-            Intent(this@CustomTabLoginActivity, MainActivity::class.java)
-              .apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-              }.also {
-                startActivity(it)
-              }
-            Log.i(TAG, "Error fetching user key, finishing activity")
-            logger.log(TAG, "Error fetching user key, finishing activity")
-            finish()
+            navigateToMainActivity(
+              context = this@CustomTabLoginActivity,
+              logMessage = "Error fetching user key, finishing activity",
+            )
           }
 
           else -> {

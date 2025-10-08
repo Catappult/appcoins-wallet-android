@@ -42,6 +42,7 @@ import io.reactivex.subjects.PublishSubject
 import java.util.Locale
 import javax.inject.Inject
 import androidx.core.net.toUri
+import com.asfoundation.wallet.ui.custom_tab_login.launchCustomChromeTabIntent
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
@@ -75,8 +76,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
     const val MANAGE_WALLET_EVENT = "manage_wallet"
 
-    private const val CHROME_PACKAGE_NAME = "com.android.chrome"
-
     @JvmStatic
     fun newInstance(turnOnFingerprint: Boolean = false): SettingsFragment {
       return SettingsFragment().apply {
@@ -86,17 +85,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       }
     }
   }
-
-  private val openLoginLauncher =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      when (result.resultCode) {
-        Activity.RESULT_OK -> {}
-
-        Activity.RESULT_CANCELED -> {}
-
-        else -> {}
-      }
-    }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -237,10 +225,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setLoginPreference() {
     val loginPreference = findPreference<Preference>("pref_login")
     loginPreference?.setOnPreferenceClickListener {
-      val url = presenter.getLoginUrl()
-      val customTab = CustomTabsIntent.Builder().build() // basic custom tab intent, no special configuration.
-      customTab.intent.setPackage(CHROME_PACKAGE_NAME)
-      customTab.launchUrl(requireContext(), url.toUri())
+      launchCustomChromeTabIntent(
+        url = presenter.getLoginUrl(),
+        context = requireContext()
+      )
       false
     }
   }
