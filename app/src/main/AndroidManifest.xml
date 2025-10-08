@@ -364,13 +364,13 @@
     </activity>
 
     <activity
-        android:name="com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity"
+        android:name="com.asfoundation.wallet.ui.login.webview_login.WebViewLoginActivity"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
         android:windowSoftInputMode="adjustResize"></activity>
 
     <activity
-        android:name="com.asfoundation.wallet.ui.custom_tab_login.CustomTabLoginActivity"
+        android:name="com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.CustomTabLogin"
         android:windowSoftInputMode="adjustResize">
@@ -381,10 +381,8 @@
         <category android:name="android.intent.category.BROWSABLE" />
 
         <data
-            android:host="${applicationId}"
-            android:pathPrefix="/TODO(PATH)"
-            android:scheme="todo" />
-        <!-- TODO replace with real values -->
+            android:host="com.appcoins.wallet"
+            android:scheme="login-wallet-result" />
       </intent-filter>
     </activity>
 

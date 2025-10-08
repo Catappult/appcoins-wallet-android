@@ -1,10 +1,9 @@
-package com.asfoundation.wallet.ui.webview_gamification
+package com.asfoundation.wallet.ui.login.webview_login
 
 import android.webkit.WebView
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.ui.login.webview_login.usecases.FetchUserKeyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -13,10 +12,9 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class WebViewGamificationViewModel @Inject constructor(
+class WebViewLoginViewModel @Inject constructor(
   private val rxSchedulers: RxSchedulers,
   private val fetchUserKeyUseCase: FetchUserKeyUseCase,
-  private val displayChatUseCase: DisplayChatUseCase,
   private val logger: Logger,
 ) : ViewModel() {
 
@@ -29,9 +27,21 @@ class WebViewGamificationViewModel @Inject constructor(
   var isFirstRun: Boolean = true
   var webView: WebView? = null
 
-  fun displayChat() {
-    displayChatUseCase()
+  fun fetchUserKey(authToken: String) {
+    CompositeDisposable().add(
+      fetchUserKeyUseCase(authToken)
+        .subscribeOn(rxSchedulers.io)
+        .observeOn(rxSchedulers.io)
+        .subscribe({
+          _uiState.value = UiState.FinishActivity
+        }, {
+          it.printStackTrace()
+          logger.log(TAG, "error in fetchUserKey: ${it.message}", it)
+          _uiState.value = UiState.FinishWithError
+        })
+    )
   }
+
 
   sealed class UiState {
     data object FinishActivity : UiState()
