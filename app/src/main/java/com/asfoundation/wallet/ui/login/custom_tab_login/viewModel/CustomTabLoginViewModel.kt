@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui.login.custom_tab_login.viewModel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.FetchingUserKey
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.FinishActivity
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * ViewModel for [com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity]
+ * ViewModel for [CustomTabLoginActivity]
  *
  * Handles the login process via custom tabs and manages activity states.
  *
