@@ -15,7 +15,8 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.HomeManageWalletBottomSheetLayoutBinding
-import com.asfoundation.wallet.ui.custom_tab_login.launchCustomChromeTabIntent
+import com.asfoundation.wallet.ui.login.custom_tab_login.launchCustomChromeTabIntent
+import com.asfoundation.wallet.ui.login.processLoginRequest
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,7 +76,7 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
         getString(R.string.home_sign_in_button)
       )
       this.dismiss()
-      launchCustomChromeTabIntent(
+      processLoginRequest(
         url = viewModel.getLoginUrl(),
         context = requireContext()
       )

@@ -42,7 +42,8 @@ import io.reactivex.subjects.PublishSubject
 import java.util.Locale
 import javax.inject.Inject
 import androidx.core.net.toUri
-import com.asfoundation.wallet.ui.custom_tab_login.launchCustomChromeTabIntent
+import com.asfoundation.wallet.ui.login.custom_tab_login.launchCustomChromeTabIntent
+import com.asfoundation.wallet.ui.login.processLoginRequest
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
@@ -225,7 +226,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setLoginPreference() {
     val loginPreference = findPreference<Preference>("pref_login")
     loginPreference?.setOnPreferenceClickListener {
-      launchCustomChromeTabIntent(
+      processLoginRequest(
         url = presenter.getLoginUrl(),
         context = requireContext()
       )
