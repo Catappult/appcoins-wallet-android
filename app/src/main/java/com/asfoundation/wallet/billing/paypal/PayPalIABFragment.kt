@@ -68,6 +68,7 @@ class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
     super.onAttach(context)
     check(context is IabView) { "Paypal payment fragment must be attached to IAB activity" }
     iabView = context
+    iabView.lockRotation()
   }
 
   private fun registerWebViewResult() {
