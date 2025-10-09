@@ -443,6 +443,7 @@ class AdyenPaymentInteractorTest {
         /* purchaseUid = */ null,
         /* orderReference = */ null,
         /* hash = */ null,
+        /* successResult = */ null,
         /* scheduler = */ fakeSchedulers.main
       )
     )

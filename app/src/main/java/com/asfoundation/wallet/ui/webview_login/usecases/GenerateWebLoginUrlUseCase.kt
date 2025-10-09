@@ -3,6 +3,8 @@ package com.asfoundation.wallet.ui.webview_login.usecases
 import android.content.Context
 import android.os.Build
 import com.appcoins.wallet.core.utils.properties.HostProperties
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.GetEncryptedPrivateKeyUseCase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
@@ -10,17 +12,19 @@ import javax.inject.Inject
 
 class GenerateWebLoginUrlUseCase @Inject constructor(
   private val getEncryptedPrivateKeyUseCase: GetEncryptedPrivateKeyUseCase,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
   @ApplicationContext private val context: Context,
 ) {
 
   operator fun invoke(): Single<String> {
-    return getEncryptedPrivateKeyUseCase()
-      .map { encyptedKey ->
-        val url =
-          HostProperties.WEBVIEW_LOGIN_URL +
-              "?domain=${context.packageName}&payment_channel=${mapPaymentChannel()}&user=$encyptedKey"
-        url
-      }
+    return Single.zip(
+      getCurrentWalletUseCase(), getEncryptedPrivateKeyUseCase()
+    ) { currentWallet: Wallet, encryptedKey: String ->
+      val url =
+        HostProperties.WEBVIEW_LOGIN_URL +
+            "?domain=${context.packageName}&payment_channel=${mapPaymentChannel()}&address=${currentWallet.address}&user=$encryptedKey"
+      return@zip url
+    }
   }
 
   fun isAnbox(): Boolean {

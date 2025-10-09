@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">นี้อาจใช้เวลาสักครู่...</string>
   <string name="activity_iab_transaction_completed_title">ธุรกรรมที่เสร็จสมบูรณ์</string>
   <string name="activity_iab_error_message">เกิดข้อผิดพลาด โปรดลองอีกครั้ง</string>
-  <string name="activity_iab_no_funds_message">ETH และ AppCoins ไม่เพียงพอ</string>
+  <string name="activity_iab_no_funds_message">ETH และ Aptoide Balance ไม่เพียงพอ</string>
   <string name="activity_iab_no_ethereum_funds_message">เอธิเรียมไม่เพียงพอ</string>
-  <string name="activity_iab_no_token_funds_message">AppCoins ไม่เพียงพอ</string>
+  <string name="activity_iab_no_token_funds_message">Aptoide Balance ไม่เพียงพอ</string>
   <string name="activity_iab_wrong_network_message">เครือข่าย Ethereum ผิดหรือโทเคนที่ไม่รู้จัก</string>
   <string name="activity_iab_no_network_message">ไม่สามารถเข้าถึงเครือข่าย</string>
   <string name="activity_iab_nonce_message">เกิดข้อผิดพลาดกับ blockchain โปรดลองอีกครั้ง</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">รายละเอียดธุรกรรม</string>
   <string name="transaction_details_txid">เลขที่ภาษี</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
+  <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ Aptoide Balance</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
   <string name="activity_airdrop_hint">พิมพ์คำในภาพ</string>
   <string name="activity_airdrop_submit_btn">ส่ง</string>
@@ -213,7 +213,7 @@
   <string name="gamification_how_max_level_body">คุณถึงระดับสูงสุดแล้ว: %s โบนัสสำหรับทุกการซื้อ!</string>
   <string name="gamification_level_up_notification_title">เกือบเสร็จแล้ว!</string>
   <string name="gamification_level_up_notification_body">ใช้จ่าย %s มากขึ้นเพื่อไปอีกระดับ</string>
-  <string name="gamification_bonus_plus_perk_body">รับโบนัส%1$sและ %2$sในAptoide balance พิเศษ</string>
+  <string name="gamification_bonus_plus_perk_body">รับโบนัส%1$sและ %2$sในAptoide Balance พิเศษ</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">อนุญาตให้ Aptoide Wallet ระบุที่อยู่กระเป๋าเงินของคุณให้กับ %s</string>
   <string name="provide_wallet_always_allow_button">อนุญาตเสมอ</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">ไม่มีวิธีการชำระเงินที่สามารถเติมเงินในประเทศของคุณได้ในขณะนี้ คอยติดตาม!</string>
   <string name="topup_bonus_amount_body">รับโบนัส %s ด้วยการเติมเงินนี้</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Ethereum เป็นสกุลเงินคริปโตซึ่งมี AppCoins เป็นหลัก คุณสามารถซื้อและขายแลกเปลี่ยนมันได้เป็นส่วนใหญ่ มันเป็นที่นิยมมาก!</string>
-  <string name="balance_appcoins_body">AppCoins เป็นสกุลเงินคริปโตสำหรับเศรษฐกิจแอป คุณสามารถซื้อ ขาย แลกเปลี่ยนต่าง ๆ และใช้ในการซื้อสินค้าในแอปได้</string>
+  <string name="balance_ethereum_body">Ethereum เป็นสกุลเงินคริปโตซึ่งมี Aptoide Balance เป็นหลัก คุณสามารถซื้อและขายแลกเปลี่ยนมันได้เป็นส่วนใหญ่ มันเป็นที่นิยมมาก!</string>
+  <string name="balance_appcoins_body">Aptoide Balance เป็นสกุลเงินคริปโตสำหรับเศรษฐกิจแอป คุณสามารถซื้อ ขาย แลกเปลี่ยนต่าง ๆ และใช้ในการซื้อสินค้าในแอปได้</string>
   <string name="balance_appccreditos_body">โทเค็นเพื่อใช้ซื้อสินค้าในแอป! เติมยอดคงเหลือ Aptoide จากกระเป๋าสตางค์หรือรับมันเพื่อการใช้งานแอปฟรี มันยังสามารถถ่ายโอนได้ระหว่างเพื่อน!</string>
   <string name="my_wallets_action_new_wallet">วอลเล็ตใหม่</string>
   <string name="my_wallets_action_recover_wallet">กู้คืนวอลเล็ต</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">ยอดคงเหลือปัจจุบัน: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">เงินไม่พอ</string>
   <string name="p2p_send_confirmation_header">รายละเอียดโอน</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">อุ๊ปส์</string>
   <string name="error_general">มีบางสิ่งที่ผิด</string>
@@ -310,7 +309,7 @@
   <string name="payment_method">วิธีการชำระเงิน</string>
   <string name="credit_debit_card">บัตรเครดิต/เดบิต</string>
   <string name="paypal">Paypal</string>
-  <string name="appc">เครดิต AppCoins</string>
+  <string name="appc">เครดิต Aptoide</string>
   <string name="bank_transfer">โอนเงินผ่านธนาคารง่ายๆ</string>
   <string name="mir_card">Mir card</string>
   <string name="wallet_one">Wallet One</string>
@@ -336,7 +335,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">เครื่องมือของคุณในการซื้อในแอป</string>
-  <string name="onboarding_bonus_title">รับมากถึง %s%% ของการซื้อในแอปของคุณด้วยเครดิต AppCoins</string>
+  <string name="onboarding_bonus_title">รับมากถึง %s%% ของการซื้อในแอปของคุณด้วยเครดิต Aptoide</string>
   <string name="onboarding_payment_methods_title">ใช้บัตรธนาคาร PayPal และวิธีการชำระเงินที่คุณชื่นชอบ</string>
   <string name="onboarding_vip_title">เป็นสมาชิกวีไอพีเพื่อรับการสนับสนุนและข้อเสนอระดับพรีเมียม</string>
   <string name="terms_and_conditions">ข้อกำหนดและเงื่อนไข</string>
@@ -345,7 +344,7 @@
   <string name="onboarding_verification_body">ยืนยันวิธีการชําระเงินของคุณเพื่อทําการซื้อให้เสร็จสมบูรณ์</string>
   <!--Home-->
   <!--Tokens-->
-  <string name="aptoide_balance_name">Aptoide balance</string>
+  <string name="aptoide_balance_name">Aptoide Balance</string>
   <!--Settings-->
   <string name="title_redeem">แลกบัตรของขวัญ</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">รวม %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">มันดูเหมือนว่าการซื้อนี้กำลังดำเนินการแล้ว โปรดรอสักครู่จนกระทั่งธุรกรรมเสร็จสิ้นหรือติดต่อทีมสนับสนุน</string>
   <string name="purchase_more_payment_methods_lower_case_button">วิธีการชำระเงินเพิ่มเติม</string>
-  <string name="purchase_appcoins_noavailable_body">คุณไม่จำเป็นต้องมี AppCoins หรือ. Ether. ที่เพียงพอในการซื้อนี้</string>
+  <string name="purchase_appcoins_noavailable_body">คุณไม่จำเป็นต้องมี Aptoide Balance หรือ. Ether. ที่เพียงพอในการซื้อนี้</string>
   <string name="purchase_no_eth_body">คุณมี ETH ไม่เพียงพอสำหรับจ่ายแก๊ส</string>
-  <string name="purchase_no_appcoins_body">คุณไม่จำเป็นต้องมี AppCoins หรือ Ether ที่เพียงพอในการซื้อนี้</string>
+  <string name="purchase_no_appcoins_body">คุณไม่จำเป็นต้องมี Aptoide Balance หรือ Ether ที่เพียงพอในการซื้อนี้</string>
   <string name="purchase_appcoins_credits_noavailable_body">คุณมียอดคงเหลือ Aptoide ไม่เพียงพอ ลองเติมเงิน!</string>
   <string name="purchase_appcoins_credits_default_body">คุณได้รับยอดคงเหลือ Aptoide เพียงพอสําหรับการซื้อครั้งนี้ เพลิดเพลิน!</string>
   <string name="purchase_poa_item">รับเงินโดยการลองแอป</string>
@@ -390,9 +389,9 @@
   <string name="purchase_poa_view_body">ลองใช้แอปเป็นเวลา 2 นาทีและรับรางวัลเป็นเครดิตยอดคงเหลือ Aptoide เพื่อทําการซื้อของคุณ!</string>
   <string name="purchase_current_balance_body">ยอดคงเหลือปัจจุบัน:</string>
   <string name="purchase_current_balance_appcc_body">%s ในยอดคงเหลือ Aptoide</string>
-  <string name="purchase_current_balance_appc_eth_body">%s AppCoins และ Ether.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s Aptoide Balance และ Ether.</string>
   <string name="purchase_wallet_blocked_title">ยอดคงเหลือ Aptoide ของคุณถูกบล็อก</string>
-  <string name="purchase_wallet_blocked_body">เนื่องจากประวัติการทำธุรกรรมที่ผิดปกติ ยอดคงเหลือ AppCoins Credits ของคุณจึงถูกปิดกั้น คุณจะยังสามารถชำระเงินและทำธุรกรรมด้วยวิธีอื่น ๆ ยกเว้น AppCoins Credits \n\n หากคุณเชื่อว่าสิ่งนี่เป็นข้อผิดพลาดโปรดติดต่อเราที่:</string>
+  <string name="purchase_wallet_blocked_body">เนื่องจากประวัติการทำธุรกรรมที่ผิดปกติ ยอดคงเหลือ Aptoide Balance ของคุณจึงถูกปิดกั้น คุณจะยังสามารถชำระเงินและทำธุรกรรมด้วยวิธีอื่น ๆ ยกเว้น Aptoide Balance    หากคุณเชื่อว่าสิ่งนี่เป็นข้อผิดพลาดโปรดติดต่อเราที่:</string>
   <string name="purchase_card_error_general_1">มีปัญหากับบัตรของคุณ โปรดลองใช้บัตรหรือวิธีการชำระเงินอื่น</string>
   <string name="purchase_card_error_general_2">การทำธุรกรรมถูกปฏิเสธโดยธนาคารของคุณ โปรดลองใช้บัตรหรือวิธีการชำระเงินอื่น</string>
   <string name="purchase_card_error_no_funds">ดูเหมือนว่าคุณมีเงินไม่เพียงพอหรือมีวงเงินในบัตรของคุณ โปรดลองใช้บัตรหรือวิธีการชำระเงินอื่น</string>

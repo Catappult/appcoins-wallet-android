@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">これは、処理には時間がかかることがあります...</string>
   <string name="activity_iab_transaction_completed_title">取引が完了しました</string>
   <string name="activity_iab_error_message">エラーが発生した、もう一度やり直してください。</string>
-  <string name="activity_iab_no_funds_message">ETHとAppCoinsが不足しています</string>
+  <string name="activity_iab_no_funds_message">ETHとAptoide Balanceが不足しています</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereumが不足しています</string>
-  <string name="activity_iab_no_token_funds_message">AppCoinsが不足しています</string>
+  <string name="activity_iab_no_token_funds_message">Aptoide Balanceが不足しています</string>
   <string name="activity_iab_wrong_network_message">間違ったEthereumネットワークまたは不明なトークン</string>
   <string name="activity_iab_no_network_message">ネットワークアクセスがありません</string>
   <string name="activity_iab_nonce_message">ブロックチェーンのエラーが発生しました。後でやり直してください。</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">トランザクション詳細</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
+  <string name="activity_airdrop_title">あなたがAptoide Balanceを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
   <string name="activity_airdrop_hint">画像にある文字をタイプしてください</string>
   <string name="activity_airdrop_submit_btn">提出する</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">現在、あなたの国でトップアップできる支払い方法はありません。しばらくお待ちください！</string>
   <string name="topup_bonus_amount_body">このトップアップで%sボーナスを受け取る</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">イーサレムは、AppCoins に基づいている仮想通貨です。購入し、両替でそれらを販売することができます。非常に人気です！</string>
-  <string name="balance_appcoins_body">AppCoins はアプリ経済の仮想通貨 です。購入して両替でそれを販売し、アプリ内アイテムを購入する等、使用することができます。</string>
+  <string name="balance_ethereum_body">イーサレムは、Aptoide Balance に基づいている仮想通貨です。購入し、両替でそれらを販売することができます。非常に人気です！</string>
+  <string name="balance_appcoins_body">Aptoide Balance はアプリ経済の仮想通貨 です。購入して両替でそれを販売し、アプリ内アイテムを購入する等、使用することができます。</string>
   <string name="balance_appccreditos_body">アプリ内アイテムを購入するためのトークン！アプリを使って、Aptoideクレジットをトップアップするか、無料で入手できます。また、友達同士で転送することもできます！</string>
   <string name="my_wallets_action_new_wallet">新規ウオレット</string>
   <string name="my_wallets_action_recover_wallet">ウォレットの復元</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">現在の残高: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">十分な資金がありません</string>
   <string name="p2p_send_confirmation_header">転送の詳細</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">おっと</string>
   <string name="error_general">エラーが起こりました</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">合計 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">この購入はすでに処理されているようです。お手数ですが、処理が完了するまでお待ちいただくか、サポートチームまでご連絡ください。</string>
   <string name="purchase_more_payment_methods_lower_case_button">他の支払い方法</string>
-  <string name="purchase_appcoins_noavailable_body">この購入に必要なAppCoinまたはEtherがありません。</string>
+  <string name="purchase_appcoins_noavailable_body">この購入に必要なAptoide BalanceまたはEtherがありません。</string>
   <string name="purchase_no_eth_body">ガスを購入するために十分なETHがありません。</string>
-  <string name="purchase_no_appcoins_body">この購入を完了するのに十分なAppCoinがありません。</string>
+  <string name="purchase_no_appcoins_body">この購入を完了するのに十分なAptoide Balanceがありません。</string>
   <string name="purchase_appcoins_credits_noavailable_body">Aptoideクレジットが不足しています！</string>
   <string name="purchase_appcoins_credits_default_body">この購入に十分なAptoideクレジットを獲得しました。お楽しみください！</string>
   <string name="purchase_poa_item">アプリの試用で資金獲得</string>
@@ -390,7 +389,7 @@
   <string name="purchase_poa_view_body">アプリを2分間試すと、Aptoideクレジットに報酬が加算されます！</string>
   <string name="purchase_current_balance_body">現在の残高:</string>
   <string name="purchase_current_balance_appcc_body">Aptoideクレジット：%s</string>
-  <string name="purchase_current_balance_appc_eth_body">AppCoinsとEther: %s</string>
+  <string name="purchase_current_balance_appc_eth_body">Aptoide BalanceとEther: %s</string>
   <string name="purchase_wallet_blocked_title">Aptoideクレジットがブロックされています</string>
   <string name="purchase_wallet_blocked_body">通常とは異なる取引履歴のため、お客様のAptoideクレジットはブロックされました。Aptoideクレジット以外でのお支払いやお取引は可能です：</string>
   <string name="purchase_card_error_general_1">あなたのカードに問題がありました。別のカードまたは支払い方法でお試しください。</string>

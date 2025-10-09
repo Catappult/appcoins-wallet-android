@@ -262,6 +262,7 @@ class AdyenPaymentInteractor @Inject constructor(
       purchaseUid,
       orderReference,
       hash,
+      null,
       scheduler
     )
   }

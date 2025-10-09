@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">Це може зайняти деякий час…</string>
   <string name="activity_iab_transaction_completed_title">Транзакція завершена</string>
   <string name="activity_iab_error_message">Сталася помилка, спробуйте ще раз</string>
-  <string name="activity_iab_no_funds_message">Недостатньо ETH та AppCoins</string>
+  <string name="activity_iab_no_funds_message">Недостатньо ETH та Aptoide Balance</string>
   <string name="activity_iab_no_ethereum_funds_message">Не вистачає Ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Не вистачає AppCoins</string>
+  <string name="activity_iab_no_token_funds_message">Не вистачає Aptoide Balance</string>
   <string name="activity_iab_wrong_network_message">Неправильна мережа Ethereum або невідомий токен</string>
   <string name="activity_iab_no_network_message">Немає доступу до мережі</string>
   <string name="activity_iab_nonce_message">Сталася помилка з блокчейном. Спробуйте пізніше.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">Деталі транзакції</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">Підтвердьте, що ви людина, щоб отримати AppCoins</string>
+  <string name="activity_airdrop_title">Підтвердьте, що ви людина, щоб отримати Aptoide Balance</string>
   <string name="activity_airdrop_details">Це лише питання безпеки.</string>
   <string name="activity_airdrop_hint">Введіть слова на малюнку</string>
   <string name="activity_airdrop_submit_btn">Відправити</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">На цей час у вашій країні немає доступних способів оплати для поповнення рахунку. Залишайтеся на зв\'язку!</string>
   <string name="topup_bonus_amount_body">Отримайте бонус %s з цим поповненням</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Ethereum — це криптовалюта, на якій базуються AppCoins. Ви можете купувати та продавати їх на більшості бірж, це дуже популярно!</string>
-  <string name="balance_appcoins_body">AppCoins — це криптовалюта для економіки додатків. Ви можете купувати та продавати її на кількох біржах і використовувати для покупки предметів у додатку.</string>
+  <string name="balance_ethereum_body">Ethereum — це криптовалюта, на якій базуються Aptoide Balance. Ви можете купувати та продавати їх на більшості бірж, це дуже популярно!</string>
+  <string name="balance_appcoins_body">Aptoide Balance — це криптовалюта для економіки додатків. Ви можете купувати та продавати її на кількох біржах і використовувати для покупки предметів у додатку.</string>
   <string name="balance_appccreditos_body">Токен для покупки товарів у додатку! Поповнюйте баланс Aptoide або отримуйте їх безплатно за допомогою додатків. Їх також можна передавати між друзями!</string>
   <string name="my_wallets_action_new_wallet">Новий гаманець</string>
   <string name="my_wallets_action_recover_wallet">Відновити гаманець</string>
@@ -262,7 +262,6 @@
   <string name="p2p_send_current_balance_message">Поточний баланс: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Не вистачає коштів</string>
   <string name="p2p_send_confirmation_header">Деталі передачі</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Ой</string>
   <string name="error_general">Щось пішло не так</string>
@@ -382,9 +381,9 @@
   <string name="purchase_total_header">Всього %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Схоже, ця покупка вже обробляється. Зачекайте, доки транзакція не буде завершена, або зв’яжіться з нашою командою підтримки.</string>
   <string name="purchase_more_payment_methods_lower_case_button">Інші способи оплати</string>
-  <string name="purchase_appcoins_noavailable_body">У вас недостатньо AppCoins або Ether для цієї покупки.</string>
+  <string name="purchase_appcoins_noavailable_body">У вас недостатньо Aptoide Balance або Ether для цієї покупки.</string>
   <string name="purchase_no_eth_body">У вас недостатньо ETH, щоб заплатити за газ.</string>
-  <string name="purchase_no_appcoins_body">У вас недостатньо AppCoins, щоб завершити цю покупку.</string>
+  <string name="purchase_no_appcoins_body">У вас недостатньо Aptoide Balance, щоб завершити цю покупку.</string>
   <string name="purchase_appcoins_credits_noavailable_body">У вас недостатньо балансу Aptoide, спробуйте поповнити його!</string>
   <string name="purchase_appcoins_credits_default_body">Ви заробили достатньо балансу Aptoide для цієї покупки. Насолоджуйтесь!</string>
   <string name="purchase_poa_item">Заробляйте кошти, пробуючи додатки</string>
@@ -392,9 +391,9 @@
   <string name="purchase_poa_view_body">Спробуйте додаток протягом 2 хвилин та отримайте винагороду у вигляді балансу Aptoide для здійснення покупки!</string>
   <string name="purchase_current_balance_body">Поточний баланс:</string>
   <string name="purchase_current_balance_appcc_body">%s в балансі Aptoide.</string>
-  <string name="purchase_current_balance_appc_eth_body">%s у AppCoins та Ether.</string>
+  <string name="purchase_current_balance_appc_eth_body">%s у Aptoide Balance та Ether.</string>
   <string name="purchase_wallet_blocked_title">Ваш баланс Aptoide заблоковано</string>
-  <string name="purchase_wallet_blocked_body">Через нетипову історію транзакцій ваш баланс Aptoide було заблоковано. Ви все ще можете здійснювати платежі та транзакції іншими методами, окрім балансу Aptoide.\n\nЯкщо ви вважаєте, що це помилка, зв\'яжіться з нами за адресою:</string>
+  <string name="purchase_wallet_blocked_body">Через нетипову історію транзакцій ваш баланс Aptoide було заблоковано. Ви все ще можете здійснювати платежі та транзакції іншими методами, окрім балансу Aptoide.  Якщо ви вважаєте, що це помилка, зв\'яжіться з нами за адресою:</string>
   <string name="purchase_card_error_general_1">Виникла проблема з вашою карткою. Спробуйте скористатися іншою карткою або способом оплати.</string>
   <string name="purchase_card_error_general_2">Ваш банк відхилив транзакцію. Спробуйте з іншою карткою або способом оплати.</string>
   <string name="purchase_card_error_no_funds">Схоже, у вас недостатньо коштів або на вашій картці встановлено ліміт. Будь ласка, спробуйте з іншою карткою або способом оплати.</string>

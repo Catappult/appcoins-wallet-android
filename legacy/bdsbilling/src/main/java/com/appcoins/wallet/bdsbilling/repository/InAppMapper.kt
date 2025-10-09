@@ -33,13 +33,13 @@ class InAppMapper {
     })
 
   fun map(packageName: String, inAppPurchaseResponse: InappPurchaseResponse): Purchase = Purchase(
-    inAppPurchaseResponse.uid,
-    RemoteProduct(inAppPurchaseResponse.sku),
-    mapPurchaseState(inAppPurchaseResponse.state),
-    false,
-    null,
-    Package(packageName),
-    Signature(inAppPurchaseResponse.verification.signature, inAppPurchaseResponse.verification.data)
+    uid = inAppPurchaseResponse.uid,
+    product = RemoteProduct(inAppPurchaseResponse.sku),
+    state = mapPurchaseState(inAppPurchaseResponse.state),
+    autoRenewing = false,
+    renewal = null,
+    packageName = Package(packageName),
+    signature = Signature(inAppPurchaseResponse.verification.signature, inAppPurchaseResponse.verification.data)
   )
 
   private fun mapPurchaseState(state: PurchaseState): State {
