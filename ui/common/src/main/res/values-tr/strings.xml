@@ -120,9 +120,9 @@
   <string name="activity_aib_loading_message">Bu biraz zaman alabilir…</string>
   <string name="activity_iab_transaction_completed_title">İşlem Tamamlandı</string>
   <string name="activity_iab_error_message">Bir hata oluştu, lütfen tekrar deneyin</string>
-  <string name="activity_iab_no_funds_message">Yeterli ETH ve AppCoin yok</string>
+  <string name="activity_iab_no_funds_message">Yeterli ETH ve Aptoide Balance yok</string>
   <string name="activity_iab_no_ethereum_funds_message">Yeterli Ethereum yok</string>
-  <string name="activity_iab_no_token_funds_message">Yeterli AppCoin yok</string>
+  <string name="activity_iab_no_token_funds_message">Yeterli Aptoide Balance yok</string>
   <string name="activity_iab_wrong_network_message">Yanlış Ethereum ağı veya bilinmeyen jeton</string>
   <string name="activity_iab_no_network_message">Ağ erişimi yok</string>
   <string name="activity_iab_nonce_message">Blok zinciriyle ilgili bir hata oluştu, lütfen daha sonra tekrar deneyin.</string>
@@ -189,7 +189,7 @@
   <string name="transaction_details_header">İşlem Detayları</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-  <string name="activity_airdrop_title">AppCoin\'leri almak için insan olduğunuzu doğrulayın</string>
+  <string name="activity_airdrop_title">Aptoide Balance\'leri almak için insan olduğunuzu doğrulayın</string>
   <string name="activity_airdrop_details">Bu sadece güvenlik içindir.</string>
   <string name="activity_airdrop_hint">Görseldeki kelimeleri girin</string>
   <string name="activity_airdrop_submit_btn">Gönder</string>
@@ -236,8 +236,8 @@
   <string name="topup_no_method_available_body">Şu anda ülkende yükleme yapabileceğin bir ödeme yöntemi mevcut değil. Takipte kal!</string>
   <string name="topup_bonus_amount_body">Bu yüklemeyle %s bonus kazan</string>
   <!--Balance-->
-  <string name="balance_ethereum_body">Ethereum, AppCoins\'i temel alan bir kripto para birimidir. Çok popüler olduğundan bunları birçok borsada alıp satabilirsiniz!</string>
-  <string name="balance_appcoins_body">AppCoins, uygulama ekonomisinin kripto para birimidir. Birçok borsada alıp satabilir ve uygulama içi öğeleri satın almak için kullanabilirsiniz.</string>
+  <string name="balance_ethereum_body">Ethereum, Aptoide Balance\'i temel alan bir kripto para birimidir. Çok popüler olduğundan bunları birçok borsada alıp satabilirsiniz!</string>
+  <string name="balance_appcoins_body">Aptoide Balance, uygulama ekonomisinin kripto para birimidir. Birçok borsada alıp satabilir ve uygulama içi öğeleri satın almak için kullanabilirsiniz.</string>
   <string name="balance_appccreditos_body">Uygulama içi öğe satın alma jetonu! Aptoide bakiyesi yükle veya uygulamaları kullanarak ücretsiz şekilde kazan. Arkadaşlar arasında da transfer edilebilir!</string>
   <string name="my_wallets_action_new_wallet">Yeni cüzdan</string>
   <string name="my_wallets_action_recover_wallet">Cüzdanı geri yükle</string>
@@ -260,7 +260,6 @@
   <string name="p2p_send_current_balance_message">Mevcut bakiye: %1$s %2$s</string>
   <string name="p2p_send_error_not_enough_funds">Yetersiz fon</string>
   <string name="p2p_send_confirmation_header">Transfer Bilgileri</string>
-  <string name="p2p_send_currency_appc_c">Aptoide balance</string>
   <!--Common-->
   <string name="oops_title">Hay aksi</string>
   <string name="error_general">Bir şeyler ters gitti</string>
@@ -380,9 +379,9 @@
   <string name="purchase_total_header">Toplam %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Bu satın alma işlemi zaten işlenmiş gibi görünüyor. Lütfen işlem tamamlanana kadar bekleyin veya Destek Ekibimizle iletişime geçin.</string>
   <string name="purchase_more_payment_methods_lower_case_button">Diğer ödeme yöntemleri</string>
-  <string name="purchase_appcoins_noavailable_body">Bu satın alma işlemi için yeterli AppCoins veya Ether\'iniz yok.</string>
+  <string name="purchase_appcoins_noavailable_body">Bu satın alma işlemi için yeterli Aptoide Balance veya Ether\'iniz yok.</string>
   <string name="purchase_no_eth_body">Benzin ücretini ödemek için yeterince ETH\'niz yok.</string>
-  <string name="purchase_no_appcoins_body">Bu satın alma işlemini tamamlamak için yeterli AppCoins\'iniz yok.</string>
+  <string name="purchase_no_appcoins_body">Bu satın alma işlemini tamamlamak için yeterli Aptoide Balance\'iniz yok.</string>
   <string name="purchase_appcoins_credits_noavailable_body">Yeterli Aptoide bakiyen yok, yükleme yapmayı dene!</string>
   <string name="purchase_appcoins_credits_default_body">Bu satın alma işlemi için yeterince Aptoide bakiyesi kazandın. Tadını çıkar!</string>
   <string name="purchase_poa_item">Uygulamaları deneyerek fon kazan</string>
@@ -390,7 +389,7 @@
   <string name="purchase_poa_view_body">Bir uygulamayı 2 dakika dene ve satın alma işlemini gerçekleştirmek için Aptoide bakiyesi cinsinden bir ödül al!</string>
   <string name="purchase_current_balance_body">Mevcut bakiye:</string>
   <string name="purchase_current_balance_appcc_body">%s Aptoide bakiyesi.</string>
-  <string name="purchase_current_balance_appc_eth_body">AppCoins ve Ether cinsinden %s.</string>
+  <string name="purchase_current_balance_appc_eth_body">Aptoide Balance ve Ether cinsinden %s.</string>
   <string name="purchase_wallet_blocked_title">Aptoide bakiyen bloke edildi</string>
   <string name="purchase_wallet_blocked_body">Olağandışı işlem geçmişi nedeniyle, Aptoide bakiyen bloke edildi. Aptoide bakiyesi dışında diğer yöntemlerle ödeme ve işlem yapmaya devam edebileceksin.\n\nBunun bir hata olduğunu düşünüyorsan lütfen bizimle iletişime geç:</string>
   <string name="purchase_card_error_general_1">Kartınla ilgili bir sorun oluştu. Lütfen farklı bir kart veya ödeme yöntemi ile dene.</string>

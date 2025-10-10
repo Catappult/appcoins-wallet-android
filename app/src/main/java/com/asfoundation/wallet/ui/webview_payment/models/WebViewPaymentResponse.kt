@@ -7,4 +7,7 @@ data class WebViewPaymentResponse(
   val paymentMethod: String?,
   val isStoredCard: Boolean?,
   val wasCvcRequired: Boolean?,
+  val responseCode: Int,
+  val purchaseData: PurchaseData?,
+  val dataSignature: String?,
 )

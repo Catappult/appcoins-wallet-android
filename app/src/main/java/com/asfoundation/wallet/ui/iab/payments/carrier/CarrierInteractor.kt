@@ -105,7 +105,7 @@ class CarrierInteractor @Inject constructor(
   ): Single<PurchaseBundleModel> {
     return inAppPurchaseInteractor.getCompletedPurchaseBundle(
       type, merchantName, sku, purchaseUid,
-      orderReference, hash, scheduler
+      orderReference, hash, null, scheduler
     )
       .map { bundle -> addPreselected(bundle) }
   }

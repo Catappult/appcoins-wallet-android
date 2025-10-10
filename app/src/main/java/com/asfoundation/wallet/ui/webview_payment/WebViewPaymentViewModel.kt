@@ -23,6 +23,7 @@ import com.asfoundation.wallet.ui.iab.IabInteract
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.login.webview_login.usecases.FetchUserKeyUseCase
+import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentResponse
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
 import com.wallet.appcoins.feature.support.data.SupportInteractor
@@ -70,7 +71,8 @@ class WebViewPaymentViewModel @Inject constructor(
     orderReference: String,
     hash: String,
     paymentMethod: String,
-    transactionBuilder: TransactionBuilder
+    transactionBuilder: TransactionBuilder,
+    successResult: WebViewPaymentResponse? = null,
   ) {
     compositeDisposable.add(
       createSuccessBundleUseCase(
@@ -80,6 +82,7 @@ class WebViewPaymentViewModel @Inject constructor(
         purchaseUid = purchaseUid,
         orderReference = orderReference,
         hash = hash,
+        successResult = successResult,
         scheduler = rxSchedulers.io
       )
         .doOnSuccess {
