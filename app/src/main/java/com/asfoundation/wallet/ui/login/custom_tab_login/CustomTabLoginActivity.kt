@@ -12,6 +12,7 @@ import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.CustomTabLoginViewModel
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.FinishActivity
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.FinishWithError
+import com.asfoundation.wallet.ui.webview_payment.PaymentOverlayHandle
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -72,10 +73,7 @@ class CustomTabLoginActivity : ComponentActivity() {
     logMessage: String? = null,
   ) {
     logMessage?.let { Log.d(TAG, it) }
-    Intent(context, WebViewPaymentActivity::class.java)
-      .apply { data = intent.data }
-      .apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP }
-      .also { startActivity(it) }
+    PaymentOverlayHandle.bringToFrontAndDeliver(uri = intent.data)
     finish()
   }
 
