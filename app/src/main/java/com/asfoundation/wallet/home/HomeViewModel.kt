@@ -242,8 +242,11 @@ constructor(
     ) { selectedCurrency, wallet ->
       defaultCurrency = selectedCurrency.unwrap()
       fetchTransactions(wallet, defaultCurrency)
-    }.doOnError { it.printStackTrace() }
-      .subscribe()
+    }
+      .doOnError { it.printStackTrace() }
+      .subscribe({}, {
+        it.printStackTrace()
+      })
   }
 
   fun postUserEmail(email: String) {
