@@ -12,6 +12,7 @@ import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.CustomTabLoginViewModel
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.FinishActivity
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.FinishWithError
+import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,6 +27,7 @@ import javax.inject.Inject
 class CustomTabLoginActivity : ComponentActivity() {
   companion object {
     private const val AUTH_TOKEN = "auth_token"
+    private const val IS_PAYMENT_IN_PROCESS = "is_payment_in_process"
     private const val TAG = "CustomTabLoginActivity"
   }
 
@@ -33,6 +35,26 @@ class CustomTabLoginActivity : ComponentActivity() {
   lateinit var logger: Logger
 
   private val viewModel: CustomTabLoginViewModel by viewModels()
+
+  private fun navigate(
+    context: Context = this,
+    isPaymentInProcess: Boolean,
+    logMessage: String? = null,
+  ) {
+    if (isPaymentInProcess) {
+      navigateToWebViewActivity(
+        context = context,
+        logMessage = logMessage?.let { "$it. Navigating to WebViewActivity" }
+          ?: "Navigating to WebViewActivity",
+      )
+    } else {
+      navigateToMainActivity(
+        context = context,
+        logMessage = logMessage?.let { "$it. Navigating to MainActivity" }
+          ?: "Navigating to MainActivity",
+      )
+    }
+  }
 
   private fun navigateToMainActivity(
     context: Context = this,
@@ -45,16 +67,34 @@ class CustomTabLoginActivity : ComponentActivity() {
     finish()
   }
 
+  private fun navigateToWebViewActivity(
+    context: Context = this,
+    logMessage: String? = null,
+  ) {
+    logMessage?.let { Log.d(TAG, it) }
+    Intent(context, WebViewPaymentActivity::class.java)
+      .apply { data = intent.data }
+      .apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP }
+      .also { startActivity(it) }
+    finish()
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     logger.log(TAG, "CustomTab Activity created")
     val authToken = intent.data?.getQueryParameter(AUTH_TOKEN)
+    val isPaymentInProcess =
+      intent
+        .data
+        ?.getBooleanQueryParameter(IS_PAYMENT_IN_PROCESS, false)
+        ?: false
     authToken
       ?.let { viewModel.fetchUserKey(it) }
       ?: run {
-        navigateToMainActivity(
+        navigate(
           context = this@CustomTabLoginActivity,
-          logMessage = "No auth token provided, finishing activity"
+          isPaymentInProcess = isPaymentInProcess,
+          logMessage = "No auth token provided"
         )
       }
 
@@ -62,16 +102,18 @@ class CustomTabLoginActivity : ComponentActivity() {
       viewModel.activityState.collect { uiState ->
         when (uiState) {
           is FinishActivity -> {
-            navigateToMainActivity(
+            navigate(
               context = this@CustomTabLoginActivity,
-              logMessage = "User key fetched successfully, finishing activity",
+              isPaymentInProcess = isPaymentInProcess,
+              logMessage = "User key fetched successfully",
             )
           }
 
           is FinishWithError -> {
-            navigateToMainActivity(
+            navigate(
               context = this@CustomTabLoginActivity,
-              logMessage = "Error fetching user key, finishing activity",
+              isPaymentInProcess = isPaymentInProcess,
+              logMessage = "Error fetching user key",
             )
           }
 
