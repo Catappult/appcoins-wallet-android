@@ -11,8 +11,35 @@ class LocalCurrencyConversionService @Inject constructor(
   private val currencyConversionRatesPersistence: CurrencyConversionRatesPersistence
 ) {
 
+  companion object {
+    const val LOCAL_CURRENCY_DEFAULT_AMOUNT = 0.01
+    const val LOCAL_CURRENCY_SCALE = 18
+    const val LOCAL_CURRENCY_APPC_VALUE = "1.0"
+  }
+
   val localCurrency: Single<FiatValue>
-    get() = getAppcToLocalFiat("1.0", 18)
+    get() =
+      tokenToLocalFiatApi
+        .getValueToLocalFiat()
+        .map { localFiatResponse: ConversionResponseBody ->
+          FiatValue(
+            amount = LOCAL_CURRENCY_DEFAULT_AMOUNT.toBigDecimal()
+              .setScale(LOCAL_CURRENCY_SCALE, RoundingMode.FLOOR),
+            currency = localFiatResponse.currency,
+            symbol = localFiatResponse.sign
+          )
+        }
+        .flatMap { fiatValue: FiatValue ->
+          currencyConversionRatesPersistence.saveRateFromAppcToFiat(
+            appcValue = LOCAL_CURRENCY_APPC_VALUE, fiatValue = fiatValue.amount.toString(),
+            fiatCurrency = fiatValue.currency, fiatSymbol = fiatValue.symbol
+          )
+            .andThen(Single.just(fiatValue))
+            .onErrorReturn { throwable: Throwable ->
+              throwable.printStackTrace()
+              fiatValue
+            }
+        }
 
   fun getAppcToLocalFiat(
     value: String, scale: Int,
