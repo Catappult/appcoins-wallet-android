@@ -57,29 +57,27 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
   private val initializationComplete = CompletableDeferred<Unit>()
 
   @SuppressLint("QueryPermissionsNeeded")
-  private fun resolveExposedActivity(
+  private fun checkExposedActivity(
     ctx: Context,
     packageName: String,
     senderUri: String?
   ): Boolean {
     val probe = Intent(Intent.ACTION_VIEW, senderUri?.toUri())
-    probe.setPackage(packageName)
 
     val pm = ctx.packageManager
-    val matches = pm.queryIntentActivities(probe, PackageManager.MATCH_ALL)
+    val matches = pm
+      .queryIntentActivities(probe, PackageManager.MATCH_DEFAULT_ONLY)
+      .map { it.activityInfo }
 
     if (matches.isEmpty()) return false
 
-    for (ri in matches) {
-      val ai = ri.activityInfo
+    for (ai in matches) {
       if (ai == null) continue
-      // Must be in the requested package (query should already restrict, but be defensive)
       if (packageName != ai.packageName) continue
 
       val exported = ai.exported
       val enabled = ai.enabled && ai.applicationInfo != null && ai.applicationInfo.enabled
 
-      // If the activity enforces a permission, ensure we hold it
       var hasRequiredPerm = true
       if (ai.permission != null && !ai.permission.isEmpty()) {
         hasRequiredPerm = (pm.checkPermission(
@@ -96,7 +94,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    if (!resolveExposedActivity(
+    if (!checkExposedActivity(
         ctx = this,
         packageName = intent?.getStringExtra(REQUESTER_PACKAGE_NAME) ?: "",
         senderUri = intent?.getStringExtra(REQUESTER_ACTIVITY_URI)
