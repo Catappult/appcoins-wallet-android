@@ -2,6 +2,7 @@ package com.appcoins.wallet.feature.changecurrency.data.currencies
 
 import com.appcoins.wallet.core.network.microservices.api.broker.TokenToLocalFiatApi
 import com.appcoins.wallet.core.network.microservices.model.ConversionResponseBody
+import com.appcoins.wallet.core.network.microservices.model.ConversionWithNoValueResponseBody
 import io.reactivex.Single
 import java.math.RoundingMode
 import javax.inject.Inject
@@ -21,7 +22,7 @@ class LocalCurrencyConversionService @Inject constructor(
     get() =
       tokenToLocalFiatApi
         .getValueToLocalFiat()
-        .map { localFiatResponse: ConversionResponseBody ->
+        .map { localFiatResponse: ConversionWithNoValueResponseBody ->
           FiatValue(
             amount = LOCAL_CURRENCY_DEFAULT_AMOUNT.toBigDecimal()
               .setScale(LOCAL_CURRENCY_SCALE, RoundingMode.FLOOR),

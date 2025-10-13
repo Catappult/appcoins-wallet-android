@@ -1,6 +1,7 @@
 package com.appcoins.wallet.core.network.microservices.api.broker
 
 import com.appcoins.wallet.core.network.microservices.model.ConversionResponseBody
+import com.appcoins.wallet.core.network.microservices.model.ConversionWithNoValueResponseBody
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -22,7 +23,7 @@ interface TokenToLocalFiatApi {
   ): Single<ConversionResponseBody>
 
   @GET("8.20180518/wallet/currency")
-  fun getValueToLocalFiat(): Single<ConversionResponseBody>
+  fun getValueToLocalFiat(): Single<ConversionWithNoValueResponseBody>
 
   @GET("8.20180518/exchanges/{currency}/convert/{value}?to=APPC")
   fun convertFiatToAppc(
