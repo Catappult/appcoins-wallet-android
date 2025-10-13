@@ -1,10 +1,15 @@
 package com.appcoins.wallet.billing
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
 import android.os.Parcelable
 import android.util.Log
 import android.view.WindowManager
+import androidx.core.net.toUri
 import com.appcoins.communication.MessageProcessorActivity
 import com.appcoins.wallet.bdsbilling.BdsBilling
 import com.appcoins.wallet.bdsbilling.Billing
@@ -51,7 +56,56 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
 
   private val initializationComplete = CompletableDeferred<Unit>()
 
+  @SuppressLint("QueryPermissionsNeeded")
+  private fun resolveExposedActivity(
+    ctx: Context,
+    packageName: String,
+    senderUri: String?
+  ): Boolean {
+    val probe = Intent(Intent.ACTION_VIEW, senderUri?.toUri())
+    probe.setPackage(packageName)
+
+    val pm = ctx.packageManager
+    val matches = pm.queryIntentActivities(probe, PackageManager.MATCH_ALL)
+
+    if (matches.isEmpty()) return false
+
+    for (ri in matches) {
+      val ai = ri.activityInfo
+      if (ai == null) continue
+      // Must be in the requested package (query should already restrict, but be defensive)
+      if (packageName != ai.packageName) continue
+
+      val exported = ai.exported
+      val enabled = ai.enabled && ai.applicationInfo != null && ai.applicationInfo.enabled
+
+      // If the activity enforces a permission, ensure we hold it
+      var hasRequiredPerm = true
+      if (ai.permission != null && !ai.permission.isEmpty()) {
+        hasRequiredPerm = (pm.checkPermission(
+          ai.permission,
+          ctx.packageName
+        ) == PackageManager.PERMISSION_GRANTED)
+      }
+
+      if (exported && enabled && hasRequiredPerm) {
+        return true
+      }
+    }
+    return false
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
+    if (!resolveExposedActivity(
+        ctx = this,
+        packageName = intent?.getStringExtra(REQUESTER_PACKAGE_NAME) ?: "",
+        senderUri = intent?.getStringExtra(REQUESTER_ACTIVITY_URI)
+      )
+    ) {
+      Log.e(TAG, "Calling activity is not allowed to bind to the service")
+      finish()
+      return
+    }
     super.onCreate(savedInstanceState)
     moveTaskToBack(true)
     if (applicationContext !is BillingDependenciesProvider) {
