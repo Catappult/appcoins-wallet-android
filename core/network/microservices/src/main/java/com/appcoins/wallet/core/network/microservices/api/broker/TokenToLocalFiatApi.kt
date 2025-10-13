@@ -21,6 +21,9 @@ interface TokenToLocalFiatApi {
     targetCurrency: String
   ): Single<ConversionResponseBody>
 
+  @GET("8.20180518/wallet/currency")
+  fun getValueToLocalFiat(): Single<ConversionResponseBody>
+
   @GET("8.20180518/exchanges/{currency}/convert/{value}?to=APPC")
   fun convertFiatToAppc(
     @Path("currency") currency: String,
