@@ -150,7 +150,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
 
   fun send3dsError(error: String?) {
     analyticsManager.logEvent(
-      hashMapOf<String, Any>(PaymentMethodsAnalytics.ERROR to (error ?: "")),
+      hashMapOf<String, Any>(PaymentMethodsAnalytics.ERROR_DETAILS to (error ?: "")),
       PaymentMethodsAnalytics.WALLET_3DS_ERROR,
       AnalyticsManager.Action.CLICK,
       PaymentMethodsAnalytics.WALLET

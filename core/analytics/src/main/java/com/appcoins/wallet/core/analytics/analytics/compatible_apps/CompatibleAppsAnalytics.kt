@@ -11,7 +11,7 @@ class CompatibleAppsAnalytics @Inject constructor(
   fun sendPromotionClickEvent(packageName: String?, action: String) {
     val data = HashMap<String, Any>()
     packageName?.let { data[PACKAGE_NAME] = packageName }
-    data[GAME_ACTION] = action
+    data[USER_ACTION] = action
     analytics.logEvent(
       data,
       WALLET_APP_ACTIVE_PROMOTION_CLICK,
@@ -23,6 +23,6 @@ class CompatibleAppsAnalytics @Inject constructor(
   companion object {
     const val WALLET_APP_ACTIVE_PROMOTION_CLICK = "wallet_app_active_promotion_click"
     const val PACKAGE_NAME = "package_name"
-    const val GAME_ACTION = "game_action"
+    const val USER_ACTION = "user_action"
   }
 }
