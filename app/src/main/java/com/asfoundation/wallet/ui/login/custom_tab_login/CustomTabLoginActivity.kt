@@ -44,7 +44,7 @@ class CustomTabLoginActivity : ComponentActivity() {
   ) {
     if (isPaymentInProcess) {
       navigateToWebViewActivity(
-        context = context,
+        intent = intent,
         logMessage = logMessage?.let { "$it. Navigating to WebViewActivity" }
           ?: "Navigating to WebViewActivity",
       )
@@ -69,7 +69,7 @@ class CustomTabLoginActivity : ComponentActivity() {
   }
 
   private fun navigateToWebViewActivity(
-    context: Context = this,
+    intent: Intent = this.intent,
     logMessage: String? = null,
   ) {
     logMessage?.let { Log.d(TAG, it) }

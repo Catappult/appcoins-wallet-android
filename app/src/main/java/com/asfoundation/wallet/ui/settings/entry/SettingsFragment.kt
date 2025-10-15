@@ -41,8 +41,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import java.util.Locale
 import javax.inject.Inject
-import androidx.core.net.toUri
-import com.asfoundation.wallet.ui.login.custom_tab_login.launchCustomChromeTabIntent
 import com.asfoundation.wallet.ui.login.processLoginRequest
 
 @AndroidEntryPoint
