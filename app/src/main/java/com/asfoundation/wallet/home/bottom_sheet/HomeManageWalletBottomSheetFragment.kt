@@ -15,7 +15,6 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.HomeManageWalletBottomSheetLayoutBinding
-import com.asfoundation.wallet.ui.login.custom_tab_login.launchCustomChromeTabIntent
 import com.asfoundation.wallet.ui.login.processLoginRequest
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -128,7 +127,7 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
     when (sideEffect) {
       is HomeManageWalletBottomSheetSideEffect.NavigateBack -> navigator.navigateBack()
       is HomeManageWalletBottomSheetSideEffect.OpenLogin -> {
-        launchCustomChromeTabIntent(
+        processLoginRequest(
           url = sideEffect.url,
           context = requireContext()
         )
