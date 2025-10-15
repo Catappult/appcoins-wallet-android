@@ -77,6 +77,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
       ExternalAppEnum.PAYTM.uriScheme,
       ExternalAppEnum.BHIM.uriScheme,
       ExternalAppEnum.DANA.uriScheme,
+      ExternalAppEnum.GCASH.uriScheme,
     )
     private const val ASYNC_PAYMENT_FORM_SHOWN_SCHEMA = "https://pm.dlocal.com//v1/gateway/show?"
     private const val CODAPAY_FINAL_REDIRECT_SCHEMA =
@@ -136,7 +137,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
               clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) ||
               clickUrl.contains(APP_REDIRECT_SCHEMA) ||
               clickUrl.contains(AMAZON_PAY_SCHEMA)
-          -> {
+            -> {
             currentUrl = clickUrl
             finishWithValidations(clickUrl)
           }
