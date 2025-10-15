@@ -301,7 +301,12 @@ class WebViewPaymentActivity : AppCompatActivity() {
             },
             onLoginCallback = { authToken, safeLogin ->
               Log.d(TAG, "onLoginCallback called")
-              viewModel.fetchUserKey(authToken, type, transactionBuilder)
+              viewModel.fetchUserKey(
+                authToken = authToken,
+                type = type,
+                transaction = transactionBuilder,
+                context = this@WebViewPaymentActivity
+              )
             },
             goToUrlCallback = { },
             updateCloseBehaviorCallback = ::updateCloseBehavior

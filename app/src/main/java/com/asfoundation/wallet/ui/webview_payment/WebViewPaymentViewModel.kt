@@ -273,7 +273,12 @@ class WebViewPaymentViewModel @Inject constructor(
     )
   }
 
-  fun fetchUserKey(authToken: String, type: String, transaction: TransactionBuilder) {
+  fun fetchUserKey(
+    authToken: String,
+    type: String,
+    transaction: TransactionBuilder,
+    context: Context
+  ) {
     CompositeDisposable().add(
       fetchUserKeyUseCase(authToken)
         .doOnComplete { Log.d(TAG, "fetchUserKey: success") }
@@ -284,12 +289,14 @@ class WebViewPaymentViewModel @Inject constructor(
           when (type) {
             WebViewPaymentActivity.OSP_TRANSACTION -> createWebViewPaymentOspUseCase(
               transaction = transaction,
-              appVersion = BuildConfig.VERSION_CODE.toString()
+              appVersion = BuildConfig.VERSION_CODE.toString(),
+              context = context
             )
 
             WebViewPaymentActivity.SDK_TRANSACTION -> createWebViewPaymentSdkUseCase(
               transaction = transaction,
-              appVersion = BuildConfig.VERSION_CODE.toString()
+              appVersion = BuildConfig.VERSION_CODE.toString(),
+              context = context
             )
 
             else -> {

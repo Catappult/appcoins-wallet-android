@@ -107,7 +107,11 @@ internal class Erc681ReceiverPresenter(
   private fun startWebViewPayment(
     transaction: TransactionBuilder,
   ): Single<String> {
-    return createWebViewPaymentSdkUseCase(transaction, appVersionCode.toString())
+    return createWebViewPaymentSdkUseCase(
+      transaction = transaction,
+      appVersion = appVersionCode.toString(),
+      context = context
+    )
       .doOnSuccess { url ->
         view.launchWebViewPayment(url, transaction, WebViewPaymentActivity.SDK_TRANSACTION)
       }
