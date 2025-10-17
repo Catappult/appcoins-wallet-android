@@ -61,6 +61,8 @@ class PayPalIABViewModel @Inject constructor(
 
   private var uid: String? = null
 
+  private var hasTransactionStarted: Boolean = false
+
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
 
@@ -68,6 +70,11 @@ class PayPalIABViewModel @Inject constructor(
     createTokenIfNeeded: Boolean = true, amount: BigDecimal, currency: String,
     transactionBuilder: TransactionBuilder, origin: String?
   ) {
+    if (hasTransactionStarted) {
+      Log.d(TAG, "Transaction already started, ignoring duplicate call")
+      return
+    }
+    hasTransactionStarted = true
     sendPaymentConfirmationEvent(transactionBuilder)
     attemptTransaction(
       createTokenIfNeeded = createTokenIfNeeded,
@@ -375,6 +382,11 @@ class PayPalIABViewModel @Inject constructor(
       }
       .subscribe({}, { it.printStackTrace() })
     )
+  }
+
+  override fun onCleared() {
+    super.onCleared()
+    compositeDisposable.clear()
   }
 
   private fun stopTimingForPurchaseEvent(success: Boolean) {
