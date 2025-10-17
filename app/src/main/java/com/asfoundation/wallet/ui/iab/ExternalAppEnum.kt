@@ -50,4 +50,12 @@ enum class ExternalAppEnum(
     "market://details?id=id.dana",
     "https://play.google.com/store/apps/details?id=id.dana"
   ),
+  GCASH(
+    "GCash",
+    "gcash://",
+    R.drawable.ic_gcash,
+    R.color.styleguide_dark,
+    "market://details?id=com.globe.gcash.android",
+    "https://play.google.com/store/apps/details?id=com.globe.gcash.android"
+  ),
 }
