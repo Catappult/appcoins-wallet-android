@@ -28,7 +28,7 @@ class CachedGuestWalletRepository @Inject constructor(
             paymentFunnel = body()?.paymentFunnel
           )
       }
-    }.onErrorReturn { null }
+    }.onErrorReturn { BackupModel() }
   }
 
   fun deleteCachedGuestWallet(): Completable {
