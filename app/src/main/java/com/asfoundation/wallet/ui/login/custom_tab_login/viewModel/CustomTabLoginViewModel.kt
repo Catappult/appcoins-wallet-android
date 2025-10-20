@@ -41,7 +41,7 @@ internal class CustomTabLoginViewModel @Inject constructor(
   /**
    * MutableStateFlow to manage and observe the current state of the activity.
    */
-  private val _activityState = MutableStateFlow<CustomTabVMStates>(Initial)
+  private val _activityState = MutableStateFlow(initialStates)
 
   /**
    * StateFlow exposing the current activity state to observers.

@@ -126,7 +126,7 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
       if (resultCode == WebViewResults.RELAUNCH_WEBVIEW.code) {
         data?.let {
           startActivityForResult(it, REQUEST_CODE)
-        } ?: {
+        } ?: run {
           setResult(FAIL.code)
           finish()
         }
