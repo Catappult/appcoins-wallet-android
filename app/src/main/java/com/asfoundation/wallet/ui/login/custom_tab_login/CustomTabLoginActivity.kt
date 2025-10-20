@@ -73,7 +73,7 @@ class CustomTabLoginActivity : ComponentActivity() {
     logMessage: String? = null,
   ) {
     logMessage?.let { Log.d(TAG, it) }
-    PaymentOverlayHandle.bringToFrontAndDeliver(uri = intent.data)
+    PaymentOverlayHandle.bringToFrontAndDeliver(uri = intent.data, clearTop = true)
     finish()
   }
 
