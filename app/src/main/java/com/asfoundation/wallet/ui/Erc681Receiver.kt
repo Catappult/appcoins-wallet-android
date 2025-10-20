@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -15,6 +16,7 @@ import com.asf.wallet.databinding.ActivityIabWalletCreationBinding
 import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.ui.WebViewResults.FAIL
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.PRODUCT_NAME
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -116,12 +118,22 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
 
   }
 
+  @SuppressLint("UnsafeIntentLaunch")
   @Suppress("DEPRECATION")
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == REQUEST_CODE) {
-      setResult(resultCode, data)
-      finish()
+      if (resultCode == WebViewResults.RELAUNCH_WEBVIEW.code) {
+        data?.let {
+          startActivityForResult(it, REQUEST_CODE)
+        } ?: {
+          setResult(FAIL.code)
+          finish()
+        }
+      } else{
+        setResult(resultCode, data)
+        finish()
+      }
     }
   }
 

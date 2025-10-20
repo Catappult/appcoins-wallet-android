@@ -18,13 +18,14 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.WebViewResults.FAIL
+import com.asfoundation.wallet.ui.WebViewResults.RELAUNCH_WEBVIEW
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
-import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity.Companion.RELAUNCH_WEBVIEW_PAYMENT
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
 import com.asfoundation.wallet.util.TransferParser
@@ -154,10 +155,12 @@ class OneStepPaymentReceiver : BaseActivity() {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == REQUEST_CODE) {
-      if (resultCode == RELAUNCH_WEBVIEW_PAYMENT) {
+      if (resultCode == RELAUNCH_WEBVIEW.code) {
         data?.let {
-          @Suppress("DEPRECATION")
           startActivityForResult(it, REQUEST_CODE)
+        } ?: run {
+          setResult(FAIL.code)
+          finish()
         }
       } else {
         setResult(resultCode, data)

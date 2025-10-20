@@ -58,6 +58,8 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.ui.WebViewResults
+import com.asfoundation.wallet.ui.WebViewResults.RELAUNCH_WEBVIEW
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.models.CloseBehaviorConfig
@@ -111,7 +113,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
       "accounts.google.com",
       "/api/auth/google/callback"
     )
-    const val RELAUNCH_WEBVIEW_PAYMENT = 111
   }
 
   private val url: String by lazy {
@@ -411,7 +412,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
     overridePendingTransition(R.anim.stay, R.anim.slide_out_bottom)
   }
 
-  fun finish(bundle: Bundle) = //This is not the activity finish, but a function to set the result and finish
+  fun finish(bundle: Bundle) =
+    //This is not the activity finish, but a function to set the result and finish
     if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
       viewModel.handleBackupNotifications(bundle, context = this)
       viewModel.handlePerkNotifications(bundle, context = this)
@@ -482,7 +484,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
       addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     }
 
-    current.setResult(RELAUNCH_WEBVIEW_PAYMENT, next)
+    current.setResult(RELAUNCH_WEBVIEW.code, next)
 
     current.overridePendingTransition(
       R.anim.slide_in_bottom,
