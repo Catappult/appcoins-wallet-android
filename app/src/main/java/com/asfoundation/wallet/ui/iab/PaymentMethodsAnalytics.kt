@@ -48,12 +48,12 @@ class PaymentMethodsAnalytics @Inject constructor(
     private const val STEP_ID = "step_id"
     private const val INTEGRATION = "integration"
     private const val PAYMENT_METHOD = "payment_method"
-    private const val PRESELECTED = "preselected"
+    private const val REMEMBERED_METHOD = "remembered_method"
     private const val DURATION = "duration"
     private const val SUCCESSFUL = "successful"
     private const val AUTH_DURATION = "auth_duration"
 
-    const val ERROR = "error"
+    const val ERROR_DETAILS = "error_details"
     const val TYPE = "type"
 
     const val WALLET_3DS_START = "wallet_3ds_start"
@@ -160,7 +160,7 @@ class PaymentMethodsAnalytics @Inject constructor(
         DURATION to duration,
         PAYMENT_METHOD to paymentMethod,
         INTEGRATION to integration,
-        PRESELECTED to isPreselected,
+        REMEMBERED_METHOD to isPreselected,
         SUCCESSFUL to success
       ),
       WALLET_PAYMENT_PROCESSING_TOTAL,
@@ -193,7 +193,7 @@ class PaymentMethodsAnalytics @Inject constructor(
 
   fun send3dsError(error: String?) {
     analyticsManager.logEvent(
-      hashMapOf<String, Any>(ERROR to (error ?: "")),
+      hashMapOf<String, Any>(ERROR_DETAILS to (error ?: "")),
       WALLET_3DS_ERROR,
       AnalyticsManager.Action.CLICK,
       WALLET

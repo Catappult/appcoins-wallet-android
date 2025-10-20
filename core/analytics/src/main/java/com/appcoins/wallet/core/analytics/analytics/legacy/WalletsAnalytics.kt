@@ -176,7 +176,7 @@ class WalletsAnalytics @Inject constructor(private val analytics: AnalyticsManag
     private const val EVENT_CONTEXT = "context"
     private const val EVENT_STATUS = "status"
     private const val EVENT_OPTION = "options"
-    private const val EVENT_ERROR_DETAILS = "errorDetails"
+    private const val EVENT_ERROR_DETAILS = "error_details"
   }
 
 }
