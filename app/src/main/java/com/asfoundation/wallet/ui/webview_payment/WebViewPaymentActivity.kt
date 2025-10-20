@@ -111,6 +111,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
       "accounts.google.com",
       "/api/auth/google/callback"
     )
+    const val RELAUNCH_WEBVIEW_PAYMENT = 111
   }
 
   private val url: String by lazy {
@@ -382,7 +383,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
       )
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is WebViewPaymentViewModel.UiState.FinishActivity -> finishActivity(uiState.bundle)
-        WebViewPaymentViewModel.UiState.Finish -> finish()
+        is WebViewPaymentViewModel.UiState.Finish -> finish()
         is WebViewPaymentViewModel.UiState.FinishWithBundle -> {
           viewModel.sendRevenueEvent(transactionBuilder)
           finish(uiState.bundle)
@@ -478,13 +479,11 @@ class WebViewPaymentActivity : AppCompatActivity() {
       putExtra(TRANSACTION_BUILDER, transactionBuilder)
       putExtra(TYPE, type)
 
-      addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT)
       addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     }
 
-    current.setResult(Activity.RESULT_CANCELED)
+    current.setResult(RELAUNCH_WEBVIEW_PAYMENT, next)
 
-    current.startActivity(next)
     current.overridePendingTransition(
       R.anim.slide_in_bottom,
       R.anim.slide_out_bottom
