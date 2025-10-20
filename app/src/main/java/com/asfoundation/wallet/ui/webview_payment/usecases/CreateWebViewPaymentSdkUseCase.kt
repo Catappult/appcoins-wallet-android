@@ -69,7 +69,7 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
             "&product=${transaction.skuId ?: ""}" +
             "&domain=${transaction.domain ?: ""}" +
             "&type=${transaction.type ?: ""}" +
-            "is_cct=$isCct" +
+            "&is_cct=$isCct" +
             "&oem_id=${oemId ?: ""}" +
             "&reference=${
               (transaction.orderReference ?: "").convertToBase64Url()
