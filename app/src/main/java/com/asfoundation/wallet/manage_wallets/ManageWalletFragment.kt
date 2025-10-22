@@ -369,7 +369,8 @@ class ManageWalletFragment : BasePageViewFragment() {
     }
   }
 
-  @Preview
+  //TODO: Make a proper preview to this component
+  //@Preview
   @Composable
   private fun LoadingCard(modifier: Modifier = Modifier) {
     Column(
@@ -589,63 +590,126 @@ class ManageWalletFragment : BasePageViewFragment() {
     ActiveWalletOptions("a24863cb-e586-472f-9e8a-622834c20c52", "Wallet test")
   }
 
-  @Preview
-  @Composable
-  fun PreviewHeader() {
-    val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
-    val tokenBalance = TokenBalance(TokenValue(BigDecimal.TEN, "EUR"), fiatValue)
-    BalanceBottomSheet(
-      walletInfo =
-      WalletInfo(
-        "a24863cb-e586-472f-9e8a-622834c20c52",
-        "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
-        WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
-        blocked = false,
-        verified = true,
-        logging = false,
-        backupDate = 987654L,
-        canTransfer = false
-      )
-    )
-  }
+//  @Preview
+//  @Composable
+//  fun PreviewHeader() {
+//    val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
+//    val tokenBalance = TokenBalance(TokenValue(BigDecimal.TEN, "EUR"), fiatValue)
+//    BalanceBottomSheet(
+//      walletInfo =
+//      WalletInfo(
+//        "a24863cb-e586-472f-9e8a-622834c20c52",
+//        "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
+//        WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
+//        blocked = false,
+//        verified = true,
+//        logging = false,
+//        backupDate = 987654L,
+//        canTransfer = false
+//      )
+//    )
+//  }
 
-  @Preview
-  @Composable
-  fun PreviewInactiveWallet() {
-    val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
-    InactiveWalletCard(
-      WalletInfoSimple(
-        walletName = "a24863cb-e586-472f-9e8a-622834c20c52",
-        walletAddress =
-        "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
-        balance = fiatValue,
-        isActiveWallet = true,
-        backupDate = 987654L,
-        backupWalletActive = false
-      )
-    )
-  }
+//  @Preview
+//  @Composable
+//  fun PreviewInactiveWallet() {
+//    val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
+//    InactiveWalletCard(
+//      WalletInfoSimple(
+//        walletName = "a24863cb-e586-472f-9e8a-622834c20c52",
+//        walletAddress =
+//        "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
+//        balance = fiatValue,
+//        isActiveWallet = true,
+//        backupDate = 987654L,
+//        backupWalletActive = false
+//      )
+//    )
+//  }
 
 
-  @Preview(widthDp = 601)
-  @Composable
-  fun PreviewActiveWalletCardLandscape() {
-    val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
-    val tokenBalance = TokenBalance(TokenValue(amount = BigDecimal(123456), "EUR", "€"), fiatValue)
-    val walletInfo = WalletInfo(
-      wallet = "a24863cb-e586-472f-9e8a-622834c20c52",
-      name = "Melissa wallet",
-      walletBalance = WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
-      blocked = false,
-      backupDate = 987654L,
-      verified = false,
-      logging = true,
-      canTransfer = false
-    )
-    ActiveWalletContentLandscape(
-      walletInfo, VerificationStatusCompound(CODE_REQUESTED, VERIFIED, VerificationType.CREDIT_CARD)
-    )
-  }
+//  @Preview(widthDp = 601)
+//  @Composable
+//  fun PreviewActiveWalletCardLandscape() {
+//    val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
+//    val tokenBalance = TokenBalance(TokenValue(amount = BigDecimal(123456), "EUR", "€"), fiatValue)
+//    val walletInfo = WalletInfo(
+//      wallet = "a24863cb-e586-472f-9e8a-622834c20c52",
+//      name = "Melissa wallet",
+//      walletBalance = WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
+//      blocked = false,
+//      backupDate = 987654L,
+//      verified = false,
+//      logging = true,
+//      canTransfer = false
+//    )
+//    ActiveWalletContentLandscape(
+//      walletInfo, VerificationStatusCompound(CODE_REQUESTED, VERIFIED, VerificationType.CREDIT_CARD)
+//    )
+//  }
+
+//  @Preview(
+//    showBackground = true,
+//    widthDp = 400,
+//  )
+//  @Composable
+//  private fun ActiveWalletCardPreview() {
+//    val walletInfo = WalletInfo(
+//      wallet = "a24863cb-e586-472f-9e8a-622834c20c52",
+//      name = "Melissa wallet",
+//      walletBalance = WalletBalance(
+//        FiatValue(BigDecimal(123456), "EUR", "€"),
+//        FiatValue(BigDecimal(123456), "EUR", "€"),
+//        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€")),
+//        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€")),
+//        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€"))
+//      ),
+//      blocked = false,
+//      backupDate = 987654L,
+//      verified = false,
+//      logging = true,
+//      canTransfer = false
+//    )
+//    val verificationStatus = VerificationStatusCompound(
+//      creditCardStatus = CODE_REQUESTED,
+//      payPalStatus = VERIFIED,
+//      currentVerificationType = VerificationType.CREDIT_CARD
+//    )
+//    ActiveWalletCard(
+//      walletInfo = walletInfo,
+//      verificationStatus = verificationStatus
+//    )
+//  }
+
+//  @Preview
+//  @Composable
+//  private fun ActiveWalletContentPortraitPreview() {
+//    val walletInfo = WalletInfo(
+//      wallet = "a24863cb-e586-472f-9e8a-622834c20c52",
+//      name = "Melissa wallet",
+//      walletBalance = WalletBalance(
+//        FiatValue(BigDecimal(123456), "EUR", "€"),
+//        FiatValue(BigDecimal(123456), "EUR", "€"),
+//        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€")),
+//        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€")),
+//        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€"))
+//      ),
+//      blocked = false,
+//      backupDate = 987654L,
+//      verified = false,
+//      logging = true,
+//      canTransfer = false
+//    )
+//    val verificationStatus = VerificationStatusCompound(
+//      creditCardStatus = CODE_REQUESTED,
+//      payPalStatus = VERIFIED,
+//      currentVerificationType = VerificationType.CREDIT_CARD
+//    )
+//    ActiveWalletContentPortrait(
+//      walletInfo = walletInfo,
+//      verificationStatus = verificationStatus
+//    )
+//  }
 
   companion object {
     const val ADDRESS_KEY = "address_key"
