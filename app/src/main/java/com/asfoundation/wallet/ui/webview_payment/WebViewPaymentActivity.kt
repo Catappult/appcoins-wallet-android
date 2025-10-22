@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Rect
-import android.net.Uri
 import android.net.Uri.parse
 import android.os.Build
 import android.os.Bundle
@@ -58,7 +57,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
-import com.asfoundation.wallet.ui.WebViewResults
 import com.asfoundation.wallet.ui.WebViewResults.RELAUNCH_WEBVIEW
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -144,7 +142,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
   override fun onNewIntent(intent: Intent?) {
     super.onNewIntent(intent)
     val data = intent?.data?.toString().orEmpty()
-    Log.d(TAG, "onNewIntent: $data")
     viewModel.webView?.post {
       if (data.isNotBlank()) {
         viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated(\"$data\")")
