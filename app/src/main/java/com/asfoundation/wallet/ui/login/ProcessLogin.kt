@@ -27,7 +27,6 @@ fun processLoginRequest(
   val useUrl = url
     .addIsCctParamToUrl(hasCustomChromeTabAvailable)
     .addVersionParamToUrl(BuildConfig.VERSION_CODE.toString())
-  Log.d("processLoginRequest", "url: $useUrl")
   if (hasCustomChromeTabAvailable) {
     CustomTabsIntent
       .Builder()

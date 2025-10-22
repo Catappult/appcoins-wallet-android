@@ -79,7 +79,6 @@ class CustomTabLoginActivity : ComponentActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    logger.log(TAG, "CustomTab Activity created")
     val authToken = intent.data?.getQueryParameter(AUTH_TOKEN)
     val isPaymentInProcess =
       intent
