@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,9 +29,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -555,14 +559,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       verticalAlignment = CenterVertically,
       modifier = modifier.fillMaxWidth()
     ) {
-      Text(
-        text = walletInfo.name,
-        modifier = Modifier.fillMaxWidth(0.5f),
-        color = styleguide_light_grey,
-        style = MaterialTheme.typography.bodySmall,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-      )
+      ShowWalletsNameAndConnection(walletInfo.name, walletInfo.email != null)
       TextButton(
         onClick = {
           myWalletsNavigator.navigateToManageWalletBalanceBottomSheet(
@@ -615,6 +612,86 @@ class ManageWalletFragment : BasePageViewFragment() {
     }
   }
 
+  @Composable
+  fun ConnectionBadge(
+    isConnected: Boolean,
+  ) {
+    Surface(
+      color =
+        if (isConnected) WalletColors.styleguide_green_variant
+        else WalletColors.styleguide_medium_grey_variant,
+      shape = RoundedCornerShape(4.dp),
+    ) {
+      Row(
+        modifier = Modifier
+          .padding(horizontal = 3.dp, vertical = 1.dp),
+        verticalAlignment = CenterVertically,
+        horizontalArrangement = Arrangement.Center
+      ) {
+        if (isConnected) {
+          Icon(
+            imageVector = Icons.Outlined.AccountCircle,
+            contentDescription = null,
+            tint = WalletColors.styleguide_white,
+            modifier = Modifier
+              .size(16.dp)
+          )
+          Spacer(modifier = Modifier.width(4.dp))
+          Text(
+            text = stringResource(R.string.manage_wallet_connection_badge_connected),
+            color = WalletColors.styleguide_white,
+          )
+        } else {
+          Icon(
+            imageVector = Icons.Outlined.Info,
+            contentDescription = "Info",
+            tint = WalletColors.styleguide_white,
+            modifier = Modifier.size(16.dp)
+          )
+          Spacer(modifier = Modifier.width(4.dp))
+          Text(
+            text = stringResource(R.string.manage_wallet_connection_badge_not_connected),
+            color = WalletColors.styleguide_white,
+            modifier = Modifier.height(18.dp)
+          )
+        }
+      }
+    }
+  }
+
+  @Composable
+  fun ShowWalletsNameAndConnection(walletName: String, isConnected: Boolean) {
+    Column(
+      verticalArrangement = Arrangement.SpaceBetween,
+      horizontalAlignment = Alignment.Start,
+    ) {
+      Row(
+        verticalAlignment = CenterVertically,
+        horizontalArrangement = Arrangement.Start
+      ) {
+        Icon(
+          painter = painterResource(R.drawable.ic_manage_wallet),
+          tint = WalletColors.styleguide_white,
+          modifier = Modifier
+            .size(14.dp)
+            .align(CenterVertically),
+          contentDescription = "Wallet"
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+          text = walletName,
+          modifier = Modifier.fillMaxWidth(0.5f),
+          color = styleguide_light_grey,
+          style = MaterialTheme.typography.bodySmall,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis,
+        )
+      }
+      Spacer(modifier = Modifier.height(2.dp))
+      ConnectionBadge(isConnected)
+    }
+  }
+
   private fun copyAddressToClipBoard(address: String) {
     val clipboard =
       requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -656,16 +733,17 @@ class ManageWalletFragment : BasePageViewFragment() {
     val tokenBalance = TokenBalance(TokenValue(BigDecimal.TEN, "EUR"), fiatValue)
     BalanceBottomSheet(
       walletInfo =
-      WalletInfo(
-        "a24863cb-e586-472f-9e8a-622834c20c52",
-        "Preview Wallet Name",
-        WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
-        blocked = false,
-        verified = true,
-        logging = false,
-        backupDate = 987654L,
-        canTransfer = false,
-      )
+        WalletInfo(
+          "a24863cb-e586-472f-9e8a-622834c20c52",
+          "Preview Wallet Name",
+          WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
+          blocked = false,
+          verified = true,
+          logging = false,
+          backupDate = 987654L,
+          canTransfer = false,
+          email = null
+        )
     )
   }
 
@@ -677,7 +755,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       WalletInfoSimple(
         walletName = "a24863cb-e586-472f-9e8a-622834c20c52",
         walletAddress =
-        "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
+          "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
         balance = fiatValue,
         isActiveWallet = true,
         backupDate = 987654L,
@@ -701,7 +779,8 @@ class ManageWalletFragment : BasePageViewFragment() {
       backupDate = 987654L,
       verified = false,
       logging = true,
-      canTransfer = false
+      canTransfer = false,
+      email = null
     )
     val controller = object : NavController(context) {}
     val fragment = Fragment().apply {}
@@ -711,7 +790,11 @@ class ManageWalletFragment : BasePageViewFragment() {
     )
     ActiveWalletContentLandscape(
       walletInfo = walletInfo,
-      verificationStatus = VerificationStatusCompound(CODE_REQUESTED, VERIFIED, VerificationType.CREDIT_CARD),
+      verificationStatus = VerificationStatusCompound(
+        CODE_REQUESTED,
+        VERIFIED,
+        VerificationType.CREDIT_CARD
+      ),
       navigator = navigator,
       analytics = null,
       viewModel = null,
@@ -731,15 +814,25 @@ class ManageWalletFragment : BasePageViewFragment() {
       walletBalance = WalletBalance(
         FiatValue(BigDecimal(123456), "EUR", "€"),
         FiatValue(BigDecimal(123456), "EUR", "€"),
-        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€")),
-        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€")),
-        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€"))
+        TokenBalance(
+          TokenValue(BigDecimal(123456), "EUR"),
+          FiatValue(BigDecimal(123456), "EUR", "€")
+        ),
+        TokenBalance(
+          TokenValue(BigDecimal(123456), "EUR"),
+          FiatValue(BigDecimal(123456), "EUR", "€")
+        ),
+        TokenBalance(
+          TokenValue(BigDecimal(123456), "EUR"),
+          FiatValue(BigDecimal(123456), "EUR", "€")
+        )
       ),
       blocked = false,
       backupDate = 987654L,
       verified = false,
       logging = true,
-      canTransfer = false
+      canTransfer = false,
+      email = null
     )
     val verificationStatus = VerificationStatusCompound(
       creditCardStatus = CODE_REQUESTED,
@@ -762,15 +855,25 @@ class ManageWalletFragment : BasePageViewFragment() {
       walletBalance = WalletBalance(
         FiatValue(BigDecimal(123456), "EUR", "€"),
         FiatValue(BigDecimal(123456), "EUR", "€"),
-        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€")),
-        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€")),
-        TokenBalance(TokenValue(BigDecimal(123456), "EUR"), FiatValue(BigDecimal(123456), "EUR", "€"))
+        TokenBalance(
+          TokenValue(BigDecimal(123456), "EUR"),
+          FiatValue(BigDecimal(123456), "EUR", "€")
+        ),
+        TokenBalance(
+          TokenValue(BigDecimal(123456), "EUR"),
+          FiatValue(BigDecimal(123456), "EUR", "€")
+        ),
+        TokenBalance(
+          TokenValue(BigDecimal(123456), "EUR"),
+          FiatValue(BigDecimal(123456), "EUR", "€")
+        )
       ),
       blocked = false,
       backupDate = 987654L,
       verified = false,
       logging = true,
-      canTransfer = false
+      canTransfer = false,
+      email = "isConnected"
     )
     val verificationStatus = VerificationStatusCompound(
       creditCardStatus = CODE_REQUESTED,

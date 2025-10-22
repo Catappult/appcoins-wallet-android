@@ -584,6 +584,10 @@
   <string name="wallet_view_total_balance_title">Total Balance</string>
   <string name="wallet_view_activate_button">Make this wallet active</string>
 
+  <!-- Wallets Connection -->
+  <string name="manage_wallet_connection_badge_connected">Connect</string>
+  <string name="manage_wallet_connection_badge_not_connected">Not Connected</string>
+
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Remove Wallet</string>
   <string name="remove_wallet_body">We strongly recommend to back up a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
