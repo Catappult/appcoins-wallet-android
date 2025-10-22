@@ -24,6 +24,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.login.hasCustomChromeTabAvailable
 import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
@@ -190,7 +191,7 @@ class OneStepPaymentReceiver : BaseActivity() {
     return createWebViewPaymentOspUseCase(
       transaction = transaction,
       appVersion = BuildConfig.VERSION_CODE.toString(),
-      context = this
+      hasCustomTab = hasCustomChromeTabAvailable(this)
     )
       .doOnSuccess { url ->
         launchWebViewPayment(url, transaction, WebViewPaymentActivity.OSP_TRANSACTION)

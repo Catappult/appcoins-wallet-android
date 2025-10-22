@@ -22,6 +22,7 @@ import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.iab.IabInteract
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.login.hasCustomChromeTabAvailable
 import com.asfoundation.wallet.ui.login.webview_login.usecases.FetchUserKeyUseCase
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentResponse
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
@@ -290,13 +291,13 @@ class WebViewPaymentViewModel @Inject constructor(
             WebViewPaymentActivity.OSP_TRANSACTION -> createWebViewPaymentOspUseCase(
               transaction = transaction,
               appVersion = BuildConfig.VERSION_CODE.toString(),
-              context = context
+              hasCustomTab = hasCustomChromeTabAvailable(context)
             )
 
             WebViewPaymentActivity.SDK_TRANSACTION -> createWebViewPaymentSdkUseCase(
               transaction = transaction,
               appVersion = BuildConfig.VERSION_CODE.toString(),
-              context = context
+              hasCustomTab = hasCustomChromeTabAvailable(context)
             )
 
             else -> {

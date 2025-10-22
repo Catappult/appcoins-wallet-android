@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.webview_payment.usecases
 
-import android.content.Context
 import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
@@ -13,7 +12,6 @@ import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeU
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.login.hasCustomChromeTabAvailable
 import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.util.tuples.Sextuple
 import io.reactivex.Single
@@ -38,7 +36,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
   operator fun invoke(
     transaction: TransactionBuilder,
     appVersion: String?,
-    context: Context
+    hasCustomTab: Boolean,
   ): Single<String> {
     return Single.zip(
       walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
@@ -57,7 +55,6 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
         val oemId = args.fourth.oemId
         val promoCode = args.fifth
         val encrypt = args.sixth
-        val isCct = hasCustomChromeTabAvailable(context)
 
         "$baseWebViewPaymentUrl?" +
             "referrer_url=${
@@ -72,7 +69,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
             "&domain=${transaction.domain ?: ""}" +
             "&type=${transaction.type ?: ""}" +
             "&oem_id=${oemId ?: ""}" +
-            "&is_cct=$isCct" +
+            "&is_cct=$hasCustomTab" +
             "&reference=${transaction.orderReference ?: ""}" +
             "&promo_code=${promoCode.code ?: ""}" +
             "&version=${appVersion ?: ""}" +
