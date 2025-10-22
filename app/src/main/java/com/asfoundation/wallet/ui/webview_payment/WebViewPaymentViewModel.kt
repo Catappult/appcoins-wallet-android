@@ -280,7 +280,7 @@ class WebViewPaymentViewModel @Inject constructor(
     transaction: TransactionBuilder,
     context: Context
   ) {
-    CompositeDisposable().add(
+    compositeDisposable.add(
       fetchUserKeyUseCase(authToken)
         .doOnComplete { Log.d(TAG, "fetchUserKey: success") }
         .andThen(
