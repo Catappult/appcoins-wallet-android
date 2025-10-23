@@ -2,11 +2,9 @@ package com.asfoundation.wallet.ui.login
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.net.toUri
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity
+import com.asfoundation.wallet.ui.login.custom_tab_login.native_login.NativeLoginActivity
 import com.asfoundation.wallet.ui.login.webview_login.WebViewLoginActivity
 
 /**
@@ -28,10 +26,9 @@ fun processLoginRequest(
     .addIsCctParamToUrl(hasCustomChromeTabAvailable)
     .addVersionParamToUrl(BuildConfig.VERSION_CODE.toString())
   if (hasCustomChromeTabAvailable) {
-    CustomTabsIntent
-      .Builder()
-      .build()
-      .launchUrl(context, useUrl.toUri())
+    Intent(context, NativeLoginActivity::class.java)
+      .apply { putExtra(NativeLoginActivity.URL, useUrl) }
+      .also { context.startActivity(it) }
   } else {
     Intent(context, WebViewLoginActivity::class.java)
       .apply { putExtra(WebViewLoginActivity.URL, useUrl) }

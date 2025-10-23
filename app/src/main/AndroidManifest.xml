@@ -384,6 +384,13 @@
     </activity>
 
     <activity
+        android:name="com.asfoundation.wallet.ui.login.custom_tab_login.native_login.NativeLoginActivity"
+        android:theme="@style/Theme.AppCompat.Transparent.CustomTabLogin"
+        android:launchMode="singleTop"
+        android:windowSoftInputMode="adjustResize">
+    </activity>
+
+    <activity
         android:name="com.asfoundation.wallet.ui.webview_gamification.WebViewGamificationActivity"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.WebviewGamification"

@@ -66,14 +66,16 @@ internal class CustomTabLoginViewModel @Inject constructor(
    * @see FetchUserKeyUseCase
    */
   fun fetchUserKey(authToken: String) {
-    viewModelScope.launch {
-      _activityState.emit(FetchingUserKey)
-    }
     disposables
       .add(
         fetchUserKeyUseCase(authToken)
           .subscribeOn(rxSchedulers.io)
           .observeOn(rxSchedulers.io)
+          .doOnSubscribe {
+            viewModelScope.launch {
+              _activityState.emit(FetchingUserKey)
+            }
+          }
           .subscribe({
             viewModelScope.launch {
               _activityState.emit(FinishActivity)
