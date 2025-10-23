@@ -670,7 +670,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         horizontalArrangement = Arrangement.Start
       ) {
         Icon(
-          painter = painterResource(R.drawable.ic_manage_wallet),
+          painter = painterResource(R.drawable.ic_wallet_minimal),
           tint = WalletColors.styleguide_white,
           modifier = Modifier
             .size(14.dp)
