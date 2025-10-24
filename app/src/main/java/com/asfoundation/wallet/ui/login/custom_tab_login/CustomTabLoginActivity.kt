@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_TO_MAIN_ACTIVITY
@@ -195,30 +197,32 @@ class CustomTabLoginActivity : ComponentActivity() {
           )
         }
       lifecycleScope.launch {
-        viewModel.activityState.collect { uiState ->
-          when (uiState) {
-            is FinishActivity -> {
-              navigate(
-                activity = this@CustomTabLoginActivity,
-                to = NAVIGATE_TO_MAIN_ACTIVITY,
-              )
-            }
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
+          viewModel.activityState.collect { uiState ->
+            when (uiState) {
+              is FinishActivity -> {
+                navigate(
+                  activity = this@CustomTabLoginActivity,
+                  to = NAVIGATE_TO_MAIN_ACTIVITY,
+                )
+              }
 
-            is FinishWithError -> {
-              navigate(
-                activity = this@CustomTabLoginActivity,
-                to = NAVIGATE_TO_MAIN_ACTIVITY,
-                logMessage = {
-                  logger.log(
-                    TAG,
-                    "Error fetching user key. Navigating to Main Activity."
-                  )
-                }
-              )
-            }
+              is FinishWithError -> {
+                navigate(
+                  activity = this@CustomTabLoginActivity,
+                  to = NAVIGATE_TO_MAIN_ACTIVITY,
+                  logMessage = {
+                    logger.log(
+                      TAG,
+                      "Error fetching user key. Navigating to Main Activity."
+                    )
+                  }
+                )
+              }
 
-            else -> {
-              // no-op
+              else -> {
+                // no-op
+              }
             }
           }
         }
