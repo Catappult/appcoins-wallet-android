@@ -7,19 +7,11 @@ package com.asfoundation.wallet.ui
  * - USER_CANCEL: Operation was cancelled by the user.
  * - RELAUNCH_WEBVIEW: Indicates that the WebView should be relaunched.
  */
-enum class WebViewResults : CodeResult {
-  SUCCESS {
-    override val code = 1
-  },
-  FAIL {
-    override val code = 0
-  },
-  USER_CANCEL {
-    override val code = 2
-  },
-  RELAUNCH_WEBVIEW {
-    override val code = 3
-  }
+enum class WebViewResults(override val code: Int) : CodeResult {
+  SUCCESS(1),
+  FAIL(0),
+  USER_CANCEL(2),
+  RELAUNCH_WEBVIEW(3);
 }
 
 /**
