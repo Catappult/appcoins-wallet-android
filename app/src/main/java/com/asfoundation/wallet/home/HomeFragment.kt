@@ -199,6 +199,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         .padding(padding),
     ) {
       //TODO: Change email value when user have saved email
+      //TODO: Set isLoggedIn value from ViewModel
       BalanceNewCard(
         onClickTopUp = { viewModel.onTopUpClick() },
         isLoading = (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
@@ -207,7 +208,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         buttonsAnalytics = buttonsAnalytics,
         onClickPromoCode = { navigator.navigateToPromoCode()},
         onClickBackup = { viewModel.onBackupClick() },
-        onClickMore = { navigator.navigateToManageBottomSheet(viewModel.canTransfer.value) },
+        onClickMore = { navigator.navigateToManageBottomSheet(viewModel.canTransfer.value, true) },
         balance = balanceValue,
         email = null,
         showBackup = viewModel.showBackup.value,
