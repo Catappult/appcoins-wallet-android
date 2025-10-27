@@ -100,15 +100,17 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    val requesterPackageName = intent?.getStringExtra(REQUESTER_PACKAGE_NAME) ?: ""
+    val requesterActivityUri = intent?.getStringExtra(REQUESTER_ACTIVITY_URI)
     if (!checkExposedActivity(
         ctx = this,
-        packageName = intent?.getStringExtra(REQUESTER_PACKAGE_NAME) ?: "",
-        senderUri = intent?.getStringExtra(REQUESTER_ACTIVITY_URI)
+        packageName = requesterPackageName,
+        senderUri = requesterActivityUri
       )
     ) {
       logger.log(
         TAG,
-        "Request activity URI (${intent?.getStringExtra(REQUESTER_ACTIVITY_URI)}) is not marked as exported",
+        "Request activity URI (${requesterActivityUri}) is not marked as exported",
         asError = true
       )
       finish()
