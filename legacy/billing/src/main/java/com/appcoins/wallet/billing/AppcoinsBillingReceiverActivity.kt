@@ -85,7 +85,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       val enabled = activityInfo.enabled && activityInfo.applicationInfo != null && activityInfo.applicationInfo.enabled
 
       var hasRequiredPerm = true
-      if (activityInfo.permission != null && !activityInfo.permission.isEmpty()) {
+      if (!activityInfo.permission.isNullOrEmpty()) {
         hasRequiredPerm = (pm.checkPermission(
           activityInfo.permission,
           ctx.packageName
