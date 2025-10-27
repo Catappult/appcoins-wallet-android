@@ -198,6 +198,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
+      //TODO: Change email value when user have saved email
       BalanceNewCard(
         onClickTopUp = { viewModel.onTopUpClick() },
         isLoading = (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
@@ -208,6 +209,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         onClickBackup = { viewModel.onBackupClick() },
         onClickMore = { navigator.navigateToManageBottomSheet(viewModel.canTransfer.value) },
         balance = balanceValue,
+        email = null,
         showBackup = viewModel.showBackup.value,
         onClickDetailsBalance = { navigator.navigateToDetailsBalanceBottomSheet(balanceValue, balanceCurrency) },
       )

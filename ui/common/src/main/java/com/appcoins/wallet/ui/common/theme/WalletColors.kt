@@ -32,4 +32,6 @@ object WalletColors {
   val styleguide_rebranding_subtext = Color(0xFFC6BBF8)
 
   val styleguide_green_variant = Color(0xFF156636)
+
+  val styleguide_phobos_moon = Color(0xFF7E88AFL)
 }

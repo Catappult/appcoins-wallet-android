@@ -38,6 +38,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_shimmer
 @Composable
 fun BalanceNewCard(
   balance: String,
+  email: String?,
   onClickPromoCode: () -> Unit,
   onClickDetailsBalance: () -> Unit,
   onClickTopUp: () -> Unit,
@@ -82,7 +83,18 @@ fun BalanceNewCard(
         )
       }
 
-      Spacer(modifier = Modifier.height(8.dp))
+      Spacer(modifier = Modifier.height(4.dp))
+
+      email?.let {
+        Text(
+          text = it,
+          color = WalletColors.styleguide_phobos_moon,
+          fontSize = 14.sp,
+          fontWeight = FontWeight(400)
+        )
+      }
+
+      Spacer(modifier = Modifier.height(4.dp))
 
       Text(
         text = balance,
@@ -274,5 +286,6 @@ fun PreviewBalanceNewCard() {
     isLoading = false,
     fragmentName = "HomeFragment",
     buttonsAnalytics = null,
+    email = "email@test.com"
   )
 }
