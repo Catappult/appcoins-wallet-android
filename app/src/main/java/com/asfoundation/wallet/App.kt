@@ -262,6 +262,8 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   override fun proxyService() = proxyService
 
+  override fun getInjectLogger(): Logger = logger
+
   override fun billingMessagesMapper() = billingMessagesMapper
 
   override fun subscriptionsApi() = subscriptionBillingApi

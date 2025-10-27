@@ -25,12 +25,14 @@ import com.appcoins.wallet.bdsbilling.repository.SubscriptionsMapper
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.runBlocking
 import java.math.BigDecimal
+
 
 class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
   companion object {
@@ -54,6 +56,10 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
   private lateinit var proxyService: ProxyService
   private lateinit var intentBuilder: BillingIntentBuilder
 
+  private val logger: Logger by lazy {
+    (applicationContext as BillingDependenciesProvider).getInjectLogger()
+  }
+
   private val initializationComplete = CompletableDeferred<Unit>()
 
   @SuppressLint("QueryPermissionsNeeded")
@@ -71,17 +77,17 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
 
     if (matches.isEmpty()) return false
 
-    for (ai in matches) {
-      if (ai == null) continue
-      if (packageName != ai.packageName) continue
+    for (activityInfo in matches) {
+      if (activityInfo == null) continue
+      if (packageName != activityInfo.packageName) continue
 
-      val exported = ai.exported
-      val enabled = ai.enabled && ai.applicationInfo != null && ai.applicationInfo.enabled
+      val exported = activityInfo.exported
+      val enabled = activityInfo.enabled && activityInfo.applicationInfo != null && activityInfo.applicationInfo.enabled
 
       var hasRequiredPerm = true
-      if (ai.permission != null && !ai.permission.isEmpty()) {
+      if (activityInfo.permission != null && !activityInfo.permission.isEmpty()) {
         hasRequiredPerm = (pm.checkPermission(
-          ai.permission,
+          activityInfo.permission,
           ctx.packageName
         ) == PackageManager.PERMISSION_GRANTED)
       }
@@ -100,7 +106,11 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
         senderUri = intent?.getStringExtra(REQUESTER_ACTIVITY_URI)
       )
     ) {
-      Log.e(TAG, "Calling activity is not allowed to bind to the service")
+      logger.log(
+        TAG,
+        "Request activity URI (${intent?.getStringExtra(REQUESTER_ACTIVITY_URI)}) is not marked as exported",
+        asError = true
+      )
       finish()
       return
     }
