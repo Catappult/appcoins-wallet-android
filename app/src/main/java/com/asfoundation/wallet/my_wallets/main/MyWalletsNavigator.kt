@@ -54,13 +54,15 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     walletAddress: String,
     walletName: String,
     walletBalance: String,
-    walletBalanceSymbol: String
+    walletBalanceSymbol: String,
+    isWalletConnected: Boolean
   ) {
     val bundle = Bundle()
     val bottomSheet = ChangeActiveWalletBottomSheetFragment.newInstance()
     bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_NAME, walletName)
     bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_ADDRESS, walletAddress)
     bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE, walletBalance)
+    bundle.putBoolean(ChangeActiveWalletBottomSheetFragment.IS_WALLET_CONNECTED, isWalletConnected)
     bundle.putString(
       ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE_SYMBOL, walletBalanceSymbol
     )

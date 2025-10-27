@@ -212,7 +212,8 @@ class ManageWalletFragment : BasePageViewFragment() {
               wallet.walletAddress,
               wallet.walletName,
               wallet.balance.amount.toString(),
-              wallet.balance.symbol
+              wallet.balance.symbol,
+              wallet.email != null
             )
           }) {
           InactiveWalletCard(wallet)
@@ -220,7 +221,6 @@ class ManageWalletFragment : BasePageViewFragment() {
       }
     }
   }
-
   @Composable
   fun ActiveWalletCard(walletInfo: WalletInfo, verificationStatus: VerificationStatusCompound) {
     Column(horizontalAlignment = End, modifier = Modifier.padding(16.dp)) {
@@ -590,13 +590,9 @@ class ManageWalletFragment : BasePageViewFragment() {
         .fillMaxWidth()
         .padding(vertical = 24.dp, horizontal = 16.dp)
     ) {
-      Text(
-        text = walletBalance.walletName,
-        modifier = Modifier.fillMaxWidth(0.5f),
-        color = WalletColors.styleguide_dark_grey,
-        style = MaterialTheme.typography.bodySmall,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
+      ShowWalletsNameAndConnection(
+        walletBalance.walletName,
+        walletBalance.email != null
       )
       Text(
         text =

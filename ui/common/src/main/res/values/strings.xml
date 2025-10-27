@@ -585,7 +585,7 @@
   <string name="wallet_view_activate_button">Make this wallet active</string>
 
   <!-- Wallets Connection -->
-  <string name="manage_wallet_connection_badge_connected">Connect</string>
+  <string name="manage_wallet_connection_badge_connected">Connected</string>
   <string name="manage_wallet_connection_badge_not_connected">Not Connected</string>
 
   <!--Remove Wallet-->

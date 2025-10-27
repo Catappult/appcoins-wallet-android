@@ -10,7 +10,8 @@ data class WalletInfoSimple(
   val balance: FiatValue,
   val isActiveWallet: Boolean,
   val backupDate: Long,
-  var backupWalletActive: Boolean
+  var backupWalletActive: Boolean,
+  val email: String? = null
 ) : Serializable {
 
   constructor() : this("", "", FiatValue(), false, 0, false)
