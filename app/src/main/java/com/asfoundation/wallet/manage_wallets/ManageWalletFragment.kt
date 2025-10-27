@@ -221,7 +221,6 @@ class ManageWalletFragment : BasePageViewFragment() {
       }
     }
   }
-
   @Composable
   fun ActiveWalletCard(walletInfo: WalletInfo, verificationStatus: VerificationStatusCompound) {
     Column(horizontalAlignment = End, modifier = Modifier.padding(16.dp)) {
@@ -609,10 +608,6 @@ class ManageWalletFragment : BasePageViewFragment() {
     }
   }
 
-  /**
-   * Shows a badge indicating the connection status of the wallet.
-   * @param isConnected Boolean indicating if the wallet is logged-in (true) or not (false).
-   */
   @Composable
   fun ConnectionBadge(
     isConnected: Boolean,
@@ -621,14 +616,11 @@ class ManageWalletFragment : BasePageViewFragment() {
       color =
         if (isConnected) WalletColors.styleguide_green_variant
         else WalletColors.styleguide_medium_grey_variant,
-      shape = RoundedCornerShape(CONNECTION_BADGE_CORNER_RADIUS.dp),
+      shape = RoundedCornerShape(4.dp),
     ) {
       Row(
         modifier = Modifier
-          .padding(
-            horizontal = CONNECTION_BADGE_HORIZONTAL_PADDING.dp,
-            vertical = CONNECTION_BADGE_VERTICAL_PADDING.dp
-          ),
+          .padding(horizontal = 3.dp, vertical = 1.dp),
         verticalAlignment = CenterVertically,
         horizontalArrangement = Arrangement.Center
       ) {
@@ -638,9 +630,9 @@ class ManageWalletFragment : BasePageViewFragment() {
             contentDescription = null,
             tint = WalletColors.styleguide_white,
             modifier = Modifier
-              .size(CONNECTION_BADGE_ICON_SIZE.dp)
+              .size(16.dp)
           )
-          Spacer(modifier = Modifier.width(CONNECTION_BADGE_SPACER_WIDTH.dp))
+          Spacer(modifier = Modifier.width(4.dp))
           Text(
             text = stringResource(R.string.manage_wallet_connection_badge_connected),
             color = WalletColors.styleguide_white,
@@ -650,23 +642,19 @@ class ManageWalletFragment : BasePageViewFragment() {
             imageVector = Icons.Outlined.Info,
             contentDescription = "Info",
             tint = WalletColors.styleguide_white,
-            modifier = Modifier.size(CONNECTION_BADGE_ICON_SIZE.dp)
+            modifier = Modifier.size(16.dp)
           )
-          Spacer(modifier = Modifier.width(CONNECTION_BADGE_SPACER_WIDTH.dp))
+          Spacer(modifier = Modifier.width(4.dp))
           Text(
             text = stringResource(R.string.manage_wallet_connection_badge_not_connected),
             color = WalletColors.styleguide_white,
+            modifier = Modifier.height(18.dp)
           )
         }
       }
     }
   }
 
-  /**
-   * Shows the wallet name along with its connection status.
-   * @param walletName The name of the wallet to be displayed.
-   * @param isConnected Boolean indicating if the wallet is logged-in (true) or not (false).
-   */
   @Composable
   fun ShowWalletsNameAndConnection(walletName: String, isConnected: Boolean) {
     Column(
@@ -681,21 +669,21 @@ class ManageWalletFragment : BasePageViewFragment() {
           painter = painterResource(R.drawable.ic_wallet_minimal),
           tint = WalletColors.styleguide_white,
           modifier = Modifier
-            .size(SHOW_WALLETS_NAME_AND_CONNECTION_ICON_SIZE.dp)
+            .size(14.dp)
             .align(CenterVertically),
           contentDescription = "Wallet"
         )
-        Spacer(modifier = Modifier.width(SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_WIDTH.dp))
+        Spacer(modifier = Modifier.width(8.dp))
         Text(
           text = walletName,
-          modifier = Modifier.fillMaxWidth(SHOW_WALLETS_NAME_AND_CONNECTION_WALLET_NAME_MAX_WIDTH),
+          modifier = Modifier.fillMaxWidth(0.5f),
           color = styleguide_light_grey,
           style = MaterialTheme.typography.bodySmall,
           maxLines = 1,
           overflow = TextOverflow.Ellipsis,
         )
       }
-      Spacer(modifier = Modifier.height(SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_HEIGHT.dp))
+      Spacer(modifier = Modifier.height(2.dp))
       ConnectionBadge(isConnected)
     }
   }
@@ -909,15 +897,6 @@ class ManageWalletFragment : BasePageViewFragment() {
     const val ADDRESS_KEY = "address_key"
     const val MANAGE_WALLET_REQUEST_KEY = "manage_wallet_request_key"
     const val VERIFY_PAYMENT_METHOD = "verify_payment_method"
-    private const val CONNECTION_BADGE_CORNER_RADIUS = 4
-    private const val CONNECTION_BADGE_HORIZONTAL_PADDING = 3
-    private const val CONNECTION_BADGE_VERTICAL_PADDING = 1
-    private const val CONNECTION_BADGE_ICON_SIZE = 14
-    private const val CONNECTION_BADGE_SPACER_WIDTH = 4
-    private const val SHOW_WALLETS_NAME_AND_CONNECTION_ICON_SIZE = 14
-    private const val SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_WIDTH = 8
-    private const val SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_HEIGHT = 2
-    private const val SHOW_WALLETS_NAME_AND_CONNECTION_WALLET_NAME_MAX_WIDTH = 0.5f
   }
 
   private fun navController(): NavController {

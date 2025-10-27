@@ -76,21 +76,6 @@ class WalletInfoRepository @Inject constructor(
       .onErrorComplete()
       .subscribeOn(rxSchedulers.io)
 
-  /**
-   * Retrieves Wallet Info and fiat values (if specified), associating with an email and saving it to DB.
-   */
-  fun updateWalletInfo(walletAddress: String, email: String): Completable =
-    fetchWalletInfo(walletAddress)
-      .flatMapCompletable { walletInfoEntity ->
-        val updatedEntity = walletInfoEntity
-          .copy(email = email)
-        walletInfoDao.insertOrUpdateEmail(updatedEntity)
-        return@flatMapCompletable Completable.complete()
-      }
-      .onErrorComplete()
-      .subscribeOn(rxSchedulers.io)
-
-
   fun updateWalletName(walletAddress: String, name: String?): Completable =
     Completable.fromAction {
       walletInfoDao.insertOrUpdateName(
@@ -109,8 +94,7 @@ class WalletInfoRepository @Inject constructor(
           ethBalanceFiat = null,
           fiatCurrency = null,
           fiatSymbol = null,
-          canTransfer = false,
-          email = null
+          canTransfer = false
         )
       )
     }.subscribeOn(rxSchedulers.io)
@@ -163,8 +147,7 @@ class WalletInfoRepository @Inject constructor(
       verified = verified,
       logging = logging,
       backupDate = hasBackup,
-      canTransfer = canTransfer,
-      email = email
+      canTransfer = canTransfer
     )
 
   private fun WalletInfoResponse.toWalletInfoEntity(walletBalance: WalletBalance? = null) =
@@ -183,7 +166,6 @@ class WalletInfoRepository @Inject constructor(
       ethBalanceFiat = walletBalance?.ethBalance?.fiat?.amount,
       fiatCurrency = walletBalance?.creditsBalance?.fiat?.currency,
       fiatSymbol = walletBalance?.creditsBalance?.fiat?.symbol,
-      canTransfer = canTransfer,
-      email = null
+      canTransfer = canTransfer
     )
 }

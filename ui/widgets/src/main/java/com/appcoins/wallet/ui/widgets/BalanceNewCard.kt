@@ -35,10 +35,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_shimmer
 
-private const val EMAIL_TEXT_WEIGHT = 400
-private const val EMAIL_TEXT_FONT_SIZE = 14
-
-private const val EMAIL_SPACER_HEIGHT = 4
 @Composable
 fun BalanceNewCard(
   balance: String,
@@ -87,18 +83,18 @@ fun BalanceNewCard(
         )
       }
 
-      Spacer(modifier = Modifier.height(EMAIL_SPACER_HEIGHT.dp))
+      Spacer(modifier = Modifier.height(4.dp))
 
       email?.let {
         Text(
           text = it,
           color = WalletColors.styleguide_phobos_moon,
-          fontSize = EMAIL_TEXT_FONT_SIZE.sp,
-          fontWeight = FontWeight(EMAIL_TEXT_WEIGHT)
+          fontSize = 14.sp,
+          fontWeight = FontWeight(400)
         )
       }
 
-      Spacer(modifier = Modifier.height(EMAIL_SPACER_HEIGHT.dp))
+      Spacer(modifier = Modifier.height(4.dp))
 
       Text(
         text = balance,
