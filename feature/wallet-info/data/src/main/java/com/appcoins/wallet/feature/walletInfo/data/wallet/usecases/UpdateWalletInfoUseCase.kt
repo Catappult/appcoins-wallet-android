@@ -16,12 +16,18 @@ class UpdateWalletInfoUseCase @Inject constructor(
    *
    * @param address Wallet address, or null to use the currently active wallet
    */
-  //TODO: Check the other usages of this use case.
   operator fun invoke(address: String?): Completable {
     val walletAddressSingle =
       address?.let { Single.just(Wallet(address)) } ?: getCurrentWalletUseCase()
     return walletAddressSingle.flatMapCompletable {
       walletInfoRepository.updateWalletInfo(it.address)
+    }
+  }
+
+  operator fun invoke(address: String, email: String): Completable {
+    val walletAddressSingle = Single.just(Wallet(address))
+    return walletAddressSingle.flatMapCompletable {
+      walletInfoRepository.updateWalletInfo(it.address, email)
     }
   }
 }
