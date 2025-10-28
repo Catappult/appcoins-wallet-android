@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.webview_login.repository
+package com.asfoundation.wallet.ui.login.webview_login.repository
 
 import com.appcoins.wallet.core.network.backend.api.LoginApi
 import com.appcoins.wallet.core.network.backend.model.FetchUserKeyResponse

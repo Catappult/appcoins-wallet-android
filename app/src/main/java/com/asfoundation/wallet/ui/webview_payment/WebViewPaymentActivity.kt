@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Rect
-import android.net.Uri
 import android.net.Uri.parse
 import android.os.Build
 import android.os.Bundle
@@ -58,6 +57,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.ui.WebViewResults.RELAUNCH_WEBVIEW
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.models.CloseBehaviorConfig
@@ -142,7 +142,6 @@ class WebViewPaymentActivity : AppCompatActivity() {
   override fun onNewIntent(intent: Intent?) {
     super.onNewIntent(intent)
     val data = intent?.data?.toString().orEmpty()
-
     viewModel.webView?.post {
       if (data.isNotBlank()) {
         viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated(\"$data\")")
@@ -301,7 +300,12 @@ class WebViewPaymentActivity : AppCompatActivity() {
             },
             onLoginCallback = { authToken, safeLogin, _ ->
               Log.d(TAG, "onLoginCallback called")
-              viewModel.fetchUserKey(authToken, type, transactionBuilder)
+              viewModel.fetchUserKey(
+                authToken = authToken,
+                type = type,
+                transaction = transactionBuilder,
+                context = this@WebViewPaymentActivity
+              )
             },
             goToUrlCallback = { },
             updateCloseBehaviorCallback = ::updateCloseBehavior
@@ -377,7 +381,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
       )
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is WebViewPaymentViewModel.UiState.FinishActivity -> finishActivity(uiState.bundle)
-        WebViewPaymentViewModel.UiState.Finish -> finish()
+        is WebViewPaymentViewModel.UiState.Finish -> finish()
         is WebViewPaymentViewModel.UiState.FinishWithBundle -> {
           viewModel.sendRevenueEvent(transactionBuilder)
           finish(uiState.bundle)
@@ -405,7 +409,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
     overridePendingTransition(R.anim.stay, R.anim.slide_out_bottom)
   }
 
-  fun finish(bundle: Bundle) = //This is not the activity finish, but a function to set the result and finish
+  fun finish(bundle: Bundle) =
+    //This is not the activity finish, but a function to set the result and finish
     if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
       viewModel.handleBackupNotifications(bundle, context = this)
       viewModel.handlePerkNotifications(bundle, context = this)
@@ -473,13 +478,11 @@ class WebViewPaymentActivity : AppCompatActivity() {
       putExtra(TRANSACTION_BUILDER, transactionBuilder)
       putExtra(TYPE, type)
 
-      addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT)
       addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     }
 
-    current.setResult(Activity.RESULT_CANCELED)
+    current.setResult(RELAUNCH_WEBVIEW.code, next)
 
-    current.startActivity(next)
     current.overridePendingTransition(
       R.anim.slide_in_bottom,
       R.anim.slide_out_bottom

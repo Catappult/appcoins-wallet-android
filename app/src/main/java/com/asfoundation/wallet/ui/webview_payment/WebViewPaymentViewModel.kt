@@ -22,7 +22,8 @@ import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.iab.IabInteract
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
-import com.asfoundation.wallet.ui.webview_login.usecases.FetchUserKeyUseCase
+import com.asfoundation.wallet.ui.login.hasCustomChromeTabAvailable
+import com.asfoundation.wallet.ui.login.webview_login.usecases.FetchUserKeyUseCase
 import com.asfoundation.wallet.ui.webview_payment.models.WebViewPaymentResponse
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
@@ -273,8 +274,13 @@ class WebViewPaymentViewModel @Inject constructor(
     )
   }
 
-  fun fetchUserKey(authToken: String, type: String, transaction: TransactionBuilder) {
-    CompositeDisposable().add(
+  fun fetchUserKey(
+    authToken: String,
+    type: String,
+    transaction: TransactionBuilder,
+    context: Context
+  ) {
+    compositeDisposable.add(
       fetchUserKeyUseCase(authToken)
         .doOnComplete { Log.d(TAG, "fetchUserKey: success") }
         .andThen(
@@ -284,12 +290,14 @@ class WebViewPaymentViewModel @Inject constructor(
           when (type) {
             WebViewPaymentActivity.OSP_TRANSACTION -> createWebViewPaymentOspUseCase(
               transaction = transaction,
-              appVersion = BuildConfig.VERSION_CODE.toString()
+              appVersion = BuildConfig.VERSION_CODE.toString(),
+              hasCustomTab = hasCustomChromeTabAvailable(context)
             )
 
             WebViewPaymentActivity.SDK_TRANSACTION -> createWebViewPaymentSdkUseCase(
               transaction = transaction,
-              appVersion = BuildConfig.VERSION_CODE.toString()
+              appVersion = BuildConfig.VERSION_CODE.toString(),
+              hasCustomTab = hasCustomChromeTabAvailable(context)
             )
 
             else -> {

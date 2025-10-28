@@ -12,7 +12,7 @@ import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeU
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.util.tuples.Sextuple
 import io.reactivex.Single
 import javax.inject.Inject
@@ -35,7 +35,8 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
 
   operator fun invoke(
     transaction: TransactionBuilder,
-    appVersion: String?
+    appVersion: String?,
+    hasCustomTab: Boolean,
   ): Single<String> {
     return Single.zip(
       walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
@@ -68,6 +69,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
             "&domain=${transaction.domain ?: ""}" +
             "&type=${transaction.type ?: ""}" +
             "&oem_id=${oemId ?: ""}" +
+            "&is_cct=$hasCustomTab" +
             "&reference=${transaction.orderReference ?: ""}" +
             "&promo_code=${promoCode.code ?: ""}" +
             "&version=${appVersion ?: ""}" +

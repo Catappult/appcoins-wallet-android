@@ -81,7 +81,7 @@
 
   <activity
       android:id="@+id/login_activity"
-      android:name="com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity">
+      android:name="com.asfoundation.wallet.ui.login.webview_login.WebViewLoginActivity">
     <argument
         android:name="url"
         app:argType="string"

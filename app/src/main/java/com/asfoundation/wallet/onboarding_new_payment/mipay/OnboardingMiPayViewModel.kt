@@ -18,6 +18,7 @@ import com.asfoundation.wallet.onboarding.use_cases.SetResponseCodeWebSocketUseC
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetMiPayLinkUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
+import com.asfoundation.wallet.ui.WebViewResults
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -73,11 +74,11 @@ class OnboardingMiPayViewModel @Inject constructor(
 
   fun handleWebViewResult(result: ActivityResult) {
     when (result.resultCode) {
-      WebViewActivity.SUCCESS -> {
+      WebViewResults.SUCCESS.code -> {
         startTransactionStatusTimer()
       }
 
-      WebViewActivity.FAIL -> {
+      WebViewResults.FAIL.code -> {
         events.sendAdyenPaymentConfirmationEvent(
           args.transactionBuilder,
           BillingAnalytics.ACTION_CANCEL,
