@@ -85,7 +85,6 @@ import com.appcoins.wallet.ui.widgets.component.BalanceValue
 import com.appcoins.wallet.ui.widgets.openGame
 import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.R
-import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.HomeViewModel.UiState
 import com.asfoundation.wallet.home.HomeViewModel.UiState.Success
 import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
@@ -198,40 +197,34 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
-      //TODO: Change email value when user have saved email
-      //TODO: Set isLoggedIn value from ViewModel
       BalanceNewCard(
         onClickTopUp = { viewModel.onTopUpClick() },
         isLoading = (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
             !viewModel.isLoadingTransactions.value,
         fragmentName = fragmentName,
         buttonsAnalytics = buttonsAnalytics,
-        onClickPromoCode = { navigator.navigateToPromoCode()},
+        onClickPromoCode = { navigator.navigateToPromoCode() },
         onClickBackup = { viewModel.onBackupClick() },
-        onClickMore = { navigator.navigateToManageBottomSheet(viewModel.canTransfer.value, true) },
+        onClickMore = {
+          navigator.navigateToManageBottomSheet(
+            viewModel.canTransfer.value,
+            viewModel.uiEmail.value != null
+          )
+        },
         balance = balanceValue,
-        email = null,
+        email = viewModel.uiEmail.value,
         showBackup = viewModel.showBackup.value,
-        onClickDetailsBalance = { navigator.navigateToDetailsBalanceBottomSheet(balanceValue, balanceCurrency) },
+        onClickDetailsBalance = {
+          navigator.navigateToDetailsBalanceBottomSheet(
+            balanceValue,
+            balanceCurrency
+          )
+        },
       )
-      /*BalanceCard(
-        newWallet = viewModel.newWallet.value,
-        showBackup = viewModel.showBackup.value,
-        balanceContent = { BalanceContent() },
-        onClickTransfer = { viewModel.onTransferClick() },
-        onClickBackup = { viewModel.onBackupClick() },
-        onClickTopUp = { viewModel.onTopUpClick() },
-        onClickMenuOptions = { navigator.navigateToManageBottomSheet() },
-        isLoading =
-        (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
-            !viewModel.isLoadingTransactions.value,
-        fragmentName = fragmentName,
-        buttonsAnalytics = buttonsAnalytics
-      )*/
-      if(viewModel.showRebrandingBanner.value) {
+      if (viewModel.showRebrandingBanner.value) {
         RebrandingBanner()
       }
-      if(viewModel.showDiscordBanner.value) {
+      if (viewModel.showDiscordBanner.value) {
         DiscordBannerContent()
       }
       PromotionsList()
@@ -264,14 +257,16 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         balanceValue
 
       }
+
       else -> ""
     }
   }
+
   @Composable
   fun DiscordBannerContent() {
     val showDiscordBanner =
       remember { mutableStateOf(viewModel.isShowDiscordBanner()) }
-    if(showDiscordBanner.value == true) {
+    if (showDiscordBanner.value) {
       JoinDiscordCardComposable(
         {
           val intent = Intent(Intent.ACTION_VIEW, "https://discord.com/invite/Byec5eetAG".toUri())
@@ -286,6 +281,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       )
     }
   }
+
   @Composable
   fun BalanceContent() =
     when (val state = viewModel.uiBalanceState.collectAsState().value) {
@@ -435,7 +431,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     val showRebrandBanner =
       remember { mutableStateOf(viewModel.isShowRebrandingBanner()) }
 
-    if(showRebrandBanner.value == true) {
+    if (showRebrandBanner.value) {
       Card(
         colors = CardDefaults.cardColors(WalletColors.styleguide_rebranding_blue),
         modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
@@ -543,7 +539,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   }
 
   override fun onStateChanged(state: HomeState) {
-    setBalance(state.defaultWalletBalanceAsync)
+    setBalance(state.defaultWalletInfoAsync)
     setPromotions(state.promotionsModelAsync)
     setBackup(state.hasBackup)
     setRebrandingBanner(state.showRebrandingBanner)
@@ -593,19 +589,21 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     }
   }
 
-  private fun setBalance(balanceAsync: Async<GlobalBalance>) {
-    when (balanceAsync) {
+  private fun setBalance(homeWalletInfoAsync: Async<HomeWalletInfo>) {
+    when (homeWalletInfoAsync) {
       Async.Uninitialized,
       is Async.Loading -> {
         viewModel.updateBalance(HomeViewModel.UiBalanceState.Loading)
+        viewModel.updateEmail(null)
       }
 
       is Async.Success ->
-        balanceAsync.value.let { globalBalance ->
-          if (globalBalance != null) {
+        homeWalletInfoAsync.value.let { homeWalletInfo ->
+          if (homeWalletInfo != null) {
             viewModel.updateBalance(
-              HomeViewModel.UiBalanceState.Success(globalBalance.walletBalance)
+              HomeViewModel.UiBalanceState.Success(homeWalletInfo.globalBalance.walletBalance)
             )
+            viewModel.updateEmail(homeWalletInfo.email)
             hasGetSomeValidBalanceResult.value = true
           }
         }

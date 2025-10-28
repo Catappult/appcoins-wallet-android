@@ -27,6 +27,7 @@ import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurr
 import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.appcoins.wallet.gamification.repository.Levels
@@ -102,7 +103,7 @@ sealed class HomeSideEffect : SideEffect {
 data class HomeState(
   val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
   val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
-  val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
+  val defaultWalletInfoAsync: Async<HomeWalletInfo> = Async.Uninitialized,
   val hasBackup: Async<Boolean> = Async.Uninitialized,
   val showRebrandingBanner: Async<Boolean> = Async.Uninitialized,
   val showDiscordBanner: Async<Boolean> = Async.Uninitialized
@@ -113,6 +114,16 @@ data class PromotionsState(
   val promotionsGamificationStatsAsync: Async<PromotionsGamificationStats> = Async.Uninitialized
 ) :
   ViewState
+
+/**
+ * Data class to hold home wallet information
+ * @param globalBalance The global balance of the wallet
+ * @param email The email associated with the wallet
+ */
+data class HomeWalletInfo(
+  val globalBalance: GlobalBalance,
+  val email: String?
+)
 
 
 @HiltViewModel
@@ -180,6 +191,10 @@ constructor(
 
   private val _uiBalanceState = MutableStateFlow<UiBalanceState>(UiBalanceState.Idle)
   var uiBalanceState: StateFlow<UiBalanceState> = _uiBalanceState
+
+  private val _uiEmail = MutableStateFlow<String?>(null)
+  val uiEmail: StateFlow<String?> = _uiEmail
+
 
   init {
     handleWalletData()
@@ -311,17 +326,17 @@ constructor(
   /**
    * Balance is refreshed every [UPDATE_INTERVAL] seconds, and stops while [refreshData] is false
    */
-  private fun observeBalance(): Observable<GlobalBalance> {
+  private fun observeBalance(): Observable<HomeWalletInfo> {
     return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
       .flatMap { observeRefreshData() }
       .switchMap {
         observeWalletInfoUseCase(null, update = true)
           .map { walletInfo ->
             canTransfer.value = walletInfo.canTransfer
-            mapWalletValue(walletInfo.walletBalance)
+            walletInfo.mapWalletValue()
           }
-          .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
-            copy(defaultWalletBalanceAsync = it)
+          .asAsyncToState(HomeState::defaultWalletInfoAsync) {
+            copy(defaultWalletInfoAsync = it)
           }
       }
       .doOnNext { fetchTransactionData() }
@@ -340,14 +355,16 @@ constructor(
       }
   }
 
-  private fun mapWalletValue(walletBalance: WalletBalance): GlobalBalance {
-    return GlobalBalance(
-      walletBalance,
-      shouldShow(walletBalance.appcBalance, 0.01),
-      shouldShow(walletBalance.creditsBalance, 0.01),
-      shouldShow(walletBalance.ethBalance, 0.0001)
+  private fun WalletInfo.mapWalletValue(): HomeWalletInfo =
+    HomeWalletInfo(
+      globalBalance = GlobalBalance(
+        walletBalance,
+        shouldShow(walletBalance.appcBalance, 0.01),
+        shouldShow(walletBalance.creditsBalance, 0.01),
+        shouldShow(walletBalance.ethBalance, 0.0001)
+      ),
+      email = this.email
     )
-  }
 
   private fun shouldShow(tokenBalance: TokenBalance, threshold: Double): Boolean {
     return (tokenBalance.token.amount >= BigDecimal(threshold) &&
@@ -556,6 +573,10 @@ constructor(
 
   fun updateBalance(uiBalanceState: UiBalanceState) {
     _uiBalanceState.value = uiBalanceState
+  }
+
+  fun updateEmail(email: String?) {
+    _uiEmail.value = email
   }
 
   fun referenceSendPromotionClickEvent(): (String?, String) -> Unit {
