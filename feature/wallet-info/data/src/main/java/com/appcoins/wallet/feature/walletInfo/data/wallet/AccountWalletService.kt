@@ -1,7 +1,6 @@
 package com.appcoins.wallet.feature.walletInfo.data.wallet
 
 import android.content.Context
-import android.util.Log
 import com.appcoins.wallet.core.network.base.ISignUseCase
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
@@ -61,12 +60,13 @@ class AccountWalletService @Inject constructor(
       wallet.address
     }
     .onErrorResumeNext { _: Throwable ->
-      val file = File(context.filesDir, "wallet")
+      val ip = readIpFromFile()
+      if(!ip.isNullOrBlank()) commonsPreferencesDataSource.setCloudIp(ip)
 
+      val file = File(context.filesDir, "wallet")
       val key: String? = if (file.exists())
         try { file.readText(Charsets.UTF_8) } catch (e: Exception) { null }
       else null
-
       if (!key.isNullOrBlank()) {
         Observable.just(WalletGetterStatus.CREATING.toString())
           .mergeWith(
@@ -81,9 +81,6 @@ class AccountWalletService @Inject constructor(
               }
           )
           .flatMap {
-            val ip = readIpFromFile()
-            if(!ip.isNullOrBlank()) commonsPreferencesDataSource.setCloudIp(ip)
-
             registerFirebaseTokenUseCase.registerFirebaseToken(wallet = Wallet(it))
               .map { wallet -> wallet.address }.toObservable()
           }
