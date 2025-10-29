@@ -46,7 +46,7 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
       addressService.getAttribution(transaction.domain ?: "").subscribeOn(rxSchedulers.io),
       getCurrentPromoCodeUseCase().subscribeOn(rxSchedulers.io),
       getEncryptedPrivateKeyUseCase().subscribeOn(rxSchedulers.io),
-      Single.fromCallable { getCloudIpUseCase() }.subscribeOn(rxSchedulers.io),
+      Single.just(getCloudIpUseCase() ?: "").subscribeOn(rxSchedulers.io),
     ) { walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud ->
       Septuple(walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud)
     }
