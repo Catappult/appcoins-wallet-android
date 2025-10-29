@@ -82,9 +82,9 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
             "&version=${appVersion ?: ""}" +
             "&currency=".plus(if (getCachedCurrencyUseCase().equals("null")) "" else getCachedCurrencyUseCase()) +
             "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}" +
+            if (!ipCloud.isNullOrBlank()) "&ip_cloud_gaming=$ipCloud" else "" +
             if (generateWebLoginUrlUseCase.isCloudGaming()) {
-              "&user=${encrypt}" +
-                  if (!ipCloud.isNullOrBlank()) "&ip_cloud_gaming=$ipCloud" else ""
+              "&user=${encrypt}"
             } else ""
       }
   }
