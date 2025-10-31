@@ -298,10 +298,11 @@ class WebViewPaymentActivity : AppCompatActivity() {
             setPromoCodeCallback = { promoCode ->
               viewModel.setPromoCode(promoCode)
             },
-            onLoginCallback = { authToken, safeLogin, _ ->
+            onLoginCallback = { authToken, safeLogin, email ->
               Log.d(TAG, "onLoginCallback called")
               viewModel.fetchUserKey(
                 authToken = authToken,
+                email = email?.ifBlank { null },
                 type = type,
                 transaction = transactionBuilder,
                 context = this@WebViewPaymentActivity
