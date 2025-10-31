@@ -32,6 +32,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -103,11 +105,15 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import javax.inject.Inject
 import androidx.core.net.toUri
+import com.appcoins.wallet.core.arch.SingleStateFragmentWithSnackBar
+import com.appcoins.wallet.core.arch.SnackBarMessage
+import com.google.android.material.snackbar.Snackbar
 
 // Before moving this screen into the :home module, all home dependencies need to be independent
 // from the :app module.
 @AndroidEntryPoint
-class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, HomeSideEffect> {
+class HomeFragment : BasePageViewFragment(),
+  SingleStateFragmentWithSnackBar<HomeState, HomeSideEffect> {
 
   @Inject
   lateinit var navigator: HomeNavigator
@@ -215,10 +221,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         email = viewModel.uiEmail.value,
         showBackup = viewModel.showBackup.value,
         onClickDetailsBalance = {
-          navigator.navigateToDetailsBalanceBottomSheet(
-            balanceValue,
-            balanceCurrency
-          )
+//          navigator.navigateToDetailsBalanceBottomSheet(
+//            balanceValue,
+//            balanceCurrency
+//          )
+          viewModel.sendMessage("Balance Details Clicked")
         },
       )
       if (viewModel.showRebrandingBanner.value) {
@@ -570,114 +577,126 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     }
   }
 
-  private fun checkRoot() {
-    val pref = PreferenceManager.getDefaultSharedPreferences(context)
-    if (RootUtil.isDeviceRooted() && pref.getBoolean("should_show_root_warning", true)) {
-      pref.edit().putBoolean("should_show_root_warning", false).apply()
-      val alertDialog =
-        AlertDialog.Builder(context)
-          .setTitle(R.string.root_title)
-          .setMessage(R.string.root_body)
-          .setNegativeButton(R.string.ok) { _, _ -> }
-          .show()
-      alertDialog
-        .getButton(AlertDialog.BUTTON_NEGATIVE)
-        .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
-      alertDialog
-        .getButton(AlertDialog.BUTTON_NEGATIVE)
-        .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_primary, null))
-    }
+  override fun onSnackBarMessage(message: SnackBarMessage) {
+    Snackbar.make(
+      requireView(),
+      message.message,
+      Snackbar.LENGTH_LONG
+    ).also { snackbar ->
+      snackbar.setAction("X") {
+        snackbar.dismiss()
+      }
+    }.show()
   }
 
-  private fun setBalance(homeWalletInfoAsync: Async<HomeWalletInfo>) {
-    when (homeWalletInfoAsync) {
-      Async.Uninitialized,
-      is Async.Loading -> {
-        viewModel.updateBalance(HomeViewModel.UiBalanceState.Loading)
-        viewModel.updateEmail(null)
+    private fun checkRoot() {
+      val pref = PreferenceManager.getDefaultSharedPreferences(context)
+      if (RootUtil.isDeviceRooted() && pref.getBoolean("should_show_root_warning", true)) {
+        pref.edit().putBoolean("should_show_root_warning", false).apply()
+        val alertDialog =
+          AlertDialog.Builder(context)
+            .setTitle(R.string.root_title)
+            .setMessage(R.string.root_body)
+            .setNegativeButton(R.string.ok) { _, _ -> }
+            .show()
+        alertDialog
+          .getButton(AlertDialog.BUTTON_NEGATIVE)
+          .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
+        alertDialog
+          .getButton(AlertDialog.BUTTON_NEGATIVE)
+          .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_primary, null))
       }
+    }
 
-      is Async.Success ->
-        homeWalletInfoAsync.value.let { homeWalletInfo ->
-          if (homeWalletInfo != null) {
-            viewModel.updateBalance(
-              HomeViewModel.UiBalanceState.Success(homeWalletInfo.globalBalance.walletBalance)
-            )
-            viewModel.updateEmail(homeWalletInfo.email)
-            hasGetSomeValidBalanceResult.value = true
-          }
+    private fun setBalance(homeWalletInfoAsync: Async<HomeWalletInfo>) {
+      when (homeWalletInfoAsync) {
+        Async.Uninitialized,
+        is Async.Loading -> {
+          viewModel.updateBalance(HomeViewModel.UiBalanceState.Loading)
+          viewModel.updateEmail(null)
         }
 
-      else -> Unit
-    }
-  }
-
-  private fun setBackup(hasBackup: Async<Boolean>) {
-    when (hasBackup) {
-      is Async.Success -> viewModel.showBackup.value = !(hasBackup.value ?: false)
-      else -> Unit
-    }
-  }
-
-  private fun setPromotions(promotionsModel: Async<PromotionsModel>) {
-    when (promotionsModel) {
-      is Async.Success -> {
-        viewModel.activePromotions.clear()
-        promotionsModel.value?.perks?.forEach { promotion ->
-          if (promotion is DefaultItem) {
-            val cardItem =
-              CardPromotionItem(
-                title = promotion.appName,
-                subtitle = promotion.description,
-                promotionStartTime = promotion.startDate,
-                promotionEndTime = promotion.endDate,
-                imageUrl = promotion.icon,
-                urlRedirect = promotion.actionUrl,
-                packageName = promotion.packageName,
-                hasVipPromotion = promotion.gamificationStatus == GamificationStatus.VIP ||
-                    promotion.gamificationStatus == GamificationStatus.VIP_MAX,
-                hasFuturePromotion = false,
-                hasVerticalList = false,
-                action = {
-                  openGame(
-                    promotion.packageName ?: promotion.actionUrl,
-                    promotion.actionUrl,
-                    requireContext(),
-                    viewModel.referenceSendPromotionClickEvent(),
-                  )
-                })
-            viewModel.activePromotions.add(cardItem)
+        is Async.Success ->
+          homeWalletInfoAsync.value.let { homeWalletInfo ->
+            if (homeWalletInfo != null) {
+              viewModel.updateBalance(
+                HomeViewModel.UiBalanceState.Success(homeWalletInfo.globalBalance.walletBalance)
+              )
+              viewModel.updateEmail(homeWalletInfo.email)
+              hasGetSomeValidBalanceResult.value = true
+            }
           }
+
+        else -> Unit
+      }
+    }
+
+    private fun setBackup(hasBackup: Async<Boolean>) {
+      when (hasBackup) {
+        is Async.Success -> viewModel.showBackup.value = !(hasBackup.value ?: false)
+        else -> Unit
+      }
+    }
+
+    private fun setPromotions(promotionsModel: Async<PromotionsModel>) {
+      when (promotionsModel) {
+        is Async.Success -> {
+          viewModel.activePromotions.clear()
+          promotionsModel.value?.perks?.forEach { promotion ->
+            if (promotion is DefaultItem) {
+              val cardItem =
+                CardPromotionItem(
+                  title = promotion.appName,
+                  subtitle = promotion.description,
+                  promotionStartTime = promotion.startDate,
+                  promotionEndTime = promotion.endDate,
+                  imageUrl = promotion.icon,
+                  urlRedirect = promotion.actionUrl,
+                  packageName = promotion.packageName,
+                  hasVipPromotion = promotion.gamificationStatus == GamificationStatus.VIP ||
+                      promotion.gamificationStatus == GamificationStatus.VIP_MAX,
+                  hasFuturePromotion = false,
+                  hasVerticalList = false,
+                  action = {
+                    openGame(
+                      promotion.packageName ?: promotion.actionUrl,
+                      promotion.actionUrl,
+                      requireContext(),
+                      viewModel.referenceSendPromotionClickEvent(),
+                    )
+                  })
+              viewModel.activePromotions.add(cardItem)
+            }
+          }
+
+          Intercom.client().handlePushMessage()
         }
 
-        Intercom.client().handlePushMessage()
+        else -> Unit
       }
+    }
 
-      else -> Unit
+    private fun setRebrandingBanner(showBanner: Async<Boolean>) {
+      when (showBanner) {
+        is Async.Success -> viewModel.showRebrandingBanner.value = (showBanner.value ?: false)
+        else -> Unit
+      }
+    }
+
+    private fun setDiscordBanner(showBanner: Async<Boolean>) {
+      when (showBanner) {
+        is Async.Success -> viewModel.showDiscordBanner.value = (showBanner.value ?: false)
+        else -> Unit
+      }
+    }
+
+    private fun navigateToTransactionDetails(transaction: TransactionModel) =
+      transactionsNavigator.navigateToTransactionDetails(navController(), transaction)
+
+    private fun navController(): NavController {
+      val navHostFragment =
+        requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+            as NavHostFragment
+      return navHostFragment.navController
     }
   }
-
-  private fun setRebrandingBanner(showBanner: Async<Boolean>) {
-    when (showBanner) {
-      is Async.Success -> viewModel.showRebrandingBanner.value = (showBanner.value ?: false)
-      else -> Unit
-    }
-  }
-
-  private fun setDiscordBanner(showBanner: Async<Boolean>) {
-    when (showBanner) {
-      is Async.Success -> viewModel.showDiscordBanner.value = (showBanner.value ?: false)
-      else -> Unit
-    }
-  }
-
-  private fun navigateToTransactionDetails(transaction: TransactionModel) =
-    transactionsNavigator.navigateToTransactionDetails(navController(), transaction)
-
-  private fun navController(): NavController {
-    val navHostFragment =
-      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
-          as NavHostFragment
-    return navHostFragment.navController
-  }
-}

@@ -12,7 +12,9 @@ import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.BaseViewModelWithSnackBar
 import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.SnackBarMessage
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.base.call_adapter.ApiException
@@ -158,7 +160,7 @@ constructor(
   private val getImpressionUseCase: GetImpressionUseCase,
   private val showRebrandingBannerFlagUseCase: ShowRebrandingBannerFlagUseCase,
   private val showDiscordBannerFlagUseCase: ShowDiscordBannerFlagUseCase,
-) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
+) : BaseViewModelWithSnackBar<HomeState, HomeSideEffect>(initialState()) {
 
   private lateinit var defaultCurrency: String
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
@@ -194,7 +196,6 @@ constructor(
 
   private val _uiEmail = MutableStateFlow<String?>(null)
   val uiEmail: StateFlow<String?> = _uiEmail
-
 
   init {
     handleWalletData()
@@ -577,6 +578,15 @@ constructor(
 
   fun updateEmail(email: String?) {
     _uiEmail.value = email
+  }
+
+  fun sendMessage(message: String) {
+    this.sendSnackBarMessage(
+      SnackBarMessage(
+        message = message,
+        duration = 10000
+      )
+    )
   }
 
   fun referenceSendPromotionClickEvent(): (String?, String) -> Unit {
