@@ -281,7 +281,7 @@ class WebViewPaymentViewModel @Inject constructor(
     context: Context
   ) {
     compositeDisposable.add(
-      fetchUserKeyUseCase(authToken)
+      fetchUserKeyUseCase(authToken, null)
         .doOnComplete { Log.d(TAG, "fetchUserKey: success") }
         .andThen(
           ewtObtainer.getEwtAuthenticationNoBearer()

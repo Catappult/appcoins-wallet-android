@@ -68,7 +68,7 @@ internal class CustomTabLoginViewModel @Inject constructor(
   fun fetchUserKey(authToken: String) {
     disposables
       .add(
-        fetchUserKeyUseCase(authToken)
+        fetchUserKeyUseCase(authToken, null)
           .subscribeOn(rxSchedulers.io)
           .observeOn(rxSchedulers.io)
           .doOnSubscribe {

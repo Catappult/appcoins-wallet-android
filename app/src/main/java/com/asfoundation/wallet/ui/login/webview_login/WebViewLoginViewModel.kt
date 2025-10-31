@@ -27,9 +27,9 @@ class WebViewLoginViewModel @Inject constructor(
   var isFirstRun: Boolean = true
   var webView: WebView? = null
 
-  fun fetchUserKey(authToken: String) {
+  fun fetchUserKey(authToken: String, email: String?) {
     CompositeDisposable().add(
-      fetchUserKeyUseCase(authToken)
+      fetchUserKeyUseCase(authToken, email)
         .subscribeOn(rxSchedulers.io)
         .observeOn(rxSchedulers.io)
         .subscribe({
