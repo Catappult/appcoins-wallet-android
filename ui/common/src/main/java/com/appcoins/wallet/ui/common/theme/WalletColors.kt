@@ -33,5 +33,5 @@ object WalletColors {
 
   val styleguide_green_variant = Color(0xFF156636)
 
-  val styleguide_phobos_moon = Color(0xFF7E88AFL)
+  val styleguide_phobos_moon = Color(0xFF7E88AF)
 }

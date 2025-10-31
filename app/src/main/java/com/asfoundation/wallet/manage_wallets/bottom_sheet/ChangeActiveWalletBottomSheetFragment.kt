@@ -133,13 +133,9 @@ class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   private fun showLoading() {
-    hideAll()
+    views.manageWalletBottomSheetSubmitButton.visibility = View.GONE
     views.manageWalletBottomSheetSystemView.visibility = View.VISIBLE
     views.manageWalletBottomSheetSystemView.showProgress(true)
-  }
-
-  private fun hideAll() {
-    views.manageWalletBottomSheetSubmitButton.visibility = View.GONE
   }
 
   override fun onSideEffect(sideEffect: ChangeActiveWalletBottomSheetSideEffect) {

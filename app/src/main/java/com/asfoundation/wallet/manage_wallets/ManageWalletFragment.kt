@@ -879,7 +879,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       verified = false,
       logging = true,
       canTransfer = false,
-      email = "isConnected"
+      email = "email@test.com"
     )
     val verificationStatus = VerificationStatusCompound(
       creditCardStatus = CODE_REQUESTED,

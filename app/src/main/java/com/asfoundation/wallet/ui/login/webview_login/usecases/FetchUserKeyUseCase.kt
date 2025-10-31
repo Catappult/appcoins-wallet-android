@@ -46,15 +46,16 @@ class FetchUserKeyUseCase @Inject constructor(
     email: String?
   ): Single<RecoverEntryResult> =
     when (recoverResult) {
-      is FailedEntryRecover.AlreadyAdded -> {
-        TODO(
-          """
-            Handle case when wallet is already added:
-              1. User makes log-in in a wallet that is already saved locally and is the current active wallet → “Already logged-in”
-                  A. Same as above, but wallet is not active → “Switched account”
-          """.trimIndent()
-        )
-      }
+      /**
+       * is FailedEntryRecover.AlreadyAdded -> {
+       *         TODO
+       *           """
+       *             Handle case when wallet is already added:
+       *               1. User makes log-in in a wallet that is already saved locally and is the current active wallet → “Already logged-in”
+       *                   A. Same as above, but wallet is not active → “Switched account”
+       *           """.trimIndent()
+       *       }
+       */
 
       is FailedEntryRecover -> Single.error(Exception("Failed to recover wallet: $recoverResult"))
       /**
