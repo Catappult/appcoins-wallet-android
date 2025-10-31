@@ -44,7 +44,8 @@ constructor(
             it.walletBalance.creditsOnlyFiat,
             preferencesRepository.getCurrentWalletAddress() == it.wallet,
             it.backupDate,
-            false
+            false,
+            email = it.email
           )
         )
       }
