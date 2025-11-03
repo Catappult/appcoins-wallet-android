@@ -80,10 +80,6 @@ class WebViewActivity : AppCompatActivity() {
   }
 
   companion object {
-
-    const val SUCCESS = 1
-    const val FAIL = 0
-    const val USER_CANCEL = 2
     private const val URL = "url"
     const val FORCE_PORTRAIT = "${BuildConfig.APPLICATION_ID}.FORCE_PORTRAIT"
 

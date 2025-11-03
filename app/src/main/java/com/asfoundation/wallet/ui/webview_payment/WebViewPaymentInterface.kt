@@ -68,7 +68,7 @@ class WebViewPaymentInterface(
   }
 
   @JavascriptInterface
-  fun onLogin(authToken: String, safeLogin: Boolean) {
+  fun onLogin(authToken: String, safeLogin: Boolean, email: String) {
     Log.d("WebViewPaymentInterface", "onLogin: $authToken")
     onLoginCallback(authToken, safeLogin)
   }

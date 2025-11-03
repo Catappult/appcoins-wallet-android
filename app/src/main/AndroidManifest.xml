@@ -265,7 +265,8 @@
         android:name="com.asfoundation.wallet.billing.amazonPay.AmazonPayReturnActivity"
         android:exported="true"
         android:launchMode="singleTask"
-        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"></activity>
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
+    </activity>
 
     <activity
         android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
@@ -359,10 +360,34 @@
     </activity>
 
     <activity
-        android:name="com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity"
+        android:name="com.asfoundation.wallet.ui.login.webview_login.WebViewLoginActivity"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
-        android:windowSoftInputMode="adjustResize" >
+        android:windowSoftInputMode="adjustResize">
+    </activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.Transparent.CustomTabLogin"
+        android:windowSoftInputMode="adjustResize">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data
+            android:host="com.appcoins.wallet"
+            android:scheme="login-wallet-result" />
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.login.custom_tab_login.native_login.NativeLoginActivity"
+        android:theme="@style/Theme.AppCompat.Transparent.CustomTabLogin"
+        android:launchMode="singleTop"
+        android:windowSoftInputMode="adjustResize">
     </activity>
 
     <activity

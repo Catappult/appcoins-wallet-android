@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.webview_login.usecases
+package com.asfoundation.wallet.ui.login.webview_login.usecases
 
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetActiveWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
@@ -10,7 +10,7 @@ import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
 import com.asfoundation.wallet.recover.use_cases.RecoverEntryPrivateKeyUseCase
 import com.asfoundation.wallet.recover.use_cases.SetDefaultWalletUseCase
-import com.asfoundation.wallet.ui.webview_login.repository.LoginRepository
+import com.asfoundation.wallet.ui.login.webview_login.repository.LoginRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject

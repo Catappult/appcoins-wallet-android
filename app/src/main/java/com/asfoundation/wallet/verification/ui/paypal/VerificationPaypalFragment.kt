@@ -57,6 +57,7 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletCodeTextField
 import com.appcoins.wallet.ui.widgets.expanded
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.WebViewResults
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationInfoModel
@@ -92,8 +93,8 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   private val paypalActivityLauncher =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
       when (result.resultCode) {
-        WebViewActivity.SUCCESS -> viewModel.successPayment()
-        WebViewActivity.FAIL, WebViewActivity.USER_CANCEL -> viewModel.failPayment()
+        WebViewResults.SUCCESS.code -> viewModel.successPayment()
+        WebViewResults.FAIL.code, WebViewResults.USER_CANCEL.code -> viewModel.failPayment()
       }
     }
 
@@ -121,7 +122,13 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   @Composable
   private fun PayPalVerificationScreen() {
     Scaffold(
-      topBar = { TopBar(onClickSupport = { viewModel.launchChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) },
+      topBar = {
+        TopBar(
+          onClickSupport = { viewModel.launchChat() },
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
+        )
+      },
       containerColor = WalletColors.styleguide_dark
     ) { padding ->
       Column(modifier = Modifier.padding(padding)) {
@@ -142,9 +149,9 @@ class VerificationPaypalFragment : BasePageViewFragment() {
             uiState.wrongCode,
             uiState.loading,
             onVerificationClick =
-            {
-              viewModel.launchVerificationPayment(getPaypalData())
-            }
+              {
+                viewModel.launchVerificationPayment(getPaypalData())
+              }
           )
         }
 
@@ -165,7 +172,8 @@ class VerificationPaypalFragment : BasePageViewFragment() {
               viewModel.fetchVerificationStatus()
             },
             fragmentName = fragmentName,
-            buttonAnalytics = buttonsAnalytics)
+            buttonAnalytics = buttonsAnalytics
+          )
         }
 
         is OpenWebPayPalPaymentRequest -> {
@@ -381,7 +389,10 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         analytics.sendInsertCodeScreenEvent(action = RESEND)
         onVerificationClick()
       }) {
-        Text(stringResource(id = R.string.start_again_button), color = WalletColors.styleguide_primary)
+        Text(
+          stringResource(id = R.string.start_again_button),
+          color = WalletColors.styleguide_primary
+        )
       }
 
     }

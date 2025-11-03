@@ -7,6 +7,7 @@ import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 
@@ -26,6 +27,8 @@ interface BillingDependenciesProvider {
   fun subscriptionsApi(): SubscriptionBillingApi
 
   fun rxSchedulers(): RxSchedulers
+
+  fun getInjectLogger(): Logger
 
   fun ewtObtainer(): EwtAuthenticatorService
 
