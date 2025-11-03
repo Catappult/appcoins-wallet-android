@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.settings.entry
 
-import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -35,12 +34,12 @@ import com.asfoundation.wallet.manage_cards.ManageCardSharedViewModel
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
-import com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import java.util.Locale
 import javax.inject.Inject
+import com.asfoundation.wallet.ui.login.processLoginRequest
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
@@ -83,17 +82,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       }
     }
   }
-
-  private val openLoginLauncher =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      when (result.resultCode) {
-        Activity.RESULT_OK -> {}
-
-        Activity.RESULT_CANCELED -> {}
-
-        else -> {}
-      }
-    }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -234,10 +222,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setLoginPreference() {
     val loginPreference = findPreference<Preference>("pref_login")
     loginPreference?.setOnPreferenceClickListener {
-      val url = presenter.getLoginUrl()
-      val intent = Intent(requireContext(), WebViewLoginActivity::class.java)
-      intent.putExtra(WebViewLoginActivity.URL, url)
-      openLoginLauncher.launch(intent)
+      processLoginRequest(
+        url = presenter.getLoginUrl(),
+        context = requireContext()
+      )
       false
     }
   }

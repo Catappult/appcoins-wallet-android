@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.webview_login
+package com.asfoundation.wallet.ui.login.webview_login
 
 import android.util.Log
 import android.webkit.JavascriptInterface

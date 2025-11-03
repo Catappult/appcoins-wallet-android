@@ -26,6 +26,7 @@ import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaymentInfoModelUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionOriginUseCase
+import com.asfoundation.wallet.ui.WebViewResults
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.google.gson.JsonObject
@@ -224,7 +225,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
 
   fun handleWebViewResult(result: ActivityResult) {
     when (result.resultCode) {
-      WebViewActivity.FAIL -> {
+      WebViewResults.FAIL.code -> {
         when {
           result.data?.dataString?.contains("codapayments") != true -> {
             if (result.data?.dataString?.contains(
@@ -251,7 +252,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
         sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }
       }
 
-      WebViewActivity.SUCCESS -> {
+      WebViewResults.SUCCESS.code -> {
         if (result.data?.scheme?.contains("adyencheckout") == true) {
           events.sendAdyenPaymentUrlEvent(
             args.transactionBuilder,
@@ -271,7 +272,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
         }
       }
 
-      WebViewActivity.USER_CANCEL -> {
+      WebViewResults.USER_CANCEL.code -> {
         if (result.data?.scheme?.contains("adyencheckout") == true) {
           events.sendAdyenPaymentUrlEvent(
             args.transactionBuilder,

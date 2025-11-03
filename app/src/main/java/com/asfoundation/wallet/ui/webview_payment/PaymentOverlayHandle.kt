@@ -16,11 +16,19 @@ object PaymentOverlayHandle {
     overlayRef?.get()?.let { if (it === activity) overlayRef = null }
   }
 
-  fun bringToFrontAndDeliver(uri: Uri?): Boolean {
+  fun bringToFrontAndDeliver(
+    uri: Uri?,
+    clearTop: Boolean = false,
+  ): Boolean {
     val overlay = overlayRef?.get() ?: return false
+    val flags = if (clearTop) {
+      Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+    } else {
+      Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP
+    }
     overlay.runOnUiThread {
       val intent = Intent(overlay, WebViewPaymentActivity::class.java)
-        .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        .addFlags(flags)
         .setData(uri)
       overlay.startActivity(intent)
     }

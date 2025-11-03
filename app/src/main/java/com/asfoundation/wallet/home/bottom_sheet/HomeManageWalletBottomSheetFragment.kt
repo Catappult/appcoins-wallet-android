@@ -1,14 +1,9 @@
 package com.asfoundation.wallet.home.bottom_sheet
 
-
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,7 +15,7 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.HomeManageWalletBottomSheetLayoutBinding
-import com.asfoundation.wallet.ui.webview_login.WebViewLoginActivity
+import com.asfoundation.wallet.ui.login.processLoginRequest
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,19 +44,6 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
       return HomeManageWalletBottomSheetFragment()
     }
   }
-
-  private val openLoginLauncher =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      when (result.resultCode) {
-        Activity.RESULT_OK -> {}
-
-        Activity.RESULT_CANCELED -> {
-          Toast.makeText(requireContext(), "Sign-in error", Toast.LENGTH_SHORT).show()
-        }
-
-        else -> {}
-      }
-    }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -93,10 +75,10 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
         getString(R.string.home_sign_in_button)
       )
       this.dismiss()
-      val url = viewModel.getLoginUrl()
-      val intent = Intent(requireContext(), WebViewLoginActivity::class.java)
-      intent.putExtra(WebViewLoginActivity.URL, url)
-      openLoginLauncher.launch(intent)
+      processLoginRequest(
+        url = viewModel.getLoginUrl(),
+        context = requireContext()
+      )
     }
 
     views.backupWalletView.setOnClickListener {
@@ -145,12 +127,11 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
     when (sideEffect) {
       is HomeManageWalletBottomSheetSideEffect.NavigateBack -> navigator.navigateBack()
       is HomeManageWalletBottomSheetSideEffect.OpenLogin -> {
-        val intent = Intent(requireContext(), WebViewLoginActivity::class.java)
-        intent.putExtra(WebViewLoginActivity.URL, sideEffect.url)
-        openLoginLauncher.launch(intent)
+        processLoginRequest(
+          url = sideEffect.url,
+          context = requireContext()
+        )
       }
-
-      else -> {}
     }
   }
 
