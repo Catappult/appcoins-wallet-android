@@ -3,6 +3,7 @@ package com.appcoins.wallet.sharedpreferences
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import javax.inject.Inject
+import androidx.core.content.edit
 
 class CommonsPreferencesDataSource
 @Inject
@@ -21,12 +22,13 @@ constructor(private val sharedPreferences: SharedPreferences) {
     private const val WALLET_ID = "wallet_id"
     private const val HAS_BEEN_IN_SETTINGS = "has_been_in_settings"
     private const val NUMBER_OF_TIMES_IN_HOME = "number_of_times_in_home"
+    private const val CLOUD_IP = "cloud_ip"
   }
 
   fun hasCompletedOnboarding() = sharedPreferences.getBoolean(ONBOARDING_COMPLETE_KEY, false)
 
   fun setOnboardingComplete() =
-    sharedPreferences.edit().putBoolean(ONBOARDING_COMPLETE_KEY, true).apply()
+    sharedPreferences.edit { putBoolean(ONBOARDING_COMPLETE_KEY, true) }
 
   fun getCurrentWalletAddress() = sharedPreferences.getString(CURRENT_ACCOUNT_ADDRESS_KEY, null)
 
@@ -37,7 +39,7 @@ constructor(private val sharedPreferences: SharedPreferences) {
     sharedPreferences.unregisterOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
 
   fun setCurrentWalletAddress(address: String) =
-    sharedPreferences.edit().putString(CURRENT_ACCOUNT_ADDRESS_KEY, address).apply()
+    sharedPreferences.edit { putString(CURRENT_ACCOUNT_ADDRESS_KEY, address) }
 
   fun hasSeenPromotionTooltip() = sharedPreferences.getBoolean(HAS_SEEN_PROMOTION_TOOLTIP, false)
 
@@ -52,20 +54,20 @@ constructor(private val sharedPreferences: SharedPreferences) {
     sharedPreferences.getInt(WALLET_PURCHASES_COUNT + walletAddress, 0)
 
   fun incrementWalletPurchasesCount(walletAddress: String, count: Int) =
-    sharedPreferences.edit().putInt(WALLET_PURCHASES_COUNT + walletAddress, count).apply()
+    sharedPreferences.edit { putInt(WALLET_PURCHASES_COUNT + walletAddress, count) }
 
   fun setWalletId(walletId: String) =
-    sharedPreferences.edit().putString(WALLET_ID, walletId).apply()
+    sharedPreferences.edit { putString(WALLET_ID, walletId) }
 
   fun getWalletId() = sharedPreferences.getString(WALLET_ID, null)
 
-  fun setBeenInSettings() = sharedPreferences.edit().putBoolean(HAS_BEEN_IN_SETTINGS, true).apply()
+  fun setBeenInSettings() = sharedPreferences.edit { putBoolean(HAS_BEEN_IN_SETTINGS, true) }
 
   fun increaseTimesOnHome() =
     sharedPreferences
-      .edit()
-      .putInt(NUMBER_OF_TIMES_IN_HOME, sharedPreferences.getInt(NUMBER_OF_TIMES_IN_HOME, 0) + 1)
-      .apply()
+      .edit {
+        putInt(NUMBER_OF_TIMES_IN_HOME, sharedPreferences.getInt(NUMBER_OF_TIMES_IN_HOME, 0) + 1)
+      }
 
   fun getNumberOfTimesOnHome() = sharedPreferences.getInt(NUMBER_OF_TIMES_IN_HOME, 0)
 
@@ -73,5 +75,9 @@ constructor(private val sharedPreferences: SharedPreferences) {
     sharedPreferences.getBoolean(VIP_STATUS_KEY + walletAddress, false)
 
   fun setVipOnboardingVisualisationState(walletAddress: String, hasSeen: Boolean) =
-    sharedPreferences.edit().putBoolean(VIP_STATUS_KEY + walletAddress, hasSeen).apply()
+    sharedPreferences.edit { putBoolean(VIP_STATUS_KEY + walletAddress, hasSeen) }
+
+  fun setCloudIp(ip: String?) = sharedPreferences.edit { putString(CLOUD_IP, ip) }
+
+  fun getCloudIp(): String? = sharedPreferences.getString(CLOUD_IP, null)
 }

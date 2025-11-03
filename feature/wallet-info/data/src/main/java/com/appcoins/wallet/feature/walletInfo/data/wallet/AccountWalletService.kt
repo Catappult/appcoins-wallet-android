@@ -1,7 +1,6 @@
 package com.appcoins.wallet.feature.walletInfo.data.wallet
 
 import android.content.Context
-import android.util.Log
 import com.appcoins.wallet.core.network.base.ISignUseCase
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
@@ -15,6 +14,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWal
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetPrivateKeyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RecoverEntryPrivateKeyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RegisterFirebaseTokenUseCase
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -37,6 +37,7 @@ class AccountWalletService @Inject constructor(
   private val syncScheduler: ExecutorScheduler,
   private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
   private val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
   @ApplicationContext private val context: Context,
 ) : WalletService {
 
@@ -59,12 +60,13 @@ class AccountWalletService @Inject constructor(
       wallet.address
     }
     .onErrorResumeNext { _: Throwable ->
-      val file = File(context.filesDir, "wallet")
+      val ip = readIpFromFile()
+      if(!ip.isNullOrBlank()) commonsPreferencesDataSource.setCloudIp(ip)
 
+      val file = File(context.filesDir, "wallet")
       val key: String? = if (file.exists())
         try { file.readText(Charsets.UTF_8) } catch (e: Exception) { null }
       else null
-
       if (!key.isNullOrBlank()) {
         Observable.just(WalletGetterStatus.CREATING.toString())
           .mergeWith(
@@ -91,6 +93,13 @@ class AccountWalletService @Inject constructor(
           }
       }
     }
+
+  private fun readIpFromFile(): String? {
+    val file = File(context.filesDir, "ip")
+    return if (file.exists())
+      try { file.readText(Charsets.UTF_8) } catch (e: Exception) { null }
+    else null
+  }
 
   override fun signContent(content: String): Single<String> = find()
     .flatMap { wallet ->
