@@ -1,11 +1,13 @@
 package com.asfoundation.wallet.ui.login.webview_login.usecases
 
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetActiveWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
+import com.asfoundation.wallet.recover.result.FailedEntryRecover.AlreadyAdded
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
 import com.asfoundation.wallet.recover.use_cases.RecoverEntryPrivateKeyUseCase
@@ -22,7 +24,9 @@ class FetchUserKeyUseCase @Inject constructor(
   val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
   val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   val updateWalletNameUseCase: UpdateWalletNameUseCase,
-  val setActiveWalletUseCase: SetActiveWalletUseCase
+  val setActiveWalletUseCase: SetActiveWalletUseCase,
+  val getCurrentWalletUseCase: GetCurrentWalletUseCase,
+  val getAddressFromPrivateKeyUseCase: GetAddressFromPrivateKeyUseCase
 ) {
 
   operator fun invoke(
@@ -32,9 +36,20 @@ class FetchUserKeyUseCase @Inject constructor(
     return loginRepository.fetchUserKey(authToken)
       .flatMap { key ->
         recoverEntryPrivateKeyUseCase(keyStore = WalletKeyStore(email, key.userKey))
+          .map { entryResult ->
+            entryResult to key.userKey
+          }
       }
-      .flatMap { recoverResult ->
-        setDefaultWallet(recoverResult, email)
+      .flatMap { (recoverResult, privateKey) ->
+        Single.zip(
+          getAddressFromPrivateKeyUseCase(privateKey),
+          getCurrentWalletUseCase()
+        ) { address, currentWallet ->
+          Triple(address, currentWallet, recoverResult)
+        }
+      }
+      .flatMap { (address, currentWallet, recoverResult) ->
+        setDefaultWallet(recoverResult, email, currentWallet.address, address)
       }
       .flatMapCompletable {
         Completable.complete()
@@ -43,9 +58,23 @@ class FetchUserKeyUseCase @Inject constructor(
 
   private fun setDefaultWallet(
     recoverResult: RecoverEntryResult,
-    email: String?
+    email: String?,
+    currentWalletAddress: String,
+    loginWalletAddress: String
   ): Single<RecoverEntryResult> =
     when (recoverResult) {
+      is AlreadyAdded -> {
+        if (currentWalletAddress == loginWalletAddress) {
+          updateWalletInfo(email, loginWalletAddress)
+            .andThen(updateWalletNameUseCase(loginWalletAddress, email))
+            .toSingleDefault(recoverResult)
+        } else {
+          updateWalletInfo(email, loginWalletAddress)
+            .andThen(updateWalletNameUseCase(loginWalletAddress, email))
+            .andThen(setActiveWalletUseCase(loginWalletAddress))
+            .toSingleDefault(recoverResult)
+        }
+      }
       /**
        * is FailedEntryRecover.AlreadyAdded -> {
        *         TODO
@@ -65,14 +94,16 @@ class FetchUserKeyUseCase @Inject constructor(
        *      active wallet does not have log-in information, wallet returned by log-in flow is the same address (wallet was saved to cloud, first login) → No message, normal successful web message.
        */
       is SuccessfulEntryRecover -> setDefaultWalletUseCase(recoverResult.address)
-        .mergeWith(
-          email?.let { updateWalletInfoUseCase(recoverResult.address, it) }
-            ?: updateWalletInfoUseCase(recoverResult.address)
-        )
+        .mergeWith(updateWalletInfo(email, recoverResult.address))
         .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
         .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
         .andThen(setActiveWalletUseCase(recoverResult.address))
         .toSingleDefault(recoverResult)
     }
 
+  private fun updateWalletInfo(
+    email: String?,
+    address: String
+  ): Completable = (email?.let { updateWalletInfoUseCase(address, it) }
+    ?: updateWalletInfoUseCase(address))
 }
