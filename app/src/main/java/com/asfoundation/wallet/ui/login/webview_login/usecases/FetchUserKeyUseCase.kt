@@ -33,25 +33,28 @@ class FetchUserKeyUseCase @Inject constructor(
     authToken: String,
     email: String?
   ): Completable {
-    return loginRepository.fetchUserKey(authToken)
-      .flatMap { key ->
-        recoverEntryPrivateKeyUseCase(keyStore = WalletKeyStore(email, key.userKey))
-          .map { entryResult ->
-            entryResult to key.userKey
-          }
-      }
-      .flatMap { (recoverResult, privateKey) ->
+    return Single.zip(
+      loginRepository.fetchUserKey(authToken),
+      getCurrentWalletUseCase()
+    ) { key, currentWallet ->
+      key to currentWallet
+    }
+      .flatMap { (response, wallet) ->
         Single.zip(
-          getAddressFromPrivateKeyUseCase(privateKey),
-          getCurrentWalletUseCase()
-        ) { address, currentWallet ->
-          Triple(address, currentWallet, recoverResult)
+          getAddressFromPrivateKeyUseCase(response.userKey),
+          recoverEntryPrivateKeyUseCase(WalletKeyStore(email, response.userKey))
+        ) { address, recoverResult ->
+          Triple(address, recoverResult, wallet)
         }
       }
-      .flatMap { (address, currentWallet, recoverResult) ->
-        setDefaultWallet(recoverResult, email, currentWallet.address, address)
-      }
-      .flatMapCompletable {
+      .flatMap { (address, result, wallet) ->
+        setDefaultWallet(
+          result,
+          email,
+          wallet.address,
+          address
+        )
+      }.flatMapCompletable {
         Completable.complete()
       }
   }
@@ -93,11 +96,10 @@ class FetchUserKeyUseCase @Inject constructor(
        *    The user is logging-in with a new email:
        *      active wallet does not have log-in information, wallet returned by log-in flow is the same address (wallet was saved to cloud, first login) → No message, normal successful web message.
        */
-      is SuccessfulEntryRecover -> setDefaultWalletUseCase(recoverResult.address)
+      is SuccessfulEntryRecover -> setActiveWalletUseCase(recoverResult.address)
         .mergeWith(updateWalletInfo(email, recoverResult.address))
         .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
         .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
-        .andThen(setActiveWalletUseCase(recoverResult.address))
         .toSingleDefault(recoverResult)
     }
 
