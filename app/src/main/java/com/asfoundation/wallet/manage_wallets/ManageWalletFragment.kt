@@ -554,7 +554,9 @@ class ManageWalletFragment : BasePageViewFragment() {
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = CenterVertically,
-      modifier = modifier.fillMaxWidth()
+      modifier = modifier
+        .fillMaxWidth()
+        .padding(bottom = BALANCE_BOTTOM_SHEET_BOTTOM_SPACER_HEIGHT.dp)
     ) {
       ShowWalletsNameAndConnection(walletInfo.name, walletInfo.email != null)
       TextButton(
@@ -667,9 +669,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   fun ShowWalletsNameAndConnection(walletName: String, isConnected: Boolean) {
     Column(
       verticalArrangement = Arrangement.SpaceBetween,
-      horizontalAlignment = Alignment.Start,
-      modifier = Modifier
-        .padding(end = SHOW_WALLETS_NAME_AND_CONNECTION_BOTTOM_SPACER_HEIGHT.dp)
+      horizontalAlignment = Alignment.Start
     ) {
       Row(
         verticalAlignment = CenterVertically,
@@ -918,7 +918,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     private const val SHOW_WALLETS_NAME_AND_CONNECTION_ICON_SIZE = 16
     private const val SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_HEIGHT = 8
     private const val SHOW_WALLETS_NAME_AND_CONNECTION_WALLET_NAME_MAX_WIDTH = 0.5f
-    private const val SHOW_WALLETS_NAME_AND_CONNECTION_BOTTOM_SPACER_HEIGHT = 23
+    private const val BALANCE_BOTTOM_SHEET_BOTTOM_SPACER_HEIGHT = 10
   }
 
   private fun navController(): NavController {
