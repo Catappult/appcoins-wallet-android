@@ -6,9 +6,10 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
-import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.github.michaelbull.result.get
 import io.reactivex.Scheduler
@@ -30,6 +31,7 @@ class SettingsPresenter(
   private val displayChatUseCase: DisplayChatUseCase,
   private val getStoredCardsUseCase: GetStoredCardsUseCase,
   private val generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
+  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
 ) {
 
   fun present(savedInstanceState: Bundle?) {
@@ -58,11 +60,11 @@ class SettingsPresenter(
     view.setCreditsPreference()
     view.setVersionPreference()
     view.setManageWalletPreference()
-    view.setLoginPreference()
     view.setManageSubscriptionsPreference()
     view.setFaqsPreference()
     setCurrencyPreference()
     getCards()
+    getSigningButton()
   }
 
   fun setFingerPrintPreference() {
@@ -80,6 +82,23 @@ class SettingsPresenter(
         view.setDisabledFingerPrintPreference()
       }
     }
+  }
+
+  private fun getSigningButton() {
+    Log.d("SettingsPresenter", "getSigningButton is being called")
+    observeWalletInfoUseCase(null, update = true)
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSubscribe {
+        Log.d("SettingsPresenter", "getSigningButton")
+        view.setLoginSwitchPreference(false)
+      }
+      .take(1)
+      .doOnNext { walletInfo ->
+        Log.d("SettingsPresenter", "walletInfo: $walletInfo")
+        view.setLoginSwitchPreference(walletInfo.email != null)
+      }
+      .subscribe()
   }
 
   private fun getCards() {
@@ -168,8 +187,8 @@ class SettingsPresenter(
   private fun onFingerPrintPreferenceChange() {
     disposables.add(
       view.switchPreferenceChange()
-      .doOnNext { navigator.showAuthentication(view.authenticationResult()) }
-      .subscribe({}, { it.printStackTrace() })
+        .doOnNext { navigator.showAuthentication(view.authenticationResult()) }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 

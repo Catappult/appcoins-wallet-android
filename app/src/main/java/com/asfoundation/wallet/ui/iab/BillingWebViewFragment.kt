@@ -23,6 +23,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.WebviewFragmentBinding
 import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
+import com.asfoundation.wallet.ui.WebViewResults
 import com.google.android.material.snackbar.Snackbar
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -240,7 +241,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
     } else {
       val intent = Intent()
       intent.data = Uri.parse(currentUrl)
-      webViewActivity?.setResult(WebViewActivity.FAIL, intent)
+      webViewActivity?.setResult(WebViewResults.FAIL.code, intent)
       false
     }
   }
@@ -304,16 +305,16 @@ class BillingWebViewFragment : BasePageViewFragment() {
     val intent = prepareIntentToFinishURL(url)
     val resultCode = Uri.parse(url).getQueryParameter("resultCode")
     if (resultCode.equals("cancelled", true)) {
-      webViewActivity?.setResult(WebViewActivity.USER_CANCEL, intent)
+      webViewActivity?.setResult(WebViewResults.USER_CANCEL.code, intent)
     } else {
-      webViewActivity?.setResult(WebViewActivity.SUCCESS, intent)
+      webViewActivity?.setResult(WebViewResults.SUCCESS.code, intent)
     }
 
     webViewActivity?.finish()
   }
 
   private fun finishWithFail(url: String) {
-    webViewActivity?.setResult(WebViewActivity.FAIL, prepareIntentToFinishURL(url))
+    webViewActivity?.setResult(WebViewResults.FAIL.code, prepareIntentToFinishURL(url))
     webViewActivity?.finish()
   }
 

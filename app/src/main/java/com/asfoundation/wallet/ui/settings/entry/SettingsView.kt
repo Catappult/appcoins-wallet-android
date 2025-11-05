@@ -43,8 +43,6 @@ interface SettingsView {
 
   fun setManageWalletPreference()
 
-  fun setLoginPreference()
-
   fun setManageSubscriptionsPreference()
 
   fun setManageCardsPreference()
@@ -62,4 +60,6 @@ interface SettingsView {
   fun updateFingerPrintListener(enabled: Boolean)
 
   fun setFaqsPreference()
+
+  fun setLoginSwitchPreference(isLogged: Boolean)
 }

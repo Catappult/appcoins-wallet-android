@@ -12,8 +12,8 @@ import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeU
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
-import com.asfoundation.wallet.util.tuples.Sextuple
+import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.util.tuples.Septuple
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -28,6 +28,7 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
   val analytics: IndicativeAnalytics,
   val generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
   val getEncryptedPrivateKeyUseCase: GetEncryptedPrivateKeyUseCase,
+  val getCloudIpUseCase: GetCloudIpUseCase,
   val rxSchedulers: RxSchedulers,
 ) {
 
@@ -35,18 +36,20 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
 
   operator fun invoke(
     transaction: TransactionBuilder,
-    appVersion: String?
+    appVersion: String?,
+    hasCustomTab: Boolean,
   ): Single<String> {
     return Single.zip(
       walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
       ewtObtainer.getEwtAuthenticationNoBearer()
         .subscribeOn(rxSchedulers.io),
       getCountryCodeUseCase().subscribeOn(rxSchedulers.io),
-      addressService.getAttribution(transaction?.domain ?: "").subscribeOn(rxSchedulers.io),
+      addressService.getAttribution(transaction.domain ?: "").subscribeOn(rxSchedulers.io),
       getCurrentPromoCodeUseCase().subscribeOn(rxSchedulers.io),
       getEncryptedPrivateKeyUseCase().subscribeOn(rxSchedulers.io),
-    ) { walletModel, ewt, country, oemId, promoCode, encrypt ->
-      Sextuple(walletModel, ewt, country, oemId, promoCode, encrypt)
+      Single.just(getCloudIpUseCase() ?: "").subscribeOn(rxSchedulers.io),
+    ) { walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud ->
+      Septuple(walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud)
     }
       .map { args ->
         val walletModel = args.first
@@ -55,6 +58,7 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
         val oemId = args.fourth.oemId
         val promoCode = args.fifth
         val encrypt = args.sixth
+        val ipCloud = args.seventh
 
         "$baseWebViewPaymentUrl?" +
             "&country=$country" +
@@ -65,6 +69,7 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
             "&product=${transaction.skuId ?: ""}" +
             "&domain=${transaction.domain ?: ""}" +
             "&type=${transaction.type ?: ""}" +
+            "&is_cct=$hasCustomTab" +
             "&oem_id=${oemId ?: ""}" +
             "&reference=${
               (transaction.orderReference ?: "").convertToBase64Url()
@@ -79,9 +84,10 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
             "&version=${appVersion ?: ""}" +
             "&currency=".plus(if (getCachedCurrencyUseCase().equals("null")) "" else getCachedCurrencyUseCase()) +
             "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}" +
-            if (generateWebLoginUrlUseCase.isCloudGaming())
+            if (!ipCloud.isNullOrBlank()) "&ip_cloud_gaming=$ipCloud" else "" +
+            if (generateWebLoginUrlUseCase.isCloudGaming()) {
               "&user=${encrypt}"
-            else ""
+            } else ""
       }
   }
 

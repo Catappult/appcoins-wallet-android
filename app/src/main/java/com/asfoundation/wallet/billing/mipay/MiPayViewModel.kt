@@ -24,6 +24,7 @@ import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCas
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetMiPayLinkUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
+import com.asfoundation.wallet.ui.WebViewResults
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.ui.iab.WebViewActivity
@@ -160,7 +161,7 @@ class MiPayViewModel @Inject constructor(
           packageName = "",
           skuDetails = "",
           value = "",
-          errorCode = WebViewActivity.FAIL.toString(),
+          errorCode = WebViewResults.FAIL.code.toString(),
         )
         sendSideEffect { MiPayIABSideEffect.ShowError(R.string.unknown_error) }
         timerTransactionStatus.cancel()
@@ -295,11 +296,11 @@ class MiPayViewModel @Inject constructor(
 
   fun handleWebViewResult(result: ActivityResult) {
     when (result.resultCode) {
-      WebViewActivity.SUCCESS -> {
+      WebViewResults.SUCCESS.code -> {
         startTransactionStatusTimer()
       }
 
-      WebViewActivity.FAIL -> {
+      WebViewResults.FAIL.code -> {
         sendSideEffect { MiPayIABSideEffect.BackToPayments }
       }
     }

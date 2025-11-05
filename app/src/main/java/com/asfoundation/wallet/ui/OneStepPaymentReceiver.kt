@@ -18,11 +18,14 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.WebViewResults.FAIL
+import com.asfoundation.wallet.ui.WebViewResults.RELAUNCH_WEBVIEW
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
-import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.ui.login.hasCustomChromeTabAvailable
+import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentOspUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
@@ -153,8 +156,17 @@ class OneStepPaymentReceiver : BaseActivity() {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == REQUEST_CODE) {
-      setResult(resultCode, data)
-      finish()
+      if (resultCode == RELAUNCH_WEBVIEW.code) {
+        data?.let {
+          startActivityForResult(it, REQUEST_CODE)
+        } ?: run {
+          setResult(FAIL.code)
+          finish()
+        }
+      } else {
+        setResult(resultCode, data)
+        finish()
+      }
     }
   }
 
@@ -176,7 +188,11 @@ class OneStepPaymentReceiver : BaseActivity() {
   private fun startWebViewPayment(
     transaction: TransactionBuilder,
   ): Single<String> {
-    return createWebViewPaymentOspUseCase(transaction, BuildConfig.VERSION_CODE.toString())
+    return createWebViewPaymentOspUseCase(
+      transaction = transaction,
+      appVersion = BuildConfig.VERSION_CODE.toString(),
+      hasCustomTab = hasCustomChromeTabAvailable(this)
+    )
       .doOnSuccess { url ->
         launchWebViewPayment(url, transaction, WebViewPaymentActivity.OSP_TRANSACTION)
       }

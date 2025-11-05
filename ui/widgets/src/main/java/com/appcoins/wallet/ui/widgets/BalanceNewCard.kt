@@ -35,9 +35,15 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_shimmer
 
+private const val EMAIL_TEXT_WEIGHT = 400
+private const val EMAIL_TEXT_FONT_SIZE = 14
+
+private const val EMAIL_SPACER_HEIGHT = 12
+
 @Composable
 fun BalanceNewCard(
   balance: String,
+  email: String?,
   onClickPromoCode: () -> Unit,
   onClickDetailsBalance: () -> Unit,
   onClickTopUp: () -> Unit,
@@ -82,7 +88,16 @@ fun BalanceNewCard(
         )
       }
 
-      Spacer(modifier = Modifier.height(8.dp))
+      email?.let {
+        Spacer(modifier = Modifier.height(EMAIL_SPACER_HEIGHT.dp))
+        Text(
+          text = it,
+          color = WalletColors.styleguide_phobos_moon,
+          fontSize = EMAIL_TEXT_FONT_SIZE.sp,
+          fontWeight = FontWeight(EMAIL_TEXT_WEIGHT)
+        )
+        Spacer(modifier = Modifier.height(EMAIL_SPACER_HEIGHT.dp))
+      }
 
       Text(
         text = balance,
@@ -183,6 +198,7 @@ fun BalanceButton(
     )
   }
 }
+
 @Composable
 fun SkeletonLoadingNewBalanceCardExpanded() {
   Card(
@@ -274,5 +290,6 @@ fun PreviewBalanceNewCard() {
     isLoading = false,
     fragmentName = "HomeFragment",
     buttonsAnalytics = null,
+    email = "email@test.com"
   )
 }

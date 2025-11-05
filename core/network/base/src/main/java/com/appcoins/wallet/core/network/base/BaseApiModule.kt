@@ -10,6 +10,7 @@ import com.appcoins.wallet.core.network.base.annotations.RenewJwtRetrofit
 import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
 import com.appcoins.wallet.core.network.base.call_adapter.ApiResultCallAdapterFactory
 import com.appcoins.wallet.core.network.base.compat.RenewJwtApi
+import com.appcoins.wallet.core.network.base.interceptors.CloudIpInterceptor
 import com.appcoins.wallet.core.network.base.interceptors.LogInterceptor
 import com.appcoins.wallet.core.network.base.interceptors.MagnesHeaderInterceptor
 import com.appcoins.wallet.core.network.base.interceptors.RenewJwtInterceptor
@@ -38,12 +39,14 @@ class BaseApiModule {
     @ApplicationContext context: Context,
     commonsPreferencesDataSource: CommonsPreferencesDataSource,
     logInterceptor: LogInterceptor,
-    renewJwtInterceptor: RenewJwtInterceptor
+    renewJwtInterceptor: RenewJwtInterceptor,
+    cloudIpInterceptor: CloudIpInterceptor,
   ): OkHttpClient {
     return OkHttpClient.Builder()
       .addInterceptor(UserAgentInterceptor(context, commonsPreferencesDataSource))
       .addInterceptor(MagnesHeaderInterceptor(context))
       .addInterceptor(renewJwtInterceptor)
+      .addInterceptor(cloudIpInterceptor)
       .addInterceptor(logInterceptor)
       .build()
   }

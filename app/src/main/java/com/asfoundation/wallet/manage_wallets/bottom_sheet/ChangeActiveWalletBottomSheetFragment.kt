@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +42,8 @@ class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
     const val WALLET_BALANCE = "wallet_balance"
     const val WALLET_BALANCE_SYMBOL = "wallet_balance_symbol"
 
+    const val IS_WALLET_CONNECTED = "is_wallet_connected"
+
 
     @JvmStatic
     fun newInstance(): ChangeActiveWalletBottomSheetFragment {
@@ -60,6 +63,8 @@ class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
     val walletBalanceSymbol = arguments?.getString(WALLET_BALANCE_SYMBOL)
     val walletAddress = arguments?.getString(WALLET_ADDRESS)
     val walletName = arguments?.getString(WALLET_NAME)
+    val isWalletConnected = arguments?.getBoolean(IS_WALLET_CONNECTED, false) ?: false
+    setWalletConnectionBadge(isWalletConnected)
     if (!walletName.isNullOrEmpty()) {
       views.newWalletName.text = walletName
     }
@@ -68,6 +73,42 @@ class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
     }
     setListeners(walletAddress)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun setWalletConnectionBadge(isWalletConnected: Boolean) {
+    if (isWalletConnected) {
+      val background = ContextCompat.getDrawable(
+        requireContext(),
+        R.drawable.background_connection_badge_connected
+      )
+      views.connectionBadge.background = background
+      val drawable =
+        ContextCompat.getDrawable(requireContext(), R.drawable.ic_connection_badge_connected)
+      views.connectionBadge.setCompoundDrawablesRelativeWithIntrinsicBounds(
+        drawable,
+        null,
+        null,
+        null
+      )
+      val text = getString(R.string.manage_wallet_connection_badge_connected)
+      views.connectionBadge.text = text
+    } else {
+      val background = ContextCompat.getDrawable(
+        requireContext(),
+        R.drawable.background_connection_badge_not_connected
+      )
+      views.connectionBadge.background = background
+      val drawable =
+        ContextCompat.getDrawable(requireContext(), R.drawable.ic_connection_badge_not_connected)
+      views.connectionBadge.setCompoundDrawablesRelativeWithIntrinsicBounds(
+        drawable,
+        null,
+        null,
+        null
+      )
+      val text = getString(R.string.manage_wallet_connection_badge_not_connected)
+      views.connectionBadge.text = text
+    }
   }
 
   override fun onStart() {
@@ -92,15 +133,9 @@ class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   private fun showLoading() {
-    hideAll()
+    views.manageWalletBottomSheetSubmitButton.visibility = View.GONE
     views.manageWalletBottomSheetSystemView.visibility = View.VISIBLE
     views.manageWalletBottomSheetSystemView.showProgress(true)
-  }
-
-  private fun hideAll() {
-    views.walletNewNameSheetLayout.visibility = View.GONE
-    views.manageWalletBottomSheetTitle.visibility = View.GONE
-    views.manageWalletBottomSheetSubmitButton.visibility = View.GONE
   }
 
   override fun onSideEffect(sideEffect: ChangeActiveWalletBottomSheetSideEffect) {

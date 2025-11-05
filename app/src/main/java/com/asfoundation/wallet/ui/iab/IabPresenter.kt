@@ -17,6 +17,7 @@ import com.asfoundation.wallet.gamification.UpdateUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.ShowRebrandingBannerFlagUseCase
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
+import com.asfoundation.wallet.ui.WebViewResults
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
 import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUseCase
@@ -267,7 +268,7 @@ class IabPresenter @Inject constructor(
 
   private fun handleWebViewResult(resultCode: Int, data: Intent?) {
     when (resultCode) {
-      WebViewActivity.FAIL -> {
+      WebViewResults.FAIL.code -> {
         if (data?.dataString?.contains("codapayments") != true) {
           if (data?.dataString?.contains(
               BillingWebViewFragment.CARRIER_BILLING_ONE_BIP_SCHEMA
@@ -285,7 +286,7 @@ class IabPresenter @Inject constructor(
         view.showPaymentMethodsView()
       }
 
-      WebViewActivity.SUCCESS -> {
+      WebViewResults.SUCCESS.code -> {
         if (data?.scheme?.contains("adyencheckout") == true) {
           sendPaypalUrlEvent(data)
           sendPayPalConfirmationEvent(BillingAnalytics.ACTION_BUY)
@@ -294,7 +295,7 @@ class IabPresenter @Inject constructor(
         view.successWebViewResult(data!!.data)
       }
 
-      WebViewActivity.USER_CANCEL -> {
+      WebViewResults.USER_CANCEL.code -> {
         if (data?.scheme?.contains("adyencheckout") == true) {
           sendPaypalUrlEvent(data)
           sendPayPalConfirmationEvent(BillingAnalytics.ACTION_CANCEL)

@@ -84,12 +84,16 @@ constructor(
     bottomSheet.show(fragment.parentFragmentManager, "HomeBalanceWallet")
   }
 
-  fun navigateToManageBottomSheet(canTransfer: Boolean) {
+  fun navigateToManageBottomSheet(canTransfer: Boolean, isLoggedIn: Boolean) {
     val bottomSheet = HomeManageWalletBottomSheetFragment.newInstance()
     val bundle = Bundle()
     bundle.putBoolean(
       HomeManageWalletBottomSheetFragment.CAN_TRANSFER,
       canTransfer
+    )
+    bundle.putBoolean(
+      HomeManageWalletBottomSheetFragment.IS_LOGGED_IN,
+      isLoggedIn
     )
     bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "HomeManageWallet")

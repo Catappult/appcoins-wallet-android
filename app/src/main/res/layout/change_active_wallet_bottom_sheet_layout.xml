@@ -46,34 +46,69 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/mid_margin"
       android:background="@drawable/rectangle_text_default_promo_code"
-      android:padding="@dimen/big_padding"
+      android:paddingHorizontal="@dimen/big_padding"
       android:theme="@style/MaterialAppTheme"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/manage_wallet_bottom_sheet_title"
       >
 
-    <TextView
-        android:id="@+id/new_wallet_name"
+    <LinearLayout
+        android:id="@+id/wallet_info_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:textColor="@color/styleguide_dark_grey"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/new_wallet_balance"
+        android:orientation="vertical"
+        android:layout_marginVertical="@dimen/big_margin"
+        android:gravity="start"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="wallet name"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/new_wallet_balance">
 
+      <!-- Wallet name + icon -->
+      <TextView
+          android:id="@+id/new_wallet_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/styleguide_dark_grey"
+          android:textSize="12sp"
+          android:drawablePadding="6dp"
+          android:paddingVertical="2dp"
+          android:gravity="center_vertical"
+          android:includeFontPadding="false"
+          app:drawableStartCompat="@drawable/ic_wallet_minimal"
+          app:drawableTint="@color/styleguide_light_grey"
+          tools:text="Wallet Name" />
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="8dp" />
+
+
+      <!-- Connection badge -->
+      <TextView
+          android:id="@+id/connection_badge"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="@drawable/background_connection_badge_connected"
+          android:drawablePadding="6dp"
+          android:gravity="center_vertical"
+          android:includeFontPadding="false"
+          android:paddingHorizontal="6dp"
+          android:paddingVertical="2dp"
+          android:text="@string/manage_wallet_connection_badge_connected"
+          android:textColor="@android:color/white"
+          android:textSize="12sp"
+          app:drawableStartCompat="@drawable/ic_connection_badge_connected"
+          />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/new_wallet_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/styleguide_dark_grey"
-        android:textSize="12sp"
+        android:textColor="@color/currency_text_color"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -89,6 +124,7 @@
       android:layout_marginTop="30dp"
       app:buttonText="@string/wallet_view_activate_button"
       app:buttonType="filled"
+      android:visibility="visible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/wallet_new_name_sheet_layout"
@@ -96,13 +132,12 @@
 
   <com.appcoins.wallet.ui.widgets.SystemView
       android:id="@+id/manage_wallet_bottom_sheet_system_view"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_margin="26dp"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="26dp"
+      android:layout_marginTop="26dp"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/wallet_new_name_sheet_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

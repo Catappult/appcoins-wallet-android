@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.webview_login.usecases
+package com.asfoundation.wallet.ui.login.webview_login.usecases
 
 import android.content.Context
 import android.os.Build

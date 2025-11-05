@@ -101,6 +101,18 @@ interface WalletInfoDao {
     }
   }
 
+  /**
+   * Attempts to insert a WalletInfoEntity with email. If it already exists, it just
+   * updates the email field.
+   */
+  fun insertOrUpdateEmail(walletInfo: WalletInfoEntity) {
+    try {
+      insertWalletInfo(walletInfo)
+    } catch (e: Exception) {
+      updateEmail(walletInfo.wallet, walletInfo.email)
+    }
+  }
+
   @Transaction
   fun deleteByAddress(walletAddress: String) = deleteWalletInfo(WalletInfoDelete(walletAddress))
 
@@ -109,4 +121,7 @@ interface WalletInfoDao {
 
   @Query("SELECT * FROM WalletInfoEntity WHERE wallet = :walletAddress LIMIT 1")
   fun getWalletInfo(walletAddress: String): Single<List<WalletInfoEntity>>
+
+  @Query("UPDATE WalletInfoEntity SET email = :email WHERE wallet = :walletAddress")
+  fun updateEmail(walletAddress: String, email: String?)
 }

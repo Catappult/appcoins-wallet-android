@@ -23,4 +23,8 @@ class UpdateWalletInfoUseCase @Inject constructor(
       walletInfoRepository.updateWalletInfo(it.address)
     }
   }
+
+  operator fun invoke(address: String, email: String): Completable {
+    return walletInfoRepository.updateWalletInfo(address, email)
+  }
 }

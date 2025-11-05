@@ -20,7 +20,7 @@ class WebViewPaymentInterface(
   private val onErrorCallback: (WebViewPaymentErrorResponse?) -> Unit,
   private val openVerifyFlowCallback: (VerifyFlowWeb) -> Unit,
   private val setPromoCodeCallback: (promoCode: String) -> Unit,
-  private val onLoginCallback: (authToken: String, safeLogin: Boolean) -> Unit,
+  private val onLoginCallback: (authToken: String, safeLogin: Boolean, email: String?) -> Unit,
   private val goToUrlCallback: (url: String) -> Unit,
   private val updateCloseBehaviorCallback: (CloseBehaviorConfig) -> Unit,
 ) {
@@ -68,9 +68,9 @@ class WebViewPaymentInterface(
   }
 
   @JavascriptInterface
-  fun onLogin(authToken: String, safeLogin: Boolean) {
+  fun onLogin(authToken: String, safeLogin: Boolean, email: String?) {
     Log.d("WebViewPaymentInterface", "onLogin: $authToken")
-    onLoginCallback(authToken, safeLogin)
+    onLoginCallback(authToken, safeLogin, email)
   }
 
   @JavascriptInterface

@@ -8,7 +8,6 @@ import java.io.IOException
  * Class file to create kotlin extension functions
  *
  */
-
 fun Throwable?.isNoNetworkException(): Boolean {
   return this != null && (this is IOException || this.cause != null && this.cause is IOException)
 }

@@ -13,7 +13,8 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
 import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.ui.login.hasCustomChromeTabAvailable
+import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
@@ -107,7 +108,11 @@ internal class Erc681ReceiverPresenter(
   private fun startWebViewPayment(
     transaction: TransactionBuilder,
   ): Single<String> {
-    return createWebViewPaymentSdkUseCase(transaction, appVersionCode.toString())
+    return createWebViewPaymentSdkUseCase(
+      transaction = transaction,
+      appVersion = appVersionCode.toString(),
+      hasCustomTab = hasCustomChromeTabAvailable(context)
+    )
       .doOnSuccess { url ->
         view.launchWebViewPayment(url, transaction, WebViewPaymentActivity.SDK_TRANSACTION)
       }

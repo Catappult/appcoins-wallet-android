@@ -10,7 +10,8 @@ data class WalletInfo(
   val verified: Boolean,
   val logging: Boolean,
   val backupDate: Long,
-  val canTransfer: Boolean
+  val canTransfer: Boolean,
+  val email: String? = null,
 ) {
   val hasBackup get() = backupDate > 0
 }

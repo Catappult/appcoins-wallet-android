@@ -21,6 +21,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
+import com.asfoundation.wallet.ui.WebViewResults
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.google.gson.JsonObject
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -128,6 +129,7 @@ class ManageAdyenPaymentViewModel @Inject constructor(
           AdyenErrorCodeMapper.CVC_DECLINED -> sendSideEffect {
             ManageAdyenPaymentSideEffect.ShowCvvError
           }
+
           AdyenErrorCodeMapper.FRAUD -> {
             sendSideEffect { ManageAdyenPaymentSideEffect.NavigateToPaymentError }
           }
@@ -193,17 +195,17 @@ class ManageAdyenPaymentViewModel @Inject constructor(
 
   fun handleWebViewResult(result: ActivityResult) {
     when (result.resultCode) {
-      WebViewActivity.FAIL -> {
+      WebViewResults.FAIL.code -> {
         sendSideEffect { ManageAdyenPaymentSideEffect.NavigateToPaymentError }
       }
 
-      WebViewActivity.SUCCESS -> {
+      WebViewResults.SUCCESS.code -> {
         result.data!!.data?.let { uri ->
           sendSideEffect { ManageAdyenPaymentSideEffect.HandleWebViewResult(uri) }
         }
       }
 
-      WebViewActivity.USER_CANCEL -> {
+      WebViewResults.USER_CANCEL.code -> {
         sendSideEffect { ManageAdyenPaymentSideEffect.NavigateToPaymentError }
       }
     }

@@ -12,8 +12,8 @@ import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeU
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.webview_login.usecases.GenerateWebLoginUrlUseCase
-import com.asfoundation.wallet.util.tuples.Sextuple
+import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.util.tuples.Septuple
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -28,14 +28,16 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
   val getCachedCurrencyUseCase: GetCachedCurrencyUseCase,
   val generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
   val getEncryptedPrivateKeyUseCase: GetEncryptedPrivateKeyUseCase,
-  val rxSchedulers: RxSchedulers
+  val getCloudIpUseCase: GetCloudIpUseCase,
+  val rxSchedulers: RxSchedulers,
 ) {
 
   val baseWebViewPaymentUrl = HostProperties.WEBVIEW_PAYMENT_URL
 
   operator fun invoke(
     transaction: TransactionBuilder,
-    appVersion: String?
+    appVersion: String?,
+    hasCustomTab: Boolean,
   ): Single<String> {
     return Single.zip(
       walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
@@ -44,8 +46,9 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
       addressService.getAttribution(transaction?.domain ?: "").subscribeOn(rxSchedulers.io),
       getCurrentPromoCodeUseCase().subscribeOn(rxSchedulers.io),
       getEncryptedPrivateKeyUseCase().subscribeOn(rxSchedulers.io),
-    ) { walletModel, ewt, country, oemId, promoCode, encrypt ->
-      Sextuple(walletModel, ewt, country, oemId, promoCode, encrypt)
+      Single.just (getCloudIpUseCase() ?: "").subscribeOn(rxSchedulers.io),
+    ) { walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud ->
+      Septuple(walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud)
     }
       .map { args ->
         val walletModel = args.first
@@ -54,6 +57,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
         val oemId = args.fourth.oemId
         val promoCode = args.fifth
         val encrypt = args.sixth
+        val ipCloud = args.seventh
 
         "$baseWebViewPaymentUrl?" +
             "referrer_url=${
@@ -68,14 +72,16 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
             "&domain=${transaction.domain ?: ""}" +
             "&type=${transaction.type ?: ""}" +
             "&oem_id=${oemId ?: ""}" +
+            "&is_cct=$hasCustomTab" +
             "&reference=${transaction.orderReference ?: ""}" +
             "&promo_code=${promoCode.code ?: ""}" +
             "&version=${appVersion ?: ""}" +
             "&currency=".plus(if (getCachedCurrencyUseCase().equals("null")) "" else getCachedCurrencyUseCase()) +
             "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}" +
-            if (generateWebLoginUrlUseCase.isCloudGaming())
+            if (!ipCloud.isNullOrBlank()) "&ip_cloud_gaming=$ipCloud" else "" +
+            if (generateWebLoginUrlUseCase.isCloudGaming()) {
               "&user=${encrypt}"
-            else ""
+            } else ""
       }
   }
 

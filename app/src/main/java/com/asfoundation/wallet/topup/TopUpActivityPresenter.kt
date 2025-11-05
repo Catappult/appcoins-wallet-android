@@ -8,6 +8,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.gamification.UpdateUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
+import com.asfoundation.wallet.ui.WebViewResults
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import io.reactivex.Scheduler
@@ -44,18 +45,19 @@ class TopUpActivityPresenter(
   }
 
   private fun handleTryAgainClicks() {
-    disposables.add(view.getTryAgainClicks()
-      .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .observeOn(viewScheduler)
-      .doOnNext { view.showTopUpScreen() }
-      .subscribe({}, { handleError(it) })
+    disposables.add(
+      view.getTryAgainClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { view.showTopUpScreen() }
+        .subscribe({}, { handleError(it) })
     )
   }
 
   fun processActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == TopUpActivity.WEB_VIEW_REQUEST_CODE) {
       when (resultCode) {
-        WebViewActivity.FAIL -> {
+        WebViewResults.FAIL.code -> {
           if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
             logger.log(TAG, Exception("ActivityResult ${data.dataString}"))
             cancelPaymentAndShowSupport()
@@ -64,11 +66,11 @@ class TopUpActivityPresenter(
           }
         }
 
-        WebViewActivity.SUCCESS -> {
+        WebViewResults.SUCCESS.code -> {
           data?.data?.let { view.acceptResult(it) } ?: view.cancelPayment()
         }
 
-        WebViewActivity.USER_CANCEL -> {
+        WebViewResults.USER_CANCEL.code -> {
           view.cancelPayment()
         }
       }
@@ -76,11 +78,12 @@ class TopUpActivityPresenter(
   }
 
   private fun cancelPaymentAndShowSupport() {
-    disposables.add(topUpInteractor.showSupport()
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnComplete { view.cancelPayment() }
-      .subscribe({}, { it.printStackTrace() })
+    disposables.add(
+      topUpInteractor.showSupport()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnComplete { view.cancelPayment() }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -107,17 +110,18 @@ class TopUpActivityPresenter(
 
 
   fun handleBackupNotifications(bundle: Bundle) {
-    disposables.add(topUpInteractor.incrementAndValidateNotificationNeeded()
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnSuccess { notificationNeeded ->
-        if (notificationNeeded.isNeeded) {
-          view.showBackupNotification(notificationNeeded.walletAddress)
+    disposables.add(
+      topUpInteractor.incrementAndValidateNotificationNeeded()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess { notificationNeeded ->
+          if (notificationNeeded.isNeeded) {
+            view.showBackupNotification(notificationNeeded.walletAddress)
+          }
+          view.finishActivity(bundle)
         }
-        view.finishActivity(bundle)
-      }
-      .doOnError { view.finish(bundle) }
-      .subscribe({ }, { it.printStackTrace() })
+        .doOnError { view.finish(bundle) }
+        .subscribe({ }, { it.printStackTrace() })
     )
   }
 
