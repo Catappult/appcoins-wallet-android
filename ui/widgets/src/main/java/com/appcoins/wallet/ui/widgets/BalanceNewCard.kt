@@ -38,7 +38,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_shimmer
 private const val EMAIL_TEXT_WEIGHT = 400
 private const val EMAIL_TEXT_FONT_SIZE = 14
 
-private const val EMAIL_SPACER_HEIGHT = 4
+private const val EMAIL_SPACER_HEIGHT = 12
 @Composable
 fun BalanceNewCard(
   balance: String,

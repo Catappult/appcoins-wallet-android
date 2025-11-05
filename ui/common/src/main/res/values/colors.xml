@@ -99,5 +99,6 @@
 
   <color name="is_connected_badge">#156636</color>
   <color name="not_connected_badge">#5A5B60</color>
+  <color name="currency_text_color">#F7F7F7</color>
 
 </resources>

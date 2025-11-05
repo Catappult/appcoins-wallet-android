@@ -58,7 +58,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="@dimen/normal_margin"
+        android:layout_marginVertical="@dimen/big_margin"
         android:gravity="start"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -79,6 +79,11 @@
           app:drawableStartCompat="@drawable/ic_wallet_minimal"
           app:drawableTint="@color/styleguide_light_grey"
           tools:text="Wallet Name" />
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="8dp" />
+
 
       <!-- Connection badge -->
       <TextView
@@ -102,8 +107,8 @@
         android:id="@+id/new_wallet_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/styleguide_dark_grey"
-        android:textSize="12sp"
+        android:textColor="@color/currency_text_color"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

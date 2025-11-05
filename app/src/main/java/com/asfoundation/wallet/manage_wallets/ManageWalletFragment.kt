@@ -257,7 +257,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   ) {
     Column(
       modifier =
-        Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 24.dp)
+        Modifier.padding(start = 16.dp, top = 11.dp, end = 16.dp, bottom = 24.dp)
     ) {
       BalanceBottomSheet(walletInfo)
       ActiveWalletOptions(
@@ -597,7 +597,7 @@ class ManageWalletFragment : BasePageViewFragment() {
             .toString()
             .formatMoney(walletBalance.balance.symbol, "") ?: "",
         style = MaterialTheme.typography.bodyMedium,
-        color = WalletColors.styleguide_dark_grey,
+        color = styleguide_light_grey,
         fontWeight = FontWeight.Bold,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis
@@ -910,11 +910,11 @@ class ManageWalletFragment : BasePageViewFragment() {
     private const val CONNECTION_BADGE_CORNER_RADIUS = 4
     private const val CONNECTION_BADGE_ICON_SIZE = 12
     private const val CONNECTION_BADGE_HORIZONTAL_PADDING = 5
-    private const val CONNECTION_BADGE_VERTICAL_PADDING = 3
-    private const val CONNECTION_BADGE_SPACER_WIDTH = 8
+    private const val CONNECTION_BADGE_VERTICAL_PADDING = 4
+    private const val CONNECTION_BADGE_SPACER_WIDTH = 6
     private const val SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_WIDTH = 10
     private const val SHOW_WALLETS_NAME_AND_CONNECTION_ICON_SIZE = 16
-    private const val SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_HEIGHT = 2
+    private const val SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_HEIGHT = 8
     private const val SHOW_WALLETS_NAME_AND_CONNECTION_WALLET_NAME_MAX_WIDTH = 0.5f
   }
 
