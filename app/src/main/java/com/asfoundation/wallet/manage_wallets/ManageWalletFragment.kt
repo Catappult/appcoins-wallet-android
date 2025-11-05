@@ -668,6 +668,8 @@ class ManageWalletFragment : BasePageViewFragment() {
     Column(
       verticalArrangement = Arrangement.SpaceBetween,
       horizontalAlignment = Alignment.Start,
+      modifier = Modifier
+        .padding(end = SHOW_WALLETS_NAME_AND_CONNECTION_BOTTOM_SPACER_HEIGHT.dp)
     ) {
       Row(
         verticalAlignment = CenterVertically,
@@ -916,6 +918,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     private const val SHOW_WALLETS_NAME_AND_CONNECTION_ICON_SIZE = 16
     private const val SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_HEIGHT = 8
     private const val SHOW_WALLETS_NAME_AND_CONNECTION_WALLET_NAME_MAX_WIDTH = 0.5f
+    private const val SHOW_WALLETS_NAME_AND_CONNECTION_BOTTOM_SPACER_HEIGHT = 23
   }
 
   private fun navController(): NavController {
