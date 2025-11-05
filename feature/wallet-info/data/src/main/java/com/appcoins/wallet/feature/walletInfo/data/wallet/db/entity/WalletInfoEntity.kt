@@ -23,4 +23,5 @@ data class WalletInfoEntity(
   val fiatCurrency: String?,
   val fiatSymbol: String?,
   val canTransfer: Boolean,
+  val email: String?
 )

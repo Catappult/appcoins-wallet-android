@@ -39,6 +39,8 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
   companion object {
     const val CAN_TRANSFER = "can_transfer"
 
+    const val IS_LOGGED_IN = "is_logged_in"
+
     @JvmStatic
     fun newInstance(): HomeManageWalletBottomSheetFragment {
       return HomeManageWalletBottomSheetFragment()
@@ -53,6 +55,10 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     val canTransfer = arguments?.getBoolean(CAN_TRANSFER)
+    val isLoggedIn = arguments?.getBoolean(IS_LOGGED_IN)
+    if (isLoggedIn == true) {
+      views.signInWalletText.text = getString(R.string.home_switch_account_button)
+    }
     views.transferWalletView.isGone = canTransfer != true
     setListeners()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)

@@ -10,6 +10,7 @@ import androidx.core.net.toUri
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 /**
@@ -49,6 +50,12 @@ class NativeLoginActivity : ComponentActivity() {
   }
 
   /**
+   * Flag to indicate if the activity has been setup.
+   * This is used in case the user close the CustomTab the NativeLoginActivity is correctly closed.
+   */
+  private var isSetUp = AtomicBoolean(false)
+
+  /**
    * Logger instance
    */
   @Inject
@@ -62,7 +69,7 @@ class NativeLoginActivity : ComponentActivity() {
    */
   private fun navigateToMain(
     context: Context,
-    logCallback: () -> Unit
+    logCallback: () -> Unit = {}
   ) {
     logCallback()
     Intent(context, MainActivity::class.java)
@@ -96,6 +103,15 @@ class NativeLoginActivity : ComponentActivity() {
         .Builder()
         .build()
         .launchUrl(this, cctUrl.toUri())
+    }
+  }
+
+  override fun onResume() {
+    super.onResume()
+    if (isSetUp.compareAndSet(false, true)) {
+      //No-op
+    } else {
+      navigateToMain(this)
     }
   }
 

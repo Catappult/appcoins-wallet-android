@@ -20,6 +20,7 @@ class WalletInfoModule {
       .addMigrations(WalletInfoDatabase.MIGRATION_1_2)
       .addMigrations(WalletInfoDatabase.MIGRATION_2_3)
       .addMigrations(WalletInfoDatabase.MIGRATION_3_4)
+      .addMigrations(WalletInfoDatabase.MIGRATION_4_5)
       .build()
 
   @Singleton

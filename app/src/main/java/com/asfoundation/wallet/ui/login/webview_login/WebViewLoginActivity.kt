@@ -169,8 +169,8 @@ class WebViewLoginActivity : AppCompatActivity() {
             onErrorCallback = {},
             openVerifyFlowCallback = {},
             setPromoCodeCallback = {},
-            onLoginCallback = { authToken, safeLogin ->
-              viewModel.fetchUserKey(authToken)
+            onLoginCallback = { authToken, safeLogin, email ->
+              viewModel.fetchUserKey(authToken, email?.ifBlank { null })
             },
             goToUrlCallback = { url ->
               loadUrl(url)

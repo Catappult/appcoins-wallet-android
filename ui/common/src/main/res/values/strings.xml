@@ -584,6 +584,10 @@
   <string name="wallet_view_total_balance_title">Total Balance</string>
   <string name="wallet_view_activate_button">Make this wallet active</string>
 
+  <!-- Wallets Connection -->
+  <string name="manage_wallet_connection_badge_connected">Connected</string>
+  <string name="manage_wallet_connection_badge_not_connected">Not Connected</string>
+
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Remove Wallet</string>
   <string name="remove_wallet_body">We strongly recommend to back up a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
@@ -986,6 +990,7 @@
   <string name="home_promo_code_button">Promo Code</string>
   <string name="home_top_up_button">Top Up</string>
   <string name="home_sign_in_button">Sign in</string>
+  <string name="home_switch_account_button">Switch Account</string>
   <string name="home_manage_wallet_button">Manage Wallets</string>
   <string name="home_backup_wallet_button">Back Up Wallet</string>
   <string name="home_restore_wallet_button">Restore Wallet</string>
@@ -1028,5 +1033,7 @@
   <string name="promo_code_ambassador_program">The promo code will work once the Ambassador\'s Program is active.</string>
   <string name="ambassador_program_not_active_yet">Ambassador\'s Program not active yet</string>
   <string name="share_this_code_with_your_friends_ambassador">Share this code with your friends, earn extra cashback</string>
+  <string name="signin_account">Sign in</string>
+  <string name="switch_account">Switch account</string>
 
 </resources>
