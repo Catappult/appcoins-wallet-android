@@ -1033,5 +1033,7 @@
   <string name="promo_code_ambassador_program">The promo code will work once the Ambassador\'s Program is active.</string>
   <string name="ambassador_program_not_active_yet">Ambassador\'s Program not active yet</string>
   <string name="share_this_code_with_your_friends_ambassador">Share this code with your friends, earn extra cashback</string>
+  <string name="signin_account">Sign in</string>
+  <string name="switch_account">Switch account</string>
 
 </resources>

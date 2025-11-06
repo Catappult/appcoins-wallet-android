@@ -9,7 +9,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.db.entity.WalletInfoEn
 
 @Database(
   entities = [WalletInfoEntity::class],
-  version = 4
+  version = 5
 )
 @TypeConverters(WalletInfoTypeConverter::class)
 abstract class WalletInfoDatabase : RoomDatabase() {
@@ -27,6 +27,11 @@ abstract class WalletInfoDatabase : RoomDatabase() {
     val MIGRATION_3_4: Migration = object : Migration(3, 4) {
       override fun migrate(database: SupportSQLiteDatabase) =
         database.execSQL("ALTER TABLE WalletInfoEntity ADD COLUMN canTransfer INTEGER DEFAULT 0 NOT NULL")
+    }
+
+    val MIGRATION_4_5: Migration = object : Migration(4, 5) {
+      override fun migrate(database: SupportSQLiteDatabase) =
+        database.execSQL("ALTER TABLE WalletInfoEntity ADD COLUMN email TEXT DEFAULT NULL")
     }
   }
 

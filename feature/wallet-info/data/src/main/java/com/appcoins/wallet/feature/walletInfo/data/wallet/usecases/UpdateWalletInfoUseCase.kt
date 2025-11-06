@@ -25,9 +25,6 @@ class UpdateWalletInfoUseCase @Inject constructor(
   }
 
   operator fun invoke(address: String, email: String): Completable {
-    val walletAddressSingle = Single.just(Wallet(address))
-    return walletAddressSingle.flatMapCompletable {
-      walletInfoRepository.updateWalletInfo(it.address, email)
-    }
+    return walletInfoRepository.updateWalletInfo(address, email)
   }
 }

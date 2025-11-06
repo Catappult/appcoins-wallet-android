@@ -45,6 +45,10 @@ class CustomTabLoginActivity : ComponentActivity() {
      * The name of the auth token query parameter.
      */
     private const val AUTH_TOKEN = "auth_token"
+    /**
+     * The name of the email query parameter.
+     */
+    private const val EMAIL_TOKEN = "email"
 
     /**
      * The name of the is payment in process query parameter.
@@ -163,6 +167,7 @@ class CustomTabLoginActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val authToken = intent.data?.getQueryParameter(AUTH_TOKEN)
+    val email = intent.data?.getQueryParameter(EMAIL_TOKEN)
     val isPaymentInProcess =
       intent
         .data
@@ -181,7 +186,7 @@ class CustomTabLoginActivity : ComponentActivity() {
       )
     } else {
       authToken
-        ?.let { viewModel.fetchUserKey(it) }
+        ?.let { viewModel.fetchUserKey(it, email?.ifBlank { null }) }
         ?: run {
           navigate(
             activity = this,

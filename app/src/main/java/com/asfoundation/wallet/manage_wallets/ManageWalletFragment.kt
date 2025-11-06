@@ -257,7 +257,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   ) {
     Column(
       modifier =
-        Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 24.dp)
+        Modifier.padding(start = 16.dp, top = 11.dp, end = 16.dp, bottom = 24.dp)
     ) {
       BalanceBottomSheet(walletInfo)
       ActiveWalletOptions(
@@ -554,7 +554,9 @@ class ManageWalletFragment : BasePageViewFragment() {
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = CenterVertically,
-      modifier = modifier.fillMaxWidth()
+      modifier = modifier
+        .fillMaxWidth()
+        .padding(bottom = BALANCE_BOTTOM_SHEET_BOTTOM_SPACER_HEIGHT.dp)
     ) {
       ShowWalletsNameAndConnection(walletInfo.name, walletInfo.email != null)
       TextButton(
@@ -597,7 +599,7 @@ class ManageWalletFragment : BasePageViewFragment() {
             .toString()
             .formatMoney(walletBalance.balance.symbol, "") ?: "",
         style = MaterialTheme.typography.bodyMedium,
-        color = WalletColors.styleguide_dark_grey,
+        color = styleguide_light_grey,
         fontWeight = FontWeight.Bold,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis
@@ -633,6 +635,7 @@ class ManageWalletFragment : BasePageViewFragment() {
             painter = painterResource(R.drawable.ic_connection_badge_connected),
             tint = WalletColors.styleguide_white,
             contentDescription = "Connected",
+            modifier = Modifier.size(CONNECTION_BADGE_ICON_SIZE.dp)
           )
           Spacer(modifier = Modifier.width(CONNECTION_BADGE_SPACER_WIDTH.dp))
           Text(
@@ -644,11 +647,13 @@ class ManageWalletFragment : BasePageViewFragment() {
             painter = painterResource(R.drawable.ic_connection_badge_not_connected),
             contentDescription = "Not Connected",
             tint = WalletColors.styleguide_white,
+            modifier = Modifier.size(CONNECTION_BADGE_ICON_SIZE.dp)
           )
           Spacer(modifier = Modifier.width(CONNECTION_BADGE_SPACER_WIDTH.dp))
           Text(
             text = stringResource(R.string.manage_wallet_connection_badge_not_connected),
             color = WalletColors.styleguide_white,
+            style = MaterialTheme.typography.bodySmall
           )
         }
       }
@@ -664,7 +669,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   fun ShowWalletsNameAndConnection(walletName: String, isConnected: Boolean) {
     Column(
       verticalArrangement = Arrangement.SpaceBetween,
-      horizontalAlignment = Alignment.Start,
+      horizontalAlignment = Alignment.Start
     ) {
       Row(
         verticalAlignment = CenterVertically,
@@ -673,9 +678,8 @@ class ManageWalletFragment : BasePageViewFragment() {
         Icon(
           painter = painterResource(R.drawable.ic_wallet_minimal),
           tint = WalletColors.styleguide_white,
-          modifier = Modifier
-            .align(CenterVertically),
-          contentDescription = "Wallet"
+          contentDescription = "Wallet",
+          modifier = Modifier.size(SHOW_WALLETS_NAME_AND_CONNECTION_ICON_SIZE.dp)
         )
         Spacer(modifier = Modifier.width(SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_WIDTH.dp))
         Text(
@@ -877,7 +881,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       verified = false,
       logging = true,
       canTransfer = false,
-      email = "isConnected"
+      email = "email@test.com"
     )
     val verificationStatus = VerificationStatusCompound(
       creditCardStatus = CODE_REQUESTED,
@@ -906,12 +910,15 @@ class ManageWalletFragment : BasePageViewFragment() {
     const val MANAGE_WALLET_REQUEST_KEY = "manage_wallet_request_key"
     const val VERIFY_PAYMENT_METHOD = "verify_payment_method"
     private const val CONNECTION_BADGE_CORNER_RADIUS = 4
-    private const val CONNECTION_BADGE_HORIZONTAL_PADDING = 3
-    private const val CONNECTION_BADGE_VERTICAL_PADDING = 1
-    private const val CONNECTION_BADGE_SPACER_WIDTH = 4
-    private const val SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_WIDTH = 8
-    private const val SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_HEIGHT = 2
+    private const val CONNECTION_BADGE_ICON_SIZE = 12
+    private const val CONNECTION_BADGE_HORIZONTAL_PADDING = 5
+    private const val CONNECTION_BADGE_VERTICAL_PADDING = 4
+    private const val CONNECTION_BADGE_SPACER_WIDTH = 6
+    private const val SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_WIDTH = 10
+    private const val SHOW_WALLETS_NAME_AND_CONNECTION_ICON_SIZE = 16
+    private const val SHOW_WALLETS_NAME_AND_CONNECTION_SPACER_HEIGHT = 8
     private const val SHOW_WALLETS_NAME_AND_CONNECTION_WALLET_NAME_MAX_WIDTH = 0.5f
+    private const val BALANCE_BOTTOM_SHEET_BOTTOM_SPACER_HEIGHT = 10
   }
 
   private fun navController(): NavController {

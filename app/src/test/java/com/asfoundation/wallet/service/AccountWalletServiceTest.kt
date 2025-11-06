@@ -13,6 +13,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetPrivateKey
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RecoverEntryPrivateKeyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RegisterFirebaseTokenUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SignUseCase
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.internal.schedulers.ExecutorScheduler
@@ -56,6 +57,9 @@ class AccountWalletServiceTest {
   lateinit var recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase
 
   @Mock
+  lateinit var commonsPreferencesDataSource: CommonsPreferencesDataSource
+
+  @Mock
   lateinit var walletRepositoryType: WalletRepositoryType
 
   @Mock
@@ -92,6 +96,7 @@ class AccountWalletServiceTest {
       getCurrentWalletUseCase = getCurrentWalletUseCase,
       context = context,
       recoverEntryPrivateKeyUseCase = recoverEntryPrivateKeyUseCase,
+      commonsPreferencesDataSource = commonsPreferencesDataSource
     )
   }
 
