@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -32,6 +33,10 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarData
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -170,7 +175,16 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   fun HomeScreen(
     modifier: Modifier = Modifier,
   ) {
+    val snackbarHostState = remember { SnackbarHostState() }
     Scaffold(
+      snackbarHost = {
+        SnackbarHost(
+          hostState = snackbarHostState,
+          snackbar = { data ->
+            HomeFragmentSnackbar(data)
+          }
+        )
+      },
       topBar = {
         Surface {
           TopBar(
@@ -186,6 +200,16 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       modifier = modifier
     ) { padding ->
       HomeScreenContent(padding = padding)
+    }
+  }
+
+  @Composable
+  private fun HomeFragmentSnackbar(data: SnackbarData) {
+    Column {
+      Snackbar(
+        snackbarData = data
+      )
+      Spacer(Modifier.height(HOME_FRAGMENT_SNACKBAR_HEIGHT.dp))
     }
   }
 
@@ -679,5 +703,13 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
           as NavHostFragment
     return navHostFragment.navController
+  }
+
+  companion object {
+    /**
+     * The space necessary to display the snackbar in the home fragment
+     * considering the navigation bar displayed.
+     */
+    private const val HOME_FRAGMENT_SNACKBAR_HEIGHT = 69
   }
 }
