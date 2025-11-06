@@ -618,7 +618,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       Async.Uninitialized,
       is Async.Loading -> {
         viewModel.updateBalance(HomeViewModel.UiBalanceState.Loading)
-        viewModel.updateEmail(null)
       }
 
       is Async.Success ->
