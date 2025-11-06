@@ -4,7 +4,7 @@ import android.webkit.WebView
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asfoundation.wallet.ui.login.webview_login.usecases.FetchUserKeyUseCase
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.flow.MutableStateFlow

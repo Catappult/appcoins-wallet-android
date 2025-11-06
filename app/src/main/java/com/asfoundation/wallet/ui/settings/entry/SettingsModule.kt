@@ -5,7 +5,7 @@ import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCu
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
-import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.ui.login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import dagger.Module
 import dagger.Provides

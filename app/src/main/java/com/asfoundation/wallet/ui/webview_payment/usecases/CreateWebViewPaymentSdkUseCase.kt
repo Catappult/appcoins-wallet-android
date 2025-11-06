@@ -12,7 +12,7 @@ import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeU
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.ui.login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.util.tuples.Septuple
 import io.reactivex.Single
 import javax.inject.Inject

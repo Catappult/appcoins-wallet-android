@@ -9,7 +9,7 @@ import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.Custom
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.FinishActivity
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.FinishWithError
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.Initial
-import com.asfoundation.wallet.ui.login.webview_login.usecases.FetchUserKeyUseCase
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.flow.MutableStateFlow

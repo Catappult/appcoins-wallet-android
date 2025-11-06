@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.login.webview_login.usecases
+package com.asfoundation.wallet.ui.login.usecases
 
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetActiveWalletUseCase

@@ -11,7 +11,7 @@ import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
-import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.ui.login.usecases.GenerateWebLoginUrlUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
