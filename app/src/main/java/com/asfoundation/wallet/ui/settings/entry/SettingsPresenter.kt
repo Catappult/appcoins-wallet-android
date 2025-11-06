@@ -6,10 +6,10 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import com.asfoundation.wallet.ui.login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.ui.login.usecases.IsCurrentWalletLoggedInUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.github.michaelbull.result.get
 import io.reactivex.Scheduler
@@ -31,7 +31,7 @@ class SettingsPresenter(
   private val displayChatUseCase: DisplayChatUseCase,
   private val getStoredCardsUseCase: GetStoredCardsUseCase,
   private val generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
-  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+  private val isCurrentWalletLoggedInUseCase: IsCurrentWalletLoggedInUseCase,
 ) {
 
   fun present(savedInstanceState: Bundle?) {
@@ -85,18 +85,14 @@ class SettingsPresenter(
   }
 
   private fun getSigningButton() {
-    Log.d("SettingsPresenter", "getSigningButton is being called")
-    observeWalletInfoUseCase(null, update = true)
+    isCurrentWalletLoggedInUseCase()
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
       .doOnSubscribe {
-        Log.d("SettingsPresenter", "getSigningButton")
         view.setLoginSwitchPreference(false)
       }
-      .take(1)
-      .doOnNext { walletInfo ->
-        Log.d("SettingsPresenter", "walletInfo: $walletInfo")
-        view.setLoginSwitchPreference(walletInfo.email != null)
+      .doOnSuccess { result ->
+        view.setLoginSwitchPreference(result)
       }
       .subscribe()
   }

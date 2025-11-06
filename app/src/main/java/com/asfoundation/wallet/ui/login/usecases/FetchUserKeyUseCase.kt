@@ -20,7 +20,6 @@ import javax.inject.Inject
 class FetchUserKeyUseCase @Inject constructor(
   val loginRepository: LoginRepository,
   val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
-  val setDefaultWalletUseCase: SetDefaultWalletUseCase,
   val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
   val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   val updateWalletNameUseCase: UpdateWalletNameUseCase,
