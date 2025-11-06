@@ -95,10 +95,6 @@
         android:theme="@style/SplashTheme"
         android:windowSoftInputMode="adjustResize">
       <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-      <intent-filter>
         <action android:name="android.intent.action.VIEW" />
 
         <category android:name="android.intent.category.DEFAULT" />
@@ -110,6 +106,19 @@
       </intent-filter>
 
     </activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.webview_wallet.WebViewWalletActivity"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
+        android:windowSoftInputMode="adjustResize" >
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+
+    </activity>
+
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TransactionDetailActivity"
         android:label="" />
