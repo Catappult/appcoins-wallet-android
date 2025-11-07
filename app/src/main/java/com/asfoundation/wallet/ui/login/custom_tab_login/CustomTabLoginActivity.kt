@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_BACK_TO_NATIVE_LOGIN_ACTIVITY
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_TO_MAIN_ACTIVITY
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_TO_NATIVE_LOGIN_ACTIVITY
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_TO_WEBVIEW_PAYMENT_ACTIVITY
@@ -45,6 +46,7 @@ class CustomTabLoginActivity : ComponentActivity() {
      * The name of the auth token query parameter.
      */
     private const val AUTH_TOKEN = "auth_token"
+
     /**
      * The name of the email query parameter.
      */
@@ -67,7 +69,8 @@ class CustomTabLoginActivity : ComponentActivity() {
   private enum class NavigationCase {
     NAVIGATE_TO_NATIVE_LOGIN_ACTIVITY,
     NAVIGATE_TO_WEBVIEW_PAYMENT_ACTIVITY,
-    NAVIGATE_TO_MAIN_ACTIVITY
+    NAVIGATE_TO_MAIN_ACTIVITY,
+    NAVIGATE_BACK_TO_NATIVE_LOGIN_ACTIVITY,
   }
 
   /**
@@ -93,6 +96,7 @@ class CustomTabLoginActivity : ComponentActivity() {
     activity: ComponentActivity = this,
     to: NavigationCase,
     logMessage: LogMessage? = null,
+    buildResponseIntent: Intent.() -> Unit = {}
   ) {
     when (to) {
       NAVIGATE_TO_WEBVIEW_PAYMENT_ACTIVITY -> {
@@ -113,6 +117,12 @@ class CustomTabLoginActivity : ComponentActivity() {
         navigateToMainActivity(
           context = activity,
           logMessage = logMessage
+        )
+      }
+
+      NAVIGATE_BACK_TO_NATIVE_LOGIN_ACTIVITY -> {
+        navigateBackToNativeLoginActivity(
+          buildResponseIntent = buildResponseIntent
         )
       }
     }
@@ -161,6 +171,21 @@ class CustomTabLoginActivity : ComponentActivity() {
   ) {
     logMessage?.invoke()
     PaymentOverlayHandle.bringToFrontAndDeliver(uri = intent.data, clearTop = true)
+    finish()
+  }
+
+  /**
+   * helper function to navigate back to [NativeLoginActivity].
+   * This response contains the toast information to be display.
+   *
+   * @param buildResponseIntent the intent to be used as response in [NativeLoginActivity]
+   *
+   * @see [NativeLoginActivity.onNewIntent]
+   */
+  private fun navigateBackToNativeLoginActivity(
+    buildResponseIntent: Intent.() -> Unit
+  ) {
+    Intent().apply(buildResponseIntent)
     finish()
   }
 

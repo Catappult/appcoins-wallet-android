@@ -10,6 +10,7 @@ import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.Custom
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.FinishWithError
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.Initial
 import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKeyResult.ErrorAddingWallet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -76,9 +77,18 @@ internal class CustomTabLoginViewModel @Inject constructor(
               _activityState.emit(FetchingUserKey)
             }
           }
-          .subscribe({
+          .subscribe({ result ->
             viewModelScope.launch {
-              _activityState.emit(FinishActivity)
+              when (result) {
+                is ErrorAddingWallet -> {
+                  logger.log(TAG, "error in fetchUserKey: ${result.message}")
+                  _activityState.emit(FinishWithError)
+                }
+
+                else -> {
+                  _activityState.emit(FinishActivity(response = result))
+                }
+              }
             }
           }, {
             it.printStackTrace()

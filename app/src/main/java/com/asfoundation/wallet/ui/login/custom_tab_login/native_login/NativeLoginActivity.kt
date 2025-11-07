@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.result.contract.ActivityResultContracts
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
@@ -53,7 +54,7 @@ class NativeLoginActivity : ComponentActivity() {
    * Flag to indicate if the activity has been setup.
    * This is used in case the user close the CustomTab the NativeLoginActivity is correctly closed.
    */
-  private var isSetUp = AtomicBoolean(false)
+  private var isSetUp = AtomicBoolean(true)
 
   /**
    * Logger instance
@@ -108,7 +109,7 @@ class NativeLoginActivity : ComponentActivity() {
 
   override fun onResume() {
     super.onResume()
-    if (isSetUp.compareAndSet(false, true)) {
+    if (isSetUp.compareAndSet(true, false)) {
       //No-op
     } else {
       navigateToMain(this)
@@ -123,12 +124,21 @@ class NativeLoginActivity : ComponentActivity() {
         logger.log(TAG, "DEEP_LINK not found in intent, navigating to main activity.")
       }
     } else {
+      val getResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+          setResult(result.resultCode, result.data)
+          finish()
+        }
       val intent = Intent(this, CustomTabLoginActivity::class.java)
       intent.data = uri
         .addIsFromNativeLogin()
         .toUri()
-      startActivity(intent)
-      finish()
+      getResult.launch(intent)
+      preventAutoClose()
     }
+  }
+
+  private fun preventAutoClose() {
+    isSetUp.set(true)
   }
 }
