@@ -283,10 +283,10 @@ class WebViewPaymentViewModel @Inject constructor(
   ) {
     compositeDisposable.add(
       fetchUserKeyUseCase(authToken, email)
-        .doOnComplete { Log.d(TAG, "fetchUserKey: success") }
-        .andThen(
+        .doOnSuccess {
+          Log.d(TAG, "fetchUserKey: success")
           ewtObtainer.getEwtAuthenticationNoBearer()
-        )
+        }
         .flatMap {
           when (type) {
             WebViewPaymentActivity.OSP_TRANSACTION -> createWebViewPaymentOspUseCase(

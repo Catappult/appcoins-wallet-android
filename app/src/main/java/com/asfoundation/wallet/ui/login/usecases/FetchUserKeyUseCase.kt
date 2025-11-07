@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.login.usecases
 
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetActiveWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
@@ -11,32 +12,35 @@ import com.asfoundation.wallet.recover.result.FailedEntryRecover.AlreadyAdded
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
 import com.asfoundation.wallet.recover.use_cases.RecoverEntryPrivateKeyUseCase
-import com.asfoundation.wallet.recover.use_cases.SetDefaultWalletUseCase
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKeyResult.AlreadyLoggedIn
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKeyResult.ErrorAddingWallet
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKeyResult.NewWalletSaved
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKeyResult.WalletSwitched
 import com.asfoundation.wallet.ui.login.webview_login.repository.LoginRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
 class FetchUserKeyUseCase @Inject constructor(
-  val loginRepository: LoginRepository,
-  val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
-  val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
-  val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
-  val updateWalletNameUseCase: UpdateWalletNameUseCase,
-  val setActiveWalletUseCase: SetActiveWalletUseCase,
-  val getCurrentWalletUseCase: GetCurrentWalletUseCase,
-  val getAddressFromPrivateKeyUseCase: GetAddressFromPrivateKeyUseCase
+  private val loginRepository: LoginRepository,
+  private val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
+  private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
+  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+  private val setActiveWalletUseCase: SetActiveWalletUseCase,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
+  private val getAddressFromPrivateKeyUseCase: GetAddressFromPrivateKeyUseCase
 ) {
 
   operator fun invoke(
     authToken: String,
     email: String?
-  ): Completable {
+  ): Single<FetchUserKeyResult> {
     return Single.zip(
       loginRepository.fetchUserKey(authToken),
-      getCurrentWalletUseCase()
-    ) { key, currentWallet ->
-      key to currentWallet
+      getWalletInfoUseCase(null, true)
+    ) { key, currentWalletInfo ->
+      key to currentWalletInfo
     }
       .flatMap { (response, wallet) ->
         Single.zip(
@@ -50,61 +54,89 @@ class FetchUserKeyUseCase @Inject constructor(
         setDefaultWallet(
           result,
           email,
-          wallet.address,
+          wallet,
           address
         )
-      }.flatMapCompletable {
-        Completable.complete()
       }
   }
 
   private fun setDefaultWallet(
     recoverResult: RecoverEntryResult,
     email: String?,
-    currentWalletAddress: String,
+    currentWalletInfo: WalletInfo,
     loginWalletAddress: String
-  ): Single<RecoverEntryResult> =
+  ): Single<FetchUserKeyResult> =
     when (recoverResult) {
       is AlreadyAdded -> {
-        if (currentWalletAddress == loginWalletAddress) {
-          updateWalletInfo(email, loginWalletAddress)
-            .andThen(updateWalletNameUseCase(loginWalletAddress, email))
-            .toSingleDefault(recoverResult)
+        if (currentWalletInfo.wallet == loginWalletAddress) {
+          if (currentWalletInfo.email == email) {
+            Single.just(AlreadyLoggedIn)
+          } else {
+            loginWalletAddress
+              .updateWalletInfo(email)
+              .andThen(updateWalletNameUseCase(loginWalletAddress, email))
+              .toSingleDefault(AlreadyLoggedIn)
+          }
         } else {
-          updateWalletInfo(email, loginWalletAddress)
+          loginWalletAddress
+            .updateWalletInfo(email)
             .andThen(updateWalletNameUseCase(loginWalletAddress, email))
             .andThen(setActiveWalletUseCase(loginWalletAddress))
-            .toSingleDefault(recoverResult)
+            .toSingleDefault(
+              WalletSwitched(
+                email ?: loginWalletAddress
+              )
+            )
         }
       }
-      /**
-       * is FailedEntryRecover.AlreadyAdded -> {
-       *         TODO
-       *           """
-       *             Handle case when wallet is already added:
-       *               1. User makes log-in in a wallet that is already saved locally and is the current active wallet → “Already logged-in”
-       *                   A. Same as above, but wallet is not active → “Switched account”
-       *           """.trimIndent()
-       *       }
-       */
 
-      is FailedEntryRecover -> Single.error(Exception("Failed to recover wallet: $recoverResult"))
-      /**
-       * TODO:
-       *    User’s current active wallet has log-in information, makes login with a new wallet → “Switched account”
-       *    The user is logging-in with a new email:
-       *      active wallet does not have log-in information, wallet returned by log-in flow is the same address (wallet was saved to cloud, first login) → No message, normal successful web message.
-       */
-      is SuccessfulEntryRecover -> setActiveWalletUseCase(recoverResult.address)
-        .mergeWith(updateWalletInfo(email, recoverResult.address))
-        .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
-        .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
-        .toSingleDefault(recoverResult)
+      is FailedEntryRecover -> Single.just(ErrorAddingWallet("Failed to recover wallet: $recoverResult"))
+
+      is SuccessfulEntryRecover -> {
+        setActiveWalletUseCase(recoverResult.address)
+          .mergeWith(recoverResult.address.updateWalletInfo(email))
+          .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
+          .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
+          .toSingle {
+            if (currentWalletInfo.wallet == loginWalletAddress && currentWalletInfo.email == null) {
+              NewWalletSaved(
+                email ?: loginWalletAddress
+              )
+            } else {
+              WalletSwitched(
+                email ?: loginWalletAddress
+              )
+            }
+          }
+      }
     }
 
-  private fun updateWalletInfo(
-    email: String?,
-    address: String
-  ): Completable = (email?.let { updateWalletInfoUseCase(address, it) }
-    ?: updateWalletInfoUseCase(address))
+  private fun String.updateWalletInfo(
+    email: String?
+  ): Completable = (email?.let { updateWalletInfoUseCase(this, it) }
+    ?: updateWalletInfoUseCase(this))
+
+  /**
+   * The possible results of fetching a user key.
+   *
+   * Used to map the Fetch user key result to a snack bar message.
+   */
+  sealed class FetchUserKeyResult(open val message: String, val code: Int) {
+    data class NewWalletSaved(override val message: String) :
+      FetchUserKeyResult(message, NEW_WALLET_SAVED_CODE)
+
+    data object AlreadyLoggedIn : FetchUserKeyResult("", ALREADY_LOGGED_IN_CODE)
+    data class WalletSwitched(override val message: String) :
+      FetchUserKeyResult(message, WALLET_SWITCHED_CODE)
+
+    data class ErrorAddingWallet(override val message: String) :
+      FetchUserKeyResult(message, ERROR_ADDING_WALLET_CODE)
+
+    companion object {
+      const val NEW_WALLET_SAVED_CODE = 100
+      const val ALREADY_LOGGED_IN_CODE = 101
+      const val WALLET_SWITCHED_CODE = 102
+      const val ERROR_ADDING_WALLET_CODE = 103
+    }
+  }
 }
