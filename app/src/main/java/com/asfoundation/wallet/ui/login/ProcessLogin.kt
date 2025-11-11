@@ -2,10 +2,17 @@ package com.asfoundation.wallet.ui.login
 
 import android.content.Context
 import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity
 import com.asfoundation.wallet.ui.login.custom_tab_login.native_login.NativeLoginActivity
 import com.asfoundation.wallet.ui.login.webview_login.WebViewLoginActivity
+
+
+/**
+ * The message that should be displayed in the Toast after the login.
+ */
+const val RESPONSE_TOAST_MESSAGE = "response_toast_message"
 
 /**
  * Process the login request by checking if there is a browser that supports Custom Tabs.
@@ -14,26 +21,30 @@ import com.asfoundation.wallet.ui.login.webview_login.WebViewLoginActivity
  *
  * @param url The URL to load for login.
  * @param context The context to use for launching activities.
+ * @param launcher An optional launcher for launching activities.
  * @see CustomTabLoginActivity
  * @see WebViewLoginActivity
  */
 fun processLoginRequest(
   url: String,
-  context: Context
+  context: Context,
+  launcher: ActivityResultLauncher<Intent>? = null
 ) {
   val hasCustomChromeTabAvailable = hasCustomChromeTabAvailable(context)
   val useUrl = url
     .addIsCctParamToUrl(hasCustomChromeTabAvailable)
     .addVersionParamToUrl(BuildConfig.VERSION_CODE.toString())
-  if (hasCustomChromeTabAvailable) {
-    Intent(context, NativeLoginActivity::class.java)
-      .apply { putExtra(NativeLoginActivity.URL, useUrl) }
-      .also { context.startActivity(it) }
-  } else {
-    Intent(context, WebViewLoginActivity::class.java)
-      .apply { putExtra(WebViewLoginActivity.URL, useUrl) }
-      .also { context.startActivity(it) }
-  }
+  val intent =
+    if (hasCustomChromeTabAvailable) {
+      Intent(context, NativeLoginActivity::class.java)
+        .apply { putExtra(NativeLoginActivity.URL, useUrl) }
+    } else {
+      Intent(context, WebViewLoginActivity::class.java)
+        .apply { putExtra(WebViewLoginActivity.URL, useUrl) }
+    }
+  launcher
+    ?.launch(intent)
+    ?: run { context.startActivity(intent) }
 }
 
 /**

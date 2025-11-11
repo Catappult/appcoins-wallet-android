@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
+import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
@@ -90,6 +91,16 @@ class NativeLoginActivity : ComponentActivity() {
     return "$this$separator$IS_FROM_NATIVE_LOGIN=true"
   }
 
+  /**
+   * Launcher for [CustomTabLoginActivity], responsible for intercepting the response and
+   * redirecting it to [HomeFragment].
+   */
+  private val customTabResultLauncher =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      setResult(result.resultCode, result.data)
+      finish()
+    }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val cctUrl = intent
@@ -124,16 +135,11 @@ class NativeLoginActivity : ComponentActivity() {
         logger.log(TAG, "DEEP_LINK not found in intent, navigating to main activity.")
       }
     } else {
-      val getResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-          setResult(result.resultCode, result.data)
-          finish()
-        }
       val intent = Intent(this, CustomTabLoginActivity::class.java)
       intent.data = uri
         .addIsFromNativeLogin()
         .toUri()
-      getResult.launch(intent)
+      customTabResultLauncher.launch(intent)
       preventAutoClose()
     }
   }

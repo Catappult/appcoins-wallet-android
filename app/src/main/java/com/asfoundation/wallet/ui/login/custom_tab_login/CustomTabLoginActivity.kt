@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.ui.login.RESPONSE_TOAST_MESSAGE
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_BACK_TO_NATIVE_LOGIN_ACTIVITY
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_TO_MAIN_ACTIVITY
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_TO_NATIVE_LOGIN_ACTIVITY
@@ -233,7 +234,11 @@ class CustomTabLoginActivity : ComponentActivity() {
               is FinishActivity -> {
                 navigate(
                   activity = this@CustomTabLoginActivity,
-                  to = NAVIGATE_TO_MAIN_ACTIVITY,
+                  to = NAVIGATE_BACK_TO_NATIVE_LOGIN_ACTIVITY,
+                  buildResponseIntent = {
+                    putExtra(RESPONSE_TOAST_MESSAGE, uiState.response.message)
+                    this@CustomTabLoginActivity.setResult(uiState.response.code, this)
+                  }
                 )
               }
 
