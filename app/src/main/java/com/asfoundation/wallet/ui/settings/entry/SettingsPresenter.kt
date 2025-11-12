@@ -89,10 +89,10 @@ class SettingsPresenter(
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
       .doOnSubscribe {
-        view.setLoginSwitchPreference(false)
+        view.setLoginSwitchPreference(false, settingsData.launcher)
       }
       .doOnSuccess { result ->
-        view.setLoginSwitchPreference(result)
+        view.setLoginSwitchPreference(result, settingsData.launcher)
       }
       .subscribe()
   }

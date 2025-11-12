@@ -219,14 +219,17 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setLoginSwitchPreference(isLogged: Boolean) {
+  override fun setLoginSwitchPreference(isLogged: Boolean, launcher: ActivityResultLauncher<Intent>?) {
     val loginPreference = findPreference<Preference>("pref_login")
-    loginPreference?.title = getString(if (!isLogged) R.string.signin_account else R.string.switch_account)
+    loginPreference?.title =
+      getString(if (!isLogged) R.string.signin_account else R.string.switch_account)
     loginPreference?.setOnPreferenceClickListener {
       processLoginRequest(
         url = presenter.getLoginUrl(),
-        context = requireContext()
+        context = requireContext(),
+        launcher = launcher
       )
+      navController().popBackStack()
       false
     }
   }

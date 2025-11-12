@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.settings.entry
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
+import com.asfoundation.wallet.home.HomeNavigator
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import com.asfoundation.wallet.ui.login.usecases.GenerateWebLoginUrlUseCase
@@ -52,7 +53,10 @@ class SettingsModule {
   fun providesSettingsData(settingsFragment: Fragment): SettingsData {
     settingsFragment.requireArguments()
       .apply {
-        return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
+        return SettingsData(
+          turnOnFingerprint = getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false),
+          launcher = (getBinder(HomeNavigator.RESULT_LAUNCHER_BINDER) as? HomeNavigator.HomeFragmentBinder)?.resultLauncher
+        )
       }
   }
 }
