@@ -69,9 +69,12 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx2.rxSingle
 import java.math.BigDecimal
@@ -124,6 +127,12 @@ data class HomeWalletInfo(
   val globalBalance: GlobalBalance,
   val email: String?
 )
+
+sealed interface SnackBarMessage {
+  data class WalletSwitched(val walletName: String) : SnackBarMessage
+  data object WalletAlreadyAdded : SnackBarMessage
+  data object NotShowMessage : SnackBarMessage
+}
 
 
 @HiltViewModel
@@ -194,7 +203,8 @@ constructor(
 
   private val _uiEmail = MutableStateFlow<String?>(null)
   val uiEmail: StateFlow<String?> = _uiEmail
-
+  private val _snackBarMessages = Channel<SnackBarMessage>(Channel.BUFFERED)
+  val snackBarMessages: Flow<SnackBarMessage> = _snackBarMessages.receiveAsFlow()
 
   init {
     handleWalletData()
@@ -577,6 +587,12 @@ constructor(
 
   fun updateEmail(email: String?) {
     _uiEmail.value = email
+  }
+
+  fun emitSnackBarMessage(snackBarMessage: SnackBarMessage) {
+    viewModelScope.launch {
+      _snackBarMessages.send(snackBarMessage)
+    }
   }
 
   fun referenceSendPromotionClickEvent(): (String?, String) -> Unit {
