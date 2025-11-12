@@ -1,9 +1,11 @@
 package com.asfoundation.wallet.home.bottom_sheet
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
 import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +17,8 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.HomeManageWalletBottomSheetLayoutBinding
+import com.asfoundation.wallet.home.HomeNavigator.Companion.RESULT_LAUNCHER_BINDER
+import com.asfoundation.wallet.home.HomeNavigator.HomeFragmentBinder
 import com.asfoundation.wallet.ui.login.processLoginRequest
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -56,11 +60,12 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
     super.onViewCreated(view, savedInstanceState)
     val canTransfer = arguments?.getBoolean(CAN_TRANSFER)
     val isLoggedIn = arguments?.getBoolean(IS_LOGGED_IN)
+    val binder = arguments?.getBinder(RESULT_LAUNCHER_BINDER) as? HomeFragmentBinder
     if (isLoggedIn == true) {
       views.signInWalletText.text = getString(R.string.home_switch_account_button)
     }
     views.transferWalletView.isGone = canTransfer != true
-    setListeners()
+    setListeners(binder?.resultLauncher)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -74,17 +79,20 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
     return R.style.AppBottomSheetDialogThemeDraggable
   }
 
-  private fun setListeners() {
+  private fun setListeners(
+    launcher: ActivityResultLauncher<Intent>?
+  ) {
     views.signInWalletView.setOnClickListener {
       buttonsAnalytics.sendDefaultButtonClickAnalytics(
         fragmentName,
         getString(R.string.home_sign_in_button)
       )
-      this.dismiss()
       processLoginRequest(
         url = viewModel.getLoginUrl(),
-        context = requireContext()
+        context = requireContext(),
+        launcher = launcher
       )
+      this.dismiss()
     }
 
     views.backupWalletView.setOnClickListener {
@@ -135,7 +143,8 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
       is HomeManageWalletBottomSheetSideEffect.OpenLogin -> {
         processLoginRequest(
           url = sideEffect.url,
-          context = requireContext()
+          context = requireContext(),
+          launcher = sideEffect.launcher
         )
       }
     }
