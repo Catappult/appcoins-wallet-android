@@ -1036,4 +1036,8 @@
   <string name="signin_account">Sign in</string>
   <string name="switch_account">Switch account</string>
 
+  <!-- SnackBar messages -->
+  <string name="switched_to_account">Switched to\n%1$s</string>
+  <string name="already_logged_in">Already logged-in</string>
+
 </resources>
