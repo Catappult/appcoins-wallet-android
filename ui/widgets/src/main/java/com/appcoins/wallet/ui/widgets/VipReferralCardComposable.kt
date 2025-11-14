@@ -425,7 +425,7 @@ private fun ExpandedSection(
       Text(
         text = stringResource(
           if (isAmbassador) R.string.each_in_app_purchase_ambassador else R.string.each_in_app_purchase2_vip,
-          vipBonus,
+          vipBonus
         ),
         style = MaterialTheme.typography.bodySmall.copy(color = greyText)
       )
