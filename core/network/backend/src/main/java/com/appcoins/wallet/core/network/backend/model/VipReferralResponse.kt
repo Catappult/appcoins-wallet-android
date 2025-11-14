@@ -16,7 +16,6 @@ data class VipReferralResponse(
   @SerializedName("start_date") val startDate: String,
   @SerializedName("app") val app: App,
   @SerializedName("earned_currency_amount") val earnedCurrencyAmount: String? = null,
-  @SerializedName("revenue_cap_currency_amount") val revenueCapCurrencyAmount: String,
   @SerializedName("currency_symbol") val currencySymbol: String,
   @SerializedName("type") val type: String,
 ) {
@@ -41,7 +40,6 @@ data class VipReferralResponse(
         app = App(packageName = "", appName = "", appIcon = ""),
         currencySymbol = "",
         earnedCurrencyAmount = "",
-        revenueCapCurrencyAmount = "",
         type = ""
       )
   }
