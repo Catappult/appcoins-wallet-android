@@ -62,6 +62,11 @@ class CustomTabLoginActivity : ComponentActivity() {
      * The tag to identify [CustomTabLoginActivity] logger messages
      */
     private const val TAG = "CustomTabLoginActivity"
+
+    /**
+     * Error receiving the result code from the [FetchUserKeyUseCase]
+     */
+    private const val UNABLE_TO_PROCESS_REQUEST = 200
   }
 
   /**
@@ -97,6 +102,7 @@ class CustomTabLoginActivity : ComponentActivity() {
     activity: ComponentActivity = this,
     to: NavigationCase,
     logMessage: LogMessage? = null,
+    resultCode: Int? = null,
     buildResponseIntent: Intent.() -> Unit = {}
   ) {
     when (to) {
@@ -123,6 +129,7 @@ class CustomTabLoginActivity : ComponentActivity() {
 
       NAVIGATE_BACK_TO_NATIVE_LOGIN_ACTIVITY -> {
         navigateBackToNativeLoginActivity(
+          resultCode = resultCode,
           buildResponseIntent = buildResponseIntent
         )
       }
@@ -184,9 +191,16 @@ class CustomTabLoginActivity : ComponentActivity() {
    * @see [NativeLoginActivity.onNewIntent]
    */
   private fun navigateBackToNativeLoginActivity(
-    buildResponseIntent: Intent.() -> Unit
+    resultCode: Int?,
+    buildResponseIntent: Intent.() -> Unit,
   ) {
-    Intent().apply(buildResponseIntent)
+    val response = Intent()
+      .apply(buildResponseIntent)
+    resultCode?.let {
+      this@CustomTabLoginActivity.setResult(resultCode, response)
+    } ?: run {
+      this@CustomTabLoginActivity.setResult(UNABLE_TO_PROCESS_REQUEST)
+    }
     finish()
   }
 
@@ -194,17 +208,8 @@ class CustomTabLoginActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     val authToken = intent.data?.getQueryParameter(AUTH_TOKEN)
     val email = intent.data?.getQueryParameter(EMAIL_TOKEN)
-    val isPaymentInProcess =
-      intent
-        .data
-        ?.getBooleanQueryParameter(IS_PAYMENT_IN_PROCESS, false)
-        ?: false
-    val passedThroughNativeFlow =
-      intent
-        .data
-        ?.getBooleanQueryParameter(IS_FROM_NATIVE_LOGIN, false)
-        ?: false
-
+    val isPaymentInProcess = intent.getBoolParameter(IS_PAYMENT_IN_PROCESS)
+    val passedThroughNativeFlow = intent.getBoolParameter(IS_FROM_NATIVE_LOGIN)
     if (!passedThroughNativeFlow && !isPaymentInProcess) {
       navigate(
         activity = this@CustomTabLoginActivity,
@@ -235,9 +240,9 @@ class CustomTabLoginActivity : ComponentActivity() {
                 navigate(
                   activity = this@CustomTabLoginActivity,
                   to = NAVIGATE_BACK_TO_NATIVE_LOGIN_ACTIVITY,
+                  resultCode = uiState.response.code,
                   buildResponseIntent = {
                     putExtra(RESPONSE_TOAST_MESSAGE, uiState.response.message)
-                    this@CustomTabLoginActivity.setResult(uiState.response.code, this)
                   }
                 )
               }
@@ -264,4 +269,14 @@ class CustomTabLoginActivity : ComponentActivity() {
       }
     }
   }
+
+  /**
+   * helper function to get a boolean parameter from the intent
+   * @param key the key of the parameter
+   * @return the boolean parameter from the intent
+   */
+  private fun Intent?.getBoolParameter(key: String): Boolean =
+    this?.data
+      ?.getBooleanQueryParameter(key, false)
+      ?: false
 }
