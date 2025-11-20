@@ -2,10 +2,11 @@ package com.asfoundation.wallet.ui.settings.entry
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
+import com.asfoundation.wallet.home.HomeNavigator
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
-import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.ui.login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.ui.login.usecases.IsCurrentWalletLoggedInUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import dagger.Module
 import dagger.Provides
@@ -29,7 +30,7 @@ class SettingsModule {
     displayChatUseCase: DisplayChatUseCase,
     getStoredCardsUseCase: GetStoredCardsUseCase,
     generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
-    observeWalletInfoUseCase: ObserveWalletInfoUseCase
+    isCurrentWalletLoggedInUseCase: IsCurrentWalletLoggedInUseCase
   ): SettingsPresenter {
     return SettingsPresenter(
       settingsFragment as SettingsView,
@@ -44,7 +45,7 @@ class SettingsModule {
       displayChatUseCase,
       getStoredCardsUseCase,
       generateWebLoginUrlUseCase,
-      observeWalletInfoUseCase
+      isCurrentWalletLoggedInUseCase
     )
   }
 
@@ -52,7 +53,10 @@ class SettingsModule {
   fun providesSettingsData(settingsFragment: Fragment): SettingsData {
     settingsFragment.requireArguments()
       .apply {
-        return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
+        return SettingsData(
+          turnOnFingerprint = getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false),
+          launcher = (getBinder(HomeNavigator.RESULT_LAUNCHER_BINDER) as? HomeNavigator.HomeFragmentBinder)?.resultLauncher
+        )
       }
   }
 }

@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.home.bottom_sheet
 
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
@@ -11,7 +13,7 @@ import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
-import com.asfoundation.wallet.ui.login.webview_login.usecases.GenerateWebLoginUrlUseCase
+import com.asfoundation.wallet.ui.login.usecases.GenerateWebLoginUrlUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
@@ -21,7 +23,7 @@ import javax.inject.Inject
 
 sealed class HomeManageWalletBottomSheetSideEffect : SideEffect {
   object NavigateBack : HomeManageWalletBottomSheetSideEffect()
-  data class OpenLogin(val url: String) : HomeManageWalletBottomSheetSideEffect()
+  data class OpenLogin(val url: String, val launcher: ActivityResultLauncher<Intent>) : HomeManageWalletBottomSheetSideEffect()
 }
 
 data class HomeManageWalletBottomSheetState(

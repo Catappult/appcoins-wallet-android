@@ -40,6 +40,8 @@ import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.login.RESPONSE_TOAST_MESSAGE
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentInterface
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -212,8 +214,7 @@ class WebViewLoginActivity : AppCompatActivity() {
       )
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is WebViewLoginViewModel.UiState.FinishActivity -> {
-          Log.d(TAG, "FinishActivity")
-          finishActivity()
+          finishActivity(uiState.response)
         }
 
         is WebViewLoginViewModel.UiState.FinishWithError -> {
@@ -226,8 +227,9 @@ class WebViewLoginActivity : AppCompatActivity() {
     }
   }
 
-  private fun finishActivity() {
-    setResult(RESULT_OK)
+  private fun finishActivity(result: FetchUserKeyUseCase.FetchUserKeyResult) {
+    val intent = Intent().putExtra(RESPONSE_TOAST_MESSAGE, result.message)
+    setResult(result.code, intent)
     finish()
   }
 

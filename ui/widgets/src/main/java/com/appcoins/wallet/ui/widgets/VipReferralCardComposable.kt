@@ -72,7 +72,6 @@ fun VipReferralCardComposable(
   appName: String?,
   appIcon: String?,
   currencySymbol: String,
-  maxReward: String,
   onCardClick: () -> Unit = {},
   onShare: (String) -> Unit = {},
   initialExpanded: Boolean = false,
@@ -240,8 +239,6 @@ fun VipReferralCardComposable(
           futureCode = futureCode,
           appName = appName,
           appIcon = appIcon,
-          maxReward = maxReward,
-          currencySymbol = currencySymbol,
           onShare = onShare,
           isAmbassador = isAmbassador
         )
@@ -354,8 +351,6 @@ private fun ExpandedSection(
   futureCode: Boolean,
   appName: String?,
   appIcon: String? = null,
-  maxReward: String,
-  currencySymbol: String,
   onShare: (String) -> Unit,
   isAmbassador: Boolean
 ) {
@@ -427,16 +422,10 @@ private fun ExpandedSection(
 
       Spacer(Modifier.height(12.dp))
 
-      val maxRewardFormated = stringResource(
-        R.string.value_fiat,
-        currencySymbol,
-        maxReward
-      )
       Text(
         text = stringResource(
           if (isAmbassador) R.string.each_in_app_purchase_ambassador else R.string.each_in_app_purchase2_vip,
-          vipBonus,
-          maxRewardFormated
+          vipBonus
         ),
         style = MaterialTheme.typography.bodySmall.copy(color = greyText)
       )
@@ -508,7 +497,6 @@ private fun VipReferralCardPreviewCollapsed() {
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
-    maxReward = "100",
     onShare = {},
     isAmbassador = false
   )
@@ -535,7 +523,6 @@ private fun VipReferralCardPreviewExpanded() {
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
-    maxReward = "100",
     isAmbassador = false
   )
 }
@@ -561,7 +548,6 @@ private fun VipReferralCardPreviewFuture() {
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
-    maxReward = "100",
     isAmbassador = false
   )
 }
@@ -587,7 +573,6 @@ private fun AmbassadorReferralCardPreviewExpanded() {
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
-    maxReward = "100",
     isAmbassador = true
   )
 }
@@ -613,7 +598,6 @@ private fun AmbassadorReferralCardPreviewFuture() {
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
-    maxReward = "100",
     isAmbassador = true
   )
 }

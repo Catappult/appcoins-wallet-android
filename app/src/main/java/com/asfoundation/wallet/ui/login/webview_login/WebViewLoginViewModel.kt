@@ -4,7 +4,8 @@ import android.webkit.WebView
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asfoundation.wallet.ui.login.webview_login.usecases.FetchUserKeyUseCase
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKeyResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,12 +29,12 @@ class WebViewLoginViewModel @Inject constructor(
   var webView: WebView? = null
 
   fun fetchUserKey(authToken: String, email: String?) {
-    CompositeDisposable().add(
+    compositeDisposable.add(
       fetchUserKeyUseCase(authToken, email)
         .subscribeOn(rxSchedulers.io)
         .observeOn(rxSchedulers.io)
         .subscribe({
-          _uiState.value = UiState.FinishActivity
+          _uiState.value = UiState.FinishActivity(it)
         }, {
           it.printStackTrace()
           logger.log(TAG, "error in fetchUserKey: ${it.message}", it)
@@ -44,7 +45,10 @@ class WebViewLoginViewModel @Inject constructor(
 
 
   sealed class UiState {
-    data object FinishActivity : UiState()
+    data class FinishActivity(
+      val response: FetchUserKeyResult
+    ) : UiState()
+
     data object FinishWithError : UiState()
     data object ShowPaymentMethods : UiState()
   }

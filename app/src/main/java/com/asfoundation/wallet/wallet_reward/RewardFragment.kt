@@ -227,10 +227,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               ),
               appName = vipRefModel.app.appName,
               appIcon = vipRefModel.app.appIcon,
-              maxReward = currencyFormatUtils.formatCurrency(
-                vipRefModel.maxReward,
-                FIAT
-              ),
               currencySymbol = vipRefModel.currencySymbol,
               onShare = { code -> },
             )

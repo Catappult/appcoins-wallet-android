@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.login.webview_login.usecases
+package com.asfoundation.wallet.ui.login.usecases
 
 import com.appcoins.wallet.feature.walletInfo.data.wallet.AccountWalletService
 import io.reactivex.Single
