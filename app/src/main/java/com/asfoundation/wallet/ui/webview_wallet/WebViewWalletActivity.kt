@@ -18,6 +18,7 @@ import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
@@ -44,6 +45,7 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentInterface
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
+import io.intercom.android.sdk.Intercom
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -77,6 +79,9 @@ class WebViewWalletActivity : AppCompatActivity() {
     private val TAG = "WebView"
   }
 
+  private val pushNotificationPermissionLauncher =
+    registerForActivityResult(ActivityResultContracts.RequestPermission()) { /*no-op*/ }
+
   private val url = "https://wallet.dev.aptoide.com/sign-in"
 
 
@@ -87,7 +92,11 @@ class WebViewWalletActivity : AppCompatActivity() {
     overridePendingTransition(R.anim.slide_in_bottom, R.anim.stay)
     setKeyboardListener()
     userAgentInterceptor = UserAgentInterceptor(context, commonsPreferencesDataSource)
-
+    Intercom.client().handlePushMessage()
+    pushNotificationPermissionLauncher
+      .launch(
+        android.Manifest.permission.POST_NOTIFICATIONS
+      )
     setContent {
       MainContent(url)
     }
