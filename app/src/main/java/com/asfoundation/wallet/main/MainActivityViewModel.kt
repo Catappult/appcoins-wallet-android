@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.main
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
@@ -17,6 +18,10 @@ import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCa
 import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUseCase
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPayPalProperties.PAYPAL_VERIFICATION_REQUIRED
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class MainActivitySideEffect : SideEffect {
@@ -25,10 +30,20 @@ sealed class MainActivitySideEffect : SideEffect {
   object NavigateToAutoUpdate : MainActivitySideEffect()
   object NavigateToFingerprintAuthentication : MainActivitySideEffect()
   object NavigateToPayPalVerification : MainActivitySideEffect()
-  data class NavigateToGiftCard(val giftCard: String, val fromSplashScreen: Boolean) : MainActivitySideEffect()
-  data class NavigateToPromoCode(val promoCode: String, val fromSplashScreen: Boolean) : MainActivitySideEffect()
+  data class NavigateToGiftCard(val giftCard: String, val fromSplashScreen: Boolean) :
+    MainActivitySideEffect()
+
+  data class NavigateToPromoCode(val promoCode: String, val fromSplashScreen: Boolean) :
+    MainActivitySideEffect()
+
   data class NavigateToOnboardingRecoverGuestWallet(val backupModel: BackupModel) :
     MainActivitySideEffect()
+}
+
+sealed interface SnackBarMessage {
+  data class WalletSwitched(val walletName: String) : SnackBarMessage
+  data object WalletAlreadyAdded : SnackBarMessage
+  data object ShowNoMessage : SnackBarMessage
 }
 
 object MainActivityState : ViewState
@@ -48,6 +63,9 @@ class MainActivityViewModel @Inject constructor(
 ) : BaseViewModel<MainActivityState, MainActivitySideEffect>(MainActivityState) {
 
   var isOnboardingPaymentFlow = false
+
+  private val _snackBarMessages = Channel<SnackBarMessage>(Channel.BUFFERED)
+  val snackBarMessages: Flow<SnackBarMessage> = _snackBarMessages.receiveAsFlow()
 
   init {
     handleSavedStateParameters()
@@ -82,8 +100,7 @@ class MainActivityViewModel @Inject constructor(
                     MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet(backupModel)
                   }
                   isOnboardingPaymentFlow = true
-                }
-                else
+                } else
                   sendSideEffect { MainActivitySideEffect.NavigateToOnboarding }
               }
               .doOnError {
@@ -96,7 +113,12 @@ class MainActivityViewModel @Inject constructor(
             sendSideEffect { MainActivitySideEffect.NavigateToGiftCard(giftCard, fromSplashScreen) }
 
           promoCode != null ->
-            sendSideEffect { MainActivitySideEffect.NavigateToPromoCode(promoCode, fromSplashScreen) }
+            sendSideEffect {
+              MainActivitySideEffect.NavigateToPromoCode(
+                promoCode,
+                fromSplashScreen
+              )
+            }
 
           else ->
             sendSideEffect { MainActivitySideEffect.NavigateToNavigationBar }
@@ -105,12 +127,18 @@ class MainActivityViewModel @Inject constructor(
       .scopedSubscribe()
   }
 
-  fun getWsPort() : String? {
+  fun getWsPort(): String? {
     return getWsPortUseCase()
   }
 
-  fun getResponseCodeWebSocket() : Int {
+  fun getResponseCodeWebSocket(): Int {
     return getResponseCodeWebSocketUseCase()
+  }
+
+  fun emitSnackBarMessage(snackBarMessage: SnackBarMessage) {
+    viewModelScope.launch {
+      _snackBarMessages.send(snackBarMessage)
+    }
   }
 
   private fun handleSavedStateParameters() {
