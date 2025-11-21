@@ -54,8 +54,7 @@ class SettingsModule {
     settingsFragment.requireArguments()
       .apply {
         return SettingsData(
-          turnOnFingerprint = getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false),
-          launcher = (getBinder(HomeNavigator.RESULT_LAUNCHER_BINDER) as? HomeNavigator.HomeFragmentBinder)?.resultLauncher
+          turnOnFingerprint = getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false)
         )
       }
   }
