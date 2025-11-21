@@ -8,10 +8,6 @@ import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.component1
-import androidx.activity.result.component2
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -51,7 +47,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -114,9 +109,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import javax.inject.Inject
 import androidx.core.net.toUri
-import com.asfoundation.wallet.ui.login.RESPONSE_TOAST_MESSAGE
-import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKeyResult.Companion.ALREADY_LOGGED_IN_CODE
-import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKeyResult.Companion.WALLET_SWITCHED_CODE
+import com.asfoundation.wallet.main.MainActivityViewModel
+import com.asfoundation.wallet.main.SnackBarMessage
 
 // Before moving this screen into the :home module, all home dependencies need to be independent
 // from the :app module.
@@ -136,39 +130,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   lateinit var formatter: CurrencyFormatUtils
   private val viewModel: HomeViewModel by viewModels()
   private val navBarViewModel: NavBarViewModel by activityViewModels()
+  private val mainActivityViewModel: MainActivityViewModel by activityViewModels()
   private val hasGetSomeValidBalanceResult = mutableStateOf(false)
   private val fragmentName = this::class.java.simpleName
   private var balanceCurrency: String = ""
   private var balanceValue: String = ""
-
-  /**
-   * Result launcher used to process the login operation and convert the response into a snackbar
-   * message to be displayed into the home fragment.
-   */
-  private val snackBarResultLauncher: ActivityResultLauncher<Intent> =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { (resultCode, data) ->
-      when (resultCode) {
-        WALLET_SWITCHED_CODE -> {
-          viewModel.emitSnackBarMessage(
-            SnackBarMessage.WalletSwitched(
-              data?.getStringExtra(RESPONSE_TOAST_MESSAGE) ?: ""
-            )
-          )
-        }
-
-        ALREADY_LOGGED_IN_CODE -> {
-          viewModel.emitSnackBarMessage(
-            SnackBarMessage.WalletAlreadyAdded
-          )
-        }
-
-        else -> {
-          viewModel.emitSnackBarMessage(
-            SnackBarMessage.NotShowMessage
-          )
-        }
-      }
-    }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -177,14 +143,14 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   ): View {
     return ComposeView(requireContext()).apply {
       setContent {
-        HomeScreen { snackbarHostState ->
-          viewModel
+        HomeScreen { snackBarHostState ->
+          mainActivityViewModel
             .snackBarMessages
             .collect { snackBarMessage ->
               when (snackBarMessage) {
                 is SnackBarMessage.WalletSwitched -> {
                   val message = getString(R.string.switched_to_account, snackBarMessage.walletName)
-                  snackbarHostState
+                  snackBarHostState
                     .showSnackbar(
                       message = message,
                       withDismissAction = true,
@@ -194,7 +160,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
                 is SnackBarMessage.WalletAlreadyAdded -> {
                   val message = getString(R.string.already_logged_in)
-                  snackbarHostState
+                  snackBarHostState
                     .showSnackbar(
                       message = message,
                       withDismissAction = true,
@@ -246,7 +212,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   @Composable
   fun HomeScreen(
     modifier: Modifier = Modifier,
-    snackBarResultLauncher: ActivityResultLauncher<Intent> = this.snackBarResultLauncher,
     snackBarCollector: suspend (SnackbarHostState) -> Unit = {}
   ) {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -273,7 +238,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       containerColor = WalletColors.styleguide_dark,
       modifier = modifier
     ) { padding ->
-      HomeScreenContent(padding = padding, snackBarResultLauncher)
+      HomeScreenContent(padding = padding)
     }
     LaunchedEffect(Unit) {
       snackBarCollector(snackbarHostState)
@@ -293,7 +258,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   @Composable
   internal fun HomeScreenContent(
     padding: PaddingValues,
-    snackBarResultLauncher: ActivityResultLauncher<Intent>
   ) {
     getBalanceText(viewModel)
     Column(
@@ -313,7 +277,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           navigator.navigateToManageBottomSheet(
             viewModel.canTransfer.value,
             viewModel.uiEmail.value != null,
-            resultLauncher = snackBarResultLauncher
           )
         },
         balance = balanceValue,
@@ -656,7 +619,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is HomeSideEffect.NavigateToBrowser -> navigator.navigateToBrowser(sideEffect.uri)
       is HomeSideEffect.NavigateToRateUs -> navigator.navigateToRateUs(sideEffect.shouldNavigate)
       is HomeSideEffect.NavigateToSettings ->
-        navigator.navigateToSettings(navController(), sideEffect.turnOnFingerprint, snackBarResultLauncher)
+        navigator.navigateToSettings(navController(), sideEffect.turnOnFingerprint)
 
       is HomeSideEffect.NavigateToBackup ->
         navigator.navigateToBackup(

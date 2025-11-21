@@ -3,10 +3,8 @@ package com.asfoundation.wallet.home
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
-import android.os.Binder
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
@@ -29,25 +27,6 @@ class HomeNavigator
 constructor(
   private val fragment: Fragment,
 ) : Navigator {
-
-  companion object {
-    /**
-     * Key to associate the Binder responsible for
-     * process the login response in the [HomeManageWalletBottomSheetFragment].
-     */
-    const val RESULT_LAUNCHER_BINDER = "snackBar binder"
-  }
-
-  /**
-   * [Binder] responsible for process the login response in the [HomeManageWalletBottomSheetFragment]
-   * and [SettingsFragment].
-   *
-   * This Binder is passed in the [Bundle] when the navigation is triggered.
-   */
-  internal class HomeFragmentBinder(
-    val resultLauncher: ActivityResultLauncher<Intent>
-  ) : Binder()
-
   fun navigateToRateUs(shouldNavigate: Boolean) {
     if (shouldNavigate) {
       val intent = RatingActivity.newIntent(fragment.requireContext())
@@ -107,7 +86,6 @@ constructor(
   fun navigateToManageBottomSheet(
     canTransfer: Boolean,
     isLoggedIn: Boolean,
-    resultLauncher: ActivityResultLauncher<Intent>
   ) {
     val bottomSheet = HomeManageWalletBottomSheetFragment.newInstance()
     val bundle = Bundle()
@@ -119,7 +97,6 @@ constructor(
       HomeManageWalletBottomSheetFragment.IS_LOGGED_IN,
       isLoggedIn
     )
-    bundle.putBinder(RESULT_LAUNCHER_BINDER, HomeFragmentBinder(resultLauncher))
     bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "HomeManageWallet")
   }
@@ -151,11 +128,9 @@ constructor(
   fun navigateToSettings(
     mainNavController: NavController,
     turnOnFingerprint: Boolean = false,
-    launcher: ActivityResultLauncher<Intent>
   ) {
     val bundle = Bundle()
     bundle.putBoolean(SettingsFragment.TURN_ON_FINGERPRINT, turnOnFingerprint)
-    bundle.putBinder(RESULT_LAUNCHER_BINDER, HomeFragmentBinder(launcher))
     mainNavController.navigate(resId = R.id.action_navigate_to_settings, args = bundle)
   }
 
