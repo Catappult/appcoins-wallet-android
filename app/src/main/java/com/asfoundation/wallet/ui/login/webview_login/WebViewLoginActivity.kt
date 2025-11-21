@@ -39,7 +39,9 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.asf.wallet.R
+import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.login.LOGIN_CODE
 import com.asfoundation.wallet.ui.login.RESPONSE_TOAST_MESSAGE
 import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentInterface
@@ -228,8 +230,13 @@ class WebViewLoginActivity : AppCompatActivity() {
   }
 
   private fun finishActivity(result: FetchUserKeyUseCase.FetchUserKeyResult) {
-    val intent = Intent().putExtra(RESPONSE_TOAST_MESSAGE, result.message)
-    setResult(result.code, intent)
+    Intent(context, MainActivity::class.java)
+      .apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP }
+      .apply {
+        putExtra(LOGIN_CODE, result.code)
+        putExtra(RESPONSE_TOAST_MESSAGE, result.message)
+      }
+      .also { startActivity(it) }
     finish()
   }
 

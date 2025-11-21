@@ -4,20 +4,31 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark
+import com.appcoins.wallet.ui.widgets.component.Animation
+import com.asf.wallet.R
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.ui.login.LOGIN_CODE
 import com.asfoundation.wallet.ui.login.RESPONSE_TOAST_MESSAGE
-import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_BACK_TO_NATIVE_LOGIN_ACTIVITY
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_TO_MAIN_ACTIVITY
-import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_TO_NATIVE_LOGIN_ACTIVITY
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.NavigationCase.NAVIGATE_TO_WEBVIEW_PAYMENT_ACTIVITY
-import com.asfoundation.wallet.ui.login.custom_tab_login.native_login.NativeLoginActivity
-import com.asfoundation.wallet.ui.login.custom_tab_login.native_login.NativeLoginActivity.Companion.DEEP_LINK
-import com.asfoundation.wallet.ui.login.custom_tab_login.native_login.NativeLoginActivity.Companion.IS_FROM_NATIVE_LOGIN
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.CustomTabLoginViewModel
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.FinishActivity
 import com.asfoundation.wallet.ui.login.custom_tab_login.viewModel.states.CustomTabVMStates.FinishWithError
@@ -64,19 +75,19 @@ class CustomTabLoginActivity : ComponentActivity() {
     private const val TAG = "CustomTabLoginActivity"
 
     /**
-     * Error receiving the result code from the [FetchUserKeyUseCase]
+     * Default code to be used when [CustomTabLoginActivity] is not called to process a login.
      */
-    private const val UNABLE_TO_PROCESS_REQUEST = 200
+    const val LOGIN_NOT_PROCESSED = 201
+
+    private const val LOADING_SIZE = 104
   }
 
   /**
    * possible navigation from [CustomTabLoginActivity]
    */
   private enum class NavigationCase {
-    NAVIGATE_TO_NATIVE_LOGIN_ACTIVITY,
     NAVIGATE_TO_WEBVIEW_PAYMENT_ACTIVITY,
     NAVIGATE_TO_MAIN_ACTIVITY,
-    NAVIGATE_BACK_TO_NATIVE_LOGIN_ACTIVITY,
   }
 
   /**
@@ -102,7 +113,6 @@ class CustomTabLoginActivity : ComponentActivity() {
     activity: ComponentActivity = this,
     to: NavigationCase,
     logMessage: LogMessage? = null,
-    resultCode: Int? = null,
     buildResponseIntent: Intent.() -> Unit = {}
   ) {
     when (to) {
@@ -113,23 +123,10 @@ class CustomTabLoginActivity : ComponentActivity() {
         )
       }
 
-      NAVIGATE_TO_NATIVE_LOGIN_ACTIVITY -> {
-        navigateToNativeLoginActivity(
-          context = activity,
-          url = activity.intent.data?.toString()
-        )
-      }
-
       NAVIGATE_TO_MAIN_ACTIVITY -> {
         navigateToMainActivity(
           context = activity,
-          logMessage = logMessage
-        )
-      }
-
-      NAVIGATE_BACK_TO_NATIVE_LOGIN_ACTIVITY -> {
-        navigateBackToNativeLoginActivity(
-          resultCode = resultCode,
+          logMessage = logMessage,
           buildResponseIntent = buildResponseIntent
         )
       }
@@ -144,26 +141,12 @@ class CustomTabLoginActivity : ComponentActivity() {
   private fun navigateToMainActivity(
     context: Context,
     logMessage: LogMessage?,
+    buildResponseIntent: Intent.() -> Unit
   ) {
     logMessage?.invoke()
     Intent(context, MainActivity::class.java)
       .apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP }
-      .also { startActivity(it) }
-    finish()
-  }
-
-  /**
-   * helper function to navigate to [NativeLoginActivity]
-   * @param context the context to navigate from
-   * @param url the url to navigate to
-   */
-  private fun navigateToNativeLoginActivity(
-    context: Context,
-    url: String?,
-  ) {
-    Intent(context, NativeLoginActivity::class.java)
-      .apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP }
-      .apply { putExtra(DEEP_LINK, url) }
+      .apply(buildResponseIntent)
       .also { startActivity(it) }
     finish()
   }
@@ -183,55 +166,43 @@ class CustomTabLoginActivity : ComponentActivity() {
   }
 
   /**
-   * helper function to navigate back to [NativeLoginActivity].
-   * This response contains the toast information to be display.
-   *
-   * @param buildResponseIntent the intent to be used as response in [NativeLoginActivity]
-   *
-   * @see [NativeLoginActivity.onNewIntent]
+   * helper function to get a boolean parameter from the intent
+   * @param key the key of the parameter
+   * @return the boolean parameter from the intent
    */
-  private fun navigateBackToNativeLoginActivity(
-    resultCode: Int?,
-    buildResponseIntent: Intent.() -> Unit,
-  ) {
-    val response = Intent()
-      .apply(buildResponseIntent)
-    resultCode?.let {
-      this@CustomTabLoginActivity.setResult(resultCode, response)
-    } ?: run {
-      this@CustomTabLoginActivity.setResult(UNABLE_TO_PROCESS_REQUEST)
-    }
-    finish()
-  }
+  private fun Intent?.getBoolParameter(key: String): Boolean =
+    this?.data
+      ?.getBooleanQueryParameter(key, false)
+      ?: false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val authToken = intent.data?.getQueryParameter(AUTH_TOKEN)
     val email = intent.data?.getQueryParameter(EMAIL_TOKEN)
     val isPaymentInProcess = intent.getBoolParameter(IS_PAYMENT_IN_PROCESS)
-    val passedThroughNativeFlow = intent.getBoolParameter(IS_FROM_NATIVE_LOGIN)
-    if (!passedThroughNativeFlow && !isPaymentInProcess) {
-      navigate(
-        activity = this@CustomTabLoginActivity,
-        to = NAVIGATE_TO_NATIVE_LOGIN_ACTIVITY,
-      )
-    } else {
-      authToken
-        ?.let { viewModel.fetchUserKey(it, email?.ifBlank { null }) }
-        ?: run {
-          navigate(
-            activity = this,
-            to = if (isPaymentInProcess) NAVIGATE_TO_WEBVIEW_PAYMENT_ACTIVITY else NAVIGATE_TO_MAIN_ACTIVITY,
-            logMessage = if (isPaymentInProcess) null else {
-              {
-                logger.log(
-                  TAG,
-                  "Error fetching user key, no auth token provided. Navigating to Main Activity."
-                )
-              }
+    authToken
+      ?.let { viewModel.fetchUserKey(it, email?.ifBlank { null }) }
+      ?: run {
+        navigate(
+          activity = this,
+          to = if (isPaymentInProcess) NAVIGATE_TO_WEBVIEW_PAYMENT_ACTIVITY else NAVIGATE_TO_MAIN_ACTIVITY,
+          logMessage = if (isPaymentInProcess) null else {
+            {
+              logger.log(
+                TAG,
+                "Error fetching user key, no auth token provided. Navigating to Main Activity."
+              )
             }
-          )
-        }
+          }
+        )
+      }
+    setContent {
+      Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        containerColor = styleguide_dark,
+      ) { paddingValues ->
+        LoadingScreen(paddingValues)
+      }
       lifecycleScope.launch {
         repeatOnLifecycle(Lifecycle.State.STARTED) {
           viewModel.activityState.collect { uiState ->
@@ -239,9 +210,9 @@ class CustomTabLoginActivity : ComponentActivity() {
               is FinishActivity -> {
                 navigate(
                   activity = this@CustomTabLoginActivity,
-                  to = NAVIGATE_BACK_TO_NATIVE_LOGIN_ACTIVITY,
-                  resultCode = uiState.response.code,
+                  to = NAVIGATE_TO_MAIN_ACTIVITY,
                   buildResponseIntent = {
+                    putExtra(LOGIN_CODE, uiState.response.code)
                     putExtra(RESPONSE_TOAST_MESSAGE, uiState.response.message)
                   }
                 )
@@ -271,12 +242,19 @@ class CustomTabLoginActivity : ComponentActivity() {
   }
 
   /**
-   * helper function to get a boolean parameter from the intent
-   * @param key the key of the parameter
-   * @return the boolean parameter from the intent
+   * Composable to display the loading screen.
+   * @param paddingValues the padding values to apply to the screen.
    */
-  private fun Intent?.getBoolParameter(key: String): Boolean =
-    this?.data
-      ?.getBooleanQueryParameter(key, false)
-      ?: false
+  @Composable
+  private fun LoadingScreen(paddingValues: PaddingValues) {
+    Column(
+      modifier = Modifier
+        .fillMaxSize()
+        .padding(paddingValues),
+      verticalArrangement = Arrangement.Center,
+      horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+      Animation(modifier = Modifier.size(LOADING_SIZE.dp), animationRes = R.raw.loading_wallet)
+    }
+  }
 }
