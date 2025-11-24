@@ -250,8 +250,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     LaunchedEffect(Unit) {
       snackBarCollector(snackBarHostState, lifecycleOwner)
     }
-    LaunchedEffect(lifecycleOwner.lifecycle) {
-    }
   }
 
   @Composable
