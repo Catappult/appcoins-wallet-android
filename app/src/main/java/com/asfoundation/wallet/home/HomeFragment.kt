@@ -251,7 +251,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       snackBarCollector(snackBarHostState, lifecycleOwner)
     }
     LaunchedEffect(lifecycleOwner.lifecycle) {
-      Log.d("HomeFragment", lifecycleOwner.lifecycle.currentState.name)
     }
   }
 
