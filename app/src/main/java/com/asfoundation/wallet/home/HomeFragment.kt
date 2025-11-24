@@ -52,6 +52,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -109,6 +110,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import javax.inject.Inject
 import androidx.core.net.toUri
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.flowWithLifecycle
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.asfoundation.wallet.main.MainActivityViewModel
 import com.asfoundation.wallet.main.SnackBarMessage
 
@@ -143,9 +148,10 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   ): View {
     return ComposeView(requireContext()).apply {
       setContent {
-        HomeScreen { snackBarHostState ->
+        HomeScreen { snackBarHostState, lifecycleOwner ->
           mainActivityViewModel
             .snackBarMessages
+            .flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
             .collect { snackBarMessage ->
               when (snackBarMessage) {
                 is SnackBarMessage.WalletSwitched -> {
@@ -212,15 +218,16 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   @Composable
   fun HomeScreen(
     modifier: Modifier = Modifier,
-    snackBarCollector: suspend (SnackbarHostState) -> Unit = {}
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    snackBarCollector: suspend (SnackbarHostState, LifecycleOwner) -> Unit = { _, _ -> },
   ) {
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
     Scaffold(
       snackbarHost = {
         SnackbarHost(
-          hostState = snackbarHostState,
+          hostState = snackBarHostState,
           snackbar = { data ->
-            HomeFragmentSnackbar(data)
+            HomeFragmentSnackBar(data)
           }
         )
       },
@@ -241,17 +248,20 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       HomeScreenContent(padding = padding)
     }
     LaunchedEffect(Unit) {
-      snackBarCollector(snackbarHostState)
+      snackBarCollector(snackBarHostState, lifecycleOwner)
+    }
+    LaunchedEffect(lifecycleOwner.lifecycle) {
+      Log.d("HomeFragment", lifecycleOwner.lifecycle.currentState.name)
     }
   }
 
   @Composable
-  private fun HomeFragmentSnackbar(data: SnackbarData) {
+  private fun HomeFragmentSnackBar(data: SnackbarData) {
     Column {
       Snackbar(
         snackbarData = data
       )
-      Spacer(Modifier.height(HOME_FRAGMENT_SNACKBAR_HEIGHT.dp))
+      Spacer(Modifier.height(HOME_FRAGMENT_SNACK_BAR_HEIGHT.dp))
     }
   }
 
@@ -753,6 +763,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
      * The space necessary to display the snackbar in the home fragment
      * considering the navigation bar displayed.
      */
-    private const val HOME_FRAGMENT_SNACKBAR_HEIGHT = 69
+    private const val HOME_FRAGMENT_SNACK_BAR_HEIGHT = 69
   }
 }
