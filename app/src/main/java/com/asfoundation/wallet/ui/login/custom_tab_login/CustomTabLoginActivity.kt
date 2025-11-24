@@ -79,6 +79,9 @@ class CustomTabLoginActivity : ComponentActivity() {
      */
     const val LOGIN_NOT_PROCESSED = 201
 
+    /**
+     * The default size of the loading animation.
+     */
     private const val LOADING_SIZE = 104
   }
 

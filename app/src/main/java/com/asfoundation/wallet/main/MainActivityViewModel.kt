@@ -2,6 +2,7 @@ package com.asfoundation.wallet.main
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.asfoundation.wallet.home.HomeFragment
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
@@ -64,7 +65,16 @@ class MainActivityViewModel @Inject constructor(
 
   var isOnboardingPaymentFlow = false
 
+  /**
+   * Channel for snackBar messages.
+   * The use flow's the [MainActivity] emitting messages and those messages being consumed by
+   * the fragments instantiated by the [MainActivity].
+   */
   private val _snackBarMessages = Channel<SnackBarMessage>(Channel.BUFFERED)
+
+  /**
+   * Flow for snackBar messages.
+   */
   val snackBarMessages: Flow<SnackBarMessage> = _snackBarMessages.receiveAsFlow()
 
   init {
@@ -135,6 +145,9 @@ class MainActivityViewModel @Inject constructor(
     return getResponseCodeWebSocketUseCase()
   }
 
+  /**
+   * Emits a [SnackBarMessage] to be consumed by the [HomeFragment].
+   */
   fun emitSnackBarMessage(snackBarMessage: SnackBarMessage) {
     viewModelScope.launch {
       _snackBarMessages.send(snackBarMessage)
