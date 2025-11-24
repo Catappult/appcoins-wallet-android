@@ -67,8 +67,8 @@ class MainActivityViewModel @Inject constructor(
 
   /**
    * Channel for snackBar messages.
-   * The use flow's the [MainActivity] emitting messages and those messages being consumed by
-   * the fragments instantiated by the [MainActivity].
+   * This flow is used by [MainActivity] to emit messages, which are then consumed by
+   * the fragments instantiated by [MainActivity].
    */
   private val _snackBarMessages = Channel<SnackBarMessage>(Channel.BUFFERED)
 
