@@ -360,7 +360,7 @@ constructor(
       .flatMap { observeRefreshData() }
       .switchMap {
         observeWalletInfoUseCase(null, update = true)
-          .map { walletInfo -> walletInfo.hasBackup }
+          .map { walletInfo -> walletInfo.hasBackup || walletInfo.email != null }
           .asAsyncToState(HomeState::hasBackup) { copy(hasBackup = it) }
       }
   }
