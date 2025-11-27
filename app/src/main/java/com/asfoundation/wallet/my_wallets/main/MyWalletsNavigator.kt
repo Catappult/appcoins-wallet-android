@@ -42,9 +42,15 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
 
-  fun navigateToManageWalletBottomSheet(hasOneWallet: Boolean) {
+  fun navigateToManageWalletBottomSheet(
+    hasOneWallet: Boolean,
+    activeWalletAddress: String,
+    activeWalletName: String
+  ) {
     val bundle = Bundle()
     bundle.putBoolean(ManageWalletBottomSheetFragment.HAS_ONE_WALLET, hasOneWallet)
+    bundle.putString(ManageWalletBottomSheetFragment.ACTIVE_WALLET_ADDRESS, activeWalletAddress)
+    bundle.putString(ManageWalletBottomSheetFragment.ACTIVE_WALLET_NAME, activeWalletName)
     val bottomSheet = ManageWalletBottomSheetFragment.newInstance()
     bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")

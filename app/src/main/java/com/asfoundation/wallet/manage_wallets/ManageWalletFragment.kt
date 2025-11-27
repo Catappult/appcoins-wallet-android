@@ -196,7 +196,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     verificationStatus: VerificationStatusCompound
   ) {
     LazyColumn(modifier = Modifier.padding(padding)) {
-      item { ScreenHeader(inactiveWallets.size) }
+      item { ScreenHeader(inactiveWallets.size, walletInfo) }
       item { ActiveWalletCard(walletInfo, verificationStatus) }
 
       items(inactiveWallets) { wallet ->
@@ -268,16 +268,18 @@ class ManageWalletFragment : BasePageViewFragment() {
         fragmentName = fragmentName
       )
       Spacer(modifier = Modifier.height(24.dp))
-      BackupAlertCard(
-        onClickButton = {
-          navigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
-        },
-        hasBackup = walletInfo.hasBackup,
-        backupDate = walletInfo.backupDate,
-        fragmentName = fragmentName,
-        buttonsAnalytics = buttonsAnalytics
-      )
-      Separator()
+      if (walletInfo.email.isNullOrBlank()) {
+        BackupAlertCard(
+          onClickButton = {
+            navigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
+          },
+          hasBackup = walletInfo.hasBackup,
+          backupDate = walletInfo.backupDate,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
+        )
+        Separator()
+      }
       if (
         isVerificationInProcessing(verificationStatus.creditCardStatus, walletInfo.verified) ||
         isVerificationInProcessing(verificationStatus.payPalStatus, walletInfo.verified)
@@ -350,17 +352,19 @@ class ManageWalletFragment : BasePageViewFragment() {
 
       Spacer(modifier = Modifier.height(24.dp))
       Row(verticalAlignment = CenterVertically) {
-        BackupAlertCard(
-          onClickButton = {
-            navigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
-          },
-          hasBackup = walletInfo.hasBackup,
-          backupDate = walletInfo.backupDate,
-          modifier = Modifier.weight(1f),
-          fragmentName = fragmentName,
-          buttonsAnalytics = buttonsAnalytics
-        )
-        Spacer(Modifier.weight(0.05f))
+        if (walletInfo.email.isNullOrBlank()) {
+          BackupAlertCard(
+            onClickButton = {
+              navigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
+            },
+            hasBackup = walletInfo.hasBackup,
+            backupDate = walletInfo.backupDate,
+            modifier = Modifier.weight(1f),
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
+          )
+          Spacer(Modifier.weight(0.05f))
+        }
         if (
           isVerificationInProcessing(verificationStatus.creditCardStatus, walletInfo.verified) ||
           isVerificationInProcessing(verificationStatus.payPalStatus, walletInfo.verified)
@@ -514,19 +518,22 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ScreenHeader(inactiveWalletsQuantity: Int) {
+  fun ScreenHeader(inactiveWalletsQuantity: Int, activeWallet: WalletInfo) {
     Row(
       horizontalArrangement = SpaceBetween,
       verticalAlignment = CenterVertically,
       modifier = Modifier.fillMaxWidth()
     ) {
       ScreenTitle(stringResource(R.string.manage_wallet_view_title))
-      ManagementOptionsBottomSheet(inactiveWalletsQuantity)
+      ManagementOptionsBottomSheet(inactiveWalletsQuantity, activeWallet)
     }
   }
 
   @Composable
-  fun ManagementOptionsBottomSheet(inactiveWalletsQuantity: Int) {
+  fun ManagementOptionsBottomSheet(
+    inactiveWalletsQuantity: Int,
+    activeWallet: WalletInfo
+  ) {
     Row(
       horizontalArrangement = Arrangement.End,
       modifier = Modifier
@@ -537,7 +544,11 @@ class ManageWalletFragment : BasePageViewFragment() {
         imageVector = Icons.Default.MoreVert,
         contentDescription = R.string.action_more_details,
         onClick = {
-          myWalletsNavigator.navigateToManageWalletBottomSheet(inactiveWalletsQuantity == 0)
+          myWalletsNavigator.navigateToManageWalletBottomSheet(
+            inactiveWalletsQuantity == 0,
+            activeWallet.wallet,
+            activeWallet.name
+          )
         },
         paddingIcon = 4.dp,
         background = styleguide_dark_secondary,
