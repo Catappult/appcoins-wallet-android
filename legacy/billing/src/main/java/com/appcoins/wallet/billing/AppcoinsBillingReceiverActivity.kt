@@ -20,7 +20,6 @@ import com.appcoins.wallet.bdsbilling.repository.SubscriptionsMapper
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
