@@ -50,11 +50,6 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
   private lateinit var serializer: ExternalBillingSerializer
   private lateinit var proxyService: ProxyService
   private lateinit var intentBuilder: BillingIntentBuilder
-
-  private val logger: Logger by lazy {
-    (applicationContext as BillingDependenciesProvider).getInjectLogger()
-  }
-
   private val initializationComplete = CompletableDeferred<Unit>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
