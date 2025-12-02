@@ -58,6 +58,7 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
     val isLoggedIn = arguments?.getBoolean(IS_LOGGED_IN)
     if (isLoggedIn == true) {
       views.signInWalletText.text = getString(R.string.home_switch_account_button)
+      views.backupWalletView.isGone = true
     }
     views.transferWalletView.isGone = canTransfer != true
     setListeners()
@@ -154,6 +155,5 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
       else -> {}
     }
   }
-
 
 }

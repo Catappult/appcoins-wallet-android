@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.home.bottom_sheet
 
-import android.content.Intent
-import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
@@ -15,7 +13,6 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.ui.login.usecases.GenerateWebLoginUrlUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx2.await
 import kotlinx.coroutines.withContext
@@ -49,8 +46,6 @@ constructor(
     }
   }
 
-  private var compositeDisposable: CompositeDisposable = CompositeDisposable()
-
   fun onBackupClick() {
     viewModelScope.launch {
       val walletInfo =
@@ -75,5 +70,4 @@ constructor(
       .doOnError { error -> Log.d("getLoginUrl", "Error: ${error.message}") }
       .blockingGet()
   }
-
 }
