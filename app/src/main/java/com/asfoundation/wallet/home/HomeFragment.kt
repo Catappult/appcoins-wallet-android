@@ -477,7 +477,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             cardItem = promotion,
             fragmentName = fragmentName,
             buttonsAnalytics = buttonsAnalytics,
-            modifier = Modifier.fillParentMaxWidth(if (isLandscape) 0.45f else 0.9f)
+            modifier =
+              if (viewModel.activePromotions.size > 1)
+                Modifier.fillParentMaxWidth(if (isLandscape) 0.45f else 0.9f)
+              else
+                Modifier.fillParentMaxWidth()
           )
         }
       }
