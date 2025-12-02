@@ -30,6 +30,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.font.FontWeight.Companion.Medium
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
@@ -83,7 +85,14 @@ class RemoveWalletFragment : BasePageViewFragment() {
     viewModel.getWallets(false)
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics) }
+        Surface {
+          TopBar(
+            isMainBar = false,
+            onClickSupport = { viewModel.displayChat() },
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
+          )
+        }
       },
       containerColor = WalletColors.styleguide_dark,
     ) { padding ->
@@ -119,9 +128,11 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
       item { BalanceCard(walletInfo) }
 
-      item { AlertCard() }
+      if (walletInfo.email.isNullOrBlank()) {
+        item { AlertCard() }
+      }
 
-      item { ActionButtons(walletInfo.wallet, walletInfo.name) }
+      item { ActionButtons(walletInfo.wallet, walletInfo.name, !walletInfo.email.isNullOrBlank()) }
     }
   }
 
@@ -142,7 +153,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
       Card(
         modifier = Modifier.padding(vertical = 24.dp),
         colors =
-        CardDefaults.cardColors(containerColor = WalletColors.styleguide_dark_secondary)
+          CardDefaults.cardColors(containerColor = WalletColors.styleguide_dark_secondary)
       ) {
         Column(
           modifier = Modifier
@@ -250,28 +261,31 @@ class RemoveWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ActionButtons(address: String, name: String) {
+  fun ActionButtons(address: String, name: String, hasLogin: Boolean) {
     Column(
       verticalArrangement = Arrangement.spacedBy(16.dp),
       modifier = Modifier
         .padding(top = 48.dp)
         .padding(horizontal = 8.dp)
     ) {
-      ButtonWithText(
-        label = stringResource(id = R.string.backup_button),
-        onClick = { myWalletsNavigator.navigateToBackup(address, name) },
-        labelColor = styleguide_light_grey,
-        backgroundColor = styleguide_primary,
-        buttonType = ButtonType.LARGE,
-        fragmentName = fragmentName,
-        buttonsAnalytics = buttonsAnalytics
-      )
+      if (!hasLogin) {
+        ButtonWithText(
+          label = stringResource(id = R.string.backup_button),
+          onClick = { myWalletsNavigator.navigateToBackup(address, name) },
+          labelColor = styleguide_light_grey,
+          backgroundColor = styleguide_primary,
+          buttonType = ButtonType.LARGE,
+          fragmentName = fragmentName,
+          buttonsAnalytics = buttonsAnalytics
+        )
+      }
 
       ButtonWithText(
         label = stringResource(id = R.string.my_wallets_action_delete_wallet),
         onClick = { viewModel.deleteWallet(address) },
         labelColor = styleguide_light_grey,
-        outlineColor = styleguide_light_grey,
+        outlineColor = if (hasLogin) null else styleguide_light_grey,
+        backgroundColor = if (hasLogin) styleguide_primary else Color.Transparent,
         buttonType = ButtonType.LARGE,
         fragmentName = fragmentName,
         buttonsAnalytics = buttonsAnalytics

@@ -21,6 +21,7 @@ class ShouldShowSystemNotificationUseCase @Inject constructor(
     walletInfo.hasBackup.not()
         && meetsLastDismissCondition(walletInfo.wallet)
         && meetsCountConditions(walletInfo.wallet)
+        && walletInfo.email == null
   )
 
   private fun meetsLastDismissCondition(walletAddress: String): Boolean {
