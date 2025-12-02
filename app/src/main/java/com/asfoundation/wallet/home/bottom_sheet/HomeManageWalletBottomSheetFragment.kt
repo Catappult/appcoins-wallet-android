@@ -95,13 +95,6 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
       this.dismiss()
     }
 
-    views.backupWalletView.setOnClickListener {
-      buttonsAnalytics.sendDefaultButtonClickAnalytics(
-        fragmentName,
-        getString(R.string.my_wallets_action_backup_wallet)
-      )
-      viewModel.onBackupClick()
-    }
     views.manageWalletView.setOnClickListener {
       buttonsAnalytics.sendDefaultButtonClickAnalytics(
         fragmentName,
@@ -163,6 +156,5 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
       else -> {}
     }
   }
-
 
 }
