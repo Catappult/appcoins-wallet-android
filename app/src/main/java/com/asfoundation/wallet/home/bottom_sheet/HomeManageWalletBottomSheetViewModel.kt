@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.home.bottom_sheet
 
-import android.content.Intent
-import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
