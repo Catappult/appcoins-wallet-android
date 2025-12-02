@@ -28,8 +28,6 @@ interface BillingDependenciesProvider {
 
   fun rxSchedulers(): RxSchedulers
 
-  fun getInjectLogger(): Logger
-
   fun ewtObtainer(): EwtAuthenticatorService
 
   fun partnerAddressService(): PartnerAddressService
