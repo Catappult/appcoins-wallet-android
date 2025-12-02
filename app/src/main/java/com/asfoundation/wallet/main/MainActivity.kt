@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.core.utils.android_common.OnNewIntentActivityHandler
 import com.appcoins.wallet.core.utils.jvm_common.RxBus
@@ -23,6 +24,11 @@ import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentW
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_SUCCESS
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
+import com.asfoundation.wallet.ui.login.LOGIN_CODE
+import com.asfoundation.wallet.ui.login.RESPONSE_TOAST_MESSAGE
+import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity.Companion.LOGIN_NOT_PROCESSED
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKeyResult.Companion.ALREADY_LOGGED_IN_CODE
+import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKeyResult.Companion.WALLET_SWITCHED_CODE
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPayPalProperties.PAYPAL_VERIFICATION_REQUIRED
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.Disposable
@@ -95,7 +101,42 @@ class MainActivity : AppCompatActivity(), OnNewIntentActivityHandler,
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
     newIntent = intent
+    handleSnackBarMessage(intent, viewModel)
     handleInitialNavigation(intent = intent, newIntent = true)
+  }
+
+  /**
+   * Helper function responsible for checking within the received [Intent]
+   * if there's information regarding the snackBar, the stores it in the [MainActivityViewModel].
+   *
+   * @param intent The [Intent] to be checked.
+   * @param viewModel The [MainActivityViewModel] to be updated.
+   */
+  private fun handleSnackBarMessage(intent: Intent, viewModel: MainActivityViewModel) {
+    val snackBarCode = intent.getIntExtra(
+      LOGIN_CODE,
+      LOGIN_NOT_PROCESSED
+    )
+    val snackBarMessage = intent.getStringExtra(RESPONSE_TOAST_MESSAGE)
+    val snackBar = when (snackBarCode) {
+      WALLET_SWITCHED_CODE -> {
+        snackBarMessage?.let {
+          SnackBarMessage.WalletSwitched(it)
+        } ?: run {
+          Log.e(TAG, "handleSnackBarMessage: snackBarMessage is null")
+          SnackBarMessage.ShowNoMessage
+        }
+      }
+
+      ALREADY_LOGGED_IN_CODE -> {
+        SnackBarMessage.WalletAlreadyAdded
+      }
+
+      else -> {
+        SnackBarMessage.ShowNoMessage
+      }
+    }
+    viewModel.emitSnackBarMessage(snackBar)
   }
 
   private fun handleInitialNavigation(
@@ -252,7 +293,7 @@ class MainActivity : AppCompatActivity(), OnNewIntentActivityHandler,
   companion object {
     private const val DEEPLINK_GIFT_CARD_QUERY_PARAM = "giftcard"
     private const val DEEPLINK_PROMO_CODE_QUERY_PARAM = "promocode"
-
+    const val TAG = "MainActivity"
     fun newIntent(
       context: Context,
       supportNotificationClicked: Boolean,

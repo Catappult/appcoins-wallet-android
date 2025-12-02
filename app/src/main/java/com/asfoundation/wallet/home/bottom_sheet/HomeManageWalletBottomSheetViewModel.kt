@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 sealed class HomeManageWalletBottomSheetSideEffect : SideEffect {
   object NavigateBack : HomeManageWalletBottomSheetSideEffect()
-  data class OpenLogin(val url: String, val launcher: ActivityResultLauncher<Intent>) : HomeManageWalletBottomSheetSideEffect()
+  data class OpenLogin(val url: String) : HomeManageWalletBottomSheetSideEffect()
 }
 
 data class HomeManageWalletBottomSheetState(
