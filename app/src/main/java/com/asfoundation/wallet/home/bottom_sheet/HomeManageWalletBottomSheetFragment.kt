@@ -63,6 +63,7 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
     val binder = arguments?.getBinder(RESULT_LAUNCHER_BINDER) as? HomeFragmentBinder
     if (isLoggedIn == true) {
       views.signInWalletText.text = getString(R.string.home_switch_account_button)
+      views.backupWalletView.isGone = true
     }
     views.transferWalletView.isGone = canTransfer != true
     setListeners(binder?.resultLauncher)
@@ -95,6 +96,13 @@ class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
       this.dismiss()
     }
 
+    views.backupWalletView.setOnClickListener {
+      buttonsAnalytics.sendDefaultButtonClickAnalytics(
+        fragmentName,
+        getString(R.string.my_wallets_action_backup_wallet)
+      )
+      viewModel.onBackupClick()
+    }
     views.manageWalletView.setOnClickListener {
       buttonsAnalytics.sendDefaultButtonClickAnalytics(
         fragmentName,
