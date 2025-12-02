@@ -196,7 +196,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     verificationStatus: VerificationStatusCompound
   ) {
     LazyColumn(modifier = Modifier.padding(padding)) {
-      item { ScreenHeader(inactiveWallets.size, walletInfo) }
+      item { ScreenHeader(inactiveWallets.size) }
       item { ActiveWalletCard(walletInfo, verificationStatus) }
 
       items(inactiveWallets) { wallet ->
@@ -518,22 +518,19 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ScreenHeader(inactiveWalletsQuantity: Int, activeWallet: WalletInfo) {
+  fun ScreenHeader(inactiveWalletsQuantity: Int) {
     Row(
       horizontalArrangement = SpaceBetween,
       verticalAlignment = CenterVertically,
       modifier = Modifier.fillMaxWidth()
     ) {
       ScreenTitle(stringResource(R.string.manage_wallet_view_title))
-      ManagementOptionsBottomSheet(inactiveWalletsQuantity, activeWallet)
+      ManagementOptionsBottomSheet(inactiveWalletsQuantity)
     }
   }
 
   @Composable
-  fun ManagementOptionsBottomSheet(
-    inactiveWalletsQuantity: Int,
-    activeWallet: WalletInfo
-  ) {
+  fun ManagementOptionsBottomSheet(inactiveWalletsQuantity: Int) {
     Row(
       horizontalArrangement = Arrangement.End,
       modifier = Modifier
@@ -546,8 +543,6 @@ class ManageWalletFragment : BasePageViewFragment() {
         onClick = {
           myWalletsNavigator.navigateToManageWalletBottomSheet(
             inactiveWalletsQuantity == 0,
-            activeWallet.wallet,
-            activeWallet.name
           )
         },
         paddingIcon = 4.dp,

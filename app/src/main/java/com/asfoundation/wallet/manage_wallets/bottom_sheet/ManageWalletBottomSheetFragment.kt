@@ -38,11 +38,6 @@ class ManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
 
     const val HAS_ONE_WALLET = "has_one_wallet"
 
-    const val ACTIVE_WALLET_ADDRESS = "active_wallet_address"
-
-    const val ACTIVE_WALLET_NAME = "active_wallet_name"
-
-
     @JvmStatic
     fun newInstance(): ManageWalletBottomSheetFragment {
       return ManageWalletBottomSheetFragment()
@@ -57,10 +52,7 @@ class ManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setListeners(
-      arguments?.getString(ACTIVE_WALLET_ADDRESS),
-      arguments?.getString(ACTIVE_WALLET_NAME)
-    )
+    setListeners()
     if (arguments?.getBoolean(HAS_ONE_WALLET) == true) {
       views.deleteWalletView.visibility = View.GONE
     }
@@ -77,10 +69,7 @@ class ManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
     return R.style.AppBottomSheetDialogThemeDraggable
   }
 
-  private fun setListeners(
-    walletAddress: String? = null,
-    walletName: String? = null
-  ) {
+  private fun setListeners() {
     views.newWalletView.setOnClickListener {
       dismiss()
       buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.my_wallets_action_new_wallet))
@@ -95,13 +84,6 @@ class ManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
       dismiss()
       buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.my_wallets_action_recover_wallet))
       navigator.navigateToRecoverWallet()
-    }
-    views.backupWalletView.setOnClickListener {
-      dismiss()
-      buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.backup_button))
-      if (walletAddress != null && walletName != null) {
-        navigator.navigateToBackup(walletAddress, walletName)
-      }
     }
   }
 
@@ -120,6 +102,5 @@ class ManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: ManageWalletBottomSheetState) {
   }
-
 
 }
