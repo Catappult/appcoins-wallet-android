@@ -1,15 +1,10 @@
 package com.appcoins.wallet.billing
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
 import android.os.Parcelable
 import android.util.Log
 import android.view.WindowManager
-import androidx.core.net.toUri
 import com.appcoins.communication.MessageProcessorActivity
 import com.appcoins.wallet.bdsbilling.BdsBilling
 import com.appcoins.wallet.bdsbilling.Billing
@@ -25,7 +20,6 @@ import com.appcoins.wallet.bdsbilling.repository.SubscriptionsMapper
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -55,67 +49,9 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
   private lateinit var serializer: ExternalBillingSerializer
   private lateinit var proxyService: ProxyService
   private lateinit var intentBuilder: BillingIntentBuilder
-
-  private val logger: Logger by lazy {
-    (applicationContext as BillingDependenciesProvider).getInjectLogger()
-  }
-
   private val initializationComplete = CompletableDeferred<Unit>()
 
-  @SuppressLint("QueryPermissionsNeeded")
-  private fun checkExposedActivity(
-    ctx: Context,
-    packageName: String,
-    senderUri: String?
-  ): Boolean {
-    val probe = Intent(Intent.ACTION_VIEW, senderUri?.toUri())
-
-    val pm = ctx.packageManager
-    val matches = pm
-      .queryIntentActivities(probe, PackageManager.MATCH_DEFAULT_ONLY)
-      .map { it.activityInfo }
-
-    if (matches.isEmpty()) return false
-
-    for (activityInfo in matches) {
-      if (activityInfo == null) continue
-      if (packageName != activityInfo.packageName) continue
-
-      val exported = activityInfo.exported
-      val enabled = activityInfo.enabled && activityInfo.applicationInfo != null && activityInfo.applicationInfo.enabled
-
-      var hasRequiredPerm = true
-      if (!activityInfo.permission.isNullOrEmpty()) {
-        hasRequiredPerm = (pm.checkPermission(
-          activityInfo.permission,
-          ctx.packageName
-        ) == PackageManager.PERMISSION_GRANTED)
-      }
-
-      if (exported && enabled && hasRequiredPerm) {
-        return true
-      }
-    }
-    return false
-  }
-
   override fun onCreate(savedInstanceState: Bundle?) {
-    val requesterPackageName = intent?.getStringExtra(REQUESTER_PACKAGE_NAME) ?: ""
-    val requesterActivityUri = intent?.getStringExtra(REQUESTER_ACTIVITY_URI)
-    if (!checkExposedActivity(
-        ctx = this,
-        packageName = requesterPackageName,
-        senderUri = requesterActivityUri
-      )
-    ) {
-      logger.log(
-        TAG,
-        "Request activity URI (${requesterActivityUri}) is not marked as exported",
-        asError = true
-      )
-      finish()
-      return
-    }
     super.onCreate(savedInstanceState)
     moveTaskToBack(true)
     if (applicationContext !is BillingDependenciesProvider) {
