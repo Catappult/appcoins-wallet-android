@@ -1,5 +1,11 @@
 package com.appcoins.wallet.ui.widgets
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,6 +45,8 @@ private const val EMAIL_TEXT_WEIGHT = 400
 private const val EMAIL_TEXT_FONT_SIZE = 14
 
 private const val EMAIL_SPACER_HEIGHT = 12
+
+private const val BACKUP_TWEEN = 300
 
 @Composable
 fun BalanceNewCard(
@@ -136,7 +144,19 @@ fun BalanceNewCard(
         )
       }
       Spacer(modifier = Modifier.height(16.dp))
-      if (showBackup) {
+      AnimatedVisibility(
+        visible = showBackup,
+        enter = fadeIn(animationSpec = tween(BACKUP_TWEEN)) + expandVertically(
+          animationSpec = tween(
+            BACKUP_TWEEN
+          )
+        ),
+        exit = fadeOut(animationSpec = tween(BACKUP_TWEEN)) + shrinkVertically(
+          animationSpec = tween(
+            BACKUP_TWEEN
+          )
+        )
+      ) {
         Row(
           modifier = Modifier
             .fillMaxWidth()

@@ -14,8 +14,7 @@ class ManageWalletBottomSheetNavigator
 @Inject
 constructor(
   val fragment: Fragment,
-  val fragmentManager: FragmentManager,
-  private val navController: NavController
+  val fragmentManager: FragmentManager
 ) : Navigator {
 
   fun navigateBack() {

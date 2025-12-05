@@ -85,7 +85,6 @@ class ManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
       buttonsAnalytics.sendDefaultButtonClickAnalytics(fragmentName, getString(R.string.my_wallets_action_recover_wallet))
       navigator.navigateToRecoverWallet()
     }
-
   }
 
   private fun navController(): NavController {
@@ -103,6 +102,5 @@ class ManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: ManageWalletBottomSheetState) {
   }
-
 
 }

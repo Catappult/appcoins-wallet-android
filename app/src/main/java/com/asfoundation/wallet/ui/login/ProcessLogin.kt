@@ -2,12 +2,16 @@ package com.asfoundation.wallet.ui.login
 
 import android.content.Context
 import android.content.Intent
-import androidx.activity.result.ActivityResultLauncher
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.net.toUri
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity
-import com.asfoundation.wallet.ui.login.custom_tab_login.native_login.NativeLoginActivity
 import com.asfoundation.wallet.ui.login.webview_login.WebViewLoginActivity
 
+/**
+ * The name of the login code query parameter.
+ */
+const val LOGIN_CODE = "login_code"
 
 /**
  * The message that should be displayed in the Toast after the login.
@@ -21,30 +25,29 @@ const val RESPONSE_TOAST_MESSAGE = "response_toast_message"
  *
  * @param url The URL to load for login.
  * @param context The context to use for launching activities.
- * @param launcher An optional launcher for launching activities.
  * @see CustomTabLoginActivity
  * @see WebViewLoginActivity
  */
 fun processLoginRequest(
   url: String,
   context: Context,
-  launcher: ActivityResultLauncher<Intent>? = null
 ) {
   val hasCustomChromeTabAvailable = hasCustomChromeTabAvailable(context)
   val useUrl = url
     .addIsCctParamToUrl(hasCustomChromeTabAvailable)
     .addVersionParamToUrl(BuildConfig.VERSION_CODE.toString())
-  val intent =
-    if (hasCustomChromeTabAvailable) {
-      Intent(context, NativeLoginActivity::class.java)
-        .apply { putExtra(NativeLoginActivity.URL, useUrl) }
-    } else {
-      Intent(context, WebViewLoginActivity::class.java)
-        .apply { putExtra(WebViewLoginActivity.URL, useUrl) }
-    }
-  launcher
-    ?.launch(intent)
-    ?: run { context.startActivity(intent) }
+  if (hasCustomChromeTabAvailable) {
+    CustomTabsIntent
+      .Builder()
+      .build()
+      .launchUrl(context, useUrl.toUri())
+  } else {
+    Intent(context, WebViewLoginActivity::class.java)
+      .apply { putExtra(WebViewLoginActivity.URL, useUrl) }
+      .let {
+        context.startActivity(it)
+      }
+  }
 }
 
 /**

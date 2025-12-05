@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.login.custom_tab_login.viewModel
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -34,7 +35,7 @@ internal class CustomTabLoginViewModel @Inject constructor(
   private val fetchUserKeyUseCase: FetchUserKeyUseCase,
   private val logger: Logger,
   initialStates: CustomTabVMStates = Initial,
-) : androidx.lifecycle.ViewModel() {
+) : ViewModel() {
   companion object {
     private const val TAG = "CustomTabLoginVM"
   }

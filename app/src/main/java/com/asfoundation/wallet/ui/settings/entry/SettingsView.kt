@@ -61,5 +61,5 @@ interface SettingsView {
 
   fun setFaqsPreference()
 
-  fun setLoginSwitchPreference(isLogged: Boolean, launcher: ActivityResultLauncher<Intent>?)
+  fun setLoginSwitchPreference(isLogged: Boolean)
 }
