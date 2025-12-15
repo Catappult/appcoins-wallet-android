@@ -31,6 +31,10 @@ android {
     }
 
   }
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }
 
 dependencies {

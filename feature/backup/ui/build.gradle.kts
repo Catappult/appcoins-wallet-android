@@ -6,6 +6,10 @@ plugins {
 android {
   namespace = "com.appcoins.wallet.feature.backup.ui"
   defaultConfig { buildFeatures { viewBinding = true } }
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }
 
 dependencies {

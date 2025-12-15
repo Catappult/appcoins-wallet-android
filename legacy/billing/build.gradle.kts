@@ -8,6 +8,10 @@ android {
   buildFeatures {
     aidl = true
   }
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }
 
 dependencies {

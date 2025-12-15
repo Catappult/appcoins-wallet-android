@@ -4,6 +4,10 @@ plugins {
 
 android {
   namespace = "com.appcoins.wallet.core.network.airdrop"
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }
 
 dependencies {

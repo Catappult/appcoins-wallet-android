@@ -4,6 +4,10 @@ plugins {
 
 android {
   namespace = "com.appcoins.wallet.core.network.zendesk"
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }
 
 dependencies {

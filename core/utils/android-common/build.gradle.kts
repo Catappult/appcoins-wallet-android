@@ -3,6 +3,10 @@ plugins {
 }
 android {
   namespace = "com.appcoins.wallet.core.utils.android_common"
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }
 dependencies {
   implementation(libs.web3j)

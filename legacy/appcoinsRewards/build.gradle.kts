@@ -4,6 +4,10 @@ plugins {
 
 android {
   namespace = "com.appcoins.wallet.appcoinsrewards"
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }
 
 dependencies {

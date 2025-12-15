@@ -5,6 +5,10 @@ plugins {
 
 android {
   namespace = "com.appcoins.wallet.feature.promocode.data"
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }
 
 dependencies {

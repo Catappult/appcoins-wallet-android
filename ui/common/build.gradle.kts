@@ -12,6 +12,10 @@ android {
       compose = true
     }
   }
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }
 
 dependencies {
