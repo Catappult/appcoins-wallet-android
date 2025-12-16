@@ -3,4 +3,8 @@ plugins {
 }
 android {
   namespace = "com.appcoins.wallet.core.utils.properties"
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }

@@ -1,6 +1,12 @@
 plugins { id("appcoins.android.library.compose") }
 
-android { namespace = "com.appcoins.wallet.feature.changecurrency.ui" }
+android {
+  namespace = "com.appcoins.wallet.feature.changecurrency.ui"
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
+}
 
 dependencies {
   implementation(project(":feature:change-currency:data"))

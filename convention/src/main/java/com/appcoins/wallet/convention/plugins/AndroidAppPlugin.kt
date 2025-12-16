@@ -11,7 +11,6 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
-import kotlin.collections.set
 
 class AndroidAppPlugin : Plugin<Project> {
   override fun apply(target: Project) {

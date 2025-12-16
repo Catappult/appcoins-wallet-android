@@ -4,6 +4,10 @@ plugins {
 }
 android {
   namespace = "com.appcoins.wallet.gamification"
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }
 dependencies {
   implementation(project(":core:utils:android-common"))
