@@ -139,9 +139,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
     }
   }
 
-  override fun onNewIntent(intent: Intent?) {
+  override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
-    val data = intent?.data?.toString().orEmpty()
+    val data = intent.data?.toString().orEmpty()
     viewModel.webView?.post {
       if (data.isNotBlank()) {
         viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated(\"$data\")")

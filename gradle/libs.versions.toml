@@ -1,9 +1,9 @@
 [versions]
 adyen_version = "4.7.1"
-androidx_appcompat_version = "1.4.1"
-androidx_browser_version = "1.4.0"
+androidx_appcompat_version = "1.7.1"
+androidx_browser_version = "1.7.0"
 androidx_cardview_version = "1.0.0"
-androidx_constraintlayout_version = "2.1.3"
+androidx_constraintlayout_version = "2.2.1"
 androidx_compose = "1.4.3"
 androidx_compose_material3 = "1.1.0"
 androidx_compose_compiler = "1.5.13"
@@ -44,7 +44,7 @@ hilt_czerwinski_extensions_version = "1.3.0"
 hilt_version = "2.51.1"
 hilt_compose_navigation = "1.2.0"
 indicative_version = "1.1.0"
-intercom_version = "15.2.0"
+intercom_version = "17.3.1"
 jackson_version = "2.10.3"
 jetbrains_annotations_version = "19.0.0"
 junit5_version = "5.7.2"
@@ -62,11 +62,11 @@ play_services_vision_version = "19.0.0"
 referrer_version = "2.2"
 retrofit_version = "2.8.1"
 rxandroid_version = "2.1.1"
-rxbinding_version = "2.1.1"
+rxbinding_version = "2.2.0"
 rxjava_version = "2.2.19"
 rxlifecycle_version = "1.0"
 androidx_securitycrypto_version = "1.1.0-alpha03"
-sentry_version = "8.21.1"
+sentry_version = "8.28.0"
 shimmer_version = "0.5.0"
 spongycastle_version = "1.58.0.0" #it was "1.58.0.0@jar"?
 support_annotations = "27.1.0"
@@ -138,6 +138,8 @@ compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", versio
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx_compose" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "androidx_compose_compiler" }
 compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie_version" }
+compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidx_compose" }
+
 
 network-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit_version" }
 network-retrofit-adapter-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit_version" }
@@ -251,7 +253,7 @@ firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "per
 androidx-room = ["androidx-room-runtime", "androidx-room-rxjava2", "androidx-room-ktx"]
 androidx-lifecycle = ["androidx-lifecycle-ktx-runtime", "androidx-lifecycle-ktx-viewmodel", "androidx-lifecycle-ktx-viewmodel-savedstate", "androidx-lifecycle-ktx-common-java8", "androidx-lifecycle-extensions"]
 androidx-work = ["androidx-work-runtime", "androidx-work-rxjava2"]
-androidx-compose = ["compose-ui-viewbinding", "compose-ui-util", "compose-ui-ui", "compose-ui-preview", "compose-ui-tooling", "compose-ui-test", "compose-material3", "compose-foundation-layout", "compose-foundation-foundation", "compose-animation-animation", "compose-compiler", "compose-activity"]
+androidx-compose = ["compose-ui-viewbinding", "compose-ui-util", "compose-ui-ui", "compose-ui-preview", "compose-ui-tooling", "compose-ui-test", "compose-material3", "compose-foundation-layout", "compose-foundation-foundation", "compose-animation-animation", "compose-compiler", "compose-activity", "compose-material-icons-extended"]
 coil = ["coil-kt", "coil-kt-compose", "coil-kt-svg"]
 network = ["network-retrofit", "network-retrofit-adapter-rxjava", "network-retrofit-converter-gson", "network-retrofit-converter-jackson", "network-okhttp", "google-gson"]
 adyen = ["adyen-card", "adyen-redirect", "adyen-3ds2"]

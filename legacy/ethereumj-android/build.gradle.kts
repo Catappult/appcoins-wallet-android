@@ -3,6 +3,10 @@ plugins {
 }
 android {
   namespace = "com.asf.ethereumj.android"
+
+  lint {
+    disable.add("NullSafeMutableLiveData")
+  }
 }
 dependencies {
   implementation(libs.google.material)
