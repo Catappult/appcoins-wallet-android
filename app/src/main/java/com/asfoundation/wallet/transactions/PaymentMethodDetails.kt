@@ -21,6 +21,10 @@ data class PaymentMethodDetails(
         "paypal_v2",
         R.string.paypal
       ),
+      "paypal_v3" to PaymentMethodDetails(
+        "paypal_v3",
+        R.string.paypal
+      ),
       "challenge_reward" to PaymentMethodDetails(
         "challenge_reward",
         R.string.challenge_reward_card_title
