@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.main.splash
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,12 +20,17 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -68,10 +75,11 @@ class SplashExtenderFragment : BasePageViewFragment() {
         is SplashExtenderViewModel.UiState.Success -> {
           if (uiState.showVipOnboarding)
             VipWelcomeScreen(
-              onClick = {
+              onDismiss = {
                 viewModel.setOnboardingVipVisualisationState(firstVipOnboarding = false)
                 finishSplash()
-              })
+              }
+            )
           else if (!uiState.isVip) {
             SplashLogo(isVip = uiState.isVip)
             viewModel.setOnboardingVipVisualisationState(firstVipOnboarding = true)
@@ -112,79 +120,118 @@ class SplashExtenderFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun VipWelcomeScreen(onClick: () -> Unit = {}) {
-    Column(
-      modifier =
-      Modifier
+  fun VipWelcomeScreen(onDismiss: () -> Unit = {}) {
+    val context = LocalContext.current
+    val vipFormUrl =
+      "https://forms.office.com/Pages/ResponsePage.aspx?id=LEOT5gzOQkaj8gtarwMv6LhN7IeGUPpDlLwYJugIAgNUME5GTURQRkxOQ0FWOFFSMjE5TVhESTRTTSQlQCN0PWcu&utm_source=intercom&utm_medium=message&utm_campaign=vip_onboarding"
+
+    Box(
+      modifier = Modifier
+        .fillMaxSize()
         .background(color = WalletColors.styleguide_dark)
-        .verticalScroll(rememberScrollState())
-        .height(IntrinsicSize.Max),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.SpaceBetween
     ) {
-      Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Box(contentAlignment = Alignment.BottomCenter) {
-          Image(
-            painter = painterResource(R.drawable.img_vip_onboarding),
-            contentDescription = null,
-            modifier =
-            Modifier
-              .padding(bottom = 32.dp)
-              .height(400.dp)
-              .widthIn(max = 400.dp)
-              .fillMaxWidth()
-          )
-          Image(
-            painter = painterResource(R.drawable.ic_vip_symbol),
-            contentDescription = null,
-            modifier = Modifier
-              .size(88.dp)
-              .padding(horizontal = 8.dp)
-          )
-        }
-        Text(
-          text = stringResource(R.string.vip_program_onboarding_header_1),
-          modifier = Modifier.padding(top = 24.dp),
-          style = MaterialTheme.typography.headlineLarge,
-          color = WalletColors.styleguide_light_grey,
-          fontWeight = FontWeight.Bold
-        )
-        Text(
-          text = stringResource(R.string.vip_program_onboarding_header_2),
-          modifier = Modifier.padding(vertical = 8.dp),
-          style = MaterialTheme.typography.titleLarge,
-          color = WalletColors.styleguide_vip_yellow,
-        )
-        Text(
-          text = stringResource(R.string.vip_program_onboarding_body),
-          modifier =
-          Modifier
-            .padding(horizontal = 24.dp, vertical = 8.dp)
-            .widthIn(max = 400.dp),
-          style = MaterialTheme.typography.bodySmall,
-          color = WalletColors.styleguide_light_grey,
-          textAlign = TextAlign.Center,
-        )
-      }
       Column(
         modifier =
-        Modifier
-          .padding(vertical = 48.dp, horizontal = 32.dp)
-          .widthIn(max = 360.dp)
-          .fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom
+          Modifier
+            .verticalScroll(rememberScrollState())
+            .height(IntrinsicSize.Max),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
       ) {
-        ButtonWithText(
-          label = stringResource(R.string.got_it_button),
-          onClick = onClick,
-          labelColor = WalletColors.styleguide_dark,
-          backgroundColor = WalletColors.styleguide_vip_yellow,
-          buttonType = ButtonType.LARGE,
-          fragmentName = fragmentName,
-          buttonsAnalytics = buttonsAnalytics
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+          Box(contentAlignment = Alignment.BottomCenter) {
+            Image(
+              painter = painterResource(R.drawable.img_vip_onboarding),
+              contentDescription = null,
+              modifier =
+                Modifier
+                  .padding(bottom = 32.dp)
+                  .height(400.dp)
+                  .widthIn(max = 400.dp)
+                  .fillMaxWidth()
+            )
+            Image(
+              painter = painterResource(R.drawable.ic_vip_symbol),
+              contentDescription = null,
+              modifier = Modifier
+                .size(88.dp)
+                .padding(horizontal = 8.dp)
+            )
+          }
+
+          Text(
+            text = stringResource(R.string.vip_program_onboarding_new_header),
+            modifier = Modifier.padding(top = 24.dp),
+            style = MaterialTheme.typography.headlineLarge,
+            color = WalletColors.styleguide_light_grey,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
+          )
+
+          Text(
+            text = stringResource(R.string.vip_program_onboarding_new_body_1),
+            modifier =
+              Modifier
+                .padding(horizontal = 24.dp, vertical = 12.dp)
+                .widthIn(max = 400.dp),
+            style = MaterialTheme.typography.bodySmall,
+            color = WalletColors.styleguide_light_grey,
+            textAlign = TextAlign.Center,
+          )
+
+          Text(
+            text = stringResource(R.string.vip_program_onboarding_new_body_2),
+            modifier =
+              Modifier
+                .padding(horizontal = 24.dp, vertical = 4.dp)
+                .widthIn(max = 400.dp),
+            style = MaterialTheme.typography.bodySmall,
+            color = WalletColors.styleguide_light_grey,
+            textAlign = TextAlign.Center,
+          )
+        }
+
+        Column(
+          modifier =
+            Modifier
+              .padding(vertical = 48.dp, horizontal = 32.dp)
+              .widthIn(max = 360.dp)
+              .fillMaxSize(),
+          verticalArrangement = Arrangement.Bottom
+        ) {
+          ButtonWithText(
+            label = stringResource(R.string.vip_program_onboarding_complete_form_button),
+            onClick = {
+              runCatching {
+                context.startActivity(
+                  Intent(Intent.ACTION_VIEW, Uri.parse(vipFormUrl))
+                )
+              }
+              onDismiss()
+            },
+            labelColor = WalletColors.styleguide_dark,
+            backgroundColor = WalletColors.styleguide_vip_yellow,
+            buttonType = ButtonType.LARGE,
+            fragmentName = fragmentName,
+            buttonsAnalytics = buttonsAnalytics
+          )
+        }
+      }
+
+      IconButton(
+        onClick = onDismiss,
+        modifier = Modifier
+          .align(Alignment.TopEnd)
+          .padding(16.dp)
+      ) {
+        Icon(
+          imageVector = Icons.Filled.Close,
+          contentDescription = "Close",
+          tint = WalletColors.styleguide_light_grey
         )
       }
     }
+
   }
 
   @Preview

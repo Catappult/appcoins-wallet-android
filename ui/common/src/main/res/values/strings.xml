@@ -888,6 +888,10 @@
   <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
   <string name="vip_program_title_vip_offer">VIP Offer</string>
   <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
+  <string name="vip_program_onboarding_new_header">You’re now a VIP user</string>
+  <string name="vip_program_onboarding_new_body_1">Our VIP Program is designed for our most valued members, like yourself. By completing the VIP form, you’ll unlock access to exclusive promo codes, special rewards, and the best referral programs available.</string>
+  <string name="vip_program_onboarding_new_body_2">You’re just one step away from enjoying all your VIP benefits!</string>
+  <string name="vip_program_onboarding_complete_form_button">Complete VIP Form</string>
 
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>
