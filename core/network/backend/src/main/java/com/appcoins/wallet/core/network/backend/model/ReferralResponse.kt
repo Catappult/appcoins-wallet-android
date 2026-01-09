@@ -7,6 +7,7 @@ class ReferralResponse(
   id: String,
   priority: Int,
   gamificationStatus: GamificationStatus?,
+  vipOnboarded: VipOnboardedStatus,
   @SerializedName("max_amount") val maxAmount: BigDecimal,
   val available: Int,
   val bundle: Boolean,
@@ -21,7 +22,7 @@ class ReferralResponse(
   @SerializedName("min_amount") val minAmount: BigDecimal,
   val status: Status,
   val amount: BigDecimal
-) : PromotionsResponse(id, priority, gamificationStatus) {
+) : PromotionsResponse(id, priority, vipOnboarded, gamificationStatus) {
 
   @Suppress("unused")
   enum class UserStatus {

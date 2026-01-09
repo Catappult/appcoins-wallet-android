@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.gamification
 
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.appcoins.wallet.gamification.Gamification
@@ -30,7 +31,8 @@ class ObserveUserStatsUseCase @Inject constructor(
       .onErrorReturn {
         PromotionsGamificationStats(
           resultState = PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
-          gamificationStatus = GamificationStatus.NONE
+          gamificationStatus = GamificationStatus.NONE,
+          vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
         )
       }
   }
