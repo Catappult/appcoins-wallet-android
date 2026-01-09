@@ -368,7 +368,6 @@
   <string name="paytm_wallet">Paytm Wallet</string>
   <string name="qiwi">Qiwi</string>
   <string name="yoo_money">YooMoney</string>
-  
 
 
   <!--Onboarding-->
@@ -670,7 +669,6 @@
   <string name="subscriptions_details_disclaimer_cancel">You can cancel your subscription anytime, it stays active until the next payment.</string>
 
 
-
   <!--New Gamification-->
   <string name="gamif_title">Up to %s%% Bonus!</string>
   <string name="gamif_bonus_received">Bonus received</string>
@@ -892,6 +890,12 @@
   <string name="vip_program_onboarding_new_body_1">Our VIP Program is designed for our most valued members, like yourself. By completing the VIP form, you’ll unlock access to exclusive promo codes, special rewards, and the best referral programs available.</string>
   <string name="vip_program_onboarding_new_body_2">You’re just one step away from enjoying all your VIP benefits!</string>
   <string name="vip_program_onboarding_complete_form_button">Complete VIP Form</string>
+
+  <string name="vip_referral_program_form_needed_title">VIP Referral Program</string>
+  <string name="vip_referral_program_form_needed_bonus">%s%% Bonus for you and your friends.</string>
+  <string name="vip_referral_program_form_needed_body">Complete VIP Form to Unlock promo codes, rewards, and all VIP benefits.</string>
+  <string name="vip_referral_program_form_needed_button">Complete Form</string>
+  <string name="vip_referral_program_form_needed_url" translatable="false">https://forms.office.com/Pages/ResponsePage.aspx?id=LEOT5gzOQkaj8gtarwMv6LhN7IeGUPpDlLwYJugIAgNUME5GTURQRkxOQ0FWOFFSMjE5TVhESTRTTSQlQCN0PWcu&amp;utm_source=intercom&amp;utm_medium=message&amp;utm_campaign=vip_onboarding"</string>
 
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welcome to the Aptoide Wallet</string>

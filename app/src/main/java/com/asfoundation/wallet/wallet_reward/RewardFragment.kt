@@ -46,6 +46,7 @@ import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
@@ -211,23 +212,25 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           }
 
           val vipRefModel = viewModel.vipReferralModel.value
-          if (vipRefModel != null) {
+          val isFormNeeded = viewModel.isFormNeeded.value
+          if (vipRefModel != null || isFormNeeded) {
             VipReferralCardComposable(
               modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-              vipBonus = vipRefModel.vipBonus,
-              startDate = vipRefModel.startDate,
-              endDate = vipRefModel.endDate,
-              isActive = vipRefModel.active,
-              isAmbassador = vipRefModel.isAmbassador(),
-              referralCode = vipRefModel.vipCode,
-              numberReferrals = vipRefModel.numberReferrals,
+              vipBonus = vipRefModel?.vipBonus ?: "",
+              startDate = vipRefModel?.startDate ?: 0L,
+              endDate = vipRefModel?.endDate ?: 1L,
+              isActive = vipRefModel?.active ?: false,
+              isAmbassador = vipRefModel?.isAmbassador() ?: false,
+              isFormNeeded = isFormNeeded,
+              referralCode = vipRefModel?.vipCode,
+              numberReferrals = vipRefModel?.numberReferrals ?: "",
               totalEarned = currencyFormatUtils.formatCurrency(
-                vipRefModel.totalEarnedConvertedCurrency,
+                vipRefModel?.totalEarnedConvertedCurrency ?: "0",
                 FIAT
               ),
-              appName = vipRefModel.app.appName,
-              appIcon = vipRefModel.app.appIcon,
-              currencySymbol = vipRefModel.currencySymbol,
+              appName = vipRefModel?.app?.appName,
+              appIcon = vipRefModel?.app?.appIcon,
+              currencySymbol = vipRefModel?.currencySymbol ?: "",
               onShare = { code -> },
             )
           }
@@ -420,6 +423,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         (promotionsModel.value?.promotions?.getOrNull(0) as? GamificationItem)
       val gamificationStatus =
         promotionsGamificationStats.value?.gamificationStatus ?: GamificationStatus.NONE
+
+      viewModel.isFormNeeded.value =
+        gamificationItem?.vipOnboarded == PromotionsResponse.VipOnboardedStatus.VIP_NOT_ONBOARDED
 
       viewModel.gamificationHeaderModel.value =
         GamificationHeaderModel(

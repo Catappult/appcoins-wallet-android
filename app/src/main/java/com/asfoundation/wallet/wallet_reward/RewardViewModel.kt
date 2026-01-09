@@ -58,6 +58,7 @@ class RewardViewModel @Inject constructor(
   val gamificationHeaderModel =
     mutableStateOf<GamificationHeaderModel?>(GamificationHeaderModel.emptySkeletonLoadingState())
   val vipReferralModel = mutableStateOf<VipReferralInfo?>(null)
+  val isFormNeeded = mutableStateOf<Boolean>(false)
   val activePromoCode = mutableStateOf<ActiveCardPromoCodeItem?>(null)
 
   companion object {

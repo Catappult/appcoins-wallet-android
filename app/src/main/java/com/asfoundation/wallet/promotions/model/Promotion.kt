@@ -2,6 +2,7 @@ package com.asfoundation.wallet.promotions.model
 
 import android.graphics.drawable.Drawable
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import java.math.BigDecimal
 
 sealed class Promotion(open val id: String)
@@ -62,7 +63,8 @@ data class GamificationItem(
   val title: String,
   val toNextLevelAmount: BigDecimal?,
   val bonus: Double,
-  val links: MutableList<GamificationLinkItem>
+  val links: MutableList<GamificationLinkItem>,
+  val vipOnboarded: PromotionsResponse.VipOnboardedStatus?,
 ) : Promotion(id)
 
 data class ReferralItem(
