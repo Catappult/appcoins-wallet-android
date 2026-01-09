@@ -123,8 +123,7 @@ class SplashExtenderFragment : BasePageViewFragment() {
   fun VipWelcomeScreen(onDismiss: () -> Unit = {}) {
     val context = LocalContext.current
     val vipFormUrl =
-      "https://forms.office.com/Pages/ResponsePage.aspx?id=LEOT5gzOQkaj8gtarwMv6LhN7IeGUPpDlLwYJugIAgNUME5GTURQRkxOQ0FWOFFSMjE5TVhESTRTTSQlQCN0PWcu&utm_source=intercom&utm_medium=message&utm_campaign=vip_onboarding"
-
+      stringResource(com.appcoins.wallet.ui.widgets.R.string.vip_referral_program_form_needed_url)
     Box(
       modifier = Modifier
         .fillMaxSize()
