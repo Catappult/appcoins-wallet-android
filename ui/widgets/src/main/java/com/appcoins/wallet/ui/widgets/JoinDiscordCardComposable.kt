@@ -38,21 +38,21 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun JoinDiscordCardComposable(
   onJoinClick: () -> Unit,
   onCloseClick: () -> Unit,
   fragmentName: String,
-  buttonsAnalytics: ButtonsAnalytics?
+  buttonsAnalytics: ButtonsAnalytics?,
+  isVip: Boolean,
 ) {
   Column(
     modifier = Modifier
       .fillMaxWidth()
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
       .clip(RoundedCornerShape(16.dp))
-      .heightIn(max = 180.dp)
+      .heightIn(max = if (isVip) 220.dp else 180.dp)
       .clickable { onJoinClick() }
       .paint(
         painter = painterResource(R.drawable.background_join_discord),
@@ -98,12 +98,19 @@ fun JoinDiscordCardComposable(
           fontWeight = FontWeight.Bold
         )
         Text(
-          text = stringResource(id = R.string.discord_card_body),
+          text = stringResource(
+            id =
+              if (isVip)
+                R.string.discord_card_body_vip
+              else
+                R.string.discord_card_body
+          ),
           color = Color.White,
           fontSize = 12.sp,
           fontWeight = FontWeight.W300,
           modifier = Modifier.padding(top = 2.dp)
         )
+        if (isVip) Spacer(modifier = Modifier.height(16.dp))
       }
 
       Spacer(modifier = Modifier.width(8.dp))
@@ -115,9 +122,17 @@ fun JoinDiscordCardComposable(
         labelColor = WalletColors.styleguide_light_grey,
         buttonType = ButtonType.DEFAULT,
         enabled = true,
-        modifier = Modifier
-          .semantics { testTagsAsResourceId = true }
-          .testTag("JoinDiscordButton"),
+        modifier =
+          if (isVip)
+            Modifier
+              .semantics { testTagsAsResourceId = true }
+              .testTag("JoinDiscordButton")
+              .align(Alignment.Bottom)
+              .padding(bottom = 12.dp)
+          else
+            Modifier
+              .semantics { testTagsAsResourceId = true }
+              .testTag("JoinDiscordButton"),
         fragmentName = fragmentName,
         buttonsAnalytics = buttonsAnalytics,
       )
@@ -129,5 +144,11 @@ fun JoinDiscordCardComposable(
 @Preview
 @Composable
 fun PreviewJoinDiscordCardComposable() {
-  JoinDiscordCardComposable({}, {}, "HomeFragment", null)
+  JoinDiscordCardComposable(
+    onJoinClick = {},
+    onCloseClick = {},
+    fragmentName = "HomeFragment",
+    buttonsAnalytics = null,
+    isVip = true
+  )
 }

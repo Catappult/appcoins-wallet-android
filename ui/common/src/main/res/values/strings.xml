@@ -1007,6 +1007,8 @@
   <!-- Discord -->
   <string name="discord_card_title">Join Our Discord Community!</string>
   <string name="discord_card_body">Chill with fellow gamers and unlock even more rewards!</string>
+  <string name="discord_card_body_vip">Connect with other VIPs in our VIP channels, earn rewards through weekly events, and get exclusive
+support. Complete your VIP Form to receive your VIP role, then join the server.</string>
 
 
   <!-- platform.vk.com !-->
