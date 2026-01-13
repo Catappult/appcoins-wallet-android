@@ -130,7 +130,7 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
           setResult(FAIL.code)
           finish()
         }
-      } else{
+      } else {
         setResult(resultCode, data)
         finish()
       }
