@@ -7,6 +7,7 @@ class GenericResponse(
   id: String,
   priority: Int,
   gamificationStatus: GamificationStatus?,
+  vipOnboarded: VipOnboardedStatus,
   @SerializedName("current_progress") val currentProgress: BigDecimal?,
   @SerializedName("notification_description") val notificationDescription: String?,
   @SerializedName("perk_description") val perkDescription: String?,
@@ -19,5 +20,5 @@ class GenericResponse(
   @SerializedName("view_type") val viewType: String,
   @SerializedName("details_link") val detailsLink: String?,
   @SerializedName("action_url") val actionUrl: String?,
-  @SerializedName("package_name") val packageName: String?
-) : PromotionsResponse(id, priority, gamificationStatus)
+  @SerializedName("package_name") val packageName: String?,
+) : PromotionsResponse(id, priority, vipOnboarded, gamificationStatus)

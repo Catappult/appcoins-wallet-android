@@ -53,7 +53,8 @@ class GamificationTest {
         level = 1,
         nextLevelAmount = BigDecimal.TEN,
         status = PromotionsResponse.Status.ACTIVE,
-        bundle = true
+        bundle = true,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
     val referralResponse =
       ReferralResponse(
@@ -73,7 +74,8 @@ class GamificationTest {
         userStatus = ReferralResponse.UserStatus.REDEEMED,
         minAmount = BigDecimal.ZERO,
         status = PromotionsResponse.Status.ACTIVE,
-        amount = BigDecimal.ONE
+        amount = BigDecimal.ONE,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
     local.walletOriginResponse = Single.just(WalletOrigin.UNKNOWN)
     local.userStatusResponse = Single.just(emptyList())
@@ -89,7 +91,8 @@ class GamificationTest {
       PromotionsGamificationStats(
         resultState = PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
         fromCache = true,
-        gamificationStatus = GamificationStatus.NONE
+        gamificationStatus = GamificationStatus.NONE,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       ),
       PromotionsGamificationStats(
         resultState = PromotionsGamificationStats.ResultState.OK,
@@ -100,7 +103,8 @@ class GamificationTest {
         totalEarned = BigDecimal.ZERO,
         isActive = true,
         fromCache = false,
-        gamificationStatus = GamificationStatus.STANDARD
+        gamificationStatus = GamificationStatus.STANDARD,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
     )
     testObserver.assertComplete()
@@ -121,7 +125,8 @@ class GamificationTest {
           level = 5,
           nextLevelAmount = BigDecimal(60000.0),
           status = PromotionsResponse.Status.ACTIVE,
-          bundle = false
+          bundle = false,
+          vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
         )
       )
     )
@@ -136,7 +141,8 @@ class GamificationTest {
         bonus = 15.0,
         totalSpend = BigDecimal(25000.0),
         totalEarned = BigDecimal(5000.0), isActive = true, fromCache = true,
-        gamificationStatus = GamificationStatus.STANDARD
+        gamificationStatus = GamificationStatus.STANDARD,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       ),
       PromotionsGamificationStats(
         resultState = PromotionsGamificationStats.ResultState.NO_NETWORK,
@@ -147,7 +153,8 @@ class GamificationTest {
         totalEarned = BigDecimal.ZERO,
         isActive = false,
         fromCache = false,
-        gamificationStatus = GamificationStatus.NONE
+        gamificationStatus = GamificationStatus.NONE,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
     )
   }
@@ -169,7 +176,8 @@ class GamificationTest {
         totalEarned = BigDecimal.ZERO,
         isActive = false,
         fromCache = true,
-        gamificationStatus = GamificationStatus.NONE
+        gamificationStatus = GamificationStatus.NONE,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       ),
       PromotionsGamificationStats(
         resultState = PromotionsGamificationStats.ResultState.NO_NETWORK,
@@ -180,7 +188,8 @@ class GamificationTest {
         totalEarned = BigDecimal.ZERO,
         isActive = false,
         fromCache = false,
-        gamificationStatus = GamificationStatus.NONE
+        gamificationStatus = GamificationStatus.NONE,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
     )
   }
@@ -200,7 +209,8 @@ class GamificationTest {
           level = 5,
           nextLevelAmount = BigDecimal(60000.0),
           status = PromotionsResponse.Status.ACTIVE,
-          bundle = false
+          bundle = false,
+          vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
         )
       )
     )
@@ -215,7 +225,8 @@ class GamificationTest {
         level = 4,
         nextLevelAmount = BigDecimal.TEN,
         status = PromotionsResponse.Status.ACTIVE,
-        bundle = true
+        bundle = true,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
     val referralResponse =
       ReferralResponse(
@@ -235,7 +246,8 @@ class GamificationTest {
         userStatus = ReferralResponse.UserStatus.REDEEMED,
         minAmount = BigDecimal.ZERO,
         status = PromotionsResponse.Status.ACTIVE,
-        amount = BigDecimal.ONE
+        amount = BigDecimal.ONE,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
     api.userStatusResponse =
       Single.just(
@@ -265,7 +277,8 @@ class GamificationTest {
           level = 4,
           nextLevelAmount = BigDecimal(60000.0),
           status = PromotionsResponse.Status.ACTIVE,
-          bundle = false
+          bundle = false,
+          vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
         )
       )
     )
@@ -280,7 +293,8 @@ class GamificationTest {
         level = 5,
         nextLevelAmount = BigDecimal.TEN,
         status = PromotionsResponse.Status.ACTIVE,
-        bundle = true
+        bundle = true,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
     val referralResponse =
       ReferralResponse(
@@ -300,7 +314,8 @@ class GamificationTest {
         userStatus = ReferralResponse.UserStatus.REDEEMED,
         minAmount = BigDecimal.ZERO,
         status = PromotionsResponse.Status.ACTIVE,
-        amount = BigDecimal.ONE
+        amount = BigDecimal.ONE,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
     api.userStatusResponse =
       Single.just(
@@ -331,7 +346,8 @@ class GamificationTest {
           level = 4,
           nextLevelAmount = BigDecimal(60000.0),
           status = PromotionsResponse.Status.ACTIVE,
-          bundle = false
+          bundle = false,
+          vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
         )
       )
     )
@@ -357,7 +373,8 @@ class GamificationTest {
           level = 5,
           nextLevelAmount = BigDecimal(60000.0),
           status = PromotionsResponse.Status.ACTIVE,
-          bundle = false
+          bundle = false,
+          vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
         )
       )
     )
@@ -533,7 +550,8 @@ class GamificationTest {
         level = 0,
         nextLevelAmount = BigDecimal.TEN,
         status = PromotionsResponse.Status.ACTIVE,
-        bundle = true
+        bundle = true,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
 
     local.lastShownLevelResponse = Single.just(0)
@@ -560,7 +578,8 @@ class GamificationTest {
         level = 0,
         nextLevelAmount = BigDecimal.TEN,
         status = PromotionsResponse.Status.ACTIVE,
-        bundle = true
+        bundle = true,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
 
     local.lastShownLevelResponse = Single.just(PromotionsGamificationStats.INVALID_LEVEL)

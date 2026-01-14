@@ -1,6 +1,7 @@
 package com.appcoins.wallet.ui.widgets
 
 import android.content.Intent
+import android.net.Uri
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
@@ -66,6 +67,7 @@ fun VipReferralCardComposable(
   endDate: Long,
   isActive: Boolean,
   isAmbassador: Boolean,
+  isFormNeeded: Boolean,
   referralCode: String? = null,
   numberReferrals: String,
   totalEarned: String,
@@ -78,11 +80,14 @@ fun VipReferralCardComposable(
 ) {
 
   var expanded by rememberSaveable { mutableStateOf(initialExpanded) }
-  var futureCode by rememberSaveable {
+  var futureCodeBase by rememberSaveable {
     mutableStateOf(
       ((System.currentTimeMillis() / 1000L) < startDate) || !isActive
     )
   }
+
+  val futureCode = if (isFormNeeded) true else futureCodeBase
+
   val arrowRotation by animateFloatAsState(
     targetValue = if (expanded) 180f else 0f, label = ""
   )
@@ -165,7 +170,11 @@ fun VipReferralCardComposable(
         Spacer(Modifier.width(12.dp))
         Column {
           Text(
-            stringResource(if (isAmbassador) R.string.ambassador_title else R.string.vip_referral_program),
+            stringResource(
+              if (isFormNeeded) R.string.vip_referral_program_form_needed_title
+              else if (isAmbassador) R.string.ambassador_title
+              else R.string.vip_referral_program
+            ),
             style = MaterialTheme.typography.titleMedium.copy(
               fontWeight = FontWeight.Bold,
               color = Color.White
@@ -173,13 +182,58 @@ fun VipReferralCardComposable(
             modifier = Modifier.padding(bottom = 6.dp)
           )
           Text(
-            stringResource(R.string.bonus_for_you_vip, vipBonus),
+            text = if (isFormNeeded)
+              stringResource(R.string.vip_referral_program_form_needed_bonus, vipBonus)
+            else
+              stringResource(R.string.bonus_for_you_vip, vipBonus),
             style = MaterialTheme.typography.bodySmall.copy(color = greyText)
           )
         }
       }
 
       Spacer(Modifier.height(6.dp))
+
+      if (isFormNeeded) {
+        // New layout (priority) - keep lock icon + "coming soon" badge, add text + button
+        Text(
+          text = stringResource(R.string.vip_referral_program_form_needed_body),
+          modifier = Modifier
+            .padding(top = 8.dp)
+            .fillMaxWidth(),
+          style = MaterialTheme.typography.bodySmall.copy(color = greyText)
+        )
+
+        Spacer(Modifier.height(12.dp))
+
+        val context = LocalContext.current
+        val formUrl = stringResource(R.string.vip_referral_program_form_needed_url)
+
+        Button(
+          onClick = {
+            runCatching {
+              context.startActivity(
+                Intent(Intent.ACTION_VIEW, Uri.parse(formUrl))
+              )
+            }
+          },
+          modifier = Modifier.fillMaxWidth(),
+          shape = RoundedCornerShape(36.dp),
+          colors = ButtonDefaults.buttonColors(containerColor = yellow)
+        ) {
+          Text(
+            text = stringResource(R.string.vip_referral_program_form_needed_button),
+            style = TextStyle(
+              fontSize = 14.sp,
+              fontFamily = FontFamily(Font(R.font.roboto_medium)),
+              fontWeight = FontWeight.W600,
+              color = WalletColors.styleguide_dark_secondary
+            )
+          )
+        }
+
+        // Stop here for this state (no countdown, no referral code, no expand/collapse)
+        return@Card
+      }
 
       Row(
         modifier = Modifier.fillMaxWidth(),
@@ -363,7 +417,7 @@ private fun ExpandedSection(
 
       Text(
         stringResource(
-          if(isAmbassador) R.string.share_this_code_with_your_friends_ambassador else R.string.share_this_code_with_your_friends_vip
+          if (isAmbassador) R.string.share_this_code_with_your_friends_ambassador else R.string.share_this_code_with_your_friends_vip
         ),
         style = MaterialTheme.typography.bodyLarge.copy(
           fontWeight = FontWeight.SemiBold,
@@ -498,7 +552,8 @@ private fun VipReferralCardPreviewCollapsed() {
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
     onShare = {},
-    isAmbassador = false
+    isAmbassador = false,
+    isFormNeeded = false,
   )
 }
 
@@ -523,7 +578,8 @@ private fun VipReferralCardPreviewExpanded() {
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
-    isAmbassador = false
+    isAmbassador = false,
+    isFormNeeded = false,
   )
 }
 
@@ -545,6 +601,32 @@ private fun VipReferralCardPreviewFuture() {
     initialExpanded = true,
     numberReferrals = "5",
     totalEarned = "25",
+    appName = "Example App",
+    appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
+    currencySymbol = "$",
+    isAmbassador = false,
+    isFormNeeded = false,
+  )
+}
+
+@Preview(
+  name = "VIP Referral – Form Needed",
+  showBackground = true,
+  backgroundColor = 0xFF121212
+)
+@Composable
+private fun VipReferralCardPreviewFormNeeded() {
+  VipReferralCardComposable(
+    vipBonus = "5",
+    startDate = (System.currentTimeMillis() / 1000L) - 100L,
+    endDate = (System.currentTimeMillis() / 1000L) + 100000L,
+    isActive = false,
+    isFormNeeded = true,
+    referralCode = "1456152810291",
+    onShare = {},
+    initialExpanded = false,
+    numberReferrals = "0",
+    totalEarned = "0",
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
@@ -573,7 +655,8 @@ private fun AmbassadorReferralCardPreviewExpanded() {
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
-    isAmbassador = true
+    isAmbassador = true,
+    isFormNeeded = false,
   )
 }
 
@@ -598,6 +681,7 @@ private fun AmbassadorReferralCardPreviewFuture() {
     appName = "Example App",
     appIcon = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg",
     currencySymbol = "$",
-    isAmbassador = true
+    isAmbassador = true,
+    isFormNeeded = false,
   )
 }

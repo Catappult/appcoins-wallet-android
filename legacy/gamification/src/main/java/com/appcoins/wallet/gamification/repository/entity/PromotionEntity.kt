@@ -16,6 +16,8 @@ data class PromotionEntity(
   val priority: Int,
   @ColumnInfo(name = "gamification_type")
   val gamificationStatus: String?,
+  @ColumnInfo(name = "vip_onboarded")
+  val vipOnboarded: String?,
   val bonus: Double? = null,
   @ColumnInfo(name = "total_spend")
   val totalSpend: BigDecimal? = null,

@@ -173,6 +173,7 @@ constructor(
   val hasSavedEmail = mutableStateOf(hasWalletEmailPreferencesData())
   val isEmailError = mutableStateOf(false)
   val emailErrorText = mutableStateOf(0)
+  val isVip = mutableStateOf(false)
   private val alreadyGetImpression = mutableStateOf(false)
   val canTransfer = mutableStateOf(false)
 
@@ -462,6 +463,7 @@ constructor(
       .flatMapObservable { wallet ->
         observeUserStatsUseCase().flatMapSingle { gamificationStats ->
           val userLevel = gamificationStats.level
+          isVip.value = gamificationStats.gamificationStatus.isVip()
           getLastShownUserLevelUseCase(wallet.address).doOnSuccess { lastShownLevel ->
             if (userLevel > lastShownLevel) {
               updateLastShownUserLevelUseCase(wallet.address, userLevel)
