@@ -333,7 +333,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
     }
 
     BackHandler(enabled = !lockBackButton) {
-      if (!lockBackButton) finish()
+      if (!lockBackButton) finishWithCancel()
     }
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     Column(
@@ -346,14 +346,14 @@ class WebViewPaymentActivity : AppCompatActivity() {
           modifier = Modifier
             .height(36.dp)
             .fillMaxWidth()
-            .clickable(enabled = !lockCloseView) { if (!lockCloseView) finish() }
+            .clickable(enabled = !lockCloseView) { if (!lockCloseView) finishWithCancel() }
         )
       } else {
         Spacer(
           modifier = Modifier
             .fillMaxWidth()
             .weight(if (isPortraitSpaceForWeb.value) 0.2f else 0.02f)
-            .clickable(enabled = !lockCloseView) { if (!lockCloseView) finish() }
+            .clickable(enabled = !lockCloseView) { if (!lockCloseView) finishWithCancel() }
         )
       }
       Box(
@@ -407,11 +407,15 @@ class WebViewPaymentActivity : AppCompatActivity() {
     unlockRunnable?.let { handler.removeCallbacks(it) }
   }
 
-  override fun finish() {
-    if (lockCloseView || lockBackButton) return // Prevent finishing if locked
+  fun finishWithCancel(){
     val intent = Intent()
     intent.putExtras(bundleOf(RESPONSE_CODE to RESULT_USER_CANCELED))
     setResult(RESULT_CANCELED, intent)
+    finish()
+  }
+
+  override fun finish() {
+    if (lockCloseView || lockBackButton) return // Prevent finishing if locked
     super.finish()
     overridePendingTransition(R.anim.stay, R.anim.slide_out_bottom)
   }
