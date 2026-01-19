@@ -219,7 +219,8 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       title = currentLevelInfo.title,
       toNextLevelAmount = toNextLevelAmount,
       bonus = gamificationResponse.bonus,
-      links = mutableListOf()
+      links = mutableListOf(),
+      vipOnboarded = gamificationResponse.vipOnboarded,
     )
   }
 

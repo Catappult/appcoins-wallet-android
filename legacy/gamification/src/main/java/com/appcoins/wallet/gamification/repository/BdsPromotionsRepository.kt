@@ -12,7 +12,6 @@ import com.appcoins.wallet.core.network.backend.model.UserStatusResponse
 import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import io.reactivex.Observable
@@ -192,13 +191,15 @@ class BdsPromotionsRepository @Inject constructor(
       PromotionsGamificationStats(
         PromotionsGamificationStats.ResultState.NO_NETWORK,
         fromCache = fromCache,
-        gamificationStatus = GamificationStatus.NONE
+        gamificationStatus = GamificationStatus.NONE,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
     } else {
       PromotionsGamificationStats(
         PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
         fromCache = fromCache,
-        gamificationStatus = GamificationStatus.NONE
+        gamificationStatus = GamificationStatus.NONE,
+        vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
       )
     }
   }
@@ -239,13 +240,15 @@ class BdsPromotionsRepository @Inject constructor(
           PromotionsGamificationStats(
             resultState = PromotionsGamificationStats.ResultState.OK,
             fromCache = stats.fromCache,
-            gamificationStatus = GamificationStatus.NONE
+            gamificationStatus = GamificationStatus.NONE,
+            vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
           )
         } else {
           PromotionsGamificationStats(
             resultState = PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
             fromCache = stats.fromCache,
-            gamificationStatus = GamificationStatus.NONE
+            gamificationStatus = GamificationStatus.NONE,
+            vipOnboarded = PromotionsResponse.VipOnboardedStatus.NOT_VIP_USER
           )
         }
       } else {
@@ -258,7 +261,8 @@ class BdsPromotionsRepository @Inject constructor(
           gamification.totalEarned,
           PromotionsResponse.Status.ACTIVE == gamification.status,
           stats.fromCache,
-          gamification.gamificationStatus ?: GamificationStatus.NONE
+          gamification.gamificationStatus ?: GamificationStatus.NONE,
+          gamification.vipOnboarded
         )
       }
     }

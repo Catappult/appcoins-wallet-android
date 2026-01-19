@@ -7,6 +7,7 @@ class GamificationResponse(
   id: String,
   priority: Int,
   gamificationStatus: GamificationStatus?,
+  vipOnboarded: VipOnboardedStatus,
   val bonus: Double,
   @SerializedName("current_amount_currency") val totalSpend: BigDecimal,
   @SerializedName("bonus_earned_currency") val totalEarned: BigDecimal,
@@ -14,4 +15,4 @@ class GamificationResponse(
   @SerializedName("next_level_amount_currency") val nextLevelAmount: BigDecimal?,
   val status: Status,
   val bundle: Boolean
-) : PromotionsResponse(id, priority, gamificationStatus)
+) : PromotionsResponse(id, priority, vipOnboarded, gamificationStatus)

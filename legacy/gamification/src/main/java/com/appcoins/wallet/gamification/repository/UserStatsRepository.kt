@@ -98,36 +98,38 @@ class UserStatsRepository @Inject constructor(
       when (it.id) {
         GAMIFICATION_ID ->
           GamificationResponse(
-            it.id,
-            it.priority,
-            GamificationStatus.toEnum(it.gamificationStatus),
-            it.bonus!!,
-            it.totalSpend!!,
-            it.totalEarned!!,
-            it.level!!,
-            it.nextLevelAmount,
-            it.status!!,
-            it.bundle!!
+            id = it.id,
+            priority = it.priority,
+            gamificationStatus = GamificationStatus.toEnum(it.gamificationStatus),
+            vipOnboarded = PromotionsResponse.VipOnboardedStatus.toEnum(it.vipOnboarded),
+            bonus = it.bonus!!,
+            totalSpend = it.totalSpend!!,
+            totalEarned = it.totalEarned!!,
+            level = it.level!!,
+            nextLevelAmount = it.nextLevelAmount,
+            status = it.status!!,
+            bundle = it.bundle!!
           )
 
         REFERRAL_ID -> ReferralResponse(
-          it.id,
-          it.priority,
-          GamificationStatus.toEnum(it.gamificationStatus),
-          it.maxAmount!!,
-          it.available!!,
-          it.bundle!!,
-          it.completed!!,
-          it.currency!!,
-          it.symbol!!,
-          it.invited!!,
-          it.link,
-          it.pendingAmount!!,
-          it.receivedAmount!!,
-          it.userStatus,
-          it.minAmount!!,
-          it.status!!,
-          it.amount!!
+          id = it.id,
+          priority = it.priority,
+          gamificationStatus = GamificationStatus.toEnum(it.gamificationStatus),
+          vipOnboarded = PromotionsResponse.VipOnboardedStatus.toEnum(it.vipOnboarded),
+          maxAmount = it.maxAmount!!,
+          available = it.available!!,
+          bundle = it.bundle!!,
+          completed = it.completed!!,
+          currency = it.currency!!,
+          symbol = it.symbol!!,
+          invited = it.invited!!,
+          link = it.link,
+          pendingAmount = it.pendingAmount!!,
+          receivedAmount = it.receivedAmount!!,
+          userStatus = it.userStatus,
+          minAmount = it.minAmount!!,
+          status = it.status!!,
+          amount = it.amount!!
         )
 
         else ->
@@ -135,6 +137,7 @@ class UserStatsRepository @Inject constructor(
             id = it.id,
             priority = it.priority,
             gamificationStatus = GamificationStatus.toEnum(it.gamificationStatus),
+            vipOnboarded = PromotionsResponse.VipOnboardedStatus.toEnum(it.vipOnboarded),
             currentProgress = it.currentProgress,
             notificationDescription = it.notificationDescription,
             perkDescription = it.perkDescription,
@@ -148,7 +151,7 @@ class UserStatsRepository @Inject constructor(
             viewType = it.viewType!!,
             detailsLink = it.detailsLink,
             actionUrl = it.actionUrl,
-            packageName = it.packageName
+            packageName = it.packageName,
           )
       }
     }
@@ -163,6 +166,7 @@ class UserStatsRepository @Inject constructor(
               id = it.id,
               priority = it.priority,
               gamificationStatus = it.gamificationStatus.toString(),
+              vipOnboarded = it.vipOnboarded.toString(),
               bonus = it.bonus,
               totalSpend = it.totalSpend,
               totalEarned = it.totalEarned,
@@ -177,6 +181,7 @@ class UserStatsRepository @Inject constructor(
               id = it.id,
               priority = it.priority,
               gamificationStatus = it.gamificationStatus.toString(),
+              vipOnboarded = it.vipOnboarded.toString(),
               maxAmount = it.maxAmount,
               available = it.available,
               bundle = it.bundle,
@@ -197,18 +202,22 @@ class UserStatsRepository @Inject constructor(
           else -> {
             val genericResponse = it as GenericResponse
             PromotionEntity(
-              id = genericResponse.id, priority = genericResponse.priority,
+              id = genericResponse.id,
+              priority = genericResponse.priority,
               gamificationStatus = it.gamificationStatus.toString(),
+              vipOnboarded = it.vipOnboarded.toString(),
               currentProgress = genericResponse.currentProgress,
               notificationDescription = genericResponse.notificationDescription,
               perkDescription = genericResponse.perkDescription,
               appName = genericResponse.appName,
-              endDate = genericResponse.endDate, icon = genericResponse.icon,
+              endDate = genericResponse.endDate,
+              icon = genericResponse.icon,
               linkedPromotionId = genericResponse.linkedPromotionId,
               objectiveProgress = genericResponse.objectiveProgress,
               startDate = genericResponse.startDate,
               notificationTitle = genericResponse.notificationTitle,
-              viewType = genericResponse.viewType, detailsLink = genericResponse.detailsLink,
+              viewType = genericResponse.viewType,
+              detailsLink = genericResponse.detailsLink,
               actionUrl = genericResponse.actionUrl,
               packageName = genericResponse.packageName
             )

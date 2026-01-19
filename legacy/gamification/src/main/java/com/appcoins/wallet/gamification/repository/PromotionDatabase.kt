@@ -13,7 +13,7 @@ import com.appcoins.wallet.gamification.repository.entity.WalletOriginEntity
 
 @Database(
   entities = [PromotionEntity::class, LevelsEntity::class, LevelEntity::class, WalletOriginEntity::class],
-  version = 10
+  version = 11
 )
 @TypeConverters(PromotionConverter::class)
 abstract class PromotionDatabase : RoomDatabase() {
@@ -113,6 +113,14 @@ abstract class PromotionDatabase : RoomDatabase() {
         database.execSQL("ALTER TABLE PromotionEntity ADD COLUMN package_name TEXT")
       }
     }
+
+    //Adds the vip_onboarded field to the promotions entity object
+    val MIGRATION_10_11: Migration = object : Migration(10, 11) {
+      override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE PromotionEntity ADD COLUMN vip_onboarded TEXT")
+      }
+    }
+
   }
 
   abstract fun promotionDao(): PromotionDao

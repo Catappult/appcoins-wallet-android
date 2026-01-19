@@ -341,6 +341,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   fun DiscordBannerContent() {
     val showDiscordBanner =
       remember { mutableStateOf(viewModel.isShowDiscordBanner()) }
+    val isVip = remember { viewModel.isVip }
     if (showDiscordBanner.value) {
       JoinDiscordCardComposable(
         {
@@ -352,7 +353,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           showDiscordBanner.value = false
         },
         fragmentName = fragmentName,
-        buttonsAnalytics = buttonsAnalytics
+        buttonsAnalytics = buttonsAnalytics,
+        isVip = isVip.value,
       )
     }
   }

@@ -47,6 +47,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.base.interceptors.UserAgentInterceptor
@@ -58,6 +59,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.WebViewResults.RELAUNCH_WEBVIEW
+import com.asfoundation.wallet.ui.iab.IabActivity.Companion.RESPONSE_CODE
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.models.CloseBehaviorConfig
@@ -99,6 +101,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
 
   companion object {
     private const val SUCCESS_SCHEMA = "https://wallet.dev.appcoins.io/iap/success"
+    private const val RESULT_USER_CANCELED = 1
     const val TRANSACTION_BUILDER = "transactionBuilder"
     const val URL = "url"
     const val TYPE = "type"
@@ -330,7 +333,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
     }
 
     BackHandler(enabled = !lockBackButton) {
-      if (!lockBackButton) finish()
+      if (!lockBackButton) finishWithCancel()
     }
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     Column(
@@ -343,14 +346,14 @@ class WebViewPaymentActivity : AppCompatActivity() {
           modifier = Modifier
             .height(36.dp)
             .fillMaxWidth()
-            .clickable(enabled = !lockCloseView) { if (!lockCloseView) finish() }
+            .clickable(enabled = !lockCloseView) { if (!lockCloseView) finishWithCancel() }
         )
       } else {
         Spacer(
           modifier = Modifier
             .fillMaxWidth()
             .weight(if (isPortraitSpaceForWeb.value) 0.2f else 0.02f)
-            .clickable(enabled = !lockCloseView) { if (!lockCloseView) finish() }
+            .clickable(enabled = !lockCloseView) { if (!lockCloseView) finishWithCancel() }
         )
       }
       Box(
@@ -402,6 +405,13 @@ class WebViewPaymentActivity : AppCompatActivity() {
     super.onDestroy()
     PaymentOverlayHandle.unregister(this)
     unlockRunnable?.let { handler.removeCallbacks(it) }
+  }
+
+  fun finishWithCancel(){
+    val intent = Intent()
+    intent.putExtras(bundleOf(RESPONSE_CODE to RESULT_USER_CANCELED))
+    setResult(RESULT_CANCELED, intent)
+    finish()
   }
 
   override fun finish() {

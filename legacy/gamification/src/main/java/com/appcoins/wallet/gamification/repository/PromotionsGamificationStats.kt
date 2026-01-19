@@ -1,6 +1,7 @@
 package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import java.math.BigDecimal
 
 data class PromotionsGamificationStats(
@@ -12,7 +13,8 @@ data class PromotionsGamificationStats(
   val totalEarned: BigDecimal = BigDecimal.ZERO,
   val isActive: Boolean = false,
   val fromCache: Boolean = false,
-  val gamificationStatus: GamificationStatus
+  val gamificationStatus: GamificationStatus,
+  val vipOnboarded: PromotionsResponse.VipOnboardedStatus?,
 ) {
 
   enum class ResultState {
