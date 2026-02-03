@@ -513,7 +513,6 @@ class VerificationPaypalFragment : BasePageViewFragment() {
     )
   }
 
-
   @Preview
   @Composable
   fun PreviewSuccessScreen() {
