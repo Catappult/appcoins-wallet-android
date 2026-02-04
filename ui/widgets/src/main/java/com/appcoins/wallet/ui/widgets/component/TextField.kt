@@ -1,9 +1,13 @@
 package com.appcoins.wallet.ui.widgets.component
 
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -29,7 +33,7 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -64,15 +68,15 @@ fun WalletTextFieldCustom(value: String, hintText: Int? = null, onValueChange: (
     singleLine = true,
     shape = RoundedCornerShape(8.dp),
     colors =
-    TextFieldDefaults.colors(
-      focusedContainerColor = WalletColors.styleguide_dark_secondary,
-      unfocusedContainerColor = WalletColors.styleguide_dark_secondary,
-      focusedIndicatorColor = WalletColors.styleguide_dark,
-      unfocusedIndicatorColor = WalletColors.styleguide_dark,
-      focusedTextColor = WalletColors.styleguide_light_grey,
-      unfocusedTextColor = WalletColors.styleguide_light_grey,
-      cursorColor = WalletColors.styleguide_light_grey
-    ),
+      TextFieldDefaults.colors(
+        focusedContainerColor = WalletColors.styleguide_dark_secondary,
+        unfocusedContainerColor = WalletColors.styleguide_dark_secondary,
+        focusedIndicatorColor = WalletColors.styleguide_dark,
+        unfocusedIndicatorColor = WalletColors.styleguide_dark,
+        focusedTextColor = WalletColors.styleguide_light_grey,
+        unfocusedTextColor = WalletColors.styleguide_light_grey,
+        cursorColor = WalletColors.styleguide_light_grey
+      ),
     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Default),
     placeholder = {
       Text(text = stringResource(hintText!!), color = WalletColors.styleguide_dark_grey)
@@ -108,15 +112,15 @@ fun WalletTextField(
     singleLine = true,
     shape = roundedCornerShape,
     colors =
-    TextFieldDefaults.colors(
-      focusedContainerColor = backgroundColor,
-      unfocusedContainerColor = backgroundColor,
-      focusedIndicatorColor = Color.Transparent,
-      unfocusedIndicatorColor = Color.Transparent,
-      focusedTextColor = WalletColors.styleguide_light_grey,
-      unfocusedTextColor = WalletColors.styleguide_light_grey,
-      cursorColor = WalletColors.styleguide_medium_grey
-    ),
+      TextFieldDefaults.colors(
+        focusedContainerColor = backgroundColor,
+        unfocusedContainerColor = backgroundColor,
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        focusedTextColor = WalletColors.styleguide_light_grey,
+        unfocusedTextColor = WalletColors.styleguide_light_grey,
+        cursorColor = WalletColors.styleguide_medium_grey
+      ),
     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Default, keyboardType = keyboardType),
     placeholder = {
       Text(
@@ -141,21 +145,21 @@ fun WalletTextFieldPassword(value: String, hintText: Int? = null, onValueChange:
     singleLine = true,
     shape = RoundedCornerShape(8.dp),
     colors =
-    TextFieldDefaults.colors(
-      focusedContainerColor = WalletColors.styleguide_dark,
-      unfocusedContainerColor = WalletColors.styleguide_dark,
-      focusedIndicatorColor = WalletColors.styleguide_dark,
-      unfocusedIndicatorColor = WalletColors.styleguide_dark,
-      focusedTextColor = WalletColors.styleguide_light_grey,
-      unfocusedTextColor = WalletColors.styleguide_light_grey,
-      cursorColor = WalletColors.styleguide_light_grey
-    ),
+      TextFieldDefaults.colors(
+        focusedContainerColor = WalletColors.styleguide_dark,
+        unfocusedContainerColor = WalletColors.styleguide_dark,
+        focusedIndicatorColor = WalletColors.styleguide_dark,
+        unfocusedIndicatorColor = WalletColors.styleguide_dark,
+        focusedTextColor = WalletColors.styleguide_light_grey,
+        unfocusedTextColor = WalletColors.styleguide_light_grey,
+        cursorColor = WalletColors.styleguide_light_grey
+      ),
     trailingIcon = {
       IconButton(onClick = { passwordVisible = !passwordVisible }) {
         Icon(
           painter =
-          if (!passwordVisible) painterResource(R.drawable.ic_transaction_poa)
-          else painterResource(R.drawable.ic_password_off),
+            if (!passwordVisible) painterResource(R.drawable.ic_transaction_poa)
+            else painterResource(R.drawable.ic_password_off),
           contentDescription = "show password",
           modifier = Modifier.size(22.dp),
           tint = WalletColors.styleguide_dark_grey
@@ -167,8 +171,13 @@ fun WalletTextFieldPassword(value: String, hintText: Int? = null, onValueChange:
       Text(text = stringResource(hintText!!), color = WalletColors.styleguide_dark_grey)
     },
     visualTransformation =
-    if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
+      if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
   )
+}
+
+private fun hideKeyboard(view: View) {
+  val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+  imm?.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -176,7 +185,7 @@ fun WalletTextFieldPassword(value: String, hintText: Int? = null, onValueChange:
 fun WalletCodeTextField(wrongCode: Boolean, onValueChange: (String) -> Unit, code: String) {
   val values = remember { getCodeChars(code) }
   val focusManager = LocalFocusManager.current
-  val keyboardController = LocalSoftwareKeyboardController.current
+  val view = LocalView.current
 
   fun updateValue(index: Int, newValue: String) {
     values[index] = newValue
@@ -185,22 +194,24 @@ fun WalletCodeTextField(wrongCode: Boolean, onValueChange: (String) -> Unit, cod
 
   fun moveFocus(focusDirection: FocusDirection) = focusManager.moveFocus(focusDirection)
 
-  Column {
+  Column(
+    modifier = Modifier.imePadding()
+  ) {
     Row {
       for (i in 0..TEXT_FIELD_LAST_INDEX) {
         WalletCodeTextFieldItem(
           modifier =
-          Modifier.onKeyEvent {
-            if (it.key == Key.Backspace && i > 1) moveFocus(FocusDirection.Previous)
-            false
-          },
+            Modifier.onKeyEvent {
+              if (it.key == Key.Backspace && i > 1) moveFocus(FocusDirection.Previous)
+              false
+            },
           value = values[i],
           onValueChange = { code ->
             if (code.length <= FILLED_FIELD_SIZE) updateValue(i, code)
             if (code.length == FILLED_FIELD_SIZE && i < TEXT_FIELD_LAST_INDEX)
               moveFocus(FocusDirection.Next)
             if (code.length == FILLED_FIELD_SIZE && i == TEXT_FIELD_LAST_INDEX)
-              keyboardController?.hide()
+              hideKeyboard(view)
           },
           wrongCode = wrongCode,
           imeAction = if (i == 3) ImeAction.Done else ImeAction.Next
@@ -238,32 +249,32 @@ fun WalletCodeTextFieldItem(
 ) {
   TextField(
     modifier =
-    modifier
-      .width(64.dp)
-      .padding(horizontal = 8.dp)
-      .border(
-        width = 1.dp,
-        color =
-        if (wrongCode) WalletColors.styleguide_red
-        else WalletColors.styleguide_dark_grey,
-        shape = RoundedCornerShape(8.dp)
-      ),
+      modifier
+        .width(64.dp)
+        .padding(horizontal = 8.dp)
+        .border(
+          width = 1.dp,
+          color =
+            if (wrongCode) WalletColors.styleguide_red
+            else WalletColors.styleguide_dark_grey,
+          shape = RoundedCornerShape(8.dp)
+        ),
     colors =
-    TextFieldDefaults.colors(
-      unfocusedContainerColor = WalletColors.styleguide_dark,
-      focusedContainerColor = WalletColors.styleguide_dark,
-      focusedIndicatorColor = WalletColors.styleguide_dark,
-      unfocusedIndicatorColor = WalletColors.styleguide_dark,
-      cursorColor = WalletColors.styleguide_light_grey
-    ),
+      TextFieldDefaults.colors(
+        unfocusedContainerColor = WalletColors.styleguide_dark,
+        focusedContainerColor = WalletColors.styleguide_dark,
+        focusedIndicatorColor = WalletColors.styleguide_dark,
+        unfocusedIndicatorColor = WalletColors.styleguide_dark,
+        cursorColor = WalletColors.styleguide_light_grey
+      ),
     shape = RoundedCornerShape(8.dp),
     textStyle =
-    TextStyle(
-      color = WalletColors.styleguide_light_grey,
-      textAlign = TextAlign.Center,
-      fontSize = 20.sp,
-      fontWeight = FontWeight.Bold
-    ),
+      TextStyle(
+        color = WalletColors.styleguide_light_grey,
+        textAlign = TextAlign.Center,
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold
+      ),
     value = value,
     singleLine = true,
     keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
