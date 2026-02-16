@@ -3,7 +3,6 @@ package com.asfoundation.wallet.recover.entry
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -13,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.Nullable
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +27,7 @@ import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import androidx.core.net.toUri
 
 
 @AndroidEntryPoint
@@ -46,8 +45,9 @@ class RecoverEntryFragment : BasePageViewFragment(),
   private var isFromOnboarding = false
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View = RecoverEntryFragmentBinding.inflate(inflater).root
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
     createLaunchers()
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     isFromOnboarding = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
     views.recoverWalletOptions.recoverFromFileButton.setOnClickListener {
@@ -102,7 +102,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
       registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
           result.data?.let {
-            viewModel.handleFileChosen(uri = it.data ?: Uri.parse(""))
+            viewModel.handleFileChosen(uri = it.data ?: "".toUri())
           }
         }
       }
