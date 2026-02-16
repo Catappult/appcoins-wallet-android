@@ -133,7 +133,7 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
     val amount = viewModel.state.vkTransaction.value?.amount
     val merchantId = viewModel.state.vkTransaction.value?.merchantId ?: "0"
     if (hash != null && uidTransaction != null && amount != null) {
-      vkPayManager.checkoutVkPay(
+      val success = vkPayManager.checkoutVkPay(
         hash,
         uidTransaction,
         vkDataPreferencesDataSource.getEmailVK(),
@@ -142,8 +142,12 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
         amount,
         merchantId.toInt(),
         BuildConfig.VK_SDK_APP_ID.toInt(),
-        requireFragmentManager()
+        getParentFragmentManager()
       )
+      if (!success) {
+        showError()
+        return
+      }
     } else {
       showError()
     }
