@@ -130,7 +130,9 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
       }
 
       is Async.Success -> {
-        prepareCardComponent(state.paymentInfoModel())
+        state.paymentInfoModel()?.let {
+          prepareCardComponent(it)
+        }
       }
 
       is Async.Fail -> Unit

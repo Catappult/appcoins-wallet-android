@@ -117,11 +117,15 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
         state.paymentInfoModel().let {
           when (args.paymentType) {
             PaymentType.CARD -> {
-              prepareCardComponent(it)
+              state.paymentInfoModel()?.let {
+                prepareCardComponent(it)
+              }
             }
 
             PaymentType.PAYPAL -> {
-              viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
+              state.paymentInfoModel()?.let {
+                viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
+              }
             }
 
             else -> Unit
