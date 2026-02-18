@@ -53,12 +53,17 @@ class FiatCurrenciesRepository @Inject constructor(
 
   suspend fun getSelectedCurrency(): DataResult<String> {
     return if (fiatCurrenciesPreferencesDataSource.getSelectCurrency()) {
-      val fiatValue: FiatValue = conversionService.localCurrency.await()
-      fiatCurrenciesPreferencesDataSource.setSelectedCurrency(fiatValue.currency)
-      fiatCurrenciesPreferencesDataSource.setSelectedCurrencySymbol(fiatValue.symbol)
-      fiatCurrenciesPreferencesDataSource.setSelectFirstTime()
-      fiatCurrenciesPreferencesDataSource.setSelectFirstTimeSymbol()
-      fiatValue.currency.toDataResult()
+      try {
+        val fiatValue: FiatValue = conversionService.localCurrency.await()
+        fiatCurrenciesPreferencesDataSource.setSelectedCurrency(fiatValue.currency)
+        fiatCurrenciesPreferencesDataSource.setSelectedCurrencySymbol(fiatValue.symbol)
+        fiatCurrenciesPreferencesDataSource.setSelectFirstTime()
+        fiatCurrenciesPreferencesDataSource.setSelectFirstTimeSymbol()
+        fiatValue.currency.toDataResult()
+      } catch (e: Exception) {
+        e.printStackTrace()
+        getCachedResultSelectedCurrency()
+      }
     } else {
       getCachedResultSelectedCurrency()
     }
@@ -66,12 +71,17 @@ class FiatCurrenciesRepository @Inject constructor(
 
   suspend fun getSelectedCurrencySymbol(): DataResult<String> {
     return if (fiatCurrenciesPreferencesDataSource.getSelectCurrencySymbol()) {
-      val fiatValue: FiatValue = conversionService.localCurrency.await()
-      fiatCurrenciesPreferencesDataSource.setSelectedCurrency(fiatValue.currency)
-      fiatCurrenciesPreferencesDataSource.setSelectedCurrencySymbol(fiatValue.symbol)
-      fiatCurrenciesPreferencesDataSource.setSelectFirstTimeSymbol()
-      fiatCurrenciesPreferencesDataSource.setSelectFirstTime()
-      fiatValue.symbol.toDataResult()
+      try {
+        val fiatValue: FiatValue = conversionService.localCurrency.await()
+        fiatCurrenciesPreferencesDataSource.setSelectedCurrency(fiatValue.currency)
+        fiatCurrenciesPreferencesDataSource.setSelectedCurrencySymbol(fiatValue.symbol)
+        fiatCurrenciesPreferencesDataSource.setSelectFirstTimeSymbol()
+        fiatCurrenciesPreferencesDataSource.setSelectFirstTime()
+        fiatValue.symbol.toDataResult()
+      } catch (e: Exception) {
+        e.printStackTrace()
+        getCachedResultSelectedCurrencySymbol()
+      }
     } else {
       getCachedResultSelectedCurrencySymbol()
     }
