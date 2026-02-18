@@ -147,7 +147,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
         amount,
         merchantId.toInt(),
         BuildConfig.VK_SDK_APP_ID.toInt(),
-        requireFragmentManager()
+        parentFragmentManager
       )
       if (!success) {
         showError()
