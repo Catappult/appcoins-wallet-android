@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -193,7 +192,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
   private fun showCompletedPayment() {
     binding.fragmentFirstIabTransactionCompleted.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     val bonus = args.forecastBonus.getPurchaseBonusMessage(formatter)
-    if (!bonus.isNullOrEmpty()) {
+    if (bonus.isNotEmpty()) {
       binding.fragmentFirstIabTransactionCompleted.transactionSuccessBonusText.text =
         getString(R.string.purchase_success_bonus_received_title, bonus)
     } else {
