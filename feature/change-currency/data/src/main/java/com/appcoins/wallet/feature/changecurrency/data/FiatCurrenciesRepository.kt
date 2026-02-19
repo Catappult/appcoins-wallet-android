@@ -13,7 +13,7 @@ import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.rx2.await
 import kotlinx.coroutines.withContext
-import java.net.UnknownHostException
+import java.io.IOException
 import javax.inject.Inject
 
 class FiatCurrenciesRepository @Inject constructor(
@@ -61,7 +61,7 @@ class FiatCurrenciesRepository @Inject constructor(
         fiatCurrenciesPreferencesDataSource.setSelectFirstTime()
         fiatCurrenciesPreferencesDataSource.setSelectFirstTimeSymbol()
         fiatValue.currency.toDataResult()
-      } catch (e: UnknownHostException) {
+      } catch (e: IOException) {
         e.printStackTrace()
         getCachedResultSelectedCurrency()
       }
@@ -79,7 +79,7 @@ class FiatCurrenciesRepository @Inject constructor(
         fiatCurrenciesPreferencesDataSource.setSelectFirstTimeSymbol()
         fiatCurrenciesPreferencesDataSource.setSelectFirstTime()
         fiatValue.symbol.toDataResult()
-      } catch (e: UnknownHostException) {
+      } catch (e: IOException) {
         e.printStackTrace()
         getCachedResultSelectedCurrencySymbol()
       }
