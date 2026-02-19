@@ -21,7 +21,6 @@ class EwtAuthenticatorService(
   private val signUseCase: ISignUseCase,
   private val header: String
 ) {
-
   private var cachedAuth: MutableMap<String, Pair<String, Long>> = HashMap()
 
   fun getEwtAuthentication(withCheckSum: Boolean = false): Single<String> {
@@ -30,6 +29,7 @@ class EwtAuthenticatorService(
       .map { wallet -> getEwtAuthentication(wallet) }
   }
 
+  @Synchronized
   fun getSessionEndDate(): Long? {
     val address = walletRepository.getDefaultWalletAddress()
     return cachedAuth[address]?.second
