@@ -145,6 +145,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initializeMagnes()
     setupBouncyCastle()
     initializeWalletId()
+    preWarmEwtCache()
     MainScope().launch {
       val mode = appStartUseCase.startModes.first()
       // OSP GP: Add enough delay to let wallet be created and set as user ID to the Analytics
@@ -242,6 +243,15 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
       val id = UUID.randomUUID()
         .toString()
       commonsPreferencesDataSource.setWalletId(id)
+    }
+  }
+
+  private fun preWarmEwtCache() {
+    val walletAddress = commonsPreferencesDataSource.getCurrentWalletAddress()
+    if (!walletAddress.isNullOrEmpty()) {
+      ewtObtainer.getEwtAuthentication()
+        .subscribeOn(Schedulers.io())
+        .subscribe()
     }
   }
 

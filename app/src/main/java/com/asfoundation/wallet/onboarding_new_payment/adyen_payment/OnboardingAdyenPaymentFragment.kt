@@ -8,11 +8,8 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
@@ -67,13 +64,14 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
   lateinit var adyenEnvironment: Environment
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     return OnboardingAdyenPaymentFragmentBinding.inflate(inflater).root
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingAdyenPaymentFragmentArgs.fromBundle(requireArguments())
     setupUi()
@@ -113,14 +111,18 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
       }
 
       is Async.Success -> {
-        state.paymentInfoModel()?.let {
+        state.paymentInfoModel().let {
           when (args.paymentType) {
             PaymentType.CARD -> {
-              prepareCardComponent(it)
+              state.paymentInfoModel()?.let {
+                prepareCardComponent(it)
+              }
             }
 
             PaymentType.PAYPAL -> {
-              viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
+              state.paymentInfoModel()?.let {
+                viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
+              }
             }
 
             else -> Unit

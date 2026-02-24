@@ -18,6 +18,10 @@
   <uses-permission
       android:name="android.permission.WRITE_EXTERNAL_STORAGE"
       android:maxSdkVersion="28" />
+  <!-- USE_FINGERPRINT is used to ensure app backwards compatibility (android 23-27) -->
+  <uses-permission
+      android:name="android.permission.USE_FINGERPRINT"
+      android:maxSdkVersion="27" />
   <uses-permission android:name="android.permission.USE_BIOMETRIC" />
   <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
   <uses-permission android:name="com.dti.folderlauncher.provider.permission.READ_APP_DETAILS" />

@@ -1,5 +1,6 @@
 package com.appcoins.wallet.billing
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Looper
 import android.os.Parcelable
@@ -86,6 +87,15 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     billing = AndroidBilling(bdsBilling)
 
     initializationComplete.complete(Unit)
+  }
+
+  override fun startActivity(intent: Intent?, options: Bundle?) {
+    try {
+      super.startActivity(intent, options)
+    } catch (e: SecurityException) {
+      Log.e(TAG, "SecurityException when returning value to app: ${e.message}")
+      finish()
+    }
   }
 
   override fun processValue(methodId: Int, arguments: Parcelable): Parcelable {

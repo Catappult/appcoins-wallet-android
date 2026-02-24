@@ -203,7 +203,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     val amount = viewModel.transactionVkData.value?.amount
     val merchantId = viewModel.transactionVkData.value?.merchantId ?: "0"
     if (hash != null && uidTransaction != null && amount != null) {
-      vkPayManager.checkoutVkPay(
+      val success = vkPayManager.checkoutVkPay(
         hash,
         uidTransaction,
         vkDataPreferencesDataSource.getEmailVK(),
@@ -214,6 +214,10 @@ class VkPaymentIABFragment : BasePageViewFragment(),
         BuildConfig.VK_SDK_APP_ID.toInt(),
         requireActivity().supportFragmentManager
       )
+      if (!success) {
+        showError()
+        return
+      }
       viewModel.hasVkPayAlreadyOpened = true
     } else {
       showError()
