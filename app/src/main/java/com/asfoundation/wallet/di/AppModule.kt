@@ -266,6 +266,7 @@ internal class AppModule {
   @Provides
   fun provideTaskTimer(): TaskTimer = TaskTimer()
 
+  @Singleton
   @Provides
   fun providesEwtAuthService(
     walletRepository: WalletRepository,

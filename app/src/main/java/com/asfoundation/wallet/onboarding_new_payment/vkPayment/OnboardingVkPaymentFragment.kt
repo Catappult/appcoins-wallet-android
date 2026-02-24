@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -72,8 +71,9 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
 
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     //Build Vk Pay SuperApp Kit
     vkPayManager.initSuperAppKit(
@@ -88,7 +88,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     return OnboardingVkPaymentLayoutBinding.inflate(inflater).root
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingVkPaymentFragmentArgs.fromBundle(requireArguments())
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
@@ -137,7 +137,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     val amount = viewModel.state.vkTransaction.value?.amount
     val merchantId = viewModel.state.vkTransaction.value?.merchantId ?: "0"
     if (hash != null && uidTransaction != null && amount != null) {
-      vkPayManager.checkoutVkPay(
+      val success = vkPayManager.checkoutVkPay(
         hash,
         uidTransaction,
         vkDataPreferencesDataSource.getEmailVK(),
@@ -146,8 +146,12 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
         amount,
         merchantId.toInt(),
         BuildConfig.VK_SDK_APP_ID.toInt(),
-        requireFragmentManager()
+        parentFragmentManager
       )
+      if (!success) {
+        showError()
+        return
+      }
     } else {
       showError()
     }
@@ -188,7 +192,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
   private fun showCompletedPayment() {
     binding.fragmentFirstIabTransactionCompleted.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     val bonus = args.forecastBonus.getPurchaseBonusMessage(formatter)
-    if (!bonus.isNullOrEmpty()) {
+    if (bonus.isNotEmpty()) {
       binding.fragmentFirstIabTransactionCompleted.transactionSuccessBonusText.text =
         getString(R.string.purchase_success_bonus_received_title, bonus)
     } else {

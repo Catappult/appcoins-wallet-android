@@ -10,7 +10,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
@@ -50,8 +49,9 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
   lateinit var navigator: OnboardingGooglePayNavigator
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     binding = OnboardingGooglePayLayoutBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
@@ -69,7 +69,7 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
     viewModel.processGooglePayResult(transactionBuilder = args.transactionBuilder)
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingGooglePayFragmentArgs.fromBundle(requireArguments())
     setListeners()
@@ -160,7 +160,7 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
   private fun handleSuccess() {
     views.fragmentFirstIabTransactionCompleted.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     val bonus = args.forecastBonus.getPurchaseBonusMessage(formatter)
-    if (!bonus.isNullOrEmpty()) {
+    if (bonus.isNotEmpty()) {
       views.fragmentFirstIabTransactionCompleted.transactionSuccessBonusText.text =
         getString(R.string.purchase_success_bonus_received_title, bonus)
     } else {
@@ -205,7 +205,7 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
       } else {
         val request = try {
           Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
-        } catch (e: IllegalArgumentException) {
+        } catch (_: IllegalArgumentException) {
           null
         }
         val listener = SdkPaymentWebSocketListener(

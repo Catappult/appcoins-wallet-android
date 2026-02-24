@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.core.arch.SingleStateFragment
@@ -52,13 +51,14 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
   private lateinit var webViewLauncher: ActivityResultLauncher<Intent>
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     return LocalPaymentLayoutBinding.inflate(inflater).root
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingLocalPaymentFragmentArgs.fromBundle(requireArguments())
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
@@ -185,7 +185,7 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
       } else {
         val request = try {
           Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
-        } catch (e: IllegalArgumentException) {
+        } catch (_: IllegalArgumentException) {
           null
         }
         val listener = SdkPaymentWebSocketListener(
