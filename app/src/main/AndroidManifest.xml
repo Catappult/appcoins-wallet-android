@@ -254,14 +254,6 @@
         <data
             android:host="${applicationId}"
             android:scheme="googlepayresult" />
-        <data
-            android:host="wallet.dev.appcoins.io"
-            android:pathPrefix="/app/googlepay/result"
-            android:scheme="http" />
-        <data
-            android:host="wallet.dev.appcoins.io"
-            android:pathPrefix="/app/googlepay/result"
-            android:scheme="https" />
       </intent-filter>
     </activity>
 
@@ -269,7 +261,7 @@
         android:name="com.asfoundation.wallet.billing.amazonPay.AmazonPayReturnActivity"
         android:exported="true"
         android:launchMode="singleTask"
-        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"></activity>
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"/>
 
     <activity
         android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
@@ -344,7 +336,7 @@
         android:exported="true"
         android:launchMode="singleTop"
         android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
-        android:windowSoftInputMode="adjustResize"></activity>
+        android:windowSoftInputMode="adjustResize"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.webview_payment.WebWalletResultRouterActivity"
@@ -365,7 +357,7 @@
         android:name="com.asfoundation.wallet.ui.login.webview_login.WebViewLoginActivity"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
-        android:windowSoftInputMode="adjustResize"></activity>
+        android:windowSoftInputMode="adjustResize"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.login.custom_tab_login.CustomTabLoginActivity"
@@ -402,16 +394,10 @@
     </activity>
 
     <activity
-        android:name="com.asfoundation.wallet.ui.login.custom_tab_login.native_login.NativeLoginActivity"
-        android:launchMode="singleTop"
-        android:theme="@style/Theme.AppCompat.Transparent.CustomTabLogin"
-        android:windowSoftInputMode="adjustResize"></activity>
-
-    <activity
         android:name="com.asfoundation.wallet.ui.webview_gamification.WebViewGamificationActivity"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.WebviewGamification"
-        android:windowSoftInputMode="adjustResize"></activity>
+        android:windowSoftInputMode="adjustResize"/>
 
     <service
         android:name="com.asfoundation.wallet.transactions.PerkBonusAndGamificationService"
