@@ -13,7 +13,11 @@ class CountryCodeRepository @Inject constructor(
 
 
   fun getCountryCode(): Single<CountryResponse> {
-    return countryApi.getCountryCodeForRefund()
+    return countryApi.getCountryCode(clientIp = null)
+  }
+
+  fun getCountryCode(ip: String): Single<CountryResponse> {
+    return countryApi.getCountryCode(clientIp = ip)
   }
 
   fun getCachedShowRefundDisclaimer(): Boolean {
