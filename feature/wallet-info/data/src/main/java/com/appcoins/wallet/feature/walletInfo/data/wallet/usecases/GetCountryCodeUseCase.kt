@@ -15,4 +15,11 @@ class GetCountryCodeUseCase @Inject constructor(
       }
   }
 
+  operator fun invoke(ip: String): Single<String> {
+    return countryCodeRepository.getCountryCode(ip)
+      .map { countryResponse ->
+        countryResponse.countryCode ?: ""
+      }
+  }
+
 }

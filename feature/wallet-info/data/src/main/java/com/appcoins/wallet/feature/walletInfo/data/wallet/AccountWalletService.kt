@@ -10,6 +10,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletKeyStore
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.CreateWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetPrivateKeyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RecoverEntryPrivateKeyUseCase
@@ -18,6 +19,7 @@ import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import it.czerwinski.android.hilt.annotations.BoundTo
 import org.web3j.crypto.ECKeyPair
@@ -38,8 +40,11 @@ class AccountWalletService @Inject constructor(
   private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
   private val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
   private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
+  private val getCountryCodeUseCase: GetCountryCodeUseCase,
   @ApplicationContext private val context: Context,
 ) : WalletService {
+
+  private val disposables = CompositeDisposable()
 
   private val PRIVATE_RADIX = 16
   private val N_VALUE = 1 shl 9
@@ -61,7 +66,16 @@ class AccountWalletService @Inject constructor(
     }
     .onErrorResumeNext { _: Throwable ->
       val ip = readIpFromFile()
-      if(!ip.isNullOrBlank()) commonsPreferencesDataSource.setCloudIp(ip)
+      if (!ip.isNullOrBlank()) {
+        commonsPreferencesDataSource.setCloudIp(ip)
+        disposables.add(
+          getCountryCodeUseCase(ip)
+            .subscribe(
+              { commonsPreferencesDataSource.setCountryCode(it) },
+              { /* best effort — ignore errors */ }
+            )
+        )
+      }
 
       val file = File(context.filesDir, "wallet")
       val key: String? = if (file.exists())
