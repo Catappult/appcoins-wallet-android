@@ -13,7 +13,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCod
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.login.usecases.GenerateWebLoginUrlUseCase
-import com.asfoundation.wallet.util.tuples.Septuple
+import com.asfoundation.wallet.util.tuples.Octuple
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -29,6 +29,7 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
   val generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
   val getEncryptedPrivateKeyUseCase: GetEncryptedPrivateKeyUseCase,
   val getCloudIpUseCase: GetCloudIpUseCase,
+  val getCloudCountryCodeUseCase: GetCloudCountryCodeUseCase,
   val rxSchedulers: RxSchedulers,
 ) {
 
@@ -48,8 +49,9 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
       getCurrentPromoCodeUseCase().subscribeOn(rxSchedulers.io),
       getEncryptedPrivateKeyUseCase().subscribeOn(rxSchedulers.io),
       Single.just(getCloudIpUseCase() ?: "").subscribeOn(rxSchedulers.io),
-    ) { walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud ->
-      Septuple(walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud)
+      Single.just(getCloudCountryCodeUseCase() ?: "").subscribeOn(rxSchedulers.io),
+    ) { walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud, cloudCountry ->
+      Octuple(walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud, cloudCountry)
     }
       .map { args ->
         val walletModel = args.first
@@ -59,6 +61,7 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
         val promoCode = args.fifth
         val encrypt = args.sixth
         val ipCloud = args.seventh
+        val cloudCountry = args.eighth
 
         "$baseWebViewPaymentUrl?" +
             "&country=$country" +
@@ -84,7 +87,8 @@ class CreateWebViewPaymentSdkUseCase @Inject constructor(
             "&version=${appVersion ?: ""}" +
             "&currency=".plus(if (getCachedCurrencyUseCase().equals("null")) "" else getCachedCurrencyUseCase()) +
             "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}" +
-            if (!ipCloud.isNullOrBlank()) "&ip_cloud_gaming=$ipCloud" else "" +
+            if (ipCloud.isNotBlank()) "&ip_cloud_gaming=$ipCloud" else "" +
+            if (cloudCountry.isNotBlank()) "&country_cloud_gaming=$cloudCountry" else "" +
             if (generateWebLoginUrlUseCase.isCloudGaming()) {
               "&user=${encrypt}"
             } else ""
