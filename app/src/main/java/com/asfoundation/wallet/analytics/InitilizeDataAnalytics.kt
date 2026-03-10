@@ -27,6 +27,11 @@ import io.sentry.protocol.User
 import kotlin.random.Random
 import javax.inject.Inject
 
+/**
+ * Stack frame limit for Sentry.
+ */
+private const val SENTRY_STACK_FRAME_SIZE = 25
+
 class InitilizeDataAnalytics @Inject constructor(
   @ApplicationContext private val context: Context,
   private val idsRepository: IdsRepository,
@@ -47,12 +52,14 @@ class InitilizeDataAnalytics @Inject constructor(
       options.beforeSend = SentryOptions.BeforeSendCallback { event, _ ->
         event.exceptions?.forEach { exception ->
           exception.stacktrace?.frames?.let { frames ->
-            if (frames.size > 25) {
-              frames.subList(25, frames.size).clear()
+            if (frames.size > SENTRY_STACK_FRAME_SIZE) {
+              frames.subList(0, frames.size - SENTRY_STACK_FRAME_SIZE)
             }
           }
         }
         when (event.level) {
+          SentryLevel.DEBUG -> if (BuildConfig.DEBUG) event else null
+          SentryLevel.INFO -> if (Random.nextDouble() < 0.25) event else null
           SentryLevel.WARNING -> if (Random.nextDouble() < 0.5) event else null
           else -> event // ERROR and above always sent (1.0)
         }
