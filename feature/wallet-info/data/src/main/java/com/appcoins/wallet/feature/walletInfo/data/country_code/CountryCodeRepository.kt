@@ -10,10 +10,8 @@ class CountryCodeRepository @Inject constructor(
   private val refundDisclaimerPreferencesDataSource: RefundDisclaimerPreferencesDataSource,
   private val countryApi: CountryApi
 ) {
-
-
-  fun getCountryCode(): Single<CountryResponse> {
-    return countryApi.getCountryCodeForRefund()
+  fun getCountryCode(ip: String?): Single<CountryResponse> {
+    return countryApi.getCountryCode(clientIp = ip)
   }
 
   fun getCachedShowRefundDisclaimer(): Boolean {

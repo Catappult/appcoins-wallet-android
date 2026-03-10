@@ -11,7 +11,7 @@ class GetShowRefundDisclaimerCodeUseCase @Inject constructor(
 ) {
 
   operator fun invoke(): Single<CountryResponse> {
-    return countryCodeRepository.getCountryCode()
+    return countryCodeRepository.getCountryCode(null)
   }
 
 }

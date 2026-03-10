@@ -23,6 +23,7 @@ constructor(private val sharedPreferences: SharedPreferences) {
     private const val HAS_BEEN_IN_SETTINGS = "has_been_in_settings"
     private const val NUMBER_OF_TIMES_IN_HOME = "number_of_times_in_home"
     private const val CLOUD_IP = "cloud_ip"
+    private const val COUNTRY_CODE = "country_code"
   }
 
   fun hasCompletedOnboarding() = sharedPreferences.getBoolean(ONBOARDING_COMPLETE_KEY, false)
@@ -80,4 +81,7 @@ constructor(private val sharedPreferences: SharedPreferences) {
   fun setCloudIp(ip: String?) = sharedPreferences.edit { putString(CLOUD_IP, ip) }
 
   fun getCloudIp(): String? = sharedPreferences.getString(CLOUD_IP, null)
+  fun setCountryCode(countryCode: String?) = sharedPreferences.edit { putString(COUNTRY_CODE, countryCode) }
+
+  fun getCountryCode(): String? = sharedPreferences.getString(COUNTRY_CODE, null)
 }
