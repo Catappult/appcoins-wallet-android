@@ -132,7 +132,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
         when {
           isFinishingPurchase -> close()
           views.fullscreenComposeView.isVisible -> {
-//            views.fullscreenComposeView.visibility = View.GONE
             isEnabled = false
             onBackPressedDispatcher.onBackPressed()
             isEnabled = true
