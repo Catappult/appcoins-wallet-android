@@ -9,7 +9,6 @@ import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
 import com.appcoins.wallet.core.analytics.analytics.IndicativeEventLogger
 import com.appcoins.wallet.core.analytics.analytics.KeysNormalizer
 import com.appcoins.wallet.core.analytics.analytics.LogcatAnalyticsLogger
-import com.appcoins.wallet.core.analytics.analytics.SentryEventLogger
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics.Companion.WALLET_APP_ACTIVE_PROMOTION_CLICK
 import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics.Companion.WALLET_APP_EMAIL_SUBMITTED
 import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics.Companion.WALLET_APP_HOME_SCREEN_CLICK
@@ -194,7 +193,6 @@ class AnalyticsModule {
         GAEventLogger(indicativeAnalytics, appStartPreferencesDataSource, context),
         indicativeEventList
       )
-      .addLogger(SentryEventLogger(), sentryEventList)
       .setAnalyticsNormalizer(KeysNormalizer())
       .setDebugLogger(LogcatAnalyticsLogger())
       .setKnockLogger(HttpClientKnockLogger(okHttpClient))

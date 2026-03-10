@@ -113,7 +113,6 @@ import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
-import com.appcoins.wallet.core.utils.android_common.Log
 import com.asfoundation.wallet.main.MainActivityViewModel
 import com.asfoundation.wallet.main.SnackBarMessage
 
@@ -272,6 +271,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
+      val email by viewModel.uiEmail.collectAsState()
       BalanceNewCard(
         onClickTopUp = { viewModel.onTopUpClick() },
         isLoading = (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
@@ -287,7 +287,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           )
         },
         balance = balanceValue,
-        email = viewModel.uiEmail.value,
+        email = email,
         showBackup = viewModel.showBackup.value,
         onClickDetailsBalance = {
           navigator.navigateToDetailsBalanceBottomSheet(
