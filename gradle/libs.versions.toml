@@ -188,6 +188,7 @@ appcoins-sdk-debug = { module = "io.catappult:appcoins-contract-proxy", version.
 appcoins-sdk-communication = { module = "io.catappult:communication", version.ref = "appcoins_sdk_version" }
 
 analytics-sentry = { module = "io.sentry:sentry-android", version.ref = "sentry_version" }
+analytics-sentry-fragment = { module = "io.sentry:sentry-android-fragment", version.ref = "sentry_version" }
 analytics-indicative = { module = "com.indicative.client.android:Indicative-Android", version.ref = "indicative_version" }
 analytics-flurry = { module = "com.flurry.android:analytics", version.ref = "flurry_version" }
 analytics-appsflyer = { module = "com.appsflyer:af-android-sdk", version.ref = "appsflyer_version" }

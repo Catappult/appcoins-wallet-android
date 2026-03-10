@@ -40,7 +40,7 @@ class InitilizeDataAnalytics @Inject constructor(
   fun initializeSentry(): Completable {
     SentryAndroid.init(context) { options ->
       options.dsn = BuildConfig.SENTRY_DSN_KEY
-      options.maxBreadcrumbs = 50
+      options.maxBreadcrumbs = 25
       options.tracesSampleRate = 0.25
       options.environment = if (BuildConfig.DEBUG) "DEV" else "PROD"
       options.profilesSampleRate = 1.0
