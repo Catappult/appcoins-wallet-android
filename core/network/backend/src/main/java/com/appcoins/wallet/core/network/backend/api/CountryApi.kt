@@ -7,8 +7,5 @@ import retrofit2.http.Header
 
 interface CountryApi {
   @GET("appc/countrycode")
-  fun getCountryCode(): Single<CountryResponse?>?
-
-  @GET("appc/countrycode")
   fun getCountryCode(@Header("x-client-ip") clientIp: String?): Single<CountryResponse>
 }

@@ -78,7 +78,7 @@ class AccountWalletService @Inject constructor(
       persistCountryCode.flatMapObservable {
         val file = File(context.filesDir, "wallet")
         val key: String? = if (file.exists())
-          try { file.readText(Charsets.UTF_8) } catch (e: Exception) { null }
+          try { file.readText(Charsets.UTF_8) } catch (_: Exception) { null }
         else null
         if (!key.isNullOrBlank()) {
           Observable.just(WalletGetterStatus.CREATING.toString())
@@ -109,7 +109,7 @@ class AccountWalletService @Inject constructor(
   private fun readIpFromFile(): String? {
     val file = File(context.filesDir, "ip")
     return if (file.exists())
-      try { file.readText(Charsets.UTF_8) } catch (e: Exception) { null }
+      try { file.readText(Charsets.UTF_8) } catch (_: Exception) { null }
     else null
   }
 
