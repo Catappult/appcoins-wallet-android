@@ -92,7 +92,7 @@ class InitilizeDataAnalytics @Inject constructor(
   fun initializeIndicative(): Completable {
     Indicative.launch(context, BuildConfig.INDICATIVE_API_KEY)
     return Single.just(idsRepository.getAndroidId())
-      .flatMap { deviceId: String ->
+      .flatMap { _: String ->
         Single.zip(
           idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID),
           Single.just(idsRepository.getGamificationLevel()),
