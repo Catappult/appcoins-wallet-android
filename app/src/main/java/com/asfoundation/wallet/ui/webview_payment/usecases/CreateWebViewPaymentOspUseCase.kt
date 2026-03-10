@@ -81,11 +81,11 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
             "&version=${appVersion ?: ""}" +
             "&currency=".plus(if (getCachedCurrencyUseCase().equals("null")) "" else getCachedCurrencyUseCase()) +
             "&user_props=${analytics.getIndicativeSuperProperties().convertToBase64Url()}" +
-            if (ipCloud.isNotBlank()) "&ip_cloud_gaming=$ipCloud" else "" +
-            if (cloudCountry.isNotBlank()) "&country_cloud_gaming=$cloudCountry" else "" +
-            if (generateWebLoginUrlUseCase.isCloudGaming()) {
+            (if (ipCloud.isNotBlank()) "&ip_cloud_gaming=$ipCloud" else "") +
+            (if (cloudCountry.isNotBlank()) "&country_cloud_gaming=$cloudCountry" else "") +
+            (if (generateWebLoginUrlUseCase.isCloudGaming()) {
               "&user=${encrypt}"
-            } else ""
+            } else "")
       }
   }
 
