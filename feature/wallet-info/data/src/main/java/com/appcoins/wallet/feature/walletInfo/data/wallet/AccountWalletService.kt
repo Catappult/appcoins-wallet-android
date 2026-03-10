@@ -19,7 +19,6 @@ import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import it.czerwinski.android.hilt.annotations.BoundTo
 import org.web3j.crypto.ECKeyPair
@@ -44,8 +43,6 @@ class AccountWalletService @Inject constructor(
   @ApplicationContext private val context: Context,
 ) : WalletService {
 
-  private val disposables = CompositeDisposable()
-
   private val PRIVATE_RADIX = 16
   private val N_VALUE = 1 shl 9
   private val P_VALUE = 1
@@ -66,45 +63,46 @@ class AccountWalletService @Inject constructor(
     }
     .onErrorResumeNext { _: Throwable ->
       val ip = readIpFromFile()
-      if (!ip.isNullOrBlank()) {
-        commonsPreferencesDataSource.setCloudIp(ip)
-        disposables.add(
-          getCountryCodeUseCase(ip)
-            .subscribe(
-              { commonsPreferencesDataSource.setCountryCode(it) },
-              { /* best effort — ignore errors */ }
-            )
-        )
-      }
 
-      val file = File(context.filesDir, "wallet")
-      val key: String? = if (file.exists())
-        try { file.readText(Charsets.UTF_8) } catch (e: Exception) { null }
-      else null
-      if (!key.isNullOrBlank()) {
-        Observable.just(WalletGetterStatus.CREATING.toString())
-          .mergeWith(
-            recoverEntryPrivateKeyUseCase(keyStore = WalletKeyStore(null, key))
-              .map {
-                when (it) {
-                  is SuccessfulEntryRecover -> {
-                    it.address
+      val persistCountryCode: Single<Unit> =
+        if (!ip.isNullOrBlank()) {
+          commonsPreferencesDataSource.setCloudIp(ip)
+          getCountryCodeUseCase(ip)
+            .doOnSuccess { commonsPreferencesDataSource.setCountryCode(it) }
+            .onErrorReturnItem("") // best effort — ignore errors
+            .map { }
+        } else {
+          Single.just(Unit)
+        }
+
+      persistCountryCode.flatMapObservable {
+        val file = File(context.filesDir, "wallet")
+        val key: String? = if (file.exists())
+          try { file.readText(Charsets.UTF_8) } catch (e: Exception) { null }
+        else null
+        if (!key.isNullOrBlank()) {
+          Observable.just(WalletGetterStatus.CREATING.toString())
+            .mergeWith(
+              recoverEntryPrivateKeyUseCase(keyStore = WalletKeyStore(null, key))
+                .map {
+                  when (it) {
+                    is SuccessfulEntryRecover -> it.address
+                    else -> ""
                   }
-                  else -> ""
                 }
-              }
-          )
-          .flatMap {
-            registerFirebaseTokenUseCase.registerFirebaseToken(wallet = Wallet(it))
-              .map { wallet -> wallet.address }.toObservable()
-          }
-      } else {
-        Observable.just(WalletGetterStatus.CREATING.toString())
-          .mergeWith(createWalletUseCase("Main Wallet").map { it.address }.toObservable())
-          .flatMap {
-            registerFirebaseTokenUseCase.registerFirebaseToken(wallet = Wallet(it))
-              .map { wallet -> wallet.address }.toObservable()
-          }
+            )
+            .flatMap {
+              registerFirebaseTokenUseCase.registerFirebaseToken(wallet = Wallet(it))
+                .map { wallet -> wallet.address }.toObservable()
+            }
+        } else {
+          Observable.just(WalletGetterStatus.CREATING.toString())
+            .mergeWith(createWalletUseCase("Main Wallet").map { it.address }.toObservable())
+            .flatMap {
+              registerFirebaseTokenUseCase.registerFirebaseToken(wallet = Wallet(it))
+                .map { wallet -> wallet.address }.toObservable()
+            }
+        }
       }
     }
 
