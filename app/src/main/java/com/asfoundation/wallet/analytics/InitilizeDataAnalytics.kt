@@ -20,9 +20,17 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.sentry.Sentry
+import io.sentry.SentryLevel
+import io.sentry.SentryOptions
 import io.sentry.android.core.SentryAndroid
 import io.sentry.protocol.User
+import kotlin.random.Random
 import javax.inject.Inject
+
+/**
+ * Stack frame limit for Sentry.
+ */
+private const val SENTRY_STACK_FRAME_SIZE = 25
 
 class InitilizeDataAnalytics @Inject constructor(
   @ApplicationContext private val context: Context,
@@ -37,8 +45,25 @@ class InitilizeDataAnalytics @Inject constructor(
   fun initializeSentry(): Completable {
     SentryAndroid.init(context) { options ->
       options.dsn = BuildConfig.SENTRY_DSN_KEY
-      options.tracesSampleRate = 1.0
+      options.maxBreadcrumbs = 25
+      options.tracesSampleRate = 0.25
+      options.environment = if (BuildConfig.DEBUG) "DEV" else "PROD"
       options.profilesSampleRate = 1.0
+      options.beforeSend = SentryOptions.BeforeSendCallback { event, _ ->
+        event.exceptions?.forEach { exception ->
+          exception.stacktrace?.frames?.let { frames ->
+            if (frames.size > SENTRY_STACK_FRAME_SIZE) {
+              frames.subList(0, frames.size - SENTRY_STACK_FRAME_SIZE)
+            }
+          }
+        }
+        when (event.level) {
+          SentryLevel.DEBUG -> if (BuildConfig.DEBUG) event else null
+          SentryLevel.INFO -> if (Random.nextDouble() < 0.25) event else null
+          SentryLevel.WARNING -> if (Random.nextDouble() < 0.5) event else null
+          else -> event // ERROR and above always sent (1.0)
+        }
+      }
     }
     val walletAddress = idsRepository.getActiveWalletAddress()
 
@@ -74,7 +99,7 @@ class InitilizeDataAnalytics @Inject constructor(
   fun initializeIndicative(): Completable {
     Indicative.launch(context, BuildConfig.INDICATIVE_API_KEY)
     return Single.just(idsRepository.getAndroidId())
-      .flatMap { deviceId: String ->
+      .flatMap { _: String ->
         Single.zip(
           idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID),
           Single.just(idsRepository.getGamificationLevel()),

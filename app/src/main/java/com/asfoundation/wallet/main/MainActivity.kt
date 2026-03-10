@@ -32,6 +32,7 @@ import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKe
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPayPalProperties.PAYPAL_VERIFICATION_REQUIRED
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.Disposable
+import io.sentry.android.fragment.SentryFragmentLifecycleCallbacks
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import javax.inject.Inject
@@ -68,6 +69,9 @@ class MainActivity : AppCompatActivity(), OnNewIntentActivityHandler,
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_activity)
 
+    supportFragmentManager.registerFragmentLifecycleCallbacks(
+      SentryFragmentLifecycleCallbacks(), true
+    )
     initNavController()
     handleSplashScreenResult()
     handleAuthenticationResult()

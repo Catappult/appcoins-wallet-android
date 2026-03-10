@@ -128,6 +128,7 @@ dependencies {
   implementation(libs.flexbox)
 
   implementation(libs.analytics.sentry)
+  implementation(libs.analytics.sentry.fragment)
   implementation(libs.bundles.analytics)
 
   implementation(libs.bundles.lottie)
