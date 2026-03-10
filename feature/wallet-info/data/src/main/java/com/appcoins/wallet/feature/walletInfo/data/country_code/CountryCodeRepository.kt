@@ -10,13 +10,7 @@ class CountryCodeRepository @Inject constructor(
   private val refundDisclaimerPreferencesDataSource: RefundDisclaimerPreferencesDataSource,
   private val countryApi: CountryApi
 ) {
-
-
-  fun getCountryCode(): Single<CountryResponse> {
-    return countryApi.getCountryCode(clientIp = null)
-  }
-
-  fun getCountryCode(ip: String): Single<CountryResponse> {
+  fun getCountryCode(ip: String?): Single<CountryResponse> {
     return countryApi.getCountryCode(clientIp = ip)
   }
 
