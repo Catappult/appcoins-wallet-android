@@ -11,11 +11,17 @@ class CloudIpInterceptor @Inject constructor(
 
   override fun intercept(chain: Interceptor.Chain): Response {
     val cloudIp = commonsPreferencesDataSource.getCloudIp()
+    val countryCode = commonsPreferencesDataSource.getCountryCode()
     return if (!cloudIp.isNullOrBlank())
       chain.proceed(
       chain.request()
         .newBuilder()
         .header("x-client-ip", cloudIp)
+        .let {
+          if (!countryCode.isNullOrBlank())
+            it.header("x-client-country", countryCode)
+          else it
+        }
         .build()
     )
     else

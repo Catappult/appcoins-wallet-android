@@ -2,7 +2,6 @@ package com.asfoundation.wallet.repository;
 
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.core.network.backend.api.CountryApi;
-import com.appcoins.wallet.core.network.backend.model.CountryResponse;
 import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider;
 import io.reactivex.Single;
 import it.czerwinski.android.hilt.annotations.BoundTo;
@@ -17,7 +16,7 @@ import javax.inject.Inject;
   }
 
   @NonNull @Override public Single<String> getCountryCode() {
-    return countryApi.getCountryCode()
-        .map(CountryResponse::getCountryCode);
+    return countryApi.getCountryCode(null)
+        .map(countryResponse -> countryResponse.getCountryCode() != null ? countryResponse.getCountryCode() : "");
   }
 }

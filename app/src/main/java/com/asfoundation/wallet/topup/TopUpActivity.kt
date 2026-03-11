@@ -7,6 +7,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -14,7 +16,6 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.ui.widgets.top_bar.TopBar
-import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TopUpActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
@@ -45,6 +46,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.Objects
 import javax.inject.Inject
+import androidx.core.view.isVisible
 
 
 @AndroidEntryPoint
@@ -81,6 +83,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   private var firstImpression = true
 
   private val views by viewBinding(TopUpActivityLayoutBinding::bind)
+
+  private val webViewLauncher = registerForActivityResult(
+    ActivityResultContracts.StartActivityForResult()
+  ) { result ->
+    presenter.processActivityResult(WEB_VIEW_REQUEST_CODE, result.resultCode, result.data)
+  }
 
   companion object {
     @JvmStatic
@@ -119,6 +127,24 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
         TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() }, fragmentName = fragmentName, buttonsAnalytics = buttonsAnalytics)
       }
     }
+    onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+      override fun handleOnBackPressed() {
+        when {
+          isFinishingPurchase -> close()
+          views.fullscreenComposeView.isVisible -> {
+            isEnabled = false
+            onBackPressedDispatcher.onBackPressed()
+            isEnabled = true
+          }
+          supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
+          else -> {
+            isEnabled = false
+            onBackPressedDispatcher.onBackPressed()
+            isEnabled = true
+          }
+        }
+      }
+    })
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -223,24 +249,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     finish()
   }
 
-  override fun onBackPressed() {
-    when {
-      isFinishingPurchase -> close()
-      views.fullscreenComposeView.visibility == View.VISIBLE -> {
-//        views.fullscreenComposeView.visibility = View.GONE
-        super.onBackPressed()
-      }
-      supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
-      else -> super.onBackPressed()
-    }
-  }
-
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
       when {
         isFinishingPurchase -> close()
         supportFragmentManager.backStackEntryCount != 0 -> supportFragmentManager.popBackStack()
-        else -> super.onBackPressed()
+        else -> onBackPressedDispatcher.onBackPressed()
       }
       return true
     }
@@ -316,7 +330,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   }
 
   override fun navigateToUri(url: String) {
-    startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
+    webViewLauncher.launch(WebViewActivity.newIntent(this, url))
   }
 
   override fun uriResults() = results
@@ -331,15 +345,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   override fun getTryAgainClicks() = RxView.clicks(views.layoutError.tryAgain)
 
-  override fun setFinishingPurchase(newState: Boolean) {
-    isFinishingPurchase = newState
+  override fun setFinishingPurchase(value: Boolean) {
+    isFinishingPurchase = value
   }
 
   override fun cancelPayment() {
     if (supportFragmentManager.backStackEntryCount != 0) {
       supportFragmentManager.popBackStackImmediate()
     } else {
-      super.onBackPressed()
+      onBackPressedDispatcher.onBackPressed()
     }
   }
 

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -47,6 +48,7 @@ fun TopBar(
     modifier = Modifier
       .fillMaxWidth()
       .background(WalletColors.styleguide_dark)
+      .statusBarsPadding()
       .height(64.dp)
       .padding(start = 16.dp, end = 4.dp),
     verticalAlignment = Alignment.CenterVertically,
@@ -85,6 +87,7 @@ fun TopBar(
     Modifier
       .fillMaxWidth()
       .background(WalletColors.styleguide_dark)
+      .statusBarsPadding()
       .padding(start = 16.dp, end = 4.dp)
       .height(64.dp),
     verticalAlignment = Alignment.CenterVertically,

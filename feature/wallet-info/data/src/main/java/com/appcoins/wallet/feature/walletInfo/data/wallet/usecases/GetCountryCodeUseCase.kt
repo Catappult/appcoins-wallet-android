@@ -7,9 +7,8 @@ import javax.inject.Inject
 class GetCountryCodeUseCase @Inject constructor(
   private val countryCodeRepository: CountryCodeRepository
 ) {
-
-  operator fun invoke(): Single<String> {
-    return countryCodeRepository.getCountryCode()
+  operator fun invoke(ip: String? = null): Single<String> {
+    return countryCodeRepository.getCountryCode(ip)
       .map { countryResponse ->
         countryResponse.countryCode ?: ""
       }

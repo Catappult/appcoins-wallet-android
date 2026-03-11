@@ -1,5 +1,6 @@
 package com.appcoins.wallet.core.analytics.analytics
 
+import io.sentry.Breadcrumb
 import io.sentry.Sentry
 import io.sentry.SentryLevel
 import io.sentry.protocol.User
@@ -22,8 +23,15 @@ class SentryAnalytics @Inject constructor() : AnalyticsSetup {
       scope.user = user
     }
 
-    // Capture the message AFTER setting the new user and outside the withScope block
-    Sentry.captureMessage("Changing wallet from $oldUserId to $walletAddress")
+    Sentry.addBreadcrumb(
+      Breadcrumb(
+        "Changing wallet"
+      ).apply {
+        setData("from", oldUserId)
+        setData("to", walletAddress)
+        level = SentryLevel.INFO
+      }
+    )
   }
 
   override fun setGamificationLevel(level: Int) {

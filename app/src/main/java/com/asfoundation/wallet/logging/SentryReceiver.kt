@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.logging
 
 import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
+import io.sentry.Breadcrumb
 import io.sentry.Sentry
 import io.sentry.SentryLevel
 
@@ -16,31 +17,44 @@ class SentryReceiver : LogReceiver {
     message?.let {
       if (asError) {
         Sentry.captureMessage(it) { scope ->
-          scope.level = SentryLevel.ERROR
+          scope.level = SentryLevel.WARNING
           if (tag != null) {
             scope.setTag("category", tag)
           }
+        }
+        if (addToBreadcrumbs) {
+          Sentry.addBreadcrumb(
+            Breadcrumb(it).apply {
+              level = SentryLevel.WARNING
+              if (tag != null) {
+                category = tag
+              }
+            }
+          )
         }
       } else {
-        Sentry.captureMessage("$tag: $message")
-      }
-
-      if (addToBreadcrumbs) {
-        Sentry.captureMessage(tag ?: "Breadcrumb") { scope ->
-          scope.level = SentryLevel.ERROR
-          scope.setExtra("error", message)
-          if (tag != null) {
-            scope.setTag("category", tag)
+        Sentry.addBreadcrumb(
+          Breadcrumb(it).apply {
+            level = SentryLevel.INFO
+            if (tag != null) {
+              category = tag
+            }
           }
-        }
+        )
       }
     }
   }
 
   override fun log(tag: String?, message: String?, throwable: Throwable?) {
     throwable?.let {
-      Sentry.captureMessage("$tag: $message")
-      Sentry.captureException(it)
+      Sentry.captureException(it) { scope ->
+        tag?.let {
+          scope.setTag("category", tag)
+        }
+        message?.let {
+          scope.setExtra("error", message)
+        }
+      }
     }
   }
 }

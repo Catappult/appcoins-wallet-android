@@ -8,6 +8,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.AccountWalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.CreateWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetPrivateKeyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RecoverEntryPrivateKeyUseCase
@@ -61,6 +62,9 @@ class AccountWalletServiceTest {
 
   @Mock
   lateinit var walletRepositoryType: WalletRepositoryType
+  @Mock
+  lateinit var getCountryCodeUseCase: GetCountryCodeUseCase
+
 
   @Mock
   lateinit var syncScheduler: ExecutorScheduler
@@ -96,7 +100,8 @@ class AccountWalletServiceTest {
       getCurrentWalletUseCase = getCurrentWalletUseCase,
       context = context,
       recoverEntryPrivateKeyUseCase = recoverEntryPrivateKeyUseCase,
-      commonsPreferencesDataSource = commonsPreferencesDataSource
+      commonsPreferencesDataSource = commonsPreferencesDataSource,
+      getCountryCodeUseCase = getCountryCodeUseCase
     )
   }
 

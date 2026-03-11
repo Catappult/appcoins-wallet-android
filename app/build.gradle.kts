@@ -18,8 +18,8 @@ android {
 
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 387
-    versionName = "4.19.5"
+    versionCode = 388
+    versionName = "4.20.0"
 
     externalNativeBuild {
       cmake {
@@ -128,6 +128,7 @@ dependencies {
   implementation(libs.flexbox)
 
   implementation(libs.analytics.sentry)
+  implementation(libs.analytics.sentry.fragment)
   implementation(libs.bundles.analytics)
 
   implementation(libs.bundles.lottie)

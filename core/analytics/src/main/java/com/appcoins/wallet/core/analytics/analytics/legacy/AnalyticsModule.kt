@@ -9,7 +9,6 @@ import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
 import com.appcoins.wallet.core.analytics.analytics.IndicativeEventLogger
 import com.appcoins.wallet.core.analytics.analytics.KeysNormalizer
 import com.appcoins.wallet.core.analytics.analytics.LogcatAnalyticsLogger
-import com.appcoins.wallet.core.analytics.analytics.SentryEventLogger
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics.Companion.WALLET_APP_ACTIVE_PROMOTION_CLICK
 import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics.Companion.WALLET_APP_EMAIL_SUBMITTED
 import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics.Companion.WALLET_APP_HOME_SCREEN_CLICK
@@ -112,74 +111,10 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  @Named("sentry_event_list")
-  fun provideSentryEventList() =
-    listOf(
-      FIRST_LAUNCH, HomeAnalytics.WALLET_HOME_INTERACTION_EVENT,
-      BillingAnalytics.WALLET_PRESELECTED_PAYMENT_METHOD, BillingAnalytics.WALLET_PAYMENT_METHOD,
-      BillingAnalytics.WALLET_PAYMENT_CONFIRMATION, BillingAnalytics.WALLET_PAYMENT_CONCLUSION,
-      BillingAnalytics.WALLET_PAYMENT_START, BillingAnalytics.WALLET_PAYPAL_URL,
-      BillingAnalytics.WALLET_PAYMENT_METHOD_DETAILS, BillingAnalytics.WALLET_PAYMENT_BILLING,
-      WALLET_TOP_UP_START, WALLET_TOP_UP_SELECTION,
-      WALLET_TOP_UP_CONFIRMATION, WALLET_TOP_UP_CONCLUSION,
-      WALLET_TOP_UP_PAYPAL_URL, WALLET_TOP_UP_BILLING,
-      WalletsAnalytics.WALLET_BACKUP_CREATE, WalletsAnalytics.WALLET_BACKUP_INFO,
-      WalletsAnalytics.WALLET_BACKUP_CONFIRMATION, WalletsAnalytics.WALLET_BACKUP_CONCLUSION,
-      WalletsAnalytics.WALLET_IMPORT_RESTORE,
-      WalletsAnalytics.WALLET_MY_WALLETS_INTERACTION_EVENT,
-      WalletsAnalytics.WALLET_PASSWORD_RESTORE, PageViewAnalytics.WALLET_PAGE_VIEW,
-      TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT,
-      WALLET_RATING_WELCOME_EVENT, WALLET_RATING_POSITIVE_EVENT,
-      WALLET_RATING_NEGATIVE_EVENT, WALLET_RATING_FINISH_EVENT,
-      START_EVENT, INSERT_CARD_EVENT,
-      REQUEST_CONCLUSION_EVENT, CONFIRM_EVENT,
-      CONCLUSION_EVENT,
-      WALLET_PAYMENT_LOADING_TOTAL,
-      WALLET_PAYMENT_LOADING_STEP,
-      WALLET_PAYMENT_PROCESSING_TOTAL,
-      WALLET_3DS_START,
-      WALLET_3DS_CANCEL,
-      WALLET_3DS_ERROR,
-      WALLET_CALLOUT_PROMOTIONS_CLICK,
-      EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
-      ONBOARDING_PAYMENT,
-      WALLET_ONBOARDING_RECOVER_WEB,
-      CHALLENGE_REWARD_EVENT,
-      WALLET_APP_ACTIVE_PROMOTION_CLICK,
-      WALLET_APP_REWARDS_SCREEN_IMPRESSION,
-      WALLET_APP_REWARDS_SCREEN_CLICK,
-      WALLET_APP_SUBMIT_NEW_PROMO_CODE_IMPRESSION,
-      WALLET_APP_SUBMIT_NEW_PROMO_CODE_CLICK,
-      WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_IMPRESSION,
-      WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_CLICK,
-      WALLET_APP_SUBMIT_PROMO_CODE_ERROR_IMPRESSION,
-      WALLET_APP_SUBMIT_PROMO_CODE_ERROR_CLICK,
-      WALLET_APP_REPLACE_PROMO_CODE_IMPRESSION,
-      WALLET_APP_REPLACE_PROMO_CODE_CLICK,
-      WALLET_APP_TOP_UP_IMPRESSION,
-      WALLET_APP_TOP_UP_CHANGE_CARD_PROMPT_CLICK,
-      WALLET_PAYMENT_START_CARD_LIST,
-      WALLET_APP_ADD_NEW_CARD_DETAILS_IMPRESSION,
-      WALLET_APP_ADD_NEW_CARD_DETAILS_CLICK,
-      WALLET_APP_ADDED_CARD_CONCLUSION_IMPRESSION,
-      MANAGE_PAYMENT_CARDS,
-      WALLET_APP_REMOVE_SAVED_CARD_PROMPT_CLICK,
-      WALLET_APP_REMOVED_CARD_CONCLUSION_IMPRESSION,
-      WALLET_APP_MANAGE_PAYMENT_CARDS_IMPRESSION,
-      WALLET_APP_SETTINGS_CLICK,
-      WALLET_APP_TOP_UP_CLICK,
-      WALLET_APP_EMAIL_SUBMITTED,
-      WALLET_APP_HOME_SCREEN_CLICK,
-      WALLET_APP_CLICK
-    )
-
-  @Singleton
-  @Provides
   fun provideAnalyticsManager(
     @DefaultHttpClient okHttpClient: OkHttpClient, api: AnalyticsApi,
     @Named("bi_event_list") biEventList: List<String>,
     @Named("indicative_event_list") indicativeEventList: List<String>,
-    @Named("sentry_event_list") sentryEventList: List<String>,
     indicativeAnalytics: IndicativeAnalytics,
     appStartPreferencesDataSource: AppStartPreferencesDataSource,
     @ApplicationContext context: Context
@@ -194,7 +129,6 @@ class AnalyticsModule {
         GAEventLogger(indicativeAnalytics, appStartPreferencesDataSource, context),
         indicativeEventList
       )
-      .addLogger(SentryEventLogger(), sentryEventList)
       .setAnalyticsNormalizer(KeysNormalizer())
       .setDebugLogger(LogcatAnalyticsLogger())
       .setKnockLogger(HttpClientKnockLogger(okHttpClient))

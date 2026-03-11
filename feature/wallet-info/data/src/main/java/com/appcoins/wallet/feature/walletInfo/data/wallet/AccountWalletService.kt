@@ -10,6 +10,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletKeyStore
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.CreateWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCountryCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetPrivateKeyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RecoverEntryPrivateKeyUseCase
@@ -38,6 +39,7 @@ class AccountWalletService @Inject constructor(
   private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
   private val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
   private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
+  private val getCountryCodeUseCase: GetCountryCodeUseCase,
   @ApplicationContext private val context: Context,
 ) : WalletService {
 
@@ -61,43 +63,53 @@ class AccountWalletService @Inject constructor(
     }
     .onErrorResumeNext { _: Throwable ->
       val ip = readIpFromFile()
-      if(!ip.isNullOrBlank()) commonsPreferencesDataSource.setCloudIp(ip)
 
-      val file = File(context.filesDir, "wallet")
-      val key: String? = if (file.exists())
-        try { file.readText(Charsets.UTF_8) } catch (e: Exception) { null }
-      else null
-      if (!key.isNullOrBlank()) {
-        Observable.just(WalletGetterStatus.CREATING.toString())
-          .mergeWith(
-            recoverEntryPrivateKeyUseCase(keyStore = WalletKeyStore(null, key))
-              .map {
-                when (it) {
-                  is SuccessfulEntryRecover -> {
-                    it.address
+      val persistCountryCode: Single<Unit> =
+        if (!ip.isNullOrBlank()) {
+          commonsPreferencesDataSource.setCloudIp(ip)
+          getCountryCodeUseCase(ip)
+            .doOnSuccess { commonsPreferencesDataSource.setCountryCode(it) }
+            .onErrorReturnItem("") // best effort — ignore errors
+            .map { }
+        } else {
+          Single.just(Unit)
+        }
+
+      persistCountryCode.flatMapObservable {
+        val file = File(context.filesDir, "wallet")
+        val key: String? = if (file.exists())
+          try { file.readText(Charsets.UTF_8) } catch (_: Exception) { null }
+        else null
+        if (!key.isNullOrBlank()) {
+          Observable.just(WalletGetterStatus.CREATING.toString())
+            .mergeWith(
+              recoverEntryPrivateKeyUseCase(keyStore = WalletKeyStore(null, key))
+                .map {
+                  when (it) {
+                    is SuccessfulEntryRecover -> it.address
+                    else -> ""
                   }
-                  else -> ""
                 }
-              }
-          )
-          .flatMap {
-            registerFirebaseTokenUseCase.registerFirebaseToken(wallet = Wallet(it))
-              .map { wallet -> wallet.address }.toObservable()
-          }
-      } else {
-        Observable.just(WalletGetterStatus.CREATING.toString())
-          .mergeWith(createWalletUseCase("Main Wallet").map { it.address }.toObservable())
-          .flatMap {
-            registerFirebaseTokenUseCase.registerFirebaseToken(wallet = Wallet(it))
-              .map { wallet -> wallet.address }.toObservable()
-          }
+            )
+            .flatMap {
+              registerFirebaseTokenUseCase.registerFirebaseToken(wallet = Wallet(it))
+                .map { wallet -> wallet.address }.toObservable()
+            }
+        } else {
+          Observable.just(WalletGetterStatus.CREATING.toString())
+            .mergeWith(createWalletUseCase("Main Wallet").map { it.address }.toObservable())
+            .flatMap {
+              registerFirebaseTokenUseCase.registerFirebaseToken(wallet = Wallet(it))
+                .map { wallet -> wallet.address }.toObservable()
+            }
+        }
       }
     }
 
   private fun readIpFromFile(): String? {
     val file = File(context.filesDir, "ip")
     return if (file.exists())
-      try { file.readText(Charsets.UTF_8) } catch (e: Exception) { null }
+      try { file.readText(Charsets.UTF_8) } catch (_: Exception) { null }
     else null
   }
 
