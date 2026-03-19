@@ -2,6 +2,7 @@ package com.asfoundation.wallet.repository
 
 import com.appcoins.wallet.appcoins.rewards.ResponseErrorBaseBody
 import com.appcoins.wallet.appcoins.rewards.getMessage
+import com.appcoins.wallet.core.network.base.interceptors.NoConnectivityException
 import com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException
 import com.asfoundation.wallet.repository.PaymentTransaction.PaymentState
 import com.google.gson.Gson
@@ -15,7 +16,7 @@ class PaymentErrorMapper @Inject constructor(private val gson: Gson) {
     throwable.printStackTrace()
     return when (throwable) {
       is HttpException -> mapHttpException(throwable)
-      is UnknownHostException -> PaymentError(PaymentState.NO_INTERNET)
+      is NoConnectivityException, is UnknownHostException -> PaymentError(PaymentState.NO_INTERNET)
       is WrongNetworkException -> PaymentError(PaymentState.WRONG_NETWORK)
       is TransactionNotFoundException -> PaymentError(PaymentState.ERROR)
       is UnknownTokenException -> PaymentError(PaymentState.UNKNOWN_TOKEN)
