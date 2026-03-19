@@ -16,6 +16,8 @@ import android.os.Looper
 import android.util.Log
 import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -41,6 +43,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -55,6 +58,7 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_webview_payment
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
+import com.appcoins.wallet.ui.widgets.GenericError
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
@@ -213,6 +217,17 @@ class WebViewPaymentActivity : AppCompatActivity() {
         CookieManager.getInstance().setAcceptCookie(true)
 
         webViewClient = object : WebViewClient() {
+          override fun onReceivedError(
+            view: WebView?,
+            request: WebResourceRequest?,
+            error: WebResourceError?
+          ) {
+            super.onReceivedError(view, request, error)
+            if (request?.isForMainFrame == true) {
+              viewModel.onWebViewError()
+            }
+          }
+
           override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             if (url.isNullOrEmpty()) return false
 
@@ -332,10 +347,13 @@ class WebViewPaymentActivity : AppCompatActivity() {
       }
     }
 
+    val uiState by viewModel.uiState.collectAsState()
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    val webViewWeight = if (isLandscape) 1f else if (isPortraitSpaceForWeb.value) 0.8f else 0.98f
+
     BackHandler(enabled = !lockBackButton) {
       if (!lockBackButton) finishWithCancel()
     }
-    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     Column(
       modifier = Modifier
         .fillMaxSize()
@@ -368,32 +386,45 @@ class WebViewPaymentActivity : AppCompatActivity() {
             shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
           )
       )
-      AndroidView(
-        modifier = Modifier
-          .fillMaxWidth()
-          .weight(
-            if (isLandscape)
-              1f
-            else
-              if (isPortraitSpaceForWeb.value)
-                0.8f
-              else
-                0.98f
+      if (uiState is WebViewPaymentViewModel.UiState.Error) {
+        Box(
+          modifier = Modifier
+            .fillMaxWidth()
+            .weight(webViewWeight)
+            .background(styleguide_light_grey)
+        ) {
+          GenericError(
+            message = stringResource(R.string.connection_error_body),
+            onSupportClick = { viewModel.showSupport() },
+            onTryAgain = {
+              viewModel.resetError()
+              viewModel.webView?.reload()
+            },
+            fragmentName = "WebViewPaymentActivity",
+            buttonAnalytics = null,
+            isDarkTheme = isDarkModeEnabled(context)
           )
-          .background(styleguide_light_grey),
-        factory = { webView }
-      )
-      when (val uiState = viewModel.uiState.collectAsState().value) {
-        is WebViewPaymentViewModel.UiState.FinishActivity -> finishActivity(uiState.bundle)
+        }
+      } else {
+        AndroidView(
+          modifier = Modifier
+            .fillMaxWidth()
+            .weight(webViewWeight)
+            .background(styleguide_light_grey),
+          factory = { webView }
+        )
+      }
+      when (val state = uiState) {
+        is WebViewPaymentViewModel.UiState.FinishActivity -> finishActivity(state.bundle)
         is WebViewPaymentViewModel.UiState.Finish -> finish()
         is WebViewPaymentViewModel.UiState.FinishWithBundle -> {
           viewModel.sendRevenueEvent(transactionBuilder)
-          finish(uiState.bundle)
+          finish(state.bundle)
         }
 
         is WebViewPaymentViewModel.UiState.LoadUrl -> {
-//          webView.loadUrl(uiState.url)
-          context.restartWebViewPayment(uiState.url, transactionBuilder, type)
+//          webView.loadUrl(state.url)
+          context.restartWebViewPayment(state.url, transactionBuilder, type)
         }
 
         else -> {}
