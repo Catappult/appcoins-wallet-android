@@ -335,7 +335,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">인앱 구매를 위한 도구</string>
-  <string name="onboarding_bonus_title">앱 내 구매의 최대 %s%를 Aptoide 잔액으로 적립하세요.</string>
+  <string name="onboarding_bonus_title">앱 내 구매의 최대 %s%%를 Aptoide 잔액으로 적립하세요.</string>
   <string name="onboarding_payment_methods_title">직불 카드, PayPal 및 선호하는 결제 수단을 사용하세요.</string>
   <string name="onboarding_vip_title">VIP 회원이 되어 프리미엄 지원과 혜택을 받으세요.</string>
   <string name="terms_and_conditions">이용약관</string>

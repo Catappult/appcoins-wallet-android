@@ -335,7 +335,7 @@
   <string name="yoo_money">YooMoney</string>
   <!--Onboarding-->
   <string name="onboarding_title">您進行應用內購買的工具</string>
-  <string name="onboarding_bonus_title">在 Aptoide 中获得高达 %s% 的应用内购买金额返还至您的 Aptoide 余额。</string>
+  <string name="onboarding_bonus_title">在 Aptoide 中获得高达 %s%% 的应用内购买金额返还至您的 Aptoide 余额。</string>
   <string name="onboarding_payment_methods_title">使用银行卡、PayPal 和您喜欢的支付方式。</string>
   <string name="onboarding_vip_title">成為 VIP 會員，享受高級支援和優惠。</string>
   <string name="terms_and_conditions">使用條款</string>
@@ -763,7 +763,7 @@
   <string name="vip_program_referral_button_title">VIP推薦計劃</string>
   <string name="vip_program_referral_button_body">%s您和您的朋友可獲得的獎勵。</string>
   <string name="vip_program_referral_page_title">VIP推薦計劃</string>
-  <string name="vip_program_referral_page_body_2">將此代碼分享給您的朋友，您和您的朋友都將在所有購買中獲得 %s% 的獎金。</string>
+  <string name="vip_program_referral_page_body_2">將此代碼分享給您的朋友，您和您的朋友都將在所有購買中獲得 %s%% 的獎金。</string>
   <string name="vip_program_referral_page_share_title">與您的朋友分享此代碼</string>
   <string name="vip_program_referral_page_only_app_title">仅适用于在</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s 來自 %3$s 的推薦</string>
