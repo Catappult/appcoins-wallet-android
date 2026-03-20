@@ -1,0 +1,7 @@
+pre-push:
+  parallel: true
+  jobs:
+    - name: unit-tests-gp
+      run: ./gradlew testGpDebugUnitTest
+    - name: unit-tests-aptoide
+      run: ./gradlew testAptoideDebugUnitTest

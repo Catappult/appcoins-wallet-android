@@ -9,7 +9,16 @@ Welcome to AppCoins Wallet's open source Android app!
 
 1. Install latest Android Studio (>=3.0.0).
 2. Clone this repository.
-3. Build and run.
+3. Install [Lefthook](https://github.com/evilmartians/lefthook) for Git hooks management:
+   - macOS: `brew install lefthook`
+   - Linux: `sudo snap install lefthook` or download from [releases](https://github.com/evilmartians/lefthook/releases)
+   - Windows: `choco install lefthook`
+
+## Git Hooks
+
+This project uses [Lefthook](https://github.com/evilmartians/lefthook) to enforce code quality via Git hooks:
+
+- **pre-push**: runs unit tests for all flavors (`gp` and `aptoide`) in parallel before pushing.
 
 ## Contributing
 
