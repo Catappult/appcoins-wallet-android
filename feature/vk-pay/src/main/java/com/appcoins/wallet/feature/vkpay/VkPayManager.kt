@@ -74,7 +74,7 @@ class VkPayManager @Inject constructor() {
     vkMerchantId: Int,
     vkSdkAppId: Int,
     fragmentManager: FragmentManager
-  ): Boolean {
+  ) {
     val transaction = VkTransactionInfo(
       amount,
       createVKData(
@@ -104,14 +104,7 @@ class VkPayManager @Inject constructor() {
       VkPayCheckoutConfigBuilder(merchantInfo).setParentAppId(vkSdkAppId)
         .build()
     }
-    return try {
-      VkPayCheckout.startCheckout(fragmentManager, transaction, config)
-      true
-    } catch (e: Exception) {
-      Log.e(TAG, "VkPay checkout failed: ${e.message}", e)
-      VkPayCheckout.finish()
-      false
-    }
+    VkPayCheckout.startCheckout(fragmentManager, transaction, config)
   }
 
   fun createVKData(uid: String, phone: String, email: String) = "$uid;$phone;$email"

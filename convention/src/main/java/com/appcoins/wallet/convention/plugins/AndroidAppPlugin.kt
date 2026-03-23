@@ -1,11 +1,14 @@
 package com.appcoins.wallet.convention.plugins
 
+import com.android.build.api.instrumentation.InstrumentationScope
+import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.appcoins.wallet.convention.Config
 import com.appcoins.wallet.convention.extensions.BuildConfigType
 import com.appcoins.wallet.convention.extensions.buildConfigFields
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
+import com.appcoins.wallet.convention.transforms.PathParserNullFixFactory
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
@@ -26,6 +29,14 @@ class AndroidAppPlugin : Plugin<Project> {
       extensions.configure(JavaPluginExtension::class.java) {
         sourceCompatibility = Config.jvm.javaVersion
         targetCompatibility = Config.jvm.javaVersion
+      }
+
+      // Patch PathParser.deepCopyNodes to restore the null-safe behaviour removed in
+      // androidx.core 1.13.0 — needed for compatibility with VK SDK rich-vector library.
+      extensions.configure<ApplicationAndroidComponentsExtension> {
+        onVariants { variant ->
+          variant.instrumentation.transformClassesWith(PathParserNullFixFactory::class.java, InstrumentationScope.ALL) {}
+        }
       }
 
       extensions.configure<BaseAppModuleExtension> {
