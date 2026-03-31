@@ -1,6 +1,6 @@
 package com.appcoins.wallet.convention.plugins
 
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension
 import com.appcoins.wallet.convention.Config
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
 import com.appcoins.wallet.convention.extensions.get
@@ -16,15 +16,16 @@ class AndroidLibraryPlugin : Plugin<Project> {
     with(target) {
       with(pluginManager) {
         apply("com.android.library")
-        apply("kotlin-android")
-        apply("kotlin-kapt")
         apply<HiltPlugin>()
         apply<JacocoLibraryPlugin>()
       }
 
-      extensions.configure<LibraryExtension> {
+      extensions.configure<LibraryExtension>("android") {
         configureAndroidAndKotlin(this)
-        defaultConfig.targetSdk = Config.android.targetSdk
+        buildFeatures {
+          // Required to generate BuildConfig constants in library modules.
+          buildConfig = true
+        }
         //workaround since only debug and release were being shown as a variant in the android modules
         buildTypes {
           register("staging") {

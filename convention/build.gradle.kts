@@ -2,10 +2,19 @@ plugins { `kotlin-dsl` }
 
 group = "com.appcoins.wallet.convention"
 
+java {
+  sourceCompatibility = JavaVersion.VERSION_21
+  targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+  compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+}
 
 dependencies {
   implementation(libs.gradlePlugin.android)
   implementation(libs.gradlePlugin.kotlin)
+  implementation(libs.gradlePlugin.compose.compiler)
   implementation(libs.gradlePlugin.hilt)
   implementation(libs.gradlePlugin.ksp)
   implementation(libs.gradlePlugin.junit5)

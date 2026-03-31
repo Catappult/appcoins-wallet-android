@@ -6,7 +6,9 @@ import com.appcoins.wallet.convention.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 class JvmLibraryPlugin : Plugin<Project> {
   override fun apply(target: Project) {
@@ -20,12 +22,14 @@ class JvmLibraryPlugin : Plugin<Project> {
         targetCompatibility = Config.jvm.javaVersion
       }
 
-      tasks.withType(KotlinCompile::class.java) {
-        kotlinOptions {
-          jvmTarget = Config.jvm.kotlinJvm
-          freeCompilerArgs = freeCompilerArgs
+      tasks
+        .withType<KotlinJvmCompile>()
+        .configureEach {
+          compilerOptions {
+            jvmTarget.set(Config.jvm.kotlinJvm)
+            freeCompilerArgs.addAll(Config.jvm.freeCompilerArgs)
+          }
         }
-      }
 
       dependencies.apply {
         add("implementation", libs["kotlin.stdlib"])

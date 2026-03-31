@@ -26,4 +26,5 @@ dependencies {
   implementation(libs.androidx.multidex)
   implementation(libs.google.play.services)
   implementation(libs.analytics.sentry)
+  implementation(libs.matomo.analytics)
 }
