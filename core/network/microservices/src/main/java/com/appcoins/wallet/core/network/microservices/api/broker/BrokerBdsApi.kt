@@ -44,6 +44,7 @@ interface BrokerBdsApi {
     @Query("domain") packageName: String?,
     @Query("dark_theme") darkTheme: Boolean = false,
     @Query("oemid") entityOemId: String?,
+    @Query("country") country: String? = null,
     @Query("wallet.address") walletAddress: String?,
     @Query("channel") channel: String?,
     @Header("Accept-Language") language: String,
@@ -65,7 +66,6 @@ interface BrokerBdsApi {
    * @param gateway type of the transaction that is being created;
    * @param creditsPurchaseBody CreditsPurchaseBody.
    * @param walletAddress address of the user wallet
-   * @param walletSignature signature obtained after signing the wallet
    */
   @POST("8.20240524/gateways/{gateway}/transactions")
   @Headers("Content-Type: application/json; format=product_token")
@@ -87,7 +87,6 @@ interface BrokerBdsApi {
    * @param product name of the product that is being bought
    * @param type name of the payment method being used
    * @param userWallet address of the user wallet
-   * @param walletsDeveloper Wallet address of the apps developer
    * @param token
    * @param developerPayload Group of details used in some purchases by the application to
    * complete the purchase
@@ -95,7 +94,6 @@ interface BrokerBdsApi {
    * @param orderReference reference used in some purchases by the application to
    * @param referrerUrl url to validate the transaction
    * @param walletAddress address of the user wallet
-   * @param walletSignature signature obtained after signing the wallet
    */
   @FormUrlEncoded
   @POST("8.20240524/gateways/{gateway}/transactions")
@@ -131,7 +129,6 @@ interface BrokerBdsApi {
    * @param product name of the product that is being bought
    * @param type type of payment being done (inapp, inapp_unmanaged, ...)
    * @param userWallet address of the user wallet
-   * @param walletsDeveloper Wallet address of the apps developer
    * @param method payment method used on the gateway
    * @param developerPayload Group of details used in some purchases by the application to
    * complete the purchase
@@ -139,7 +136,6 @@ interface BrokerBdsApi {
    * @param orderReference reference used in some purchases by the application to
    * @param referrerUrl url to validate the transaction
    * @param walletAddress address of the user wallet
-   * @param walletSignature signature obtained after signing the wallet
    */
   @FormUrlEncoded
   @POST("8.20240524/gateways/myappcoins/transactions")
