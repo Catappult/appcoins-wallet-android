@@ -6,7 +6,6 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.core.content.edit
 import com.appcoins.wallet.core.analytics.analytics.notification.NotificationAnalytics
 import com.asf.wallet.R
 import com.asfoundation.wallet.main.PendingIntentNavigator
@@ -32,14 +31,18 @@ class PushNotification @Inject constructor(
 
     val notificationType = remoteMessage.data[PushNotificationProperties.NOTIFICATION_TYPE_KEY]
       ?: PushNotificationProperties.DEFAULT_NOTIFICATION_TYPE
-    context.getSharedPreferences(PushNotificationProperties.PREFS_NAME, Context.MODE_PRIVATE)
-      .edit { putString(PushNotificationProperties.NOTIFICATION_TYPE_KEY, notificationType) }
 
     val code = remoteMessage.data[PushNotificationProperties.CODE_KEY]?.toInt() ?: 0
 
+    val title = remoteMessage.data[PushNotificationProperties.TITLE_KEY].toString()
+    val message = remoteMessage.data[PushNotificationProperties.MESSAGE_KEY].toString()
+    if (title.isEmpty() || message.isEmpty()) return
+
     val notification = buildNotification(
-      title = remoteMessage.data[PushNotificationProperties.TITLE_KEY].toString(),
-      message = remoteMessage.data[PushNotificationProperties.MESSAGE_KEY].toString(),
+      title = title,
+      message = message,
+      notificationType = notificationType,
+      code = code,
     )
 
     notificationManager.notify(code, notification)
@@ -54,10 +57,10 @@ class PushNotification @Inject constructor(
     )
   }
 
-  private fun buildNotification(title: String, message: String) =
+  private fun buildNotification(title: String, message: String, notificationType: String, code: Int) =
     NotificationCompat.Builder(context, PushNotificationProperties.CHANNEL_ID)
       .setAutoCancel(true)
-      .setContentIntent(pendingIntentNavigator.getHomePendingIntent())
+      .setContentIntent(pendingIntentNavigator.getHomePendingIntent(notificationType, code))
       .setPriority(NotificationCompat.PRIORITY_HIGH)
       .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
       .setContentTitle(title)

@@ -7,7 +7,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -125,9 +124,7 @@ class MainActivity : AppCompatActivity(), OnNewIntentActivityHandler,
 
   private fun getNotificationTypeFromForeground(intent: Intent): String? {
     if (!intent.hasExtra(NAV_DEEP_LINK_INTENT_KEY)) return null
-    val prefs = getSharedPreferences(PushNotificationProperties.PREFS_NAME, Context.MODE_PRIVATE)
-    return prefs.getString(PushNotificationProperties.NOTIFICATION_TYPE_KEY, null)
-      .also { prefs.edit { remove(PushNotificationProperties.NOTIFICATION_TYPE_KEY) } }
+    return intent.getStringExtra(PushNotificationProperties.NOTIFICATION_TYPE_KEY)
   }
 
   private fun getNotificationTypeFromBackground(intent: Intent): String? =

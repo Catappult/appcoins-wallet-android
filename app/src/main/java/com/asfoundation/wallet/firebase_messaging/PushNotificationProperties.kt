@@ -8,5 +8,4 @@ object PushNotificationProperties {
   const val CODE_KEY = "code"
   const val TITLE_KEY = "title"
   const val MESSAGE_KEY = "message"
-  const val PREFS_NAME = "push_notification_prefs"
 }
