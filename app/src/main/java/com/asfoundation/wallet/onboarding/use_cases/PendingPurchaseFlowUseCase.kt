@@ -5,14 +5,12 @@ import com.asfoundation.wallet.onboarding.CachedBackupRepository
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository.Companion.PAYMENT_TYPE_OSP
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository.Companion.PAYMENT_TYPE_SDK
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
 interface PendingPurchaseFlowUseCase {
   operator fun invoke(): StartMode.PendingPurchaseFlow?
 }
 
-@BoundTo(supertype = PendingPurchaseFlowUseCase::class)
 class PendingPurchaseFlowUseCaseImpl @Inject constructor(
   private val cachedTransaction: CachedTransactionRepository,
   private val cachedBackup: CachedBackupRepository

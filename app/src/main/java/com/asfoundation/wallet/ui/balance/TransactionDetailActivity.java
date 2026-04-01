@@ -22,7 +22,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
 import com.appcoins.wallet.ui.widgets.SeparatorView;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.GlideApp;
+import com.bumptech.glide.Glide;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TransactionsDetailsModel;
 import com.asfoundation.wallet.transactions.Operation;
@@ -427,7 +427,7 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
         path = "file:" + icon;
       }
 
-      GlideApp.with(this)
+      Glide.with(this)
           .load(path)
           .apply(RequestOptions.bitmapTransform(new CircleCrop()))
           .transition(DrawableTransitionOptions.withCrossFade())
@@ -635,7 +635,7 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
         path = "file:" + icon;
       }
 
-      GlideApp.with(this)
+      Glide.with(this)
           .load(path)
           .apply(RequestOptions.bitmapTransform(new CircleCrop()))
           .transition(DrawableTransitionOptions.withCrossFade())

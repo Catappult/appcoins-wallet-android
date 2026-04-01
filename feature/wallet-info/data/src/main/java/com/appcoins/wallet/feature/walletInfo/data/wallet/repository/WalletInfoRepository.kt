@@ -136,7 +136,7 @@ class WalletInfoRepository @Inject constructor(
             .doOnSuccess(walletInfoDao::insertOrUpdateWithFiat)
         }
         .doOnError {
-          Log.d("errro", "errorr - " + it)
+          Log.d("errro", "errorr - $it")
 
         }
     }

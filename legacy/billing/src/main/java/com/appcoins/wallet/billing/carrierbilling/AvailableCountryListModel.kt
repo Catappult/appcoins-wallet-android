@@ -10,7 +10,7 @@ data class AvailableCountryListModel(
   constructor() : this(emptyList(), null, true)
 
   fun convertListToString(): String {
-    return countryList.joinToString(",") { country -> country.toLowerCase(Locale.ROOT) }
+    return countryList.joinToString(",") { country -> country.lowercase(Locale.ROOT) }
   }
 
   fun shouldFilter(): Boolean {

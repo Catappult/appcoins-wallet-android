@@ -5,19 +5,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.airbnb.epoxy.EpoxyAttribute
-import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
+import com.bumptech.glide.Glide
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import androidx.core.net.toUri
 
-@EpoxyModelClass
-abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.PaymentMethodHolder>() {
+class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.PaymentMethodHolder>() {
 
   @EpoxyAttribute
   lateinit var paymentMethod: PaymentMethod
@@ -29,9 +28,9 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
   var clickListener: ((PaymentMethodClick) -> Unit)? = null
 
   override fun bind(holder: PaymentMethodHolder) {
-    GlideApp
+    Glide
       .with(holder.itemView.context)
-      .load(Uri.parse(paymentMethod.iconUrl))
+      .load(paymentMethod.iconUrl.toUri())
       .transition(DrawableTransitionOptions.withCrossFade())
       .into(holder.methodIcon)
 
@@ -97,6 +96,8 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
       PaymentMethodsView.SelectedPaymentMethod.ERROR -> Unit
     }
   }
+
+  override fun createNewHolder(parent: android.view.ViewParent) = PaymentMethodHolder()
 
   override fun getDefaultLayout(): Int = R.layout.onboarding_payment_option_item
 

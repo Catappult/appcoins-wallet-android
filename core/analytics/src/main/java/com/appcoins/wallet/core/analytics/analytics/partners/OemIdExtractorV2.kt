@@ -8,11 +8,9 @@ import com.aptoide.apk.injector.extractor.domain.IExtract
 import com.aptoide.apk.injector.extractor.utils.Environment
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
-import it.czerwinski.android.hilt.annotations.BoundTo
 import java.io.File
 import javax.inject.Inject
 
-@BoundTo(supertype = IExtractOemId::class)
 class OemIdExtractorV2 @Inject constructor(
   @ApplicationContext private val context: Context,
   private val extractor: IExtract,
