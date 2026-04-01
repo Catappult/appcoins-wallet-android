@@ -873,7 +873,7 @@
   <string name="share_vip">Teilen</string>
   <string name="share_this_code_with_your_friends_vip">Teile diesen Code mit deinen Freunden</string>
   <string name="only_for_purchases_on_vip">Nur für Käufe bei</string>
-  <string name="each_in_app_purchase_vip">Mit jedem In-App-Kauf erhalten Sie und Ihre Freunde einen Bonus von %1$s% sowie weitere Angebote für 7 Tage.</string>
+  <string name="each_in_app_purchase_vip" formatted="false">Mit jedem In-App-Kauf erhalten Sie und Ihre Freunde einen Bonus von %1$s% sowie weitere Angebote für 7 Tage.</string>
   <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">Der Promo-Code funktioniert, sobald das Empfehlungsprogramm aktiv ist.</string>
   <string name="referral_program_not_active_yet_vip">Empfehlungsprogramm noch nicht aktiv</string>
