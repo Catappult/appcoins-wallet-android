@@ -2,7 +2,6 @@ package com.appcoins.wallet.feature.vkpay
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentManager
 import com.vk.auth.main.VkClientUiInfo
@@ -23,7 +22,6 @@ class VkPayManager @Inject constructor() {
 
   companion object {
     const val APP_VK_VERSION = "1.232"
-    private const val TAG = "VkPayManager"
     internal const val SERVICE_USER_AGREEMENT = "https://id.vk.com/terms"
     internal const val SERVICE_PRIVACY_POLICY = "https://id.vk.com/privacy"
   }

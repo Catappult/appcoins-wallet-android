@@ -227,8 +227,4 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
       OnboardingVkPaymentSideEffect.NavigateToExploreWallet -> navigator.navigateToHome()
     }
   }
-
-  companion object {
-    const val PAYMENT_DATA = "data"
-  }
 }
