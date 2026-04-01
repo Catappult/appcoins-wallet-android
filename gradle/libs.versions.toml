@@ -85,7 +85,6 @@ paging_compose_version = "1.0.0-alpha19"
 vk_pay_version = "0.112-beta24429"
 vk_pay_checkout_version = "0.112-beta24429"
 truelayer_payments_version = "2.6.0"
-firebase_version = "21.2.0"
 matomo_version = "4.4"
 
 [libraries]
@@ -156,11 +155,10 @@ google-play-services = { module = "com.google.android.gms:play-services-vision",
 google-zxing = { module = "com.google.zxing:core", version.ref = "zxing_version" }
 zxing-android = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxing_android_version" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase_bom" }
-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx", version = "18.4.1" }
-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version = "23.2.1" }
-#firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
-firebase-performance = { group = "com.google.firebase", name = "firebase-perf-ktx", version = "20.4.1" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebase_version" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
+firebase-performance = { group = "com.google.firebase", name = "firebase-perf-ktx" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 
 matomo-analytics = { module = "com.github.matomo-org:matomo-sdk-android", version.ref = "matomo_version" }
 
