@@ -164,7 +164,9 @@ class PromoCodeBottomSheetFragment :
             views.promoCodeBottomSheetString.getText().trim()
           )
           handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
-        } else {}
+        } else {
+          // Do nothing
+        }
       }
 
       is Async.Success -> {

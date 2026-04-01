@@ -2,7 +2,6 @@ package com.appcoins.wallet.core.analytics.analytics
 
 import cm.aptoide.analytics.AnalyticsManager
 import cm.aptoide.analytics.EventLogger
-import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import org.json.JSONObject
 import org.matomo.sdk.Tracker
 import org.matomo.sdk.extra.TrackHelper

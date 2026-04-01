@@ -301,7 +301,7 @@
   <string name="buy_button">購入</string>
   <string name="copied_to_clipboard">クリップボードにコピーされました</string>
   <string name="topup_button">トップアップ</string>
-  <string name="extra_bonus_title" formatted="false">さらに%s%のボーナスを獲得</string>
+  <string name="extra_bonus_title">さらに%s%%のボーナスを獲得</string>
   <string name="max">最大</string>
   <string name="month">月</string>
   <string name="week">週</string>

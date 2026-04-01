@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.model
 
-import android.net.Uri
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
