@@ -21,7 +21,7 @@ import javax.inject.Inject
 private const val MAX_FILE_SIZE_BYTES = 1_048_576L // 1 MB
 
 class FileInteractor @Inject constructor(
-  @ApplicationContext private val context: Context,
+  @param:ApplicationContext private val context: Context,
   private val contentResolver: ContentResolver
 ) {
 
@@ -52,12 +52,24 @@ class FileInteractor @Inject constructor(
           if (fileSize > MAX_FILE_SIZE_BYTES) throw Throwable("File too large to be a valid keystore")
         }
       }
+      val contents = contentResolver.openInputStream(fileUri)?.use { stream ->
+        val limitedStream = stream.buffered()
+        val sb = StringBuilder()
+        val buffer = CharArray(8192)
+        var totalRead = 0L
+        limitedStream.bufferedReader().use { reader ->
+          var read: Int
+          while (reader.read(buffer).also { read = it } != -1) {
+            totalRead += read
+            if (totalRead > MAX_FILE_SIZE_BYTES) throw Throwable("File too large to be a valid keystore")
+            sb.appendRange(buffer, 0, read)
+          }
+        }
+        sb.toString()
+      } ?: ""
       WalletKeyStore(
         name = fileName?.replace(Regex(".bck$"), ""),
-        contents = contentResolver.openInputStream(fileUri)
-          ?.bufferedReader()
-          ?.use { it.readText() }
-          ?: ""
+        contents = contents
       )
     }
     .doOnError(Throwable::printStackTrace)
