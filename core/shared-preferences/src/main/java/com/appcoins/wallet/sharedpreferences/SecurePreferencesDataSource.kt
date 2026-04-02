@@ -7,6 +7,7 @@ import androidx.security.crypto.MasterKey
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
+import androidx.core.content.edit
 
 /**
  * Used to store and retrieve sensitive data as SharedPreferences
@@ -32,26 +33,22 @@ class SecurePreferencesDataSource @Inject constructor(
   }
 
   fun saveString(key: String, value: String) =
-    sharedPreferences.edit()
-      .putString(key, value)
-      .apply()
+    sharedPreferences.edit {
+      putString(key, value)
+    }
 
   fun remove(vararg keys: String) =
-    sharedPreferences.edit()
-      .apply {
-        keys.forEach { key -> remove(key) }
-      }
-      .apply()
+    sharedPreferences.edit {
+      keys.forEach { key -> remove(key) }
+    }
 
   /**
    * Saves list of strings denoted as pairs of <Key, Value>
    */
   fun saveStrings(vararg values: Pair<String, String>) =
-    sharedPreferences.edit()
-      .apply {
-        values.forEach { pair -> putString(pair.first, pair.second) }
-      }
-      .apply()
+    sharedPreferences.edit {
+      values.forEach { pair -> putString(pair.first, pair.second) }
+    }
 
   fun getString(key: String, defValue: String?) = sharedPreferences.getString(key, defValue)
 

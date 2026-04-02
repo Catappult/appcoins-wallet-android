@@ -22,7 +22,6 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.Locale
 import javax.inject.Inject
-import kotlin.math.log
 
 class WalletInfoRepository @Inject constructor(
   private val api: WalletInfoApi,
