@@ -42,7 +42,9 @@ class FileInteractor @Inject constructor(
       if (fileUri == null || fileUri.path == null) throw Throwable("Error retrieving file")
       var fileName: String? = null
       contentResolver.query(fileUri, null, null, null, null)?.use { cursor ->
-        cursor.moveToFirst()
+        if (!cursor.moveToFirst()) {
+          throw Throwable("Error retrieving file")
+        }
         fileName = cursor.getStringOrNull(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
         val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
         if (sizeIndex != -1 && !cursor.isNull(sizeIndex)) {
