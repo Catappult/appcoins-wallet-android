@@ -24,7 +24,6 @@ class RoomPlugin : Plugin<Project> {
         // This is required to enable Room auto migrations.
         // See https://developer.android.com/reference/kotlin/androidx/room/AutoMigration
         val schemasDir = File(projectDir, "schemas")
-        schemasDir.mkdirs()
         arg(RoomSchemaArgProvider(schemasDir))
       }
       dependencies {
@@ -45,6 +44,9 @@ class RoomPlugin : Plugin<Project> {
     @get:PathSensitive(PathSensitivity.RELATIVE)
     val schemaDir: File,
   ) : CommandLineArgumentProvider {
-    override fun asArguments() = listOf("room.schemaLocation=${schemaDir.path}")
+    override fun asArguments(): List<String> {
+      schemaDir.mkdirs()
+      return listOf("room.schemaLocation=${schemaDir.path}")
+    }
   }
 }

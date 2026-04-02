@@ -26,6 +26,7 @@ dependencies {
 
   implementation(libs.bundles.result)
   implementation(libs.bundles.rx)
+  implementation(platform(libs.firebase.bom))
   implementation(libs.firebase.messaging)
   implementation(libs.google.play.services)
 }

@@ -34,8 +34,8 @@ class PushNotification @Inject constructor(
 
     val code = remoteMessage.data[PushNotificationProperties.CODE_KEY]?.toInt() ?: 0
 
-    val title = remoteMessage.data[PushNotificationProperties.TITLE_KEY].toString()
-    val message = remoteMessage.data[PushNotificationProperties.MESSAGE_KEY].toString()
+    val title = remoteMessage.data[PushNotificationProperties.TITLE_KEY].orEmpty()
+    val message = remoteMessage.data[PushNotificationProperties.MESSAGE_KEY].orEmpty()
     if (title.isEmpty() || message.isEmpty()) return
 
     val notification = buildNotification(
