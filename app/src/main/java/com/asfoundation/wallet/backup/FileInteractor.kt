@@ -16,7 +16,7 @@ import java.io.File
 import javax.inject.Inject
 
 /**
- * Max size used to avoid {OutOfMemoryError} when reading file
+ * Max size used to avoid [OutOfMemoryError] when reading file
  */
 private const val MAX_FILE_SIZE_BYTES = 1_048_576L // 1 MB
 
