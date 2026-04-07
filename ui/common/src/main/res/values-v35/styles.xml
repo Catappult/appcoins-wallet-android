@@ -1,5 +1,0 @@
-<resources>
-  <style name="MaterialAppTheme" parent="Theme.Material3.Light">
-    <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
-  </style>
-</resources>
