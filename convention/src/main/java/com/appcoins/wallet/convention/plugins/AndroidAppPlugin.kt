@@ -181,10 +181,6 @@ class AndroidAppPlugin : Plugin<Project> {
             )
           }
 
-          register("staging") {
-            initWith(getByName("release"))
-            versionNameSuffix = ".staging"
-          }
         }
 
         buildFeatures {

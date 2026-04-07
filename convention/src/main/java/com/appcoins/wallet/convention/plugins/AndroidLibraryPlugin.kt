@@ -26,12 +26,6 @@ class AndroidLibraryPlugin : Plugin<Project> {
           // Required to generate BuildConfig constants in library modules.
           buildConfig = true
         }
-        //workaround since only debug and release were being shown as a variant in the android modules
-        buildTypes {
-          register("staging") {
-            initWith(getByName("release"))
-          }
-        }
 
         flavorDimensions.add(Config.distributionFlavorDimension)
         productFlavors {
