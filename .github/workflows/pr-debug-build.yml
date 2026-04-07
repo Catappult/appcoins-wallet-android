@@ -34,8 +34,10 @@ jobs:
         run: echo "${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}" | base64 --decode > ${{ github.workspace }}/dev.keystore
 
       - name: Inject gradle.properties
+        env:
+          GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
         run: |
-          echo "${{ secrets.GRADLE_PROPERTIES }}" >> gradle.properties
+          printf '%s\n' "$GRADLE_PROPERTIES" >> gradle.properties
           echo "BDS_WALLET_DEV_STORE_FILE=${{ github.workspace }}/dev.keystore" >> gradle.properties
 
       - name: Run Unit Tests
