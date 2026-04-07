@@ -37,7 +37,7 @@ jobs:
         env:
           GOOGLE_SERVICES_JSON_DEV: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
         run: |
-          echo "$GOOGLE_SERVICES_JSON_DEV" | base64 --decode > ${{ github.workspace }}/google-services.json
+          echo "$GOOGLE_SERVICES_JSON_DEV" | base64 --decode > ${{ github.workspace }}/app/src/debug/google-services.json
 
       - name: Inject gradle.properties
         env:
