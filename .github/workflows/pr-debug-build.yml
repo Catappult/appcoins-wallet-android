@@ -38,14 +38,14 @@ jobs:
         with:
           repository: Catappult/wallet-private-sdks
           token: ${{ secrets.PRIVATE_SDKS_PAT }}
-          path: /tmp/private-sdks
+          path: private-sdks
           lfs: true
 
       - name: Copy private SDKs
         run: |
-          cp /tmp/private-sdks/android-magnessdk-5.3.0.aar core/network/base/libs/android-magnessdk-5.3.0.aar
-          cp /tmp/private-sdks/android-magnessdk-5.3.0.aar app/libs/android-magnessdk-5.3.0.aar
-          cp -r /tmp/private-sdks/libs/vk-maven libs/
+          cp private-sdks/android-magnessdk-5.3.0.aar core/network/base/libs/android-magnessdk-5.3.0.aar
+          cp private-sdks/android-magnessdk-5.3.0.aar app/libs/android-magnessdk-5.3.0.aar
+          cp -r private-sdks/libs/vk-maven libs/
 
       - name: Decode google-services.json
         env:
