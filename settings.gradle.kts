@@ -9,7 +9,8 @@ pluginManagement {
 dependencyResolutionManagement {
   repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
   repositories {
-    mavenLocal()
+    // VK SDK and kethereum artifacts bundled in-repo (VK artifactory returns 404 for this version)
+    maven { url = uri("${rootDir}/libs/vk-maven") }
     google()
     mavenCentral()
     maven { url = uri("https://jitpack.io") }
@@ -18,10 +19,6 @@ dependencyResolutionManagement {
     maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots") }
     // needed for pincode Lollipin
     maven { url = uri("https://github.com/omadahealth/omada-nexus/raw/master/release") }
-    // VK ID and Vk Pay
-    maven {
-      url = uri("https://artifactory-external.vkpartner.ru/artifactory/superappkit-maven-public/")
-    }
   }
 }
 

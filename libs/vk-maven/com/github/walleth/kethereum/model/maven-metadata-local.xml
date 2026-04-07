@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.github.walleth.kethereum</groupId>
+  <artifactId>model</artifactId>
+  <versioning>
+    <release>0.36</release>
+    <versions>
+      <version>0.36</version>
+    </versions>
+    <lastUpdated>20260402140550</lastUpdated>
+  </versioning>
+</metadata>
