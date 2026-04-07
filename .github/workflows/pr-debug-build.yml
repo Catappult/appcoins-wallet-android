@@ -22,7 +22,7 @@ jobs:
           cache: gradle
 
       - name: Set up Android SDK & NDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v3I
 
       - name: Install NDK
         run: echo "y" | sdkmanager "ndk;28.2.13676358"
@@ -32,6 +32,10 @@ jobs:
 
       - name: Decode debug keystore
         run: echo "${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}" | base64 --decode > ${{ github.workspace }}/dev.keystore
+
+      - name: Decode google-services.json
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICES_JSON_DEV }}" | base64 --decode > app/src/debug/google-services.json
 
       - name: Inject gradle.properties
         env:
