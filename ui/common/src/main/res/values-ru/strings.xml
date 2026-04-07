@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">Отправить %s</string>
   <!--Bottom navigation-->
@@ -789,25 +789,25 @@
   <string name="topup_home_button">Пополнить</string>
   <string name="intro_home_button">Главная</string>
   <string name="intro_rewards_button">Награды</string>
-  <plurals name="day">
+  <plurals name="day" tools:ignore="ImpliedQuantity">
     <item quantity="one">ДЕНЬ</item>
     <item quantity="few">ДНЯ</item>
     <item quantity="many">ДНЕЙ</item>
     <item quantity="other">ДНЕЙ</item>
   </plurals>
-  <plurals name="hour">
+  <plurals name="hour" tools:ignore="ImpliedQuantity">
     <item quantity="one">ЧАС</item>
     <item quantity="few">ЧАСА</item>
     <item quantity="many">ЧАСОВ</item>
     <item quantity="other">ЧАСОВ</item>
   </plurals>
-  <plurals name="minute">
+  <plurals name="minute" tools:ignore="ImpliedQuantity">
     <item quantity="one">МИНУТА</item>
     <item quantity="few">МИНУТЫ</item>
     <item quantity="many">МИНУТ</item>
     <item quantity="other">МИНУТ</item>
   </plurals>
-  <plurals name="second">
+  <plurals name="second" tools:ignore="ImpliedQuantity">
     <item quantity="one">СЕКУНДА</item>
     <item quantity="few">СЕКУНДЫ</item>
     <item quantity="many">СЕКУНД</item>
