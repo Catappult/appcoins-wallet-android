@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.walleth.kethereum</groupId>
+  <artifactId>model</artifactId>
+  <version>0.36</version>
+  <packaging>jar</packaging>
+</project>
