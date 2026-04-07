@@ -22,7 +22,7 @@ jobs:
           cache: gradle
 
       - name: Set up Android SDK & NDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v3I
 
       - name: Install NDK
         run: echo "y" | sdkmanager "ndk;28.2.13676358"
