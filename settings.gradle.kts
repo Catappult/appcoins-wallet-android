@@ -17,16 +17,14 @@ dependencyResolutionManagement {
   repositories {
     google()
     mavenCentral()
+    // VK SDK and kethereum artifacts bundled in-repo (VK artifactory returns 404 for this version)
+    maven { url = uri("${rootDir}/libs/vk-maven") }
     maven { url = uri("https://jitpack.io") }
     maven { url = uri("https://dl.bintray.com/asf/asf") }
     maven { url = uri("https://dl.bintray.com/aptoide/Aptoide") }
     maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots") }
     // needed for pincode Lollipin
     maven { url = uri("https://github.com/omadahealth/omada-nexus/raw/master/release") }
-    // VK ID and Vk Pay
-    maven {
-      url = uri("https://artifactory-external.vkpartner.ru/artifactory/superappkit-maven-public/")
-    }
   }
 }
 
