@@ -33,6 +33,20 @@ jobs:
       - name: Decode debug keystore
         run: echo "${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}" | base64 --decode > ${{ github.workspace }}/dev.keystore
 
+      - name: Checkout private SDKs
+        uses: actions/checkout@v4
+        with:
+          repository: Catappult/wallet-private-sdks
+          token: ${{ secrets.PRIVATE_SDKS_PAT }}
+          path: /tmp/private-sdks
+          lfs: true
+
+      - name: Copy private SDKs
+        run: |
+          cp /tmp/private-sdks/android-magnessdk-5.3.0.aar core/network/base/libs/android-magnessdk-5.3.0.aar
+          cp /tmp/private-sdks/android-magnessdk-5.3.0.aar app/libs/android-magnessdk-5.3.0.aar
+          cp -r /tmp/private-sdks/libs/vk-maven libs/
+
       - name: Decode google-services.json
         env:
           GOOGLE_SERVICES_JSON_DEV: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
@@ -54,17 +68,3 @@ jobs:
 
       - name: Build Debug APKs
         run: ./gradlew assembleAptoideDebug assembleGpDebug
-
-#      - name: Upload Aptoide Debug APK
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: aptoide-debug-apk
-#          path: app/build/outputs/apk/aptoide/debug/*.apk
-#          retention-days: 7
-#
-#      - name: Upload GP Debug APK
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: gp-debug-apk
-#          path: app/build/outputs/apk/gp/debug/*.apk
-#          retention-days: 7
