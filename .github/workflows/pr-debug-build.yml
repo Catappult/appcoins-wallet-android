@@ -31,36 +31,12 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Decode debug keystore
-        run: |
-          echo "${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}" | base64 --decode > ${{ github.workspace }}/dev.keystore
+        run: echo "${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}" | base64 --decode > ${{ github.workspace }}/dev.keystore
 
-      - name: Inject secrets into gradle.properties
+      - name: Inject gradle.properties
         run: |
-          cat >> gradle.properties <<EOF
-          BDS_WALLET_DEV_STORE_FILE=${{ github.workspace }}/dev.keystore
-          BDS_WALLET_DEV_STORE_PASSWORD=${{ secrets.BDS_WALLET_DEV_STORE_PASSWORD }}
-          BDS_WALLET_DEV_KEY_ALIAS=${{ secrets.BDS_WALLET_DEV_KEY_ALIAS }}
-          BDS_WALLET_DEV_KEY_PASSWORD=${{ secrets.BDS_WALLET_DEV_KEY_PASSWORD }}
-          FLURRY_APK_KEY="${{ secrets.FLURRY_APK_KEY }}"
-          INFURA_API_KEY_MAIN="${{ secrets.INFURA_API_KEY_MAIN }}"
-          INFURA_API_KEY_ROPSTEN="${{ secrets.INFURA_API_KEY_ROPSTEN }}"
-          INFURA_API_KEY_RINKEBY="${{ secrets.INFURA_API_KEY_RINKEBY }}"
-          AMPLITUDE_API_KEY="${{ secrets.AMPLITUDE_API_KEY }}"
-          FEEDBACK_ZENDESK_API_KEY="${{ secrets.FEEDBACK_ZENDESK_API_KEY }}"
-          APPSFLYER_KEY="${{ secrets.APPSFLYER_KEY }}"
-          FYBER_APP_ID="${{ secrets.FYBER_APP_ID }}"
-          INTERCOM_API_KEY_DEV="${{ secrets.INTERCOM_API_KEY_DEV }}"
-          INTERCOM_APP_ID_DEV="${{ secrets.INTERCOM_APP_ID_DEV }}"
-          ADYEN_PUBLIC_KEY_DEV="${{ secrets.ADYEN_PUBLIC_KEY_DEV }}"
-          SENTRY_VERSION_7_DSN_KEY_DEV="${{ secrets.SENTRY_VERSION_7_DSN_KEY_DEV }}"
-          INDICATIVE_API_KEY_DEV="${{ secrets.INDICATIVE_API_KEY_DEV }}"
-          VK_CLIENT_SECRET_DEV="${{ secrets.VK_CLIENT_SECRET_DEV }}"
-          VK_SDK_APP_ID_DEV="${{ secrets.VK_SDK_APP_ID_DEV }}"
-          VK_EXTERNAL_URL_REDIRECT_DEV="${{ secrets.VK_EXTERNAL_URL_REDIRECT_DEV }}"
-          VK_APP_NAME_DEV="${{ secrets.VK_APP_NAME_DEV }}"
-          BACKEND_PUBLIC_KEY_DEV="${{ secrets.BACKEND_PUBLIC_KEY_DEV }}"
-          VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME_DEV="${{ secrets.VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME_DEV }}"
-          EOF
+          echo "${{ secrets.GRADLE_PROPERTIES }}" >> gradle.properties
+          echo "BDS_WALLET_DEV_STORE_FILE=${{ github.workspace }}/dev.keystore" >> gradle.properties
 
       - name: Run Unit Tests
         run: ./gradlew testAptoideDebugUnitTest testGpDebugUnitTest
