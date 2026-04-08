@@ -54,6 +54,8 @@ gen-external-apklibs
 *.keystore
 android-magnessdk-5.3.0.aar
 
+/libs/*
+
 # Claude
 /.claude/
 
