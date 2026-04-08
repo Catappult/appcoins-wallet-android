@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name">AppCoins Wallet</string>
   <string name="title_send">Slanje</string>
   <string name="title_send_with_token">Pošalji %s</string>
@@ -569,7 +569,7 @@
   <string name="promotions_title">Earn AppCoins Credits</string>
   <string name="promotions_referral_card_title">Earn up to %s by inviting friends</string>
   <string name="promotions_referral_card_body">Share your invite link and earn AppCoins Credits.</string>
-  <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
+  <string name="promotions_gamification_card_title">Up to 30%% bonus on every purchase</string>
   <string name="promotions_gamification_card_title_variable">Up to %s%% bonus on every purchase</string>
   <string name="promotions_new">NEW</string>
   <string name="promotions_tab_promotions_title">PROMOTIONS</string>
@@ -628,7 +628,7 @@
   <string name="wallets_title">Novčanici</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
   <string name="wallets_active_wallet_title">Active Wallet</string>
-  <plurals name="wallets_bottom_wallets_title">
+  <plurals name="wallets_bottom_wallets_title" tools:ignore="ImpliedQuantity">
     <item quantity="one">Wallet</item>
     <item quantity="few">Novčanici</item>
     <item quantity="other">Novčanici</item>

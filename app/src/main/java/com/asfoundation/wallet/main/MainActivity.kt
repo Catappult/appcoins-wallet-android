@@ -22,6 +22,8 @@ import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import com.asfoundation.wallet.onboarding.OnboardingFragment
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_SUCCESS
+import com.appcoins.wallet.core.analytics.analytics.notification.NotificationAnalytics
+import com.asfoundation.wallet.firebase_messaging.PushNotificationProperties
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.login.LOGIN_CODE
@@ -46,6 +48,9 @@ class MainActivity : AppCompatActivity(), OnNewIntentActivityHandler,
 
   @Inject
   lateinit var navigator: MainActivityNavigator
+
+  @Inject
+  lateinit var notificationAnalytics: NotificationAnalytics
   lateinit var navController: NavController
 
   @Inject
@@ -75,6 +80,7 @@ class MainActivity : AppCompatActivity(), OnNewIntentActivityHandler,
     initNavController()
     handleSplashScreenResult()
     handleAuthenticationResult()
+    handleNotificationClick(intent)
     viewModel.collectStateAndEvents(lifecycle, lifecycleScope)
   }
 
@@ -106,8 +112,23 @@ class MainActivity : AppCompatActivity(), OnNewIntentActivityHandler,
     super.onNewIntent(intent)
     newIntent = intent
     handleSnackBarMessage(intent, viewModel)
+    handleNotificationClick(intent)
     handleInitialNavigation(intent = intent, newIntent = true)
   }
+
+  private fun handleNotificationClick(intent: Intent) {
+    val notificationType = getNotificationTypeFromForeground(intent)
+      ?: getNotificationTypeFromBackground(intent)
+    notificationType?.let { notificationAnalytics.sendNotificationClickAnalytics(it) }
+  }
+
+  private fun getNotificationTypeFromForeground(intent: Intent): String? {
+    if (!intent.hasExtra(NAV_DEEP_LINK_INTENT_KEY)) return null
+    return intent.getStringExtra(PushNotificationProperties.NOTIFICATION_TYPE_KEY)
+  }
+
+  private fun getNotificationTypeFromBackground(intent: Intent): String? =
+    intent.getStringExtra(PushNotificationProperties.NOTIFICATION_TYPE_KEY)
 
   /**
    * Helper function responsible for checking within the received [Intent]
@@ -298,6 +319,7 @@ class MainActivity : AppCompatActivity(), OnNewIntentActivityHandler,
     private const val DEEPLINK_GIFT_CARD_QUERY_PARAM = "giftcard"
     private const val DEEPLINK_PROMO_CODE_QUERY_PARAM = "promocode"
     const val TAG = "MainActivity"
+    private const val NAV_DEEP_LINK_INTENT_KEY = "android-support-nav:controller:deepLinkIntent"
     fun newIntent(
       context: Context,
       supportNotificationClicked: Boolean,

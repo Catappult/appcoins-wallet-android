@@ -134,7 +134,7 @@ class CurrencyFormatUtils @Inject constructor() {
     }
   }
 
-  fun scaleFiat(value: BigDecimal): BigDecimal = value.setScale(FIAT_SCALE, BigDecimal.ROUND_FLOOR)
+  fun scaleFiat(value: BigDecimal): BigDecimal = value.setScale(FIAT_SCALE, RoundingMode.FLOOR)
 }
 
 

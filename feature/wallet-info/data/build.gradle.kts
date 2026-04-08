@@ -16,6 +16,7 @@ android {
 
 dependencies {
   compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+  implementation(project(":core:arch"))
   implementation(project(":core:network:base"))
   implementation(project(":feature:promo-code:data"))
   implementation(project(":feature:change-currency:data"))

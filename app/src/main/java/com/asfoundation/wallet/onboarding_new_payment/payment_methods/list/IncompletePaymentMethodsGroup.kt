@@ -5,7 +5,7 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyModelGroup
 import com.airbnb.epoxy.ModelGroupHolder
 import com.asf.wallet.R
-import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.model.IncompletePaymentMethodsModel_
+import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.model.IncompletePaymentMethodsModel
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 
 class IncompletePaymentMethodsGroup(
@@ -32,10 +32,11 @@ class IncompletePaymentMethodsGroup(
       val models = mutableListOf<EpoxyModel<*>>()
 
       models.add(
-        IncompletePaymentMethodsModel_()
-          .id("incomplete_payment_methods")
-          .otherPaymentMethods(otherPaymentMethodList)
-          .clickListener(paymentMethodClickListener)
+        IncompletePaymentMethodsModel().also { m ->
+          m.id("incomplete_payment_methods")
+          m.otherPaymentMethods = otherPaymentMethodList
+          m.clickListener = paymentMethodClickListener
+        }
       )
       return models
     }

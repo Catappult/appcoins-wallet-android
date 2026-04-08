@@ -4,10 +4,8 @@ import cm.aptoide.analytics.AnalyticsManager
 import com.asfoundation.wallet.feature_flags.FeatureFlag
 import com.asfoundation.wallet.feature_flags.FeatureFlagsRepository
 import com.asfoundation.wallet.feature_flags.di.TopUpProbe
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-@BoundTo(supertype = FeatureFlagsRepository::class)
 @TopUpProbe
 class TopUpDefaultValueProbe @Inject constructor(
   private val featureFlagsRepository: FeatureFlagsRepository,

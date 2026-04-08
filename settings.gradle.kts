@@ -6,15 +6,11 @@ pluginManagement {
   }
 }
 
-buildCache {
-  local {
-    removeUnusedEntriesAfterDays = 30
-  }
-}
-
 dependencyResolutionManagement {
   repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
   repositories {
+    // VK SDK and kethereum artifacts bundled in-repo (VK artifactory returns 404 for this version)
+    maven { url = uri("${rootDir}/libs/vk-maven") }
     google()
     mavenCentral()
     // VK SDK and kethereum artifacts bundled in-repo (VK artifactory returns 404 for this version)

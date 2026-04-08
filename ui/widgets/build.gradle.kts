@@ -1,5 +1,5 @@
 plugins {
-  id("appcoins.android.library")
+  id("appcoins.android.library.compose")
   id("kotlin-parcelize")
 }
 
@@ -8,10 +8,6 @@ android {
   defaultConfig {
     buildFeatures {
       viewBinding = true
-      composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
-      }
-      compose = true
     }
   }
 
@@ -31,7 +27,7 @@ dependencies {
   implementation(libs.zxing.android)
   implementation(libs.glide)
   implementation(libs.epoxy)
-  kapt(libs.epoxy.processor)
+  ksp(libs.epoxy.processor)
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.appcompact)
   implementation(libs.bundles.androidx.compose)
