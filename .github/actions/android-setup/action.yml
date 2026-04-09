@@ -2,13 +2,22 @@ name: Android Environment Setup
 description: Sets up the Android build environment with JDK, SDK, NDK, keystore, and credentials.
 
 inputs:
-  keystore-base64:
-    description: Base64 encoded debug keystore
+  keystore-dev-base64:
+    description: Base64 encoded dev keystore
+    required: false
+    default: ''
+  keystore-release-base64:
+    description: Base64 encoded release keystore
     required: false
     default: ''
   google-services-json-dev:
     description: Base64 encoded dev google-services.json
-    required: true
+    required: false
+    default: ''
+  google-services-json-release:
+    description: Base64 encoded release google-services.json
+    required: false
+    default: ''
   gradle-properties:
     description: Content to append to gradle.properties
     required: true
@@ -38,16 +47,54 @@ runs:
       shell: bash
       run: chmod +x ./gradlew
 
-    - name: Decode debug keystore
-      if: ${{ inputs.keystore-base64 != '' }}
+    - name: Mask derived secret values
       shell: bash
-      run: echo "${{ inputs.keystore-base64 }}" | base64 --decode > ${{ github.workspace }}/dev.keystore
+      env:
+        KEYSTORE_DEV_B64: ${{ inputs.keystore-dev-base64 }}
+        KEYSTORE_RELEASE_B64: ${{ inputs.keystore-release-base64 }}
+        GOOGLE_SERVICES_DEV_B64: ${{ inputs.google-services-json-dev }}
+        GOOGLE_SERVICES_RELEASE_B64: ${{ inputs.google-services-json-release }}
+        GRADLE_PROPERTIES: ${{ inputs.gradle-properties }}
+      run: |
+        if [ -n "$KEYSTORE_DEV_B64" ]; then
+          echo "::add-mask::$(echo "$KEYSTORE_DEV_B64" | base64 --decode)"
+        fi
+        if [ -n "$KEYSTORE_RELEASE_B64" ]; then
+          echo "::add-mask::$(echo "$KEYSTORE_RELEASE_B64" | base64 --decode)"
+        fi
+        if [ -n "$GOOGLE_SERVICES_DEV_B64" ]; then
+          echo "::add-mask::$(echo "$GOOGLE_SERVICES_DEV_B64" | base64 --decode)"
+        fi
+        if [ -n "$GOOGLE_SERVICES_RELEASE_B64" ]; then
+          echo "::add-mask::$(echo "$GOOGLE_SERVICES_RELEASE_B64" | base64 --decode)"
+        fi
+        while IFS= read -r line; do
+          [ -n "$line" ] && echo "::add-mask::$line"
+        done <<< "$GRADLE_PROPERTIES"
 
-    - name: Decode google-services.json
+    - name: Decode dev keystore
+      if: ${{ inputs.keystore-dev-base64 != '' }}
+      shell: bash
+      run: echo "${{ inputs.keystore-dev-base64 }}" | base64 --decode > ${{ github.workspace }}/dev.keystore
+
+    - name: Decode release keystore
+      if: ${{ inputs.keystore-release-base64 != '' }}
+      shell: bash
+      run: echo "${{ inputs.keystore-release-base64 }}" | base64 --decode > ${{ github.workspace }}/release.keystore
+
+    - name: Decode dev google-services.json
+      if: ${{ inputs.google-services-json-dev != '' }}
       shell: bash
       env:
         GOOGLE_SERVICES_JSON_DEV: ${{ inputs.google-services-json-dev }}
       run: echo "$GOOGLE_SERVICES_JSON_DEV" | base64 --decode > ${{ github.workspace }}/app/src/debug/google-services.json
+
+    - name: Decode release google-services.json
+      if: ${{ inputs.google-services-json-release != '' }}
+      shell: bash
+      env:
+        GOOGLE_SERVICES_JSON_RELEASE: ${{ inputs.google-services-json-release }}
+      run: echo "$GOOGLE_SERVICES_JSON_RELEASE" | base64 --decode > ${{ github.workspace }}/app/src/release/google-services.json
 
     - name: Inject gradle.properties
       shell: bash
@@ -55,4 +102,9 @@ runs:
         GRADLE_PROPERTIES: ${{ inputs.gradle-properties }}
       run: |
         printf '%s\n' "$GRADLE_PROPERTIES" >> gradle.properties
-        echo "BDS_WALLET_DEV_STORE_FILE=${{ github.workspace }}/dev.keystore" >> gradle.properties
+        if [ -f "${{ github.workspace }}/dev.keystore" ]; then
+          echo "BDS_WALLET_DEV_STORE_FILE=${{ github.workspace }}/dev.keystore" >> gradle.properties
+        fi
+        if [ -f "${{ github.workspace }}/release.keystore" ]; then
+          echo "BDS_WALLET_STORE_FILE=${{ github.workspace }}/release.keystore" >> gradle.properties
+        fi

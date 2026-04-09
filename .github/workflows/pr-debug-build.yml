@@ -49,7 +49,7 @@ jobs:
       - name: Android Environment Setup
         uses: ./.github/actions/android-setup
         with:
-          keystore-base64: ${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}
+          keystore-dev-base64: ${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}
           google-services-json-dev: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
           gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
 
@@ -72,7 +72,7 @@ jobs:
       - name: Android Environment Setup
         uses: ./.github/actions/android-setup
         with:
-          keystore-base64: ${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}
+          keystore-dev-base64: ${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}
           google-services-json-dev: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
           gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
 
@@ -95,7 +95,7 @@ jobs:
       - name: Android Environment Setup
         uses: ./.github/actions/android-setup
         with:
-          keystore-base64: ${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}
+          keystore-dev-base64: ${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}
           google-services-json-dev: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
           gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
 
