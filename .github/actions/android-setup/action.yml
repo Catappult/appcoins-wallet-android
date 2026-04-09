@@ -1,0 +1,56 @@
+name: Android Environment Setup
+description: Sets up the Android build environment with JDK, SDK, NDK, keystore, and credentials.
+
+inputs:
+  keystore-base64:
+    description: Base64 encoded debug keystore
+    required: true
+  google-services-json-dev:
+    description: Base64 encoded dev google-services.json
+    required: true
+  gradle-properties:
+    description: Content to append to gradle.properties
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        cache-read-only: ${{ github.event_name == 'pull_request' }}
+
+    - name: Set up Android SDK & NDK
+      uses: android-actions/setup-android@v3
+
+    - name: Install NDK
+      shell: bash
+      run: echo "y" | sdkmanager "ndk;28.2.13676358"
+
+    - name: Grant execute permission for gradlew
+      shell: bash
+      run: chmod +x ./gradlew
+
+    - name: Decode debug keystore
+      shell: bash
+      run: echo "${{ inputs.keystore-base64 }}" | base64 --decode > ${{ github.workspace }}/dev.keystore
+
+    - name: Decode google-services.json
+      shell: bash
+      env:
+        GOOGLE_SERVICES_JSON_DEV: ${{ inputs.google-services-json-dev }}
+      run: echo "$GOOGLE_SERVICES_JSON_DEV" | base64 --decode > ${{ github.workspace }}/app/src/debug/google-services.json
+
+    - name: Inject gradle.properties
+      shell: bash
+      env:
+        GRADLE_PROPERTIES: ${{ inputs.gradle-properties }}
+      run: |
+        printf '%s\n' "$GRADLE_PROPERTIES" >> gradle.properties
+        echo "BDS_WALLET_DEV_STORE_FILE=${{ github.workspace }}/dev.keystore" >> gradle.properties
