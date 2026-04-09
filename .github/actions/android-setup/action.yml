@@ -50,10 +50,14 @@ runs:
     - name: Mask derived secret values
       shell: bash
       env:
+        KEYSTORE_DEV_B64: ${{ inputs.keystore-dev-base64 }}
+        KEYSTORE_RELEASE_B64: ${{ inputs.keystore-release-base64 }}
         GOOGLE_SERVICES_DEV_B64: ${{ inputs.google-services-json-dev }}
         GOOGLE_SERVICES_RELEASE_B64: ${{ inputs.google-services-json-release }}
         GRADLE_PROPERTIES: ${{ inputs.gradle-properties }}
       run: |
+        if [ -n "$KEYSTORE_DEV_B64" ]; then echo "::add-mask::$KEYSTORE_DEV_B64"; fi
+        if [ -n "$KEYSTORE_RELEASE_B64" ]; then echo "::add-mask::$KEYSTORE_RELEASE_B64"; fi
         if [ -n "$GOOGLE_SERVICES_DEV_B64" ]; then
           while IFS= read -r line; do
             if [ -n "$line" ]; then echo "::add-mask::$line"; fi
@@ -65,8 +69,28 @@ runs:
           done <<< "$(echo "$GOOGLE_SERVICES_RELEASE_B64" | base64 --decode)"
         fi
         while IFS= read -r line; do
-          if [ -n "$line" ]; then echo "::add-mask::$line"; fi
+          if [ -n "$line" ]; then
+            echo "::add-mask::$line"
+            value="${line#*=}"
+            if [ "$value" != "$line" ] && [ -n "$value" ]; then
+              echo "::add-mask::$value"
+            fi
+          fi
         done <<< "$GRADLE_PROPERTIES"
+
+    # TODO: Remove this step before merging
+    - name: "[TEST] Simulate secret exposure"
+      shell: bash
+      env:
+        KEYSTORE_DEV_B64: ${{ inputs.keystore-dev-base64 }}
+        KEYSTORE_RELEASE_B64: ${{ inputs.keystore-release-base64 }}
+        GOOGLE_SERVICES_DEV_B64: ${{ inputs.google-services-json-dev }}
+        GRADLE_PROPERTIES: ${{ inputs.gradle-properties }}
+      run: |
+        echo "Keystore dev b64: $KEYSTORE_DEV_B64"
+        echo "Keystore release b64: $KEYSTORE_RELEASE_B64"
+        echo "Google services dev: $(echo "$GOOGLE_SERVICES_DEV_B64" | base64 --decode)"
+        echo "Gradle properties: $GRADLE_PROPERTIES"
 
     - name: Decode dev keystore
       if: ${{ inputs.keystore-dev-base64 != '' }}
