@@ -1,4 +1,4 @@
-name: PR Debug Build
+name: Wallet_Build-Test_PR
 
 on:
   pull_request:
