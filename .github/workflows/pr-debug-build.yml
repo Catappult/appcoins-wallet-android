@@ -22,11 +22,7 @@ jobs:
           lfs: true
 
       - name: Copy private SDKs
-        run: |
-          mkdir -p core/network/base/libs app/libs libs/
-          cp private-sdks/android-magnessdk-5.3.0.aar core/network/base/libs/android-magnessdk-5.3.0.aar
-          cp private-sdks/android-magnessdk-5.3.0.aar app/libs/android-magnessdk-5.3.0.aar
-          cp -r private-sdks/vk-maven libs/
+        uses: ./.github/actions/copy-private-sdks
 
       - name: Upload workspace
         uses: actions/upload-artifact@v4

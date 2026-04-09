@@ -1,0 +1,35 @@
+name: Update Gradle Cache
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  update-cache:
+    name: Update Gradle Cache
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Checkout private SDKs
+        uses: actions/checkout@v4
+        with:
+          repository: Catappult/wallet-private-sdks
+          token: ${{ secrets.PRIVATE_SDKS_PAT }}
+          path: private-sdks
+          lfs: true
+
+      - name: Copy private SDKs
+        uses: ./.github/actions/copy-private-sdks
+
+      - name: Android Environment Setup
+        uses: ./.github/actions/android-setup
+        with:
+          google-services-json-dev: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
+          gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
+
+      - name: Warm up Gradle cache
+        run: ./gradlew assembleAptoideDebug assembleGpDebug --no-daemon

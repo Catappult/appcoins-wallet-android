@@ -4,7 +4,8 @@ description: Sets up the Android build environment with JDK, SDK, NDK, keystore,
 inputs:
   keystore-base64:
     description: Base64 encoded debug keystore
-    required: true
+    required: false
+    default: ''
   google-services-json-dev:
     description: Base64 encoded dev google-services.json
     required: true
@@ -38,6 +39,7 @@ runs:
       run: chmod +x ./gradlew
 
     - name: Decode debug keystore
+      if: ${{ inputs.keystore-base64 != '' }}
       shell: bash
       run: echo "${{ inputs.keystore-base64 }}" | base64 --decode > ${{ github.workspace }}/dev.keystore
 
