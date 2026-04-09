@@ -50,23 +50,19 @@ runs:
     - name: Mask derived secret values
       shell: bash
       env:
-        KEYSTORE_DEV_B64: ${{ inputs.keystore-dev-base64 }}
-        KEYSTORE_RELEASE_B64: ${{ inputs.keystore-release-base64 }}
         GOOGLE_SERVICES_DEV_B64: ${{ inputs.google-services-json-dev }}
         GOOGLE_SERVICES_RELEASE_B64: ${{ inputs.google-services-json-release }}
         GRADLE_PROPERTIES: ${{ inputs.gradle-properties }}
       run: |
-        if [ -n "$KEYSTORE_DEV_B64" ]; then
-          echo "::add-mask::$(echo "$KEYSTORE_DEV_B64" | base64 --decode)"
-        fi
-        if [ -n "$KEYSTORE_RELEASE_B64" ]; then
-          echo "::add-mask::$(echo "$KEYSTORE_RELEASE_B64" | base64 --decode)"
-        fi
         if [ -n "$GOOGLE_SERVICES_DEV_B64" ]; then
-          echo "::add-mask::$(echo "$GOOGLE_SERVICES_DEV_B64" | base64 --decode)"
+          while IFS= read -r line; do
+            [ -n "$line" ] && echo "::add-mask::$line"
+          done <<< "$(echo "$GOOGLE_SERVICES_DEV_B64" | base64 --decode)"
         fi
         if [ -n "$GOOGLE_SERVICES_RELEASE_B64" ]; then
-          echo "::add-mask::$(echo "$GOOGLE_SERVICES_RELEASE_B64" | base64 --decode)"
+          while IFS= read -r line; do
+            [ -n "$line" ] && echo "::add-mask::$line"
+          done <<< "$(echo "$GOOGLE_SERVICES_RELEASE_B64" | base64 --decode)"
         fi
         while IFS= read -r line; do
           [ -n "$line" ] && echo "::add-mask::$line"
