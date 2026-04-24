@@ -1,10 +1,11 @@
 package com.appcoins.wallet.convention.plugins
 
+import com.android.build.api.artifact.ArtifactTransformationRequest
 import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.instrumentation.InstrumentationScope
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
-import com.android.build.api.variant.BuiltArtifactsLoader
+import com.android.build.api.variant.BuiltArtifact
 import com.appcoins.wallet.convention.Config
 import com.appcoins.wallet.convention.extensions.BuildConfigType
 import com.appcoins.wallet.convention.extensions.buildConfigFields
@@ -30,9 +31,12 @@ import java.io.File
 
 @DisableCachingByDefault
 abstract class ApkRenameTask : DefaultTask() {
+  @get:Internal
+  abstract val transformationRequest: Property<ArtifactTransformationRequest<ApkRenameTask>>
+
   @get:InputDirectory
   @get:PathSensitive(PathSensitivity.RELATIVE)
-  abstract val apkFolder: DirectoryProperty
+  abstract val inputFolder: DirectoryProperty
 
   @get:OutputDirectory
   abstract val outputFolder: DirectoryProperty
@@ -40,19 +44,19 @@ abstract class ApkRenameTask : DefaultTask() {
   @get:Input
   abstract val buildTypeName: Property<String>
 
-  @get:Internal
-  abstract val builtArtifactsLoader: Property<BuiltArtifactsLoader>
+  @get:Input
+  abstract val flavorName: Property<String>
 
   @TaskAction
   fun rename() {
-    val artifacts = builtArtifactsLoader.get().load(apkFolder.get()) ?: return
-    val sep = "_"
-    val bt = buildTypeName.get()
-    artifacts.elements.forEach { artifact ->
-      val vn = artifact.versionName ?: "unknown"
-      val vc = artifact.versionCode ?: 0
-      val source = File(artifact.outputFile)
-      source.copyTo(File(outputFolder.get().asFile, "AppCoins_Wallet_v$vn${sep}$vc${sep}$bt.apk"), overwrite = true)
+    transformationRequest.get().submit(this) { builtArtifact: BuiltArtifact ->
+      val sep = "_"
+      val bt = buildTypeName.get()
+      val flavor = flavorName.get()
+      val vn = builtArtifact.versionName ?: "unknown"
+      val vc = builtArtifact.versionCode ?: 0
+      File(outputFolder.get().asFile, "AppCoins_Wallet_v$vn${sep}$vc${sep}$bt${sep}$flavor.apk")
+        .also { File(builtArtifact.outputFile).copyTo(it, overwrite = true) }
     }
   }
 }
@@ -79,12 +83,14 @@ class AndroidAppPlugin : Plugin<Project> {
           variant.instrumentation.transformClassesWith(PathParserNullFixFactory::class.java, InstrumentationScope.ALL) {}
           val buildType = variant.buildType ?: ""
           val taskName = "rename${variant.name.replaceFirstChar(Char::uppercase)}Apk"
-          tasks.register(taskName, ApkRenameTask::class.java) {
+          val renameTask = tasks.register(taskName, ApkRenameTask::class.java) {
             buildTypeName.set(buildType)
-            builtArtifactsLoader.set(variant.artifacts.getBuiltArtifactsLoader())
-            apkFolder.set(variant.artifacts.get(SingleArtifact.APK))
-            outputFolder.set(layout.buildDirectory.dir("outputs/apk_renamed/${variant.name}"))
+            flavorName.set(variant.flavorName)
           }
+          val request = variant.artifacts.use(renameTask)
+            .wiredWithDirectories(ApkRenameTask::inputFolder, ApkRenameTask::outputFolder)
+            .toTransformMany(SingleArtifact.APK)
+          renameTask.configure { transformationRequest.set(request) }
         }
       }
 
@@ -205,5 +211,3 @@ class AndroidAppPlugin : Plugin<Project> {
     }
   }
 }
-
-
