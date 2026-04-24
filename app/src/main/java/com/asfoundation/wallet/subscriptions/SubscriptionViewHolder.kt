@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SubscriptionNewItemBinding
-import com.asfoundation.wallet.GlideApp
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
@@ -65,7 +65,7 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
       binding.itemParent.setOnClickListener { clickCallback?.onNext(Pair(item, binding.appIcon)) }
     }
 
-    GlideApp.with(itemView.context)
+    Glide.with(itemView.context)
       .asBitmap()
       .load(item.appIcon)
       .apply { RequestOptions().dontTransform() }

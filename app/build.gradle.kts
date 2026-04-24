@@ -5,7 +5,7 @@ plugins {
   id("appcoins.firebase")
   id("com.google.gms.google-services")
   id("androidx.navigation.safeargs.kotlin")
-  id("de.mannodermaus.android-junit5")
+  id("de.mannodermaus.android-junit")
 }
 
 android {
@@ -134,11 +134,10 @@ dependencies {
   implementation(libs.bundles.lottie)
   implementation(libs.shimmer)
   implementation(libs.glide)
-  kapt(libs.glide.compiler)
+  ksp(libs.glide.compiler)
   implementation(libs.bundles.coil)
 
   implementation(libs.epoxy)
-  kapt(libs.epoxy.processor)
 
   implementation(libs.appcoins.sdk)
   debugImplementation(libs.appcoins.sdk.debug)

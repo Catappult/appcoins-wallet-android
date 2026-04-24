@@ -1,5 +1,6 @@
 package com.appcoins.wallet.core.analytics.analytics
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -13,9 +14,10 @@ import javax.inject.Inject
 class GAEventLogger @Inject constructor(
   private val indicativeAnalytics: IndicativeAnalytics,
   private val appStartPreferencesDataSource: AppStartPreferencesDataSource,
-  @ApplicationContext private val context: Context
+  @param:ApplicationContext private val context: Context
 ) : EventLogger {
 
+  @SuppressLint("MissingPermission") // Permissions declared in app manifest via Firebase SDK manifest merge
   private val firebaseAnalytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
 
   companion object {

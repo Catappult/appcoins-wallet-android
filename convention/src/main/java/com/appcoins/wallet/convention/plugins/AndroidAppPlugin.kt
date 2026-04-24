@@ -1,25 +1,69 @@
 package com.appcoins.wallet.convention.plugins
 
-import com.android.build.gradle.internal.api.BaseVariantOutputImpl
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.android.build.api.artifact.SingleArtifact
+import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.instrumentation.InstrumentationScope
+import com.android.build.api.variant.ApplicationAndroidComponentsExtension
+import com.android.build.api.variant.BuiltArtifactsLoader
 import com.appcoins.wallet.convention.Config
 import com.appcoins.wallet.convention.extensions.BuildConfigType
 import com.appcoins.wallet.convention.extensions.buildConfigFields
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
+import com.appcoins.wallet.convention.transforms.PathParserNullFixFactory
+import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import org.gradle.work.DisableCachingByDefault
+import java.io.File
+
+@DisableCachingByDefault
+abstract class ApkRenameTask : DefaultTask() {
+  @get:InputDirectory
+  @get:PathSensitive(PathSensitivity.RELATIVE)
+  abstract val apkFolder: DirectoryProperty
+
+  @get:OutputDirectory
+  abstract val outputFolder: DirectoryProperty
+
+  @get:Input
+  abstract val buildTypeName: Property<String>
+
+  @get:Internal
+  abstract val builtArtifactsLoader: Property<BuiltArtifactsLoader>
+
+  @TaskAction
+  fun rename() {
+    val artifacts = builtArtifactsLoader.get().load(apkFolder.get()) ?: return
+    val sep = "_"
+    val bt = buildTypeName.get()
+    artifacts.elements.forEach { artifact ->
+      val vn = artifact.versionName ?: "unknown"
+      val vc = artifact.versionCode ?: 0
+      val source = File(artifact.outputFile)
+      source.copyTo(File(outputFolder.get().asFile, "AppCoins_Wallet_v$vn${sep}$vc${sep}$bt.apk"), overwrite = true)
+    }
+  }
+}
 
 class AndroidAppPlugin : Plugin<Project> {
   override fun apply(target: Project) {
     with(target) {
       with(pluginManager) {
         apply("com.android.application")
-        apply("kotlin-android")
+        apply("org.jetbrains.kotlin.plugin.compose")
         apply("kotlin-parcelize")
-        apply("kotlin-kapt")
         apply<JacocoApplicationPlugin>()
       }
 
@@ -28,7 +72,23 @@ class AndroidAppPlugin : Plugin<Project> {
         targetCompatibility = Config.jvm.javaVersion
       }
 
-      extensions.configure<BaseAppModuleExtension> {
+      // Patch PathParser.deepCopyNodes to restore the null-safe behaviour removed in
+      // androidx.core 1.13.0 — needed for compatibility with VK SDK rich-vector library.
+      extensions.configure<ApplicationAndroidComponentsExtension> {
+        onVariants { variant ->
+          variant.instrumentation.transformClassesWith(PathParserNullFixFactory::class.java, InstrumentationScope.ALL) {}
+          val buildType = variant.buildType ?: ""
+          val taskName = "rename${variant.name.replaceFirstChar(Char::uppercase)}Apk"
+          tasks.register(taskName, ApkRenameTask::class.java) {
+            buildTypeName.set(buildType)
+            builtArtifactsLoader.set(variant.artifacts.getBuiltArtifactsLoader())
+            apkFolder.set(variant.artifacts.get(SingleArtifact.APK))
+            outputFolder.set(layout.buildDirectory.dir("outputs/apk_renamed/${variant.name}"))
+          }
+        }
+      }
+
+      extensions.configure<ApplicationExtension> {
         configureAndroidAndKotlin(this)
         ndkVersion = Config.android.ndkVersion
         defaultConfig {
@@ -79,7 +139,7 @@ class AndroidAppPlugin : Plugin<Project> {
             applicationIdSuffix = ".dev"
             versionNameSuffix = ".dev"
             signingConfig = signingConfigs.getByName("dev")
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.DEBUG)
             manifestPlaceholders["legacyPaymentHost"] =
               project.property("MANIFEST_LEGACY_PAYMENT_HOST_DEV").toString()
@@ -104,7 +164,7 @@ class AndroidAppPlugin : Plugin<Project> {
             signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
             isShrinkResources = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.RELEASE)
             manifestPlaceholders["legacyPaymentHost"] =
               project.property("MANIFEST_LEGACY_PAYMENT_HOST").toString()
@@ -121,31 +181,12 @@ class AndroidAppPlugin : Plugin<Project> {
             )
           }
 
-          register("staging") {
-            initWith(getByName("release"))
-            versionNameSuffix = ".staging"
-          }
-        }
-
-        applicationVariants.all {
-          val sep = "_"
-          val buildType = buildType.name
-          val versionName = versionName
-          val versionCode = versionCode
-          val fileName = "AppCoins_Wallet_v$versionName$sep$versionCode$sep$buildType.apk"
-          outputs.all {
-            (this as BaseVariantOutputImpl).outputFileName = fileName
-          }
         }
 
         buildFeatures {
           buildConfig = true
-          viewBinding {
-            enable = true
-          }
-          composeOptions {
-            kotlinCompilerExtensionVersion = "1.5.13"
-          }
+          resValues = true
+          viewBinding = true
           compose = true
           aidl = true
         }

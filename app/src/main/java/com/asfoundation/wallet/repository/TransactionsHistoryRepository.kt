@@ -5,7 +5,6 @@ import com.appcoins.wallet.core.network.backend.model.InvoiceResponse
 import com.appcoins.wallet.core.network.backend.model.TransactionPagingResponse
 import com.appcoins.wallet.core.network.base.call_adapter.Result
 import com.appcoins.wallet.core.network.base.call_adapter.handleApi
-import it.czerwinski.android.hilt.annotations.BoundTo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -25,7 +24,6 @@ interface TransactionsHistoryRepository {
   fun getInvoiceUrl(invoiceId: String): Flow<Result<InvoiceResponse>>
 }
 
-@BoundTo(supertype = TransactionsHistoryRepository::class)
 class DefaultTransactionsHistoryRepository @Inject constructor(private val api: TransactionsApi) :
   TransactionsHistoryRepository {
   override fun fetchTransactions(

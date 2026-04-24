@@ -108,19 +108,18 @@ class Duration private constructor(val seconds: Long, val nano: Int) : Comparabl
     return seconds / SECONDS_PER_HOUR
   }
 
-  override fun compareTo(otherDuration: Duration): Int {
-    val cmp = seconds.compareTo(otherDuration.seconds)
+  override fun compareTo(other: Duration): Int {
+    val cmp = seconds.compareTo(other.seconds)
     return if (cmp != 0) {
       cmp
-    } else nano - otherDuration.nano
+    } else nano - other.nano
   }
 
-  override fun equals(otherDuration: Any?): Boolean {
-    if (this === otherDuration) {
+  override fun equals(other: Any?): Boolean {
+    if (this === other) {
       return true
     }
-    if (otherDuration is Duration) {
-      val other = otherDuration
+    if (other is Duration) {
       return seconds == other.seconds &&
           nano == other.nano
     }

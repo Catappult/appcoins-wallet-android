@@ -866,7 +866,7 @@
   <string name="share_vip">공유</string>
   <string name="share_this_code_with_your_friends_vip">친구에게 이 코드를 공유하기</string>
   <string name="only_for_purchases_on_vip">다음에서 구매하는 경우에만 해당</string>
-  <string name="each_in_app_purchase_vip">각 인앱 구매 시 당신과 친구들에게 %1$s% 보너스가 제공되며, 7일 동안 다른 혜택도 함께 제공됩니다.</string>
+  <string name="each_in_app_purchase_vip">각 인앱 구매 시 당신과 친구들에게 %1$s%% 보너스가 제공되며, 7일 동안 다른 혜택도 함께 제공됩니다.</string>
   <string name="each_in_app_purchase2_vip">Share this code with your friends and both of you will get a %1$s%% bonus in all purchases they make. As a VIP user, you can earn up to %2$s per promo code.</string>
   <string name="promo_code_referral_program_vip">프로모션 코드는 추천 프로그램이 활성화되면 사용 가능합니다.</string>
   <string name="referral_program_not_active_yet_vip">추천 프로그램이 아직 활성화되지 않았습니다.</string>

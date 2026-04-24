@@ -4,18 +4,19 @@ androidx_appcompat_version = "1.7.1"
 androidx_browser_version = "1.7.0"
 androidx_cardview_version = "1.0.0"
 androidx_constraintlayout_version = "2.2.1"
-androidx_compose = "1.4.3"
-androidx_compose_material3 = "1.1.0"
+androidx_compose = "1.7.8"
+androidx_compose_material3 = "1.3.1"
 androidx_compose_compiler = "1.5.13"
+androidx_activity_compose_version = "1.9.0"
 androidx_ktx_version = "1.3.0"
 androidx_lifecycle_ktx_version = "2.4.1"
 androidx_lifecycle_version = "2.2.0"
 androidx_multidex_version = "2.0.1"
-androidx_navigation_version = "2.5.3"
+androidx_navigation_version = "2.9.7"
 androidx_palette_version = "1.0.0"
 androidx_preference_version = "1.2.0"
 androidx_recyclerview_version = "1.1.0"
-androidx_room_version = "2.5.2"
+androidx_room_version = "2.7.0"
 androidx_vector_drawable_version = "1.2.0"
 androidx_viewpager_version = "1.0.0"
 appcoins_sdk_dev_version = "0.6.7.0.dev-SNAPSHOT"
@@ -28,30 +29,30 @@ corektx_version = "1.15.0"
 coroutines_version = "1.6.1"
 cpp_version = "2.5.4"
 desugar_version = "2.0.4"
-epoxy_version = "4.5.0"
+epoxy_version = "5.1.4"
 erc681_version = "0.36"
 espresso_version = "3.4.0"
 firebase_bom = "32.2.3"
-firebase_crashlytics_plugin = "2.9.9"
-firebase_performance_plugin = "1.4.2"
+firebase_crashlytics_plugin = "3.0.3"
+firebase_performance_plugin = "2.0.2"
 flurry_version = "14.0.0"
 flexbox_version = "3.0.0"
-glide_version = "4.12.0"
+glide_version = "4.16.0"
 google_services = "4.4.2"
-gradle_plugin_version = "8.7.0"
+gradle_plugin_version = "9.0.1"
 gson_version = "2.8.6"
-hilt_czerwinski_extensions_version = "1.3.0"
-hilt_version = "2.51.1"
+hilt_czerwinski_extensions_version = "1.4.0"
+hilt_version = "2.59.2"
 hilt_compose_navigation = "1.2.0"
 indicative_version = "1.1.0"
 intercom_version = "17.3.1"
 jackson_version = "2.10.3"
 jetbrains_annotations_version = "19.0.0"
 junit5_version = "5.7.2"
-junit5_plugin_version = "1.8.2.1"
+junit5_plugin_version = "2.0.1"
 junit_version = "4.13.2"
-kotlin_version = "1.9.23"
-ksp_version = "1.9.23-1.0.20"
+kotlin_version = "2.3.0"
+ksp_version = "2.3.4"
 lottie_version = "6.1.0"
 material_version = "1.5.0"
 michel_bull_kotlin_result = "1.1.16"
@@ -84,7 +85,7 @@ paging_compose_version = "1.0.0-alpha19"
 vk_pay_version = "0.112-beta24429"
 vk_pay_checkout_version = "0.112-beta24429"
 truelayer_payments_version = "2.6.0"
-firebase_version = "21.2.0"
+matomo_version = "4.4"
 
 [libraries]
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation_version" }
@@ -135,7 +136,7 @@ compose-ui-preview = { module = "androidx.compose.ui:ui-tooling-preview", versio
 compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx_compose" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "androidx_compose" }
 compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "androidx_compose" }
-compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx_compose" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx_activity_compose_version" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "androidx_compose_compiler" }
 compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie_version" }
 compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidx_compose" }
@@ -156,9 +157,10 @@ zxing-android = { module = "com.journeyapps:zxing-android-embedded", version.ref
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase_bom" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
-#firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-performance = { group = "com.google.firebase", name = "firebase-perf-ktx" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebase_version" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+
+matomo-analytics = { module = "com.github.matomo-org:matomo-sdk-android", version.ref = "matomo_version" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt_version" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt_version" }
@@ -181,7 +183,7 @@ rx-rxlifecyle-components = { module = "com.trello:rxlifecycle-components", versi
 
 adyen-card = { module = "com.adyen.checkout:card", version.ref = "adyen_version" }
 adyen-redirect = { module = "com.adyen.checkout:redirect", version.ref = "adyen_version" }
-adyen-3ds2 = { module = "com.adyen.checkout:3ds2", version.ref = "adyen_version" }
+adyen-threeds2 = { module = "com.adyen.checkout:3ds2", version.ref = "adyen_version" }
 
 appcoins-sdk = { module = "io.catappult:appcoins-contract-proxy", version.ref = "appcoins_sdk_version" }
 appcoins-sdk-debug = { module = "io.catappult:appcoins-contract-proxy", version.ref = "appcoins_sdk_dev_version" }
@@ -196,7 +198,7 @@ analytics-appsflyer = { module = "com.appsflyer:af-android-sdk", version.ref = "
 viewbinding-delegate = { module = "com.github.kirich1409:viewbindingpropertydelegate-noreflection", version.ref = "viewBindingDelegate" }
 intercom = { module = "io.intercom.android:intercom-sdk", version.ref = "intercom_version" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide_version" }
-glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide_version" }
+glide-compiler = { module = "com.github.bumptech.glide:ksp", version.ref = "glide_version" }
 coil-kt = { module = "io.coil-kt:coil", version.ref = "coil_version" }
 coil-kt-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil_version" }
 coil-kt-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil_version" }
@@ -244,6 +246,7 @@ truelayer-payments = { module = "com.truelayer.payments:ui", version.ref = "true
 # Dependencies of the included build-logic
 gradlePlugin-android = { module = "com.android.tools.build:gradle", version.ref = "gradle_plugin_version" }
 gradlePlugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin_version" }
+gradlePlugin-compose-compiler = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin_version" }
 gradlePlugin-ksp = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp_version" }
 gradlePlugin-hilt = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt_version" }
 gradlePlugin-junit5 = { module = "de.mannodermaus.gradle.plugins:android-junit5", version.ref = "junit5_plugin_version" }
@@ -254,10 +257,10 @@ firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "per
 androidx-room = ["androidx-room-runtime", "androidx-room-rxjava2", "androidx-room-ktx"]
 androidx-lifecycle = ["androidx-lifecycle-ktx-runtime", "androidx-lifecycle-ktx-viewmodel", "androidx-lifecycle-ktx-viewmodel-savedstate", "androidx-lifecycle-ktx-common-java8", "androidx-lifecycle-extensions"]
 androidx-work = ["androidx-work-runtime", "androidx-work-rxjava2"]
-androidx-compose = ["compose-ui-viewbinding", "compose-ui-util", "compose-ui-ui", "compose-ui-preview", "compose-ui-tooling", "compose-ui-test", "compose-material3", "compose-foundation-layout", "compose-foundation-foundation", "compose-animation-animation", "compose-compiler", "compose-activity", "compose-material-icons-extended"]
+androidx-compose = ["compose-ui-viewbinding", "compose-ui-util", "compose-ui-ui", "compose-ui-preview", "compose-ui-tooling", "compose-ui-test", "compose-material3", "compose-foundation-layout", "compose-foundation-foundation", "compose-animation-animation", "compose-activity", "compose-material-icons-extended"]
 coil = ["coil-kt", "coil-kt-compose", "coil-kt-svg"]
 network = ["network-retrofit", "network-retrofit-adapter-rxjava", "network-retrofit-converter-gson", "network-retrofit-converter-jackson", "network-okhttp", "google-gson"]
-adyen = ["adyen-card", "adyen-redirect", "adyen-3ds2"]
+adyen = ["adyen-card", "adyen-redirect", "adyen-threeds2"]
 analytics = ["analytics-sentry", "analytics-indicative", "analytics-flurry", "analytics-appsflyer", "firebase-analytics"]
 testing = ["test-junit", "test-mockito", "test-espresso", "test-mockk"]
 jackson = ["jackson-annotation", "jackson-databind"]

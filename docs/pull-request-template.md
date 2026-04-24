@@ -19,7 +19,7 @@
 
 **What are the relevant tickets?**
 
-  Tickets related to this pull-request: [APPC-XXXX](https://aptoide.atlassian.net/browse/APPC-XXXX)
+  Tickets related to this pull-request: [DOT-XXXX](https://aptoide.atlassian.net/browse/DOT-XXXX)
 
 **Code Review Checklist**
 

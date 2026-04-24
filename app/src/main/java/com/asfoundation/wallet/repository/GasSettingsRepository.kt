@@ -3,12 +3,10 @@ package com.asfoundation.wallet.repository
 import com.appcoins.wallet.core.network.backend.api.GasServiceApi
 import com.asfoundation.wallet.entity.GasSettings
 import io.reactivex.Single
-import it.czerwinski.android.hilt.annotations.BoundTo
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-@BoundTo(supertype = GasSettingsRepositoryType::class)
 class GasSettingsRepository @Inject constructor(private val gasServiceApi: GasServiceApi) :
   GasSettingsRepositoryType {
 

@@ -8,7 +8,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.reactivex.Completable;
 import io.reactivex.Single;
-import it.czerwinski.android.hilt.annotations.BoundTo;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -25,7 +24,7 @@ import org.web3j.utils.Numeric;
 
 import static org.web3j.crypto.Wallet.create;
 
-@BoundTo(supertype = AccountKeystoreService.class) public class Web3jKeystoreAccountService
+public class Web3jKeystoreAccountService
     implements AccountKeystoreService {
   private static final int PRIVATE_KEY_RADIX = 16;
   /**

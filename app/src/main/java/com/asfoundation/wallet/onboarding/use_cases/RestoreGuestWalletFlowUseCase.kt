@@ -4,14 +4,12 @@ import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.onboarding.CachedBackupRepository
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository.Companion.PAYMENT_TYPE_SDK
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
 interface RestoreGuestWalletUseCase {
   operator fun invoke(): StartMode.RestoreGuestWalletFlow?
 }
 
-@BoundTo(supertype = RestoreGuestWalletUseCase::class)
 class RestoreGuestWalletUseCaseImpl @Inject constructor(
   private val cachedTransaction: CachedTransactionRepository,
   private val cachedBackup: CachedBackupRepository
