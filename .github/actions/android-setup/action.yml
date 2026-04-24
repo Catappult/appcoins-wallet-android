@@ -78,20 +78,6 @@ runs:
           fi
         done <<< "$GRADLE_PROPERTIES"
 
-    # TODO: Remove this step before merging
-    - name: "[TEST] Simulate secret exposure"
-      shell: bash
-      env:
-        KEYSTORE_DEV_B64: ${{ inputs.keystore-dev-base64 }}
-        KEYSTORE_RELEASE_B64: ${{ inputs.keystore-release-base64 }}
-        GOOGLE_SERVICES_DEV_B64: ${{ inputs.google-services-json-dev }}
-        GRADLE_PROPERTIES: ${{ inputs.gradle-properties }}
-      run: |
-        echo "Keystore dev b64: $KEYSTORE_DEV_B64"
-        echo "Keystore release b64: $KEYSTORE_RELEASE_B64"
-        echo "Google services dev: $(echo "$GOOGLE_SERVICES_DEV_B64" | base64 --decode)"
-        echo "Gradle properties: $GRADLE_PROPERTIES"
-
     - name: Decode dev keystore
       if: ${{ inputs.keystore-dev-base64 != '' }}
       shell: bash
