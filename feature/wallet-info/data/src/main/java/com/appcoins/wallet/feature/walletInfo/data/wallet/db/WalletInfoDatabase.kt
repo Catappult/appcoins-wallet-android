@@ -17,21 +17,21 @@ abstract class WalletInfoDatabase : RoomDatabase() {
 
   companion object {
     val MIGRATION_1_2: Migration = object : Migration(1, 2) {
-      override fun migrate(database: SupportSQLiteDatabase) =
-        database.execSQL("ALTER TABLE WalletInfoEntity ADD COLUMN hasBackup INTEGER DEFAULT 0 NOT NULL")
+      override fun migrate(db: SupportSQLiteDatabase) =
+        db.execSQL("ALTER TABLE WalletInfoEntity ADD COLUMN hasBackup INTEGER DEFAULT 0 NOT NULL")
     }
     val MIGRATION_2_3: Migration = object : Migration(2, 3) {
-      override fun migrate(database: SupportSQLiteDatabase) =
-        database.execSQL("ALTER TABLE WalletInfoEntity ADD COLUMN name TEXT")
+      override fun migrate(db: SupportSQLiteDatabase) =
+        db.execSQL("ALTER TABLE WalletInfoEntity ADD COLUMN name TEXT")
     }
     val MIGRATION_3_4: Migration = object : Migration(3, 4) {
-      override fun migrate(database: SupportSQLiteDatabase) =
-        database.execSQL("ALTER TABLE WalletInfoEntity ADD COLUMN canTransfer INTEGER DEFAULT 0 NOT NULL")
+      override fun migrate(db: SupportSQLiteDatabase) =
+        db.execSQL("ALTER TABLE WalletInfoEntity ADD COLUMN canTransfer INTEGER DEFAULT 0 NOT NULL")
     }
 
     val MIGRATION_4_5: Migration = object : Migration(4, 5) {
-      override fun migrate(database: SupportSQLiteDatabase) =
-        database.execSQL("ALTER TABLE WalletInfoEntity ADD COLUMN email TEXT DEFAULT NULL")
+      override fun migrate(db: SupportSQLiteDatabase) =
+        db.execSQL("ALTER TABLE WalletInfoEntity ADD COLUMN email TEXT DEFAULT NULL")
     }
   }
 

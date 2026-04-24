@@ -4,14 +4,13 @@ import com.appcoins.wallet.core.utils.properties.MiscProperties;
 import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract;
 import com.asfoundation.wallet.entity.TokenInfo;
 import io.reactivex.Single;
-import it.czerwinski.android.hilt.annotations.BoundTo;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by trinkes on 07/02/2018.
  */
-@BoundTo(supertype = DefaultTokenProvider.class) public class BuildConfigDefaultTokenProvider
+public class BuildConfigDefaultTokenProvider
     implements DefaultTokenProvider {
   private final FindDefaultWalletInteract findDefaultWalletInteract;
 

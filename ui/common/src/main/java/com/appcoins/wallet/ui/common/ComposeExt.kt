@@ -7,7 +7,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,7 +53,7 @@ fun Modifier.shimmer(): Modifier = composed {
 fun Modifier.rippleClick(onClick: () -> Unit) = composed {
   clickable(
     interactionSource = remember { MutableInteractionSource() },
-    indication = rememberRipple(bounded = true, radius = 24.dp)
+    indication = ripple(bounded = true, radius = 24.dp)
   ) {
     onClick()
   }

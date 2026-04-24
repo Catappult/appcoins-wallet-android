@@ -1,0 +1,117 @@
+name: Wallet_Build-Test_PR
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  setup:
+    name: Prepare Private SDKs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Checkout private SDKs
+        uses: actions/checkout@v4
+        with:
+          repository: Catappult/wallet-private-sdks
+          token: ${{ secrets.PRIVATE_SDKS_PAT }}
+          path: private-sdks
+          lfs: true
+
+      - name: Copy private SDKs
+        uses: ./.github/actions/copy-private-sdks
+
+      - name: Upload workspace
+        uses: actions/upload-artifact@v4
+        with:
+          name: workspace
+          path: |
+            .
+            !private-sdks
+          retention-days: 1
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download workspace
+        uses: actions/download-artifact@v4
+        with:
+          name: workspace
+
+      - name: Android Environment Setup
+        uses: ./.github/actions/android-setup
+        with:
+          keystore-dev-base64: ${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}
+          google-services-json-dev: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
+          gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
+
+      - name: Run Unit Tests
+        run: ./gradlew testAptoideDebugUnitTest testGpDebugUnitTest
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download workspace
+        uses: actions/download-artifact@v4
+        with:
+          name: workspace
+
+      - name: Android Environment Setup
+        uses: ./.github/actions/android-setup
+        with:
+          keystore-dev-base64: ${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}
+          google-services-json-dev: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
+          gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
+
+      - name: Lint
+        run: ./gradlew lintAptoideDebug lintGpDebug
+
+  build:
+    name: Build Debug APKs
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download workspace
+        uses: actions/download-artifact@v4
+        with:
+          name: workspace
+
+      - name: Android Environment Setup
+        uses: ./.github/actions/android-setup
+        with:
+          keystore-dev-base64: ${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}
+          google-services-json-dev: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
+          gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
+
+      - name: Build Debug APKs
+        run: ./gradlew assembleAptoideDebug assembleGpDebug
+
+      - name: Upload Aptoide Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: aptoide-debug-apk
+          path: app/build/outputs/apk/aptoide/debug/*.apk
+          retention-days: 7
+
+      - name: Upload GP Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: gp-debug-apk
+          path: app/build/outputs/apk/gp/debug/*.apk
+          retention-days: 7

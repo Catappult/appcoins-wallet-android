@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name">Aptoide Wallet</string>
   <string name="title_send_with_token">ارسال %s</string>
   <!--Bottom navigation-->
@@ -783,19 +783,19 @@
   <string name="topup_home_button">افزایش اعتبار</string>
   <string name="intro_home_button">خانه</string>
   <string name="intro_rewards_button">پاداش‌ها</string>
-  <plurals name="day">
+  <plurals name="day" tools:ignore="ImpliedQuantity">
     <item quantity="one">روز</item>
     <item quantity="other">روز</item>
   </plurals>
-  <plurals name="hour">
+  <plurals name="hour" tools:ignore="ImpliedQuantity">
     <item quantity="one">ساعت</item>
     <item quantity="other">ساعت</item>
   </plurals>
-  <plurals name="minute">
+  <plurals name="minute" tools:ignore="ImpliedQuantity">
     <item quantity="one">دقیقه</item>
     <item quantity="other">دقیقه</item>
   </plurals>
-  <plurals name="second">
+  <plurals name="second" tools:ignore="ImpliedQuantity">
     <item quantity="one">ثانیه</item>
     <item quantity="other">ثانیه</item>
   </plurals>

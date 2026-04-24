@@ -3,10 +3,8 @@ package com.asfoundation.wallet.billing.share
 import com.appcoins.wallet.core.network.microservices.api.deeplink.BdsShareLinkApi
 import com.appcoins.wallet.core.network.microservices.model.ShareLinkData
 import io.reactivex.Single
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-@BoundTo(supertype = ShareLinkRepository::class)
 class BdsShareLinkRepository @Inject constructor(private var api: BdsShareLinkApi) :
   ShareLinkRepository {
 

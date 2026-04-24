@@ -1,17 +1,9 @@
 plugins {
-  id("appcoins.android.library")
+  id("appcoins.android.library.compose")
 }
 
 android {
   namespace = "com.appcoins.wallet.ui.common"
-  defaultConfig {
-    buildFeatures {
-      composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
-      }
-      compose = true
-    }
-  }
 
   lint {
     disable.add("NullSafeMutableLiveData")

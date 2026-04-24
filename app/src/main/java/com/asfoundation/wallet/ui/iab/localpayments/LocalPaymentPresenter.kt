@@ -12,7 +12,7 @@ import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
+import com.bumptech.glide.Glide
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -75,7 +75,7 @@ class LocalPaymentPresenter(
   }
 
   private fun getPaymentMethodIcon() = Single.fromCallable {
-    GlideApp.with(context!!)
+    Glide.with(context!!)
       .asBitmap()
       .load(data.paymentMethodIconUrl)
       .override(getWidth(), getHeight())
