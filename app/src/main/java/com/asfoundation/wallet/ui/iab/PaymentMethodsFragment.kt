@@ -28,7 +28,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCachedShow
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.R
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
-import com.asfoundation.wallet.GlideApp
+import com.bumptech.glide.Glide
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.amazonPay.usecases.DeleteAmazonPayChargePermissionUseCase
 import com.asfoundation.wallet.billing.amazonPay.usecases.GetAmazonPayChargePermissionLocalStorageUseCase
@@ -580,7 +580,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     compositeDisposable.add(
       Observable.fromCallable {
         val context = context
-        GlideApp.with(context!!).asBitmap().load(paymentMethod.iconUrl).submit().get()
+        Glide.with(context!!).asBitmap().load(paymentMethod.iconUrl).submit().get()
       }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

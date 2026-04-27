@@ -2,6 +2,7 @@ package com.appcoins.wallet.sharedpreferences
 
 import android.content.SharedPreferences
 import javax.inject.Inject
+import androidx.core.content.edit
 
 class OemIdPreferencesDataSource @Inject constructor(
   private val sharedPreferences: SharedPreferences,
@@ -48,9 +49,9 @@ class OemIdPreferencesDataSource @Inject constructor(
     sharedPreferences.getString("${CLIENT_SIDE_CACHED_OEMID}${packageName}", "") ?: ""
 
   fun setPackageListClientSide(packages: List<String>) =
-    sharedPreferences.edit()
-      .putStringSet(PACKAGES_CLIENT_SIDE, packages.toSet())
-      .apply()
+    sharedPreferences.edit {
+      putStringSet(PACKAGES_CLIENT_SIDE, packages.toSet())
+    }
 
   fun getPackageListClientSide() =
     sharedPreferences.getStringSet(PACKAGES_CLIENT_SIDE, setOf<String>())?.toList() ?: listOf()

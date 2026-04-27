@@ -12,13 +12,20 @@ object HostProperties {
   const val BACKEND_HOST_NAME_DEV = "apichain.dev.catappult.io"
   const val APTOIDE_WEB_SERVICES_AB_TEST_HOST = "https://abtest.aptoide.com/api/v1/"
   const val FEEDBACK_ZENDESK_BASE_HOST = "https://aptoide.zendesk.com/api/v2/"
-  val AMAZON_PAY_REDIRECT_BASE_URL = if (BuildConfig.DEBUG) AMAZON_PAY_REDIRECT_BASE_URL_DEV else AMAZON_PAY_REDIRECT_BASE_URL_PROD
-  val WEBVIEW_PAYMENT_URL = if (BuildConfig.DEBUG) WEBVIEW_PAYMENT_URL_DEV else WEBVIEW_PAYMENT_URL_PROD
+  val AMAZON_PAY_REDIRECT_BASE_URL =
+    if (BuildConfig.DEBUG) AMAZON_PAY_REDIRECT_BASE_URL_DEV else AMAZON_PAY_REDIRECT_BASE_URL_PROD
+  val WEBVIEW_PAYMENT_URL =
+    if (BuildConfig.DEBUG) WEBVIEW_PAYMENT_URL_DEV else WEBVIEW_PAYMENT_URL_PROD
   val WEBVIEW_LOGIN_URL = if (BuildConfig.DEBUG) WEBVIEW_LOGIN_URL_DEV else WEBVIEW_LOGIN_URL_PROD
-  val WEBVIEW_GAMIFICATION_URL = if (BuildConfig.DEBUG) WEBVIEW_GAMIFICATION_URL_DEV else WEBVIEW_GAMIFICATION_URL_PROD
+  val WEBVIEW_GAMIFICATION_URL =
+    if (BuildConfig.DEBUG) WEBVIEW_GAMIFICATION_URL_DEV else WEBVIEW_GAMIFICATION_URL_PROD
+  const val MATOMO_URL = "https://analytics02.aptoide.com/matomo.php"
+  val MATOMO_SITE_ID = if (BuildConfig.DEBUG) MATOMO_SITE_ID_DEV else MATOMO_SITE_ID_PROD
   const val FLAGR_BASE_HOST = "https://flagr.aptoide.com/api/v1/"
 }
 
+private const val MATOMO_SITE_ID_PROD = 2
+private const val MATOMO_SITE_ID_DEV = 3
 private const val BASE_HOST_PROD = "https://api.catappult.io"
 private const val BASE_HOST_DEV = "https://api.dev.catappult.io"
 private const val PAY_FLOW_HOST_PROD = "https://payflowsdk.aptoide.com/api"
@@ -31,11 +38,15 @@ private const val MY_APPCOINS_BASE_HOST = "https://myappcoins.com/"
 private const val MY_APPCOINS_BASE_HOST_DEV = "https://dev.myappcoins.com/"
 private const val TRANSACTION_DETAILS_HOST_MAIN = "https://appcexplorer.io/transaction/"
 private const val TRANSACTION_DETAILS_HOST_ROPSTEN = "https://ropsten.appcexplorer.io/transaction/"
-private const val AMAZON_PAY_REDIRECT_BASE_URL_DEV = "https://apichain.dev.catappult.io/amazonpay/result"
-private const val AMAZON_PAY_REDIRECT_BASE_URL_PROD = "https://apichain.catappult.io/amazonpay/result"
+private const val AMAZON_PAY_REDIRECT_BASE_URL_DEV =
+  "https://apichain.dev.catappult.io/amazonpay/result"
+private const val AMAZON_PAY_REDIRECT_BASE_URL_PROD =
+  "https://apichain.catappult.io/amazonpay/result"
 private const val WEBVIEW_PAYMENT_URL_PROD = "https://developers.catappult.io/iap"
 private const val WEBVIEW_PAYMENT_URL_DEV = "https://wallet.dev.appcoins.io/iap"
 private const val WEBVIEW_LOGIN_URL_PROD = "https://wallet.aptoide.com/en/wallet/sign-in"
 private const val WEBVIEW_LOGIN_URL_DEV = "https://wallet.dev.aptoide.com/en/wallet/sign-in"
-private const val WEBVIEW_GAMIFICATION_URL_PROD = "https://wallet.aptoide.com/gamification-value-prop"
-private const val WEBVIEW_GAMIFICATION_URL_DEV = "https://wallet.dev.aptoide.com/gamification-value-prop"
+private const val WEBVIEW_GAMIFICATION_URL_PROD =
+  "https://wallet.aptoide.com/gamification-value-prop"
+private const val WEBVIEW_GAMIFICATION_URL_DEV =
+  "https://wallet.dev.aptoide.com/gamification-value-prop"

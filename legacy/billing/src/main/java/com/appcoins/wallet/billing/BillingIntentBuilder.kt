@@ -185,7 +185,7 @@ class BillingIntentBuilder(val context: Context) {
     return "0x" + Hex.toHexString(
       Gson().toJson(
         TransactionData(
-          _type = type.toUpperCase(Locale.ROOT),
+          _type = type.uppercase(Locale.ROOT),
           _domain = packageName,
           _skuId = skuId,
           _payload = developerPayload,

@@ -5,7 +5,7 @@ plugins {
   id("appcoins.firebase")
   id("com.google.gms.google-services")
   id("androidx.navigation.safeargs.kotlin")
-  id("de.mannodermaus.android-junit5")
+  id("de.mannodermaus.android-junit")
 }
 
 android {
@@ -18,8 +18,8 @@ android {
 
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 388
-    versionName = "4.20.0"
+    versionCode = 389
+    versionName = "4.21.0"
 
     externalNativeBuild {
       cmake {
@@ -134,11 +134,10 @@ dependencies {
   implementation(libs.bundles.lottie)
   implementation(libs.shimmer)
   implementation(libs.glide)
-  kapt(libs.glide.compiler)
+  ksp(libs.glide.compiler)
   implementation(libs.bundles.coil)
 
   implementation(libs.epoxy)
-  kapt(libs.epoxy.processor)
 
   implementation(libs.appcoins.sdk)
   debugImplementation(libs.appcoins.sdk.debug)

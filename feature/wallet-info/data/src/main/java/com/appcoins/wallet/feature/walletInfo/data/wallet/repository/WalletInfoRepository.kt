@@ -22,7 +22,6 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.Locale
 import javax.inject.Inject
-import kotlin.math.log
 
 class WalletInfoRepository @Inject constructor(
   private val api: WalletInfoApi,
@@ -136,7 +135,7 @@ class WalletInfoRepository @Inject constructor(
             .doOnSuccess(walletInfoDao::insertOrUpdateWithFiat)
         }
         .doOnError {
-          Log.d("errro", "errorr - " + it)
+          Log.d("error", "error - $it")
 
         }
     }

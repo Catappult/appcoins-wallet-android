@@ -15,8 +15,13 @@ import io.reactivex.Single
 import java.io.File
 import javax.inject.Inject
 
+/**
+ * Max size used to avoid [OutOfMemoryError] when reading file
+ */
+private const val MAX_FILE_SIZE_BYTES = 1_048_576L // 1 MB
+
 class FileInteractor @Inject constructor(
-  @ApplicationContext private val context: Context,
+  @param:ApplicationContext private val context: Context,
   private val contentResolver: ContentResolver
 ) {
 
@@ -35,19 +40,36 @@ class FileInteractor @Inject constructor(
   fun readFile(fileUri: Uri?): Single<WalletKeyStore> = Single
     .fromCallable {
       if (fileUri == null || fileUri.path == null) throw Throwable("Error retrieving file")
-      WalletKeyStore(
-        name = contentResolver.query(fileUri, null, null, null, null)
-          ?.run {
-            moveToFirst()
-            val name = getStringOrNull(getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
-            close()
-            name
+      var fileName: String? = null
+      contentResolver.query(fileUri, null, null, null, null)?.use { cursor ->
+        if (!cursor.moveToFirst()) {
+          throw Throwable("Error retrieving file")
+        }
+        fileName = cursor.getStringOrNull(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
+        val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+        if (sizeIndex != -1 && !cursor.isNull(sizeIndex)) {
+          val fileSize = cursor.getLong(sizeIndex)
+          if (fileSize > MAX_FILE_SIZE_BYTES) throw Throwable("File too large to be a valid keystore")
+        }
+      }
+      val contents = contentResolver.openInputStream(fileUri)?.use { stream ->
+        val limitedStream = stream.buffered()
+        val sb = StringBuilder()
+        val buffer = CharArray(8192)
+        var totalRead = 0L
+        limitedStream.bufferedReader().use { reader ->
+          var read: Int
+          while (reader.read(buffer).also { read = it } != -1) {
+            totalRead += read
+            if (totalRead > MAX_FILE_SIZE_BYTES) throw Throwable("File too large to be a valid keystore")
+            sb.appendRange(buffer, 0, read)
           }
-          ?.replace(Regex(".bck$"), ""),
-        contents = contentResolver.openInputStream(fileUri)
-          ?.reader()
-          ?.useLines { it.joinToString(separator = "\n", postfix = "\n") }
-          ?: ""
+        }
+        sb.toString()
+      } ?: ""
+      WalletKeyStore(
+        name = fileName?.replace(Regex(".bck$"), ""),
+        contents = contents
       )
     }
     .doOnError(Throwable::printStackTrace)

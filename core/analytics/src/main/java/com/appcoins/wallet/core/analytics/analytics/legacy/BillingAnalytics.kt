@@ -7,10 +7,8 @@ import com.appcoins.wallet.core.analytics.analytics.partners.GamesHubContentProv
 import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-@BoundTo(supertype = EventSender::class)
 class BillingAnalytics @Inject constructor(
   private val analytics: AnalyticsManager,
   @ApplicationContext private val context: Context,

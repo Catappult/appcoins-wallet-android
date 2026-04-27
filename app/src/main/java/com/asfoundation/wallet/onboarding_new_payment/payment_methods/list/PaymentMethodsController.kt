@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_methods.list
 
 import com.airbnb.epoxy.Typed3EpoxyController
-import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.model.PaymentMethodModel_
+import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.model.PaymentMethodModel
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper
 
@@ -21,11 +21,12 @@ class PaymentMethodsController :
        */
       if (paymentMethod.id != "ask_friend" && paymentMethod.id != "onebip") {
         add(
-          PaymentMethodModel_()
-            .id(paymentMethod.id)
-            .paymentMethod(paymentMethod)
-            .paymentMethodMapper(mapper)
-            .clickListener(clickListener)
+          PaymentMethodModel().also { m ->
+            m.id(paymentMethod.id)
+            m.paymentMethod = paymentMethod
+            m.paymentMethodMapper = mapper
+            m.clickListener = clickListener
+          }
         )
       }
     }

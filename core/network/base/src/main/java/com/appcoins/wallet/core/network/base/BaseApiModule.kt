@@ -11,6 +11,7 @@ import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
 import com.appcoins.wallet.core.network.base.call_adapter.ApiResultCallAdapterFactory
 import com.appcoins.wallet.core.network.base.compat.RenewJwtApi
 import com.appcoins.wallet.core.network.base.interceptors.CloudIpInterceptor
+import com.appcoins.wallet.core.network.base.interceptors.ConnectivityInterceptor
 import com.appcoins.wallet.core.network.base.interceptors.LogInterceptor
 import com.appcoins.wallet.core.network.base.interceptors.MagnesHeaderInterceptor
 import com.appcoins.wallet.core.network.base.interceptors.RenewJwtInterceptor
@@ -41,8 +42,10 @@ class BaseApiModule {
     logInterceptor: LogInterceptor,
     renewJwtInterceptor: RenewJwtInterceptor,
     cloudIpInterceptor: CloudIpInterceptor,
+    connectivityInterceptor: ConnectivityInterceptor,
   ): OkHttpClient {
     return OkHttpClient.Builder()
+      .addInterceptor(connectivityInterceptor)
       .addInterceptor(UserAgentInterceptor(context, commonsPreferencesDataSource))
       .addInterceptor(MagnesHeaderInterceptor(context))
       .addInterceptor(renewJwtInterceptor)
@@ -100,8 +103,10 @@ class BaseApiModule {
   @RenewJwtHttpClient
   fun provideRenewJwtHttpClient(
     logInterceptor: LogInterceptor,
+    connectivityInterceptor: ConnectivityInterceptor,
   ): OkHttpClient =
     OkHttpClient.Builder()
+      .addInterceptor(connectivityInterceptor)
       .addInterceptor(logInterceptor)
       .build()
 
