@@ -41,7 +41,7 @@ interface TransactionsApi {
     @Query("transaction_list") transactions: Array<String>
   ): Single<List<WalletHistory.Transaction>>
 
-  @GET(value = "/transaction/wallet/invoices/{invoice_id}/pdf/")
+  @GET(value = "/transaction/wallet/invoices/{invoice_id}/pdf")
   suspend fun getInvoiceById(@Path("invoice_id") invoiceId: String): Response<InvoiceResponse>
 
 }
