@@ -301,7 +301,6 @@
   <string name="buy_button">구매</string>
   <string name="copied_to_clipboard">클립보드에 복사되었습니다</string>
   <string name="topup_button">충전</string>
-  <string name="extra_bonus_title">추가 %s%% 보너스 받기</string>
   <string name="max">최대</string>
   <string name="month">월</string>
   <string name="week">주</string>
