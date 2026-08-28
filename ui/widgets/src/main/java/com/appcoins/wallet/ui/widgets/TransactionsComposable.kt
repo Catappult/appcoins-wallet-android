@@ -55,6 +55,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondar
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_green
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_phobos_moon
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_red
 
@@ -70,6 +71,7 @@ fun TransactionCard(
   onClick: () -> Unit,
   textDecoration: TextDecoration,
   isPending: Boolean,
+  paymentSplitLabel: String? = null,
 ) {
   Card(
     modifier = Modifier.fillMaxWidth(),
@@ -141,6 +143,15 @@ fun TransactionCard(
                   }
                 }
               }
+            if (paymentSplitLabel != null)
+              Text(
+                text = paymentSplitLabel,
+                color = styleguide_dark_grey,
+                style = MaterialTheme.typography.labelSmall,
+                textAlign = TextAlign.End,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+              )
           }
         }
       }
@@ -326,6 +337,134 @@ fun PendingTransactionCard() {
   }
 }
 
+
+/**
+ * The two funding rails of a partial payment: the slice taken from the AppCoins balance and the
+ * remainder charged to the payment method, sized against each other by [creditsWeight].
+ *
+ * Replaces the plain payment-method row on transactions that carry a split.
+ */
+@Composable
+fun PartialPaymentBreakdown(
+  title: String,
+  creditsLabel: String,
+  creditsAmount: String,
+  creditsSubtitle: String?,
+  methodLabel: String,
+  chargedAmount: String?,
+  creditsWeight: Float
+) {
+  Card(
+    colors = CardDefaults.cardColors(styleguide_dark),
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(vertical = 8.dp),
+    shape = RoundedCornerShape(8.dp)
+  ) {
+    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+      Text(
+        text = title,
+        color = styleguide_dark_grey,
+        style = MaterialTheme.typography.bodySmall
+      )
+      PartialPaymentSplitBar(
+        creditsWeight = creditsWeight,
+        hasChargedLeg = chargedAmount != null
+      )
+      PartialPaymentLeg(
+        color = styleguide_primary,
+        label = creditsLabel,
+        subtitle = creditsSubtitle,
+        amount = creditsAmount
+      )
+      if (chargedAmount != null)
+        PartialPaymentLeg(
+          color = styleguide_phobos_moon,
+          label = methodLabel,
+          subtitle = null,
+          amount = chargedAmount
+        )
+    }
+  }
+}
+
+@Composable
+private fun PartialPaymentSplitBar(creditsWeight: Float, hasChargedLeg: Boolean) {
+  Row(
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(top = 12.dp, bottom = 4.dp),
+    horizontalArrangement = Arrangement.spacedBy(2.dp)
+  ) {
+    Box(
+      modifier = Modifier
+        .weight(if (hasChargedLeg) creditsWeight.coerceAtLeast(0.02f) else 1f)
+        .height(6.dp)
+        .clip(RoundedCornerShape(3.dp))
+        .background(styleguide_primary)
+    )
+    if (hasChargedLeg)
+      Box(
+        modifier = Modifier
+          .weight((1f - creditsWeight).coerceAtLeast(0.02f))
+          .height(6.dp)
+          .clip(RoundedCornerShape(3.dp))
+          .background(styleguide_phobos_moon)
+      )
+  }
+}
+
+@Composable
+private fun PartialPaymentLeg(
+  color: Color,
+  label: String,
+  subtitle: String?,
+  amount: String
+) {
+  Row(
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.Top,
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(top = 12.dp)
+  ) {
+    Row(verticalAlignment = Alignment.Top, modifier = Modifier.fillMaxWidth(0.6f)) {
+      Box(
+        modifier = Modifier
+          .padding(top = 5.dp, end = 8.dp)
+          .size(8.dp)
+          .clip(RoundedCornerShape(2.dp))
+          .background(color)
+      )
+      Column {
+        Text(
+          text = label,
+          color = styleguide_light_grey,
+          style = MaterialTheme.typography.bodySmall,
+          maxLines = 2,
+          overflow = TextOverflow.Ellipsis
+        )
+        if (subtitle != null)
+          Text(
+            text = subtitle,
+            color = styleguide_dark_grey,
+            style = MaterialTheme.typography.labelSmall,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+          )
+      }
+    }
+    Text(
+      text = amount,
+      color = styleguide_light_grey,
+      fontWeight = FontWeight.Bold,
+      style = MaterialTheme.typography.bodySmall,
+      textAlign = TextAlign.End,
+      maxLines = 1,
+      overflow = TextOverflow.Ellipsis
+    )
+  }
+}
 
 @Composable
 fun TransactionDetailItem(
@@ -582,7 +721,8 @@ fun PreviewTransactionCard() {
     subIcon = R.drawable.ic_transaction_rejected_mini,
     {},
     TextDecoration.LineThrough,
-    true
+    true,
+    paymentSplitLabel = "Aptoide Balance + Credit/debit card"
   )
 }
 
@@ -608,4 +748,18 @@ private fun LoadingTransactionCard() {
 @Composable
 fun PreviewPendingTransactionCard() {
   PendingTransactionCard()
+}
+
+@Preview
+@Composable
+fun PreviewPartialPaymentBreakdown() {
+  PartialPaymentBreakdown(
+    title = "Payment method",
+    creditsLabel = "Aptoide Balance",
+    creditsAmount = "\u20AC0.50",
+    creditsSubtitle = "10.00 APPC-C",
+    methodLabel = "Credit/debit card",
+    chargedAmount = "\u20AC0.50",
+    creditsWeight = 0.5f
+  )
 }

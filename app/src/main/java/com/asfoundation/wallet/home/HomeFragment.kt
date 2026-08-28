@@ -102,6 +102,7 @@ import com.asfoundation.wallet.transactions.StatusType
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
+import com.asfoundation.wallet.transactions.partialPaymentSplitLabel
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -592,7 +593,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                 subIcon = subIcon,
                 onClick = { navigateToTransactionDetails(transaction) },
                 textDecoration = textDecoration,
-                isPending = status == StatusType.PENDING
+                isPending = status == StatusType.PENDING,
+                paymentSplitLabel =
+                if (partialPayment == null) null else partialPaymentSplitLabel(method)
               )
             }
           }

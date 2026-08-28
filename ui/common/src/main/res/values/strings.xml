@@ -206,6 +206,9 @@
   <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
+  <!-- Partial payment: part of the purchase paid from the balance, the rest charged to a payment method.
+       %1$s is the balance, %2$s is the payment method that took the rest. -->
+  <string name="transaction_partial_payment_split">%1$s + %2$s</string>
 
 
   <string name="activity_airdrop_title">Confirm you are a human to receive Aptoide Balance</string>

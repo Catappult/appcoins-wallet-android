@@ -157,7 +157,9 @@ class TransactionsListFragment : BasePageViewFragment() {
                 subIcon = subIcon,
                 onClick = { navigateToTransactionDetails(uiModel.transaction) },
                 textDecoration = textDecoration,
-                isPending = status == StatusType.PENDING
+                isPending = status == StatusType.PENDING,
+                paymentSplitLabel =
+                if (partialPayment == null) null else partialPaymentSplitLabel(method)
               )
             }
             Spacer(modifier = Modifier.padding(top = 4.dp))

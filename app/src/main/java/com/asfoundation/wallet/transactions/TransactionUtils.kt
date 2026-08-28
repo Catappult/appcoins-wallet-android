@@ -58,6 +58,7 @@ data class TransactionCardInfo(
   val invoiceId: String? = null,
   val category: Int? = null,
   val method: String? = null,
+  val partialPayment: PartialPaymentModel? = null,
 )
 
 object DownloadHelper {
@@ -83,6 +84,9 @@ object DownloadHelper {
 }
 
 fun TransactionModel.cardInfoByType() =
+  cardInfoForType().copy(partialPayment = partialPayment)
+
+private fun TransactionModel.cardInfoForType() =
   when (this.type) {
     PURCHASE_BONUS ->
       TransactionCardInfo(

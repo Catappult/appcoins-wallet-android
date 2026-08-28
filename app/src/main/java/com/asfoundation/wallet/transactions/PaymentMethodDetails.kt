@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.transactions
 
 import androidx.annotation.StringRes
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import com.asf.wallet.R
 
 data class PaymentMethodDetails(
@@ -149,3 +151,22 @@ data class PaymentMethodDetails(
     }
   }
 }
+
+/** The user facing name of a payment method, falling back to the raw key when it is unmapped. */
+@Composable
+fun paymentMethodName(method: String): String =
+  with(PaymentMethodDetails.getDetails(method)) {
+    displayTextRes?.let { stringResource(it) } ?: paymentKey
+  }
+
+/**
+ * The compact "balance + method" caption shown on a transaction that was part-funded from the
+ * AppCoins balance.
+ */
+@Composable
+fun partialPaymentSplitLabel(method: String?): String =
+  stringResource(
+    R.string.transaction_partial_payment_split,
+    stringResource(R.string.appc),
+    method?.let { paymentMethodName(it) } ?: stringResource(R.string.credit_debit_card)
+  )
