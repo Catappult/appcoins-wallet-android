@@ -37,7 +37,11 @@ runs:
         cache-read-only: ${{ github.event_name == 'pull_request' }}
 
     - name: Set up Android SDK & NDK
-      uses: android-actions/setup-android@v3
+      uses: android-actions/setup-android@v4
+      with:
+        # Default is 'tools platform-tools'; the legacy 'tools' package was
+        # removed from the SDK repository and makes sdkmanager exit 1.
+        packages: 'platform-tools'
 
     - name: Install NDK
       shell: bash
