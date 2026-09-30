@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.logging
 
 import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
+import com.appcoins.wallet.core.utils.jvm_common.TaggedThrowable
 import io.sentry.Breadcrumb
+import io.sentry.IScope
 import io.sentry.Sentry
 import io.sentry.SentryLevel
 
@@ -9,7 +11,7 @@ class SentryReceiver : LogReceiver {
 
   override fun log(tag: String?, throwable: Throwable?) {
     throwable?.let {
-      Sentry.captureException(it)
+      Sentry.captureException(it) { scope -> scope.setThrowableTags(it) }
     }
   }
 
@@ -54,7 +56,12 @@ class SentryReceiver : LogReceiver {
         message?.let {
           scope.setExtra("error", message)
         }
+        scope.setThrowableTags(it)
       }
     }
+  }
+
+  private fun IScope.setThrowableTags(throwable: Throwable) {
+    (throwable as? TaggedThrowable)?.logTags?.forEach { (key, value) -> setTag(key, value) }
   }
 }

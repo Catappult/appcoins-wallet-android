@@ -18,6 +18,7 @@ import com.asfoundation.wallet.ui.login.usecases.GenerateWebLoginUrlUseCase
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity
 import com.asfoundation.wallet.ui.webview_payment.usecases.CreateWebViewPaymentSdkUseCase
 import com.asfoundation.wallet.ui.webview_payment.usecases.IsWebViewPaymentFlowUseCase
+import com.asfoundation.wallet.ui.webview_payment.usecases.WebPaymentUrlException
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -81,11 +82,21 @@ internal class Erc681ReceiverPresenter(
                     val isWebPaymentFlow = it.first
                     val isBds = it.second
                     if (
-                      isWebPaymentFlow.paymentMethods?.walletWebViewPayment != null &&
+                      isWebPaymentFlow &&
                       !transactionBuilder.type.equals("INAPP_SUBSCRIPTION", ignoreCase = true)
                     ) {
                       handlePurchaseStartAnalytics(transactionBuilder)
                       startWebViewPayment(transactionBuilder)
+                        .onErrorReturn { throwable ->
+                          logger.log(
+                            TAG,
+                            "Web payment unavailable, using native flow. " +
+                                "step=${(throwable as? WebPaymentUrlException)?.step}",
+                            throwable
+                          )
+                          view.startEipTransfer(transactionBuilder, isBds)
+                          ""
+                        }
                     } else {
                       view.startEipTransfer(transactionBuilder, isBds)
                       Single.just("")

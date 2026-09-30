@@ -41,14 +41,22 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
     hasCustomTab: Boolean,
   ): Single<String> {
     return Single.zip(
-      walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
-      ewtObtainer.getEwtAuthenticationNoBearer().subscribeOn(rxSchedulers.io),
-      getCountryCodeUseCase().subscribeOn(rxSchedulers.io),
-      addressService.getAttribution(transaction.domain ?: "").subscribeOn(rxSchedulers.io),
-      getCurrentPromoCodeUseCase().subscribeOn(rxSchedulers.io),
-      getEncryptedPrivateKeyUseCase().subscribeOn(rxSchedulers.io),
-      Single.just (getCloudIpUseCase() ?: "").subscribeOn(rxSchedulers.io),
-      Single.just (getCloudCountryCodeUseCase() ?: "").subscribeOn(rxSchedulers.io),
+      walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io)
+        .webPaymentUrlStep("wallet_address"),
+      ewtObtainer.getEwtAuthenticationNoBearer().subscribeOn(rxSchedulers.io)
+        .webPaymentUrlStep("ewt"),
+      getCountryCodeUseCase().subscribeOn(rxSchedulers.io)
+        .webPaymentUrlStep("country_code"),
+      addressService.getAttribution(transaction.domain ?: "").subscribeOn(rxSchedulers.io)
+        .webPaymentUrlStep("attribution"),
+      getCurrentPromoCodeUseCase().subscribeOn(rxSchedulers.io)
+        .webPaymentUrlStep("promo_code"),
+      getEncryptedPrivateKeyUseCase().subscribeOn(rxSchedulers.io)
+        .webPaymentUrlStep("encrypted_private_key"),
+      Single.fromCallable { getCloudIpUseCase() ?: "" }.subscribeOn(rxSchedulers.io)
+        .webPaymentUrlStep("cloud_ip"),
+      Single.fromCallable { getCloudCountryCodeUseCase() ?: "" }.subscribeOn(rxSchedulers.io)
+        .webPaymentUrlStep("cloud_country"),
     ) { walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud, cloudCountry ->
       Octuple(walletModel, ewt, country, oemId, promoCode, encrypt, ipCloud, cloudCountry)
     }
@@ -87,6 +95,7 @@ class CreateWebViewPaymentOspUseCase @Inject constructor(
               "&user=${encrypt}"
             } else "")
       }
+      .webPaymentUrlStep("assemble_url")
   }
 
 }
