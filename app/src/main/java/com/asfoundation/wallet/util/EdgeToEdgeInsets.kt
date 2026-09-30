@@ -60,14 +60,20 @@ object EdgeToEdgeInsets {
    * Pads a bottom-sheet dialog's content view by the bottom (navigation-bar) and IME insets, so
    * its primary CTA is not overlapped by the gesture/navigation bar. The sheet is a separate
    * window, so it is not covered by [apply] on the host Activity.
+   *
+   * The inset is added on top of the layout's own bottom padding, and the insets are consumed:
+   * MainActivity's theme inherits `android:fitsSystemWindows=true` from `SplashTheme`, so every
+   * child view would otherwise pad itself by the full system-bar insets again (stretching the
+   * sheet and collapsing fixed-height views like buttons).
    */
   fun applyToBottomSheet(view: View) {
+    val initialBottom = view.paddingBottom
     ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
       val bottom = insets.getInsets(
         WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
       ).bottom
-      v.updatePadding(bottom = bottom)
-      insets
+      v.updatePadding(bottom = initialBottom + bottom)
+      WindowInsetsCompat.CONSUMED
     }
     view.requestApplyInsets()
   }
