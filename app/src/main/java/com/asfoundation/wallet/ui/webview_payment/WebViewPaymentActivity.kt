@@ -16,6 +16,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
+import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -145,6 +146,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
     val data = intent.data?.toString().orEmpty()
+    // The web is notified here; onResume must not notify it a second time.
+    viewModel.runningCustomTab = false
     viewModel.webView?.post {
       if (data.isNotBlank()) {
         viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated(\"$data\")")
@@ -213,8 +216,16 @@ class WebViewPaymentActivity : AppCompatActivity() {
         CookieManager.getInstance().setAcceptCookie(true)
 
         webViewClient = object : WebViewClient() {
-          override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+          override fun shouldOverrideUrlLoading(
+            view: WebView?,
+            request: WebResourceRequest?
+          ): Boolean {
+            val url = request?.url?.toString()
             if (url.isNullOrEmpty()) return false
+
+            // Iframes (e.g. Google sign-in button, reCAPTCHA) must not swap the UA:
+            // loadUrl() would load the iframe URL in the main frame and reload the login page.
+            if (!request.isForMainFrame) return false
 
             if (LOGIN_URLS.any { url.contains(it, ignoreCase = true) }) {
               val newUa = buildUA()
