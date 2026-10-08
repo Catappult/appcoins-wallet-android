@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">ਨਿਬੰਧਨ ਅਤੇ ਸ਼ਰਤਾਂ</string>
   <string name="privacy_policy">ਪਰਾਈਵੇਟ ਨੀਤੀ</string>
   <string name="existent_wallet">ਮੇਰੇ ਕੋਲ ਪਹਿਲਾਂ ਹੀ ਇਕ ਬਟੂਆ ਹੈ|</string>
+  <string name="onboarding_sign_in_button">ਸਾਈਨ ਇਨ / ਖਾਤਾ ਬਣਾਓ</string>
+  <string name="onboarding_create_local_wallet_button">ਸਥਾਨਕ ਬਟੂਆ ਬਣਾਓ</string>
+  <string name="onboarding_load_backup_button">ਬੈਕਅੱਪ ਤੋਂ ਲੋਡ ਕਰੋ</string>
+  <string name="onboarding_local_wallet_confirm_title">ਕੀ ਸਥਾਨਕ ਬਟੂਆ ਬਣਾਉਣਾ ਹੈ?</string>
+  <string name="onboarding_load_backup_body">ਪਹਿਲਾਂ ਸੰਭਾਲੀ ਬੈਕਅੱਪ ਫ਼ਾਈਲ ਜਾਂ ਬੈਕਅੱਪ ਕੋਡ ਤੋਂ ਬਟੂਆ ਮੁੜ-ਬਹਾਲ ਕਰੋ।</string>
+  <string name="onboarding_enter_backup_code_button">ਬੈਕਅੱਪ ਕੋਡ ਦਾਖਲ ਕਰੋ</string>
+  <string name="onboarding_local_wallet_disclaimer">ਸਥਾਨਕ ਬਟੂਆ ਸਿਰਫ਼ ਇਸ ਡੀਵਾਈਸ \'ਤੇ ਸਟੋਰ ਹੁੰਦਾ ਹੈ ਅਤੇ ਕਿਸੇ ਖਾਤੇ ਨਾਲ ਲਿੰਕ ਨਹੀਂ ਹੁੰਦਾ। ਜੇ ਤੁਸੀਂ ਇਹ ਡੀਵਾਈਸ ਗੁਆ ਦਿੰਦੇ ਹੋ ਅਤੇ ਤੁਹਾਡੇ ਕੋਲ ਬੈਕਅੱਪ ਨਹੀਂ ਹੈ, ਤਾਂ ਤੁਸੀਂ ਬਟੂਏ ਅਤੇ ਇਸਦੇ ਫੰਡਾਂ ਤੱਕ ਪਹੁੰਚ ਗੁਆ ਦਿਓਗੇ।</string>
   <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <!--Tokens-->

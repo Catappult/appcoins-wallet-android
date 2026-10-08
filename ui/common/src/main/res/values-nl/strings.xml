@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Algemene voorwaarden</string>
   <string name="privacy_policy">Privacybeleid</string>
   <string name="existent_wallet">Ik heb al een wallet</string>
+  <string name="onboarding_sign_in_button">Inloggen / Account aanmaken</string>
+  <string name="onboarding_create_local_wallet_button">Lokale wallet aanmaken</string>
+  <string name="onboarding_load_backup_button">Laden vanuit back-up</string>
+  <string name="onboarding_local_wallet_confirm_title">Lokale wallet aanmaken?</string>
+  <string name="onboarding_load_backup_body">Herstel een wallet met het back-upbestand of de back-upcode die je eerder hebt opgeslagen.</string>
+  <string name="onboarding_enter_backup_code_button">Back-upcode invoeren</string>
+  <string name="onboarding_local_wallet_disclaimer">Een lokale wallet wordt alleen op dit apparaat opgeslagen en is niet aan een account gekoppeld. Als je dit apparaat kwijtraakt en geen back-up hebt, verlies je de toegang tot de wallet en het geld erin.</string>
   <string name="onboarding_verification_body">Verifieer je betaalmethode om je aankoop te voltooien.</string>
   <!--Home-->
   <!--Tokens-->

@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Условия и ограничения</string>
   <string name="privacy_policy">Политика конфиденциальности</string>
   <string name="existent_wallet">У меня уже есть кошелек</string>
+  <string name="onboarding_sign_in_button">Войти / Создать аккаунт</string>
+  <string name="onboarding_create_local_wallet_button">Создать локальный кошелек</string>
+  <string name="onboarding_load_backup_button">Загрузить из резервной копии</string>
+  <string name="onboarding_local_wallet_confirm_title">Создать локальный кошелек?</string>
+  <string name="onboarding_load_backup_body">Восстановите кошелек из файла или кода резервной копии, которые вы сохранили ранее.</string>
+  <string name="onboarding_enter_backup_code_button">Ввести код резервной копии</string>
+  <string name="onboarding_local_wallet_disclaimer">Локальный кошелек хранится только на этом устройстве и не привязан к учетной записи. Если вы потеряете это устройство и у вас не будет резервной копии, вы потеряете доступ к кошельку и средствам на нем.</string>
   <string name="onboarding_verification_body">Подтвердите ваш метод оплаты, чтобы завершить вашу покупку.</string>
   <!--Home-->
   <!--Tokens-->

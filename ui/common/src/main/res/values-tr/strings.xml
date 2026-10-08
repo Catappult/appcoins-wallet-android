@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Şartlar ve Koşullar</string>
   <string name="privacy_policy">Gizlilik Politikası</string>
   <string name="existent_wallet">Zaten cüzdanım var</string>
+  <string name="onboarding_sign_in_button">Giriş yap / Hesap oluştur</string>
+  <string name="onboarding_create_local_wallet_button">Yerel cüzdan oluştur</string>
+  <string name="onboarding_load_backup_button">Yedekten yükle</string>
+  <string name="onboarding_local_wallet_confirm_title">Yerel cüzdan oluşturulsun mu?</string>
+  <string name="onboarding_load_backup_body">Daha önce kaydettiğin yedek dosyasından veya yedek kodundan cüzdanı geri yükle.</string>
+  <string name="onboarding_enter_backup_code_button">Yedek kodunu gir</string>
+  <string name="onboarding_local_wallet_disclaimer">Yerel cüzdan yalnızca bu cihazda saklanır ve herhangi bir hesaba bağlı değildir. Bu cihazı kaybedersen ve yedeğin yoksa cüzdana ve içindeki paraya erişimini kaybedersin.</string>
   <string name="onboarding_verification_body">Satın alma işlemini tamamlamak için ödeme yöntemini doğrula.</string>
   <!--Home-->
   <!--Tokens-->

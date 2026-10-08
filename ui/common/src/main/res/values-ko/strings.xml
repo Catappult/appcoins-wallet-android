@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">이용약관</string>
   <string name="privacy_policy">개인정보 보호정책</string>
   <string name="existent_wallet">지갑은 이미 있어요</string>
+  <string name="onboarding_sign_in_button">로그인 / 계정 만들기</string>
+  <string name="onboarding_create_local_wallet_button">로컬 지갑 만들기</string>
+  <string name="onboarding_load_backup_button">백업에서 불러오기</string>
+  <string name="onboarding_local_wallet_confirm_title">로컬 지갑을 만들까요?</string>
+  <string name="onboarding_load_backup_body">이전에 저장한 백업 파일 또는 백업 코드로 지갑을 복원하세요.</string>
+  <string name="onboarding_enter_backup_code_button">백업 코드 입력</string>
+  <string name="onboarding_local_wallet_disclaimer">로컬 지갑은 이 기기에만 저장되며 계정에 연결되지 않습니다. 백업 없이 이 기기를 잃어버리면 지갑과 자금에 접근할 수 없게 됩니다.</string>
   <string name="onboarding_verification_body">구매를 완료하려면 결제 수단을 확인하세요.</string>
   <!--Home-->
   <!--Tokens-->
