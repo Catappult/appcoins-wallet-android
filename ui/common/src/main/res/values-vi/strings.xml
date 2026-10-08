@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">Nhập bên dưới mã gồm 4 chữ số mà chúng tôi đã gửi tới địa chỉ email được liên kết với Tài khoản PayPal của bạn.</string>
   <string name="paypal_verification_didnt_receive_title">Bạn vẫn chưa nhận được?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_check_email_body">Chúng tôi đã gửi email đến địa chỉ liên kết với tài khoản PayPal của bạn. Hãy mở email và nhấn vào liên kết để hoàn tất xác minh.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Tổng cộng %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Có vẻ như giao dịch mua này đã được xử lý. Vui lòng chờ cho đến khi hoàn thành giao dịch hoặc liên hệ với đội hỗ trợ của chúng tôi.</string>

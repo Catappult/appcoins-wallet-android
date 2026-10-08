@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">Poniżej wprowadź 4-cyfrowy kod, który wysłaliśmy na Twój adres email połączony z kontem PayPal.</string>
   <string name="paypal_verification_didnt_receive_title">Nie ma kodu?</string>
   <string name="paypal_verification_completed_body">Od razu otrzymasz zwrot pieniędzy, a Twoje konto PayPal zostanie wkrótce zweryfikowane.</string>
+  <string name="paypal_verification_check_email_body">Wysłaliśmy e-mail na adres powiązany z Twoim kontem PayPal. Otwórz go i dotknij linku, aby zakończyć weryfikację.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">W sumie %1$s%2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Wygląda na to, że ten zakup jest już przetwarzany. Poczekaj aż transakcja zostanie zakończone lub skontaktuj się z Zespołem Wsparcia.</string>

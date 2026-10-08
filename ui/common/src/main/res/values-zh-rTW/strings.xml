@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">在下方輸入我們發送到您 PayPal 帳戶所關聯的電子郵件地址的 4 位數字代碼。</string>
   <string name="paypal_verification_didnt_receive_title">沒有收到嗎？</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_check_email_body">我們已傳送電子郵件至與你的 PayPal 帳戶相關聯的地址。請開啟郵件並輕觸連結以完成驗證。</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">總計 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">似乎此購買已在處理中。 請等待交易完成，或與聯繫我們的支援團隊。</string>

@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">Introdu mai jos codul din 4 cifre pe care l-am trimis la adresa de e-mail asociată contului tău PayPal.</string>
   <string name="paypal_verification_didnt_receive_title">Nu ai primit codul?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_check_email_body">Am trimis un e-mail la adresa asociată contului tău PayPal. Deschide-l și atinge linkul pentru a finaliza verificarea.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Se pare că această cumpărătură este deja în curs de procesare. Te rugăm să aștepți până când tranzacția este finalizată sau contactează Echipa de asistență.</string>

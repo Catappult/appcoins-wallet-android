@@ -420,6 +420,7 @@
   <string name="paypal_verification_header">PayPal Verification</string>
   <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
   <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_check_email_body">We\'ve sent an email to the address associated with your PayPal account. Open it and tap the link to finish the verification.</string>
   <string name="paypal_verification_completed_body">Your PayPal account will be verified soon.</string>
 
 

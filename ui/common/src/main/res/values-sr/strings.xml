@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">U nastavku unesite 4-cifreni kod koji vam je poslat na adresu e-pošte koja je povezana sa vašim PayPal nalogom.</string>
   <string name="paypal_verification_didnt_receive_title">Niste ga dobili?</string>
   <string name="paypal_verification_completed_body">Odmah ćete dobiti refundaciju i vaš PayPal nalog će biti uskoro potvrđen.</string>
+  <string name="paypal_verification_check_email_body">Poslali smo imejl na adresu povezanu sa vašim PayPal nalogom. Otvorite ga i dodirnite link da biste završili verifikaciju.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Ukupno %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Izgleda da se ova kupovina već obrađuje. Sačekajte dok se transakcija ne obavi ili se obratite našem timu korisničke podrške.</string>

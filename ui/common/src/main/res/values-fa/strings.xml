@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">کد چهار رقمی را که به ایمیل شما در ارتباط با حساب پی پال شما ارسال شده است را در زیر وارد کنید.</string>
   <string name="paypal_verification_didnt_receive_title">آیا دریافت نکرده‌اید؟</string>
   <string name="paypal_verification_completed_body">فورا بازگردانده خواهد شود و حساب پی پال شما بزودی تایید می‌شود.</string>
+  <string name="paypal_verification_check_email_body">یک ایمیل به نشانی مرتبط با حساب PayPal شما فرستادیم. آن را باز کنید و روی پیوند بزنید تا تأیید تکمیل شود.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">مجموع %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">به نظر می‌رسد که این خرید پردازش شده است. لطفا منتظر بمانید تا تراکنش تکمیل شود یا با تیم پشتیبانی تماس بگیرید.</string>

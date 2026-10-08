@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">请在下方输入4位数验证码（我们已将其发送至与您的PayPal账户相关联的电子邮箱）。</string>
   <string name="paypal_verification_didnt_receive_title">仍未收到？</string>
   <string name="paypal_verification_completed_body">您将很快收到退款，并且您的PayPal账户将很快完成验证。</string>
+  <string name="paypal_verification_check_email_body">我们已向与你的 PayPal 账户关联的邮箱发送了一封邮件。请打开邮件并点按链接以完成验证。</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">总计 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">此购买似乎已在处理中。请等待交易完成或联系我们的支持团队。</string>

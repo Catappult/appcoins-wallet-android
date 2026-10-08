@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">أدخل في الأسفل الرمز المكون من 4 خانات الذي أرسلناه إلى بريدك الإلكتروني المرتبط بحسابك على PayPal.</string>
   <string name="paypal_verification_didnt_receive_title">ألم يصلك الرمز؟</string>
   <string name="paypal_verification_completed_body">ستسترجع المبلغ في الحال، وسيتم تأكيد حسابك على PayPal قريبًا.</string>
+  <string name="paypal_verification_check_email_body">أرسلنا رسالة إلى البريد الإلكتروني المرتبط بحسابك على PayPal. افتحها وانقر على الرابط لإكمال عملية التحقق.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">المجموع %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">يبدو أن عملية الشراء قد تمت بالفعل. يرجى الانتظار حتى تتم عملية التحويل أو يمكنك التواصل مع فريق الدعم.</string>

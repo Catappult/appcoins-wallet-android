@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">PayPalアカウントに関連付けられているメールアドレスに送信された4桁のコードを下に挿入します。</string>
   <string name="paypal_verification_didnt_receive_title">届いていない？</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_check_email_body">PayPalアカウントに登録されているメールアドレスにメールを送信しました。メールを開き、リンクをタップして認証を完了してください。</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">合計 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">この購入はすでに処理されているようです。お手数ですが、処理が完了するまでお待ちいただくか、サポートチームまでご連絡ください。</string>

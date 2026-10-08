@@ -44,4 +44,7 @@ dependencies {
   implementation(libs.web3j)
   implementation(libs.androidx.security.crypto)
   implementation(libs.google.gson)
+  implementation(libs.network.retrofit)
+  testImplementation(libs.bundles.testing)
+  testImplementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 }

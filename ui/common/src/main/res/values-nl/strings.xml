@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">Voer hieronder de 4-cijferige code in die we hebben verzonden naar het e-mailadres dat aan je PayPal-account is gekoppeld.</string>
   <string name="paypal_verification_didnt_receive_title">Heb je de code niet ontvangen?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_check_email_body">We hebben een e-mail gestuurd naar het adres dat aan je PayPal-account is gekoppeld. Open de e-mail en tik op de link om de verificatie te voltooien.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Totaal %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Het lijkt erop dat deze aankoop al wordt verwerkt. Wacht totdat de transactie is voltooid of neem contact op met ons ondersteuningsteam.</string>

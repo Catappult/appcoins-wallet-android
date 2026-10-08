@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">Masukkan di bawah ini kode 4 digit yang kami kirimkan ke alamat email yang terkait dengan Akun PayPal Anda.</string>
   <string name="paypal_verification_didnt_receive_title">Anda tidak menerimanya?</string>
   <string name="paypal_verification_completed_body">Dana Anda akan segera dikembalikan, dan akun PayPal Anda akan segera diverifikasi.</string>
+  <string name="paypal_verification_check_email_body">Kami telah mengirim email ke alamat yang terkait dengan akun PayPal Anda. Buka email tersebut dan ketuk tautannya untuk menyelesaikan verifikasi.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Sepertinya pembelian ini sedang diproses. Harap tunggu sampai transaksinya selesai atau hubungi Tim Dukungan kami.</string>
