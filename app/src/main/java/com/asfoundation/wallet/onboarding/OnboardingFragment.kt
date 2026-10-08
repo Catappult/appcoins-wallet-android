@@ -242,7 +242,7 @@ class OnboardingFragment : BasePageViewFragment(),
     primaryButton: Pair<Int, () -> Unit>,
     secondaryButton: Pair<Int, () -> Unit>,
   ) {
-    val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogThemeDraggable)
+    val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogThemeDraggable_NoTopInset)
     val sheet = OnboardingBottomSheetBinding.inflate(layoutInflater)
     sheet.sheetIcon.setImageResource(icon)
     sheet.sheetTitle.setText(title)
