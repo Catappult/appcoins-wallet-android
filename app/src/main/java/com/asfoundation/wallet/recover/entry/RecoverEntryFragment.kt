@@ -59,18 +59,10 @@ class RecoverEntryFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     isFromOnboarding = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
-    views.recoverWalletOptions.recoverFromFileButton.setOnClickListener {
-      // For Android 33 and beyond, the READ_EXTERNAL_STORAGE permission does not work. Though it's
-      // still needed for backward compatibility.
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-        requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-      } else {
-        navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
-      }
-    }
+    views.recoverWalletOptions.recoverFromFileButton.setOnClickListener { openFilePicker() }
     // Coming from onboarding's "Load from backup" -> "Recover from file": go straight to the picker.
     if (savedInstanceState == null && requireArguments().getBoolean(OPEN_FILE_PICKER, false)) {
-      views.recoverWalletOptions.recoverFromFileButton.performClick()
+      openFilePicker()
     }
     views.recoverWalletButton.setOnClickListener {
       viewModel.handleRecoverClick(
@@ -94,6 +86,16 @@ class RecoverEntryFragment : BasePageViewFragment(),
       }
     })
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun openFilePicker() {
+    // For Android 33 and beyond, the READ_EXTERNAL_STORAGE permission does not work. Though it's
+    // still needed for backward compatibility.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+      requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+    } else {
+      navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
+    }
   }
 
   private fun createLaunchers() {
