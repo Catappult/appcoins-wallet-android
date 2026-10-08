@@ -52,13 +52,10 @@
     <item name="android:background">@drawable/rounded_dialog</item>
   </style>
 
-  <!-- For short sheets: edge-to-edge otherwise adds the status bar height as top padding. -->
-  <style name="AppModalStyle.NoTopInset">
-    <item name="paddingTopSystemWindowInsets">false</item>
-  </style>
-
-  <style name="AppBottomSheetDialogThemeDraggable.NoTopInset">
-    <item name="bottomSheetStyle">@style/AppModalStyle.NoTopInset</item>
+  <!-- SplashTheme sets fitsSystemWindows for the whole activity, which makes views inflated in a
+       sheet replace their padding with the status bar inset. -->
+  <style name="AppBottomSheetDialogThemeDraggable.NotFitSystemWindows">
+    <item name="android:fitsSystemWindows">false</item>
   </style>
 
   <style name="AppTheme.NoActionBar" parent="AppTheme">

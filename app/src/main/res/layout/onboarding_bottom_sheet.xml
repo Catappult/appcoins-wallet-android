@@ -1,95 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The bottom sheet dialog overrides its content root's padding (window insets), so the padding
-     lives on the inner layout. Texts and icon are set from OnboardingFragment. -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Texts and icon are set from OnboardingFragment. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_dialog_dark"
+    android:paddingHorizontal="@dimen/half_large_margin"
+    android:paddingBottom="@dimen/half_large_margin"
     android:theme="@style/MaterialAppTheme"
     >
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:paddingHorizontal="@dimen/half_large_margin"
-      android:paddingBottom="@dimen/half_large_margin"
-      >
+      android:layout_marginTop="@dimen/normal_margin"
+      android:importantForAccessibility="no"
+      android:src="@drawable/pull_up_home_bar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
 
-    <ImageView
-        android:id="@+id/draggable_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normal_margin"
-        android:importantForAccessibility="no"
-        android:src="@drawable/pull_up_home_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+  <ImageView
+      android:id="@+id/sheet_icon"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginTop="@dimen/big_margin"
+      android:importantForAccessibility="no"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
+      />
 
-    <ImageView
-        android:id="@+id/sheet_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/big_margin"
-        android:importantForAccessibility="no"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/draggable_bar"
-        />
+  <TextView
+      android:id="@+id/sheet_title"
+      style="@style/PromoCodeTitle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:gravity="center"
+      android:textColor="@color/styleguide_light_grey"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/sheet_icon"
+      />
 
-    <TextView
-        android:id="@+id/sheet_title"
-        style="@style/PromoCodeTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normal_margin"
-        android:gravity="center"
-        android:textColor="@color/styleguide_light_grey"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sheet_icon"
-        />
+  <TextView
+      android:id="@+id/sheet_body"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:gravity="center"
+      android:lineSpacingExtra="4dp"
+      android:textColor="@color/styleguide_dark_grey"
+      android:textSize="14sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/sheet_title"
+      />
 
-    <TextView
-        android:id="@+id/sheet_body"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normal_margin"
-        android:gravity="center"
-        android:lineSpacingExtra="4dp"
-        android:textColor="@color/styleguide_dark_grey"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sheet_title"
-        />
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/sheet_primary_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="30dp"
+      app:buttonType="filled"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/sheet_body"
+      />
 
-    <com.appcoins.wallet.ui.widgets.WalletButtonView
-        android:id="@+id/sheet_primary_button"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/onboarding_button_height"
-        android:layout_marginTop="30dp"
-        app:buttonType="filled"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sheet_body"
-        />
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/sheet_secondary_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:buttonColor="@color/styleguide_white"
+      app:buttonType="outlined"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/sheet_primary_button"
+      />
 
-    <com.appcoins.wallet.ui.widgets.WalletButtonView
-        android:id="@+id/sheet_secondary_button"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/onboarding_button_height"
-        android:layout_marginTop="@dimen/normal_margin"
-        app:buttonColor="@color/styleguide_white"
-        app:buttonType="outlined"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sheet_primary_button"
-        />
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
