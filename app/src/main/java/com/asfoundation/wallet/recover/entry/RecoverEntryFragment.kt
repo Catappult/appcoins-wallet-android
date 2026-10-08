@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -59,6 +61,10 @@ class RecoverEntryFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     isFromOnboarding = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
+    // The activity content is already padded by the system bar + keyboard insets (EdgeToEdgeInsets);
+    // SplashTheme's fitsSystemWindows would make this view pad itself by them again, leaving almost
+    // no room for the code field while the keyboard is open.
+    ViewCompat.setOnApplyWindowInsetsListener(view) { _, _ -> WindowInsetsCompat.CONSUMED }
     views.recoverWalletOptions.recoverFromFileButton.setOnClickListener { openFilePicker() }
     // Coming from onboarding's "Load from backup" -> "Recover from file": go straight to the picker.
     if (savedInstanceState == null && requireArguments().getBoolean(OPEN_FILE_PICKER, false)) {
