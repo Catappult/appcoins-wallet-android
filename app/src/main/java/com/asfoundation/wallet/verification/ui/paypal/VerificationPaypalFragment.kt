@@ -7,17 +7,11 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -27,10 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -43,6 +33,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
@@ -54,8 +47,6 @@ import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.component.Animation
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
-import com.appcoins.wallet.ui.widgets.component.WalletCodeTextField
-import com.appcoins.wallet.ui.widgets.expanded
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.WebViewResults
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
@@ -64,12 +55,14 @@ import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewMode
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.Idle
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.Loading
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.OpenWebPayPalPaymentRequest
-import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.RequestVerificationCode
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.CheckEmail
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.ShowVerificationInfo
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.UnknownError
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class VerificationPaypalFragment : BasePageViewFragment() {
@@ -99,12 +92,12 @@ class VerificationPaypalFragment : BasePageViewFragment() {
 
   companion object {
     const val CONTINUE = "continue"
-    const val SEND = "send"
     const val CANCEL = "cancel"
     const val RESEND = "resend"
     const val GOT_IT = "got_it"
     const val TRY_AGAIN = "try_again"
     const val APPCOINS_SUPPORT = "appcoins_support"
+    private const val EMAIL_VERIFICATION_POLL_MS = 5_000L
   }
 
   override fun onCreateView(
@@ -115,6 +108,20 @@ class VerificationPaypalFragment : BasePageViewFragment() {
     return ComposeView(requireContext()).apply {
       setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
       setContent { PayPalVerificationScreen() }
+    }
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    // The user verifies by opening the emailed link (often on another device): check on every
+    // resume and keep polling while the "check your email" screen is visible.
+    viewLifecycleOwner.lifecycleScope.launch {
+      viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+        while (true) {
+          viewModel.refreshEmailVerification()
+          delay(EMAIL_VERIFICATION_POLL_MS)
+        }
+      }
     }
   }
 
@@ -143,14 +150,9 @@ class VerificationPaypalFragment : BasePageViewFragment() {
       modifier = Modifier.fillMaxSize()
     ) {
       when (val uiState = viewModel.uiState.collectAsState().value) {
-        is RequestVerificationCode -> {
-          CodeInputScreen(
-            uiState.wrongCode,
-            uiState.loading,
-            onVerificationClick =
-              {
-                viewModel.launchVerificationPayment(getPaypalData())
-              }
+        CheckEmail -> {
+          CheckEmailScreen(
+            onStartAgainClick = { viewModel.launchVerificationPayment(getPaypalData()) }
           )
         }
 
@@ -239,37 +241,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun CodeInputScreen(wrongCode: Boolean, loading: Boolean, onVerificationClick: () -> Unit = {}) {
-    var defaultCode by rememberSaveable { mutableStateOf("") }
-    BoxWithConstraints {
-      if (expanded())
-        CodeInputScreenLandscape(
-          wrongCode = wrongCode,
-          loading = loading,
-          onVerificationClick = onVerificationClick,
-          onCodeChange = { newCode -> defaultCode = newCode },
-          code = defaultCode
-        )
-      else
-        CodeInputScreenPortrait(
-          wrongCode = wrongCode,
-          loading = loading,
-          onVerificationClick = onVerificationClick,
-          onCodeChange = { newCode -> defaultCode = newCode },
-          code = defaultCode
-        )
-
-    }
-  }
-
-  @Composable
-  fun CodeInputScreenPortrait(
-    wrongCode: Boolean,
-    loading: Boolean,
-    onVerificationClick: () -> Unit = {},
-    onCodeChange: (String) -> Unit,
-    code: String
-  ) {
+  fun CheckEmailScreen(onStartAgainClick: () -> Unit = {}) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier
@@ -287,85 +259,34 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         fontWeight = FontWeight.Bold
       )
       Text(
-        text = stringResource(id = R.string.paypal_verification_insert_code_body),
+        text = stringResource(id = R.string.paypal_verification_check_email_body),
         color = WalletColors.styleguide_light_grey,
         modifier = Modifier
-          .padding(top = 16.dp, bottom = 28.dp)
+          .padding(top = 16.dp)
           .padding(horizontal = 16.dp)
           .widthIn(max = 332.dp),
         style = MaterialTheme.typography.bodyMedium,
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.Medium
       )
-
-      InputCodeTextField(
-        wrongCode = wrongCode,
-        defaultCode = onCodeChange,
-        code = code
-      )
-
-      ResendCode(
-        Modifier.padding(top = 48.dp), isVisible = !loading, onVerificationClick
-      )
+      ResendCode(Modifier.padding(top = 48.dp), isVisible = true, onStartAgainClick)
       Spacer(modifier = Modifier.weight(72f))
-      SendCodeButtons(Modifier.padding(top = 40.dp), loading = loading, code = code)
+      ButtonWithText(
+        modifier = Modifier
+          .padding(top = 40.dp)
+          .widthIn(max = 360.dp),
+        label = stringResource(id = R.string.cancel_button),
+        onClick = {
+          navigator.navigateBack()
+          analytics.sendInsertCodeScreenEvent(action = CANCEL)
+        },
+        labelColor = WalletColors.styleguide_white,
+        outlineColor = WalletColors.styleguide_white,
+        buttonType = ButtonType.LARGE,
+        fragmentName = fragmentName,
+        buttonsAnalytics = buttonsAnalytics
+      )
     }
-  }
-
-  @Composable
-  fun CodeInputScreenLandscape(
-    wrongCode: Boolean, loading: Boolean, onVerificationClick: () -> Unit = {},
-    onCodeChange: (String) -> Unit,
-    code: String,
-  ) {
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier
-        .fillMaxWidth()
-        .verticalScroll(rememberScrollState())
-        .padding(24.dp)
-    ) {
-      Row(verticalAlignment = Alignment.CenterVertically) {
-        Animation(modifier = Modifier.size(128.dp), animationRes = R.raw.verify_animation)
-        Column(modifier = Modifier.padding(start = 24.dp)) {
-          Text(
-            text = stringResource(id = R.string.paypal_verification_home_one_step_card_title),
-            color = WalletColors.styleguide_light_grey,
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold
-          )
-          Text(
-            text = stringResource(id = R.string.paypal_verification_insert_code_body),
-            color = WalletColors.styleguide_light_grey,
-            modifier = Modifier
-              .padding(top = 8.dp, bottom = 32.dp)
-              .widthIn(max = 332.dp),
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Start,
-            fontWeight = FontWeight.Medium
-          )
-          Row(verticalAlignment = Alignment.CenterVertically) {
-            InputCodeTextField(wrongCode = wrongCode, defaultCode = onCodeChange, code)
-            ResendCode(
-              modifier = Modifier.padding(start = 24.dp),
-              isVisible = !loading,
-              onVerificationClick = onVerificationClick
-            )
-          }
-        }
-      }
-      Spacer(Modifier.height(40.dp))
-      Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-        SendCodeButtons(loading = loading, code = code)
-      }
-    }
-  }
-
-  @Composable
-  fun InputCodeTextField(wrongCode: Boolean, defaultCode: (String) -> Unit, code: String) {
-    WalletCodeTextField(
-      wrongCode = wrongCode, onValueChange = { newCode -> defaultCode(newCode) }, code = code
-    )
   }
 
   @Composable
@@ -394,48 +315,6 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         )
       }
 
-    }
-  }
-
-  @Composable
-  fun SendCodeButtons(modifier: Modifier = Modifier, loading: Boolean, code: String) {
-    Row(
-      horizontalArrangement = Arrangement.Center,
-      verticalAlignment = Alignment.CenterVertically,
-      modifier = modifier.widthIn(max = 312.dp)
-    ) {
-      if (loading)
-        Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
-      else {
-        ButtonWithText(
-          modifier = Modifier.weight(1f),
-          label = stringResource(id = R.string.cancel_button),
-          onClick = {
-            navigator.navigateBack()
-            analytics.sendInsertCodeScreenEvent(action = CANCEL)
-          },
-          labelColor = WalletColors.styleguide_white,
-          outlineColor = WalletColors.styleguide_white,
-          buttonType = ButtonType.LARGE,
-          fragmentName = fragmentName,
-          buttonsAnalytics = buttonsAnalytics
-        )
-        Spacer(modifier = Modifier.width(20.dp))
-        ButtonWithText(
-          modifier = Modifier.weight(1f),
-          label = stringResource(id = R.string.send_button),
-          onClick = {
-            viewModel.verifyCode(code)
-            analytics.sendInsertCodeScreenEvent(action = SEND)
-          },
-          labelColor = WalletColors.styleguide_white,
-          backgroundColor = WalletColors.styleguide_primary,
-          buttonType = ButtonType.LARGE,
-          enabled = code.hasFourDigits(),
-          fragmentName = fragmentName,
-          buttonsAnalytics = buttonsAnalytics
-        )
-      }
     }
   }
 
@@ -498,18 +377,8 @@ class VerificationPaypalFragment : BasePageViewFragment() {
 
   @Preview
   @Composable
-  fun PreviewCodeInputScreen() {
-    CodeInputScreen(
-      wrongCode = true, loading = false
-    )
-  }
-
-  @Preview(widthDp = 610)
-  @Composable
-  fun PreviewCodeInputScreenLandscape() {
-    CodeInputScreen(
-      wrongCode = true, loading = false
-    )
+  fun PreviewCheckEmailScreen() {
+    CheckEmailScreen()
   }
 
   @Preview
@@ -535,6 +404,4 @@ class VerificationPaypalFragment : BasePageViewFragment() {
     return verificationInfoModel.symbol +
         formatter.formatCurrency(verificationInfoModel.value, WalletCurrency.FIAT)
   }
-
-  private fun String.hasFourDigits() = length == 4
 }

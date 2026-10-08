@@ -69,7 +69,7 @@ fun VerifyWalletAlertCard(
         waitingCodePP = waitingCodePP
       )
     ),
-    positiveButtonLabel = stringResource(id = verifyCardPositiveButtonLabel(waitingCodeCC || waitingCodePP)),
+    positiveButtonLabel = stringResource(id = verifyCardPositiveButtonLabel(waitingCodeCC, waitingCodePP)),
     icon = verifyCardIcon(verifiedWeb, waitingCodeCC || waitingCodePP),
     onClickNegativeButton = onCancelClickButton,
     negativeButtonLabel = verifyCardNegativeButtonLabel(waitingCodeCC || waitingCodePP),
@@ -191,7 +191,7 @@ private fun verifyCardMessage(
   waitingCodePP: Boolean
 ) =
   when {
-    waitingCodePP -> R.string.paypal_verification_home_one_step_card_body
+    waitingCodePP -> R.string.paypal_verification_check_email_body
     waitingCodeCC -> R.string.card_verification_wallets_one_step_body
     verifiedPP && verifiedCC -> R.string.verification_verified_credit_debit_card_paypal_body
     verifiedCC -> R.string.verification_verified_credit_debit_card_body
@@ -201,8 +201,12 @@ private fun verifyCardMessage(
     else -> R.string.mywallet_unverified_body
   }
 
-private fun verifyCardPositiveButtonLabel(waitingCode: Boolean): Int =
-  if (waitingCode) R.string.card_verification_wallets_insert_bode_button else R.string.referral_view_verify_button
+private fun verifyCardPositiveButtonLabel(waitingCodeCC: Boolean, waitingCodePP: Boolean): Int =
+  when {
+    waitingCodeCC -> R.string.card_verification_wallets_insert_bode_button
+    waitingCodePP -> R.string.continue_button // PayPal is verified via an emailed link, no code
+    else -> R.string.referral_view_verify_button
+  }
 
 private fun verifyCardIcon(verified: Boolean, waitingCode: Boolean) =
   if (verified && !waitingCode) R.drawable.ic_check_circle else R.drawable.ic_alert_circle

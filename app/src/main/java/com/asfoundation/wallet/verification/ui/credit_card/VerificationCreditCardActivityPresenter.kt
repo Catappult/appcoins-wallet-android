@@ -53,7 +53,8 @@ class VerificationCreditCardActivityPresenter(
         navigator.navigateToWalletVerificationIntro()
       }
 
-      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.CODE_REQUESTED -> {
+      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.CODE_REQUESTED,
+      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFYING -> {
         analytics.sendStartEvent("insert_code")
         navigator.navigateToWalletVerificationCode()
       }

@@ -3,7 +3,6 @@ package com.asfoundation.wallet.verification.ui.paypal
 import androidx.lifecycle.ViewModel
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
-import com.appcoins.wallet.billing.adyen.VerificationCodeResult.ErrorType.WRONG_CODE
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.CODE_REQUESTED
@@ -76,8 +75,9 @@ constructor(
     cachedPaymentMethod = verificationInfo.paymentInfoModel.paymentMethod
     when (verificationStatus) {
       CODE_REQUESTED,
-      VERIFYING -> requestVerificationCode()
-      ERROR, VERIFIED, UNVERIFIED -> showVerificationInfo(verificationInfo)
+      VERIFYING -> showCheckEmail()
+      VERIFIED -> completeVerificationWithSuccess()
+      ERROR, UNVERIFIED -> showVerificationInfo(verificationInfo)
       else -> showVerificationInfo(verificationInfo)
     }
   }
@@ -104,7 +104,7 @@ constructor(
 
   fun successPayment() {
     setCachedVerificationUseCase(VERIFYING, PAYPAL)
-      .doOnComplete { requestVerificationCode() }
+      .doOnComplete { showCheckEmail() }
       .doOnError { showError() }
       .subscribe()
   }
@@ -117,29 +117,27 @@ constructor(
     displayChatUseCase()
   }
 
-  fun verifyCode(code: String) =
-    walletVerificationInteractor
-      .confirmVerificationCode(code, PAYPAL)
-      .subscribeOn(Schedulers.io())
-      .doOnSubscribe {
-        _uiState.value = VerificationPaypalState.RequestVerificationCode(
-          loading = true
-        )
+  /**
+   * PayPal verifications are completed through the link the broker emails, outside the app,
+   * so while [VerificationPaypalState.CheckEmail] is shown we ask the server for the outcome.
+   */
+  fun refreshEmailVerification() {
+    if (_uiState.value != VerificationPaypalState.CheckEmail) return
+    walletService
+      .getAndSignCurrentWalletAddress()
+      .flatMap { wallet ->
+        walletVerificationInteractor.getVerificationStatus(address = wallet.address, type = PAYPAL)
       }
-      .subscribe(
-        {
-          if (it.success) completeVerificationWithSuccess()
-          else
-            when (it.errorType) {
-              WRONG_CODE ->
-                _uiState.value = VerificationPaypalState.RequestVerificationCode(
-                  wrongCode = true
-                )
-
-              else -> showError()
-            }
-        },
-        { _uiState.value = VerificationPaypalState.Error(it) })
+      .subscribeOn(Schedulers.io())
+      .subscribe({ status ->
+        if (_uiState.value != VerificationPaypalState.CheckEmail) return@subscribe
+        when (status) {
+          VERIFIED -> completeVerificationWithSuccess()
+          UNVERIFIED -> showError() // canceled, expired, failed or not found
+          else -> Unit // still pending, or offline: keep waiting
+        }
+      }, {})
+  }
 
   private fun showError() {
     analytics.sendErrorScreenEvent()
@@ -151,9 +149,9 @@ constructor(
     _uiState.value = VerificationPaypalState.ShowVerificationInfo(verificationInfo)
   }
 
-  private fun requestVerificationCode() {
+  private fun showCheckEmail() {
     analytics.sendInsertCodeScreenEvent()
-    _uiState.value = VerificationPaypalState.RequestVerificationCode()
+    _uiState.value = VerificationPaypalState.CheckEmail
   }
 
   private fun completeVerificationWithSuccess() {
@@ -170,10 +168,7 @@ constructor(
 
     object UnknownError : VerificationPaypalState()
 
-    data class RequestVerificationCode(
-      val wrongCode: Boolean = false,
-      val loading: Boolean = false,
-    ) : VerificationPaypalState()
+    object CheckEmail : VerificationPaypalState()
 
     data class Error(val error: Throwable) : VerificationPaypalState()
 
