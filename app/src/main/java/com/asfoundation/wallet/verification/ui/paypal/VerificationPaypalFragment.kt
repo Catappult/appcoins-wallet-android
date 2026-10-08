@@ -92,7 +92,6 @@ class VerificationPaypalFragment : BasePageViewFragment() {
 
   companion object {
     const val CONTINUE = "continue"
-    const val CANCEL = "cancel"
     const val RESEND = "resend"
     const val GOT_IT = "got_it"
     const val TRY_AGAIN = "try_again"
@@ -275,10 +274,11 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         modifier = Modifier
           .padding(top = 40.dp)
           .widthIn(max = 360.dp),
-        label = stringResource(id = R.string.cancel_button),
+        // Only leaves the screen: the emailed link still completes the verification later.
+        label = stringResource(id = R.string.got_it_button),
         onClick = {
           navigator.navigateBack()
-          analytics.sendInsertCodeScreenEvent(action = CANCEL)
+          analytics.sendInsertCodeScreenEvent(action = GOT_IT)
         },
         labelColor = WalletColors.styleguide_white,
         outlineColor = WalletColors.styleguide_white,
@@ -334,14 +334,14 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         iterations = 1
       )
       Text(
-        text = stringResource(id = R.string.activity_iab_transaction_completed_title),
+        text = stringResource(id = R.string.verification_settings_verified_title),
         color = WalletColors.styleguide_light_grey,
         modifier = Modifier.padding(top = 28.dp),
         style = MaterialTheme.typography.titleLarge,
         fontWeight = FontWeight.Bold
       )
       Text(
-        text = stringResource(id = R.string.paypal_verification_completed_body),
+        text = stringResource(id = R.string.verification_verified_paypal_body),
         color = WalletColors.styleguide_light_grey,
         modifier = Modifier
           .padding(top = 16.dp)
