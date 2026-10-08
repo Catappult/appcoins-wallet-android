@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.res.Configuration
 import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
-import it.czerwinski.android.hilt.annotations.BoundTo
 import org.json.JSONObject
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@BoundTo(supertype = AnalyticsSetup::class)
 @Singleton
 class IndicativeAnalytics @Inject constructor(
   @ApplicationContext private val context: Context,

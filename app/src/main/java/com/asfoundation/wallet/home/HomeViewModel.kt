@@ -447,6 +447,9 @@ constructor(
         if (status == Levels.Status.OK) {
           return@flatMap Single.just(list[list.size - 1].bonus)
         }
+        if (status == Levels.Status.NO_NETWORK) {
+          return@flatMap Single.just(0.0)
+        }
         Single.error(IllegalStateException(status.name))
       }
       .toObservable()

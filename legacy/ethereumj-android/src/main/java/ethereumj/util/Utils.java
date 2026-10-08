@@ -4,13 +4,14 @@ import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 import org.spongycastle.util.encoders.DecoderException;
 import org.spongycastle.util.encoders.Hex;
+
+import static java.text.DateFormat.getDateInstance;
 
 public class Utils {
 
@@ -33,14 +34,14 @@ public class Utils {
 
   public static String longToDateTime(long timestamp) {
     Date date = new Date(timestamp * 1000);
-    DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+    DateFormat formatter = getDateInstance();
     return formatter.format(date);
   }
 
   public static String getValueShortString(BigInteger number) {
     BigInteger result = number;
     int pow = 0;
-    while (result.compareTo(_1000_) == 1 || result.compareTo(_1000_) == 0) {
+    while (result.compareTo(_1000_) > 0 || result.compareTo(_1000_) == 0) {
       result = result.divide(_1000_);
       pow += 3;
     }
@@ -69,11 +70,7 @@ public class Utils {
 
     String addrShort = Hex.toHexString(addr, 0, 3);
 
-    StringBuffer sb = new StringBuffer();
-    sb.append(addrShort);
-    sb.append("...");
-
-    return sb.toString();
+    return addrShort + "...";
   }
 
   public static SecureRandom getRandom() {
@@ -82,6 +79,7 @@ public class Utils {
 
   static double getJavaVersion() {
     String version = System.getProperty("java.version");
+    assert version != null;
     if (version.equals("0")) return 0;
 
     int pos = 0, count = 0;
@@ -116,7 +114,7 @@ public class Utils {
     return unixTime * 1000;
   }
 
-  public static <T> T[] mergeArrays(T[]... arr) {
+  @SafeVarargs public static <T> T[] mergeArrays(T[]... arr) {
     int size = 0;
     for (T[] ts : arr) {
       size += ts.length;

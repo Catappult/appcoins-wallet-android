@@ -6,12 +6,9 @@ import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import io.reactivex.Observable;
-import it.czerwinski.android.hilt.annotations.BoundTo;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
-import javax.inject.Named;
 
-@BoundTo(supertype = TrackTransactionService.class) @Named("BdsPendingTransactionService")
 public class BdsPendingTransactionService implements TrackTransactionService {
   private final Billing billing;
   private final RxSchedulers rxSchedulers;

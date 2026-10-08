@@ -2,14 +2,8 @@ package com.asfoundation.wallet.ui.iab.payments.carrier
 
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
 import com.appcoins.wallet.sharedpreferences.SecurePreferencesDataSource
-import dagger.hilt.components.SingletonComponent
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-@BoundTo(
-  supertype = CarrierBillingPreferencesRepository::class,
-  component = SingletonComponent::class
-)
 class SecureCarrierBillingPreferencesRepository @Inject constructor(
   private val securePreferencesDataSource: SecurePreferencesDataSource
 ) :

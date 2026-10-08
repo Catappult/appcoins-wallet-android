@@ -9,6 +9,7 @@ import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
 import com.appcoins.wallet.core.analytics.analytics.IndicativeEventLogger
 import com.appcoins.wallet.core.analytics.analytics.KeysNormalizer
 import com.appcoins.wallet.core.analytics.analytics.LogcatAnalyticsLogger
+import com.appcoins.wallet.core.analytics.analytics.MatomoAnalytics
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics.Companion.WALLET_APP_ACTIVE_PROMOTION_CLICK
 import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics.Companion.WALLET_APP_EMAIL_SUBMITTED
 import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics.Companion.WALLET_APP_HOME_SCREEN_CLICK
@@ -21,6 +22,8 @@ import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnal
 import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics.Companion.WALLET_APP_REMOVE_SAVED_CARD_PROMPT_CLICK
 import com.appcoins.wallet.core.network.analytics.api.AnalyticsApi
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
+import com.appcoins.wallet.core.utils.properties.HostProperties.MATOMO_SITE_ID
+import com.appcoins.wallet.core.utils.properties.HostProperties.MATOMO_URL
 import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import dagger.Module
 import dagger.Provides
@@ -28,6 +31,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import org.matomo.sdk.Matomo
+import org.matomo.sdk.Tracker
+import org.matomo.sdk.TrackerBuilder
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -107,7 +113,15 @@ class AnalyticsModule {
       WALLET_APP_EMAIL_SUBMITTED,
       WALLET_APP_HOME_SCREEN_CLICK,
       WALLET_APP_CLICK,
+      WALLET_NOTIFICATION
     )
+
+  @Singleton
+  @Provides
+  fun provideMatomo(@ApplicationContext context: Context): Tracker =
+    TrackerBuilder
+      .createDefault(MATOMO_URL, MATOMO_SITE_ID)
+      .build(Matomo.getInstance(context))
 
   @Singleton
   @Provides
@@ -117,6 +131,7 @@ class AnalyticsModule {
     @Named("indicative_event_list") indicativeEventList: List<String>,
     indicativeAnalytics: IndicativeAnalytics,
     appStartPreferencesDataSource: AppStartPreferencesDataSource,
+    tracker: Tracker,
     @ApplicationContext context: Context
   ): AnalyticsManager {
     return AnalyticsManager.Builder()
@@ -128,6 +143,10 @@ class AnalyticsModule {
       .addLogger(
         GAEventLogger(indicativeAnalytics, appStartPreferencesDataSource, context),
         indicativeEventList
+      )
+      .addLogger(
+        MatomoAnalytics(tracker, indicativeAnalytics),
+        listOf(WALLET_NOTIFICATION)
       )
       .setAnalyticsNormalizer(KeysNormalizer())
       .setDebugLogger(LogcatAnalyticsLogger())
@@ -193,6 +212,7 @@ class AnalyticsModule {
     const val VERSION_CODE = 259 //com.asf.wallet.BuildConfig
     const val APPLICATION_ID = "com.appcoins.wallet.dev"
     const val WALLET_APP_CLICK = "wallet_app_click"
+    const val WALLET_NOTIFICATION = "wallet_notification"
   }
 
 }

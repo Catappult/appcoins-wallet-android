@@ -9,6 +9,6 @@ data class WalletsModel(
   val wallets: List<WalletInfoSimple>
 ) : Serializable
 
-fun WalletsModel.activeWalletAddress() = wallets.first { it.isActiveWallet }.walletAddress
+fun WalletsModel.activeWalletAddress() = wallets.firstOrNull { it.isActiveWallet }?.walletAddress
 
 fun WalletsModel.inactiveWallets() = wallets.filter { !it.isActiveWallet }

@@ -3,7 +3,6 @@ package com.asfoundation.wallet.repository;
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import io.reactivex.Observable;
-import it.czerwinski.android.hilt.annotations.BoundTo;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,7 +10,6 @@ import javax.inject.Named;
 /**
  * Created by trinkes on 26/02/2018.
  */
-@BoundTo(supertype = TrackTransactionService.class) @Named("PendingTransactionService")
 public class PendingTransactionService implements TrackTransactionService {
   private final EthereumService service;
   private final RxSchedulers rxSchedulers;

@@ -1,10 +1,8 @@
 package com.appcoins.wallet.core.analytics.analytics.legacy
 
 import cm.aptoide.analytics.AnalyticsManager
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-@BoundTo(supertype = WalletsEventSender::class)
 class WalletsAnalytics @Inject constructor(private val analytics: AnalyticsManager) :
   WalletsEventSender {
 

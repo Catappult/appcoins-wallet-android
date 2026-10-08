@@ -10,7 +10,6 @@ import com.wallet.pwd.trustapp.PasswordManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
-import it.czerwinski.android.hilt.annotations.BoundTo
 import java.io.IOException
 import java.security.KeyStore
 import java.security.KeyStoreException
@@ -18,9 +17,9 @@ import java.security.NoSuchAlgorithmException
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.util.Enumeration
+import java.util.Locale.getDefault
 import javax.inject.Inject
 
-@BoundTo(supertype = PasswordStore::class)
 class TrustPasswordStore @Inject constructor(
   @ApplicationContext private val context: Context,
   private val logger: Logger
@@ -46,7 +45,8 @@ class TrustPasswordStore @Inject constructor(
       if (key.contains("-pwd")) {
         val address = key.replace("-pwd", "")
         try {
-          KS.put(context, address.toLowerCase(), PasswordManager.getPassword(address, context))
+          KS.put(context,
+            address.lowercase(getDefault()), PasswordManager.getPassword(address, context))
         } catch (ex: Exception) {
           Toast.makeText(context, "Could not process passwords.", Toast.LENGTH_LONG)
             .show()

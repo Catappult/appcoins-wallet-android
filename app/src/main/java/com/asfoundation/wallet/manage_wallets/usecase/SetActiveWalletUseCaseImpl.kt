@@ -7,12 +7,10 @@ import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.wallet.appcoins.feature.support.data.SupportRepository
 import io.reactivex.Completable
 import io.reactivex.Single
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-@BoundTo(SetActiveWalletUseCase::class)
 class SetActiveWalletUseCaseImpl @Inject constructor(
   private val observeUserStatsUseCase: ObserveUserStatsUseCase,
   private val walletRepository: WalletRepository,

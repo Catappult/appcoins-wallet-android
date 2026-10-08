@@ -16,13 +16,11 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import it.czerwinski.android.hilt.annotations.BoundTo
 import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-@BoundTo(supertype = TransactionRepositoryType::class)
 class BackendTransactionRepository @Inject constructor(
   networkInfo: NetworkInfo,
   accountKeystoreService: AccountKeystoreService,

@@ -4,7 +4,12 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.multidex.MultiDexApplication
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import cm.aptoide.analytics.AnalyticsManager
@@ -36,6 +41,7 @@ import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.util.EdgeToEdgeInsets
 import com.flurry.android.FlurryAgent
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -156,6 +162,19 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
       private var runningCount = 0
       override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        // Android 16 (API 36) forces edge-to-edge; keep content inside the system bars.
+        EdgeToEdgeInsets.apply(activity)
+        if (activity is FragmentActivity) {
+          activity.supportFragmentManager.registerFragmentLifecycleCallbacks(
+            object : FragmentManager.FragmentLifecycleCallbacks() {
+              override fun onFragmentViewCreated(
+                fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?
+              ) {
+                if (f is BottomSheetDialogFragment) EdgeToEdgeInsets.applyToBottomSheet(v)
+              }
+            }, true
+          )
+        }
         if (savedInstanceState == null) {
           if (runningCount++ == 0) appStartUseCase.registerAppStart()
         }

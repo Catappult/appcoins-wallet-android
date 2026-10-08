@@ -1,11 +1,23 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins { `kotlin-dsl` }
 
 group = "com.appcoins.wallet.convention"
 
+java {
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+  compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
+}
 
 dependencies {
   implementation(libs.gradlePlugin.android)
   implementation(libs.gradlePlugin.kotlin)
+  implementation(libs.gradlePlugin.compose.compiler)
   implementation(libs.gradlePlugin.hilt)
   implementation(libs.gradlePlugin.ksp)
   implementation(libs.gradlePlugin.junit5)

@@ -21,9 +21,11 @@ dependencies {
   implementation(project(":core:network:backend"))
   implementation(project(":core:shared-preferences"))
   implementation(libs.jackson.annotation)
+  implementation(platform(libs.firebase.bom))
   implementation(libs.bundles.analytics)
   implementation(libs.bundles.network)
   implementation(libs.androidx.multidex)
   implementation(libs.google.play.services)
   implementation(libs.analytics.sentry)
+  implementation(libs.matomo.analytics)
 }

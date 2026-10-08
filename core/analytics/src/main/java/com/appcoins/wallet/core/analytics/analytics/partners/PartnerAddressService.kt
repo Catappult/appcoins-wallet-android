@@ -7,10 +7,8 @@ import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource.Companion.GH_INSTALLED_WITHOUT_OEMID
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource.Companion.GH_NOT_INSTALLED
 import io.reactivex.Single
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-@BoundTo(supertype = AddressService::class)
 class PartnerAddressService @Inject constructor(
   private val installerService: InstallerService,
   private val oemIdExtractorService: OemIdExtractorService,
@@ -108,7 +106,7 @@ class PartnerAddressService @Inject constructor(
     ) {
       return partnerAttributionApi.fetchPackagesForCaching()
         .map { packagesForCaching ->
-          oemIdPreferencesDataSource.setPackageListClientSide(packagesForCaching)
+          packagesForCaching?.let { oemIdPreferencesDataSource.setPackageListClientSide(it) }
           oemIdPreferencesDataSource.setLastTimePackagesForCaching(System.currentTimeMillis())
           packagesForCaching
         }

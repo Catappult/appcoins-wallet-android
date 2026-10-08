@@ -11,14 +11,12 @@ class HiltPlugin : Plugin<Project> {
     with(target) {
       with(pluginManager) {
         apply("dagger.hilt.android.plugin")
-        apply("org.jetbrains.kotlin.kapt")
+        apply("com.google.devtools.ksp")
       }
       dependencies {
         "implementation"(libs["androidx-compose-hilt-navigation"])
         "implementation"(libs["hilt.android"])
-        "kapt"(libs["hilt.compiler"])
-        "implementation"(libs["hilt.interface.extensions"])
-        "kapt"(libs["hilt-interface-extensions-processor"])
+        "ksp"(libs["hilt.compiler"])
       }
     }
   }

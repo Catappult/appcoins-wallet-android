@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.app_start
 
-import it.czerwinski.android.hilt.annotations.BoundTo
 import kotlinx.coroutines.withTimeoutOrNull
 import java.net.URLDecoder
 import javax.inject.Inject
@@ -9,7 +8,6 @@ interface GPInstallUseCase {
   suspend operator fun invoke(): StartMode.GPInstall?
 }
 
-@BoundTo(supertype = GPInstallUseCase::class)
 class GPInstallUseCaseImpl @Inject constructor(
   private val repository: GooglePlayInstallRepository
 ) : GPInstallUseCase {

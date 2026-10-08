@@ -10,6 +10,10 @@ android {
   }
 }
 
+tasks.withType<Test> {
+  failOnNoDiscoveredTests = false
+}
+
 dependencies {
   implementation(project(":core:network:microservices"))
   implementation(project(":core:network:bds"))

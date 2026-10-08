@@ -14,7 +14,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
 import com.appcoins.wallet.core.utils.jvm_common.C;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.GlideApp;
+import com.bumptech.glide.Glide;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.Transaction.TransactionType;
 import com.asfoundation.wallet.transactions.TransactionDetails;
@@ -188,7 +188,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
     int finalTransactionTypeIcon = transactionTypeIcon;
 
-    GlideApp.with(getContext())
+    Glide.with(getContext())
         .load(uri)
         .apply(RequestOptions.bitmapTransform(new CircleCrop())
             .placeholder(finalTransactionTypeIcon)

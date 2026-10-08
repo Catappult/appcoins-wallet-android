@@ -80,7 +80,7 @@ fun String?.isEmailValid(): Boolean {
     .matches()
 }
 
-inline fun String.convertToDate(date: String): Date? {
+fun String.convertToDate(date: String): Date? {
   val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
   return dateFormat.parse(date)
 }

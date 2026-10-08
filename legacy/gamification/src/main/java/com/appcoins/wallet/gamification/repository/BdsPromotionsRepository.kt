@@ -17,14 +17,12 @@ import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import it.czerwinski.android.hilt.annotations.BoundTo
 import java.io.IOException
 import java.math.BigDecimal
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-@BoundTo(supertype = PromotionsRepository::class)
 class BdsPromotionsRepository @Inject constructor(
   private val api: GamificationApi,
   private val local: UserStatsLocalData,

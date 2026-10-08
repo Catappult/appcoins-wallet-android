@@ -11,7 +11,7 @@ import javax.inject.Inject
 /**
  * Helper class to load resources from installed applications
  */
-class ApplicationInfoProvider @Inject constructor(@ApplicationContext val context: Context) {
+class ApplicationInfoProvider @Inject constructor(@param:ApplicationContext val context: Context) {
 
   fun getApplicationInfo(packageName: String): Single<ApplicationInfoModel> {
     return Single.zip(getApplicationName(packageName), getApplicationIcon(packageName),

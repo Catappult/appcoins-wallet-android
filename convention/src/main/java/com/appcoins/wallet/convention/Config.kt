@@ -1,17 +1,18 @@
 package com.appcoins.wallet.convention
 
 import org.gradle.api.JavaVersion
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 object Config {
   val android = AndroidConfig(
     minSdk = 24,
-    targetSdk = 35,
-    compileSdkVersion = 35,
+    targetSdk = 36,
+    compileSdkVersion = 36,
     ndkVersion = "28.2.13676358"
   )
   val jvm = JvmConfig(
     javaVersion = JavaVersion.VERSION_17,
-    kotlinJvm = JavaVersion.VERSION_17.toString(),
+    kotlinJvm = JvmTarget.JVM_17,
     freeCompilerArgs = listOf(
       "-opt-in=kotlin.RequiresOptIn",
       "-opt-in=kotlin.Experimental",
@@ -28,7 +29,7 @@ object Config {
 
   data class JvmConfig(
     val javaVersion: JavaVersion,
-    val kotlinJvm: String,
+    val kotlinJvm: JvmTarget,
     val freeCompilerArgs: List<String>
   )
 

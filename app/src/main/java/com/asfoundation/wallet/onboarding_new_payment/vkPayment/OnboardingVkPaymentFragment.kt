@@ -137,7 +137,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     val amount = viewModel.state.vkTransaction.value?.amount
     val merchantId = viewModel.state.vkTransaction.value?.merchantId ?: "0"
     if (hash != null && uidTransaction != null && amount != null) {
-      val success = vkPayManager.checkoutVkPay(
+      vkPayManager.checkoutVkPay(
         hash,
         uidTransaction,
         vkDataPreferencesDataSource.getEmailVK(),
@@ -148,10 +148,6 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
         BuildConfig.VK_SDK_APP_ID.toInt(),
         parentFragmentManager
       )
-      if (!success) {
-        showError()
-        return
-      }
     } else {
       showError()
     }
@@ -230,9 +226,5 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
 
       OnboardingVkPaymentSideEffect.NavigateToExploreWallet -> navigator.navigateToHome()
     }
-  }
-
-  companion object {
-    const val PAYMENT_DATA = "data"
   }
 }

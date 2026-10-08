@@ -320,11 +320,20 @@ class WebViewPaymentViewModel @Inject constructor(
     )
   }
 
+  fun onWebViewError() {
+    _uiState.value = UiState.Error
+  }
+
+  fun resetError() {
+    _uiState.value = UiState.ShowPaymentMethods
+  }
+
   sealed class UiState {
     data class FinishWithBundle(val bundle: Bundle) : UiState()
     data class FinishActivity(val bundle: Bundle) : UiState()
     data object Finish : UiState()
     data object ShowPaymentMethods : UiState()
     data class LoadUrl(val url: String) : UiState()
+    data object Error : UiState()
   }
 }

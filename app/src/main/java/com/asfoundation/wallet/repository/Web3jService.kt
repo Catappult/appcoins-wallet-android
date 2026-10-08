@@ -3,12 +3,10 @@ package com.asfoundation.wallet.repository
 import com.asfoundation.wallet.entity.PendingTransaction
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
-import it.czerwinski.android.hilt.annotations.BoundTo
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.methods.response.EthTransaction
 import javax.inject.Inject
 
-@BoundTo(supertype = EthereumService::class)
 class Web3jService @Inject constructor(private val web3j: Web3jProvider) : EthereumService {
 
   private fun isPending(ethTransaction: EthTransaction): Boolean {

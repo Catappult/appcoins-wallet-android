@@ -5,10 +5,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-@BoundTo(supertype = InstallerService::class)
 class InstallerSourceService @Inject constructor(@ApplicationContext val context: Context) :
   InstallerService {
 

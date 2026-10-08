@@ -21,11 +21,9 @@ import com.appcoins.wallet.sharedpreferences.GamificationStatsPreferencesDataSou
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import it.czerwinski.android.hilt.annotations.BoundTo
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-@BoundTo(supertype = UserStatsLocalData::class)
 class UserStatsRepository @Inject constructor(
   private val preferences: GamificationStatsPreferencesDataSource,
   private val promotionDao: PromotionDao,

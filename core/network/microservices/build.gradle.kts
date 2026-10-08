@@ -12,6 +12,7 @@ android {
 
 dependencies {
   implementation(project(":core:network:base"))
+  implementation(libs.bundles.result)
   implementation(project(":core:utils:properties"))
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:arch"))

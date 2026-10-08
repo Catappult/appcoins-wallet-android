@@ -20,14 +20,12 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.internal.schedulers.ExecutorScheduler
-import it.czerwinski.android.hilt.annotations.BoundTo
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Keys.toChecksumAddress
 import java.io.File
 import java.math.BigInteger
 import javax.inject.Inject
 
-@BoundTo(supertype = WalletService::class)
 class AccountWalletService @Inject constructor(
   private val getPrivateKeyUseCase: GetPrivateKeyUseCase,
   private val signUseCase: ISignUseCase,

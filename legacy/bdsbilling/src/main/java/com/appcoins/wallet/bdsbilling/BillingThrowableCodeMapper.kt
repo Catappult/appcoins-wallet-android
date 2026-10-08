@@ -1,5 +1,6 @@
 package com.appcoins.wallet.bdsbilling
 
+import com.appcoins.wallet.core.network.base.interceptors.NoConnectivityException
 import retrofit2.HttpException
 import java.net.UnknownHostException
 
@@ -10,7 +11,7 @@ class BillingThrowableCodeMapper {
         mapHttpCode(throwable)
       }
 
-      is UnknownHostException -> {
+      is NoConnectivityException, is UnknownHostException -> {
         Billing.BillingSupportType.NO_INTERNET_CONNECTION
       }
 

@@ -8,10 +8,8 @@ import com.asfoundation.wallet.feature_flags.api.Status
 import com.asfoundation.wallet.feature_flags.api.UserProfile
 import com.asfoundation.wallet.feature_flags.db.DBFeatureFlag
 import com.asfoundation.wallet.feature_flags.db.FeatureFlagsDao
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-@BoundTo(supertype = FeatureFlagsRepository::class)
 class FeatureFlagsRepositoryImpl @Inject constructor(
   private val api: ExperimentsApi,
   private val featureFlagsDao: FeatureFlagsDao

@@ -5,6 +5,10 @@ plugins {
 android {
   namespace = "com.appcoins.wallet.feature.vkpay"
 
+  buildFeatures {
+    buildConfig = true
+  }
+
   lint {
     disable.add("NullSafeMutableLiveData")
   }

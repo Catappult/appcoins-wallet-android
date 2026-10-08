@@ -1,0 +1,3 @@
+# Protect CI/CD pipeline configuration from accidental deletion.
+# Any change to files under .github/ requires approval from a repository admin.
+.github/ @tiagoavieira @arthur-oliveira-aptoide

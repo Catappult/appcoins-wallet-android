@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.conflate
 import javax.inject.Inject
 
 class InternetManagerNetworkMonitor @Inject constructor(
-  @ApplicationContext private val context: Context,
+  @param:ApplicationContext private val context: Context,
 ) : NetworkMonitor {
   override val isConnected: Flow<Boolean> = callbackFlow {
     val connectivityManager = context.getSystemService<ConnectivityManager>()

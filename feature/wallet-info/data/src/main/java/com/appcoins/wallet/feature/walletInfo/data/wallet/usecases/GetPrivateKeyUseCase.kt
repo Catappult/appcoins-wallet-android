@@ -7,12 +7,10 @@ import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService
 import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
 import ethereumj.crypto.ECKey
 import io.reactivex.Single
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-@BoundTo(IGetPrivateKeyUseCase::class)
 class GetPrivateKeyUseCase @Inject constructor(
   private val accountKeyService: AccountKeystoreService,
   private val passwordStore: PasswordStore,
