@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">PayPal Hesabınla ilişkili e-posta adresine gönderdiğimiz 4 haneli kodu aşağıya gir.</string>
   <string name="paypal_verification_didnt_receive_title">Kodu almadın mı?</string>
   <string name="paypal_verification_completed_body">Paran iade edilecek ve PayPal hesabın kısa süre içinde doğrulanacak.</string>
+  <string name="paypal_verification_check_email_body">PayPal hesabınla ilişkili e-posta adresine bir e-posta gönderdik. Doğrulamayı tamamlamak için e-postayı aç ve bağlantıya dokun.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Toplam %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Bu satın alma işlemi zaten işlenmiş gibi görünüyor. Lütfen işlem tamamlanana kadar bekleyin veya Destek Ekibimizle iletişime geçin.</string>

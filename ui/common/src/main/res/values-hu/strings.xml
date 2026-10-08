@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">Add meg a PayPal fiókodhoz tartozó e-mail címre elküldött 4 számjegyű kódot.</string>
   <string name="paypal_verification_didnt_receive_title">Nem érkezett meg?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_check_email_body">E-mailt küldtünk a PayPal fiókodhoz tartozó címre. Nyisd meg, és koppints a linkre az ellenőrzés befejezéséhez.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Összesen %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Úgy tűnik, hogy a vásárlás feldolgozás alatt áll. Kérjük, várj míg befejeződik a tranzakció vagy lépj kapcsolatba az Ügyfélszolgálattal.</string>

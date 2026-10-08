@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">Εισαγάγετε παρακάτω τον 4ψήφιο κωδικό που στείλαμε στη διεύθυνση e-mail η οποία σχετίζεται με τον λογαριασμό σας στο PayPal.</string>
   <string name="paypal_verification_didnt_receive_title">Δεν τον λάβατε;</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_check_email_body">Στείλαμε ένα email στη διεύθυνση που σχετίζεται με τον λογαριασμό σας στο PayPal. Ανοίξτε το και πατήστε τον σύνδεσμο για να ολοκληρώσετε την επαλήθευση.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Σύνολο %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Φαίνεται πως αυτή η αγορά βρίσκεται ήδη υπό επεξεργασία. Παρακαλούμε περιμένετε μέχρι να ολοκληρωθεί η συναλλαγή ή επικοινωνήστε με την Ομάδα Υποστήριξης.</string>

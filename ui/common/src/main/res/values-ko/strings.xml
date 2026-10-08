@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">페이팔 계정과 관련된 이메일 주소로 보내드린 4자리 코드를 아래에 입력하세요.</string>
   <string name="paypal_verification_didnt_receive_title">못 받으셨나요?</string>
   <string name="paypal_verification_completed_body">즉시 환불될 것이며, 페이팔 계정이 곧 확인됩니다.</string>
+  <string name="paypal_verification_check_email_body">PayPal 계정에 연결된 이메일 주소로 이메일을 보냈습니다. 이메일을 열고 링크를 탭하여 인증을 완료하세요.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">총 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">이 구매는 이미 진행 중에 있습니다. 거래가 완료될 때까지 대기해 주시거나 지원 팀에 연락해 주세요.</string>

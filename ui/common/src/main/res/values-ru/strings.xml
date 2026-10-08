@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">Введите ниже четырехзначный код, который мы отправили на адрес электронной почты, связанный с вашей учетной записью PayPal.</string>
   <string name="paypal_verification_didnt_receive_title">Не получили код?</string>
   <string name="paypal_verification_completed_body">Вам вернут деньги немедленно, и ваш аккаунт PayPal будет подтверждён в ближайшее время.</string>
+  <string name="paypal_verification_check_email_body">Мы отправили письмо на адрес электронной почты, связанный с вашей учетной записью PayPal. Откройте его и нажмите на ссылку, чтобы завершить проверку.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Сумма: %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Кажется, покупка уже обрабатывается. Пожалуйста, подождите пока транзакция не завершится, или свяжитесь с командой поддержки.</string>

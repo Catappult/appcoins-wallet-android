@@ -374,6 +374,7 @@
   <string name="paypal_verification_insert_code_body">Masukkan kod 4-digit di bawah yang dihantar ke alamat e-mel anda yang dihubungkan dengan Akaun Paypal anda.</string>
   <string name="paypal_verification_didnt_receive_title">Tak terima?</string>
   <string name="paypal_verification_completed_body">Wang anda akan dikembalikan dengan segera, dan akaun PayPal anda akan disahkan tak lama lagi.</string>
+  <string name="paypal_verification_check_email_body">Kami telah menghantar e-mel ke alamat yang dikaitkan dengan akaun PayPal anda. Buka e-mel itu dan ketik pautan untuk melengkapkan pengesahan.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Jumlah %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Nampaknya pembelian ini sedang diproses. Sila tunggu sehingga transaksi selesai atau hubungi Pasukan Sokongan kami.</string>
