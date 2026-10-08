@@ -11,6 +11,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
@@ -72,6 +73,8 @@ class OnboardingViewModel @Inject constructor(
   private val saveIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
   private val walletsInteract: WalletsInteract,
   private val generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
+  private val onboardingSignInWallet: OnboardingSignInWallet,
   appStartUseCase: AppStartUseCase
 ) : BaseViewModel<OnboardingState, OnboardingSideEffect>(initialState()) {
 
@@ -117,7 +120,11 @@ class OnboardingViewModel @Inject constructor(
     sendSideEffect { OnboardingSideEffect.ShowLoading }
     hasWalletUseCase()
       .flatMapCompletable { hasWallet ->
-        if (hasWallet) Completable.complete() else walletsInteract.createWallet("Main Wallet")
+        if (hasWallet) Completable.complete()
+        else walletsInteract.createWallet("Main Wallet")
+          .andThen(getCurrentWalletUseCase())
+          .doOnSuccess { onboardingSignInWallet.set(it.address) }
+          .ignoreElement()
       }
       .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
       .andThen(Single.defer { generateWebLoginUrlUseCase() }) // only once the wallet exists

@@ -2,6 +2,8 @@ package com.asfoundation.wallet.onboarding
 
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
@@ -35,6 +37,10 @@ class OnboardingViewModelTest {
   private val setOnboardingCompletedUseCase = mockk<SetOnboardingCompletedUseCase>(relaxed = true)
   private val walletsInteract = mockk<WalletsInteract>()
   private val generateWebLoginUrlUseCase = mockk<GenerateWebLoginUrlUseCase>()
+  private val onboardingSignInWallet = OnboardingSignInWallet()
+  private val getCurrentWalletUseCase = mockk<GetCurrentWalletUseCase> {
+    every { this@mockk.invoke() } returns Single.just(Wallet("0xnew"))
+  }
   private val schedulers = object : RxSchedulers {
     override val main = Schedulers.trampoline()
     override val io = Schedulers.trampoline()
@@ -62,6 +68,8 @@ class OnboardingViewModelTest {
     saveIsFirstPaymentUseCase = mockk(relaxed = true),
     walletsInteract = walletsInteract,
     generateWebLoginUrlUseCase = generateWebLoginUrlUseCase,
+    getCurrentWalletUseCase = getCurrentWalletUseCase,
+    onboardingSignInWallet = onboardingSignInWallet,
     appStartUseCase = mockk<AppStartUseCase> {
       every { startModes } returns flowOf(StartMode.Regular)
     },
@@ -88,6 +96,7 @@ class OnboardingViewModelTest {
       setOnboardingCompletedUseCase()
       generateWebLoginUrlUseCase()
     }
+    assertEquals("0xnew", onboardingSignInWallet.consume()) // remembered as temporary
   }
 
   @Test
@@ -100,6 +109,7 @@ class OnboardingViewModelTest {
 
     assertEquals(OnboardingSideEffect.OpenLogin("https://login"), vm.sideEffects(2).last())
     verify(exactly = 0) { walletsInteract.createWallet(any()) }
+    assertEquals(null, onboardingSignInWallet.consume()) // an existing wallet is never temporary
   }
 
   @Test
