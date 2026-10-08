@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- The bottom sheet dialog overrides its content root's padding (window insets), so the padding
+     lives on the inner layout. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_dialog_dark"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:paddingHorizontal="@dimen/half_large_margin"
     android:paddingBottom="@dimen/half_large_margin"
-    android:theme="@style/MaterialAppTheme"
     >
 
   <ImageView
@@ -86,3 +93,5 @@
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
