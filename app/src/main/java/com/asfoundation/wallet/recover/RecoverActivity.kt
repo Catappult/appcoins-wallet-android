@@ -16,6 +16,7 @@ class RecoverActivity : BaseActivity() {
 
   companion object {
     const val ONBOARDING_LAYOUT = "onboarding_layout"
+    const val OPEN_FILE_PICKER = "open_file_picker"
 
     @JvmStatic
     fun newIntent(context: Context, onboardingLayout: Boolean) =

@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">القواعد والشروط</string>
   <string name="privacy_policy">سياسة الخصوصية</string>
   <string name="existent_wallet">لدي محفظة فعلًا</string>
+  <string name="onboarding_sign_in_button">تسجيل الدخول / إنشاء حساب</string>
+  <string name="onboarding_create_local_wallet_button">إنشاء محفظة محلية</string>
+  <string name="onboarding_load_backup_button">التحميل من نسخة احتياطية</string>
+  <string name="onboarding_local_wallet_confirm_title">هل تريد إنشاء محفظة محلية؟</string>
+  <string name="onboarding_load_backup_body">استعد محفظة من ملف النسخة الاحتياطية أو رمز النسخة الاحتياطية الذي حفظته سابقًا.</string>
+  <string name="onboarding_enter_backup_code_button">إدخال رمز النسخة الاحتياطية</string>
+  <string name="onboarding_local_wallet_disclaimer">تُخزَّن المحفظة المحلية على هذا الجهاز فقط ولا ترتبط بأي حساب. إذا فقدت هذا الجهاز ولم تكن لديك نسخة احتياطية، فستفقد الوصول إلى المحفظة وأموالها.</string>
   <string name="onboarding_verification_body">وثق وسيلة الدفع لديك لإتمام عملية الشراء.</string>
   <!--Home-->
   <!--Tokens-->

@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">अटी आणि शर्ती</string>
   <string name="privacy_policy">गोपनीयता धोरण</string>
   <string name="existent_wallet">माझ्याकडे आधीपासुनच वॉलेट आहे</string>
+  <string name="onboarding_sign_in_button">साइन इन / खाते तयार करा</string>
+  <string name="onboarding_create_local_wallet_button">स्थानिक वॉलेट तयार करा</string>
+  <string name="onboarding_load_backup_button">बॅकअपमधून लोड करा</string>
+  <string name="onboarding_local_wallet_confirm_title">स्थानिक वॉलेट तयार करायचे?</string>
+  <string name="onboarding_load_backup_body">तुम्ही आधी जतन केलेल्या बॅकअप फाइल किंवा बॅकअप कोडमधून वॉलेट पुनर्संचयित करा.</string>
+  <string name="onboarding_enter_backup_code_button">बॅकअप कोड टाका</string>
+  <string name="onboarding_local_wallet_disclaimer">स्थानिक वॉलेट फक्त या डिव्हाइसवर साठवले जाते आणि कोणत्याही खात्याशी जोडलेले नसते. तुम्ही हे डिव्हाइस गमावल्यास आणि तुमच्याकडे बॅकअप नसल्यास, तुम्ही वॉलेट आणि त्यातील निधीचा ॲक्सेस गमावाल.</string>
   <string name="onboarding_verification_body">आपली खरेदी पूर्ण करण्यासाठी आपली पेमेंट पद्धत सत्यापित करा.</string>
   <!--Home-->
   <!--Tokens-->

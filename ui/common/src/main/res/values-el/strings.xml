@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Όροι και Προϋποθέσεις</string>
   <string name="privacy_policy">Πολιτική Απορρήτου</string>
   <string name="existent_wallet">Έχω ήδη ένα wallet</string>
+  <string name="onboarding_sign_in_button">Σύνδεση / Δημιουργία λογαριασμού</string>
+  <string name="onboarding_create_local_wallet_button">Δημιουργία τοπικού wallet</string>
+  <string name="onboarding_load_backup_button">Φόρτωση από αντίγραφο ασφαλείας</string>
+  <string name="onboarding_local_wallet_confirm_title">Δημιουργία τοπικού wallet;</string>
+  <string name="onboarding_load_backup_body">Επαναφέρετε ένα wallet από το αρχείο ή τον κωδικό αντιγράφου ασφαλείας που αποθηκεύσατε παλαιότερα.</string>
+  <string name="onboarding_enter_backup_code_button">Εισαγωγή κωδικού αντιγράφου ασφαλείας</string>
+  <string name="onboarding_local_wallet_disclaimer">Ένα τοπικό wallet αποθηκεύεται μόνο σε αυτήν τη συσκευή και δεν συνδέεται με κάποιον λογαριασμό. Αν χάσετε αυτήν τη συσκευή και δεν έχετε αντίγραφο ασφαλείας, θα χάσετε την πρόσβαση στο wallet και στα χρήματά του.</string>
   <string name="onboarding_verification_body">Επαληθεύστε τη μέθοδο πληρωμής σας για να ολοκληρώσετε την αγορά σας.</string>
   <!--Home-->
   <!--Tokens-->

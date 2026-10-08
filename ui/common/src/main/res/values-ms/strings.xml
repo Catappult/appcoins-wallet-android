@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Terma dan Syarat</string>
   <string name="privacy_policy">Dasar Privasi</string>
   <string name="existent_wallet">Saya sudah ada dompet</string>
+  <string name="onboarding_sign_in_button">Log masuk / Cipta akaun</string>
+  <string name="onboarding_create_local_wallet_button">Cipta dompet setempat</string>
+  <string name="onboarding_load_backup_button">Muatkan daripada sandaran</string>
+  <string name="onboarding_local_wallet_confirm_title">Cipta dompet setempat?</string>
+  <string name="onboarding_load_backup_body">Pulihkan dompet daripada fail atau kod sandaran yang anda simpan sebelum ini.</string>
+  <string name="onboarding_enter_backup_code_button">Masukkan kod sandaran</string>
+  <string name="onboarding_local_wallet_disclaimer">Dompet setempat hanya disimpan pada peranti ini dan tidak dipautkan kepada mana-mana akaun. Jika anda kehilangan peranti ini dan tiada sandaran, anda akan kehilangan akses kepada dompet dan dananya.</string>
   <string name="onboarding_verification_body">Sahkan kaedah pembayaran anda untuk selesaikan pembelian anda.</string>
   <!--Home-->
   <!--Tokens-->

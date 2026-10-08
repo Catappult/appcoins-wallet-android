@@ -10,6 +10,8 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
@@ -27,6 +29,7 @@ import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
 import com.asfoundation.wallet.recover.use_cases.RecoverEntryPrivateKeyUseCase
 import com.asfoundation.wallet.recover.use_cases.SetDefaultWalletUseCase
+import com.asfoundation.wallet.ui.login.usecases.GenerateWebLoginUrlUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -37,13 +40,16 @@ import javax.inject.Inject
 sealed class OnboardingSideEffect : SideEffect {
   data class NavigateToLink(val uri: Uri) : OnboardingSideEffect()
   data class NavigateToWalletCreationAnimation(val isPayment: Boolean) : OnboardingSideEffect()
-  object NavigateToRecoverWallet : OnboardingSideEffect()
+  data class NavigateToRecoverWallet(val openFilePicker: Boolean) : OnboardingSideEffect()
   object NavigateToFinish : OnboardingSideEffect()
   object ShowLoadingRecover : OnboardingSideEffect()
   object NavigateToOnboardingPayment : OnboardingSideEffect()
   data class UpdateGuestBonus(val bonus: FiatValue) : OnboardingSideEffect()
   data class NavigateToVerify(val flow: String) : OnboardingSideEffect()
-  object OpenLogin : OnboardingSideEffect()
+  data class OpenLogin(val url: String) : OnboardingSideEffect()
+  object ConfirmCreateLocalWallet : OnboardingSideEffect()
+  object ShowLoading : OnboardingSideEffect()
+  object ShowSignInError : OnboardingSideEffect()
 }
 
 data class OnboardingState(
@@ -65,6 +71,10 @@ class OnboardingViewModel @Inject constructor(
   private val walletsEventSender: WalletsEventSender,
   private val onboardingAnalytics: OnboardingAnalytics,
   private val saveIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
+  private val walletsInteract: WalletsInteract,
+  private val generateWebLoginUrlUseCase: GenerateWebLoginUrlUseCase,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
+  private val onboardingSignInWallet: OnboardingSignInWallet,
   appStartUseCase: AppStartUseCase
 ) : BaseViewModel<OnboardingState, OnboardingSideEffect>(initialState()) {
 
@@ -102,30 +112,45 @@ class OnboardingViewModel @Inject constructor(
     }
   }
 
-  fun handleOpenLoginResult(resultOk: Boolean) {
-    if (resultOk) {
-      setOnboardingCompletedUseCase()
-      sendSideEffect { OnboardingSideEffect.NavigateToFinish }
-    }
+  /**
+   * Web login needs a local wallet: signing in to an existing account swaps it for the account's
+   * wallet, creating an account links this one. So create it (if needed) before opening the login.
+   */
+  fun handleSignInClick() {
+    sendSideEffect { OnboardingSideEffect.ShowLoading }
+    hasWalletUseCase()
+      .flatMapCompletable { hasWallet ->
+        if (hasWallet) Completable.complete()
+        else walletsInteract.createWallet("Main Wallet")
+          .andThen(getCurrentWalletUseCase())
+          .doOnSuccess { onboardingSignInWallet.set(it.address) }
+          .ignoreElement()
+      }
+      .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
+      .andThen(Single.defer { generateWebLoginUrlUseCase() }) // only once the wallet exists
+      .subscribeOn(rxSchedulers.io)
+      .observeOn(rxSchedulers.main)
+      .doOnSuccess { url -> sendSideEffect { OnboardingSideEffect.OpenLogin(url) } }
+      .doOnError { sendSideEffect { OnboardingSideEffect.ShowSignInError } }
+      .scopedSubscribe { it.printStackTrace() }
+  }
+
+  fun handleCreateLocalWalletClick() {
+    sendSideEffect { OnboardingSideEffect.ConfirmCreateLocalWallet }
   }
 
   fun handleLaunchWalletClick() {
     hasWalletUseCase().observeOn(rxSchedulers.main).doOnSuccess {
       setOnboardingCompletedUseCase()
       sendSideEffect {
-        if (it) {
-          OnboardingSideEffect.NavigateToFinish
-//          OnboardingSideEffect.OpenLogin  // to be added
-        } else {
-          OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
-//          OnboardingSideEffect.OpenLogin  // to be added
-        }
+        if (it) OnboardingSideEffect.NavigateToFinish
+        else OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
       }
     }.scopedSubscribe { it.printStackTrace() }
   }
 
-  fun handleRecoverClick() {
-    sendSideEffect { OnboardingSideEffect.NavigateToRecoverWallet }
+  fun handleRecoverClick(openFilePicker: Boolean = false) {
+    sendSideEffect { OnboardingSideEffect.NavigateToRecoverWallet(openFilePicker) }
   }
 
   fun handleLinkClick(uri: Uri) {

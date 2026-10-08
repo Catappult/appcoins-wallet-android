@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Uslovi i odredbe</string>
   <string name="privacy_policy">Smernice za privatnost</string>
   <string name="existent_wallet">Već imam novčanik</string>
+  <string name="onboarding_sign_in_button">Prijavite se / Napravite nalog</string>
+  <string name="onboarding_create_local_wallet_button">Napravite lokalni novčanik</string>
+  <string name="onboarding_load_backup_button">Učitajte iz rezervne kopije</string>
+  <string name="onboarding_local_wallet_confirm_title">Napraviti lokalni novčanik?</string>
+  <string name="onboarding_load_backup_body">Vratite novčanik iz datoteke ili koda rezervne kopije koje ste ranije sačuvali.</string>
+  <string name="onboarding_enter_backup_code_button">Unesite kod rezervne kopije</string>
+  <string name="onboarding_local_wallet_disclaimer">Lokalni novčanik se čuva samo na ovom uređaju i nije povezan ni sa jednim nalogom. Ako izgubite ovaj uređaj, a nemate rezervnu kopiju, izgubićete pristup novčaniku i sredstvima u njemu.</string>
   <string name="onboarding_verification_body">Potvrdite način plaćanja da biste dovršili svoju kupovinu.</string>
   <!--Home-->
   <!--Tokens-->

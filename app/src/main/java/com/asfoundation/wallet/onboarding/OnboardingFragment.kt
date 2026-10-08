@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.onboarding
 
-import android.app.Activity
 import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.net.Uri
@@ -14,8 +13,10 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,7 +32,12 @@ import com.appcoins.wallet.core.utils.properties.UrlPropertiesFormatter
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
+import com.asf.wallet.databinding.OnboardingBottomSheetBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.ui.login.processLoginRequest
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.asfoundation.wallet.util.EdgeToEdgeInsets
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -61,11 +67,6 @@ class OnboardingFragment : BasePageViewFragment(),
       activity?.finishAffinity()
     }
   }
-
-  private val openLoginLauncher =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      viewModel.handleOpenLoginResult(result.resultCode == Activity.RESULT_OK)
-    }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -112,10 +113,13 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun setClickListeners() {
     views.onboardingButtons.onboardingNextButton.setOnClickListener {
-      viewModel.handleLaunchWalletClick()
+      viewModel.handleSignInClick()
     }
-    views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener {
-      viewModel.handleRecoverClick()
+    views.onboardingButtons.onboardingCreateLocalWalletButton.setOnClickListener {
+      viewModel.handleCreateLocalWalletClick()
+    }
+    views.onboardingButtons.onboardingLoadBackupButton.setOnClickListener {
+      showLoadBackupOptions()
     }
     views.onboardingRecoverGuestButton.setOnClickListener {
       viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
@@ -161,7 +165,8 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
-      OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecover()
+      is OnboardingSideEffect.NavigateToRecoverWallet ->
+        navigator.navigateToRecover(sideEffect.openFilePicker)
       is OnboardingSideEffect.NavigateToWalletCreationAnimation -> {
         hideContent()
         navigator.navigateToCreateWalletDialog(isPayment = sideEffect.isPayment)
@@ -187,15 +192,77 @@ class OnboardingFragment : BasePageViewFragment(),
       OnboardingSideEffect.NavigateToOnboardingPayment ->
         navigator.navigateToOnboardingPayment()
 
-      OnboardingSideEffect.OpenLogin -> {
-        // to be added:
-//        val url =
-//          "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in?domain=com.appcoins.wallet.dev&payment_channel=wallet_app"
-//        val intent = Intent(requireContext(), WebViewLoginActivity::class.java)
-//        intent.putExtra(WebViewLoginActivity.URL, url)
-//        openLoginLauncher.launch(intent)
+      is OnboardingSideEffect.OpenLogin -> {
+        // Home stays behind the login tab; the login result comes back to MainActivity.
+        unlockRotation()
+        processLoginRequest(url = sideEffect.url, context = requireContext())
+        navigator.navigateToNavBar()
+      }
+
+      OnboardingSideEffect.ConfirmCreateLocalWallet -> showCreateLocalWalletConfirmation()
+
+      OnboardingSideEffect.ShowLoading -> {
+        hideContent()
+        views.loading.visibility = View.VISIBLE
+      }
+
+      OnboardingSideEffect.ShowSignInError -> {
+        views.loading.visibility = View.GONE
+        showValuesScreen()
+        Toast.makeText(requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT).show()
       }
     }
+  }
+
+  private fun showCreateLocalWalletConfirmation() = showBottomSheet(
+    icon = R.drawable.ic_alert_circle,
+    title = R.string.onboarding_local_wallet_confirm_title,
+    body = R.string.onboarding_local_wallet_disclaimer,
+    primaryButton = R.string.onboarding_create_local_wallet_button to {
+      viewModel.handleLaunchWalletClick()
+    },
+    secondaryButton = R.string.cancel_button to {},
+  )
+
+  private fun showLoadBackupOptions() = showBottomSheet(
+    icon = R.drawable.ic_backup_wallet,
+    title = R.string.onboarding_load_backup_button,
+    body = R.string.onboarding_load_backup_body,
+    primaryButton = R.string.import_wallet_file_button to {
+      viewModel.handleRecoverClick(openFilePicker = true)
+    },
+    secondaryButton = R.string.onboarding_enter_backup_code_button to {
+      viewModel.handleRecoverClick(openFilePicker = false)
+    },
+  )
+
+  private fun showBottomSheet(
+    @DrawableRes icon: Int,
+    @StringRes title: Int,
+    @StringRes body: Int,
+    primaryButton: Pair<Int, () -> Unit>,
+    secondaryButton: Pair<Int, () -> Unit>,
+  ) {
+    val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogThemeDraggable)
+    val sheet = OnboardingBottomSheetBinding.inflate(layoutInflater)
+    sheet.sheetIcon.setImageResource(icon)
+    sheet.sheetTitle.setText(title)
+    sheet.sheetBody.setText(body)
+    listOf(
+      sheet.sheetPrimaryButton to primaryButton,
+      sheet.sheetSecondaryButton to secondaryButton
+    ).forEach { (button, action) ->
+      button.setTextRes(action.first)
+      button.setOnClickListener {
+        dialog.dismiss()
+        action.second()
+      }
+    }
+    dialog.setContentView(sheet.root)
+    // Not a BottomSheetDialogFragment, so App doesn't apply this for us.
+    EdgeToEdgeInsets.applyToBottomSheet(sheet.root)
+    dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    dialog.show()
   }
 
   private fun restart() {
