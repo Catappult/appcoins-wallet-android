@@ -15,6 +15,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -30,7 +32,7 @@ import com.appcoins.wallet.core.utils.properties.UrlPropertiesFormatter
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
-import com.asf.wallet.databinding.OnboardingLocalWalletBottomSheetBinding
+import com.asf.wallet.databinding.OnboardingBottomSheetBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.ui.login.processLoginRequest
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -116,7 +118,7 @@ class OnboardingFragment : BasePageViewFragment(),
       viewModel.handleCreateLocalWalletClick()
     }
     views.onboardingButtons.onboardingLoadBackupButton.setOnClickListener {
-      viewModel.handleRecoverClick()
+      showLoadBackupOptions()
     }
     views.onboardingRecoverGuestButton.setOnClickListener {
       viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
@@ -162,7 +164,8 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
-      OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecover()
+      is OnboardingSideEffect.NavigateToRecoverWallet ->
+        navigator.navigateToRecover(sideEffect.openFilePicker)
       is OnboardingSideEffect.NavigateToWalletCreationAnimation -> {
         hideContent()
         navigator.navigateToCreateWalletDialog(isPayment = sideEffect.isPayment)
@@ -210,14 +213,50 @@ class OnboardingFragment : BasePageViewFragment(),
     }
   }
 
-  private fun showCreateLocalWalletConfirmation() {
-    val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogThemeDraggable)
-    val sheet = OnboardingLocalWalletBottomSheetBinding.inflate(layoutInflater)
-    sheet.localWalletConfirmButton.setOnClickListener {
-      dialog.dismiss()
+  private fun showCreateLocalWalletConfirmation() = showBottomSheet(
+    icon = R.drawable.ic_alert_circle,
+    title = R.string.onboarding_local_wallet_confirm_title,
+    body = R.string.onboarding_local_wallet_disclaimer,
+    primaryButton = R.string.onboarding_create_local_wallet_button to {
       viewModel.handleLaunchWalletClick()
+    },
+    secondaryButton = R.string.cancel_button to {},
+  )
+
+  private fun showLoadBackupOptions() = showBottomSheet(
+    icon = R.drawable.ic_backup_wallet,
+    title = R.string.onboarding_load_backup_button,
+    body = R.string.onboarding_load_backup_body,
+    primaryButton = R.string.import_wallet_file_button to {
+      viewModel.handleRecoverClick(openFilePicker = true)
+    },
+    secondaryButton = R.string.onboarding_enter_backup_code_button to {
+      viewModel.handleRecoverClick(openFilePicker = false)
+    },
+  )
+
+  private fun showBottomSheet(
+    @DrawableRes icon: Int,
+    @StringRes title: Int,
+    @StringRes body: Int,
+    primaryButton: Pair<Int, () -> Unit>,
+    secondaryButton: Pair<Int, () -> Unit>,
+  ) {
+    val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogThemeDraggable)
+    val sheet = OnboardingBottomSheetBinding.inflate(layoutInflater)
+    sheet.sheetIcon.setImageResource(icon)
+    sheet.sheetTitle.setText(title)
+    sheet.sheetBody.setText(body)
+    listOf(
+      sheet.sheetPrimaryButton to primaryButton,
+      sheet.sheetSecondaryButton to secondaryButton
+    ).forEach { (button, action) ->
+      button.setTextRes(action.first)
+      button.setOnClickListener {
+        dialog.dismiss()
+        action.second()
+      }
     }
-    sheet.localWalletCancelButton.setOnClickListener { dialog.dismiss() }
     dialog.setContentView(sheet.root)
     dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     dialog.show()

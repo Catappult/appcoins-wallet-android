@@ -39,7 +39,7 @@ import javax.inject.Inject
 sealed class OnboardingSideEffect : SideEffect {
   data class NavigateToLink(val uri: Uri) : OnboardingSideEffect()
   data class NavigateToWalletCreationAnimation(val isPayment: Boolean) : OnboardingSideEffect()
-  object NavigateToRecoverWallet : OnboardingSideEffect()
+  data class NavigateToRecoverWallet(val openFilePicker: Boolean) : OnboardingSideEffect()
   object NavigateToFinish : OnboardingSideEffect()
   object ShowLoadingRecover : OnboardingSideEffect()
   object NavigateToOnboardingPayment : OnboardingSideEffect()
@@ -142,8 +142,8 @@ class OnboardingViewModel @Inject constructor(
     }.scopedSubscribe { it.printStackTrace() }
   }
 
-  fun handleRecoverClick() {
-    sendSideEffect { OnboardingSideEffect.NavigateToRecoverWallet }
+  fun handleRecoverClick(openFilePicker: Boolean = false) {
+    sendSideEffect { OnboardingSideEffect.NavigateToRecoverWallet(openFilePicker) }
   }
 
   fun handleLinkClick(uri: Uri) {

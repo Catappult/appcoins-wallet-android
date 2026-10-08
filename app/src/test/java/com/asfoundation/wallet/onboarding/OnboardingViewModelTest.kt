@@ -121,4 +121,13 @@ class OnboardingViewModelTest {
 
     assertEquals(listOf(OnboardingSideEffect.ConfirmCreateLocalWallet), vm.sideEffects(1))
   }
+
+  @Test
+  fun `load from backup can go straight to the file picker`() {
+    val vm = viewModel()
+
+    vm.handleRecoverClick(openFilePicker = true)
+
+    assertEquals(listOf(OnboardingSideEffect.NavigateToRecoverWallet(true)), vm.sideEffects(1))
+  }
 }

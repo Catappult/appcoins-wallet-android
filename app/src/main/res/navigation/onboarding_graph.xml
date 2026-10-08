@@ -27,6 +27,10 @@
       <argument
           android:name="onboarding_layout"
           app:argType="boolean" />
+      <argument
+          android:name="open_file_picker"
+          android:defaultValue="false"
+          app:argType="boolean" />
     </action>
 
     <action

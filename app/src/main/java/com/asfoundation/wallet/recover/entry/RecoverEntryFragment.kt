@@ -21,6 +21,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverEntryFragmentBinding
 import com.asfoundation.wallet.recover.RecoverActivity.Companion.ONBOARDING_LAYOUT
+import com.asfoundation.wallet.recover.RecoverActivity.Companion.OPEN_FILE_PICKER
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
@@ -66,6 +67,10 @@ class RecoverEntryFragment : BasePageViewFragment(),
       } else {
         navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
       }
+    }
+    // Coming from onboarding's "Load from backup" -> "Recover from file": go straight to the picker.
+    if (savedInstanceState == null && requireArguments().getBoolean(OPEN_FILE_PICKER, false)) {
+      views.recoverWalletOptions.recoverFromFileButton.performClick()
     }
     views.recoverWalletButton.setOnClickListener {
       viewModel.handleRecoverClick(
