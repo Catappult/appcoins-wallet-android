@@ -37,6 +37,7 @@ import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragme
 import com.asfoundation.wallet.ui.login.processLoginRequest
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.asfoundation.wallet.util.EdgeToEdgeInsets
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -242,8 +243,8 @@ class OnboardingFragment : BasePageViewFragment(),
     primaryButton: Pair<Int, () -> Unit>,
     secondaryButton: Pair<Int, () -> Unit>,
   ) {
-    val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogThemeDraggable_NotFitSystemWindows)
-    val sheet = OnboardingBottomSheetBinding.inflate(dialog.layoutInflater)
+    val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogThemeDraggable)
+    val sheet = OnboardingBottomSheetBinding.inflate(layoutInflater)
     sheet.sheetIcon.setImageResource(icon)
     sheet.sheetTitle.setText(title)
     sheet.sheetBody.setText(body)
@@ -258,6 +259,8 @@ class OnboardingFragment : BasePageViewFragment(),
       }
     }
     dialog.setContentView(sheet.root)
+    // Not a BottomSheetDialogFragment, so App doesn't apply this for us.
+    EdgeToEdgeInsets.applyToBottomSheet(sheet.root)
     dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     dialog.show()
   }

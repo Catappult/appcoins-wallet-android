@@ -52,12 +52,6 @@
     <item name="android:background">@drawable/rounded_dialog</item>
   </style>
 
-  <!-- SplashTheme sets fitsSystemWindows for the whole activity, which makes views inflated in a
-       sheet replace their padding with the status bar inset. -->
-  <style name="AppBottomSheetDialogThemeDraggable.NotFitSystemWindows">
-    <item name="android:fitsSystemWindows">false</item>
-  </style>
-
   <style name="AppTheme.NoActionBar" parent="AppTheme">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
