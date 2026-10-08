@@ -114,11 +114,11 @@ class OnboardingViewModelTest {
   }
 
   @Test
-  fun `local wallet asks to create or restore`() {
+  fun `create local wallet asks for confirmation first`() {
     val vm = viewModel()
 
-    vm.handleLocalWalletClick()
+    vm.handleCreateLocalWalletClick()
 
-    assertEquals(listOf(OnboardingSideEffect.ShowLocalWalletOptions), vm.sideEffects(1))
+    assertEquals(listOf(OnboardingSideEffect.ConfirmCreateLocalWallet), vm.sideEffects(1))
   }
 }

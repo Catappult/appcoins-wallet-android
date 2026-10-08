@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialog_dark"
+    android:paddingHorizontal="@dimen/half_large_margin"
+    android:paddingBottom="@dimen/half_large_margin"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:importantForAccessibility="no"
+      android:src="@drawable/pull_up_home_bar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <ImageView
+      android:id="@+id/local_wallet_warning_icon"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_marginTop="@dimen/big_margin"
+      android:importantForAccessibility="no"
+      android:src="@drawable/ic_alert_circle"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
+      />
+
+  <TextView
+      android:id="@+id/local_wallet_title"
+      style="@style/PromoCodeTitle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:text="@string/onboarding_local_wallet_confirm_title"
+      android:textColor="@color/styleguide_light_grey"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/local_wallet_warning_icon"
+      />
+
+  <TextView
+      android:id="@+id/local_wallet_disclaimer"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:lineSpacingExtra="4dp"
+      android:text="@string/onboarding_local_wallet_disclaimer"
+      android:textColor="@color/styleguide_dark_grey"
+      android:textSize="14sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/local_wallet_title"
+      />
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/local_wallet_confirm_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="30dp"
+      app:buttonText="@string/onboarding_create_local_wallet_button"
+      app:buttonType="filled"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/local_wallet_disclaimer"
+      />
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/local_wallet_cancel_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:buttonColor="@color/styleguide_white"
+      app:buttonText="@string/cancel_button"
+      app:buttonType="outlined"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/local_wallet_confirm_button"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

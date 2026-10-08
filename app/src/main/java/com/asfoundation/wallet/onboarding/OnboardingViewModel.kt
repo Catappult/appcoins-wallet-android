@@ -46,7 +46,7 @@ sealed class OnboardingSideEffect : SideEffect {
   data class UpdateGuestBonus(val bonus: FiatValue) : OnboardingSideEffect()
   data class NavigateToVerify(val flow: String) : OnboardingSideEffect()
   data class OpenLogin(val url: String) : OnboardingSideEffect()
-  object ShowLocalWalletOptions : OnboardingSideEffect()
+  object ConfirmCreateLocalWallet : OnboardingSideEffect()
   object ShowLoading : OnboardingSideEffect()
   object ShowSignInError : OnboardingSideEffect()
 }
@@ -128,8 +128,8 @@ class OnboardingViewModel @Inject constructor(
       .scopedSubscribe { it.printStackTrace() }
   }
 
-  fun handleLocalWalletClick() {
-    sendSideEffect { OnboardingSideEffect.ShowLocalWalletOptions }
+  fun handleCreateLocalWalletClick() {
+    sendSideEffect { OnboardingSideEffect.ConfirmCreateLocalWallet }
   }
 
   fun handleLaunchWalletClick() {

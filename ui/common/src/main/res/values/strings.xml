@@ -378,7 +378,9 @@
   <string name="privacy_policy">Privacy Policy</string>
   <string name="existent_wallet">I already have a wallet</string>
   <string name="onboarding_sign_in_button">Sign in / Create account</string>
-  <string name="onboarding_local_wallet_button">Use a local wallet</string>
+  <string name="onboarding_create_local_wallet_button">Create local wallet</string>
+  <string name="onboarding_load_backup_button">Load from backup</string>
+  <string name="onboarding_local_wallet_confirm_title">Create a local wallet?</string>
   <string name="onboarding_local_wallet_disclaimer">A local wallet is stored only on this device and isn\'t linked to an account. If you lose this device and don\'t have a backup, you lose access to the wallet and its funds.</string>
   <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
 

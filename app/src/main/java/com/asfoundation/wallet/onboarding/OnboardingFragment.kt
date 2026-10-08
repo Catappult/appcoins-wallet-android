@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.onboarding
 
-import android.app.AlertDialog
 import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.net.Uri
@@ -31,8 +30,11 @@ import com.appcoins.wallet.core.utils.properties.UrlPropertiesFormatter
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
+import com.asf.wallet.databinding.OnboardingLocalWalletBottomSheetBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.ui.login.processLoginRequest
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -110,8 +112,11 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingButtons.onboardingNextButton.setOnClickListener {
       viewModel.handleSignInClick()
     }
-    views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener {
-      viewModel.handleLocalWalletClick()
+    views.onboardingButtons.onboardingCreateLocalWalletButton.setOnClickListener {
+      viewModel.handleCreateLocalWalletClick()
+    }
+    views.onboardingButtons.onboardingLoadBackupButton.setOnClickListener {
+      viewModel.handleRecoverClick()
     }
     views.onboardingRecoverGuestButton.setOnClickListener {
       viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
@@ -190,7 +195,7 @@ class OnboardingFragment : BasePageViewFragment(),
         navigator.navigateToNavBar()
       }
 
-      OnboardingSideEffect.ShowLocalWalletOptions -> showLocalWalletOptions()
+      OnboardingSideEffect.ConfirmCreateLocalWallet -> showCreateLocalWalletConfirmation()
 
       OnboardingSideEffect.ShowLoading -> {
         hideContent()
@@ -205,17 +210,17 @@ class OnboardingFragment : BasePageViewFragment(),
     }
   }
 
-  private fun showLocalWalletOptions() {
-    AlertDialog.Builder(requireContext())
-      .setTitle(R.string.onboarding_local_wallet_button)
-      .setMessage(R.string.onboarding_local_wallet_disclaimer)
-      .setPositiveButton(R.string.action_create_new_account) { _, _ ->
-        viewModel.handleLaunchWalletClick()
-      }
-      .setNegativeButton(R.string.my_wallets_action_recover_wallet) { _, _ ->
-        viewModel.handleRecoverClick()
-      }
-      .show()
+  private fun showCreateLocalWalletConfirmation() {
+    val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogThemeDraggable)
+    val sheet = OnboardingLocalWalletBottomSheetBinding.inflate(layoutInflater)
+    sheet.localWalletConfirmButton.setOnClickListener {
+      dialog.dismiss()
+      viewModel.handleLaunchWalletClick()
+    }
+    sheet.localWalletCancelButton.setOnClickListener { dialog.dismiss() }
+    dialog.setContentView(sheet.root)
+    dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    dialog.show()
   }
 
   private fun restart() {
