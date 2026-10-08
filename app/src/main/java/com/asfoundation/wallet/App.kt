@@ -180,7 +180,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
         }
       }
 
-
       override fun onActivityStarted(activity: Activity) {}
       override fun onActivityResumed(activity: Activity) {}
       override fun onActivityPaused(activity: Activity) {}
