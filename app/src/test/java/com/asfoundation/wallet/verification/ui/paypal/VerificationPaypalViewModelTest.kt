@@ -77,6 +77,13 @@ class VerificationPaypalViewModelTest {
   }
 
   @Test
+  fun `an already verified wallet can start a new verification`() {
+    assertTrue(
+      viewModel(VerificationStatus.VERIFIED).uiState.value is VerificationPaypalState.ShowVerificationInfo
+    )
+  }
+
+  @Test
   fun `refresh with server VERIFIED completes the verification`() {
     val vm = viewModel(VerificationStatus.CODE_REQUESTED)
     serverStatus(VerificationStatus.VERIFIED)

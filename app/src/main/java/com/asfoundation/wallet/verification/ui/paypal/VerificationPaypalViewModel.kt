@@ -76,8 +76,9 @@ constructor(
     when (verificationStatus) {
       CODE_REQUESTED,
       VERIFYING -> showCheckEmail()
-      VERIFIED -> completeVerificationWithSuccess()
-      ERROR, UNVERIFIED -> showVerificationInfo(verificationInfo)
+      // Already verified: start a new verification like before (e.g. a different PayPal account).
+      // Completing a pending one is handled by refreshEmailVerification().
+      ERROR, VERIFIED, UNVERIFIED -> showVerificationInfo(verificationInfo)
       else -> showVerificationInfo(verificationInfo)
     }
   }
