@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.onboarding
 
-import android.app.Activity
+import android.app.AlertDialog
 import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.net.Uri
@@ -14,8 +14,8 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -32,6 +32,7 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.ui.login.processLoginRequest
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -61,11 +62,6 @@ class OnboardingFragment : BasePageViewFragment(),
       activity?.finishAffinity()
     }
   }
-
-  private val openLoginLauncher =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      viewModel.handleOpenLoginResult(result.resultCode == Activity.RESULT_OK)
-    }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -112,10 +108,10 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun setClickListeners() {
     views.onboardingButtons.onboardingNextButton.setOnClickListener {
-      viewModel.handleLaunchWalletClick()
+      viewModel.handleSignInClick()
     }
     views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener {
-      viewModel.handleRecoverClick()
+      viewModel.handleLocalWalletClick()
     }
     views.onboardingRecoverGuestButton.setOnClickListener {
       viewModel.handleRecoverAndVerifyGuestWalletClick(backupModel)
@@ -187,15 +183,39 @@ class OnboardingFragment : BasePageViewFragment(),
       OnboardingSideEffect.NavigateToOnboardingPayment ->
         navigator.navigateToOnboardingPayment()
 
-      OnboardingSideEffect.OpenLogin -> {
-        // to be added:
-//        val url =
-//          "https://wallet.dev.aptoide.com/pt_PT/wallet/sign-in?domain=com.appcoins.wallet.dev&payment_channel=wallet_app"
-//        val intent = Intent(requireContext(), WebViewLoginActivity::class.java)
-//        intent.putExtra(WebViewLoginActivity.URL, url)
-//        openLoginLauncher.launch(intent)
+      is OnboardingSideEffect.OpenLogin -> {
+        // Home stays behind the login tab; the login result comes back to MainActivity.
+        unlockRotation()
+        processLoginRequest(url = sideEffect.url, context = requireContext())
+        navigator.navigateToNavBar()
+      }
+
+      OnboardingSideEffect.ShowLocalWalletOptions -> showLocalWalletOptions()
+
+      OnboardingSideEffect.ShowLoading -> {
+        hideContent()
+        views.loading.visibility = View.VISIBLE
+      }
+
+      OnboardingSideEffect.ShowSignInError -> {
+        views.loading.visibility = View.GONE
+        showValuesScreen()
+        Toast.makeText(requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT).show()
       }
     }
+  }
+
+  private fun showLocalWalletOptions() {
+    AlertDialog.Builder(requireContext())
+      .setTitle(R.string.onboarding_local_wallet_button)
+      .setMessage(R.string.onboarding_local_wallet_disclaimer)
+      .setPositiveButton(R.string.action_create_new_account) { _, _ ->
+        viewModel.handleLaunchWalletClick()
+      }
+      .setNegativeButton(R.string.my_wallets_action_recover_wallet) { _, _ ->
+        viewModel.handleRecoverClick()
+      }
+      .show()
   }
 
   private fun restart() {
