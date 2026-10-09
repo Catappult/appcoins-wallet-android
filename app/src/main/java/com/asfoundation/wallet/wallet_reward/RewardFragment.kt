@@ -8,6 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -189,31 +196,43 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     ) {
       item {
         with(viewModel.gamificationHeaderModel.value) {
-          when {
-            this != null && walletOrigin == APTOIDE -> {
-              GamificationContentAptoide(this)
-            }
+          // Crossfade only when the kind of header changes, so data updates don't restart it.
+          AnimatedContent(
+            targetState = this,
+            contentKey = { it?.walletOrigin to it?.uninitialized },
+            transitionSpec = { fadeIn() togetherWith fadeOut() },
+            label = "gamificationHeader"
+          ) { header ->
+            when {
+              header != null && header.walletOrigin == APTOIDE -> {
+                GamificationContentAptoide(header)
+              }
 
-            this != null && walletOrigin == PARTNER -> {
-              GamificationHeaderPartner(this.partnerPerk?.description ?: "")
-            }
+              header != null && header.walletOrigin == PARTNER -> {
+                GamificationHeaderPartner(header.partnerPerk?.description ?: "")
+              }
 
-            this != null && walletOrigin == PARTNER_NO_BONUS -> {
-              // No Gamification header
-            }
+              header != null && header.walletOrigin == PARTNER_NO_BONUS -> {
+                // No Gamification header
+              }
 
-            this != null && this.uninitialized -> {
-              SkeletonLoadingGamificationCard()
-            }
+              header != null && header.uninitialized -> {
+                SkeletonLoadingGamificationCard()
+              }
 
-            else -> {
-              GamificationHeaderNoPurchases()
+              else -> {
+                GamificationHeaderNoPurchases()
+              }
             }
           }
 
           val vipRefModel = viewModel.vipReferralModel.value
           val isFormNeeded = viewModel.isFormNeeded.value
-          if (vipRefModel != null || isFormNeeded) {
+          AnimatedVisibility(
+            visible = vipRefModel != null || isFormNeeded,
+            enter = fadeIn() + expandVertically(),
+            exit = fadeOut() + shrinkVertically()
+          ) {
             VipReferralCardComposable(
               modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
               vipBonus = vipRefModel?.vipBonus ?: "",
