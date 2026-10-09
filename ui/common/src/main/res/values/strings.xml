@@ -1458,4 +1458,11 @@ support. Complete your VIP Form to receive your VIP role, then join the server.<
   <string name="voucher_tooltip">You can now buy vouchers for games!</string>
   <string name="wallet_view_active_body">This is your active wallet.</string>
   <string name="wallet_view_backup_button">BACKUP WALLET</string>
+
+  <!-- Gamification tiers, shown on the Home balance card -->
+  <string name="gamification_tier_bronze">Bronze</string>
+  <string name="gamification_tier_silver">Silver</string>
+  <string name="gamification_tier_gold">Gold</string>
+  <string name="gamification_tier_platinum">Platinum</string>
+  <string name="gamification_tier_vip">VIP</string>
 </resources>

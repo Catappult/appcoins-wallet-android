@@ -174,6 +174,8 @@ constructor(
   val isEmailError = mutableStateOf(false)
   val emailErrorText = mutableStateOf(0)
   val isVip = mutableStateOf(false)
+  val userLevel = mutableStateOf(PromotionsGamificationStats.INVALID_LEVEL)
+  val userBonus = mutableStateOf(PromotionsGamificationStats.INVALID_BONUS)
   private val alreadyGetImpression = mutableStateOf(false)
   val canTransfer = mutableStateOf(false)
 
@@ -467,6 +469,8 @@ constructor(
         observeUserStatsUseCase().flatMapSingle { gamificationStats ->
           val userLevel = gamificationStats.level
           isVip.value = gamificationStats.gamificationStatus.isVip()
+          this@HomeViewModel.userLevel.value = userLevel
+          userBonus.value = gamificationStats.bonus
           getLastShownUserLevelUseCase(wallet.address).doOnSuccess { lastShownLevel ->
             if (userLevel > lastShownLevel) {
               updateLastShownUserLevelUseCase(wallet.address, userLevel)
