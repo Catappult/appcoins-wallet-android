@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">شرایط و ضوابط</string>
   <string name="privacy_policy">سیاست حفظ حریم خصوصی</string>
   <string name="existent_wallet">پیشاپیش کیف پول دارم</string>
+  <string name="onboarding_sign_in_button">ورود / ایجاد حساب</string>
+  <string name="onboarding_create_local_wallet_button">ایجاد کیف‌پول محلی</string>
+  <string name="onboarding_load_backup_button">بارگیری از نسخه پشتیبان</string>
+  <string name="onboarding_local_wallet_confirm_title">کیف‌پول محلی ایجاد شود؟</string>
+  <string name="onboarding_load_backup_body">کیف‌پول را از فایل یا کد پشتیبانی که قبلاً ذخیره کرده‌اید بازیابی کنید.</string>
+  <string name="onboarding_enter_backup_code_button">وارد کردن کد پشتیبان</string>
+  <string name="onboarding_local_wallet_disclaimer">کیف‌پول محلی فقط روی همین دستگاه ذخیره می‌شود و به هیچ حسابی متصل نیست. اگر این دستگاه را گم کنید و نسخه پشتیبان نداشته باشید، دسترسی به کیف‌پول و دارایی‌های آن را از دست می‌دهید.</string>
   <string name="onboarding_verification_body">برای تکمیل خرید خود، روش پرداخت خود را تایید کنید.</string>
   <!--Home-->
   <!--Tokens-->

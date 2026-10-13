@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Syarat dan Ketentuan</string>
   <string name="privacy_policy">Kebijakan Privasi</string>
   <string name="existent_wallet">Saya sudah punya dompet</string>
+  <string name="onboarding_sign_in_button">Masuk / Buat akun</string>
+  <string name="onboarding_create_local_wallet_button">Buat dompet lokal</string>
+  <string name="onboarding_load_backup_button">Muat dari cadangan</string>
+  <string name="onboarding_local_wallet_confirm_title">Buat dompet lokal?</string>
+  <string name="onboarding_load_backup_body">Pulihkan dompet dari file atau kode cadangan yang Anda simpan sebelumnya.</string>
+  <string name="onboarding_enter_backup_code_button">Masukkan kode cadangan</string>
+  <string name="onboarding_local_wallet_disclaimer">Dompet lokal hanya disimpan di perangkat ini dan tidak terhubung ke akun mana pun. Jika Anda kehilangan perangkat ini dan tidak memiliki cadangan, Anda akan kehilangan akses ke dompet dan dananya.</string>
   <string name="onboarding_verification_body">Verifikasi metode pembayaran Anda untuk menyelesaikan pembelian.</string>
   <!--Home-->
   <!--Tokens-->

@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">条款与条件</string>
   <string name="privacy_policy">隐私政策</string>
   <string name="existent_wallet">我已经有钱包了</string>
+  <string name="onboarding_sign_in_button">登录 / 创建账户</string>
+  <string name="onboarding_create_local_wallet_button">创建本地钱包</string>
+  <string name="onboarding_load_backup_button">从备份加载</string>
+  <string name="onboarding_local_wallet_confirm_title">创建本地钱包？</string>
+  <string name="onboarding_load_backup_body">使用你之前保存的备份文件或备份代码恢复钱包。</string>
+  <string name="onboarding_enter_backup_code_button">输入备份代码</string>
+  <string name="onboarding_local_wallet_disclaimer">本地钱包仅存储在此设备上，且未关联任何账户。如果你丢失此设备且没有备份，将无法再访问该钱包及其中的资金。</string>
   <string name="onboarding_verification_body">请您验证付款方式，以完成购买。</string>
   <!--Home-->
   <!--Tokens-->

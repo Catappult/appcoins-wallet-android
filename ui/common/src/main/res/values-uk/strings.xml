@@ -342,6 +342,13 @@
   <string name="terms_and_conditions">Правила та умови</string>
   <string name="privacy_policy">Політика конфіденційності</string>
   <string name="existent_wallet">У мене вже є гаманець</string>
+  <string name="onboarding_sign_in_button">Увійти / Створити акаунт</string>
+  <string name="onboarding_create_local_wallet_button">Створити локальний гаманець</string>
+  <string name="onboarding_load_backup_button">Завантажити з резервної копії</string>
+  <string name="onboarding_local_wallet_confirm_title">Створити локальний гаманець?</string>
+  <string name="onboarding_load_backup_body">Відновіть гаманець із файлу або коду резервної копії, які ви зберегли раніше.</string>
+  <string name="onboarding_enter_backup_code_button">Ввести код резервної копії</string>
+  <string name="onboarding_local_wallet_disclaimer">Локальний гаманець зберігається лише на цьому пристрої та не пов’язаний з обліковим записом. Якщо ви втратите цей пристрій і не матимете резервної копії, ви втратите доступ до гаманця та коштів у ньому.</string>
   <string name="onboarding_verification_body">Щоб завершити покупку, підтвердьте свій спосіб оплати.</string>
   <!--Home-->
   <!--Tokens-->

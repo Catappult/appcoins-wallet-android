@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Regulamin</string>
   <string name="privacy_policy">Polityka prywatności</string>
   <string name="existent_wallet">Mam już portfel</string>
+  <string name="onboarding_sign_in_button">Zaloguj się / Utwórz konto</string>
+  <string name="onboarding_create_local_wallet_button">Utwórz portfel lokalny</string>
+  <string name="onboarding_load_backup_button">Wczytaj z kopii zapasowej</string>
+  <string name="onboarding_local_wallet_confirm_title">Utworzyć portfel lokalny?</string>
+  <string name="onboarding_load_backup_body">Przywróć portfel z pliku lub kodu kopii zapasowej, który został wcześniej zapisany.</string>
+  <string name="onboarding_enter_backup_code_button">Wpisz kod kopii zapasowej</string>
+  <string name="onboarding_local_wallet_disclaimer">Portfel lokalny jest przechowywany tylko na tym urządzeniu i nie jest powiązany z żadnym kontem. Jeśli zgubisz to urządzenie i nie masz kopii zapasowej, utracisz dostęp do portfela i jego środków.</string>
   <string name="onboarding_verification_body">Zweryfikuj metodę płatności, aby sfinalizować zakup.</string>
   <!--Home-->
   <!--Tokens-->

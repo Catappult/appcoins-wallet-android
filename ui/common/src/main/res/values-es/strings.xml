@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Términos y Condiciones</string>
   <string name="privacy_policy">Política de Privacidad</string>
   <string name="existent_wallet">Ya tengo una wallet</string>
+  <string name="onboarding_sign_in_button">Iniciar sesión / Crear cuenta</string>
+  <string name="onboarding_create_local_wallet_button">Crear wallet local</string>
+  <string name="onboarding_load_backup_button">Cargar desde backup</string>
+  <string name="onboarding_local_wallet_confirm_title">¿Crear una wallet local?</string>
+  <string name="onboarding_load_backup_body">Restaura una wallet desde el archivo o el código de backup que guardaste antes.</string>
+  <string name="onboarding_enter_backup_code_button">Introducir código de backup</string>
+  <string name="onboarding_local_wallet_disclaimer">Una wallet local se guarda solo en este dispositivo y no está vinculada a ninguna cuenta. Si pierdes este dispositivo y no tienes un backup, perderás el acceso a la wallet y a sus fondos.</string>
   <string name="onboarding_verification_body">Verifica tu método de pago para completar la compra.</string>
   <!--Home-->
   <!--Tokens-->
