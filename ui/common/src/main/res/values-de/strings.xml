@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Allgemeine Geschäftsbedingungen</string>
   <string name="privacy_policy">Datenschutzrichtlinie</string>
   <string name="existent_wallet">Ich habe bereits eine Wallet</string>
+  <string name="onboarding_sign_in_button">Anmelden / Konto erstellen</string>
+  <string name="onboarding_create_local_wallet_button">Lokale Wallet erstellen</string>
+  <string name="onboarding_load_backup_button">Aus Backup laden</string>
+  <string name="onboarding_local_wallet_confirm_title">Lokale Wallet erstellen?</string>
+  <string name="onboarding_load_backup_body">Stelle eine Wallet aus der Backup-Datei oder dem Backup-Code wieder her, den du zuvor gespeichert hast.</string>
+  <string name="onboarding_enter_backup_code_button">Backup-Code eingeben</string>
+  <string name="onboarding_local_wallet_disclaimer">Eine lokale Wallet wird nur auf diesem Gerät gespeichert und ist mit keinem Konto verknüpft. Wenn du dieses Gerät verlierst und kein Backup hast, verlierst du den Zugriff auf die Wallet und ihr Guthaben.</string>
   <string name="onboarding_verification_body">Bitte verifiziere deine Zahlungsmethode, um deinen Kauf abzuschließen.</string>
   <!--Home-->
   <!--Tokens-->

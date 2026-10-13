@@ -6,6 +6,8 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetActiveWall
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import com.asfoundation.wallet.entity.WalletKeyStore
+import com.asfoundation.wallet.interact.DeleteWalletInteract
+import com.asfoundation.wallet.onboarding.OnboardingSignInWallet
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.FailedEntryRecover.AlreadyAdded
@@ -19,6 +21,7 @@ import com.asfoundation.wallet.ui.login.usecases.FetchUserKeyUseCase.FetchUserKe
 import com.asfoundation.wallet.ui.login.webview_login.repository.LoginRepository
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class FetchUserKeyUseCase @Inject constructor(
@@ -29,7 +32,9 @@ class FetchUserKeyUseCase @Inject constructor(
   private val updateWalletNameUseCase: UpdateWalletNameUseCase,
   private val setActiveWalletUseCase: SetActiveWalletUseCase,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
-  private val getAddressFromPrivateKeyUseCase: GetAddressFromPrivateKeyUseCase
+  private val getAddressFromPrivateKeyUseCase: GetAddressFromPrivateKeyUseCase,
+  private val onboardingSignInWallet: OnboardingSignInWallet,
+  private val deleteWalletInteract: DeleteWalletInteract,
 ) {
 
   operator fun invoke(
@@ -56,8 +61,29 @@ class FetchUserKeyUseCase @Inject constructor(
           email,
           wallet,
           address
-        )
+        ).flatMap { removeOnboardingWalletIfReplaced(it, address) }
       }
+  }
+
+  /**
+   * Signing in from onboarding first creates a temporary wallet (see [OnboardingSignInWallet]).
+   * When the login switched to the account's own wallet, that temporary wallet is removed so it
+   * doesn't show up in the wallets list.
+   */
+  private fun removeOnboardingWalletIfReplaced(
+    result: FetchUserKeyResult,
+    loginWalletAddress: String
+  ): Single<FetchUserKeyResult> {
+    if (result is ErrorAddingWallet) return Single.just(result) // keep it for a retry
+    val temporaryWallet = onboardingSignInWallet.consume()
+    if (result !is WalletSwitched || temporaryWallet == null || temporaryWallet == loginWalletAddress) {
+      return Single.just(result)
+    }
+    return deleteWalletInteract.delete(temporaryWallet)
+      .observeOn(Schedulers.io())
+      .andThen(setActiveWalletUseCase(loginWalletAddress))
+      .onErrorComplete()
+      .toSingleDefault(result)
   }
 
   private fun setDefaultWallet(

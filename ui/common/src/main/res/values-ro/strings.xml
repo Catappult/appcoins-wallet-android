@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Termenii și condițiile</string>
   <string name="privacy_policy">Politica de confidențialitate</string>
   <string name="existent_wallet">Am deja un portofel</string>
+  <string name="onboarding_sign_in_button">Conectează-te / Creează cont</string>
+  <string name="onboarding_create_local_wallet_button">Creează portofel local</string>
+  <string name="onboarding_load_backup_button">Încarcă din copia de rezervă</string>
+  <string name="onboarding_local_wallet_confirm_title">Creezi un portofel local?</string>
+  <string name="onboarding_load_backup_body">Restabilește un portofel din fișierul sau codul de rezervă pe care l-ai salvat anterior.</string>
+  <string name="onboarding_enter_backup_code_button">Introdu codul de rezervă</string>
+  <string name="onboarding_local_wallet_disclaimer">Un portofel local este stocat doar pe acest dispozitiv și nu este asociat cu niciun cont. Dacă pierzi acest dispozitiv și nu ai o copie de rezervă, pierzi accesul la portofel și la fondurile din el.</string>
   <string name="onboarding_verification_body">Verifică-ți metoda de plată pentru a-ți finaliza achiziția.</string>
   <!--Home-->
   <!--Tokens-->

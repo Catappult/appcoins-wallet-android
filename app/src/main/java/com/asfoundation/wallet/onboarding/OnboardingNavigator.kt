@@ -21,10 +21,13 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
     )
   }
 
-  fun navigateToRecover() {
+  fun navigateToRecover(openFilePicker: Boolean) {
     navigate(
       fragment.findNavController(),
-      OnboardingFragmentDirections.actionNavigateToRecoverWalletGraph(onboardingLayout = true)
+      OnboardingFragmentDirections.actionNavigateToRecoverWalletGraph(
+        onboardingLayout = true,
+        openFilePicker = openFilePicker
+      )
     )
   }
 

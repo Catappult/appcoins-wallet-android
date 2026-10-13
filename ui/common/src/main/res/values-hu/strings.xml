@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Általános szerződési feltételek</string>
   <string name="privacy_policy">Adatvédelmi szabályzat</string>
   <string name="existent_wallet">Már van tárcám</string>
+  <string name="onboarding_sign_in_button">Bejelentkezés / Fiók létrehozása</string>
+  <string name="onboarding_create_local_wallet_button">Helyi tárca létrehozása</string>
+  <string name="onboarding_load_backup_button">Betöltés biztonsági mentésből</string>
+  <string name="onboarding_local_wallet_confirm_title">Létrehozol egy helyi tárcát?</string>
+  <string name="onboarding_load_backup_body">Állíts vissza egy tárcát a korábban elmentett biztonsági mentési fájlból vagy kódból.</string>
+  <string name="onboarding_enter_backup_code_button">Biztonsági mentési kód megadása</string>
+  <string name="onboarding_local_wallet_disclaimer">A helyi tárca csak ezen az eszközön tárolódik, és nincs fiókhoz kapcsolva. Ha elveszíted ezt az eszközt, és nincs biztonsági mentésed, elveszíted a hozzáférést a tárcához és a benne lévő pénzhez.</string>
   <string name="onboarding_verification_body">A vásárlás befejezéséhez hitelesítsd a fizetési módot.</string>
   <!--Home-->
   <!--Tokens-->
