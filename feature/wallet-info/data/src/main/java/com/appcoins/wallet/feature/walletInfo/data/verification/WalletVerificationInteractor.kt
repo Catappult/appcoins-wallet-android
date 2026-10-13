@@ -46,6 +46,14 @@ constructor(
     )
   }
 
+  /**
+   * Broker state only, without [getVerificationStatus]'s wallet info refresh: that call also
+   * feeds the backend's fraud rules, so it must not be polled.
+   */
+  fun getServerVerificationStatus(address: String, type: VerificationType): Single<VerificationStatus> =
+    brokerVerificationRepository.getServerVerificationState(address, type)
+      .doOnSuccess { brokerVerificationRepository.saveVerificationStatus(address, it, type) }
+
   fun getCachedVerificationStatus(address: String, type: VerificationType): VerificationStatus {
     return brokerVerificationRepository.getCachedValidationStatus(address, type)
   }

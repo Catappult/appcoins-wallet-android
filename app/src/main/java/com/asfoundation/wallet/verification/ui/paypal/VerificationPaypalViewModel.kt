@@ -127,7 +127,7 @@ constructor(
     walletService
       .getAndSignCurrentWalletAddress()
       .flatMap { wallet ->
-        walletVerificationInteractor.getVerificationStatus(address = wallet.address, type = PAYPAL)
+        walletVerificationInteractor.getServerVerificationStatus(address = wallet.address, type = PAYPAL)
       }
       .subscribeOn(Schedulers.io())
       .subscribe({ status ->

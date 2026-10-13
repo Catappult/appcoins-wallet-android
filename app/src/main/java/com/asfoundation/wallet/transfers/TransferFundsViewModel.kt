@@ -13,7 +13,7 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository.Status.SUC
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository.Status.UNKNOWN_ERROR
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.main.nav_bar.TransferNavigationItem
@@ -35,7 +35,7 @@ class TransferFundsViewModel
 @Inject
 constructor(
   private val displayChatUseCase: DisplayChatUseCase,
-  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val transferInteractor: TransferInteractor
 ) : ViewModel() {
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
@@ -51,8 +51,7 @@ constructor(
   }
 
   fun getWalletInfo() {
-    observeWalletInfoUseCase(null, update = true)
-      .firstOrError()
+    getWalletInfoUseCase(null, cached = false)
       .doOnSuccess { _uiState.value = UiState.Success(it) }
       .subscribe()
   }
