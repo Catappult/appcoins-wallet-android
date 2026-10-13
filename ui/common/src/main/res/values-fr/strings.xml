@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Termes et Conditions</string>
   <string name="privacy_policy">Politique de confidentialité</string>
   <string name="existent_wallet">J\'ai déjà un portefeuille</string>
+  <string name="onboarding_sign_in_button">Se connecter / Créer un compte</string>
+  <string name="onboarding_create_local_wallet_button">Créer un portefeuille local</string>
+  <string name="onboarding_load_backup_button">Charger une sauvegarde</string>
+  <string name="onboarding_local_wallet_confirm_title">Créer un portefeuille local ?</string>
+  <string name="onboarding_load_backup_body">Restaurez un portefeuille à partir du fichier ou du code de sauvegarde que vous avez enregistré.</string>
+  <string name="onboarding_enter_backup_code_button">Saisir le code de sauvegarde</string>
+  <string name="onboarding_local_wallet_disclaimer">Un portefeuille local est stocké uniquement sur cet appareil et n\'est lié à aucun compte. Si vous perdez cet appareil sans sauvegarde, vous perdez l\'accès au portefeuille et à ses fonds.</string>
   <string name="onboarding_verification_body">Vérifiez votre méthode de paiement pour finaliser cet achat.</string>
   <!--Home-->
   <!--Tokens-->

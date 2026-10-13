@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">利用規約</string>
   <string name="privacy_policy">プライバシー ポリシー</string>
   <string name="existent_wallet">ウォレットをすでに持っています</string>
+  <string name="onboarding_sign_in_button">サインイン / アカウント作成</string>
+  <string name="onboarding_create_local_wallet_button">ローカルウォレットを作成</string>
+  <string name="onboarding_load_backup_button">バックアップから読み込む</string>
+  <string name="onboarding_local_wallet_confirm_title">ローカルウォレットを作成しますか？</string>
+  <string name="onboarding_load_backup_body">以前に保存したバックアップファイルまたはバックアップコードからウォレットを復元します。</string>
+  <string name="onboarding_enter_backup_code_button">バックアップコードを入力</string>
+  <string name="onboarding_local_wallet_disclaimer">ローカルウォレットはこの端末にのみ保存され、アカウントには紐付けられません。この端末を紛失し、バックアップがない場合、ウォレットとその資金にアクセスできなくなります。</string>
   <string name="onboarding_verification_body">購入を完了するには支払い方法を確認してください。</string>
   <!--Home-->
   <!--Tokens-->
