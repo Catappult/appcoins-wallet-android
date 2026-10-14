@@ -53,6 +53,8 @@ class VerificationPaypalViewModelTest {
   private fun serverStatus(status: VerificationStatus) {
     every { interactor.getVerificationStatus("0x", VerificationType.PAYPAL) } returns
         Single.just(status)
+    every { interactor.getServerVerificationStatus("0x", VerificationType.PAYPAL) } returns
+        Single.just(status)
   }
 
   @Test
