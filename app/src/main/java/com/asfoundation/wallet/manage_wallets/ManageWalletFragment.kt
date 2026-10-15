@@ -59,6 +59,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
@@ -100,6 +103,8 @@ import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import javax.inject.Inject
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageWalletFragment : BasePageViewFragment() {
@@ -135,6 +140,19 @@ class ManageWalletFragment : BasePageViewFragment() {
   override fun onResume() {
     super.onResume()
     viewModel.getWallets()
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    // A pending PayPal verification completes when the emailed link is opened, outside the app.
+    viewLifecycleOwner.lifecycleScope.launch {
+      viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+        while (true) {
+          delay(PAYPAL_VERIFICATION_POLL_MS)
+          viewModel.refreshPendingPaypalVerification()
+        }
+      }
+    }
   }
 
   @Composable
@@ -915,6 +933,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     const val ADDRESS_KEY = "address_key"
     const val MANAGE_WALLET_REQUEST_KEY = "manage_wallet_request_key"
     const val VERIFY_PAYMENT_METHOD = "verify_payment_method"
+    private const val PAYPAL_VERIFICATION_POLL_MS = 5_000L
     private const val CONNECTION_BADGE_CORNER_RADIUS = 4
     private const val CONNECTION_BADGE_ICON_SIZE = 12
     private const val CONNECTION_BADGE_HORIZONTAL_PADDING = 5
