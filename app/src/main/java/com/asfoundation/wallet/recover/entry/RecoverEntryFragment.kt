@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -21,6 +23,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverEntryFragmentBinding
 import com.asfoundation.wallet.recover.RecoverActivity.Companion.ONBOARDING_LAYOUT
+import com.asfoundation.wallet.recover.RecoverActivity.Companion.OPEN_FILE_PICKER
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
@@ -58,14 +61,14 @@ class RecoverEntryFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     isFromOnboarding = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
-    views.recoverWalletOptions.recoverFromFileButton.setOnClickListener {
-      // For Android 33 and beyond, the READ_EXTERNAL_STORAGE permission does not work. Though it's
-      // still needed for backward compatibility.
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-        requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-      } else {
-        navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
-      }
+    // The activity content is already padded by the system bar + keyboard insets (EdgeToEdgeInsets);
+    // SplashTheme's fitsSystemWindows would make this view pad itself by them again, leaving almost
+    // no room for the code field while the keyboard is open.
+    ViewCompat.setOnApplyWindowInsetsListener(view) { _, _ -> WindowInsetsCompat.CONSUMED }
+    views.recoverWalletOptions.recoverFromFileButton.setOnClickListener { openFilePicker() }
+    // Coming from onboarding's "Load from backup" -> "Recover from file": go straight to the picker.
+    if (savedInstanceState == null && requireArguments().getBoolean(OPEN_FILE_PICKER, false)) {
+      openFilePicker()
     }
     views.recoverWalletButton.setOnClickListener {
       viewModel.handleRecoverClick(
@@ -89,6 +92,16 @@ class RecoverEntryFragment : BasePageViewFragment(),
       }
     })
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun openFilePicker() {
+    // For Android 33 and beyond, the READ_EXTERNAL_STORAGE permission does not work. Though it's
+    // still needed for backward compatibility.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+      requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+    } else {
+      navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
+    }
   }
 
   private fun createLaunchers() {
