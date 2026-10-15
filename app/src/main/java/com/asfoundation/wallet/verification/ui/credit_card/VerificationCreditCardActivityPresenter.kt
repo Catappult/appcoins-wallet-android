@@ -48,12 +48,15 @@ class VerificationCreditCardActivityPresenter(
 
   private fun onVerificationStatusSuccess(verificationStatus: com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus) {
     when (verificationStatus) {
-      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.UNVERIFIED -> {
+      // An already verified card can be verified again (e.g. a different card), as before.
+      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.UNVERIFIED,
+      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFIED -> {
         analytics.sendStartEvent("verify")
         navigator.navigateToWalletVerificationIntro()
       }
 
-      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.CODE_REQUESTED -> {
+      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.CODE_REQUESTED,
+      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFYING -> {
         analytics.sendStartEvent("insert_code")
         navigator.navigateToWalletVerificationCode()
       }

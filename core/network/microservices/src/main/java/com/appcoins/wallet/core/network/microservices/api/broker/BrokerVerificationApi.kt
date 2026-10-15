@@ -8,12 +8,15 @@ import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface BrokerVerificationApi {
 
-  @GET("8.20200815/gateways/adyen_v2/verification/state")
+  /** @param method "credit_card" or "paypal". 404 when the wallet never verified this method. */
+  @GET("8.20250228/methods/{method}/verification/state")
   fun getVerificationState(
+    @Path("method") method: String,
     @Query("wallet.address") wallet: String,
   ): Single<String>
 
