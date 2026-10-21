@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">القواعد والشروط</string>
   <string name="privacy_policy">سياسة الخصوصية</string>
   <string name="existent_wallet">لدي محفظة فعلًا</string>
+  <string name="onboarding_sign_in_button">تسجيل الدخول / إنشاء حساب</string>
+  <string name="onboarding_create_local_wallet_button">إنشاء محفظة محلية</string>
+  <string name="onboarding_load_backup_button">التحميل من نسخة احتياطية</string>
+  <string name="onboarding_local_wallet_confirm_title">هل تريد إنشاء محفظة محلية؟</string>
+  <string name="onboarding_load_backup_body">استعد محفظة من ملف النسخة الاحتياطية أو رمز النسخة الاحتياطية الذي حفظته سابقًا.</string>
+  <string name="onboarding_enter_backup_code_button">إدخال رمز النسخة الاحتياطية</string>
+  <string name="onboarding_local_wallet_disclaimer">تُخزَّن المحفظة المحلية على هذا الجهاز فقط ولا ترتبط بأي حساب. إذا فقدت هذا الجهاز ولم تكن لديك نسخة احتياطية، فستفقد الوصول إلى المحفظة وأموالها.</string>
   <string name="onboarding_verification_body">وثق وسيلة الدفع لديك لإتمام عملية الشراء.</string>
   <!--Home-->
   <!--Tokens-->
@@ -374,6 +381,7 @@
   <string name="paypal_verification_insert_code_body">أدخل في الأسفل الرمز المكون من 4 خانات الذي أرسلناه إلى بريدك الإلكتروني المرتبط بحسابك على PayPal.</string>
   <string name="paypal_verification_didnt_receive_title">ألم يصلك الرمز؟</string>
   <string name="paypal_verification_completed_body">ستسترجع المبلغ في الحال، وسيتم تأكيد حسابك على PayPal قريبًا.</string>
+  <string name="paypal_verification_check_email_body">أرسلنا رسالة إلى البريد الإلكتروني المرتبط بحسابك على PayPal. افتحها وانقر على الرابط لإكمال عملية التحقق.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">المجموع %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">يبدو أن عملية الشراء قد تمت بالفعل. يرجى الانتظار حتى تتم عملية التحويل أو يمكنك التواصل مع فريق الدعم.</string>

@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Termes et Conditions</string>
   <string name="privacy_policy">Politique de confidentialité</string>
   <string name="existent_wallet">J\'ai déjà un portefeuille</string>
+  <string name="onboarding_sign_in_button">Se connecter / Créer un compte</string>
+  <string name="onboarding_create_local_wallet_button">Créer un portefeuille local</string>
+  <string name="onboarding_load_backup_button">Charger une sauvegarde</string>
+  <string name="onboarding_local_wallet_confirm_title">Créer un portefeuille local ?</string>
+  <string name="onboarding_load_backup_body">Restaurez un portefeuille à partir du fichier ou du code de sauvegarde que vous avez enregistré.</string>
+  <string name="onboarding_enter_backup_code_button">Saisir le code de sauvegarde</string>
+  <string name="onboarding_local_wallet_disclaimer">Un portefeuille local est stocké uniquement sur cet appareil et n\'est lié à aucun compte. Si vous perdez cet appareil sans sauvegarde, vous perdez l\'accès au portefeuille et à ses fonds.</string>
   <string name="onboarding_verification_body">Vérifiez votre méthode de paiement pour finaliser cet achat.</string>
   <!--Home-->
   <!--Tokens-->
@@ -374,6 +381,7 @@
   <string name="paypal_verification_insert_code_body">Insérez ci-dessous le code à 4 chiffres que nous avons envoyé à l\'adresse électronique associée à votre compte PayPal.</string>
   <string name="paypal_verification_didnt_receive_title">Vous ne l\'avez pas reçu ?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_check_email_body">Nous avons envoyé un e-mail à l\'adresse associée à votre compte PayPal. Ouvrez-le et appuyez sur le lien pour terminer la vérification.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Il semble que cet achat soit déjà en cours de traitement. Veuillez patienter jusqu\'à ce que la transaction soit terminée ou contactez notre équipe de support.</string>

@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">이용약관</string>
   <string name="privacy_policy">개인정보 보호정책</string>
   <string name="existent_wallet">지갑은 이미 있어요</string>
+  <string name="onboarding_sign_in_button">로그인 / 계정 만들기</string>
+  <string name="onboarding_create_local_wallet_button">로컬 지갑 만들기</string>
+  <string name="onboarding_load_backup_button">백업에서 불러오기</string>
+  <string name="onboarding_local_wallet_confirm_title">로컬 지갑을 만들까요?</string>
+  <string name="onboarding_load_backup_body">이전에 저장한 백업 파일 또는 백업 코드로 지갑을 복원하세요.</string>
+  <string name="onboarding_enter_backup_code_button">백업 코드 입력</string>
+  <string name="onboarding_local_wallet_disclaimer">로컬 지갑은 이 기기에만 저장되며 계정에 연결되지 않습니다. 백업 없이 이 기기를 잃어버리면 지갑과 자금에 접근할 수 없게 됩니다.</string>
   <string name="onboarding_verification_body">구매를 완료하려면 결제 수단을 확인하세요.</string>
   <!--Home-->
   <!--Tokens-->
@@ -374,6 +381,7 @@
   <string name="paypal_verification_insert_code_body">페이팔 계정과 관련된 이메일 주소로 보내드린 4자리 코드를 아래에 입력하세요.</string>
   <string name="paypal_verification_didnt_receive_title">못 받으셨나요?</string>
   <string name="paypal_verification_completed_body">즉시 환불될 것이며, 페이팔 계정이 곧 확인됩니다.</string>
+  <string name="paypal_verification_check_email_body">PayPal 계정에 연결된 이메일 주소로 이메일을 보냈습니다. 이메일을 열고 링크를 탭하여 인증을 완료하세요.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">총 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">이 구매는 이미 진행 중에 있습니다. 거래가 완료될 때까지 대기해 주시거나 지원 팀에 연락해 주세요.</string>

@@ -342,6 +342,13 @@
   <string name="terms_and_conditions">Правила та умови</string>
   <string name="privacy_policy">Політика конфіденційності</string>
   <string name="existent_wallet">У мене вже є гаманець</string>
+  <string name="onboarding_sign_in_button">Увійти / Створити акаунт</string>
+  <string name="onboarding_create_local_wallet_button">Створити локальний гаманець</string>
+  <string name="onboarding_load_backup_button">Завантажити з резервної копії</string>
+  <string name="onboarding_local_wallet_confirm_title">Створити локальний гаманець?</string>
+  <string name="onboarding_load_backup_body">Відновіть гаманець із файлу або коду резервної копії, які ви зберегли раніше.</string>
+  <string name="onboarding_enter_backup_code_button">Ввести код резервної копії</string>
+  <string name="onboarding_local_wallet_disclaimer">Локальний гаманець зберігається лише на цьому пристрої та не пов’язаний з обліковим записом. Якщо ви втратите цей пристрій і не матимете резервної копії, ви втратите доступ до гаманця та коштів у ньому.</string>
   <string name="onboarding_verification_body">Щоб завершити покупку, підтвердьте свій спосіб оплати.</string>
   <!--Home-->
   <!--Tokens-->
@@ -376,6 +383,7 @@
   <string name="paypal_verification_insert_code_body">Введіть нижче 4-значний код, надісланий на адресу електронної пошти, пов\'язану з вашим обліковим записом PayPal.</string>
   <string name="paypal_verification_didnt_receive_title">Не отримали код?</string>
   <string name="paypal_verification_completed_body">Вам буде негайно повернуто кошти, а ваш акаунт PayPal буде верифіковано найближчим часом.</string>
+  <string name="paypal_verification_check_email_body">Ми надіслали лист на адресу електронної пошти, пов’язану з вашим обліковим записом PayPal. Відкрийте його й натисніть посилання, щоб завершити перевірку.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Всього %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Схоже, ця покупка вже обробляється. Зачекайте, доки транзакція не буде завершена, або зв’яжіться з нашою командою підтримки.</string>

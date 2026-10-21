@@ -14,6 +14,11 @@
         android:name="onboarding_layout"
         app:argType="boolean" />
 
+    <argument
+        android:name="open_file_picker"
+        android:defaultValue="false"
+        app:argType="boolean" />
+
     <action
         android:id="@+id/action_navigate_to_recover_password"
         app:destination="@id/recover_password_fragment" />

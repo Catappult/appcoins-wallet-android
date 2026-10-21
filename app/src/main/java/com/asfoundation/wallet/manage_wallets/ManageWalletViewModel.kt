@@ -12,7 +12,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.activeWalletAddress
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.inactiveWallets
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.interact.DeleteWalletInteract
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +27,7 @@ class ManageWalletViewModel
 @Inject
 constructor(
   private val displayChatUseCase: DisplayChatUseCase,
-  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val walletsInteract: WalletsInteract,
   private val deleteWalletInteract: DeleteWalletInteract,
   private val walletService: WalletService,
@@ -57,8 +57,8 @@ constructor(
   }
 
   private fun getActiveWallet(wallets: WalletsModel) =
-    observeWalletInfoUseCase(wallets.activeWalletAddress(), update = true)
-      .firstOrError()
+    // Fetch before reading: the first value of an "updated" observer is the stale DB row.
+    getWalletInfoUseCase(wallets.activeWalletAddress(), cached = false)
       .flatMapCompletable { walletInfo ->
         walletService.getAndSignCurrentWalletAddress()
           .flatMap { wallet ->
@@ -94,6 +94,20 @@ constructor(
       .subscribe({}, { error ->
         error.printStackTrace()
       })
+
+  /** Polled while resumed: reloads once a pending PayPal verification settles on the server. */
+  fun refreshPendingPaypalVerification() {
+    val state = _uiState.value as? UiState.Success ?: return
+    val pending = state.verificationStatus.payPalStatus
+    if (pending != VerificationStatus.VERIFYING && pending != VerificationStatus.CODE_REQUESTED) return
+    walletVerificationInteractor
+      .getServerVerificationStatus(state.activeWalletInfo.wallet, VerificationType.PAYPAL)
+      .subscribeOn(Schedulers.io())
+      .subscribe({ status ->
+        if (status == VerificationStatus.VERIFIED || status == VerificationStatus.UNVERIFIED)
+          getWallets()
+      }, {})
+  }
 
   fun deleteWallet(wallet: String) {
     deleteWalletInteract.delete(wallet)

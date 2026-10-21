@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">使用條款</string>
   <string name="privacy_policy">隱私權政策</string>
   <string name="existent_wallet">我已经有钱包了</string>
+  <string name="onboarding_sign_in_button">登入 / 建立帳戶</string>
+  <string name="onboarding_create_local_wallet_button">建立本機錢包</string>
+  <string name="onboarding_load_backup_button">從備份載入</string>
+  <string name="onboarding_local_wallet_confirm_title">要建立本機錢包嗎？</string>
+  <string name="onboarding_load_backup_body">使用你先前儲存的備份檔案或備份代碼還原錢包。</string>
+  <string name="onboarding_enter_backup_code_button">輸入備份代碼</string>
+  <string name="onboarding_local_wallet_disclaimer">本機錢包僅儲存在這部裝置上，且未連結任何帳戶。如果你遺失這部裝置且沒有備份，將無法再存取這個錢包及其中的資金。</string>
   <string name="onboarding_verification_body">請確認您的付款方式以完成購買。</string>
   <!--Home-->
   <!--Tokens-->
@@ -374,6 +381,7 @@
   <string name="paypal_verification_insert_code_body">在下方輸入我們發送到您 PayPal 帳戶所關聯的電子郵件地址的 4 位數字代碼。</string>
   <string name="paypal_verification_didnt_receive_title">沒有收到嗎？</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_check_email_body">我們已傳送電子郵件至與你的 PayPal 帳戶相關聯的地址。請開啟郵件並輕觸連結以完成驗證。</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">總計 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">似乎此購買已在處理中。 請等待交易完成，或與聯繫我們的支援團隊。</string>

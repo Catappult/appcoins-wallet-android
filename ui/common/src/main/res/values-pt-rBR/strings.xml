@@ -340,6 +340,13 @@
   <string name="terms_and_conditions">Termos e Condições</string>
   <string name="privacy_policy">Política de Privacidade</string>
   <string name="existent_wallet">Já tenho uma wallet</string>
+  <string name="onboarding_sign_in_button">Entrar / Criar conta</string>
+  <string name="onboarding_create_local_wallet_button">Criar wallet local</string>
+  <string name="onboarding_load_backup_button">Carregar do backup</string>
+  <string name="onboarding_local_wallet_confirm_title">Criar uma wallet local?</string>
+  <string name="onboarding_load_backup_body">Restaure uma wallet a partir do arquivo ou do código de backup que você salvou antes.</string>
+  <string name="onboarding_enter_backup_code_button">Inserir código de backup</string>
+  <string name="onboarding_local_wallet_disclaimer">Uma wallet local fica salva somente neste dispositivo e não está vinculada a nenhuma conta. Se você perder este dispositivo e não tiver um backup, perderá o acesso à wallet e aos fundos dela.</string>
   <string name="onboarding_verification_body">Verifique o seu método de pagamento para concluir sua compra.</string>
   <!--Home-->
   <!--Tokens-->
@@ -374,6 +381,7 @@
   <string name="paypal_verification_insert_code_body">Insira abaixo o código de 4 dígitos que enviamos para o endereço de e-mail associado à sua conta do PayPal.</string>
   <string name="paypal_verification_didnt_receive_title">Não recebeu?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_check_email_body">Enviamos um e-mail para o endereço associado à sua conta do PayPal. Abra-o e toque no link para concluir a verificação.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Parece que esta compra já está sendo processada. Por favor, aguarde até que a transação seja concluída ou entre em contato com nossa equipe de suporte.</string>

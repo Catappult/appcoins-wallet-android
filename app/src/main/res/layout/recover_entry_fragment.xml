@@ -9,11 +9,13 @@
     android:theme="@style/MaterialAppTheme"
     >
 
+  <!-- Takes the free height so it shrinks (and keeps the focused input visible) when the keyboard
+       opens, with the recover button staying right above it. -->
   <ScrollView
       android:id="@+id/recover_entry_scroll_view"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_constraintTop_toTopOf="parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,12 +74,6 @@
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
-
-  <Space
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      />
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
