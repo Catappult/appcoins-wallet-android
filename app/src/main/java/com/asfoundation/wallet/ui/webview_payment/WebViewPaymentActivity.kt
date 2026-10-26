@@ -237,6 +237,20 @@ class WebViewPaymentActivity : AppCompatActivity() {
             val url = request?.url?.toString()
             if (url.isNullOrEmpty()) return false
 
+            // Non-http schemes (tez://, upi://, phonepe://, paytmmp://, ...) are deep links to
+            // external payment apps. They must be handed to Android from any frame: the UPI
+            // checkout (TransactBridge) runs in an iframe, and the WebView cannot load them
+            // itself (net::ERR_UNKNOWN_URL_SCHEME).
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+              if (!shouldAllowExternalApps) return false
+              try {
+                context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+              } catch (e: ActivityNotFoundException) {
+                logger.log(TAG, "No app to handle external payment URL: $url", e)
+              }
+              return true
+            }
+
             // Iframes (e.g. Google sign-in button, reCAPTCHA) must not swap the UA:
             // loadUrl() would load the iframe URL in the main frame and reload the login page.
             if (!request.isForMainFrame) return false
@@ -257,21 +271,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
               }
             }
 
-            return if (shouldAllowExternalApps) {
-              if (url.startsWith("http://") || url.startsWith("https://")) {
-                false
-              } else {
-                try {
-                  val intent = Intent(Intent.ACTION_VIEW, url.toUri())
-                  context.startActivity(intent)
-                  true
-                } catch (e: ActivityNotFoundException) {
-                  true
-                }
-              }
-            } else {
-              false
-            }
+            return false
           }
         }
 
