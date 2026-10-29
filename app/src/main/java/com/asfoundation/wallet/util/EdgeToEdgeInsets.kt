@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -42,16 +43,17 @@ object EdgeToEdgeInsets {
     }
     val content = activity.findViewById<View>(android.R.id.content) ?: return
     ViewCompat.setOnApplyWindowInsetsListener(content) { view, insets ->
-      val bars = insets.getInsets(
-        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
-      )
+      val types = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
+      val bars = insets.getInsets(types)
       view.updatePadding(
         left = bars.left,
         top = bars.top,
         right = bars.right,
         bottom = bars.bottom
       )
-      insets
+      // The content is already inside the bars, so children must not pad for them again
+      // (e.g. TopBar's statusBarsPadding() was adding a second status-bar-high gap).
+      WindowInsetsCompat.Builder(insets).setInsets(types, Insets.NONE).build()
     }
     content.requestApplyInsets()
   }

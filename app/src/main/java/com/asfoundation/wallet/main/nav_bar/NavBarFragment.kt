@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,6 +24,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,6 +42,8 @@ import com.appcoins.wallet.core.analytics.analytics.common.ButtonsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_variant
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
@@ -144,19 +149,26 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
       } else {
         Column(modifier = Modifier.fillMaxWidth()) {
           ConnectionAlert(isConnected = connectionObserver)
-          Column(
+          // Floating pill, centred in the same strip the old full-width bar used.
+          Box(
             modifier = Modifier
               .fillMaxWidth()
               .height(64.dp)
-              .background(styleguide_dark, RectangleShape)
+              .background(styleguide_dark, RectangleShape),
+            contentAlignment = Alignment.Center
           ) {
             Row(
-              horizontalArrangement = Arrangement.SpaceEvenly,
+              horizontalArrangement = Arrangement.spacedBy(4.dp),
               verticalAlignment = Alignment.CenterVertically,
               modifier = Modifier
-                .fillMaxSize()
+                .clip(CircleShape)
+                .background(styleguide_dark_secondary)
+                .border(1.dp, styleguide_dark_variant, CircleShape)
+                // Buttons already carry a 4dp vertical touch-target inset, so 8dp sideways
+                // keeps the gap even all round and the inner and outer curves concentric.
+                .padding(horizontal = 8.dp, vertical = 4.dp)
             ) {
-              NavigationItems(styleguide_dark)
+              NavigationItems(styleguide_dark_secondary)
             }
           }
         }
@@ -168,10 +180,14 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
   fun NavigationItems(background: Color) {
     viewModel.navigationItems().forEach { item ->
       val selected = viewModel.clickedItem.value == item.destination.ordinal
+      val itemBackground by animateColorAsState(
+        if (selected) styleguide_primary else background,
+        label = "navItemBackground"
+      )
       ButtonWithIcon(
         icon = item.icon,
         label = item.label,
-        backgroundColor = if (selected) styleguide_primary else background,
+        backgroundColor = itemBackground,
         labelColor = if (selected) styleguide_white else styleguide_medium_grey,
         iconColor = if (selected) styleguide_white else styleguide_medium_grey,
         iconSize = 24.dp,
