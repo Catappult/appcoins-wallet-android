@@ -56,8 +56,9 @@ android-magnessdk-5.3.0.aar
 
 /libs/*
 
-# Claude
-/.claude/
+# Claude (local settings and worktrees stay ignored; shared skills are committed)
+/.claude/*
+!/.claude/skills/
 
 # Google Services (e.g. APIs or Firebase)
 *google-services*
