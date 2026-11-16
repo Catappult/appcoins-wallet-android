@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.webview_payment
 
-import android.util.Log
+import com.appcoins.wallet.core.utils.android_common.Log
 import android.webkit.JavascriptInterface
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.ui.webview_payment.models.CloseBehaviorConfig

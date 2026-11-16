@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.webview_gamification.usecases
 
 import android.content.Context
-import android.util.Log
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64Url
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencySymbolUseCase

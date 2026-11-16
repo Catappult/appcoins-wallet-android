@@ -13,7 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+import com.appcoins.wallet.core.utils.android_common.Log
 import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
 import android.webkit.WebResourceError
@@ -153,13 +153,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
     val data = intent.data?.toString().orEmpty()
     // The web is notified here; onResume must not notify it a second time.
     viewModel.runningCustomTab = false
-    viewModel.webView?.post {
-      if (data.isNotBlank()) {
-        viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated(\"$data\")")
-      } else {
-        viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated()")
-      }
-    }
+    viewModel.webView?.post { viewModel.webView?.notifyPaymentStateUpdated(data) }
   }
 
   override fun onResume() {

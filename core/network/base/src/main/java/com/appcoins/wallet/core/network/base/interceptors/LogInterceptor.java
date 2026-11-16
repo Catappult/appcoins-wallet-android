@@ -2,6 +2,7 @@ package com.appcoins.wallet.core.network.base.interceptors;
 
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
+import com.appcoins.wallet.core.network.base.BuildConfig;
 import com.appcoins.wallet.core.utils.android_common.Log;
 import com.appcoins.wallet.core.utils.jvm_common.Logger;
 import java.io.IOException;
@@ -41,8 +42,16 @@ public class LogInterceptor implements Interceptor {
   }
 
   @NotNull @Override public Response intercept(@NonNull Chain chain) throws IOException {
-    StringBuilder logBuilder = new StringBuilder();
     Request request = chain.request();
+    if (!BuildConfig.DEBUG) {
+      // The full trace below buffers every body only to drop it in Log.d; release just reports errors.
+      Response response = chain.proceed(request);
+      if (response.code() >= 400) {
+        sendErrorLogString(response, request);
+      }
+      return response;
+    }
+    StringBuilder logBuilder = new StringBuilder();
     try {
       RequestBody requestBody = request.body();
       logBuilder.append(
@@ -131,6 +140,8 @@ public class LogInterceptor implements Interceptor {
     }
   }
 
+  // Sent to Sentry: leaves out the query string and request body, which carry tokens,
+  // signatures and personal data.
   private void sendErrorLogString(Response response, Request request) throws IOException {
     StringBuilder logBuilder = new StringBuilder();
     logBuilder.append("HTTP ")
@@ -138,16 +149,14 @@ public class LogInterceptor implements Interceptor {
         .append(" ")
         .append(request.method())
         .append(" ")
-        .append(request.url())
+        .append(request.url()
+            .newBuilder()
+            .query(null)
+            .build())
         .append("\n")
 
         .append("Message: ")
         .append(response.message())
-        .append("\n")
-
-        .append("Request: ")
-        .append(formatRequestBody(response.request()
-            .body()))
         .append("\n")
 
         .append("Response: ")

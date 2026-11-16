@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.webview_payment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import com.appcoins.wallet.core.utils.android_common.Log
 import android.webkit.WebView
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
