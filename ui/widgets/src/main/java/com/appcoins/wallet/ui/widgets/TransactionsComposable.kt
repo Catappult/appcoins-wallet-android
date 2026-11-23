@@ -149,7 +149,8 @@ fun TransactionCard(
                 color = styleguide_dark_grey,
                 style = MaterialTheme.typography.labelSmall,
                 textAlign = TextAlign.End,
-                maxLines = 1,
+                // "Aptoide Balance + <method>" does not fit this column on one line.
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis
               )
           }
