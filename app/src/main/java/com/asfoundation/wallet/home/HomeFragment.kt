@@ -344,10 +344,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     val isVip = remember { viewModel.isVip }
     if (showDiscordBanner.value) {
       JoinDiscordCardComposable(
-        {
-          val intent = Intent(Intent.ACTION_VIEW, "https://discord.com/invite/Byec5eetAG".toUri())
-          context?.startActivity(intent)
-        },
+        { navigator.navigateToBrowser("https://discord.com/invite/Byec5eetAG".toUri()) },
         {
           viewModel.saveShowDiscordBanner(false)
           showDiscordBanner.value = false

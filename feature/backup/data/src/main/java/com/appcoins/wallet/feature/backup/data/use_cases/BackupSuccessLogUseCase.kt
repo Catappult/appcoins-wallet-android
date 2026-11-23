@@ -16,6 +16,8 @@ class BackupSuccessLogUseCase @Inject constructor(
       jwtAuthenticatorService.getJwtAuthenticationWithAddress(address)
         .observeOn(schedulers.io)
         .flatMapCompletable { jwt -> backupRepository.logBackupSuccess(jwt) }
+        // Runs after the backup is already saved or sent; failing here must not report it as failed.
+        .onErrorComplete()
     }
   }
 }

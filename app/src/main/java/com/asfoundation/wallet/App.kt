@@ -48,6 +48,7 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.hilt.android.HiltAndroidApp
 import io.intercom.android.sdk.Intercom
+import io.reactivex.exceptions.OnErrorNotImplementedException
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
@@ -211,7 +212,9 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   private fun setupRxJava() {
     RxJavaPlugins.setErrorHandler { throwable: Throwable ->
-      if (throwable is UndeliverableException) {
+      // OnErrorNotImplementedException is an error from a `.subscribe()` with no onError. The chain
+      // has already ended, so log it like an undeliverable error instead of killing the process.
+      if (throwable is UndeliverableException || throwable is OnErrorNotImplementedException) {
         if (BuildConfig.DEBUG) {
           throwable.printStackTrace()
         } else {
