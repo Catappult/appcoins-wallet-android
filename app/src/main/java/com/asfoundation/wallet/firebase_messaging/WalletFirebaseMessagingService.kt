@@ -53,7 +53,7 @@ class WalletFirebaseMessagingService : FirebaseMessagingService() {
 
   override fun onNewToken(token: String) {
     super.onNewToken(token)
-    Log.e(TAG, "Token: $token")
+    Log.d(TAG, "Token: $token")
     CoroutineScope(networkDispatcher).launch {
       registerFirebaseMessagingTokenUseCase.registerFirebaseTokenForAllWallets(token)
 

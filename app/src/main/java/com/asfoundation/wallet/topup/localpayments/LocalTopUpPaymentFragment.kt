@@ -180,6 +180,9 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
       override fun onAnimationRepeat(animation: Animator) = Unit
       override fun onAnimationEnd(animation: Animator) {
         if (minFrame == BUTTON_ANIMATION_START_FRAME) {
+          // cancelAnimation() calls onAnimationEnd again; without removing this first it recursed
+          // until StackOverflowError.
+          binding.topupPendingUserPaymentView.topUpInProgressAnimation.removeAnimatorListener(this)
           binding.topupPendingUserPaymentView.topUpInProgressAnimation.cancelAnimation()
         } else {
           minFrame += ANIMATION_FRAME_INCREMENT

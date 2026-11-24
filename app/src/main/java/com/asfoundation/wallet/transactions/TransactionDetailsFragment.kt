@@ -47,6 +47,7 @@ import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDayAn
 import com.appcoins.wallet.core.utils.android_common.extensions.getParcelableExtra
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
+import com.appcoins.wallet.ui.widgets.PartialPaymentBreakdown
 import com.appcoins.wallet.ui.widgets.PendingTransactionCard
 import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionDetailHeader
@@ -194,16 +195,22 @@ class TransactionDetailsFragment : BasePageViewFragment() {
                 stringResource(category ?: title)
               )
 
-              if (method != null) {
-                val paymentMethod = PaymentMethodDetails.getDetails(method)
+              if (partialPayment != null)
+                PartialPaymentBreakdown(
+                  title = stringResource(R.string.payment_method),
+                  creditsLabel = stringResource(R.string.appc),
+                  creditsAmount = partialPayment.creditsAmount,
+                  creditsSubtitle = partialPayment.creditsAppcAmount,
+                  methodLabel = method?.let { paymentMethodName(it) }
+                    ?: stringResource(R.string.credit_debit_card),
+                  chargedAmount = partialPayment.chargedAmount,
+                  creditsWeight = partialPayment.creditsWeight
+                )
+              else if (method != null)
                 TransactionDetailItem(
                   stringResource(R.string.payment_method),
-                  if (paymentMethod.displayTextRes != null)
-                    stringResource(paymentMethod.displayTextRes)
-                  else
-                    paymentMethod.paymentKey
+                  paymentMethodName(method)
                 )
-              }
 
               if (sku != null)
                 TransactionDetailItem(

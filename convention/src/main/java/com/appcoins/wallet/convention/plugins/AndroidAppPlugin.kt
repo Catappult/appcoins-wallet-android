@@ -168,8 +168,8 @@ class AndroidAppPlugin : Plugin<Project> {
 
           release {
             signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = false
-            isShrinkResources = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.RELEASE)
             manifestPlaceholders["legacyPaymentHost"] =
@@ -199,11 +199,21 @@ class AndroidAppPlugin : Plugin<Project> {
 
         flavorDimensions.add(Config.distributionFlavorDimension)
         productFlavors {
+          // Each flavor has its own R8 mapping, so each gets its own UUID to match it in Sentry.
+          // Pass -PsentryProguardUuidGp / -PsentryProguardUuidAptoide on release builds; empty otherwise.
           create(Config.googlePlayDistribution) {
             dimension = Config.distributionFlavorDimension
+            buildConfigField(
+              "String", "SENTRY_PROGUARD_UUID",
+              "\"${project.findProperty("sentryProguardUuidGp") ?: ""}\""
+            )
           }
           create(Config.aptoidePlayDistribution) {
             dimension = Config.distributionFlavorDimension
+            buildConfigField(
+              "String", "SENTRY_PROGUARD_UUID",
+              "\"${project.findProperty("sentryProguardUuidAptoide") ?: ""}\""
+            )
           }
         }
 

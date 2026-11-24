@@ -4,11 +4,11 @@ import com.appcoins.wallet.core.network.base.JwtAuthenticatorService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.RegisterFirebaseTokenUseCase
-import com.asfoundation.wallet.firebase_messaging.domain.error.RegisterFirebaseMessagingError
 import com.asfoundation.wallet.firebase_messaging.repository.FirebaseMessagingRepository
 import com.google.firebase.messaging.FirebaseMessaging
 import io.reactivex.Completable
 import io.reactivex.Single
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.rx2.await
 import javax.inject.Inject
 
@@ -29,10 +29,11 @@ class RegisterFirebaseTokenUseCaseImpl @Inject constructor(
         .flattenAsObservable { it.toList() }
         .flatMapSingle { jwtAuthenticatorService.getJwtAuthenticationWithAddress(it.address) }
         .flatMapCompletable { repository.registerToken(it, token) }
-        .doOnError { throw RegisterFirebaseMessagingError(it) }
         .await()
-    } catch (e: RegisterFirebaseMessagingError) {
-      registerFirebaseTokenForAllWallets(token, +retry, maxRetries)
+    } catch (e: CancellationException) {
+      throw e
+    } catch (e: Exception) {
+      if (retry < maxRetries) registerFirebaseTokenForAllWallets(token, retry + 1, maxRetries)
     }
   }
 

@@ -102,6 +102,7 @@ import com.asfoundation.wallet.transactions.StatusType
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
+import com.asfoundation.wallet.transactions.partialPaymentSplitLabel
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -344,10 +345,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     val isVip = remember { viewModel.isVip }
     if (showDiscordBanner.value) {
       JoinDiscordCardComposable(
-        {
-          val intent = Intent(Intent.ACTION_VIEW, "https://discord.com/invite/Byec5eetAG".toUri())
-          context?.startActivity(intent)
-        },
+        { navigator.navigateToBrowser("https://discord.com/invite/Byec5eetAG".toUri()) },
         {
           viewModel.saveShowDiscordBanner(false)
           showDiscordBanner.value = false
@@ -595,7 +593,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                 subIcon = subIcon,
                 onClick = { navigateToTransactionDetails(transaction) },
                 textDecoration = textDecoration,
-                isPending = status == StatusType.PENDING
+                isPending = status == StatusType.PENDING,
+                paymentSplitLabel =
+                if (partialPayment == null) null else partialPaymentSplitLabel(method)
               )
             }
           }

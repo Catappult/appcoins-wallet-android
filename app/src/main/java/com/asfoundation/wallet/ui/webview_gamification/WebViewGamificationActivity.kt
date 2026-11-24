@@ -9,7 +9,7 @@ import android.content.res.Configuration
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import com.appcoins.wallet.core.utils.android_common.Log
 import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
 import android.webkit.WebSettings
@@ -47,6 +47,7 @@ import com.appcoins.wallet.ui.widgets.top_bar.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.webview_payment.WebViewPaymentInterface
+import com.asfoundation.wallet.ui.webview_payment.notifyPaymentStateUpdated
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -107,13 +108,7 @@ class WebViewGamificationActivity : AppCompatActivity() {
     super.onNewIntent(intent)
     val data = intent.data?.toString().orEmpty()
 
-    viewModel.webView?.post {
-      if (data.isNotBlank()) {
-        viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated(\"$data\")")
-      } else {
-        viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated()")
-      }
-    }
+    viewModel.webView?.post { viewModel.webView?.notifyPaymentStateUpdated(data) }
   }
 
   override fun onResume() {

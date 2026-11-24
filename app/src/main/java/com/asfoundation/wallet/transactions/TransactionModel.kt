@@ -35,12 +35,29 @@ data class TransactionModel(
   val sku: String?,
   val txId: String?,
   val invoiceId: String?,
-  val method: String?
+  val method: String?,
+  val partialPayment: PartialPaymentModel?
 ) : Parcelable {
   companion object {
     val METHOD_SANDBOX = "sandbox"
   }
 }
+
+/**
+ * The two rails a partial payment was funded from: part of the purchase came out of the AppCoins
+ * balance, the rest was charged to [TransactionModel.method].
+ *
+ * Amounts are already formatted and are expressed in the currency the purchase was paid in - the
+ * backend does not convert the split into the wallet's selected currency, so these can carry a
+ * different symbol than [TransactionModel.amount].
+ */
+@Parcelize
+data class PartialPaymentModel(
+  val creditsAmount: String,
+  val creditsAppcAmount: String,
+  val chargedAmount: String?,
+  val creditsWeight: Float
+) : Parcelable
 
 fun TransactionResponse.toModel(selectedCurrency: String): TransactionModel {
   return TransactionModel(
@@ -60,7 +77,8 @@ fun TransactionResponse.toModel(selectedCurrency: String): TransactionModel {
     sku = sku,
     txId = txId,
     invoiceId = invoiceId,
-    method = method
+    method = method,
+    partialPayment = partialPaymentModel()
   )
 }
 
@@ -84,6 +102,22 @@ private fun TransactionResponse.paidAmount(selectedCurrency: String): String? {
 }
 
 private fun TransactionResponse.amount() = amount.format18decimals(sign = type.sign)
+
+private fun TransactionResponse.partialPaymentModel(): PartialPaymentModel? {
+  val partial = partialCreditsPayment ?: return null
+  val currencySymbol = paidCurrency.currencySymbol()
+  val credits = partial.paidCurrencyAmount.toBigDecimalOrNull() ?: return null
+  val charged = partial.chargedAmount?.toBigDecimalOrNull()
+  val total = charged?.let { credits + it }
+  return PartialPaymentModel(
+    creditsAmount = partial.paidCurrencyAmount.formatMoney(currencySymbol) ?: return null,
+    creditsAppcAmount = "${partial.appcAmount.format18decimals()} $amountCurrency",
+    chargedAmount = partial.chargedAmount.formatMoney(currencySymbol),
+    creditsWeight =
+    if (total == null || total.signum() <= 0) 1f
+    else (credits.toFloat() / total.toFloat()).coerceIn(0f, 1f)
+  )
+}
 
 fun String?.currencySymbol(): String =
   if (this != null && this.length == CURRENCY_CODE_LENGTH) Currency.getInstance(this).symbol

@@ -86,6 +86,8 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    // Exported: a caller can start it explicitly with no data URI.
+    val data = intent.dataString ?: return finish()
     if (savedInstanceState == null) analytics.startTimingForSdkTotalEvent()
     setContentView(R.layout.activity_iab_wallet_creation)
     val productName = intent.extras?.getString(PRODUCT_NAME, "")
@@ -95,7 +97,7 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
         transferParser = transferParser,
         inAppPurchaseInteractor = inAppPurchaseInteractor,
         walletService = walletService,
-        data = intent.dataString!!,
+        data = data,
         viewScheduler = AndroidSchedulers.mainThread(),
         disposables = CompositeDisposable(),
         productName = productName,
