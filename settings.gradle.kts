@@ -43,7 +43,10 @@ fun File.projectsAndModules(): Pair<Set<String>, Set<String>> {
     "src"
   )
 
-  fun File.childrenDirectories() = listFiles { _, name -> name !in blacklist }
+  // Hidden folders are tooling, never modules: a git worktree under .claude/ holds a full copy
+  // of the project and would otherwise be included, which fails the build.
+  fun File.childrenDirectories() =
+    listFiles { _, name -> name !in blacklist && !name.startsWith(".") }
     ?.filter { it.isDirectory }
     .orEmpty()
 
