@@ -333,7 +333,7 @@
 
     <activity
         android:name="com.asfoundation.wallet.ui.webview_payment.WebViewPaymentActivity"
-        android:exported="true"
+        android:exported="false"
         android:launchMode="singleTop"
         android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
         android:windowSoftInputMode="adjustResize"/>
@@ -355,7 +355,7 @@
 
     <activity
         android:name="com.asfoundation.wallet.ui.login.webview_login.WebViewLoginActivity"
-        android:exported="true"
+        android:exported="false"
         android:theme="@style/Theme.AppCompat.Transparent.WebPayment"
         android:windowSoftInputMode="adjustResize"/>
 
@@ -395,7 +395,7 @@
 
     <activity
         android:name="com.asfoundation.wallet.ui.webview_gamification.WebViewGamificationActivity"
-        android:exported="true"
+        android:exported="false"
         android:theme="@style/Theme.AppCompat.Transparent.WebviewGamification"
         android:windowSoftInputMode="adjustResize"/>
 

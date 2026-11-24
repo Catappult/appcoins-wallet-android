@@ -148,6 +148,15 @@ class ManageCardsFragment : BasePageViewFragment() {
         viewModel.isCardDeleted.value = false
       }
     }
+    val isCardDeleteError by viewModel.isCardDeleteError
+    LaunchedEffect(key1 = isCardDeleteError) {
+      if (isCardDeleteError) {
+        viewModel.getCards()
+        Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_LONG)
+          .show()
+        viewModel.isCardDeleteError.value = false
+      }
+    }
 
   }
 

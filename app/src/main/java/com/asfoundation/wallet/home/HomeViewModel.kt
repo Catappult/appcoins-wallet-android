@@ -271,12 +271,13 @@ constructor(
     }.scopedSubscribe { e ->
       e.printStackTrace()
       emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
-      isEmailError.value = true
+      // Text first: the card reads the text as soon as isEmailError is true, and id 0 crashes.
       emailErrorText.value = if (e.message.equals("HTTP 422 ")) {
         R.string.e_skills_withdraw_invalid_email_error_message
       } else {
         R.string.error_general
       }
+      isEmailError.value = true
     }
   }
 
@@ -443,14 +444,10 @@ constructor(
   private fun getMaxBonus(): Observable<Double> {
     return getLevelsUseCase()
       .subscribeOn(rxSchedulers.io)
-      .flatMap { (status, list) ->
-        if (status == Levels.Status.OK) {
-          return@flatMap Single.just(list[list.size - 1].bonus)
-        }
-        if (status == Levels.Status.NO_NETWORK) {
-          return@flatMap Single.just(0.0)
-        }
-        Single.error(IllegalStateException(status.name))
+      // A backend error is not a bug: an IllegalStateException here crashed the app when home was
+      // already disposed, since RxJava treats that type as undeliverable-but-fatal.
+      .map { (status, list) ->
+        if (status == Levels.Status.OK) list.lastOrNull()?.bonus ?: 0.0 else 0.0
       }
       .toObservable()
   }

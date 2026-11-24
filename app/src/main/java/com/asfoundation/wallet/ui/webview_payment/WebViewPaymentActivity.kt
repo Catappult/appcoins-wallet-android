@@ -13,7 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+import com.appcoins.wallet.core.utils.android_common.Log
 import android.view.autofill.AutofillManager
 import android.webkit.CookieManager
 import android.webkit.WebResourceError
@@ -112,6 +112,8 @@ class WebViewPaymentActivity : AppCompatActivity() {
     const val SDK_TRANSACTION = "sdkTransaction"
     const val OSP_TRANSACTION = "ospTransaction"
     private val TAG = "WebView"
+    // Schemes the WebView loads itself; anything else is a deep link to an external app.
+    private val WEBVIEW_SCHEMES = setOf("http", "https", "about", "javascript", "data", "blob", "file")
     val LOGIN_URLS = arrayOf(
       "iap/sign-in",
       "wallet/sign-in",
@@ -149,13 +151,9 @@ class WebViewPaymentActivity : AppCompatActivity() {
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
     val data = intent.data?.toString().orEmpty()
-    viewModel.webView?.post {
-      if (data.isNotBlank()) {
-        viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated(\"$data\")")
-      } else {
-        viewModel.webView?.loadUrl("javascript:onPaymentStateUpdated()")
-      }
-    }
+    // The web is notified here; onResume must not notify it a second time.
+    viewModel.runningCustomTab = false
+    viewModel.webView?.post { viewModel.webView?.notifyPaymentStateUpdated(data) }
   }
 
   override fun onResume() {
@@ -228,8 +226,31 @@ class WebViewPaymentActivity : AppCompatActivity() {
             }
           }
 
-          override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+          override fun shouldOverrideUrlLoading(
+            view: WebView?,
+            request: WebResourceRequest?
+          ): Boolean {
+            val url = request?.url?.toString()
             if (url.isNullOrEmpty()) return false
+
+            // Non-http schemes (tez://, upi://, phonepe://, paytmmp://, ...) are deep links to
+            // external payment apps. They must be handed to Android from any frame: the UPI
+            // checkout (TransactBridge) runs in an iframe, and the WebView cannot load them
+            // itself (net::ERR_UNKNOWN_URL_SCHEME).
+            val scheme = request.url.scheme?.lowercase()
+            if (scheme != null && scheme !in WEBVIEW_SCHEMES) {
+              if (!shouldAllowExternalApps) return false
+              try {
+                context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+              } catch (e: ActivityNotFoundException) {
+                logger.log(TAG, "No app to handle external payment URL: $url", e)
+              }
+              return true
+            }
+
+            // Iframes (e.g. Google sign-in button, reCAPTCHA) must not swap the UA:
+            // loadUrl() would load the iframe URL in the main frame and reload the login page.
+            if (!request.isForMainFrame) return false
 
             if (LOGIN_URLS.any { url.contains(it, ignoreCase = true) }) {
               val newUa = buildUA()
@@ -247,21 +268,7 @@ class WebViewPaymentActivity : AppCompatActivity() {
               }
             }
 
-            return if (shouldAllowExternalApps) {
-              if (url.startsWith("http://") || url.startsWith("https://")) {
-                false
-              } else {
-                try {
-                  val intent = Intent(Intent.ACTION_VIEW, url.toUri())
-                  context.startActivity(intent)
-                  true
-                } catch (e: ActivityNotFoundException) {
-                  true
-                }
-              }
-            } else {
-              false
-            }
+            return false
           }
         }
 

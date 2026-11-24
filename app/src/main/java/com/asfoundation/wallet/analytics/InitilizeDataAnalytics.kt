@@ -49,6 +49,9 @@ class InitilizeDataAnalytics @Inject constructor(
       options.tracesSampleRate = 0.25
       options.environment = if (BuildConfig.DEBUG) "DEV" else "PROD"
       options.profilesSampleRate = 1.0
+      if (BuildConfig.SENTRY_PROGUARD_UUID.isNotEmpty()) {
+        options.proguardUuid = BuildConfig.SENTRY_PROGUARD_UUID
+      }
       options.beforeSend = SentryOptions.BeforeSendCallback { event, _ ->
         event.exceptions?.forEach { exception ->
           exception.stacktrace?.frames?.let { frames ->

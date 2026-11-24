@@ -77,9 +77,6 @@ class RenewJwtInterceptor @Inject constructor(
 
       if (ewt != null && endDate != null) {
         val response = renewJwtApi.renewJwt(ewt = ewt)
-          .doOnSuccess {
-            Log.d("HTTP_TRACE", "Response body:  ${it.jwt}")
-          }
           .doOnError {
             Log.e("HTTP_TRACE", "Response body:  cause: ${it.cause} ; message: ${it.message}")
           }

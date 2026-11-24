@@ -25,7 +25,7 @@ interface TransactionsApi {
     @Query("lang_code") languageCode: String
   ): Call<WalletHistory>
 
-  @GET("/appc/1.20240925/wallet/{wallet}/history")
+  @GET("/appc/1.20260828/wallet/{wallet}/history")
   suspend fun getTransactionHistory(
     @Path("wallet") wallet: String,
     @Query("limit") limit: Int = 10,

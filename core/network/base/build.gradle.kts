@@ -8,6 +8,9 @@ android {
   lint {
     disable.add("NullSafeMutableLiveData")
   }
+
+  // android.util.Log / TextUtils stubs return defaults instead of throwing in JVM tests.
+  testOptions { unitTests.isReturnDefaultValues = true }
 }
 
 dependencies {
@@ -20,4 +23,6 @@ dependencies {
   implementation(project(":core:shared-preferences"))
   implementation(project(":core:arch"))
   implementation(project(":legacy:ethereumj-android"))
+
+  testImplementation(libs.test.junit)
 }

@@ -44,6 +44,7 @@ constructor(
   val showBottomSheet: MutableState<Boolean> = mutableStateOf(false)
   val storedCardClicked: MutableState<StoredCard?> = mutableStateOf(null)
   val isCardDeleted: MutableState<Boolean> = mutableStateOf(false)
+  val isCardDeleteError: MutableState<Boolean> = mutableStateOf(false)
   var isCardListLoaded: Boolean = false
 
   fun displayChat() {
@@ -83,21 +84,27 @@ constructor(
     deleteStoredCardUseCase(recurringReference)
       .observeOn(viewScheduler)
       .doOnSubscribe { _uiState.value = UiState.Loading }
-      .doOnSuccess {
-        setCardIdSharedPreferences("")
-      }
-      .doOnError {}
-      .subscribe()
+      .subscribe({ removed ->
+        // the repository maps request failures to false, so the result must be checked
+        if (removed) clearPreferredCardIfDeleted(recurringReference)
+        else onDeleteCardError()
+      }, { onDeleteCardError() })
   }
 
-  private fun setCardIdSharedPreferences(recurringReference: String) {
+  private fun onDeleteCardError() {
+    isCardDeleteError.value = true
+    showBottomSheet(false, null)
+  }
+
+  private fun clearPreferredCardIfDeleted(recurringReference: String) {
     getCurrentWalletUseCase().observeOn(viewScheduler)
       .doOnSuccess {
         isCardDeleted.value = true
-        cardPaymentDataSource.setPreferredCardId(recurringReference, it.address)
+        if (cardPaymentDataSource.getPreferredCardId(it.address) == recurringReference)
+          cardPaymentDataSource.setPreferredCardId("", it.address)
         showBottomSheet(false, null)
       }
-      .doOnError {}
+      .doOnError { isCardDeleted.value = true; showBottomSheet(false, null) }
       .subscribe()
   }
 }

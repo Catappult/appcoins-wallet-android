@@ -28,7 +28,26 @@ data class TransactionResponse(
   @JsonProperty("revert_txid") val revertTxId: String?,
   @JsonProperty("parent_txid") val parentTxId: String?,
   @JsonProperty("sku") val sku: String?,
-  @JsonProperty("invoice_id") val invoiceId: String?
+  @JsonProperty("invoice_id") val invoiceId: String?,
+  @JsonProperty("partial_credits_payment") val partialCreditsPayment: PartialCreditsPaymentResponse?
+)
+
+/**
+ * The AppCoins Credits funded slice of a partial payment: the buyer spent part of their balance
+ * and the remainder was charged to [TransactionResponse.method].
+ *
+ * [TransactionResponse.amount] and [TransactionResponse.paidCurrencyAmount] stay the purchase
+ * total; this is the split beneath them. Served only on transactions that were part-funded from
+ * the balance, `null` otherwise.
+ */
+data class PartialCreditsPaymentResponse(
+  // wei, same unit as TransactionResponse.amount
+  @JsonProperty("appc_amount") val appcAmount: String,
+  @JsonProperty("usd_amount") val usdAmount: String?,
+  // the credits slice, in TransactionResponse.paidCurrency
+  @JsonProperty("paid_currency_amount") val paidCurrencyAmount: String,
+  // total minus the slice - what `method` took. Null only when the row has no total to subtract from
+  @JsonProperty("charged_amount") val chargedAmount: String?
 )
 
 data class InvoiceResponse(@JsonProperty("url") val url: String)
