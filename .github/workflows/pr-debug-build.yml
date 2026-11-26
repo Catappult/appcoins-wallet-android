@@ -5,6 +5,7 @@ on:
     branches:
       - dev
       - master
+      - ci-sandbox # TEMPORARY: pipeline testing, remove before merging
 
 permissions:
   contents: read
