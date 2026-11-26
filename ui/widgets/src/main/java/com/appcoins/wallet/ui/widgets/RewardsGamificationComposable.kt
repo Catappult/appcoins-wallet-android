@@ -3,6 +3,8 @@ package com.appcoins.wallet.ui.widgets
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,7 +29,9 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,6 +56,8 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_variant
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_orange
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_primary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_vip_yellow
+
+private const val PROGRESS_FILL_DURATION_MS = 900
 
 @Composable
 fun GamificationHeader(
@@ -132,8 +138,16 @@ fun GamificationHeader(
               verticalArrangement = Arrangement.SpaceEvenly,
             ) {
               if (currentProgress >= 0 && maxProgress > 0) {
+                // Fill the bar from 0 when it appears and animate between level updates.
+                val animatedProgress = remember { Animatable(0f) }
+                LaunchedEffect(currentProgress, maxProgress) {
+                  animatedProgress.animateTo(
+                    (currentProgress.toFloat() / maxProgress.toFloat()).coerceIn(0f, 1f),
+                    tween(PROGRESS_FILL_DURATION_MS)
+                  )
+                }
                 LinearProgressIndicator(
-                  progress = currentProgress.toFloat() / maxProgress.toFloat(),
+                  progress = { animatedProgress.value },
                   modifier = Modifier
                     .background(Color.Transparent)
                     .clip(CircleShape)
@@ -141,6 +155,8 @@ fun GamificationHeader(
                     .fillMaxWidth(),
                   color = if (isVip) styleguide_vip_yellow else indicatorColor,
                   trackColor = styleguide_dark_variant,
+                  gapSize = 0.dp,
+                  drawStopIndicator = {},
                 )
               }
             }

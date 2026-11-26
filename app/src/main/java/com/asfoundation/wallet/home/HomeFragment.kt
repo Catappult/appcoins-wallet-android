@@ -8,6 +8,14 @@ import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -109,6 +117,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
+import java.text.DecimalFormat
 import javax.inject.Inject
 import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
@@ -140,6 +149,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   private val fragmentName = this::class.java.simpleName
   private var balanceCurrency: String = ""
   private var balanceValue: String = ""
+  private val bonusFormat = DecimalFormat("###.#")
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -290,6 +300,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         balance = balanceValue,
         email = email,
         showBackup = viewModel.showBackup.value,
+        level = viewModel.userLevel.value,
+        bonus = viewModel.userBonus.value.takeIf { it >= 0 }?.let { bonusFormat.format(it) },
         onClickDetailsBalance = {
           navigator.navigateToDetailsBalanceBottomSheet(
             balanceValue,
@@ -343,7 +355,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     val showDiscordBanner =
       remember { mutableStateOf(viewModel.isShowDiscordBanner()) }
     val isVip = remember { viewModel.isVip }
-    if (showDiscordBanner.value) {
+    AnimatedVisibility(
+      visible = showDiscordBanner.value,
+      enter = fadeIn() + expandVertically(),
+      exit = fadeOut() + shrinkVertically()
+    ) {
       JoinDiscordCardComposable(
         { navigator.navigateToBrowser("https://discord.com/invite/Byec5eetAG".toUri()) },
         {
@@ -372,9 +388,34 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   @Composable
   fun TransactionsCard(transactionsState: UiState) {
-    when (transactionsState) {
-      is Success -> {
-        if (transactionsState.transactions.isNotEmpty())
+    AnimatedContent(
+      targetState = transactionsState,
+      contentKey = { it is Success },
+      transitionSpec = { fadeIn() togetherWith fadeOut() },
+      label = "transactionsCard"
+    ) { state ->
+      when (state) {
+        is Success -> {
+          if (state.transactions.isNotEmpty())
+            Column(
+              modifier = Modifier
+                .heightIn(0.dp, 480.dp)
+                .padding(horizontal = 16.dp)
+            ) {
+              Text(
+                text = stringResource(R.string.intro_transactions_header),
+                modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 16.dp),
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold,
+                color = WalletColors.styleguide_dark_grey
+              )
+              Card(colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary)) {
+                TransactionsList(state.transactions)
+              }
+            }
+        }
+
+        else -> {
           Column(
             modifier = Modifier
               .heightIn(0.dp, 480.dp)
@@ -382,31 +423,13 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           ) {
             Text(
               text = stringResource(R.string.intro_transactions_header),
-              modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 16.dp),
+              modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, top = 8.dp),
               style = MaterialTheme.typography.bodyMedium,
               fontWeight = FontWeight.Bold,
               color = WalletColors.styleguide_dark_grey
             )
-            Card(colors = CardDefaults.cardColors(WalletColors.styleguide_dark_secondary)) {
-              TransactionsList(transactionsState.transactions)
-            }
+            SkeletonLoadingTransactionCard()
           }
-      }
-
-      else -> {
-        Column(
-          modifier = Modifier
-            .heightIn(0.dp, 480.dp)
-            .padding(horizontal = 16.dp)
-        ) {
-          Text(
-            text = stringResource(R.string.intro_transactions_header),
-            modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, top = 8.dp),
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Bold,
-            color = WalletColors.styleguide_dark_grey
-          )
-          SkeletonLoadingTransactionCard()
         }
       }
     }
@@ -434,25 +457,29 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         modifier = Modifier.padding(top = 16.dp, end = 13.dp, start = 24.dp)
       )
     }
-    LazyRow(
-      contentPadding = PaddingValues(horizontal = 16.dp),
-      horizontalArrangement = Arrangement.spacedBy(8.dp),
-      verticalAlignment = Alignment.Bottom
-    ) {
-      if (viewModel.activePromotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
-        item { SkeletonLoadingPromotionCards(hasVerticalList = false) }
-      } else {
-        items(viewModel.activePromotions) { promotion ->
-          PromotionsCardComposable(
-            cardItem = promotion,
-            fragmentName = fragmentName,
-            buttonsAnalytics = buttonsAnalytics,
-            modifier =
-              if (viewModel.activePromotions.size > 1)
-                Modifier.fillParentMaxWidth(if (isLandscape) 0.45f else 0.9f)
-              else
-                Modifier.fillParentMaxWidth()
-          )
+    val showSkeleton =
+      viewModel.activePromotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()
+    Crossfade(targetState = showSkeleton, label = "homePromotions") { skeleton ->
+      LazyRow(
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.Bottom
+      ) {
+        if (skeleton) {
+          item { SkeletonLoadingPromotionCards(hasVerticalList = false) }
+        } else {
+          items(viewModel.activePromotions) { promotion ->
+            PromotionsCardComposable(
+              cardItem = promotion,
+              fragmentName = fragmentName,
+              buttonsAnalytics = buttonsAnalytics,
+              modifier =
+                if (viewModel.activePromotions.size > 1)
+                  Modifier.fillParentMaxWidth(if (isLandscape) 0.45f else 0.9f)
+                else
+                  Modifier.fillParentMaxWidth()
+            )
+          }
         }
       }
     }
@@ -465,7 +492,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       remember { mutableStateOf(viewModel.isHideWalletEmailCardPreferencesData()) }
     val hasSavedEmail = remember { viewModel.hasSavedEmail }
     val isEmailError = remember { viewModel.isEmailError }
-    if (!hideUserEmailCard.value) {
+    AnimatedVisibility(
+      visible = !hideUserEmailCard.value,
+      enter = fadeIn() + expandVertically(),
+      exit = fadeOut() + shrinkVertically()
+    ) {
       if (!hasSavedEmail.value) {
         WelcomeEmailCard(
           email,
@@ -510,7 +541,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     val showRebrandBanner =
       remember { mutableStateOf(viewModel.isShowRebrandingBanner()) }
 
-    if (showRebrandBanner.value) {
+    AnimatedVisibility(
+      visible = showRebrandBanner.value,
+      enter = fadeIn() + expandVertically(),
+      exit = fadeOut() + shrinkVertically()
+    ) {
       Card(
         colors = CardDefaults.cardColors(WalletColors.styleguide_rebranding_blue),
         modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
