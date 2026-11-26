@@ -19,8 +19,10 @@ on:
   push:
     branches:
       - master
-    paths:
-      - app/build.gradle.kts
+      - task/release-pipeline # TEMPORARY: pipeline testing, remove before merging
+    # TEMPORARY: paths filter off while testing, restore before merging
+    # paths:
+    #   - app/build.gradle.kts
   workflow_dispatch:
 
 permissions:
