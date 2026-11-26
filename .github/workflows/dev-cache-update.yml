@@ -18,7 +18,7 @@ jobs:
   update-cache:
     name: Update Gradle Cache
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45 # builds everything the three PR jobs build, in one job
 
     steps:
       - name: Checkout code
