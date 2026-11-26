@@ -86,6 +86,12 @@ jobs:
           for v in SENTRY_AUTH_TOKEN SENTRY_URL SENTRY_ORG SENTRY_PROJECT; do
             [ -n "${!v}" ] || { echo "::error::$v is not set; a release without its mapping in Sentry has unreadable crashes."; exit 1; }
           done
+          # Fail now, not after the build: check that this runner can reach Sentry and the token works.
+          reach=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "${SENTRY_URL%/}/api/0/" || true)
+          auth=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
+            "${SENTRY_URL%/}/api/0/projects/$SENTRY_ORG/$SENTRY_PROJECT/" || true)
+          echo "Sentry without token: HTTP $reach, project with token: HTTP $auth"
+          [ "$auth" = "200" ] || { echo "::error::Sentry answered HTTP $auth for the project (HTTP $reach without a token). The mapping upload would fail."; exit 1; }
 
       - name: Copy private SDKs
         uses: ./.github/actions/copy-private-sdks
