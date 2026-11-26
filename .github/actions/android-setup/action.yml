@@ -124,6 +124,10 @@ runs:
         # Compile Kotlin inside the Gradle daemon. A separate Kotlin daemon gets its own heap as
         # large as Gradle's, and the two together can exhaust the runner's memory and kill it.
         echo "kotlin.compiler.execution.strategy=in-process" >> gradle.properties
+        # With Kotlin in-process the Gradle daemon is the one large JVM on the runner, so give it
+        # most of the memory. Set here, after the secret, so CI does not depend on what the secret says.
+        echo "org.gradle.jvmargs=-Xmx10g -XX:MaxMetaspaceSize=1g -XX:+HeapDumpOnOutOfMemoryError" >> gradle.properties
+        echo "Runner: $(nproc) CPUs, $(free -g | awk '/^Mem:/ {print $2}') GB memory"
         if [ -f "${{ github.workspace }}/dev.keystore" ]; then
           echo "BDS_WALLET_DEV_STORE_FILE=${{ github.workspace }}/dev.keystore" >> gradle.properties
         fi
