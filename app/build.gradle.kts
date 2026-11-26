@@ -6,6 +6,22 @@ plugins {
   id("com.google.gms.google-services")
   id("androidx.navigation.safeargs.kotlin")
   id("de.mannodermaus.android-junit")
+  id("io.sentry.android.gradle")
+}
+
+// Only used to tie each release build to its R8 mapping: the plugin derives a UUID from the
+// mapping file, packs it into the APK (the SDK reads it at init) and uploads the mapping.
+// Everything else the plugin can do is off; the SDK is still set up by hand in the app.
+// Upload needs SENTRY_AUTH_TOKEN, SENTRY_URL, SENTRY_ORG and SENTRY_PROJECT in the environment.
+// Without a token the build still embeds the UUID and the mapping can be uploaded later.
+sentry {
+  ignoredBuildTypes.set(setOf("debug"))
+  includeProguardMapping.set(true)
+  autoUploadProguardMapping.set(providers.environmentVariable("SENTRY_AUTH_TOKEN").isPresent)
+  autoInstallation { enabled.set(false) }
+  tracingInstrumentation { enabled.set(false) }
+  includeDependenciesReport.set(false)
+  telemetry.set(false)
 }
 
 android {

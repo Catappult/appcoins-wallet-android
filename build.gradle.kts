@@ -10,6 +10,7 @@ buildscript {
     classpath(libs.gradlePlugin.ksp)
     classpath(libs.gradlePlugin.hilt)
     classpath(libs.gradlePlugin.junit5)
+    classpath(libs.gradlePlugin.sentry)
     classpath(libs.google.services)
     classpath(libs.androidx.navigation.safeargs)
   }
