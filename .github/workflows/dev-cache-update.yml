@@ -36,5 +36,6 @@ jobs:
           google-services-json-dev: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
           gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
 
+      # Same tasks as the PR checks, so their outputs are in the build cache PRs read from.
       - name: Warm up Gradle cache
-        run: ./gradlew assembleAptoideDebug assembleGpDebug --no-daemon
+        run: ./gradlew assembleAptoideDebug assembleGpDebug testGpDebugUnitTest lintGpDebug --build-cache --no-daemon

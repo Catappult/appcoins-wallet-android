@@ -62,11 +62,16 @@ jobs:
           fi
 
   build:
-    name: Build Release APKs
+    name: Build ${{ matrix.flavor }} release APK
     runs-on: ubuntu-latest
     timeout-minutes: 60
     needs: version
     if: needs.version.outputs.mode != 'skip'
+    # One runner per flavor: the two R8 builds run side by side instead of one after the other,
+    # and each has the runner's memory to itself.
+    strategy:
+      matrix:
+        flavor: [aptoide, gp]
     env:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       SENTRY_URL: ${{ vars.SENTRY_URL }}
@@ -94,31 +99,25 @@ jobs:
           google-services-json-release: ${{ secrets.GOOGLE_SERVICES_JSON_RELEASE }}
           gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
 
-      # One flavor at a time: two R8 runs side by side do not fit in the runner's memory.
-      - name: Build Aptoide release APK
-        run: ./gradlew assembleAptoideRelease
-
-      - name: Build GP release APK
-        run: ./gradlew assembleGpRelease
-
-      - name: Verify APKs
+      - name: Build release APK
         env:
+          FLAVOR: ${{ matrix.flavor }}
+        run: ./gradlew "assemble${FLAVOR^}Release"
+
+      - name: Verify APK
+        env:
+          FLAVOR: ${{ matrix.flavor }}
           NAME: ${{ needs.version.outputs.name }}
           CODE: ${{ needs.version.outputs.code }}
         run: |
-          mkdir release
-          cp app/build/outputs/apk/aptoide/release/*.apk app/build/outputs/apk/gp/release/*.apk release/
-          for apk in release/*.apk; do
-            bash .github/scripts/verify-release-apk.sh "$apk" "$NAME" "$CODE"
-          done
-          [ "$(ls release/*.apk | wc -l)" -eq 2 ] || { echo "::error::expected exactly 2 APKs"; exit 1; }
-          (cd release && sha256sum *.apk | tee SHA256SUMS.txt) >> "$GITHUB_STEP_SUMMARY"
+          bash .github/scripts/verify-release-apk.sh "app/build/outputs/apk/$FLAVOR/release/"*.apk "$NAME" "$CODE" \
+            | tee -a "$GITHUB_STEP_SUMMARY"
 
-      - name: Upload release APKs
+      - name: Upload release APK
         uses: actions/upload-artifact@v7
         with:
-          name: release-apks
-          path: release/
+          name: release-apk-${{ matrix.flavor }}
+          path: app/build/outputs/apk/${{ matrix.flavor }}/release/*.apk
           retention-days: ${{ needs.version.outputs.mode == 'test' && 1 || 7 }}
           if-no-files-found: error
 
@@ -134,8 +133,15 @@ jobs:
       - name: Download release APKs
         uses: actions/download-artifact@v8
         with:
-          name: release-apks
+          pattern: release-apk-*
           path: release
+          merge-multiple: true
+
+      - name: Checksums
+        working-directory: release
+        run: |
+          [ "$(ls *.apk | wc -l)" -eq 2 ] || { echo "::error::expected exactly 2 APKs"; exit 1; }
+          sha256sum *.apk | tee SHA256SUMS.txt >> "$GITHUB_STEP_SUMMARY"
 
       - name: Create GitHub release
         env:

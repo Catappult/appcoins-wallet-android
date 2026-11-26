@@ -21,6 +21,10 @@ inputs:
   gradle-properties:
     description: Content to append to gradle.properties
     required: true
+  install-ndk:
+    description: Install the NDK. Only jobs that package the app (CMake) need it.
+    required: false
+    default: 'true'
 
 runs:
   using: composite
@@ -44,6 +48,7 @@ runs:
         packages: 'platform-tools'
 
     - name: Install NDK
+      if: ${{ inputs.install-ndk == 'true' }}
       shell: bash
       run: echo "y" | sdkmanager "ndk;28.2.13676358"
 
@@ -116,6 +121,9 @@ runs:
         GRADLE_PROPERTIES: ${{ inputs.gradle-properties }}
       run: |
         printf '%s\n' "$GRADLE_PROPERTIES" >> gradle.properties
+        # Compile Kotlin inside the Gradle daemon. A separate Kotlin daemon gets its own heap as
+        # large as Gradle's, and the two together can exhaust the runner's memory and kill it.
+        echo "kotlin.compiler.execution.strategy=in-process" >> gradle.properties
         if [ -f "${{ github.workspace }}/dev.keystore" ]; then
           echo "BDS_WALLET_DEV_STORE_FILE=${{ github.workspace }}/dev.keystore" >> gradle.properties
         fi
