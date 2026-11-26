@@ -4,26 +4,30 @@ on:
   push:
     branches:
       - dev
+      # master is the default branch: every PR can read caches saved from it.
+      - master
+  schedule:
+    # GitHub evicts caches unused for 7 days.
+    - cron: '0 5 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   update-cache:
     name: Update Gradle Cache
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Checkout private SDKs
-        uses: actions/checkout@v4
-        with:
-          repository: Catappult/wallet-private-sdks
-          token: ${{ secrets.PRIVATE_SDKS_PAT }}
-          path: private-sdks
-          lfs: true
+        uses: actions/checkout@v7
 
       - name: Copy private SDKs
         uses: ./.github/actions/copy-private-sdks
+        with:
+          token: ${{ secrets.PRIVATE_SDKS_PAT }}
 
       - name: Android Environment Setup
         uses: ./.github/actions/android-setup
