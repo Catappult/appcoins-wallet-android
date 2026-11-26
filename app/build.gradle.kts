@@ -17,7 +17,7 @@ plugins {
 sentry {
   ignoredBuildTypes.set(setOf("debug"))
   includeProguardMapping.set(true)
-  autoUploadProguardMapping.set(providers.environmentVariable("SENTRY_AUTH_TOKEN").isPresent)
+  autoUploadProguardMapping.set(!System.getenv("SENTRY_AUTH_TOKEN").isNullOrBlank())
   autoInstallation { enabled.set(false) }
   tracingInstrumentation { enabled.set(false) }
   includeDependenciesReport.set(false)
