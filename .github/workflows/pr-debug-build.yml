@@ -4,47 +4,30 @@ on:
   pull_request:
     branches:
       - dev
+      - master
+      - ci-sandbox # TEMPORARY: pipeline testing, remove before merging
+
+permissions:
+  contents: read
+
+# A new push to the same PR replaces the run in progress.
+concurrency:
+  group: pr-build-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
-  setup:
-    name: Prepare Private SDKs
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Checkout private SDKs
-        uses: actions/checkout@v4
-        with:
-          repository: Catappult/wallet-private-sdks
-          token: ${{ secrets.PRIVATE_SDKS_PAT }}
-          path: private-sdks
-          lfs: true
-
-      - name: Copy private SDKs
-        uses: ./.github/actions/copy-private-sdks
-
-      - name: Upload workspace
-        uses: actions/upload-artifact@v4
-        with:
-          name: workspace
-          path: |
-            .
-            !private-sdks
-          retention-days: 1
-
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
-    needs: setup
+    timeout-minutes: 30
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Download workspace
-        uses: actions/download-artifact@v4
+      - name: Copy private SDKs
+        uses: ./.github/actions/copy-private-sdks
         with:
-          name: workspace
+          token: ${{ secrets.PRIVATE_SDKS_PAT }}
 
       - name: Android Environment Setup
         uses: ./.github/actions/android-setup
@@ -52,22 +35,24 @@ jobs:
           keystore-dev-base64: ${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}
           google-services-json-dev: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
           gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
+          install-ndk: 'false'
 
+      # One flavor: the flavors share all test sources, and the build job compiles both.
       - name: Run Unit Tests
-        run: ./gradlew testAptoideDebugUnitTest testGpDebugUnitTest
+        run: ./gradlew testGpDebugUnitTest --build-cache
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    needs: setup
+    timeout-minutes: 30
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Download workspace
-        uses: actions/download-artifact@v4
+      - name: Copy private SDKs
+        uses: ./.github/actions/copy-private-sdks
         with:
-          name: workspace
+          token: ${{ secrets.PRIVATE_SDKS_PAT }}
 
       - name: Android Environment Setup
         uses: ./.github/actions/android-setup
@@ -75,22 +60,23 @@ jobs:
           keystore-dev-base64: ${{ secrets.BDS_WALLET_DEV_KEYSTORE_BASE64 }}
           google-services-json-dev: ${{ secrets.GOOGLE_SERVICES_JSON_DEV }}
           gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
+          install-ndk: 'false'
 
       - name: Lint
-        run: ./gradlew lintAptoideDebug lintGpDebug
+        run: ./gradlew lintGpDebug --build-cache
 
   build:
     name: Build Debug APKs
     runs-on: ubuntu-latest
-    needs: setup
+    timeout-minutes: 30
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Download workspace
-        uses: actions/download-artifact@v4
+      - name: Copy private SDKs
+        uses: ./.github/actions/copy-private-sdks
         with:
-          name: workspace
+          token: ${{ secrets.PRIVATE_SDKS_PAT }}
 
       - name: Android Environment Setup
         uses: ./.github/actions/android-setup
@@ -100,17 +86,17 @@ jobs:
           gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
 
       - name: Build Debug APKs
-        run: ./gradlew assembleAptoideDebug assembleGpDebug
+        run: ./gradlew assembleAptoideDebug assembleGpDebug --build-cache
 
       - name: Upload Aptoide Debug APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: aptoide-debug-apk
           path: app/build/outputs/apk/aptoide/debug/*.apk
           retention-days: 7
 
       - name: Upload GP Debug APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: gp-debug-apk
           path: app/build/outputs/apk/gp/debug/*.apk

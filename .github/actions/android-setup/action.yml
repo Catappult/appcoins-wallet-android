@@ -21,18 +21,22 @@ inputs:
   gradle-properties:
     description: Content to append to gradle.properties
     required: true
+  install-ndk:
+    description: Install the NDK. Only jobs that package the app (CMake) need it.
+    required: false
+    default: 'true'
 
 runs:
   using: composite
   steps:
     - name: Set up JDK 17
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v6
       with:
         java-version: '17'
         distribution: 'temurin'
 
     - name: Set up Gradle
-      uses: gradle/actions/setup-gradle@v3
+      uses: gradle/actions/setup-gradle@v5
       with:
         cache-read-only: ${{ github.event_name == 'pull_request' }}
 
@@ -44,6 +48,7 @@ runs:
         packages: 'platform-tools'
 
     - name: Install NDK
+      if: ${{ inputs.install-ndk == 'true' }}
       shell: bash
       run: echo "y" | sdkmanager "ndk;28.2.13676358"
 
@@ -85,12 +90,16 @@ runs:
     - name: Decode dev keystore
       if: ${{ inputs.keystore-dev-base64 != '' }}
       shell: bash
-      run: echo "${{ inputs.keystore-dev-base64 }}" | base64 --decode > ${{ github.workspace }}/dev.keystore
+      env:
+        KEYSTORE_DEV_B64: ${{ inputs.keystore-dev-base64 }}
+      run: echo "$KEYSTORE_DEV_B64" | base64 --decode > ${{ github.workspace }}/dev.keystore
 
     - name: Decode release keystore
       if: ${{ inputs.keystore-release-base64 != '' }}
       shell: bash
-      run: echo "${{ inputs.keystore-release-base64 }}" | base64 --decode > ${{ github.workspace }}/release.keystore
+      env:
+        KEYSTORE_RELEASE_B64: ${{ inputs.keystore-release-base64 }}
+      run: echo "$KEYSTORE_RELEASE_B64" | base64 --decode > ${{ github.workspace }}/release.keystore
 
     - name: Decode dev google-services.json
       if: ${{ inputs.google-services-json-dev != '' }}
@@ -112,6 +121,9 @@ runs:
         GRADLE_PROPERTIES: ${{ inputs.gradle-properties }}
       run: |
         printf '%s\n' "$GRADLE_PROPERTIES" >> gradle.properties
+        # Compile Kotlin inside the Gradle daemon. A separate Kotlin daemon gets its own heap as
+        # large as Gradle's, and the two together can exhaust the runner's memory and kill it.
+        echo "kotlin.compiler.execution.strategy=in-process" >> gradle.properties
         if [ -f "${{ github.workspace }}/dev.keystore" ]; then
           echo "BDS_WALLET_DEV_STORE_FILE=${{ github.workspace }}/dev.keystore" >> gradle.properties
         fi

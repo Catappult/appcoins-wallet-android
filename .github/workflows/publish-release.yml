@@ -1,0 +1,183 @@
+name: Publish Release
+
+# Step 2 of a release. Runs when a version bump lands on master (the release pull request is
+# merged): builds both signed release APKs, uploads each R8 mapping to Sentry, checks the APKs,
+# then waits for an approval on the "production" environment before creating the GitHub release
+# vX.Y.Z with the APKs attached.
+#
+# Started by hand on any other branch it is a test run: same build, upload, checks and approval,
+# but it ends in a draft release (no tag, not public) to delete afterwards.
+#
+# Needs, besides the secrets the PR build already uses:
+#   secret    SENTRY_AUTH_TOKEN                       (scopes: org:read, project:releases)
+#   variables SENTRY_URL, SENTRY_ORG, SENTRY_PROJECT
+#
+# mapping.txt is never stored on GitHub: this repository is public and the mapping undoes the
+# obfuscation. Sentry keeps it.
+
+on:
+  push:
+    branches:
+      - master
+      - task/release-pipeline # TEMPORARY: pipeline testing, remove before merging
+    # TEMPORARY: paths filter off while testing, restore before merging
+    # paths:
+    #   - app/build.gradle.kts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-release
+
+jobs:
+  version:
+    name: Read version
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      name: ${{ steps.version.outputs.name }}
+      code: ${{ steps.version.outputs.code }}
+      mode: ${{ steps.version.outputs.mode }} # publish, test or skip
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Read version
+        id: version
+        run: |
+          CODE=$(grep 'versionCode\s*=' app/build.gradle.kts | grep -o '[0-9]\+')
+          NAME=$(grep 'versionName\s*=' app/build.gradle.kts | grep -o '"[^"]*"' | tr -d '"')
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+          echo "code=$CODE" >> "$GITHUB_OUTPUT"
+          if [ "$GITHUB_REF" != "refs/heads/master" ]; then
+            echo "::notice::Test run: $GITHUB_REF is not master, so this ends in a draft release."
+            echo "mode=test" >> "$GITHUB_OUTPUT"
+          elif git ls-remote --exit-code --tags origin "refs/tags/v$NAME" > /dev/null; then
+            echo "::notice::v$NAME is already released, nothing to publish."
+            echo "mode=skip" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=publish" >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    name: Build ${{ matrix.flavor }} release APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    needs: version
+    if: needs.version.outputs.mode != 'skip'
+    # One runner per flavor: the two R8 builds run side by side instead of one after the other,
+    # and each has the runner's memory to itself.
+    strategy:
+      matrix:
+        flavor: [aptoide, gp]
+    env:
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      SENTRY_URL: ${{ vars.SENTRY_URL }}
+      SENTRY_ORG: ${{ vars.SENTRY_ORG }}
+      SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Require Sentry settings
+        env:
+          MODE: ${{ needs.version.outputs.mode }}
+        run: |
+          for v in SENTRY_AUTH_TOKEN SENTRY_URL SENTRY_ORG SENTRY_PROJECT; do
+            [ -n "${!v}" ] || { echo "::error::$v is not set; a release without its mapping in Sentry has unreadable crashes."; exit 1; }
+          done
+          # Fail now, not after the build: check that this runner can reach Sentry and the token works.
+          reach=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "${SENTRY_URL%/}/api/0/" || true)
+          auth=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
+            "${SENTRY_URL%/}/api/0/projects/$SENTRY_ORG/$SENTRY_PROJECT/" || true)
+          echo "Sentry without token: HTTP $reach, project with token: HTTP $auth"
+          if [ "$auth" != "200" ]; then
+            msg="Sentry answered HTTP $auth for the project (HTTP $reach without a token)."
+            if [ "$MODE" = "test" ]; then
+              echo "::warning::$msg Test run: building without the mapping upload."
+              echo "SENTRY_AUTH_TOKEN=" >> "$GITHUB_ENV"
+            else
+              echo "::error::$msg The mapping upload would fail."
+              exit 1
+            fi
+          fi
+
+      - name: Copy private SDKs
+        uses: ./.github/actions/copy-private-sdks
+        with:
+          token: ${{ secrets.PRIVATE_SDKS_PAT }}
+
+      - name: Android Environment Setup
+        uses: ./.github/actions/android-setup
+        with:
+          keystore-release-base64: ${{ secrets.BDS_WALLET_RELEASE_KEYSTORE_BASE64 }}
+          google-services-json-release: ${{ secrets.GOOGLE_SERVICES_JSON_RELEASE }}
+          gradle-properties: ${{ secrets.GRADLE_PROPERTIES }}
+
+      - name: Build release APK
+        env:
+          FLAVOR: ${{ matrix.flavor }}
+        run: ./gradlew "assemble${FLAVOR^}Release"
+
+      - name: Verify APK
+        env:
+          FLAVOR: ${{ matrix.flavor }}
+          NAME: ${{ needs.version.outputs.name }}
+          CODE: ${{ needs.version.outputs.code }}
+        run: |
+          bash .github/scripts/verify-release-apk.sh "app/build/outputs/apk/$FLAVOR/release/"*.apk "$NAME" "$CODE" \
+            | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload release APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-apk-${{ matrix.flavor }}
+          path: app/build/outputs/apk/${{ matrix.flavor }}/release/*.apk
+          retention-days: ${{ needs.version.outputs.mode == 'test' && 1 || 7 }}
+          if-no-files-found: error
+
+  publish:
+    name: Publish GitHub release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [version, build]
+    environment: production
+    permissions:
+      contents: write
+    steps:
+      - name: Download release APKs
+        uses: actions/download-artifact@v8
+        with:
+          pattern: release-apk-*
+          path: release
+          merge-multiple: true
+
+      - name: Checksums
+        working-directory: release
+        run: |
+          [ "$(ls *.apk | wc -l)" -eq 2 ] || { echo "::error::expected exactly 2 APKs"; exit 1; }
+          sha256sum *.apk | tee SHA256SUMS.txt >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NAME: ${{ needs.version.outputs.name }}
+          CODE: ${{ needs.version.outputs.code }}
+          MODE: ${{ needs.version.outputs.mode }}
+        run: |
+          if [ "$MODE" = "test" ]; then
+            gh release create "v$NAME-test-$GITHUB_RUN_NUMBER" release/* \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "TEST v$NAME ($CODE) - do not publish" \
+              --notes "Pipeline test run $GITHUB_RUN_ID from $GITHUB_REF_NAME. Delete me." \
+              --draft
+          else
+            gh release create "v$NAME" release/* \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "v$NAME ($CODE)" \
+              --generate-notes
+          fi

@@ -68,6 +68,7 @@ rxjava_version = "2.2.19"
 rxlifecycle_version = "1.0"
 androidx_securitycrypto_version = "1.1.0-alpha03"
 sentry_version = "8.28.0"
+sentry_plugin_version = "6.27.0"
 shimmer_version = "0.5.0"
 spongycastle_version = "1.58.0.0" #it was "1.58.0.0@jar"?
 support_annotations = "27.1.0"
@@ -250,6 +251,7 @@ gradlePlugin-compose-compiler = { module = "org.jetbrains.kotlin:compose-compile
 gradlePlugin-ksp = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp_version" }
 gradlePlugin-hilt = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt_version" }
 gradlePlugin-junit5 = { module = "de.mannodermaus.gradle.plugins:android-junit5", version.ref = "junit5_plugin_version" }
+gradlePlugin-sentry = { module = "io.sentry:sentry-android-gradle-plugin", version.ref = "sentry_plugin_version" }
 firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebase_crashlytics_plugin" }
 firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "perf-plugin", version.ref = "firebase_performance_plugin" }
 

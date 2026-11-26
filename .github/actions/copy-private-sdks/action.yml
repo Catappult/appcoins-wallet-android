@@ -1,9 +1,22 @@
 name: Copy Private SDKs
-description: Copies private SDK binaries from the checked out private-sdks repo into the correct module directories.
+description: Checks out the private SDK repo and copies its binaries into the module directories that need them.
+
+inputs:
+  token:
+    description: Token with read access to Catappult/wallet-private-sdks
+    required: true
 
 runs:
   using: composite
   steps:
+    - name: Checkout private SDKs
+      uses: actions/checkout@v7
+      with:
+        repository: Catappult/wallet-private-sdks
+        token: ${{ inputs.token }}
+        path: private-sdks
+        lfs: true
+
     - name: Copy private SDKs
       shell: bash
       run: |
